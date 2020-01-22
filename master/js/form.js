@@ -83,6 +83,7 @@ function exportExcel(id) {
         data:{companyid:id},
         type: 'POST',
         success: function (data) {
+            
             var rows = JSON.parse(data);
 
             let csvContent = "data:text/csv;charset=utf-8,";

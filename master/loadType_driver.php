@@ -13,7 +13,7 @@ if ($_GET['type'] == 'add_loadType') {
     $load_type->setCompanyID($_POST['companyid']);
     $load_type->setLoadName($_POST['loadName']);
     $load_type->setLoadType($_POST['loadType']);
-    $load_type->insert($load_type, $db);
+    $load_type->insert($load_type, $db,$helper);
     echo 'Data Insert Successfully';
 }
 // update function here

@@ -13,7 +13,7 @@ if ($_GET['type'] == 'add_office') {
     $office->setCompanyID($_POST['companyId']);
     $office->setofficeName($_POST['officeName']);
     $office->setofficeLocation($_POST['officeLocation']);
-    $office->insert($office,$db);
+    $office->insert($office,$db,$helper);
     echo 'Data Added Successfully';
 }
 else if ($_GET['type'] == 'edit_office') {

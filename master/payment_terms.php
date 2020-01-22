@@ -27,7 +27,7 @@ else if ($_GET['type'] == 'add_payment_term') {
     $payment_term->setId($helper->getNextSequence("payment_term", $db));
     $payment_term->setCompanyID($_POST['companyid']);
     $payment_term->setPaymentTerm($_POST['payment_term']);
-    $payment_term->insert($payment_term, $db);
+    $payment_term->insert($payment_term, $db,$helper);
     echo 'Data Insert Successfully';
 }
 // update function here

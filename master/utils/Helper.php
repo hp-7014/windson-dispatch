@@ -14,5 +14,19 @@ class Helper
         $collection->counter->findOneAndUpdate(['_id'=>$name],['$set'=>['seq'=>$id]]);
         return $id;
     }
+
+    function getDocumentSequence($key,$collection) {
+
+        $cursor = $collection->find(['companyID'=>$key]);
+        $array = iterator_to_array($cursor);
+        $id = 0;
+        foreach ($array as $value){
+            $id = $value['counter'];
+        }
+        $id += 1;
+        $collection->findOneAndUpdate(['companyID'=>$key],['$set'=>['counter'=>$id]]);
+
+        return $id;
+    }
 }
 

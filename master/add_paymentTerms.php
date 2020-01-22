@@ -56,17 +56,20 @@
                                     $show_data = $db->payment_terms->find(['companyID' => $_SESSION['companyId']]);
                                     $no = 1;
                                     foreach ($show_data as $show) {
-                                        ?>
-                                        <tr>
-                                            <td><a href="#" id="stdid"><?php echo $no++; ?></a></td>
-                                            <td contenteditable="true"
-                                                onblur="updatePayment(this,'paymentTerm',<?php echo $show['_id']; ?>)"><?php echo $show['paymentTerm']; ?></td>
-                                            <td><a href="#" onclick="deletePayment(<?php echo $show['_id']; ?>)"><i
-                                                            class="mdi mdi-delete-sweep-outline"
-                                                            style="font-size: 20px; color: #FC3B3B"></i></a>
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
+                                        $show = $show['payment'];
+                                        foreach ($show as $s) {
+                                            ?>
+                                            <tr>
+                                                <td><a href="#" id="stdid"><?php echo $no++; ?></a></td>
+                                                <td contenteditable="true"
+                                                    onblur="updatePayment(this,'paymentTerm',<?php echo $s['_id']; ?>)"><?php echo $s['paymentTerm']; ?></td>
+                                                <td><a href="#" onclick="deletePayment(<?php echo $s['_id']; ?>)"><i
+                                                                class="mdi mdi-delete-sweep-outline"
+                                                                style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php }
+                                    } ?>
                                     </tbody>
                                 </table>
                             </div>
