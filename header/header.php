@@ -37,7 +37,7 @@
             });
         });
 
-
+        //Add Currency Type Function
                 $(document).on("click", "#currency_setting", function () {
                     //alert('test');
                     $.ajax({
@@ -50,7 +50,7 @@
                     });
                 });
 
-
+        //Add Truck Type Function
             $(document).on("click", "#truck_type", function () {
                 //alert('test');
                 $.ajax({
@@ -64,6 +64,7 @@
             });
 
 
+        //Add Equipment Type Function
             $(document).on("click", "#equipment_type", function () {
                 //alert('test');
                 $.ajax({
@@ -76,6 +77,8 @@
                 });
             });
 
+
+        //Add Trailer Type Function
             $(document).on("click", "#trailer_type", function () {
                 //alert('test');
                 $.ajax({
@@ -88,6 +91,8 @@
                 });
             });
 
+
+         //Add Fix Pay Function
             $(document).on("click", "#fix_category", function () {
                 //alert('test');
                 $.ajax({
@@ -99,6 +104,7 @@
                     },
                 });
             });
+
 
             $(document).on('click', '.ADDcompany', function () {
                 $.ajax({
@@ -143,6 +149,18 @@
                     }
                 });
             });
+
+        //Add Truck Function
+        $(document).on("click", "#truck_add", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_fixpaycategory.php', function (result) {
+                        $('#Fix_Pay').modal({show: true});
+                    });
+                },
+            });
+        });
     </script>
 </head>
 
@@ -317,16 +335,13 @@
                             <a href="#"><i class="icon-life-buoy"></i> Admin <i
                                         class="mdi mdi-chevron-down mdi-drop"></i></a>
                             <ul class="submenu">
-                                <li><a href="#" class=".addShipper">Shipper</a></li>
+                                <li><a href="#" id="truck_add">Truck</a></li>
 
                                 <li>
-                                    <a href="#">Consignee</a>
+                                    <a href="#" id="trailer_add">Trailer</a>
                                 </li>
                                 <li>
-                                    <a href="#"">User</a>
-                                </li>
-                                <li>
-                                    <a href="#">Customer</a>
+                                    <a href="#" id="factoring_company">Factoring Company</a>
                                 </li>
                             </ul>
                         </li>

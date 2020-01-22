@@ -432,6 +432,7 @@ function importLoadType() {
     });
 }
 
+//-----------------Currency Setting start-------------------------------------
 //ajax Function For insert Currency Setting
 function addCurrency() {
     var currencyType = document.getElementById("currency_add_type").value;
@@ -538,6 +539,9 @@ function exportCurrency() {
     });
 }
 
+//-----------------Currency Setting End-------------------------------------
+
+//-----------------Equipment Type Start-------------------------------------
 //ajax Function For insert Equipment Type
 function addEquipment() {
     var equipmentType = document.getElementById("equipment_add_type").value;
@@ -645,6 +649,9 @@ function exportEquipment() {
     });
 }
 
+//-----------------Equipment Type End-------------------------------------
+
+//-----------------Truck Type Start---------------------------------------
 //ajax Function For insert Truck Type
 function addTruck() {
     var truckType = document.getElementById("truck_add_type").value;
@@ -751,6 +758,9 @@ function exportTruck() {
     });
 }
 
+//-----------------Truck Type End---------------------------------------
+
+//-----------------Trailer Type Start-------------------------------------
 //ajax Function For insert Trailer Type
 function addTrailer() {
     var trailerType = document.getElementById("trailer_add_type").value;
@@ -857,6 +867,9 @@ function exporttrailer() {
     });
 }
 
+//-----------------Trailer Type End-------------------------------------
+
+//-----------------Fix Pay Type Start-------------------------------------
 //ajax Function For insert Fix Pay
 function addFixpay() {
     var fixpay = document.getElementById("fix_pay_add").value;
@@ -963,4 +976,7 @@ function importfixpay() {
         }
     });
 }
+
+//-----------------Fix Pay Type Start-------------------------------------
+
 

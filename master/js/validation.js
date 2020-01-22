@@ -140,14 +140,3 @@ function val_loadType(val)
         return true;
     }
 }
-
-//Validation For Fix Pay
-function val_unit(val)
-{
-    if (val == '') {
-        swal('Please Enter Unit');
-        return false;
-    } else {
-        return true;
-    }
-}
