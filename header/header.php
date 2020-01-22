@@ -25,6 +25,75 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
+        $(document).ready(function(){
+            $(document).on("click","#currency_setting", function () {
+                //alert('test');
+                $.ajax({
+                    type: 'POST',
+                    success: function(data) {
+                        $('.modal-container').load('master/add_currency.php',function(result){
+                            $('#currency').modal({show:true});
+                        });
+                    },
+                });
+            });
+        });
+
+        $(document).ready(function(){
+            $(document).on("click","#truck_type", function () {
+                //alert('test');
+                $.ajax({
+                    type: 'POST',
+                    success: function(data) {
+                        $('.modal-container').load('master/add_truck_type.php',function(result){
+                            $('#truck').modal({show:true});
+                        });
+                    },
+                });
+            });
+        });
+
+        $(document).ready(function(){
+            $(document).on("click","#equipment_type", function () {
+                //alert('test');
+                $.ajax({
+                    type: 'POST',
+                    success: function(data) {
+                        $('.modal-container').load('master/add_equipment_type.php',function(result){
+                            $('#equipment').modal({show:true});
+                        });
+                    },
+                });
+            });
+        });
+
+        $(document).ready(function(){
+            $(document).on("click","#trailer_type", function () {
+                //alert('test');
+                $.ajax({
+                    type: 'POST',
+                    success: function(data) {
+                        $('.modal-container').load('master/add_trailer_type.php',function(result){
+                            $('#trailer').modal({show:true});
+                        });
+                    },
+                });
+            });
+        });
+
+        $(document).ready(function(){
+            $(document).on("click","#fix_category", function () {
+                //alert('test');
+                $.ajax({
+                    type: 'POST',
+                    success: function(data) {
+                        $('.modal-container').load('master/add_fixpaycategory.php',function(result){
+                            $('#Fix_Pay').modal({show:true});
+                        });
+                    },
+                });
+            });
+        });
         $(document).on('click','.ADDcompany',function (){
             $.ajax({
                 type: 'POST',
@@ -221,6 +290,20 @@
                         <li class="has-submenu">
                             <a href="#"><i class="icon-life-buoy"></i> Master <i class="mdi mdi-chevron-down mdi-drop"></i></a>
                             <ul class="submenu">
+                                <li> <a href="#" id="currency_setting">Currency Setting</a></li>
+
+                                <li>
+                                    <a href="#" id="truck_type">Truck Type</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="equipment_type">Equipment Type</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="trailer_type">Trailer Type</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="fix_category">Fix Pay Category</a>
+                                </li>
                                 <li class="has-submenu"> <a href="#" data-toggle="modal" data-target="#mymodal">Bank</a></li>
 
                                 <li>
@@ -392,3 +475,4 @@
     <div class="add_office_modal"></div>
     <div class="add_paymentTerm_modal"></div>
     <div class="add_loadType_modal"></div>
+    <div class="modal-container"></div>
