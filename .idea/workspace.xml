@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/windson-dispatch.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/windson-dispatch.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/master/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/master/js/form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/master/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/master/js/validation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/master/upload/Book1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/master/upload/Book1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/master/upload/Book1.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/master/upload/Book1.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/master/utils/Helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/master/utils/Helper.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
