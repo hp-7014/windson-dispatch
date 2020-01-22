@@ -69,6 +69,28 @@
                 }
             });
         });
+
+        $(document).on("click",".bankadd", function () {
+            $.ajax({
+                type: 'POST',
+                success: function(data) {
+                    $('.add_bank_status').load('./master/add_bank.php',function(result){
+                        $('#add_bank').modal({show:true});
+                    });
+                },
+            });
+        });
+
+        $(document).on("click",".status_type", function () {
+            $.ajax({
+                type: 'POST',
+                success: function(data) {
+                    $('.add_bank_status').load('./master/status_type_modal.php',function(result){
+                        $('#Status_Type').modal({show:true});
+                    });
+                },
+            });
+        });
     </script>
 </head>
 
@@ -222,7 +244,13 @@
                         <li class="has-submenu">
                             <a href="#"><i class="icon-life-buoy"></i> Master <i class="mdi mdi-chevron-down mdi-drop"></i></a>
                             <ul class="submenu">
-                                <li class="has-submenu"> <a href="#" data-toggle="modal" data-target="#mymodal">Bank</a></li>
+                                <li>
+                                    <a href="#" class="bankadd">Bank </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="status_type">Status Type</a></li>
+                                <li>
 
                                 <li>
                                     <a href="#" class="ADDcompany">Company </a>
@@ -236,6 +264,7 @@
                                 <li>
                                     <a href="#" class="add_loadType">Load Type </a>
                                 </li>
+
                                 <li class="has-submenu">
                                     <a href="#">Forms</a>
                                     <ul class="submenu">
@@ -393,3 +422,4 @@
     <div class="add_office_modal"></div>
     <div class="add_paymentTerm_modal"></div>
     <div class="add_loadType_modal"></div>
+    <div class="add_bank_status"></div>
