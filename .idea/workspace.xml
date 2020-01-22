@@ -3,7 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/master/upload/test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/master/upload/test.csv" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/master/js/form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/master/js/validation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/upload/Test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/master/upload/Test.csv" afterDir="false" />
+>>>>>>> 108ec30b42dd52d4cce673ad5b12f87d7d1cba69
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
