@@ -26,6 +26,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
+        $(document).on('click','.addShipper',function (){
+            $.ajax({
+                type: 'POST',
+                success:function (data) {
+                    $('.add_shipper_modal').load('./admin/shipper_modal.php',function(result){
+                        $('#add_shipper').modal({show:true});
+                    });
+                }
+            });
+        });
         $(document).on('click','.ADDcompany',function (){
             $.ajax({
                 type: 'POST',
