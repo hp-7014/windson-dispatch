@@ -30,7 +30,7 @@ else if ($_GET['type'] == 'currencyadd') {
     $currency->setCompanyID($_POST['companyID']);
     $currency->setCurrencyType($_POST['currencyType']);
     $currency->Insert($currency,$db,$helper);
-    echo "Insert Currency Successful";
+    echo "Data Insert Successful";
 }
 
 // Update Currency Function Here
@@ -41,7 +41,7 @@ else if ($_GET['type'] == 'edit_currency'){
     $currency->setCurrencyType($_POST['value']);
     $currency->setColumn($_POST['column']);
     $currency->updateCurrency($currency,$db);
-    echo "Update Currency Successful";
+    echo "Data Update Successful";
 }
 
 // Delete Currency Function Here
@@ -49,7 +49,7 @@ else if ($_GET['type'] == 'delete_currency'){
     $currency = new Currency();
     $currency->setId($_POST['id']);
     $currency->deleteCurrency($currency,$db);
-    echo "Delete Currency Successful";
+    echo "Data Removed Successful";
 }
 
 // Export Excel Function Here

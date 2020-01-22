@@ -1,10 +1,10 @@
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <title>Stexo - Responsive Admin & Dashboard Template | Themesdesign</title>
-    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
-    <meta content="Themesdesign" name="author" />
+    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description"/>
+    <meta content="Themesdesign" name="author"/>
     <link rel="shortcut icon" href="assets/images/favicon.ico">
 
     <!--Morris Chart CSS css-->
@@ -25,59 +25,124 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-        $(document).on('click','.addShipper',function (){
+
+        $(document).on('click', '.addShipper', function () {
             $.ajax({
                 type: 'POST',
-                success:function (data) {
-                    $('.add_shipper_modal').load('./admin/shipper_modal.php',function(result){
-                        $('#add_shipper').modal({show:true});
-                    });
-                }
-            });
-        });
-        $(document).on('click','.ADDcompany',function (){
-            $.ajax({
-                type: 'POST',
-                success:function (data) {
-                    $('.add_company_modal').load('./master/add_company.php',function(result){
-                        $('#company_modal').modal({show:true});
-                    });
-                }
-            });
-        });
-        $(document).on('click','.add_loadType',function (){
-            $.ajax({
-                type: 'POST',
-                success:function (data) {
-                    $('.add_loadType_modal').load('./master/add_loadType.php',function(result){
-                        $('#Load_Type').modal({show:true});
+                success: function (data) {
+                    $('.modal-container').load('./admin/shipper_modal.php', function (result) {
+                        $('#add_shipper').modal({show: true});
                     });
                 }
             });
         });
 
-        $(document).on('click','.add_office',function (){
-            $.ajax({
-                type: 'POST',
-                success:function (data) {
-                    $('.add_office_modal').load('./master/add_office.php',function(result){
-                        $('#Office').modal({show:true});
-                    });
-                }
-            });
-        });
 
-        $(document).on('click','.add_payment_terms',function (){
-
-            $.ajax({
-                type: 'POST',
-                success:function (data) {
-                    $('.add_paymentTerm_modal').load('./master/add_paymentTerms.php',function(result){
-                        $('#Payment_Terms').modal({show:true});
+                $(document).on("click", "#currency_setting", function () {
+                    //alert('test');
+                    $.ajax({
+                        type: 'POST',
+                        success: function (data) {
+                            $('.modal-container').load('./master/add_currency.php', function (result) {
+                                $('#currency').modal({show: true});
+                            });
+                        },
                     });
-                }
+                });
+
+
+            $(document).on("click", "#truck_type", function () {
+                //alert('test');
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.modal-container').load('./master/add_truck_type.php', function (result) {
+                            $('#truck').modal({show: true});
+                        });
+                    },
+                });
             });
-        });
+
+
+            $(document).on("click", "#equipment_type", function () {
+                //alert('test');
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.modal-container').load('./master/add_equipment_type.php', function (result) {
+                            $('#equipment').modal({show: true});
+                        });
+                    },
+                });
+            });
+
+            $(document).on("click", "#trailer_type", function () {
+                //alert('test');
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.modal-container').load('./master/add_trailer_type.php', function (result) {
+                            $('#trailer').modal({show: true});
+                        });
+                    },
+                });
+            });
+
+            $(document).on("click", "#fix_category", function () {
+                //alert('test');
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.modal-container').load('./master/add_fixpaycategory.php', function (result) {
+                            $('#Fix_Pay').modal({show: true});
+                        });
+                    },
+                });
+            });
+
+            $(document).on('click', '.ADDcompany', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.modal-container').load('./master/add_company.php', function (result) {
+                            $('#company_modal').modal({show: true});
+                        });
+                    }
+                });
+            });
+            $(document).on('click', '.add_loadType', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.modal-container').load('./master/add_loadType.php', function (result) {
+                            $('#Load_Type').modal({show: true});
+                        });
+                    }
+                });
+            });
+
+            $(document).on('click', '.add_office', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.modal-container').load('./master/add_office.php', function (result) {
+                            $('#Office').modal({show: true});
+                        });
+                    }
+                });
+            });
+
+            $(document).on('click', '.add_payment_terms', function () {
+
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.modal-container').load('./master/add_paymentTerms.php', function (result) {
+                            $('#Payment_Terms').modal({show: true});
+                        });
+                    }
+                });
+            });
     </script>
 </head>
 
@@ -105,15 +170,22 @@
                     <ul class="navbar-right ml-auto list-inline float-right mb-0">
                         <!-- language-->
                         <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
-                            <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <img src="assets/images/flags/us_flag.jpg" class="mr-2" height="12" alt="" /> English <span class="mdi mdi-chevron-down"></span>
+                            <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#"
+                               role="button" aria-haspopup="false" aria-expanded="false">
+                                <img src="assets/images/flags/us_flag.jpg" class="mr-2" height="12" alt=""/> English
+                                <span class="mdi mdi-chevron-down"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated language-switch">
-                                <a class="dropdown-item" href="#"><img src="assets/images/flags/french_flag.jpg" alt="" height="16" /><span> French </span></a>
-                                <a class="dropdown-item" href="#"><img src="assets/images/flags/spain_flag.jpg" alt="" height="16" /><span> Spanish </span></a>
-                                <a class="dropdown-item" href="#"><img src="assets/images/flags/russia_flag.jpg" alt="" height="16" /><span> Russian </span></a>
-                                <a class="dropdown-item" href="#"><img src="assets/images/flags/germany_flag.jpg" alt="" height="16" /><span> German </span></a>
-                                <a class="dropdown-item" href="#"><img src="assets/images/flags/italy_flag.jpg" alt="" height="16" /><span> Italian </span></a>
+                                <a class="dropdown-item" href="#"><img src="assets/images/flags/french_flag.jpg" alt=""
+                                                                       height="16"/><span> French </span></a>
+                                <a class="dropdown-item" href="#"><img src="assets/images/flags/spain_flag.jpg" alt=""
+                                                                       height="16"/><span> Spanish </span></a>
+                                <a class="dropdown-item" href="#"><img src="assets/images/flags/russia_flag.jpg" alt=""
+                                                                       height="16"/><span> Russian </span></a>
+                                <a class="dropdown-item" href="#"><img src="assets/images/flags/germany_flag.jpg" alt=""
+                                                                       height="16"/><span> German </span></a>
+                                <a class="dropdown-item" href="#"><img src="assets/images/flags/italy_flag.jpg" alt=""
+                                                                       height="16"/><span> Italian </span></a>
                             </div>
                         </li>
 
@@ -126,7 +198,8 @@
 
                         <!-- notification -->
                         <li class="dropdown notification-list list-inline-item">
-                            <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#"
+                               role="button" aria-haspopup="false" aria-expanded="false">
                                 <i class="mdi mdi-bell-outline noti-icon"></i>
                                 <span class="badge badge-pill badge-danger noti-icon-badge">3</span>
                             </a>
@@ -139,31 +212,38 @@
                                     <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item notify-item active">
                                         <div class="notify-icon bg-success"><i class="mdi mdi-cart-outline"></i></div>
-                                        <p class="notify-details"><b>Your order is placed</b><span class="text-muted">Dummy text of the printing and typesetting industry.</span></p>
+                                        <p class="notify-details"><b>Your order is placed</b><span class="text-muted">Dummy text of the printing and typesetting industry.</span>
+                                        </p>
                                     </a>
 
                                     <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <div class="notify-icon bg-danger"><i class="mdi mdi-message-text-outline"></i></div>
-                                        <p class="notify-details"><b>New Message received</b><span class="text-muted">You have 87 unread messages</span></p>
+                                        <div class="notify-icon bg-danger"><i class="mdi mdi-message-text-outline"></i>
+                                        </div>
+                                        <p class="notify-details"><b>New Message received</b><span class="text-muted">You have 87 unread messages</span>
+                                        </p>
                                     </a>
 
                                     <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                                         <div class="notify-icon bg-info"><i class="mdi mdi-filter-outline"></i></div>
-                                        <p class="notify-details"><b>Your item is shipped</b><span class="text-muted">It is a long established fact that a reader will</span></p>
+                                        <p class="notify-details"><b>Your item is shipped</b><span class="text-muted">It is a long established fact that a reader will</span>
+                                        </p>
                                     </a>
 
                                     <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <div class="notify-icon bg-success"><i class="mdi mdi-message-text-outline"></i></div>
-                                        <p class="notify-details"><b>New Message received</b><span class="text-muted">You have 87 unread messages</span></p>
+                                        <div class="notify-icon bg-success"><i class="mdi mdi-message-text-outline"></i>
+                                        </div>
+                                        <p class="notify-details"><b>New Message received</b><span class="text-muted">You have 87 unread messages</span>
+                                        </p>
                                     </a>
 
                                     <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                                         <div class="notify-icon bg-warning"><i class="mdi mdi-cart-outline"></i></div>
-                                        <p class="notify-details"><b>Your order is placed</b><span class="text-muted">Dummy text of the printing and typesetting industry.</span></p>
+                                        <p class="notify-details"><b>Your order is placed</b><span class="text-muted">Dummy text of the printing and typesetting industry.</span>
+                                        </p>
                                     </a>
 
                                 </div>
@@ -176,17 +256,22 @@
 
                         <li class="dropdown notification-list list-inline-item">
                             <div class="dropdown notification-list nav-pro-img">
-                                <a class="dropdown-toggle nav-link arrow-none nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                <a class="dropdown-toggle nav-link arrow-none nav-user" data-toggle="dropdown" href="#"
+                                   role="button" aria-haspopup="false" aria-expanded="false">
                                     <img src="assets/images/users/user-4.jpg" alt="user" class="rounded-circle">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                                     <!-- item-->
                                     <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle"></i> Profile</a>
                                     <a class="dropdown-item" href="#"><i class="mdi mdi-wallet"></i> My Wallet</a>
-                                    <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-right">11</span><i class="mdi mdi-settings"></i> Settings</a>
-                                    <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline"></i> Lock screen</a>
+                                    <a class="dropdown-item d-block" href="#"><span
+                                                class="badge badge-success float-right">11</span><i
+                                                class="mdi mdi-settings"></i> Settings</a>
+                                    <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline"></i> Lock
+                                        screen</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item text-danger" href="logout"><i class="mdi mdi-power text-danger"></i> Logout</a>
+                                    <a class="dropdown-item text-danger" href="logout"><i
+                                                class="mdi mdi-power text-danger"></i> Logout</a>
                                 </div>
                             </div>
                         </li>
@@ -229,10 +314,43 @@
                         </li>
 
                         <li class="has-submenu">
-                            <a href="#"><i class="icon-life-buoy"></i> Master <i class="mdi mdi-chevron-down mdi-drop"></i></a>
+                            <a href="#"><i class="icon-life-buoy"></i> Admin <i
+                                        class="mdi mdi-chevron-down mdi-drop"></i></a>
                             <ul class="submenu">
-                                <li class="has-submenu"> <a href="#" data-toggle="modal" data-target="#mymodal">Bank</a></li>
+                                <li><a href="#" class=".addShipper">Shipper</a></li>
 
+                                <li>
+                                    <a href="#">Consignee</a>
+                                </li>
+                                <li>
+                                    <a href="#"">User</a>
+                                </li>
+                                <li>
+                                    <a href="#">Customer</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="has-submenu">
+                            <a href="#"><i class="icon-life-buoy"></i> Master <i
+                                        class="mdi mdi-chevron-down mdi-drop"></i></a>
+                            <ul class="submenu">
+                                <li><a href="#" id="currency_setting">Currency Setting</a></li>
+
+                                <li>
+                                    <a href="#" id="truck_type">Truck Type</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="equipment_type">Equipment Type</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="trailer_type">Trailer Type</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="fix_category">Fix Pay Category</a>
+                                </li>
+                                <li class="has-submenu"><a href="#" data-toggle="modal" data-target="#mymodal">Bank</a>
+                                </li>
                                 <li>
                                     <a href="#" class="ADDcompany">Company </a>
                                 </li>
@@ -245,65 +363,12 @@
                                 <li>
                                     <a href="#" class="add_loadType">Load Type </a>
                                 </li>
-                                <li class="has-submenu">
-                                    <a href="#">Forms</a>
-                                    <ul class="submenu">
-                                        <li><a href="form-elements.html">Form Elements</a></li>
-                                        <li><a href="form-validation.html">Form Validation</a></li>
-                                        <li><a href="form-advanced.html">Form Advanced</a></li>
-                                        <li><a href="form-editors.html">Form Editors</a></li>
-                                        <li><a href="form-uploads.html">Form File Upload</a></li>
-                                        <li><a href="form-mask.html">Form Mask</a></li>
-                                        <li><a href="form-summernote.html">Summernote</a></li>
-                                        <li><a href="form-xeditable.html">Form Xeditable</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="has-submenu">
-                                    <a href="#">Charts </a>
-                                    <ul class="submenu">
-                                        <li><a href="charts-morris.html">Morris Chart</a></li>
-                                        <li><a href="charts-chartist.html">Chartist Chart</a></li>
-                                        <li><a href="charts-chartjs.html">Chartjs Chart</a></li>
-                                        <li><a href="charts-flot.html">Flot Chart</a></li>
-                                        <li><a href="charts-c3.html">C3 Chart</a></li>
-                                        <li><a href="charts-other.html">Jquery Knob Chart</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="has-submenu">
-                                    <a href="#">Tables </a>
-                                    <ul class="submenu">
-                                        <li><a href="tables-basic.html">Basic Tables</a></li>
-                                        <li><a href="tables-datatable.html">Data Table</a></li>
-                                        <li><a href="tables-responsive.html">Responsive Table</a></li>
-                                        <li><a href="tables-editable.html">Editable Table</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="has-submenu">
-                                    <a href="#">Icons</a>
-                                    <ul class="submenu">
-                                        <li><a href="icons-material.html">Material Design</a></li>
-                                        <li><a href="icons-fontawesome.html">Font Awesome</a></li>
-                                        <li><a href="icons-outline.html">Outline Icons</a></li>
-                                        <li><a href="icons-themify.html">Themify Icons</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="has-submenu">
-                                    <a href="#">Maps</a>
-                                    <ul class="submenu">
-                                        <li><a href="maps-google.html"> Google Map</a></li>
-                                        <li><a href="maps-vector.html"> Vector Map</a></li>
-                                    </ul>
-                                </li>
-
                             </ul>
                         </li>
 
                         <li class="has-submenu">
-                            <a href="#"><i class="icon-pencil-ruler"></i> UI Elements <i class="mdi mdi-chevron-down mdi-drop"></i></a>
+                            <a href="#"><i class="icon-pencil-ruler"></i> UI Elements <i
+                                        class="mdi mdi-chevron-down mdi-drop"></i></a>
                             <ul class="submenu megamenu">
                                 <li>
                                     <ul>
@@ -339,9 +404,9 @@
                         </li>
 
 
-
                         <li class="has-submenu">
-                            <a href="#"><i class="icon-diamond"></i> Advanced UI <i class="mdi mdi-chevron-down mdi-drop"></i></a>
+                            <a href="#"><i class="icon-diamond"></i> Advanced UI <i
+                                        class="mdi mdi-chevron-down mdi-drop"></i></a>
                             <ul class="submenu megamenu">
                                 <li>
                                     <ul>
@@ -361,7 +426,8 @@
                         </li>
 
                         <li class="has-submenu">
-                            <a href="#"><i class="icon-paper-sheet"></i> Pages <i class="mdi mdi-chevron-down mdi-drop"></i></a>
+                            <a href="#"><i class="icon-paper-sheet"></i> Pages <i
+                                        class="mdi mdi-chevron-down mdi-drop"></i></a>
                             <ul class="submenu megamenu">
 
                                 <li>
@@ -398,7 +464,9 @@
         <!-- end navbar-custom -->
     </header>
     <!-- End Navigation Bar-->
-    <div class="add_company_modal"></div>
-    <div class="add_office_modal"></div>
-    <div class="add_paymentTerm_modal"></div>
-    <div class="add_loadType_modal"></div>
+<!--    <div class="add_company_modal"></div>-->
+<!--    <div class="add_office_modal"></div>-->
+<!--    <div class="add_paymentTerm_modal"></div>-->
+<!--    <div class="add_loadType_modal"></div>-->
+    <div class="modal-container"></div>
+<!--    <div class="add_shipper_modal"></div>-->

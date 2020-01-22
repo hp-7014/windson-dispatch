@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start();
+require "../database/connection.php";
+?>
 <div id="currency" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
@@ -10,19 +12,23 @@
 
             </div>
             <div class="modal-body custom-modal-body">
-                <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal"
-                        data-target="#center">Add
-                </button>
+
                 <form method="post" enctype="multipart/form-data">
-                    <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="importExcel()">Upload
+                    <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal"
+                            data-target="#center">Add
+                    </button>
+                    <button type="button" class="btn btn-outline-info waves-effect waves-light float-right"
+                            onclick="importExcel()">Upload
                     </button>
                     <div class="custom-upload-btn-wrapper float-right">
                         <button class="custom-btn">Choose file</button>
-                        <input type="file" id="file" name="myfile" />
-                    </div></form>
-                <button type="button"
-                        class="btn btn-outline-success waves-effect waves-light float-right">CSV formate
-                </button>
+                        <input type="file" id="file" name="myfile"/>
+                    </div>
+                    <button type="button"
+                            class="btn btn-outline-success waves-effect waves-light float-right">CSV formate
+                    </button>
+                </form>
+                <br>
                 <table id="mainTable"
                        class="table table-striped mb-0 table-editable">
                     <thead>
@@ -34,26 +40,29 @@
                     </thead>
                     <tbody>
                     <?php
-                    require '../vendor/autoload.php';
-                    $connection = new MongoDB\Client("mongodb://127.0.0.1/");
-                    $db = $connection->demoadd;
+
                     $show = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
                     $no = 1;
-                    foreach ($show as $row){
+                    foreach ($show as $row) {
                         $show1 = $row['currency'];
-                            foreach ($show1 as $row1) {
-                                $id = $row1['_id'];
-                                $currencyType = $row1['currencyType'];
-                     
-                        ?>
-                        <tr>
-                            <td><?php echo $no++; ?></td>
-                            <td><div contenteditable="true" onblur="updateCurrency(this,'currencyType','<?php echo $id; ?>')" onclick="activate(this)"><?php echo $currencyType; ?></div></td>
-                            <td><a href="#" onclick="deleteCurrency(<?php echo $id; ?>)"><i class="mdi mdi-delete-sweep-outline"  style="font-size: 20px; color: #FC3B3B"></a></i>
-                            </td>
-                        </tr>
-                    <?php } 
-                    }?>
+                        foreach ($show1 as $row1) {
+                            $id = $row1['_id'];
+                            $currencyType = $row1['currencyType'];
+                            ?>
+                            <tr>
+                                <td><?php echo $no++; ?></td>
+                                <td>
+                                    <div contenteditable="true"
+                                         onblur="updateCurrency(this,'currencyType','<?php echo $id; ?>')"
+                                         onclick="activate(this)"><?php echo $currencyType; ?></div>
+                                </td>
+                                <td><a href="#" onclick="deleteCurrency(<?php echo $id; ?>)"><i
+                                                class="mdi mdi-delete-sweep-outline"
+                                                style="font-size: 20px; color: #FC3B3B"></a></i>
+                                </td>
+                            </tr>
+                        <?php }
+                    } ?>
                     </tbody>
                 </table>
             </div>
@@ -68,7 +77,8 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="center" aria-hidden="true">
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="center"
+     aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #2A3988;">
@@ -92,7 +102,8 @@
                     <button type="button" class="btn btn-danger waves-effect"
                             data-dismiss="modal">Close
                     </button>
-                    <button type="button" onclick="addCurrency()" id="" class="btn btn-primary waves-effect waves-light">
+                    <button type="button" onclick="addCurrency()" id=""
+                            class="btn btn-primary waves-effect waves-light">
                         Save
                     </button>
                 </div>

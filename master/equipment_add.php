@@ -30,7 +30,7 @@ else if ($_GET['type'] == 'equipmentadd') {
     $equipment->setCompanyID($_POST['companyID']);
     $equipment->setEquipment($_POST['equipmentType']);
     $equipment->Insert($equipment,$db,$helper);
-    echo "Insert Equipment Type Successfully";
+    echo "Data Insert Successful";
 }
 
 // Update Equipment Function Here
@@ -41,7 +41,7 @@ else if ($_GET['type'] == 'edit_equipment'){
     $equipment->setEquipment($_POST['value']);
     $equipment->setColumn($_POST['column']);
     $equipment->updateEquipment($equipment,$db);
-    echo "Update Equipment Type Successful";
+    echo "Data Update Successful";
 }
 
 // Delete Equipment Function Here
@@ -49,7 +49,7 @@ else if ($_GET['type'] == 'delete_equipment'){
     $equipment = new Equipment();
     $equipment->setId($_POST['id']);
     $equipment->deleteEquipment($equipment,$db);
-    echo "Delete Equipment Type Successful";
+    echo "Data Removed Successful";
 }
 
 // Export Excel Function Here

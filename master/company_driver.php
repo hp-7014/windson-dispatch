@@ -30,7 +30,7 @@ else if ($_GET['type'] == 'delete_company') {
     $Company = new Company();
     $Company->setId($_POST['id']);
     $Company->delete($Company,$db);
-    echo 'Remove Data Successfully';
+    echo 'Data Removed Successfully';
 }
 
 // edit function

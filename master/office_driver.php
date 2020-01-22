@@ -29,7 +29,7 @@ else if ($_GET['type'] == 'delete_office'){
     $Office = new Office();
     $Office->setId($_POST['id']);
     $Office->delete($Office,$db);
-    echo 'Remove Data Successfully';
+    echo 'Data Removed Successfully';
 }
 // import excel here
 else if ($_GET['type'] == 'importOffice') {

@@ -45,7 +45,7 @@ else if ($_GET['type'] == 'delete_payment_term') {
     $payment_term = new PaymentTerms();
     $payment_term->setId($_POST['id']);
     $payment_term->deletePayment($payment_term, $db);
-    echo 'Remove Data Successfully';
+    echo 'Data Removed Successfully';
 }
 // export excel function here
 else if ($_GET['type'] == 'export_payment_terms') {

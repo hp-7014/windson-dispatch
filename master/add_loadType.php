@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+require "../database/connection.php";?>
 <!--  Modal content for the above example -->
 <div id="Load_Type" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -39,20 +40,14 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
-                                        <th>Type</th>
+                                        <th>Unit</th>
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                     require 'model/LoadType.php';
-                                    require '../vendor/autoload.php';
-                                    require '../database/connection.php';
-                                    //connection to mongoDB
-                                    $connect = new MongoDB\Client("mongodb://127.0.0.1/");
 
-                                    // database selection
-                                    $db = $connect->WindsonDispatch;
                                     $load_type = new LoadType();
                                     $show_data = $db->load_type->find(['companyID' => $_SESSION['companyId']]);
                                     $no = 1;

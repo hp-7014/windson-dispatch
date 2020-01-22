@@ -30,7 +30,7 @@ else if ($_GET['type'] == 'fixpayadd') {
     $fixpay->setCompanyID($_POST['companyID']);
     $fixpay->setFixpay($_POST['fixpay']);
     $fixpay->Insert($fixpay,$db,$helper);
-    echo "Insert Fix Pay Successful";
+    echo "Data Insert Successful";
 }
 
 // Update FixPay Function Here
@@ -41,7 +41,7 @@ else if ($_GET['type'] == 'edit_fixpay'){
     $fixpay->setFixpay($_POST['value']);
     $fixpay->setColumn($_POST['column']);
     $fixpay->updatefixpay($fixpay,$db);
-    echo "Update Fix Pay Category Successful";
+    echo "Data Update Successful";
 }
 
 // Delete Fix Pay Function Here
@@ -49,7 +49,7 @@ else if ($_GET['type'] == 'delete_fixpay'){
     $fixpay = new Fixpay();
     $fixpay->setId($_POST['id']);
     $fixpay->deletefixpay($fixpay,$db);
-    echo "Delete Fix Pay Category Successful";
+    echo "Data Removed Successful";
 }
 
 // Export Excel Function Here

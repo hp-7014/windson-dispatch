@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+require "../database/connection.php";?>
 <div id="truck" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -12,20 +13,22 @@
 
             </div>
             <div class="modal-body custom-modal-body">
-                <button type="button" class="btn btn-primary waves-effect waves-light"
-                        data-toggle="modal"
-                        data-target="#Add_Truck_Type">Add
-                </button>
                 <form method="post" enctype="multipart/form-data">
+                    <button type="button" class="btn btn-primary waves-effect waves-light"
+                            data-toggle="modal"
+                            data-target="#Add_Truck_Type">Add
+                    </button>
                     <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="importTruck()">Upload
                     </button>
                     <div class="custom-upload-btn-wrapper float-right">
                         <button class="custom-btn">Choose file</button>
                         <input type="file" id="file" name="myfile" />
-                    </div></form>
-                <button type="button"
-                        class="btn btn-outline-success waves-effect waves-light float-right">CSV formate
-                </button>
+                    </div>
+                    <button type="button"
+                            class="btn btn-outline-success waves-effect waves-light float-right">CSV formate
+                    </button>
+                </form>
+                <br>
                 <table id="mainTable"
                        class="table table-striped mb-0 table-editable">
                     <thead>
@@ -37,9 +40,7 @@
                     </thead>
                     <tbody>
                     <?php
-                    require '../vendor/autoload.php';
-                    $connection = new MongoDB\Client("mongodb://127.0.0.1/");
-                    $db = $connection->demoadd;
+
                     $show = $db->truck_add->find(['companyID' => $_SESSION['companyId']]);
                     $no = 1;
                     foreach ($show as $row){

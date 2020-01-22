@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+require "../database/connection.php";?>
 <!------------------------------------------Company------------------------------------------------------------------------------------>
 <!--  Modal content for the above example -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="company_modal"
@@ -54,13 +55,6 @@
                                     <tbody>
                                     <?php
                                     require 'model/Company.php';
-                                    require '../vendor/autoload.php';
-                                    require '../database/connection.php';
-                                    //connection to mongoDB
-                                    $connect = new MongoDB\Client("mongodb://127.0.0.1/");
-
-                                    // database selection
-                                    $db = $connect->WindsonDispatch;
                                     $company = new Company();
                                     $show_data = $db->company->find(['companyID' => $_SESSION['companyId']]);
                                     $no = 1;

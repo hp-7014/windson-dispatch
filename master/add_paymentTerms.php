@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+require "../database/connection.php";?>
 <!--  Modal content for the above example -->
 <div id="Payment_Terms" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
@@ -45,13 +46,7 @@
                                     <tbody>
                                     <?php
                                     require 'model/PaymentTerms.php';
-                                    require '../vendor/autoload.php';
-                                    require '../database/connection.php';
-                                    //connection to mongoDB
-                                    $connect = new MongoDB\Client("mongodb://127.0.0.1/");
 
-                                    // database selection
-                                    $db = $connect->WindsonDispatch;
                                     $payment = new PaymentTerms();
                                     $show_data = $db->payment_terms->find(['companyID' => $_SESSION['companyId']]);
                                     $no = 1;

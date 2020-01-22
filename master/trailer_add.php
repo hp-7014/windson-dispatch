@@ -28,7 +28,7 @@ else if ($_GET['type'] == 'traileradd') {
     $trailer->setCompanyID($_POST['companyID']);
     $trailer->setTrailerType($_POST['trailerType']);
     $trailer->Insert($trailer,$db,$helper);
-    echo "Insert Trailer Type Successful";
+    echo "Data Insert Successful";
 }
 
 // Update Trailer Function Here
@@ -39,7 +39,7 @@ else if ($_GET['type'] == 'edit_trailer'){
     $trailer->setTrailerType($_POST['value']);
     $trailer->setColumn($_POST['column']);
     $trailer->updateTrailer($trailer,$db);
-    echo "Update Trailer Type Successful";
+    echo "Data Update Successful";
 }
 
 // Delete Trailer Function Here
@@ -47,7 +47,7 @@ else if ($_GET['type'] == 'delete_trailer'){
     $trailer = new Trailer();
     $trailer->setId($_POST['id']);
     $trailer->deleteTrailer($trailer,$db);
-    echo "Delete Trailer Type Successful";
+    echo "Data Removed Successful";
 }
 
 // Export Excel Function Here

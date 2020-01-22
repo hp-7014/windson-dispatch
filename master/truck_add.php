@@ -29,7 +29,7 @@ else if ($_GET['type'] == 'truckadd') {
     $truck->setCompanyID($_POST['companyID']);
     $truck->setTruckType($_POST['truckType']);
     $truck->Insert($truck,$db,$helper);
-    echo "Insert Truck Type Successfully";
+    echo "Data Insert Successfully";
 }
 
 // Update Truck Type Function Here
@@ -40,7 +40,7 @@ else if ($_GET['type'] == 'edit_truck'){
     $truck->setTruckType($_POST['value']);
     $truck->setColumn($_POST['column']);
     $truck->updateTruck($truck,$db);
-    echo "Update Truck Type Successful";
+    echo "Data Update Successful";
 }
 
 // Delete Truck Type Function Here
@@ -48,7 +48,7 @@ else if ($_GET['type'] == 'delete_Truck'){
     $truck = new Truck();
     $truck->setId($_POST['id']);
     $truck->deleteTruck($truck,$db);
-    echo "Delete Truck Type Successful";
+    echo "Data Removed Successful";
 }
 
 // Export Excel Function Here

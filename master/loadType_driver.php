@@ -31,7 +31,7 @@ else if ($_GET['type'] == 'delete_loadType') {
     $load_type = new LoadType();
     $load_type->setId($_POST['id']);
     $load_type->delete($load_type, $db);
-    echo 'Remove Data Successfully';
+    echo 'Data Removed Successfully';
 }
 // export excel function here
 else if ($_GET['type'] == 'exportLoadType') {
@@ -50,6 +50,6 @@ else if ($_GET['type'] == 'importLoadType') {
 
         $load_type = new LoadType();
         $load_type->importExcel($targetPath, $helper);
-        echo 'File Upload Successfully';
+//        echo 'File Upload Successfully';
     }
 }
