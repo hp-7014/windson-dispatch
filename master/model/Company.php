@@ -1,12 +1,12 @@
 <?php
 @session_start();
+
 /**
  * Created by PhpStorm.
  * User: BOND
  * Date: 1/19/2020
  * Time: 3:35 PM
  */
-
 class Company implements IteratorAggregate
 {
     private $id;
@@ -37,7 +37,7 @@ class Company implements IteratorAggregate
     {
         $this->companyID = $companyID;
     }
-    
+
 
     /**
      * @return mixed
@@ -222,6 +222,33 @@ class Company implements IteratorAggregate
             array(
                 '_id' => $this->id,
                 'companyID' => (int)$this->companyID,
+                'counter' => 0,
+                'company' => array([
+                    '_id' => 0,
+                    'companyName' => $this->companyName,
+                    'shippingAddress' => $this->shippingAddress,
+                    'telephoneNo' => $this->telephoneNo,
+                    'faxNo' => $this->faxNo,
+                    'mcNo' => $this->mcNo,
+                    'usDotNo' => $this->usDotNo,
+                    'mailingAddress' => $this->mailingAddress,
+                    'factoringCompany' => $this->factoringCompany,
+                    'factoringCompanyAddress' => $this->factoringCompanyAddress
+                ])
+            )
+        );
+    }
+
+    public function insert($Company, $db, $helper)
+    {
+        $c_id = $db->company->find(['companyID' => (int)$Company->getCompanyID()]);
+        $count = 0;
+        foreach ($c_id as $c) {
+            $count++;
+        }
+        if ($count > 0) {
+            $db->company->updateOne(['companyID' => (int)$this->companyID], ['$push' => ['company' => [
+                '_id' => $helper->getDocumentSequence((int)$this->companyID, $db->company),
                 'companyName' => $this->companyName,
                 'shippingAddress' => $this->shippingAddress,
                 'telephoneNo' => $this->telephoneNo,
@@ -231,35 +258,46 @@ class Company implements IteratorAggregate
                 'mailingAddress' => $this->mailingAddress,
                 'factoringCompany' => $this->factoringCompany,
                 'factoringCompanyAddress' => $this->factoringCompanyAddress
-            )
+            ]]]);
+        } else {
+            $company = iterator_to_array($Company);
+            $db->company->insertOne($company);
+        }
+    }
+
+    public function delete($Company, $db)
+    {
+//        $db->company->deleteOne(['_id' => (int)$Company->getId()]);
+        $db->company->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+                '$pull' => ['company' => ['_id' => (int)$Company->getId()]]]
         );
     }
 
-    public  function insert($Company,$db) {
-        $company = iterator_to_array($Company);
-        $db->company->insertOne($company);
+    public function update($Company, $db)
+    {
+//        $db->company->updateOne(
+//            ['_id' => (int)$Company->getId()],
+//            ['$set' => [$Company->getColumn() => $Company->getcompanyName()]
+//            ]);
+        $db->company->updateOne(['companyID' => (int)$_SESSION['companyId'], 'company._id' => (int)$this->getId()],
+            ['$set' => ['company.$.' . $Company->getColumn() => $Company->getcompanyName()]]
+        );
     }
 
-    public function delete($Company,$db) {
-        $db->company->deleteOne(['_id' => (int)$Company->getId()]);
-    }
-
-    public function update($Company,$db) {
-        $db->company->updateOne(
-            ['_id' => (int)$Company->getId()],
-            ['$set' => [$Company->getColumn()=> $Company->getcompanyName()]
-            ]);
-    }
-
-    public function export($db){
+    public function export($db)
+    {
         $company = $db->company->find(['companyID' => $_SESSION['companyId']]);
-        foreach ($company as $c) {
-            $p[] = array($c['companyName'],$c['shippingAddress'],$c['telephoneNo'],$c['faxNo'],$c['mcNo'],$c['usDotNo'],$c['mailingAddress'],$c['factoringCompany'],$c['factoringCompanyAddress']);
+        foreach ($company as $s) {
+            $show = $s['company'];
+            foreach ($show as $c) {
+                $p[] = array($c['companyName'], $c['shippingAddress'], $c['telephoneNo'], $c['faxNo'], $c['mcNo'], $c['usDotNo'], $c['mailingAddress'], $c['factoringCompany'], $c['factoringCompanyAddress']);
+            }
         }
         echo json_encode($p);
     }
 
-    public function importExcel($targetPath, $helper) {
+    public function importExcel($targetPath, $helper)
+    {
 
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
@@ -269,44 +307,42 @@ class Company implements IteratorAggregate
 
         $sheetCount = count($Reader->sheets());
 
-        for ($i = 0; $i < $sheetCount; $i++ )
-        {
+        for ($i = 0; $i < $sheetCount; $i++) {
 
             $Reader->ChangeSheet($i);
 
-            foreach ($Reader as $Row)
-            {
-                $this->setId($helper->getNextSequence("company",$db));
+            foreach ($Reader as $Row) {
+                $this->setId($helper->getNextSequence("company", $db));
                 $this->companyID = $_SESSION['companyId'];
-                if(isset($Row[0])) {
+                if (isset($Row[0])) {
                     $this->companyName = $Row[0];
                 }
-                if(isset($Row[1])) {
+                if (isset($Row[1])) {
                     $this->shippingAddress = $Row[1];
                 }
-                if(isset($Row[2])) {
+                if (isset($Row[2])) {
                     $this->telephoneNo = $Row[2];
                 }
-                if(isset($Row[3])) {
+                if (isset($Row[3])) {
                     $this->faxNo = $Row[3];
                 }
-                if(isset($Row[4])) {
+                if (isset($Row[4])) {
                     $this->mcNo = $Row[4];
                 }
-                if(isset($Row[5])) {
+                if (isset($Row[5])) {
                     $this->usDotNo = $Row[5];
                 }
-                if(isset($Row[6])) {
+                if (isset($Row[6])) {
                     $this->mailingAddress = $Row[6];
                 }
-                if(isset($Row[7])) {
+                if (isset($Row[7])) {
                     $this->factoringCompany = $Row[7];
                 }
-                if(isset($Row[8])) {
+                if (isset($Row[8])) {
                     $this->factoringCompanyAddress = $Row[8];
                 }
 
-                $this->insert($this,$db);
+                $this->insert($this, $db,$helper);
             }
         }
     }

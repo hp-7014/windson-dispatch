@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+require "../database/connection.php";?>
 <!--  Modal content for the above example -->
 <div id="Load_Type" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -27,7 +28,8 @@
                                         <input type="file" name="file" id="file" accept=".csv"/>
                                     </div>
                                     <button type="button"
-                                            class="btn btn-outline-success waves-effect waves-light float-right">CSV formate
+                                            class="btn btn-outline-success waves-effect waves-light float-right">CSV
+                                        formate
                                     </button>
                                 </form>
                                 <br>
@@ -38,37 +40,34 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
-                                        <th>Type</th>
+                                        <th>Unit</th>
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                     require 'model/LoadType.php';
-                                    require '../vendor/autoload.php';
-                                    require '../database/connection.php';
-                                    //connection to mongoDB
-                                    $connect = new MongoDB\Client("mongodb://127.0.0.1/");
 
-                                    // database selection
-                                    $db = $connect->WindsonDispatch;
                                     $load_type = new LoadType();
                                     $show_data = $db->load_type->find(['companyID' => $_SESSION['companyId']]);
                                     $no = 1;
                                     foreach ($show_data as $show) {
-                                        ?>
-                                        <tr>
-                                            <td><a href="#" id="stdid"><?php echo $no++; ?></a></td>
-                                            <td contenteditable="true"
-                                                onblur="updateloadType(this,'loadName',<?php echo $show['_id']; ?>)"><?php echo $show['loadName']; ?></td>
-                                            <td contenteditable="true"
-                                                onblur="updateloadType(this,'loadType',<?php echo $show['_id']; ?>)"><?php echo $show['loadType']; ?></td>
-                                            <td><a href="#" onclick="deleteloadType(<?php echo $show['_id']; ?>)"><i
-                                                            class="mdi mdi-delete-sweep-outline"
-                                                            style="font-size: 20px; color: #FC3B3B"></i></a>
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
+                                        $show = $show['loadType'];
+                                        foreach ($show as $s) {
+                                            ?>
+                                            <tr>
+                                                <td><a href="#" id="stdid"><?php echo $no++; ?></a></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateloadType(this,'loadName',<?php echo $s['_id']; ?>)"><?php echo $s['loadName']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateloadType(this,'loadType',<?php echo $s['_id']; ?>)"><?php echo $s['loadType']; ?></td>
+                                                <td><a href="#" onclick="deleteloadType(<?php echo $s['_id']; ?>)"><i
+                                                                class="mdi mdi-delete-sweep-outline"
+                                                                style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php }
+                                    } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -89,7 +88,8 @@
 </div><!-- /.modal -->
 </div>
 <!-----------------------------------------------------------------------Add Active Load Type-------------------------------------------------------------------------->
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="Active_Load_Type" aria-hidden="true">
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     id="Active_Load_Type" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #2A3988;">

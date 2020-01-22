@@ -96,36 +96,62 @@ class LoadType implements IteratorAggregate
             array(
                 '_id' => $this->id,
                 'companyID' => (int)$this->companyID,
-                'loadName' => $this->LoadName,
-                'loadType' => $this->LoadType
+                'counter' => 0,
+                'loadType' => array([
+                    '_id' => 0,
+                    'loadName' => $this->LoadName,
+                    'loadType' => $this->LoadType
+                ])
             )
         );
     }
 
-    public function insert($load_type, $db)
+    public function insert($load_type, $db, $helper)
     {
-        $load = iterator_to_array($load_type);
-        $db->load_type->insertOne($load);
+        $c_id = $db->load_type->find(['companyID' => (int)$load_type->getCompanyID()]);
+        $count = 0;
+        foreach ($c_id as $c) {
+            $count++;
+        }
+        if ($count > 0) {
+            $db->load_type->updateOne(['companyID' => (int)$this->companyID], ['$push' => ['loadType' => [
+                '_id' => $helper->getDocumentSequence((int)$this->companyID, $db->load_type),
+                'loadName' => $this->LoadName,
+                'loadType' => $this->LoadType
+            ]]]);
+        } else {
+            $load = iterator_to_array($load_type);
+            $db->load_type->insertOne($load);
+        }
     }
 
     public function update($load_type, $db)
     {
-        $db->load_type->updateOne(
-            ['_id' => (int)$load_type->getId()],
-            ['$set' => [$load_type->getColumn() => $load_type->getLoadName()]
-            ]);
+//        $db->load_type->updateOne(
+//            ['_id' => (int)$load_type->getId()],
+//            ['$set' => [$load_type->getColumn() => $load_type->getLoadName()]
+//            ]);
+        $db->load_type->updateOne(['companyID' => (int)$_SESSION['companyId'], 'loadType._id' => (int)$this->getId()],
+            ['$set' => ['loadType.$.' . $load_type->getColumn() => $load_type->getLoadName()]]
+        );
     }
 
     public function delete($load_type, $db)
     {
-        $db->load_type->deleteOne(['_id' => (int)$load_type->getId()]);
+//        $db->load_type->deleteOne(['_id' => (int)$load_type->getId()]);
+        $db->load_type->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+                '$pull' => ['loadType' => ['_id' => (int)$load_type->getId()]]]
+        );
     }
 
     public function export($db)
     {
         $load = $db->load_type->find(['companyID' => $_SESSION['companyId']]);
         foreach ($load as $l) {
-            $lo[] = array($l['loadName'],$l['loadType']);
+            $show = $l['loadType'];
+            foreach ($show as $s) {
+                $lo[] = array($s['loadName'], $s['loadType']);
+            }
         }
         echo json_encode($lo);
     }
@@ -155,7 +181,7 @@ class LoadType implements IteratorAggregate
                     $this->LoadType = $Row[1];
                 }
 
-                $this->Insert($this, $db);
+                $this->Insert($this, $db,$helper);
             }
         }
     }

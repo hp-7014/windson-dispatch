@@ -21,7 +21,7 @@ if ($_GET['type'] == 'add_company') {
     $Company->setMailingAddress($_POST['mailingAddress']);
     $Company->setFactoringCompany($_POST['factoringCompany']);
     $Company->setFactoringCompanyAddress($_POST['factoringCompanyAddress']);
-    $Company->insert($Company,$db);
+    $Company->insert($Company,$db,$helper);
     echo 'Data Added Successfully';
 }
 
@@ -30,7 +30,7 @@ else if ($_GET['type'] == 'delete_company') {
     $Company = new Company();
     $Company->setId($_POST['id']);
     $Company->delete($Company,$db);
-    echo 'Remove Data Successfully';
+    echo 'Data Removed Successfully';
 }
 
 // edit function

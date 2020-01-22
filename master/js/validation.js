@@ -75,46 +75,79 @@ function val_loadType(val) {
 }
 //---------load Type end----------
 
-// BANK START
-function val_DebitValidate(val) {
-    if(val == '')
-    {
-        swal('Please Enter Debit Bank Name.');
+//Validation For Add Currency
+function val_currencyType(val)
+{
+    if (val == '') {
+        swal('Please Enter Currency Type');
         return false;
     } else {
         return true;
     }
 }
 
-function val_CreditValidate(val) {
-    if(val == '')
-    {
-        swal('Please Enter Credit Bank Name.');
+//Validation For Equipment Type
+function val_equipmentType(val)
+{
+    if (val == '') {
+        swal('Please Enter Equipment Type');
         return false;
     } else {
         return true;
     }
 }
 
-function val_CardValidate(val) {
-    if(val == '')
-    {
-        swal('Please Enter Credit Card Name.');
+//Validation For Truck Type
+function val_truckType(val)
+{
+    if (val == '') {
+        swal('Please Enter Truck Type');
         return false;
     } else {
         return true;
     }
 }
-// BANK ENDS
 
-// STATUS TYPE START
-function val_statusValidate(val) {
-    if(val == '')
-    {
-        swal('Please Enter Status Name.');
+//Validation For Trailer Type
+function val_trailerType(val)
+{
+    if (val == '') {
+        swal('Please Enter Trailer Type');
         return false;
     } else {
         return true;
     }
 }
-// STATUS TYPE ENDS
+
+//Validation For Fix Pay
+function val_fixpay(val)
+{
+    if (val == '') {
+        swal('Please Enter Fix Pay Category');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+//Validation For Fix Pay
+function val_loadType(val)
+{
+    if (val == '') {
+        swal('Please Enter Load Type');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+//Validation For Fix Pay
+function val_unit(val)
+{
+    if (val == '') {
+        swal('Please Enter Unit');
+        return false;
+    } else {
+        return true;
+    }
+}

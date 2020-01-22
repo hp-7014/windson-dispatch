@@ -1,6 +1,7 @@
 <?php
 @session_start();
 
+
 /**
  * Created by PhpStorm.
  * User: BOND
@@ -95,64 +96,34 @@ class PaymentTerms implements IteratorAggregate
 
     public function getIterator()
     {
-//        require '../database/connection.php';   // connection
         // TODO: Implement getIterator() method.
-//        $c_id = $db->payment_terms->find(['companyID' => (int)$this->companyID]);
-//        $count = 0;
-//        foreach ($c_id as $c) {
-//            $id1 = $c['companyID'];
-//            $id2 = $c['_id'];
-//            $count++;
-//        }
-//        if ($count > 0) {
-////            echo "get found";
-//            return new ArrayIterator(
-//                array(
-//                    '_id' => (int)$this->id,
-//                    'companyID' => (int)$id1,
-//                    ['payment' => array('paymentTerm' => $this->payment_term)]
-//                )
-//            );
-////            exit();
-//        } else {
-////            echo "get not found";
-//            return new ArrayIterator(
-//                array(
-//                    '_id' => $this->id,
-//                    'companyID' => (int)$this->companyID,
-//                    'paymentTerm' => $this->payment_term
-//                )
-//            );
-////            exit();
-//        }
         return new ArrayIterator(
             array(
                 '_id' => $this->id,
                 'companyID' => (int)$this->companyID,
-                'paymentTerm' => $this->payment_term
+                'counter' => 0,
+                'payment' => array(['_id' => 0, 'paymentTerm' => $this->payment_term])
             )
         );
     }
 
-    public function insert($payment_term, $db)
+    public function insert($payment_term, $db, $helper)
     {
-//        echo $payment_term->getCompanyID();
-//        $c_id = $db->payment_terms->find(['companyID' => (int)$payment_term->getCompanyID()]);
-//        $count = 0;
-//        foreach ($c_id as $c) {
-//            $id = $c['_id'];
-//            $count++;
-//        }
-//        if ($count > 0) {
-////            echo 'found';
-//            $payment = iterator_to_array($payment_term);
-//            $db->payment_terms->insertOne($payment);
-//
-//        } else {
-//            echo "not found";
+
+        $c_id = $db->payment_terms->find(['companyID' => (int)$payment_term->getCompanyID()]);
+        $count = 0;
+        foreach ($c_id as $c) {
+            $count++;
+        }
+        if ($count > 0) {
+            $db->payment_terms->updateOne(['companyID' => (int)$this->companyID], ['$push' => ['payment' => [
+                '_id' => $helper->getDocumentSequence((int)$this->companyID, $db->payment_terms),
+                'paymentTerm' => $this->payment_term
+            ]]]);
+        } else {
             $payment = iterator_to_array($payment_term);
             $db->payment_terms->insertOne($payment);
-//        }
+        }
     }
 
     public function importExcel($targetPath, $helper)
@@ -177,31 +148,40 @@ class PaymentTerms implements IteratorAggregate
                     $this->payment_term = $Row[0];
                 }
 
-                $this->Insert($this, $db);
+                $this->Insert($this, $db,$helper);
             }
         }
     }
 
     public function updatePayment($payment_term, $db)
     {
-        $db->payment_terms->updateOne(
-            ['_id' => (int)$payment_term->getId()],
-            ['$set' => [$payment_term->getColumn() => $payment_term->getPaymentTerm()]
-            ]);
+//        $db->payment_terms->updateOne(
+//            ['_id' => (int)$payment_term->getId()],
+//            ['$set' => [$payment_term->getColumn() => $payment_term->getPaymentTerm()]
+//            ]);
+        $db->payment_terms->updateOne(['companyID' => (int)$_SESSION['companyId'], 'payment._id' => (int)$this->getId()],
+            ['$set' => ['payment.$.' . $payment_term->getColumn() => $payment_term->getPaymentTerm()]]
+        );
     }
 
     public function deletePayment($payment_term, $db)
     {
-
-        $db->payment_terms->deleteOne(['_id' => (int)$payment_term->getId()]);
+//        $db->payment_terms->deleteOne(['_id' => (int)$payment_term->getId()]);
+        $db->payment_terms->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+                '$pull' => ['payment' => ['_id' => (int)$payment_term->getId()]]]
+        );
     }
 
     public function exportPayment($db)
     {
         $payment = $db->payment_terms->find(['companyID' => $_SESSION['companyId']]);
         foreach ($payment as $pay) {
-            $p[] = array($pay['paymentTerm']);
+            $show = $pay['payment'];
+            foreach ($show as $s) {
+                $p[] = array($s['paymentTerm']);
+            }
         }
+//        print_r($p);
         echo json_encode($p);
     }
 }

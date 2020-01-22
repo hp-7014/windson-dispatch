@@ -13,7 +13,7 @@ if ($_GET['type'] == 'add_office') {
     $office->setCompanyID($_POST['companyId']);
     $office->setofficeName($_POST['officeName']);
     $office->setofficeLocation($_POST['officeLocation']);
-    $office->insert($office,$db);
+    $office->insert($office,$db,$helper);
     echo 'Data Added Successfully';
 }
 else if ($_GET['type'] == 'edit_office') {
@@ -29,7 +29,7 @@ else if ($_GET['type'] == 'delete_office'){
     $Office = new Office();
     $Office->setId($_POST['id']);
     $Office->delete($Office,$db);
-    echo 'Remove Data Successfully';
+    echo 'Data Removed Successfully';
 }
 // import excel here
 else if ($_GET['type'] == 'importOffice') {

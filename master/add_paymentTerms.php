@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+require "../database/connection.php";?>
 <!--  Modal content for the above example -->
 <div id="Payment_Terms" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
@@ -45,28 +46,25 @@
                                     <tbody>
                                     <?php
                                     require 'model/PaymentTerms.php';
-                                    require '../vendor/autoload.php';
-                                    require '../database/connection.php';
-                                    //connection to mongoDB
-                                    $connect = new MongoDB\Client("mongodb://127.0.0.1/");
 
-                                    // database selection
-                                    $db = $connect->WindsonDispatch;
                                     $payment = new PaymentTerms();
                                     $show_data = $db->payment_terms->find(['companyID' => $_SESSION['companyId']]);
                                     $no = 1;
                                     foreach ($show_data as $show) {
-                                        ?>
-                                        <tr>
-                                            <td><a href="#" id="stdid"><?php echo $no++; ?></a></td>
-                                            <td contenteditable="true"
-                                                onblur="updatePayment(this,'paymentTerm',<?php echo $show['_id']; ?>)"><?php echo $show['paymentTerm']; ?></td>
-                                            <td><a href="#" onclick="deletePayment(<?php echo $show['_id']; ?>)"><i
-                                                            class="mdi mdi-delete-sweep-outline"
-                                                            style="font-size: 20px; color: #FC3B3B"></i></a>
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
+                                        $show = $show['payment'];
+                                        foreach ($show as $s) {
+                                            ?>
+                                            <tr>
+                                                <td><a href="#" id="stdid"><?php echo $no++; ?></a></td>
+                                                <td contenteditable="true"
+                                                    onblur="updatePayment(this,'paymentTerm',<?php echo $s['_id']; ?>)"><?php echo $s['paymentTerm']; ?></td>
+                                                <td><a href="#" onclick="deletePayment(<?php echo $s['_id']; ?>)"><i
+                                                                class="mdi mdi-delete-sweep-outline"
+                                                                style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php }
+                                    } ?>
                                     </tbody>
                                 </table>
                             </div>

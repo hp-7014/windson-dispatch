@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+require "../database/connection.php";?>
 <div id="Office" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
@@ -26,7 +27,8 @@
                                         <input type="file" name="file" id="file" accept=".csv"/>
                                     </div>
                                     <button type="button"
-                                            class="btn btn-outline-success waves-effect waves-light float-right">CSV formate
+                                            class="btn btn-outline-success waves-effect waves-light float-right">CSV
+                                        formate
                                     </button>
                                 </form>
                                 <br>
@@ -36,34 +38,34 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
+                                        <th>Location</th>
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                     require 'model/PaymentTerms.php';
-                                    require '../vendor/autoload.php';
-                                    require '../database/connection.php';
-                                    //connection to mongoDB
-                                    $connect = new MongoDB\Client("mongodb://127.0.0.1/");
 
-                                    // database selection
-                                    $db = $connect->WindsonDispatch;
                                     $payment = new PaymentTerms();
                                     $show_data = $db->office->find(['companyID' => $_SESSION['companyId']]);
                                     $no = 1;
                                     foreach ($show_data as $show) {
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $no++; ?></td>
-                                            <td contenteditable="true" onblur="updateOffice(this,'officeName',<?php echo $show['_id']; ?>)"><?php echo $show['officeName']; ?></td>
-                                            <td contenteditable="true" onblur="updateOffice(this,'officeLocation',<?php echo $show['_id']; ?>)"><?php echo $show['officeLocation']; ?></td>
-                                            <td><a href="#" onclick="deleteOffice(<?php echo $show['_id']; ?>)"><i
-                                                            class="mdi mdi-delete-sweep-outline"
-                                                            style="font-size: 20px; color: #FC3B3B"></i></a>
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
+                                        $show = $show['office'];
+                                        foreach ($show as $s) {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $no++; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateOffice(this,'officeName',<?php echo $s['_id']; ?>)"><?php echo $s['officeName']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateOffice(this,'officeLocation',<?php echo $s['_id']; ?>)"><?php echo $s['officeLocation']; ?></td>
+                                                <td><a href="#" onclick="deleteOffice(<?php echo $s['_id']; ?>)"><i
+                                                                class="mdi mdi-delete-sweep-outline"
+                                                                style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php }
+                                    } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -83,7 +85,8 @@
 </div><!-- /.modal -->
 
 <!---- Add office Modal here ----->
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="Add_Office" aria-hidden="true">
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     id="Add_Office" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #2A3988;">
@@ -114,7 +117,8 @@
                     <button type="button" class="btn btn-danger waves-effect"
                             data-dismiss="modal">Close
                     </button>
-                    <input type="submit" name="submit" onclick="addOffice()" value="Save" class="btn btn-primary waves-effect waves-light" />
+                    <input type="submit" name="submit" onclick="addOffice()" value="Save"
+                           class="btn btn-primary waves-effect waves-light"/>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
