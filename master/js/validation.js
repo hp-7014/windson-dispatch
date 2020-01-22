@@ -151,3 +151,47 @@ function val_unit(val)
         return true;
     }
 }
+
+// BANK START
+function val_DebitValidate(val) {
+    if(val == '')
+    {
+        swal('Please Enter Debit Bank Name.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_CreditValidate(val) {
+    if(val == '')
+    {
+        swal('Please Enter Credit Bank Name.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_CardValidate(val) {
+    if(val == '')
+    {
+        swal('Please Enter Credit Card Name.');
+        return false;
+    } else {
+        return true;
+    }
+}
+// BANK ENDS
+
+// STATUS TYPE START
+function val_statusValidate(val) {
+    if(val == '')
+    {
+        swal('Please Enter Status Name.');
+        return false;
+    } else {
+        return true;
+    }
+}
+// STATUS TYPE ENDS

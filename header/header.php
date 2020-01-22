@@ -133,7 +133,6 @@
             });
 
             $(document).on('click', '.add_payment_terms', function () {
-
                 $.ajax({
                     type: 'POST',
                     success: function (data) {
@@ -143,6 +142,29 @@
                     }
                 });
             });
+
+        $(document).on('click', '.add_bank', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_bank.php', function (result) {
+                        $('#add_bank').modal({show: true});
+                    });
+                }
+            });
+        });
+
+        $(document).on('click', '.add_status', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/status_type_modal.php', function (result) {
+                        $('#Status_Type').modal({show: true});
+                    });
+                }
+            });
+        });
+
     </script>
 </head>
 
@@ -349,7 +371,11 @@
                                 <li>
                                     <a href="#" id="fix_category">Fix Pay Category</a>
                                 </li>
-                                <li class="has-submenu"><a href="#" data-toggle="modal" data-target="#mymodal">Bank</a>
+                                <li >
+                                    <a href="#" class="add_bank">Bank</a>
+                                </li>
+                                <li >
+                                    <a href="#" class="add_status">Status</a>
                                 </li>
                                 <li>
                                     <a href="#" class="ADDcompany">Company </a>

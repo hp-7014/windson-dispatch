@@ -2,33 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/validation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/add_currency.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/add_equipment_type.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/add_fixpaycategory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/add_trailer_type.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/add_truck_type.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/currency_add.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/equipment_add.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/fixpay_add.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/model/Currency.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/model/Equipment.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/model/Fixpay.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/model/Trailer.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/model/Truck.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/trailer_add.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/truck_add.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/upload/test.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/master/upload/test.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mongo.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mongodb.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/bootstrap.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/master/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/master/js/form.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/master/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/master/js/validation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/upload/Test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/master/upload/Test.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
