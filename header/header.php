@@ -24,6 +24,8 @@
     <script src="master/js/validation.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="admin/js/form.js"></script>
+    <script src="admin/js/validation.js"></script>
     <script>
 
         $(document).on('click', '.addShipper', function () {
@@ -31,7 +33,7 @@
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./admin/shipper_modal.php', function (result) {
-                        $('#add_shipper').modal({show: true});
+                        $('#shipper').modal({show: true});
                     });
                 }
             });

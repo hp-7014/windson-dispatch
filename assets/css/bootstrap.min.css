@@ -6190,6 +6190,11 @@ a.close.disabled {
         max-width: 1210px
     }
 }
+@media (min-width: 992px) {
+    .modal-xlg, .modal-xxl {
+        max-width: 800px
+    }
+}
 
 @media (min-width:1200px) {
     .modal-xl {
