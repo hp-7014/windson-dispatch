@@ -3,12 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/validation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/shipper_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/shipper_modal.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/master/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/master/js/form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/master/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/master/js/validation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/add_company.php" beforeDir="false" afterPath="$PROJECT_DIR$/master/add_company.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/master/upload/Test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/master/upload/Test.csv" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,16 +36,17 @@
       <path value="$PROJECT_DIR$/vendor/mongodb/mongodb" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1509" />
-    <option name="y" value="-8" />
-    <option name="width" value="1026" />
-    <option name="height" value="554" />
-  </component>
+  <component name="ProjectId" id="1WmZ63yluL8DE4Ek2eDb7Xujd9H" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -54,15 +56,15 @@
       <recent name="C:\xampp\htdocs\windson-dispatch\admin" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
+  <component name="ServiceViewManager">
+    <option name="viewStates">
       <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
       </list>
     </option>
   </component>
@@ -110,5 +112,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="484" y="161" key="git4idea.merge.GitMergeDialog" timestamp="1579757014813">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="484" y="161" key="git4idea.merge.GitMergeDialog/0.0.1366.738@0.0.1366.738" timestamp="1579757014813" />
   </component>
 </project>
