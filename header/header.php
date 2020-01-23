@@ -7,7 +7,7 @@
     <meta content="Themesdesign" name="author"/>
     <link rel="shortcut icon" href="assets/images/favicon.ico">
 
-    <!--Morris Chart CSS css-->
+    <!--Morris Chart CSS-->
     <link rel="stylesheet" href="assets/plugins/morris/morris.css">
 
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -24,6 +24,8 @@
     <script src="master/js/validation.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="admin/js/form.js"></script>
+    <script src="admin/js/validation.js"></script>
     <script>
 
         $(document).on('click', '.addShipper', function () {
@@ -31,15 +33,13 @@
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./admin/shipper_modal.php', function (result) {
-                        $('#add_shipper').modal({show: true});
+                        $('#shipper').modal({show: true});
                     });
                 }
             });
         });
-
-
                 $(document).on("click", "#currency_setting", function () {
-                    //alert('test');
+                    // alert('test');
                     $.ajax({
                         type: 'POST',
                         success: function (data) {
@@ -49,7 +49,6 @@
                         },
                     });
                 });
-
 
             $(document).on("click", "#truck_type", function () {
                 //alert('test');
@@ -133,7 +132,6 @@
             });
 
             $(document).on('click', '.add_payment_terms', function () {
-
                 $.ajax({
                     type: 'POST',
                     success: function (data) {
@@ -143,6 +141,29 @@
                     }
                 });
             });
+
+        $(document).on('click', '.add_bank', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_bank.php', function (result) {
+                        $('#add_bank').modal({show: true});
+                    });
+                }
+            });
+        });
+
+        $(document).on('click', '.add_status', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/status_type_modal.php', function (result) {
+                        $('#Status_Type').modal({show: true});
+                    });
+                }
+            });
+        });
+
     </script>
 </head>
 
@@ -317,7 +338,7 @@
                             <a href="#"><i class="icon-life-buoy"></i> Admin <i
                                         class="mdi mdi-chevron-down mdi-drop"></i></a>
                             <ul class="submenu">
-                                <li><a href="#" class=".addShipper">Shipper</a></li>
+                                <li><a href="#" class="addShipper">Shipper</a></li>
 
                                 <li>
                                     <a href="#">Consignee</a>
@@ -349,7 +370,11 @@
                                 <li>
                                     <a href="#" id="fix_category">Fix Pay Category</a>
                                 </li>
-                                <li class="has-submenu"><a href="#" data-toggle="modal" data-target="#mymodal">Bank</a>
+                                <li >
+                                    <a href="#" class="add_bank">Bank</a>
+                                </li>
+                                <li >
+                                    <a href="#" class="add_status">Status</a>
                                 </li>
                                 <li>
                                     <a href="#" class="ADDcompany">Company </a>
