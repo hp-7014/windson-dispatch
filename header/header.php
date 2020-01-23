@@ -38,109 +38,142 @@
                 }
             });
         });
-                $(document).on("click", "#currency_setting", function () {
-                    // alert('test');
-                    $.ajax({
-                        type: 'POST',
-                        success: function (data) {
-                            $('.modal-container').load('./master/add_currency.php', function (result) {
-                                $('#currency').modal({show: true});
-                            });
-                        },
+        $(document).on('click', '.addUser', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/user_modal.php', function (result) {
+                        $('#add_user').modal({show: true});
                     });
-                });
-
-            $(document).on("click", "#truck_type", function () {
-                //alert('test');
-                $.ajax({
-                    type: 'POST',
-                    success: function (data) {
-                        $('.modal-container').load('./master/add_truck_type.php', function (result) {
-                            $('#truck').modal({show: true});
-                        });
-                    },
-                });
+                }
             });
+        });
+        $(document).on('click', '.addConsignee', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/consignee_modal.php', function (result) {
+                        $('#consignee').modal({show: true});
+                    });
+                }
+            });
+        });
+        $(document).on('click', '.addCustomer', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/customer_modal.php', function (result) {
+                        $('#add_customer').modal({show: true});
+                    });
+                }
+            });
+        });
 
 
-            $(document).on("click", "#equipment_type", function () {
-                //alert('test');
-                $.ajax({
-                    type: 'POST',
-                    success: function (data) {
-                        $('.modal-container').load('./master/add_equipment_type.php', function (result) {
-                            $('#equipment').modal({show: true});
-                        });
-                    },
-                });
+        $(document).on("click", "#currency_setting", function () {
+            //alert('test');
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_currency.php', function (result) {
+                        $('#currency').modal({show: true});
+                    });
+                },
             });
+        });
 
-            $(document).on("click", "#trailer_type", function () {
-                //alert('test');
-                $.ajax({
-                    type: 'POST',
-                    success: function (data) {
-                        $('.modal-container').load('./master/add_trailer_type.php', function (result) {
-                            $('#trailer').modal({show: true});
-                        });
-                    },
-                });
-            });
 
-            $(document).on("click", "#fix_category", function () {
-                //alert('test');
-                $.ajax({
-                    type: 'POST',
-                    success: function (data) {
-                        $('.modal-container').load('./master/add_fixpaycategory.php', function (result) {
-                            $('#Fix_Pay').modal({show: true});
-                        });
-                    },
-                });
+        $(document).on("click", "#truck_type", function () {
+            //alert('test');
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_truck_type.php', function (result) {
+                        $('#truck').modal({show: true});
+                    });
+                },
             });
+        });
 
-            $(document).on('click', '.ADDcompany', function () {
-                $.ajax({
-                    type: 'POST',
-                    success: function (data) {
-                        $('.modal-container').load('./master/add_company.php', function (result) {
-                            $('#company_modal').modal({show: true});
-                        });
-                    }
-                });
-            });
-            $(document).on('click', '.add_loadType', function () {
-                $.ajax({
-                    type: 'POST',
-                    success: function (data) {
-                        $('.modal-container').load('./master/add_loadType.php', function (result) {
-                            $('#Load_Type').modal({show: true});
-                        });
-                    }
-                });
-            });
 
-            $(document).on('click', '.add_office', function () {
-                $.ajax({
-                    type: 'POST',
-                    success: function (data) {
-                        $('.modal-container').load('./master/add_office.php', function (result) {
-                            $('#Office').modal({show: true});
-                        });
-                    }
-                });
+        $(document).on("click", "#equipment_type", function () {
+            //alert('test');
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_equipment_type.php', function (result) {
+                        $('#equipment').modal({show: true});
+                    });
+                },
             });
+        });
 
-            $(document).on('click', '.add_payment_terms', function () {
-                $.ajax({
-                    type: 'POST',
-                    success: function (data) {
-                        $('.modal-container').load('./master/add_paymentTerms.php', function (result) {
-                            $('#Payment_Terms').modal({show: true});
-                        });
-                    }
-                });
+        $(document).on("click", "#trailer_type", function () {
+            //alert('test');
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_trailer_type.php', function (result) {
+                        $('#trailer').modal({show: true});
+                    });
+                },
             });
+        });
+
+        $(document).on("click", "#fix_category", function () {
+            //alert('test');
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_fixpaycategory.php', function (result) {
+                        $('#Fix_Pay').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        $(document).on('click', '.ADDcompany', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_company.php', function (result) {
+                        $('#company_modal').modal({show: true});
+                    });
+                }
+            });
+        });
+        $(document).on('click', '.add_loadType', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_loadType.php', function (result) {
+                        $('#Load_Type').modal({show: true});
+                    });
+                }
+            });
+        });
+
+        $(document).on('click', '.add_office', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_office.php', function (result) {
+                        $('#Office').modal({show: true});
+                    });
+                }
+            });
+        });
+
+        $(document).on('click', '.add_payment_terms', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_paymentTerms.php', function (result) {
+                        $('#Payment_Terms').modal({show: true});
+                    });
+                }
+            });
+        });
 
         $(document).on('click', '.add_bank', function () {
             $.ajax({
@@ -341,13 +374,13 @@
                                 <li><a href="#" class="addShipper">Shipper</a></li>
 
                                 <li>
-                                    <a href="#">Consignee</a>
+                                    <a href="#" class="addConsignee">Consignee</a>
                                 </li>
                                 <li>
-                                    <a href="#"">User</a>
+                                    <a href="#" class="addUser">User</a>
                                 </li>
                                 <li>
-                                    <a href="#">Customer</a>
+                                    <a href="#" class="addCustomer">Customer</a>
                                 </li>
                             </ul>
                         </li>
@@ -370,10 +403,10 @@
                                 <li>
                                     <a href="#" id="fix_category">Fix Pay Category</a>
                                 </li>
-                                <li >
+                                <li>
                                     <a href="#" class="add_bank">Bank</a>
                                 </li>
-                                <li >
+                                <li>
                                     <a href="#" class="add_status">Status</a>
                                 </li>
                                 <li>
@@ -489,9 +522,9 @@
         <!-- end navbar-custom -->
     </header>
     <!-- End Navigation Bar-->
-<!--    <div class="add_company_modal"></div>-->
-<!--    <div class="add_office_modal"></div>-->
-<!--    <div class="add_paymentTerm_modal"></div>-->
-<!--    <div class="add_loadType_modal"></div>-->
+    <!--    <div class="add_company_modal"></div>-->
+    <!--    <div class="add_office_modal"></div>-->
+    <!--    <div class="add_paymentTerm_modal"></div>-->
+    <!--    <div class="add_loadType_modal"></div>-->
     <div class="modal-container"></div>
-<!--    <div class="add_shipper_modal"></div>-->
+    <!--    <div class="add_shipper_modal"></div>-->
