@@ -2,9 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/admin/bank_admin.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/bank_admin_modal.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/bank_credit.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/credit_card_modal.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/custom_broker.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/custom_broker_modal.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/model/Bank_Admin.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/model/Credit_Card_Admin.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/model/Customs_Broker.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/model/Sub_Credit_Card.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/sub_credit_card.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/sub_credit_card_modal.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/utils/Helper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/validation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/bootstrap.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/add_bank.php" beforeDir="false" afterPath="$PROJECT_DIR$/master/add_bank.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/master/js/form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/master/js/validation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/status_type_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/master/status_type_modal.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/master/upload/Test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/master/upload/Test.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.php" beforeDir="false" afterPath="$PROJECT_DIR$/model.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,10 +35,25 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable />
     </execution>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -33,12 +71,7 @@
       <path value="$PROJECT_DIR$/vendor/mongodb/mongodb" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1509" />
-    <option name="y" value="-8" />
-    <option name="width" value="1026" />
-    <option name="height" value="554" />
-  </component>
+  <component name="ProjectId" id="1Wn5VwRNlyCyc1A28czhgdq6krO" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -47,10 +80,15 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/css" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\windson-dispatch\admin" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\windson-dispatch\assets\css" />
+      <recent name="C:\xampp\htdocs\windson-dispatch\assets" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -77,6 +115,9 @@
       <updated>1579614540717</updated>
       <workItem from="1579614544799" duration="3157000" />
       <workItem from="1579688110173" duration="4098000" />
+      <workItem from="1579772556182" duration="8176000" />
+      <workItem from="1579780766826" duration="22112000" />
+      <workItem from="1579858641694" duration="27208000" />
     </task>
     <servers />
   </component>

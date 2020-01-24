@@ -562,6 +562,7 @@
                                                                     <label class="custom-control-label"
                                                                            for="customCheck8">As a Consignee</label>
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                     </div>

@@ -964,7 +964,7 @@ function importfixpay() {
     });
 }
 
-/* Debit Bank Category  START*/
+/*------------- Debit Bank Category  START  --------------------*/
 
 //Add Debit
 function addDebitCategory(){
@@ -1072,9 +1072,9 @@ function export_Excel() {
     });
 }
 
-/* Debit Bank Category END*/
+/*------------------ Debit Bank Category END  -------------------------------*/
 
-/* Credit Bank Category START*/
+/*------------------ Credit Bank Category START -----------------------------*/
 
 // Add Credit
 function addCreditCategory() {
@@ -1181,9 +1181,9 @@ function exportExcelCredit() {
     });
 }
 
-/* Credit Bank Category END */
+/*----------------------- Credit Bank Category END -------------------*/
 
-/* Credit Card Category START */
+/*----------------------- Credit Card Category START ------------------*/
 
 // Add Card
 function addCreditCard(){
@@ -1292,9 +1292,9 @@ function export_Card() {
     });
 }
 
-/* Credit Card Category END */
+/*--------------------------- Credit Card Category END  --------------------*/
 
-/* Status Type START */
+/*----------------------- Status Type START ----------------------*/
 
 function addStatusType() {
     var status_name = document.getElementById("status_name").value;
@@ -1396,4 +1396,5 @@ function deleteStatus(id) {
     }
 }
 
-/* Status Type END */
+/*---------------------- Status Type END ------------------------*/
+

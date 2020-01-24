@@ -17,11 +17,13 @@
     <link href="assets/css/modalStyle.css" rel="stylesheet" type="text/css">
     <link href="assets/css/modalFormStyle.css" rel="stylesheet" type="text/css">
 
-    <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
-    <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
+   <!-- <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
+    <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>-->
 
     <script src="master/js/form.js"></script>
+    <script src="admin/js/form.js"></script>
     <script src="master/js/validation.js"></script>
+    <script src="admin/js/validation.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
@@ -161,6 +163,52 @@
                     $('.modal-container').load('./master/status_type_modal.php', function (result) {
                         $('#Status_Type').modal({show: true});
                     });
+                }
+            });
+        });
+
+        $(document).on('click','#bankadmin', function () {
+            $.ajax({
+               type: 'POST',
+               success: function (data) {
+
+                   $('.modal-container').load('./admin/bank_admin_modal.php', function (result) {
+                       $('#bank').modal({show: true});
+                   })
+               }
+            });
+        });
+
+        $(document).on('click','#credit_card', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/credit_card_modal.php', function (result) {
+                        $('#CreditCard').modal({show: true});
+                    })
+                }
+            });
+        });
+
+        $(document).on('click','#sub_credit_card', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+
+                    $('.modal-container').load('./admin/sub_credit_card_modal.php', function (result) {
+                        $('#Credit_Card').modal({show: true});
+                    })
+                }
+            });
+        });
+
+        $(document).on('click','#custom_broker', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/custom_broker_modal.php', function (result) {
+                        $('#Custom_Broker').modal({show: true});
+                    })
                 }
             });
         });
@@ -344,9 +392,27 @@
                                 <li>
                                     <a href="#">Consignee</a>
                                 </li>
+
+                                <li>
+                                    <a href="#" id="bankadmin">Add Bank</a>
+                                </li>
+
+                                <li>
+                                    <a href="#" id="credit_card">Credit Card</a>
+                                </li>
+
+                                <li>
+                                    <a href="#" id="sub_credit_card">Sub Credit Card</a>
+                                </li>
+
+                                <li>
+                                    <a href="#" id="custom_broker">Custom Broker</a>
+                                </li>
+
                                 <li>
                                     <a href="#"">User</a>
                                 </li>
+
                                 <li>
                                     <a href="#">Customer</a>
                                 </li>
