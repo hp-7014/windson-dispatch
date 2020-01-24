@@ -53,3 +53,22 @@ else if ($_GET['type'] == 'exportConsignee') {
     $consignee = new Consignee();
     $consignee->exportConsignee($db);
 }
+
+// update function here
+else if ($_GET['type'] == 'edit_consignee') {
+    $consignee = new Consignee();
+    $consignee->setId($_POST['id']);
+    $consignee->setCompanyId($_POST['companyid']);
+    $consignee->setConsigneeName($_POST['value']);
+    $consignee->setColumn($_POST['column']);
+    $consignee->updateConsignee($consignee, $db);
+    echo 'Data Update Successfully';
+}
+
+// delete function here
+else if ($_GET['type'] == 'delete_consignee') {
+    $consignee = new Consignee();
+    $consignee->setId($_POST['id']);
+    $consignee->deleteConsignee($consignee, $db);
+    echo 'Data Removed Successfully';
+}

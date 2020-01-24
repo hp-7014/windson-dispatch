@@ -32,6 +32,23 @@ class Shipper implements IteratorAggregate
     private $insertUserName;
     private $deleteStatus;
     private $deleteUserName;
+    private $Column;
+
+    /**
+     * @return mixed
+     */
+    public function getColumn()
+    {
+        return $this->Column;
+    }
+
+    /**
+     * @param mixed $Column
+     */
+    public function setColumn($Column)
+    {
+        $this->Column = $Column;
+    }
 
     /**
      * @return mixed
@@ -556,6 +573,22 @@ class Shipper implements IteratorAggregate
             }
         }
         echo json_encode($p);
+    }
+
+    // update function
+    public function updateShipper($shipper, $db)
+    {
+        $db->shipper->updateOne(['companyID' => (int)$_SESSION['companyId'], 'shipper._id' => (int)$this->getId()],
+            ['$set' => ['shipper.$.' . $shipper->getColumn() => $shipper->getShipperName()]]
+        );
+    }
+
+    // delete fucntion
+    public function deleteShipper($shipper, $db)
+    {
+        $db->shipper->updateOne(['companyID' => (int)$_SESSION['companyId'], 'shipper._id' => (int)$this->getId()],
+            ['$set' => ['shipper.$.deleteStatus' => 1]]
+        );
     }
 
 }

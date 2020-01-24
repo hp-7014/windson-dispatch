@@ -31,6 +31,23 @@ class Consignee implements IteratorAggregate
     private $insertedUserId;
     private $deleteStatus;
     private $deletedUserId;
+    private $Column;
+
+    /**
+     * @return mixed
+     */
+    public function getColumn()
+    {
+        return $this->Column;
+    }
+
+    /**
+     * @param mixed $Column
+     */
+    public function setColumn($Column)
+    {
+        $this->Column = $Column;
+    }
 
     /**
      * @return mixed
@@ -539,6 +556,22 @@ class Consignee implements IteratorAggregate
             }
         }
         echo json_encode($p);
+    }
+
+    // update function
+    public function updateConsignee($consignee, $db)
+    {
+        $db->consignee->updateOne(['companyID' => (int)$_SESSION['companyId'], 'consignee._id' => (int)$this->getId()],
+            ['$set' => ['consignee.$.' . $consignee->getColumn() => $consignee->getConsigneeName()]]
+        );
+    }
+
+    // delete fucntion
+    public function deleteConsignee($consignee, $db)
+    {
+        $db->consignee->updateOne(['companyID' => (int)$_SESSION['companyId'], 'consignee._id' => (int)$this->getId()],
+            ['$set' => ['consignee.$.deleteStatus' => 1]]
+        );
     }
 
 }

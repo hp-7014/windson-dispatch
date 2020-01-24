@@ -53,3 +53,22 @@ else if ($_GET['type'] == 'exportShipper') {
     $shipper = new Shipper();
     $shipper->exportShipper($db);
 }
+
+// delete function here
+else if ($_GET['type'] == 'delete_shipper') {
+    $shipper = new Shipper();
+    $shipper->setId($_POST['id']);
+    $shipper->deleteShipper($shipper, $db);
+    echo 'Data Removed Successfully';
+}
+
+// update function here
+else if ($_GET['type'] == 'edit_shipper') {
+    $shipper = new Shipper();
+    $shipper->setId($_POST['id']);
+    $shipper->setCompanyId($_POST['companyid']);
+    $shipper->setShipperName($_POST['value']);
+    $shipper->setColumn($_POST['column']);
+    $shipper->updateShipper($shipper, $db);
+    echo 'Data Update Successfully';
+}

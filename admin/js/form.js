@@ -100,7 +100,7 @@ function importShipper() {
         cache: false,
         processData: false,
         success: function (data) {
-            swal("Success",data,'success');
+            swal("Success", data, 'success');
         }
     });
 }
@@ -110,7 +110,7 @@ function exportShipper(id) {
 
     $.ajax({
         url: 'admin/shipper_driver.php?type=' + 'exportShipper',
-        data:{companyid:id},
+        data: {companyid: id},
         type: 'POST',
         success: function (data) {
 
@@ -132,6 +132,38 @@ function exportShipper(id) {
             link.click();
         }
     });
+}
+//edit function
+function updateShipper(element, column, id) {
+    var value = element.innerText;
+    var companyId = document.getElementById('companyID').value;
+    $.ajax({
+        url: 'admin/shipper_driver.php?type=' + 'edit_shipper',
+        type: 'POST',
+        data: {
+            companyid: companyId,
+            column: column,
+            id: id,
+            value: value,
+        },
+        success: function (data) {
+            swal("Success",data,'success');
+        }
+    });
+}
+
+// delete function
+function deleteShipper(id) {
+    if (confirm('Are you sure to remove this record ?')) {
+        $.ajax({
+            url: 'admin/shipper_driver.php?type=' + 'delete_shipper',
+            type: 'POST',
+            data: {id: id},
+            success: function (data) {
+                swal("Success",data,'success');
+            }
+        });
+    }
 }
 //----------Shipper Start-------------
 
@@ -236,7 +268,7 @@ function importConsignee() {
         cache: false,
         processData: false,
         success: function (data) {
-            swal("Success",data,'success');
+            swal("Success", data, 'success');
         }
     });
 }
@@ -246,7 +278,7 @@ function exportConsignee(id) {
 
     $.ajax({
         url: 'admin/consignee_driver.php?type=' + 'exportConsignee',
-        data:{companyid:id},
+        data: {companyid: id},
         type: 'POST',
         success: function (data) {
 
@@ -269,14 +301,287 @@ function exportConsignee(id) {
         }
     });
 }
+
+//edit function
+function updateConsignee(element, column, id) {
+    var value = element.innerText;
+    var companyId = document.getElementById('companyId').value;
+    $.ajax({
+        url: 'admin/consignee_driver.php?type=' + 'edit_consignee',
+        type: 'POST',
+        data: {
+            companyid: companyId,
+            column: column,
+            id: id,
+            value: value,
+        },
+        success: function (data) {
+            swal("Success",data,'success');
+        }
+    });
+}
+
+// delete function
+function deleteConsignee(id) {
+    if (confirm('Are you sure to remove this record ?')) {
+        $.ajax({
+            url: 'admin/consignee_driver.php?type=' + 'delete_consignee',
+            type: 'POST',
+            data: {id: id},
+            success: function (data) {
+                swal("Success",data,'success');
+            }
+        });
+    }
+}
 //----------Consignee End-------------
 
 //----------Customer Start------------
+// shown M.C. Fields
 function showFields() {
     $('#mcShow').toggle();
 }
-function  addCustomer() {
+
+// step form function
+function toggle() {
+
     var custName = document.getElementById('custName').value;
-    alert(custName);
+    var custAddress = document.getElementById('custAddress').value;
+    var custLocation = document.getElementById('custLocation').value;
+
+
+    if (val_custName(custName)) {
+        if (val_custAddress(custAddress)) {
+            if (val_custLocation(custLocation)) {
+                if (val_custZip(custZip)) {
+
+                    $("#home").toggleClass("show");
+                    $("#home").toggleClass("active");
+                    $("#profile").toggleClass("show");
+                    $("#profile").toggleClass("active");
+                    $("#home-tab").toggleClass("active");
+                    $("#profile-tab").toggleClass("active");
+
+                    if ($("#home-tab").attr("aria-selected") === 'true') {
+                        $("#home-tab").attr("aria-selected", "false");
+                    } else {
+                        $("#home-tab").attr("aria-selected", "true");
+                    }
+
+                    if ($("#profile-tab").attr("aria-selected") === 'true') {
+                        $("#profile-tab").attr("aria-selected", "false");
+                    } else {
+                        $("#profile-tab").attr("aria-selected", "true");
+                    }
+
+                    $("#home-title").toggleClass("show");
+                    $("#profile-title").toggleClass("show");
+                }
+            }
+        }
+    }
+}
+
+// add customer
+function addCustomer() {
+    var companyId = document.getElementById('companyId').value;
+    var custName = document.getElementById('custName').value;
+    var custAddress = document.getElementById('custAddress').value;
+    var custLocation = document.getElementById('custLocation').value;
+    var custZip = document.getElementById('custZip').value;
+    var sameAsMailingAddress = document.getElementsByName('sameAsMailingAddress');
+    var billingAddress = document.getElementById('billingAddress').value;
+    var billingLocation = document.getElementById('billingLocation').value;
+    var billingZip = document.getElementById('billingZip').value;
+    var primaryContact = document.getElementById('primaryContact').value;
+    var custTelephone = document.getElementById('custTelephone').value;
+    var custExt = document.getElementById('custExt').value;
+    var custEmail = document.getElementById('custEmail').value;
+    var custFax = document.getElementById('custFax').value;
+    var billingContact = document.getElementById('billingContact').value;
+    var billingEmail = document.getElementById('billingEmail').value;
+    var billingTelephone = document.getElementById('billingTelephone').value;
+    var billingExt = document.getElementById('billingExt').value;
+    var URS = document.getElementById('URS').value;
+
+    var blacklisted = document.getElementsByName('blacklisted');
+    var AsShipper = document.getElementsByName('AsShipper');
+    var AsConsignee = document.getElementsByName('AsConsignee');
+    var MC = document.getElementById('MC').value;
+
+    var currencySetting = document.getElementById('currencySetting').value;
+    var paymentTerms = document.getElementById('paymentTerms').value;
+    var creditLimit = document.getElementById('creditLimit').value;
+    var salesRep = document.getElementById('salesRep').value;
+    var factoringCompany = document.getElementById('factoringCompany').value;
+    var federalID = document.getElementById('federalID').value;
+    var workerComp = document.getElementById('workerComp').value;
+    var websiteURL = document.getElementById('websiteURL').value;
+    var numberOninvoice = document.getElementsByName('numberOninvoice');
+    var customerRate = document.getElementsByName('customerRate');
+    var internalNotes = document.getElementById('internalNotes').value;
+
+    if (val_billingAddress(billingAddress)) {
+        if (val_billingLocation(billingLocation)) {
+            if (val_billingZip(billingZip)) {
+                if (val_primaryContact(primaryContact)) {
+                    if (val_custTelephone(custTelephone)) {
+                        if (val_custExt(custExt)) {
+                            if (val_custEmail(custEmail)) {
+                                if (val_custFax(custFax)) {
+                                    if (val_billingContact(billingContact)) {
+                                        if (val_billingEmail(billingEmail)) {
+                                            if (val_billingTelephone(billingTelephone)) {
+                                                if (val_billingExt(billingExt)) {
+                                                    if (val_URS(URS)) {
+                                                        if (val_currencySetting(currencySetting)) {
+                                                            if (val_paymentTerms(paymentTerms)) {
+                                                                if (val_creditLimit(creditLimit)) {
+                                                                    if (val_salesRep(salesRep)) {
+                                                                        if (val_factoringCompany(factoringCompany)) {
+                                                                            if (val_federalID(federalID)) {
+                                                                                if (val_workerComp(workerComp)) {
+                                                                                    if (val_websiteURL(websiteURL)) {
+                                                                                        if (val_internalNotes(internalNotes)) {
+                                                                                            $.ajax({
+                                                                                                url: 'admin/customer_driver.php?type=' + 'addCustomer',
+                                                                                                type: 'POST',
+                                                                                                data: {
+                                                                                                    companyId: companyId,
+                                                                                                    custName: custName,
+                                                                                                    custAddress: custAddress,
+                                                                                                    custLocation: custLocation,
+                                                                                                    custZip: custZip,
+                                                                                                    billingAddress: billingAddress,
+                                                                                                    billingLocation: billingLocation,
+                                                                                                    billingZip: billingZip,
+                                                                                                    primaryContact: primaryContact,
+                                                                                                    custTelephone: custTelephone,
+                                                                                                    custExt: custExt,
+                                                                                                    custEmail: custEmail,
+                                                                                                    custFax: custFax,
+                                                                                                    billingContact: billingContact,
+                                                                                                    billingEmail: billingEmail,
+                                                                                                    billingTelephone: billingTelephone,
+                                                                                                    billingExt: billingExt,
+                                                                                                    URS: URS,
+                                                                                                    currencySetting: currencySetting,
+                                                                                                    paymentTerms: paymentTerms,
+                                                                                                    creditLimit: creditLimit,
+                                                                                                    salesRep: salesRep,
+                                                                                                    factoringCompany: factoringCompany,
+                                                                                                    federalID: federalID,
+                                                                                                    workerComp: workerComp,
+                                                                                                    websiteURL: websiteURL,
+                                                                                                    internalNotes: internalNotes,
+                                                                                                    MC: MC
+                                                                                                },
+                                                                                                success: function (data) {
+                                                                                                    swal('Success', data, 'success');
+                                                                                                }
+                                                                                            });
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Import customer
+function importCustomer() {
+    var form_data = new FormData();
+
+    form_data.append("file", document.getElementById('file').files[0]);
+
+    $.ajax({
+        url: 'admin/customer_driver.php?type=' + 'importCustomer',
+        method: 'post',
+        data: form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            swal("Success", data, 'success');
+        }
+    });
+}
+
+// Export Excel
+function exportCustomer(id) {
+
+    $.ajax({
+        url: 'admin/customer_driver.php?type=' + 'exportCustomer',
+        data: {companyid: id},
+        type: 'POST',
+        success: function (data) {
+
+            var rows = JSON.parse(data);
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            rows.forEach(function (rowArray) {
+                let row = rowArray.join(",");
+                csvContent += row + "\r\n";
+            });
+
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "my_data.csv");
+            document.body.appendChild(link); // Required for FF
+
+            link.click();
+        }
+    });
+}
+
+//edit function
+function updateCustomer(element, column, id) {
+    var value = element.innerText;
+    var companyId = document.getElementById('companyId').value;
+    $.ajax({
+        url: 'admin/customer_driver.php?type=' + 'edit_customer',
+        type: 'POST',
+        data: {
+            companyid: companyId,
+            column: column,
+            id: id,
+            value: value,
+        },
+        success: function (data) {
+            swal("Success",data,'success');
+        }
+    });
+}
+
+// delete function
+function deleteCustomer(id) {
+    if (confirm('Are you sure to remove this record ?')) {
+        $.ajax({
+            url: 'admin/customer_driver.php?type=' + 'delete_customer',
+            type: 'POST',
+            data: {id: id},
+            success: function (data) {
+                swal("Success",data,'success');
+            }
+        });
+    }
 }
 //----------Customer End--------------

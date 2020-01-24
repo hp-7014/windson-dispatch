@@ -63,7 +63,7 @@
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./admin/customer_modal.php', function (result) {
-                        $('#add_customer').modal({show: true});
+                        $('#customer').modal({show: true});
                     });
                 }
             });

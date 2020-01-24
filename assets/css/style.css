@@ -3679,5 +3679,5 @@ table.focus-on tbody tr.focused td {
 }
 .modal-body
 {
-  overflow-x:hidden;
+  overflow-x:auto;
 }
