@@ -1,34 +1,199 @@
-<!--  Modal content for the above example -->
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="add_customer"
+<?php
+session_start();
+require "../database/connection.php";
+?>
+<!-- Modal content for the above example -->
+<div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="customer"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-dialog modal-xxl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
-                <h5 class="modal-title custom-modal-title mt-0" id="myLargeModalLabel">Add
+                <h5 class="modal-title custom-modal-title mt-0">
                     Customer</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body custom-modal-body">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item show" id="home-title">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#"
-                           role="tab" aria-controls="home"
-                           aria-selected="true">Add Customer
-                        </a>
-                    </li>
-                    <li class="nav-item" id="profile-title">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#"
-                           role="tab" aria-controls="profile"
-                           aria-selected="false">Add Advance</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel"
-                         aria-labelledby="home-tab">
-                        <br>
-                        <form>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card m-b-30">
+                            <div class="card-body">
+                                <form action="" method="post" enctype="multipart/form-data">
+                                    <button type="button" class="btn btn-primary waves-effect waves-light"
+                                            data-toggle="modal"
+                                            data-target="#add_customer">Add
+                                    </button>
+                                    <input type="submit" name="submit" onclick="importCustomer()"
+                                           class="btn btn-outline-info waves-effect waves-light float-right"
+                                           value="Upload"/>
+                                    <div class="custom-upload-btn-wrapper float-right">
+                                        <button class="custom-btn">Choose file</button>
+                                        <input type="file" name="file" id="file" accept=".csv"/>
+                                    </div>
+                                    <button type="button"
+                                            class="btn btn-outline-success waves-effect waves-light float-right">CSV
+                                        formate
+                                    </button>
+                                </form>
+                                <br>
+                                <table id="mainTable"
+                                       class="table table-striped mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Customer Name</th>
+                                        <th>Address</th>
+                                        <th>Location</th>
+                                        <th>Zip</th>
+                                        <th>Billing Address</th>
+                                        <th>Location</th>
+                                        <th>Zip</th>
+                                        <th>Primary Contact</th>
+                                        <th>Telephone</th>
+                                        <th>Ext</th>
+                                        <th>Email</th>
+                                        <th>Fax</th>
+                                        <th>Billing Contact</th>
+                                        <th>Billing Email</th>
+                                        <th>Billing Telephone</th>
+                                        <th>Ext</th>
+                                        <th>URS</th>
+                                        <th>M.C.</th>
+                                        <th>Currency Setting</th>
+                                        <th>Payment Terms</th>
+                                        <th>Credit Limit $</th>
+                                        <th>Sales Rep</th>
+                                        <th>Factoring Company</th>
+                                        <th>Federal ID</th>
+                                        <th>Worker's Comp #</th>
+                                        <th>Website URL</th>
+                                        <th>Internal Notes</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    require 'model/Customer.php';
+
+                                    $customer = new Customer();
+                                    $show_data = $db->customer->find(['companyID' => $_SESSION['companyId'],['customer.deleteStatus' => 0]]);
+                                    $no = 1;
+                                    foreach ($show_data as $show) {
+                                        $show = $show['customer'];
+                                        foreach ($show as $s) {
+                                            ?>
+                                            <tr>
+                                                <td><a href="#"><?php echo $no++; ?></a></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'custName',<?php echo $s['_id']; ?>)"><?php echo $s['custName']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'custAddress',<?php echo $s['_id']; ?>)"><?php echo $s['custAddress']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'custLocation',<?php echo $s['_id']; ?>)"><?php echo $s['custLocation']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'custZip',<?php echo $s['_id']; ?>)"><?php echo $s['custZip']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'billingAddress',<?php echo $s['_id']; ?>)"><?php echo $s['billingAddress']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'billingLocation',<?php echo $s['_id']; ?>)"><?php echo $s['billingLocation']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'billingZip',<?php echo $s['_id']; ?>)"><?php echo $s['billingZip']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'primaryContact',<?php echo $s['_id']; ?>)"><?php echo $s['primaryContact']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'custTelephone',<?php echo $s['_id']; ?>)"><?php echo $s['custTelephone']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'custExt',<?php echo $s['_id']; ?>)"><?php echo $s['custExt']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'custEmail',<?php echo $s['_id']; ?>)"><?php echo $s['custEmail']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'custFax',<?php echo $s['_id']; ?>)"><?php echo $s['custFax']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'billingContact',<?php echo $s['_id']; ?>)"><?php echo $s['billingContact']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'billingEmail',<?php echo $s['_id']; ?>)"><?php echo $s['billingEmail']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'billingTelephone',<?php echo $s['_id']; ?>)"><?php echo $s['billingTelephone']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'billingExt',<?php echo $s['_id']; ?>)"><?php echo $s['billingExt']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'URS',<?php echo $s['_id']; ?>)"><?php echo $s['URS']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'MC',<?php echo $s['_id']; ?>)"><?php echo $s['MC']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'currencySetting',<?php echo $s['_id']; ?>)"><?php echo $s['currencySetting']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'paymentTerms',<?php echo $s['_id']; ?>)"><?php echo $s['paymentTerms']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'creditLimit',<?php echo $s['_id']; ?>)"><?php echo $s['creditLimit']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'salesRep',<?php echo $s['_id']; ?>)"><?php echo $s['salesRep']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'factoringCompany',<?php echo $s['_id']; ?>)"><?php echo $s['factoringCompany']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'federalID',<?php echo $s['_id']; ?>)"><?php echo $s['federalID']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'workerComp',<?php echo $s['_id']; ?>)"><?php echo $s['workerComp']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'websiteURL',<?php echo $s['_id']; ?>)"><?php echo $s['websiteURL']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateCustomer(this,'internalNotes',<?php echo $s['_id']; ?>)"><?php echo $s['internalNotes']; ?></td>
+                                                <td><a href="#" onclick="deleteCustomer(<?php echo $s['_id']; ?>)"><i
+                                                                class="mdi mdi-delete-sweep-outline"
+                                                                style="font-size: 20px; color: #FC3B3B"></i></a></td>
+                                            </tr>
+                                        <?php }
+                                    } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> <!-- end col -->
+                    </div> <!-- end row -->
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="exportCustomer(<?php echo $_SESSION['companyId']; ?>)"
+                            class="btn btn-primary waves-effect waves-light">Export
+                    </button>
+                    <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!--  Modal content for the above example -->
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="add_customer"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content custom-modal-content">
+                <div class="modal-header custom-modal-header">
+                    <h5 class="modal-title custom-modal-title mt-0" id="myLargeModalLabel">Add
+                        Customer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body custom-modal-body">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item show" id="home-title">
+                            <a class="nav-link active" onclick="toggle()" id="home-tab" data-toggle="tab" href="#"
+                               role="tab" aria-controls="home"
+                               aria-selected="true">Add Customer
+                            </a>
+                        </li>
+                        <li class="nav-item" id="profile-title">
+                            <a class="nav-link" onclick="toggle()" id="profile-tab" data-toggle="tab" href="#"
+                               role="tab" aria-controls="profile"
+                               aria-selected="false">Add Advance</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel"
+                             aria-labelledby="home-tab">
+                            <br>
+
                             <div class="row">
                                 <div class="form-group col-md-3">
                                     <label>Customer Name *</label>
@@ -63,7 +228,8 @@
                                     <label>Billing Address</label>
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input"
-                                               id="customCheck1" data-parsley-multiple="groups"
+                                               id="customCheck1" name="sameAsMailingAddress"
+                                               data-parsley-multiple="groups"
                                                data-parsley-mincheck="2">
                                         <label class="custom-control-label" for="customCheck1">Same
                                             as Mailing Address</label>
@@ -111,14 +277,13 @@
                                     <label>Ext</label>
                                     <div>
                                         <input class="form-control" placeholder="Ext"
-                                               type="text" id="ext1">
+                                               type="text" id="custExt">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label>Email</label>
                                     <div>
                                         <input class="form-control" type="email"
-                                               value="bootstrap@example.com"
                                                id="custEmail">
                                     </div>
                                 </div>
@@ -155,7 +320,7 @@
                                     <label>Ext</label>
                                     <div>
                                         <input class="form-control" placeholder="Ext"
-                                               type="text" id="ext2">
+                                               type="text" id="billingExt">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-1">
@@ -221,146 +386,123 @@
                             <hr>
                             <button onclick="toggle()" class="btn btn-success float-right">Next
                             </button>
-                        </form>
-                    </div>
-                    <script type="text/javascript">
-                        function toggle() {
-                            $("#home").toggleClass("show");
-                            $("#home").toggleClass("active");
-                            $("#profile").toggleClass("show");
-                            $("#profile").toggleClass("active");
-                            $("#home-tab").toggleClass("active");
-                            $("#profile-tab").toggleClass("active");
-                            if ($("#home-tab").attr("aria-selected") === 'true') {
-                                $("#home-tab").attr("aria-selected", "false");
-                            } else {
-                                $("#home-tab").attr("aria-selected", "true");
-                            }
-                            if ($("#profile-tab").attr("aria-selected") === 'true') {
-                                $("#profile-tab").attr("aria-selected", "false");
-                            } else {
-                                $("#profile-tab").attr("aria-selected", "true");
-                            }
 
-                            $("#home-title").toggleClass("show");
-                            $("#profile-title").toggleClass("show");
-
-                        }
-                    </script>
-                    <div class="tab-pane fade" id="profile" role="tabpanel"
-                         aria-labelledby="profile-tab">
-                        <br>
-
-                        <div class="row">
-                            <div class="form-group col-md-3">
-                                <label>Currency Setting *</label>
-                                <select class="form-control">
-                                    <option>USD</option>
-                                    <option>USD</option>
-                                    <option>CAD</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label>Payment Terms*</label>
-                                <select class="form-control">
-                                    <option>30 Days</option>
-                                    <option>abc</option>
-                                    <option>xyz</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label>Credit Limit $</label>
-                                <div>
-                                    <input class="form-control" placeholder="Credit Limit $"
-                                           type="text" id="example-text-input">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label>Sales Rep</label>
-                                <select class="form-control">
-                                    <option>Select</option>
-                                    <option>abc</option>
-                                    <option>xyz</option>
-                                </select>
-                            </div>
                         </div>
-                        <div class="row">
-                            <div class="form-group col-md-3">
-                                <label>Factoring Company</label>
-                                <select class="form-control">
-                                    <option>Select</option>
-                                    <option>abc</option>
-                                    <option>xyz</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label>Federal ID</label>
-                                <div>
-                                    <input class="form-control" placeholder="Federal ID"
-                                           type="text" id="example-text-input">
+
+                        <div class="tab-pane fade" id="profile" role="tabpanel"
+                             aria-labelledby="profile-tab">
+                            <br>
+
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label>Currency Setting</label>
+                                    <select class="form-control" id="currencySetting">
+                                        <option>USD</option>
+                                        <option>USD</option>
+                                        <option>CAD</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Payment Terms</label>
+                                    <select class="form-control" id="paymentTerms">
+                                        <option>30 Days</option>
+                                        <option>abc</option>
+                                        <option>xyz</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Credit Limit $</label>
+                                    <div>
+                                        <input class="form-control" placeholder="Credit Limit $"
+                                               type="text" id="creditLimit">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Sales Rep</label>
+                                    <select class="form-control" id="salesRep">
+                                        <option>Select</option>
+                                        <option>abc</option>
+                                        <option>xyz</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="form-group col-md-3">
-                                <label>Worker's Comp #</label>
-                                <div>
-                                    <input class="form-control"
-                                           placeholder="Worker's Comp # " type="text"
-                                           id="example-text-input">
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label>Factoring Company</label>
+                                    <select class="form-control" id="factoringCompany">
+                                        <option>Select</option>
+                                        <option>abc</option>
+                                        <option>xyz</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Federal ID</label>
+                                    <div>
+                                        <input class="form-control" placeholder="Federal ID"
+                                               type="text" id="federalID">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Worker's Comp #</label>
+                                    <div>
+                                        <input class="form-control"
+                                               placeholder="Worker's Comp # " type="text"
+                                               id="workerComp">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Website URL</label>
+                                    <div>
+                                        <input class="form-control" placeholder="Website URL"
+                                               type="text" id="websiteURL">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group col-md-3">
-                                <label>Website URL</label>
-                                <div>
-                                    <input class="form-control" placeholder="Website URL"
-                                           type="text" id="example-text-input">
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label>Numbers on Invoice
+                                    </label>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input"
+                                               id="customCheck5" name="numberOninvoice" data-parsley-multiple="groups"
+                                               data-parsley-mincheck="2">
+                                        <label class="custom-control-label" for="customCheck5">Show
+                                            tel. and fax number on Invoice</label>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-3">
-                                <label>Numbers on Invoice
-                                </label>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input"
-                                           id="customCheck5" data-parsley-multiple="groups"
-                                           data-parsley-mincheck="2">
-                                    <label class="custom-control-label" for="customCheck5">Show
-                                        tel. and fax number on Invoice</label>
+                                <div class="form-group col-md-3">
+                                    <label>Customer Rate</label>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input"
+                                               id="customCheck6" name="customerRate" data-parsley-multiple="groups"
+                                               data-parsley-mincheck="2">
+                                        <label class="custom-control-label" for="customCheck6">Show
+                                            detailed Rate on Invoice</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label>Customer Rate</label>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input"
-                                           id="customCheck6" data-parsley-multiple="groups"
-                                           data-parsley-mincheck="2">
-                                    <label class="custom-control-label" for="customCheck6">Show
-                                        detailed Rate on Invoice</label>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Internal Notes</label>
-                                <div>
+                                <div class="form-group col-md-6">
+                                    <label>Internal Notes</label>
+                                    <div>
                                         <textarea rows="3" cols="30" class="form-control"
-                                                  type="textarea"
-                                                  id="example-text-input"></textarea>
+                                                  type="textarea" id="internalNotes"></textarea>
+                                        <input type="hidden" id="companyId"
+                                               value="<?php echo $_SESSION['companyId']; ?>">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <hr>
-                        <button onclick="addCustomer()" class="float-right btn btn-primary">Save</button>
-                        <button style="margin-right: 3px" data-dismiss="modal" class="float-right btn btn-danger">
-                            Close
-                        </button>
-                        <button onclick="toggle()" style="margin-right: 3px" class="float-right btn btn-secondary">
-                            Previous
-                        </button>
+                            <hr>
+                            <button onclick="addCustomer()" class="float-right btn btn-primary">Save</button>
+                            <button style="margin-right: 3px" data-dismiss="modal" class="float-right btn btn-danger">
+                                Close
+                            </button>
+                            <button onclick="toggle()" style="margin-right: 3px" class="float-right btn btn-secondary">
+                                Previous
+                            </button>
 
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->

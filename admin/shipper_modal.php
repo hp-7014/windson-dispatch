@@ -42,40 +42,75 @@ require "../database/connection.php";
                                     <tr>
                                         <th>#</th>
                                         <th>Shipper Name</th>
-                                        <th>shipperAddress</th>
-                                        <th>Telephone No</th>
-                                        <th>Fax No</th>
-                                        <th>M.C. No.</th>
-                                        <th>US DOT No.</th>
-                                        <th>Mailing Address</th>
-                                        <th>Factoring Company</th>
-                                        <th>Factoring Company Address</th>
-                                        <th>Delete</th>
+                                        <th>Address</th>
+                                        <th>Location</th>
+                                        <th>Postal / Zip</th>
+                                        <th>Contact Name</th>
+                                        <th>Contact Email</th>
+                                        <th>Telephone</th>
+                                        <th>Ext</th>
+                                        <th>Toll Free</th>
+                                        <th>Fax</th>
+                                        <th>Shipping Hours</th>
+                                        <th>Appointments</th>
+                                        <th>Major Intersection/Directions</th>
+                                        <th>Status</th>
+                                        <th>Shipping Notes</th>
+                                        <th>Internal Notes</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                    //                                    require 'model/Shipper.php';
-                                    //                                    $shipper = new Shipper();
-                                    //                                    $show_data = $db->shipper->find(['companyID' => $_SESSION['companyId']]);
-                                    //                                    $no = 1;
-                                    //                                    foreach ($show_data as $show) {
-                                    //                                            $sh = $show['company'];
-                                    //                                        foreach ($sh as $s) {
-                                    //                                            ?>
-                                    <!--                                            <tr>-->
-                                    <!--                                                <td>-->
-                                    <?php //echo $no++; ?><!--</td>-->
-                                    <!--                                                <td contenteditable="true"-->
-                                    <!--                                                    onblur="updateCompany(this,'companyName',-->
-                                    <?php //echo $s['_id']; ?><!--)">--><?php //echo $s['companyName']; ?><!--</td>-->
-                                    <td><a href="#" onclick="deleteShipper(<?php //echo $s['_id']; ?>)"><i
-                                                    class="mdi mdi-delete-sweep-outline"
-                                                    style="font-size: 20px; color: #FC3B3B"></i></a>
-                                    </td>
-                                    </tr>
-                                    <?php //}
-                                    //                                    } ?>
+                                    require 'model/Shipper.php';
+
+                                    $shipper = new Shipper();
+                                    $show_data = $db->shipper->find(['companyID' => $_SESSION['companyId']]);
+                                    $no = 1;
+                                    foreach ($show_data as $show) {
+                                        $show = $show['shipper'];
+                                        foreach ($show as $s) {
+                                            ?>
+                                            <tr>
+                                                <td><a href="#"><?php echo $no++; ?></a></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shipperName',<?php echo $s['_id']; ?>)"><?php echo $s['shipperName']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shipperAddress',<?php echo $s['_id']; ?>)"><?php echo $s['shipperAddress']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shipperLocation',<?php echo $s['_id']; ?>)"><?php echo $s['shipperLocation']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shipperPostal',<?php echo $s['_id']; ?>)"><?php echo $s['shipperPostal']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shipperContact',<?php echo $s['_id']; ?>)"><?php echo $s['shipperContact']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shipperEmail',<?php echo $s['_id']; ?>)"><?php echo $s['shipperEmail']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shipperTelephone',<?php echo $s['_id']; ?>)"><?php echo $s['shipperTelephone']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shipperExt',<?php echo $s['_id']; ?>)"><?php echo $s['shipperExt']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shipperTollFree',<?php echo $s['_id']; ?>)"><?php echo $s['shipperTollFree']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shipperFax',<?php echo $s['_id']; ?>)"><?php echo $s['shipperFax']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shipperShippingHours',<?php echo $s['_id']; ?>)"><?php echo $s['shipperShippingHours']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shipperAppointments',<?php echo $s['_id']; ?>)"><?php echo $s['shipperAppointments']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shipperIntersaction',<?php echo $s['_id']; ?>)"><?php echo $s['shipperIntersaction']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shipperStatus',<?php echo $s['_id']; ?>)"><?php echo $s['shipperStatus']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'shippingNotes',<?php echo $s['_id']; ?>)"><?php echo $s['shippingNotes']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateShipper(this,'internalNotes',<?php echo $s['_id']; ?>)"><?php echo $s['internalNotes']; ?></td>
+                                                <td><a href="#" onclick="deleteShipper(<?php echo $s['_id']; ?>)"><i
+                                                                class="mdi mdi-delete-sweep-outline"
+                                                                style="font-size: 20px; color: #FC3B3B"></i></a></td>
+                                            </tr>
+                                        <?php }
+                                    } ?>
                                     </tbody>
                                 </table>
                             </div>
