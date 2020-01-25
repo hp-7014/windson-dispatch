@@ -28,6 +28,74 @@ class Shipper implements IteratorAggregate
     private $shippingNotes;
     private $internalNotes;
     private $shipperASconsignee;
+    private $insertTime;
+    private $insertUserName;
+    private $deleteStatus;
+    private $deleteUserName;
+
+    /**
+     * @return mixed
+     */
+    public function getInsertTime()
+    {
+        return $this->insertTime;
+    }
+
+    /**
+     * @param mixed $insertTime
+     */
+    public function setInsertTime($insertTime)
+    {
+        $this->insertTime = $insertTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInsertUserName()
+    {
+        return $this->insertUserName;
+    }
+
+    /**
+     * @param mixed $insertUserName
+     */
+    public function setInsertUserName($insertUserName)
+    {
+        $this->insertUserName = $insertUserName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeleteStatus()
+    {
+        return $this->deleteStatus;
+    }
+
+    /**
+     * @param mixed $deleteStatus
+     */
+    public function setDeleteStatus($deleteStatus)
+    {
+        $this->deleteStatus = $deleteStatus;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeleteUserName()
+    {
+        return $this->deleteUserName;
+    }
+
+    /**
+     * @param mixed $deleteUserName
+     */
+    public function setDeleteUserName($deleteUserName)
+    {
+        $this->deleteUserName = $deleteUserName;
+    }
 
     /**
      * @return mixed
@@ -358,7 +426,10 @@ class Shipper implements IteratorAggregate
                     'shipperIntersaction' => $this->shipperIntersaction,
                     'shipperStatus' => $this->shipperStatus,
                     'shippingNotes' => $this->shippingNotes,
-                    'internalNotes' => $this->internalNotes
+                    'internalNotes' => $this->internalNotes,
+                    'insertedTime' => time(),
+                    'insertedUserId' => $_SESSION['companyName'],
+                    'deleteStatus' => 0
                 ])
             )
         );
@@ -389,7 +460,10 @@ class Shipper implements IteratorAggregate
                 'shipperIntersaction' => $this->shipperIntersaction,
                 'shipperStatus' => $this->shipperStatus,
                 'shippingNotes' => $this->shippingNotes,
-                'internalNotes' => $this->internalNotes
+                'internalNotes' => $this->internalNotes,
+                'insertedTime' => time(),
+                'insertedUserId' => $_SESSION['companyName'],
+                'deleteStatus' => 0
             ]]]);
         } else {
             $ship = iterator_to_array($shipper);

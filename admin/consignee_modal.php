@@ -1,14 +1,14 @@
-<?php session_start();
-require "../database/connection.php";
+<?php
+session_start();
 ?>
 <!-- Modal content for the above example -->
-<div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="shipper"
+<div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="consignee"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xxl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
                 <h5 class="modal-title custom-modal-title mt-0">
-                    Shipper</h5>
+                    Consignee</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -21,9 +21,9 @@ require "../database/connection.php";
                                 <form action="" method="post" enctype="multipart/form-data">
                                     <button type="button" class="btn btn-primary waves-effect waves-light"
                                             data-toggle="modal"
-                                            data-target="#add_shipper">Add
+                                            data-target="#add_consignee">Add
                                     </button>
-                                    <input type="submit" name="submit" onclick="importShipper()"
+                                    <input type="submit" name="submit" onclick="importConsignee()"
                                            class="btn btn-outline-info waves-effect waves-light float-right"
                                            value="Upload"/>
                                     <div class="custom-upload-btn-wrapper float-right">
@@ -36,48 +36,6 @@ require "../database/connection.php";
                                     </button>
                                 </form>
                                 <br>
-                                <table id="mainTable"
-                                       class="table table-striped mb-0">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Shipper Name</th>
-                                        <th>shipperAddress</th>
-                                        <th>Telephone No</th>
-                                        <th>Fax No</th>
-                                        <th>M.C. No.</th>
-                                        <th>US DOT No.</th>
-                                        <th>Mailing Address</th>
-                                        <th>Factoring Company</th>
-                                        <th>Factoring Company Address</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                    //                                    require 'model/Shipper.php';
-                                    //                                    $shipper = new Shipper();
-                                    //                                    $show_data = $db->shipper->find(['companyID' => $_SESSION['companyId']]);
-                                    //                                    $no = 1;
-                                    //                                    foreach ($show_data as $show) {
-                                    //                                            $sh = $show['company'];
-                                    //                                        foreach ($sh as $s) {
-                                    //                                            ?>
-                                    <!--                                            <tr>-->
-                                    <!--                                                <td>-->
-                                    <?php //echo $no++; ?><!--</td>-->
-                                    <!--                                                <td contenteditable="true"-->
-                                    <!--                                                    onblur="updateCompany(this,'companyName',-->
-                                    <?php //echo $s['_id']; ?><!--)">--><?php //echo $s['companyName']; ?><!--</td>-->
-                                    <td><a href="#" onclick="deleteShipper(<?php //echo $s['_id']; ?>)"><i
-                                                    class="mdi mdi-delete-sweep-outline"
-                                                    style="font-size: 20px; color: #FC3B3B"></i></a>
-                                    </td>
-                                    </tr>
-                                    <?php //}
-                                    //                                    } ?>
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div> <!-- end col -->
@@ -85,7 +43,7 @@ require "../database/connection.php";
 
             </div>
             <div class="modal-footer">
-                <button type="button" onclick="exportShipper(<?php echo $_SESSION['companyId']; ?>)"
+                <button type="button" onclick="exportConsignee(<?php echo $_SESSION['companyId']; ?>)"
                         class="btn btn-primary waves-effect waves-light">Export
                 </button>
                 <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">
@@ -95,15 +53,15 @@ require "../database/connection.php";
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<!--//---------------------------------------------------------->
+<!---------------------------------------------------------------------------------------->
 <!--  Modal content for the above example -->
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="add_shipper"
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="add_consignee"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
                 <h5 class="modal-title custom-modal-title mt-0" id="myLargeModalLabel">Add
-                    Shipper</h5>
+                    Consignee</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -111,84 +69,83 @@ require "../database/connection.php";
             <div class="modal-body custom-modal-body">
                 <div class="row">
                     <div class="form-group col-md-3">
-                        <label>Shipper Name *</label>
+                        <label>Consignee Name *</label>
                         <div>
-                            <input class="form-control" placeholder="Shipper Name" required type="text"
-                                   id="shipperName">
+                            <input class="form-control" placeholder="Consignee Name "
+                                   type="text" id="consigneeName">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
                         <label>Address *</label>
                         <div>
                             <input class="form-control" placeholder="Address *" type="text"
-                                   id="shipperAddress">
+                                   id="consigneeAddress">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
                         <label>Location *</label>
                         <div>
                             <input class="form-control" placeholder="Enter a location"
-                                   type="text" id="shipperLocation">
+                                   type="text" id="consigneeLocation">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
                         <label>Postal / Zip*</label>
                         <div>
                             <input class="form-control" placeholder="Postal / Zip" type="text"
-                                   id="shipperPostal">
+                                   id="consigneePostal">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
                         <label>Contact Name</label>
                         <div>
                             <input class="form-control" placeholder="Contact Name" type="text"
-                                   id="shipperContact">
+                                   id="consigneeContact">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
                         <label>Contact Email</label>
                         <div>
-                            <input class="form-control" type="email" id="shipperEmail">
+                            <input class="form-control" type="email" id="consigneeEmail">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Telephone</label>
                         <div>
-                            <input class="form-control" type="text" id="shipperTelephone">
+                            <input class="form-control" type="text" id="consigneeTelephone">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Ext</label>
                         <div>
-                            <input class="form-control" type="text" id="shipperExt">
+                            <input class="form-control" type="text" id="consigneeExt">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
                         <label>Toll Free</label>
                         <div>
                             <input class="form-control" placeholder="Toll Free" type="text"
-                                   id="shipperTollFree">
+                                   id="consigneeTollFree">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
                         <label>Fax</label>
                         <div>
                             <input class="form-control" placeholder="Fax" type="text"
-                                   id="shipperFax">
+                                   id="consigneeFax">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
-                        <label>Shipping Hours</label>
+                        <label>Receiving Hours</label>
                         <div>
-                            <input class="form-control" placeholder="Shipping Hours" type="text"
-                                   id="shipperShippingHours">
+                            <input class="form-control" placeholder="Receiving Hours"
+                                   type="text" id="consigneeReceiving">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
-                        <label>
-                            Appointments</label>
-                        <select class="form-control" id="shipperAppointments">
-                            <option value="no">--select--</option>
+                        <label>Appointments</label>
+                        <select class="form-control" id="consigneeAppointments">
+                            <option value="">--select--</option>
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
@@ -196,17 +153,17 @@ require "../database/connection.php";
                     <div class="form-group col-md-4">
                         <label>Major Intersection/Directions</label>
                         <div>
-                            <input class="form-control" type="text" id="shipperIntersaction">
+                            <input class="form-control" type="text" id="consigneeIntersaction">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
                         <label>Duplicate Info *</label>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input"
-                                   id="customCheck1" name="shipperASconsignee" data-parsley-multiple="groups"
+                                   id="customCheck1" name="consignASshipper" data-parsley-multiple="groups"
                                    data-parsley-mincheck="2">
                             <label class="custom-control-label" for="customCheck1">Add as
-                                Consignee</label>
+                                Shipper</label>
                         </div>
                     </div>
                 </div>
@@ -216,42 +173,41 @@ require "../database/connection.php";
                         <div class="row">
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" class="custom-control-input"
-                                       id="defaultInline1" value="Active" name="shipperStatus"
+                                       id="defaultInline1" value="Active" name="consigneeStatus"
                                        checked>
                                 <label class="custom-control-label"
                                        for="defaultInline1">Active</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" class="custom-control-input"
-                                       id="defaultInline2" value="Inactive" name="shipperStatus">
+                                       id="defaultInline2" value="Inactive" name="consigneeStatus">
                                 <label class="custom-control-label" for="defaultInline2">Inactive</label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group col-md-5">
-                        <label>Shipping Notes</label>
+                        <label>Receiving Notes</label>
                         <div>
                             <textarea rows="3" cols="30" class="form-control" type="textarea"
-                                      id="shippingNotes"></textarea>
+                                                              id="consigneeRecivingNote"></textarea>
                         </div>
                     </div>
                     <div class="form-group col-md-5">
                         <label>Internal Notes</label>
                         <div>
                             <textarea rows="3" cols="30" class="form-control" type="textarea"
-                                      id="internalNotes"></textarea>
-                            <input type="hidden" id="companyID" value="<?php echo $_SESSION['companyId']; ?>">
+                                                              id="consigneeInternalNote"></textarea>
+                            <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>" >
                         </div>
                     </div>
                 </div>
 
             </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">
                     Close
                 </button>
-                <button type="submit" onclick="addShipper()" class="btn btn-primary waves-effect waves-light">Save
+                <button type="submit" onclick="addConsignee()" class="btn btn-primary waves-effect waves-light">Save
                 </button>
             </div>
         </div><!-- /.modal-content -->

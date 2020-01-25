@@ -38,6 +38,36 @@
                 }
             });
         });
+        $(document).on('click', '.addUser', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/user_modal.php', function (result) {
+                        $('#add_user').modal({show: true});
+                    });
+                }
+            });
+        });
+        $(document).on('click', '.addConsignee', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/consignee_modal.php', function (result) {
+                        $('#consignee').modal({show: true});
+                    });
+                }
+            });
+        });
+        $(document).on('click', '.addCustomer', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/customer_modal.php', function (result) {
+                        $('#add_customer').modal({show: true});
+                    });
+                }
+            });
+        });
 
 
         $(document).on("click", "#currency_setting", function () {
@@ -344,13 +374,13 @@
                                 <li><a href="#" class="addShipper">Shipper</a></li>
 
                                 <li>
-                                    <a href="#">Consignee</a>
+                                    <a href="#" class="addConsignee">Consignee</a>
                                 </li>
                                 <li>
-                                    <a href="#"">User</a>
+                                    <a href="#" class="addUser">User</a>
                                 </li>
                                 <li>
-                                    <a href="#">Customer</a>
+                                    <a href="#" class="addCustomer">Customer</a>
                                 </li>
                             </ul>
                         </li>

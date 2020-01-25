@@ -50,7 +50,6 @@ else if ($_GET['type'] == 'importShipper') {
 
 // export excel function here
 else if ($_GET['type'] == 'exportShipper') {
-
     $shipper = new Shipper();
     $shipper->exportShipper($db);
 }
