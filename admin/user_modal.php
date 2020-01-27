@@ -41,22 +41,19 @@ require "../database/connection.php";
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Shipper Name</th>
+                                        <th>Email</th>
+                                        <th>Username</th>
+                                        <th>Password</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
                                         <th>Address</th>
                                         <th>Location</th>
-                                        <th>Postal / Zip</th>
-                                        <th>Contact Name</th>
-                                        <th>Contact Email</th>
+                                        <th>Zip</th>
                                         <th>Telephone</th>
                                         <th>Ext</th>
                                         <th>Toll Free</th>
                                         <th>Fax</th>
-                                        <th>Shipping Hours</th>
-                                        <th>Appointments</th>
-                                        <th>Major Intersection/Directions</th>
-                                        <th>Status</th>
-                                        <th>Shipping Notes</th>
-                                        <th>Internal Notes</th>
+                                        <th>Privilege</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -74,8 +71,30 @@ require "../database/connection.php";
                                             <tr>
                                                 <td><a href="#"><?php echo $no++; ?></a></td>
                                                 <td contenteditable="true"
-                                                    onblur="updateUser(this)"></td>
-
+                                                    onblur="updateUser(this,'userEmail',<?php echo $s['_id']; ?>)"><?php echo $s['userEmail']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateUser(this,'userName',<?php echo $s['_id']; ?>)"><?php echo $s['userName']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateUser(this,'userPass',<?php echo $s['_id']; ?>)"><?php echo $s['userPass']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateUser(this,'userFirstName',<?php echo $s['_id']; ?>)"><?php echo $s['userFirstName']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateUser(this,'userLastName',<?php echo $s['_id']; ?>)"><?php echo $s['userLastName']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateUser(this,'userAddress',<?php echo $s['_id']; ?>)"><?php echo $s['userAddress']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateUser(this,'userLocation',<?php echo $s['_id']; ?>)"><?php echo $s['userLocation']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateUser(this,'userZip',<?php echo $s['_id']; ?>)"><?php echo $s['userZip']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateUser(this,'userTelephone',<?php echo $s['_id']; ?>)"><?php echo $s['userTelephone']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateUser(this,'userExt',<?php echo $s['_id']; ?>)"><?php echo $s['userExt']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateUser(this,'TollFree',<?php echo $s['_id']; ?>)"><?php echo $s['TollFree']; ?></td>
+                                                <td contenteditable="true"
+                                                    onblur="updateUser(this,'userFax',<?php echo $s['_id']; ?>)"><?php echo $s['userFax']; ?></td>
+                                                <td><a href="#" onclick="show_privilege(<?php echo $s['_id']; ?>)" data-toggle="modal" data-target="#show_privilege" class="btn btn-warning">Privilege</a></td>
                                                 <td><a href="#" onclick="deleteUser(<?php echo $s['_id']; ?>)"><i
                                                                 class="mdi mdi-delete-sweep-outline"
                                                                 style="font-size: 20px; color: #FC3B3B"></i></a></td>
@@ -88,7 +107,6 @@ require "../database/connection.php";
                         </div>
                     </div> <!-- end col -->
                 </div> <!-- end row -->
-
             </div>
             <div class="modal-footer">
                 <button type="button" onclick="exportUser(<?php echo $_SESSION['companyId']; ?>)"
@@ -101,7 +119,46 @@ require "../database/connection.php";
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<!--//---------------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------------------------->
+<!-- Modal content for the above example -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="show_privilege"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content custom-modal-content">
+            <div class="modal-header custom-modal-header">
+                <h5 class="modal-title custom-modal-title mt-0" id="myLargeModalLabel">
+                    Privilege</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body custom-modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                        <thead>
+                        <tr>
+                            <th>Master</th>
+                            <th>Check</th>
+                            <th>Admin</th>
+                            <th>Check</th>
+                        </tr>
+                        </thead>
+                        <tbody id="final_privilege">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">
+                    Close
+                </button>
+                <button type="submit" onclick="updatePrivilege()" class="btn btn-primary waves-effect waves-light">Save
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--//------------------------------------------------------------------------------------------->
 <!-- Modal content for the above example -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="add_user"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
