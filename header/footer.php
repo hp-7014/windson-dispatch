@@ -12,7 +12,7 @@
 <script src="assets/js/waves.min.js"></script>
 
 <!--Morris Chart-->
-<script src="assets/plugins/morris/morris.min.js"></script>
+<script src="./assets/plugins/morris/morris.min.js"></script>
 <script src="assets/plugins/raphael/raphael.min.js"></script>
 <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
 <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
@@ -39,7 +39,7 @@
 
 <script src="assets/pages/dashboard.init.js"></script>
 <script>
-    $('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
+    //$('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
 </script>
 <!-- App js -->
 <script src="assets/js/app.js"></script>

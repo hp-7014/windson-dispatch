@@ -7,16 +7,9 @@
 =======
     <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/consignee_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/consignee_modal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/customer_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/customer_modal.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/form.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/validation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/shipper_driver.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/shipper_driver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/shipper_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/shipper_modal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/upload/Book1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/admin/upload/Book1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/user_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/user_modal.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/utils/Helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/utils/Helper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
     </list>
 >>>>>>> ca8e0dddd50c8abc076979a13eb9334bbd470d64
     <option name="SHOW_DIALOG" value="false" />
@@ -50,12 +43,6 @@
         <option value="JavaScript File" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>customer</find>
-      <find>is</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -123,15 +110,15 @@
       <recent name="C:\xampp\htdocs\windson-dispatch\admin" />
     </key>
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
+  <component name="RunDashboard">
+    <option name="ruleStates">
       <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
       </list>
     </option>
   </component>

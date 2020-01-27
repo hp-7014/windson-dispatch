@@ -98,9 +98,9 @@
                         </div>
                     </div>
                     <div class="form-group col-md-12">
-                        <label>Color *</label>
+                        <label>Color </label>
                         <div>
-                            <input class="form-control" type="color" name="status_color" id="status_color">
+                            <input class="form-control" type="color" name="status_color" id="status_color" value="">
                             <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                         </div>
                     </div>
