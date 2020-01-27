@@ -43,7 +43,7 @@
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./admin/user_modal.php', function (result) {
-                        $('#add_user').modal({show: true});
+                        $('#user').modal({show: true});
                     });
                 }
             });

@@ -29,6 +29,10 @@ if ($_GET['type'] == 'add_shipper') {
     $shipper->setShippingNotes($_POST['shippingNotes']);
     $shipper->setInternalNotes($_POST['internalNotes']);
     $shipper->insert($shipper,$db,$helper);
+//    print_r($shipper);
+    if ($_POST['asConsignee'] == 1) {
+        $helper->asConsignee($shipper);
+    }
     echo "Data Added Successfully";
 }
 
