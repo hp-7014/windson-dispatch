@@ -63,3 +63,14 @@ else if ($_GET['type'] == 'edit_credit') {
     $b_credit->update_Credit($b_credit,$db);
 }
 
+// Edit Card type
+else if ($_GET['type'] == 'card_credit') {
+    $card_type = new CreditCard();
+    $card_type->setId($_POST['id']);
+    $card_type->setCompanyID($_POST['companyId']);
+    $card_type->setCardType($_POST['cardType']);
+    $card_type->setColumn($_POST['column']);
+    $card_type->update_CardType($card_type,$db);
+}
+
+

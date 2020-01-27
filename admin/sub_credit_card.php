@@ -46,6 +46,17 @@ else if ($_GET['type'] == 'edit_sub_credit') {
     $s_credit->update_Sub_Credit($s_credit,$db);
 }
 
+// Edit Data Here
+else if ($_GET['type'] == 'edit_card_type') {
+    $m_card = new SubCredit();
+    $m_card->setId($_POST['id']);
+    $m_card->setCompanyID($_POST['companyId']);
+    $m_card->setMainCard($_POST['mainCard']);
+    $m_card->setColumn($_POST['column']);
+    $m_card->update_main_Card($m_card,$db);
+}
+
+
 // Delete Data Here
 else if ($_GET['type'] == 'delete_sub_credit') {
     $s_credit = new SubCredit();

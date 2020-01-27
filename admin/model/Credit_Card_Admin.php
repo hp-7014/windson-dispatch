@@ -346,4 +346,12 @@
             echo "Data Update Successfully.";
         }
 
+        public function update_CardType($b_credit,$db){
+            $db->credit_card_admin->updateOne(['companyID' => (int) $_SESSION['companyId'], 'admin_credit._id' => (int)$this->getId()],
+                ['$set' => ['admin_credit.$.' . $b_credit->getColumn() => $b_credit->getCardType()]]
+            );
+
+            echo "Data Update Successfully.";
+        }
+
     }

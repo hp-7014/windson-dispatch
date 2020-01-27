@@ -57,7 +57,14 @@
                                 <td><?php echo $no++ ?></td>
                                 <td contenteditable="true" onblur="updateCredit(this,'Name',<?php echo $admin['_id']; ?>)"><?php echo $admin['Name']; ?></td>
                                 <td contenteditable="true" onblur="updateCredit(this,'displayName',<?php echo $admin['_id']; ?>)"><?php echo $admin['displayName']; ?></td>
-                                <td contenteditable="true" onblur="updateCredit(this,'cardType',<?php echo $admin['_id']; ?>)"><?php echo $admin['cardType']; ?></td>
+                                <td contenteditable="true" >
+                                    <select class="form-control" id="cardType" onchange="update_Credit(this.value,'cardType',<?php echo $admin['_id']; ?>)">
+                                        <option value="">Select Card Type *</option>
+                                        <option value="Master" <?php if('Master' == $admin['cardType']) { echo 'selected=selected';} ?>>Master</option>
+                                        <option value="Visa" <?php if('Visa' == $admin['cardType']) { echo 'selected=selected';} ?>>Visa</option>
+                                        <option value="Other" <?php if('Other' == $admin['cardType']) { echo 'selected=selected';} ?>>Other</option>
+                                    </select>
+                                </td>
                                 <td contenteditable="true" onblur="updateCredit(this,'cardHolderName',<?php echo $admin['_id']; ?>)"><?php echo $admin['cardHolderName']; ?></td>
                                 <td contenteditable="true" onblur="updateCredit(this,'cardNo',<?php echo $admin['_id']; ?>)"><?php echo $admin['cardNo']; ?></td>
                                 <td contenteditable="true" onblur="updateCredit(this,'cardLimit',<?php echo $admin['_id']; ?>)"><?php echo $admin['cardLimit']; ?></td>

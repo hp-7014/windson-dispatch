@@ -60,7 +60,7 @@
                                     <td contenteditable="true" onblur="updateBank(this,'bankName',<?php echo $admin['_id']; ?>)"><?php echo $admin['bankName']; ?></td>
                                     <td contenteditable="true" onblur="updateBank(this,'bankAddresss',<?php echo $admin['_id']; ?>)"><?php echo $admin['bankAddresss']; ?></td>
                                     <td contenteditable="true" >
-                                        <select class="form-control" id="accountHolder" onchange="updateAccount(this,'accountHolder',<?php echo $admin['_id']; ?>)">
+                                        <select class="form-control" id="accountHolder" onchange="updateAccount(this.value,'accountHolder',<?php echo $admin['_id']; ?>)">
                                             <?php
                                                $show_data = $db->company->find(['companyID' => $_SESSION['companyId']]);
 

@@ -73,8 +73,6 @@ function updateBank(element, column, id) {
 function updateAccount(element, column, id) {
     //var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
-    var accountHolder = $("#accountHolder").val();
-    alert(accountHolder);
 
     $.ajax({
         url: 'admin/bank_admin.php?type=' + 'edit_account',
@@ -83,7 +81,7 @@ function updateAccount(element, column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            accountHolder: accountHolder,
+            accountHolder: element,
         },
         success: function (data) {
             swal("Update", data, 'success');
@@ -289,6 +287,26 @@ function updateCredit(element, column, id) {
     });
 }
 
+//Edit Card type
+function update_Credit(element, column, id) {
+    //var value = element.innerText;
+    var companyId = document.getElementById('companyId').value;
+
+    $.ajax({
+        url: 'admin/bank_credit.php?type=' + 'card_credit',
+        type: 'POST',
+        data: {
+            companyId: companyId,
+            column: column,
+            id: id,
+            cardType: element,
+        },
+        success: function (data) {
+            swal("Update", data, 'success');
+        }
+    });
+}
+
 /*----------------- Credit Card END -------------------------*/
 
 /*----------------- Sub Credit Card START -------------------------*/
@@ -317,7 +335,7 @@ function Add_SubCredit() {
                     dataType: 'text',
                     success: function (data) {
                         swal('Success', data, 'success');
-                        $("#Add_CreditCard").modal("hide");
+                        $("#add_sub_credit").modal("hide");
                     },
                     error: function () {
                     },
@@ -359,6 +377,26 @@ function updateSubCredit(element, column, id) {
             column: column,
             id: id,
             value: value,
+        },
+        success: function (data) {
+            swal("Update", data, 'success');
+        }
+    });
+}
+
+//Edit Sub Credit
+function updateSub_Credit(element, column, id) {
+    //var value = element.innerText;
+    var companyId = document.getElementById('companyId').value;
+
+    $.ajax({
+        url: 'admin/sub_credit_card.php?type=' + 'edit_card_type',
+        type: 'POST',
+        data: {
+            companyId: companyId,
+            column: column,
+            id: id,
+            mainCard: element,
         },
         success: function (data) {
             swal("Update", data, 'success');
@@ -457,7 +495,7 @@ function Add_CustomBroker() {
 function updateCustom(element, column, id) {
     var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
-    alert(value);
+   // alert(value);
     $.ajax({
         url: 'admin/custom_broker.php?type=' + 'edit_custom_broker',
         type: 'POST',

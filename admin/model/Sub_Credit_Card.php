@@ -209,6 +209,14 @@
             echo "Data Update Successfully.";
         }
 
+        public function update_main_Card($s_credit,$db){
+            $db->sub_credit_card->updateOne(['companyID' => (int) $_SESSION['companyId'], 'sub_credit._id' => (int)$this->getId()],
+                ['$set' => ['sub_credit.$.' . $s_credit->getColumn() => $s_credit->getMainCard()]]
+            );
+
+            echo "Data Update Successfully.";
+        }
+
         public function delete_Sub_Credit($s_credit,$db) {
             $db->sub_credit_card->updateOne(['companyID' => (int)$_SESSION['companyId']], [
                 '$pull' => ['sub_credit' => ['_id' => (int)$s_credit->getId()]]]
