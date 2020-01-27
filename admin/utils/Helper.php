@@ -31,9 +31,7 @@ class Helper
         return $id;
     }
 
-    // Add as Consignee
-    function asConsignee(element) {
-    }
+
 
 }
 
