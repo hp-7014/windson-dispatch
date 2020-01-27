@@ -1,15 +1,14 @@
-//
 <?php // Code to create connection and select database & collection
 
 require 'vendor/autoload.php';
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
-$db = $connection->demoadd;
-$collection = $db->currency_add;
+$db = $connection->WindsonDispatch;
+$collection = $db->payment_terms;
     //update
-        $collection->updateOne(
-            ['companyID' => 1 ,'currency._id'=> 2],
-            ['$set' => ['currency.$.currencyType'=>'test 2 chetan']
-            ]);
+//        $collection->updateOne(
+//            ['companyID' => 1 ,'currency._id'=> 2],
+//            ['$set' => ['currency.$.currencyType'=>'test 2 chetan']
+//            ]);
 // code to insert single entry in collection
 
 //$db->payment_terms->insertOne([
@@ -17,8 +16,14 @@ $collection = $db->currency_add;
 //    "category" => "Chutney",
 //    "price" => 150
 //]);
-
-
+$show = $collection->find(
+        ['$where' => function() {
+            return ['payment._id'] == 1;
+        }]
+);
+foreach ($show as $s) {
+    print_r($s);
+}
 // code to create a nested collection
 
 //$collection->updateOne(['_id' => 2],['$set'=>['PackSizes'=>[[

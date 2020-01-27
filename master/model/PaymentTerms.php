@@ -109,7 +109,6 @@ class PaymentTerms implements IteratorAggregate
 
     public function insert($payment_term, $db, $helper)
     {
-
         $c_id = $db->payment_terms->find(['companyID' => (int)$payment_term->getCompanyID()]);
         $count = 0;
         foreach ($c_id as $c) {

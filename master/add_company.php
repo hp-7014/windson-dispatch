@@ -59,8 +59,8 @@ require "../database/connection.php";?>
                                     $show_data = $db->company->find(['companyID' => $_SESSION['companyId']]);
                                     $no = 1;
                                     foreach ($show_data as $show) {
-                                        $show = $show['company'];
-                                        foreach ($show as $s) {
+                                        $sh = $show['company'];
+                                        foreach ($sh as $s) {
                                             ?>
                                             <tr>
                                                 <td><?php echo $no++; ?></td>

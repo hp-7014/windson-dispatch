@@ -3,17 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/bank_admin_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/bank_admin_modal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/bank_credit.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/bank_credit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/credit_card_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/credit_card_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/consignee_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/consignee_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/customer_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/customer_modal.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/model/Credit_Card_Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Credit_Card_Admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/model/Sub_Credit_Card.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Sub_Credit_Card.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/sub_credit_card.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/sub_credit_card.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/sub_credit_card_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/sub_credit_card_modal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/master/upload/Test.csv" beforeDir="false" afterPath="$PROJECT_DIR$/master/upload/Test.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/validation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/shipper_driver.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/shipper_driver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/shipper_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/shipper_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/upload/Book1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/admin/upload/Book1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/user_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/user_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/utils/Helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/utils/Helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,6 +46,12 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>customer</find>
+      <find>is</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -55,35 +61,35 @@
       <path value="$PROJECT_DIR$/vendor/mongodb/mongodb" />
     </include_path>
   </component>
-  <component name="ProjectId" id="1Wn5VwRNlyCyc1A28czhgdq6krO" />
+  <component name="ProjectId" id="1WtfRKsO3anRqtAL2cHOm2V5La6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mongo" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/css" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\windson-dispatch\admin" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\windson-dispatch\assets\css" />
-      <recent name="C:\xampp\htdocs\windson-dispatch\assets" />
-    </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
+  <component name="ServiceViewManager">
+    <option name="viewStates">
       <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
       </list>
     </option>
   </component>
@@ -99,10 +105,9 @@
       <updated>1579614540717</updated>
       <workItem from="1579614544799" duration="3157000" />
       <workItem from="1579688110173" duration="4098000" />
-      <workItem from="1579772556182" duration="8176000" />
-      <workItem from="1579780766826" duration="22112000" />
-      <workItem from="1579858641694" duration="27913000" />
-      <workItem from="1580117503725" duration="11029000" />
+      <workItem from="1579857794828" duration="29677000" />
+      <workItem from="1580030924726" duration="17107000" />
+      <workItem from="1580101664092" duration="1608000" />
     </task>
     <servers />
   </component>
@@ -135,5 +140,47 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge branch 'admin' of https://github.com/hp-7014/windson-dispatch into admin&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'admin' of https://github.com/hp-7014/windson-dispatch into admin&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="275" y="28" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580040839633">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="275" y="28" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1580040839633" />
+    <state x="476" y="86" key="#com.intellij.ide.util.MemberChooser" timestamp="1580044822966">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="476" y="86" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1580044822966" />
+    <state x="129" y="62" key="MergeDialog" timestamp="1579974151047">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="129" y="62" key="MergeDialog/0.0.1366.738@0.0.1366.738" timestamp="1579974151047" />
+    <state x="395" y="86" key="MultipleFileMergeDialog" timestamp="1579974151065">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="395" y="86" key="MultipleFileMergeDialog/0.0.1366.738@0.0.1366.738" timestamp="1579974151065" />
+    <state x="462" y="184" key="NewPhpClassDialog" timestamp="1580043852437">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="462" y="184" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" timestamp="1580043852437" />
+    <state x="517" y="293" key="NewPhpFileDialog" timestamp="1580043804827">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="517" y="293" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1580043804827" />
+    <state x="484" y="161" key="git4idea.merge.GitMergeDialog" timestamp="1579974428848">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="484" y="161" key="git4idea.merge.GitMergeDialog/0.0.1366.738@0.0.1366.738" timestamp="1579974428848" />
+    <state x="424" y="0" width="517" height="698" key="refactoring.ChangeSignatureDialog" timestamp="1580053209372">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="424" y="0" width="517" height="698" key="refactoring.ChangeSignatureDialog/0.0.1366.738@0.0.1366.738" timestamp="1580053209372" />
+    <state x="339" y="165" key="run.anything.popup" timestamp="1579973982640">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1579973982640" />
   </component>
 </project>

@@ -2,6 +2,7 @@
 
 class Helper
 {
+    // for Auto-Increment ID
     public function getNextSequence($name,$collection) {
         $cursor = $collection->counter->find(['_id'=>$name]);
         $arr = iterator_to_array($cursor);
@@ -15,6 +16,7 @@ class Helper
         return $id;
     }
 
+    // for particular document counter ID
     function getDocumentSequence($key,$collection) {
 
         $cursor = $collection->find(['companyID'=>$key]);
@@ -28,4 +30,10 @@ class Helper
 
         return $id;
     }
+
+    // Add as Consignee
+    function asConsignee(element) {
+    }
+
 }
+

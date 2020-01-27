@@ -61,7 +61,6 @@ body {
   }
 }
 
-
 html {
   overflow-x: hidden;
   position: relative;
@@ -3652,6 +3651,9 @@ table.focus-on tbody tr.focused td {
 }
 /*# sourceMappingURL=style.css.map */
 
+/*------------------------------------------*/
+
+
 /* Let's get this party started */
 
 ::-webkit-scrollbar {
@@ -3677,69 +3679,5 @@ table.focus-on tbody tr.focused td {
 }
 .modal-body
 {
-  overflow-x:hidden;
-}
-
-/* table css*/
-.intro {
-  max-width: 1280px;
-  margin: 1em auto;
-}
-.table-scroll {
-  position: relative;
-  width:100%;
-  z-index: 1;
-  margin: auto;
-  overflow: auto;
-  height: 350px;
-}
-.table-scroll table {
-  width: 100%;
-  min-width: 1300px;
-  margin: auto;
-  border-collapse: separate;
-  border-spacing: 0;
-}
-.table-wrap {
-  position: relative;
-}
-.table-scroll th,
-.table-scroll td {
-  padding: 5px;
-  border: 1px solid #cccccc;
-  background: #fff;
-  vertical-align: top;
-}
-.table-scroll thead th {
-  background: #31BC86;
-  color: #fff;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-}
-/* safari and ios need the tfoot itself to be position:sticky also */
-.table-scroll tfoot,
-.table-scroll tfoot th,
-.table-scroll tfoot td {
-  position: -webkit-sticky;
-  position: sticky;
-  bottom: 0;
-  background: #666;
-  color: #fff;
-  z-index:4;
-}
-
-
-th:first-child {
-  position: -webkit-sticky;
-  position: sticky;
-  left: 0;
-  z-index: 2;
-  background: #2EA879;
-  color: #FFFFFF;
-  border:none;
-}
-thead th:first-child,
-tfoot th:first-child {
-  z-index: 5;
+  overflow-x:auto;
 }
