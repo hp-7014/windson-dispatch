@@ -4,21 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/admin/customer_driver.php" line="21" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/consignee_driver.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/consignee_driver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/consignee_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/consignee_modal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/customer_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/customer_modal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/validation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/model/Consignee.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Consignee.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/model/Shipper.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Shipper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/shipper_driver.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/shipper_driver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/shipper_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/shipper_modal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mongo.php" beforeDir="false" afterPath="$PROJECT_DIR$/mongo.php" afterDir="false" />
-    </list>
+    <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +32,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.txt" root0="SKIP_INSPECTION" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -178,17 +167,17 @@
       <updated>1579614540717</updated>
       <workItem from="1579614544799" duration="3157000" />
       <workItem from="1579688110173" duration="4098000" />
-      <workItem from="1579857794828" duration="29677000" />
+      <workItem from="1579857794828" duration="30468000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66012000" />
+    <option name="totallyTimeSpent" value="66803000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1382" height="754" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15506808" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15506808" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
