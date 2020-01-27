@@ -147,30 +147,30 @@ require "../database/connection.php";
             <div class="modal-body custom-modal-body">
                 <div class="row">
                     <div class="form-group col-md-3">
-                        <label>Consignee Name *</label>
+                        <label>Consignee Name <span style="color: red">*</span></label>
                         <div>
-                            <input class="form-control" placeholder="Consignee Name "
+                            <input class="form-control" placeholder="Consignee Name *"
                                    type="text" id="consigneeName">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
-                        <label>Address *</label>
+                        <label>Address <span style="color: red">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Address *" type="text"
                                    id="consigneeAddress">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label>Location *</label>
+                        <label>Location <span style="color: red">*</span></label>
                         <div>
-                            <input class="form-control" placeholder="Enter a location"
+                            <input class="form-control" placeholder="Location *"
                                    type="text" id="consigneeLocation">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label>Postal / Zip*</label>
+                        <label>Postal / Zip <span style="color: red">*</span></label>
                         <div>
-                            <input class="form-control" placeholder="Postal / Zip" type="text"
+                            <input class="form-control" placeholder="Postal / Zip *" type="text"
                                    id="consigneePostal">
                         </div>
                     </div>
@@ -184,19 +184,19 @@ require "../database/connection.php";
                     <div class="form-group col-md-3">
                         <label>Contact Email</label>
                         <div>
-                            <input class="form-control" type="email" id="consigneeEmail">
+                            <input class="form-control" placeholder="Contact Email" type="email" id="consigneeEmail">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Telephone</label>
                         <div>
-                            <input class="form-control" type="text" id="consigneeTelephone">
+                            <input class="form-control" type="text" placeholder="Telephone" id="consigneeTelephone">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Ext</label>
                         <div>
-                            <input class="form-control" type="text" id="consigneeExt">
+                            <input class="form-control" type="text" placeholder="Ext" id="consigneeExt">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
@@ -231,11 +231,11 @@ require "../database/connection.php";
                     <div class="form-group col-md-4">
                         <label>Major Intersection/Directions</label>
                         <div>
-                            <input class="form-control" type="text" id="consigneeIntersaction">
+                            <input class="form-control" placeholder="Major Intersection/Directions" type="text" id="consigneeIntersaction">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label>Duplicate Info *</label>
+                        <label>Duplicate Info </label>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input"
                                    id="customCheck1" name="consignASshipper" data-parsley-multiple="groups"
@@ -247,7 +247,7 @@ require "../database/connection.php";
                 </div>
                 <div class="row">
                     <div class="form-group col-md-2">
-                        <label>Status *</label>
+                        <label>Status </label>
                         <div class="row">
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" class="custom-control-input"
@@ -266,14 +266,14 @@ require "../database/connection.php";
                     <div class="form-group col-md-5">
                         <label>Receiving Notes</label>
                         <div>
-                            <textarea rows="3" cols="30" class="form-control" type="textarea"
+                            <textarea rows="3" cols="30" placeholder="Receiving Notes" class="form-control" type="textarea"
                                       id="consigneeRecivingNote"></textarea>
                         </div>
                     </div>
                     <div class="form-group col-md-5">
                         <label>Internal Notes</label>
                         <div>
-                            <textarea rows="3" cols="30" class="form-control" type="textarea"
+                            <textarea rows="3" cols="30" placeholder="Internal Notes" class="form-control" type="textarea"
                                       id="consigneeInternalNote"></textarea>
                             <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                         </div>

@@ -410,3 +410,97 @@ function val_internalNotes(val) {
     }
 }
 //-------------Customer End-----------
+
+//---------------User Start------------
+function val_userEmail(val) {
+    if (val == '') {
+        alert("Please Write an User Email");
+        return false;
+    } else {
+        return true;
+    }
+}
+function val_userName(val) {
+    if (val == '') {
+        alert("Please Write an User Name");
+        return false;
+    } else {
+        return true;
+    }
+}
+function val_userPass(val) {
+    if (val == '') {
+        alert("Please Write an User Password");
+        return false;
+    } else {
+        return true;
+    }
+}
+function val_userFirstName(val) {
+    if (val == '') {
+        alert("Please Write an User First Name");
+        return false;
+    } else {
+        return true;
+    }
+}
+function val_userLastName(val) {
+    if (val == '') {
+        alert("Please Write an User Last Name");
+        return false;
+    } else {
+        return true;
+    }
+}
+function val_userAddress(val) {
+    if (val == '') {
+        alert("Please Write an User Address");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_userLocation(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+function val_userZip(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+function val_userTelephone(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+function val_userExt(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+function val_uerTollFree(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+function val_userFax(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+//---------------User End---------------

@@ -77,7 +77,7 @@ require "../database/connection.php";
                                     require 'model/Customer.php';
 
                                     $customer = new Customer();
-                                    $show_data = $db->customer->find(['companyID' => $_SESSION['companyId'],['customer.deleteStatus' => 0]]);
+                                    $show_data = $db->customer->find(['companyID' => $_SESSION['companyId']]);
                                     $no = 1;
                                     foreach ($show_data as $show) {
                                         $show = $show['customer'];
@@ -196,31 +196,31 @@ require "../database/connection.php";
 
                             <div class="row">
                                 <div class="form-group col-md-3">
-                                    <label>Customer Name *</label>
+                                    <label>Customer Name <span style="color: red">*</span></label>
                                     <div>
-                                        <input class="form-control" placeholder="Company Name"
+                                        <input class="form-control" placeholder="Company Name *"
                                                type="text" id="custName">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label>Address *</label>
+                                    <label>Address <span style="color: red">*</span></label>
                                     <div>
                                         <input class="form-control" placeholder="Address *"
                                                type="text" id="custAddress">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label>Location *</label>
+                                    <label>Location <span style="color: red">*</span></label>
                                     <div>
                                         <input class="form-control"
-                                               placeholder="Enter a location" type="text"
+                                               placeholder="Location *" type="text"
                                                id="custLocation">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <label>Zip *</label>
+                                    <label>Zip <span style="color: red">*</span></label>
                                     <div>
-                                        <input class="form-control" placeholder="Zip Code"
+                                        <input class="form-control" placeholder="Zip Code *"
                                                type="text" id="custZip">
                                     </div>
                                 </div>
@@ -269,7 +269,7 @@ require "../database/connection.php";
                                 <div class="form-group col-md-2">
                                     <label>Telephone</label>
                                     <div>
-                                        <input class="form-control" type="text"
+                                        <input class="form-control" placeholder="Telephone" type="text"
                                                id="custTelephone">
                                     </div>
                                 </div>
@@ -283,7 +283,7 @@ require "../database/connection.php";
                                 <div class="form-group col-md-3">
                                     <label>Email</label>
                                     <div>
-                                        <input class="form-control" type="email"
+                                        <input class="form-control" placeholder="Email" type="email"
                                                id="custEmail">
                                     </div>
                                 </div>
@@ -306,13 +306,13 @@ require "../database/connection.php";
                                     <label>Billing Email</label>
                                     <div>
                                         <input class="form-control" type="email"
-                                               value="" id="billingEmail">
+                                               placeholder="Billing Email" id="billingEmail">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2 ">
                                     <label>Billing Telephone</label>
                                     <div>
-                                        <input class="form-control" type="text"
+                                        <input class="form-control" placeholder="Billing Telephone" type="text"
                                                id="billingTelephone">
                                     </div>
                                 </div>
@@ -397,17 +397,33 @@ require "../database/connection.php";
                                 <div class="form-group col-md-3">
                                     <label>Currency Setting</label>
                                     <select class="form-control" id="currencySetting">
-                                        <option>USD</option>
-                                        <option>USD</option>
-                                        <option>CAD</option>
+                                        <option>---select---</option>
+                                        <?php
+                                        $currency = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
+                                        foreach ($currency as $cur) {
+                                            $show = $cur['currency'];
+                                            foreach ($show as $s) {
+                                                ?>
+                                                <option value="<?php echo $s['currencyType'] ?>"><?php echo $s['currencyType'] ?></option>
+                                            <?php }
+                                        } ?>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label>Payment Terms</label>
                                     <select class="form-control" id="paymentTerms">
-                                        <option>30 Days</option>
-                                        <option>abc</option>
-                                        <option>xyz</option>
+                                        <option>---select---</option>
+                                        <?php
+                                        $payment = $db->payment_terms->find(['companyID' => $_SESSION['companyId']]);
+                                        foreach ($payment as $pay) {
+                                            $show = $pay['payment'];
+                                            foreach ($show as $s) {
+                                                ?>
+                                                <option value="<?php echo $s['paymentTerm'] ?>"><?php echo $s['paymentTerm'] ?></option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3">
@@ -420,7 +436,7 @@ require "../database/connection.php";
                                 <div class="form-group col-md-3">
                                     <label>Sales Rep</label>
                                     <select class="form-control" id="salesRep">
-                                        <option>Select</option>
+                                        <option>---select---</option>
                                         <option>abc</option>
                                         <option>xyz</option>
                                     </select>
@@ -430,7 +446,7 @@ require "../database/connection.php";
                                 <div class="form-group col-md-3">
                                     <label>Factoring Company</label>
                                     <select class="form-control" id="factoringCompany">
-                                        <option>Select</option>
+                                        <option>---select---</option>
                                         <option>abc</option>
                                         <option>xyz</option>
                                     </select>

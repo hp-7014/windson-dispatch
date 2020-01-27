@@ -20,6 +20,16 @@ function addShipper() {
     var shippingNotes = document.getElementById('shippingNotes').value;
     var internalNotes = document.getElementById('internalNotes').value;
 
+    for (var i = 0; i < shipperASconsignee.length; i++) {
+        if (shipperASconsignee[i].checked) {
+            var asConsignee = 1;
+            break;
+        } else {
+            var asConsignee = 0;
+            break;
+        }
+    }
+
     for (var i = 0; i < shipperStatus.length; i++) {
         if (shipperStatus[i].checked) {
             var status = shipperStatus[i].value;
@@ -62,6 +72,7 @@ function addShipper() {
                                                                         shipperStatus: status,
                                                                         shippingNotes: shippingNotes,
                                                                         internalNotes: internalNotes,
+                                                                        asConsignee:asConsignee
                                                                     },
                                                                     success: function (data) {
                                                                         swal('Success', data, 'success');
@@ -133,6 +144,7 @@ function exportShipper(id) {
         }
     });
 }
+
 //edit function
 function updateShipper(element, column, id) {
     var value = element.innerText;
@@ -147,7 +159,7 @@ function updateShipper(element, column, id) {
             value: value,
         },
         success: function (data) {
-            swal("Success",data,'success');
+            swal("Success", data, 'success');
         }
     });
 }
@@ -160,11 +172,12 @@ function deleteShipper(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
-                swal("Success",data,'success');
+                swal("Success", data, 'success');
             }
         });
     }
 }
+
 //----------Shipper Start-------------
 
 //----------Consignee Start-----------
@@ -316,7 +329,7 @@ function updateConsignee(element, column, id) {
             value: value,
         },
         success: function (data) {
-            swal("Success",data,'success');
+            swal("Success", data, 'success');
         }
     });
 }
@@ -329,11 +342,12 @@ function deleteConsignee(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
-                swal("Success",data,'success');
+                swal("Success", data, 'success');
             }
         });
     }
 }
+
 //----------Consignee End-------------
 
 //----------Customer Start------------
@@ -566,7 +580,7 @@ function updateCustomer(element, column, id) {
             value: value,
         },
         success: function (data) {
-            swal("Success",data,'success');
+            swal("Success", data, 'success');
         }
     });
 }
@@ -579,9 +593,306 @@ function deleteCustomer(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
-                swal("Success",data,'success');
+                swal("Success", data, 'success');
             }
         });
     }
 }
+
 //----------Customer End--------------
+
+//-----------User Start-----------------------------
+// add customer
+function addUser() {
+    var companyId = document.getElementById('companyId').value;
+    var userEmail = document.getElementById('userEmail').value;
+    var userName = document.getElementById('userName').value;
+    var userPass = document.getElementById('userPass').value;
+    var userFirstName = document.getElementById('userFirstName').value;
+    var userLastName = document.getElementById('userLastName').value;
+    var userAddress = document.getElementById('userAddress').value;
+    var userLocation = document.getElementById('userLocation').value;
+    var userZip = document.getElementById('userZip').value;
+    var userTelephone = document.getElementById('userTelephone').value;
+    var userExt = document.getElementById('userExt').value;
+    var uerTollFree = document.getElementById('uerTollFree').value;
+    var userFax = document.getElementById('userFax').value;
+
+    var addBank = document.getElementById('addBank');
+    var addCustomer = document.getElementById('addCustomer');
+    var addCompany = document.getElementById('addCompany');
+    var addShipper = document.getElementById('addShipper');
+    var currency = document.getElementById('currency');
+    var addConsignee = document.getElementById('addConsignee');
+    var paymentTerms = document.getElementById('paymentTerms');
+    var addDriver = document.getElementById('addDriver');
+    var office = document.getElementById('office');
+    var addTruck = document.getElementById('addTruck');
+    var equipmentType = document.getElementById('equipmentType');
+    var addTrailer = document.getElementById('addTrailer');
+    var truckType = document.getElementById('truckType');
+    var addExternalCarrier = document.getElementById('addExternalCarrier');
+    var trailerType = document.getElementById('trailerType');
+    var factoringCompany = document.getElementById('factoringCompany');
+    var statusType = document.getElementById('statusType');
+    var customsBroker = document.getElementById('customsBroker');
+    var loadType = document.getElementById('loadType');
+    var ownerOperator = document.getElementById('ownerOperator');
+    var fixPayCategory = document.getElementById('fixPayCategory');
+
+    if (addBank.checked) {
+        var addBank = 1;
+    } else {
+        var addBank = 0;
+    }
+    if (addCustomer.checked) {
+        var addCustomer = 1;
+    } else {
+        var addCustomer = 0;
+    }
+    if (addCompany.checked) {
+        var addCompany = 1;
+    } else {
+        var addCompany = 0;
+    }
+    if (addShipper.checked) {
+        var addShipper = 1;
+    } else {
+        var addShipper = 0;
+    }
+    if (currency.checked) {
+        var currency = 1;
+    } else {
+        var currency = 0;
+    }
+    if (addConsignee.checked) {
+        var addConsignee = 1;
+    } else {
+        var addConsignee = 0;
+    }
+    if (paymentTerms.checked) {
+        var paymentTerms = 1;
+    } else {
+        var paymentTerms = 0;
+    }
+    if (addDriver.checked) {
+        var addDriver = 1;
+    } else {
+        var addDriver = 0;
+    }
+    if (office.checked) {
+        var office = 1;
+    } else {
+        var office = 0;
+    }
+    if (addTruck.checked) {
+        var addTruck = 1;
+    } else {
+        var addTruck = 0;
+    }
+    if (equipmentType.checked) {
+        var equipmentType = 1;
+    } else {
+        var equipmentType = 0;
+    }
+    if (addTrailer.checked) {
+        var addTrailer = 1;
+    } else {
+        var addTrailer = 0;
+    }
+    if (truckType.checked) {
+        var truckType = 1;
+    } else {
+        var truckType = 0;
+    }
+    if (addExternalCarrier.checked) {
+        var addExternalCarrier = 1;
+    } else {
+        var addExternalCarrier = 0;
+    }
+    if (trailerType.checked) {
+        var trailerType = 1;
+    } else {
+        var trailerType = 0;
+    }
+    if (factoringCompany.checked) {
+        var factoringCompany = 1;
+    } else {
+        var factoringCompany = 0;
+    }
+    if (statusType.checked) {
+        var statusType = 1;
+    } else {
+        var statusType = 0;
+    }
+    if (customsBroker.checked) {
+        var customsBroker = 1;
+    } else {
+        var customsBroker = 0;
+    }
+    if (loadType.checked) {
+        var loadType = 1;
+    } else {
+        var loadType = 0;
+    }
+    if (ownerOperator.checked) {
+        var ownerOperator = 1;
+    } else {
+        var ownerOperator = 0;
+    }if (fixPayCategory.checked) {
+        var fixPayCategory = 1;
+    } else {
+        var fixPayCategory = 0;
+    }
+
+    if (val_userEmail(userEmail)) {
+        if (val_userName(userName)) {
+            if (val_userPass(userPass)) {
+                if (val_userFirstName(userFirstName)) {
+                    if (val_userLastName(userLastName)) {
+                        if (val_userAddress(userAddress)) {
+                            if (val_userLocation(userLocation)) {
+                                if (val_userZip(userZip)) {
+                                    if (val_userTelephone(userTelephone)) {
+                                        if (val_userExt(userExt)) {
+                                            if (val_uerTollFree(uerTollFree)) {
+                                                if (val_userFax(userFax)) {
+                                                    $.ajax({
+                                                        url: 'admin/user_driver.php?type=' + 'add_user',
+                                                        type: 'POST',
+                                                        data: {
+                                                            companyID: companyId,
+                                                            userEmail: userEmail,
+                                                            userName: userName,
+                                                            userPass: userPass,
+                                                            userFirstName: userFirstName,
+                                                            userLastName: userLastName,
+                                                            userAddress: userAddress,
+                                                            userLocation: userLocation,
+                                                            userZip: userZip,
+                                                            userTelephone: userTelephone,
+                                                            userExt: userExt,
+                                                            TollFree: uerTollFree,
+                                                            userFax: userFax,
+                                                            addBank: addBank,
+                                                            addCustomer: addCustomer,
+                                                            addCompany: addCompany,
+                                                            addShipper: addShipper,
+                                                            currency: currency,
+                                                            addConsignee: addConsignee,
+                                                            paymentTerms: paymentTerms,
+                                                            addDriver: addDriver,
+                                                            office: office,
+                                                            addTruck: addTruck,
+                                                            equipmentType: equipmentType,
+                                                            addTrailer: addTrailer,
+                                                            truckType: truckType,
+                                                            addExternalCarrier: addExternalCarrier,
+                                                            trailerType: trailerType,
+                                                            factoringCompany: factoringCompany,
+                                                            statusType: statusType,
+                                                            customsBroker: customsBroker,
+                                                            loadType: loadType,
+                                                            ownerOperator: ownerOperator,
+                                                            fixPayCategory: fixPayCategory
+                                                        },
+                                                        success: function (data) {
+                                                            swal('Success', data, 'success');
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Import customer
+function importUser() {
+    var form_data = new FormData();
+
+    form_data.append("file", document.getElementById('file').files[0]);
+
+    $.ajax({
+        url: 'admin/user_driver.php?type=' + 'import_user',
+        method: 'post',
+        data: form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            swal("Success", data, 'success');
+        }
+    });
+}
+
+// Export Excel
+function exportUser(id) {
+
+    $.ajax({
+        url: 'admin/user_driver.php?type=' + 'export_user',
+        data: {companyid: id},
+        type: 'POST',
+        success: function (data) {
+
+            var rows = JSON.parse(data);
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            rows.forEach(function (rowArray) {
+                let row = rowArray.join(",");
+                csvContent += row + "\r\n";
+            });
+
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "my_data.csv");
+            document.body.appendChild(link); // Required for FF
+
+            link.click();
+        }
+    });
+}
+
+//edit function
+function updateUser(element, column, id) {
+    var value = element.innerText;
+    var companyId = document.getElementById('companyId').value;
+    $.ajax({
+        url: 'admin/user_driver.php?type=' + 'edit_user',
+        type: 'POST',
+        data: {
+            companyid: companyId,
+            column: column,
+            id: id,
+            value: value,
+        },
+        success: function (data) {
+            swal("Success", data, 'success');
+        }
+    });
+}
+
+// delete function
+function deleteUser(id) {
+    if (confirm('Are you sure to remove this record ?')) {
+        $.ajax({
+            url: 'admin/user_driver.php?type=' + 'delete_user',
+            type: 'POST',
+            data: {id: id},
+            success: function (data) {
+                swal("Success", data, 'success');
+            }
+        });
+    }
+}
+
+//-----------User End------------------------------
