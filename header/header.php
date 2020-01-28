@@ -7,7 +7,7 @@
     <meta content="Themesdesign" name="author"/>
     <link rel="shortcut icon" href="assets/images/favicon.ico">
 
-    <!--Morris Chart CSS css-->
+    <!--Morris Chart CSS-->
     <link rel="stylesheet" href="assets/plugins/morris/morris.css">
 
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -21,7 +21,9 @@
     <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
 
     <script src="master/js/form.js"></script>
+    <script src="admin/js/form.js"></script>
     <script src="master/js/validation.js"></script>
+    <script src="admin/js/validation.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
@@ -37,7 +39,7 @@
             });
         });
 
-        //Add Currency Type Function
+        // Add Currency Setting Function
                 $(document).on("click", "#currency_setting", function () {
                     //alert('test');
                     $.ajax({
@@ -50,7 +52,7 @@
                     });
                 });
 
-        //Add Truck Type Function
+        // Add Truck Type Function
             $(document).on("click", "#truck_type", function () {
                 //alert('test');
                 $.ajax({
@@ -63,8 +65,7 @@
                 });
             });
 
-
-        //Add Equipment Type Function
+        // Add Equipment Type Function
             $(document).on("click", "#equipment_type", function () {
                 //alert('test');
                 $.ajax({
@@ -77,8 +78,7 @@
                 });
             });
 
-
-        //Add Trailer Type Function
+        // Add Trailer Type Function
             $(document).on("click", "#trailer_type", function () {
                 //alert('test');
                 $.ajax({
@@ -91,8 +91,7 @@
                 });
             });
 
-
-         //Add Fix Pay Function
+        // Add Fix Pay Type Function
             $(document).on("click", "#fix_category", function () {
                 //alert('test');
                 $.ajax({
@@ -104,7 +103,6 @@
                     },
                 });
             });
-
 
             $(document).on('click', '.ADDcompany', function () {
                 $.ajax({
@@ -139,7 +137,6 @@
             });
 
             $(document).on('click', '.add_payment_terms', function () {
-
                 $.ajax({
                     type: 'POST',
                     success: function (data) {
@@ -150,13 +147,59 @@
                 });
             });
 
-        //Add Truck Function
+        $(document).on('click', '.add_bank', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_bank.php', function (result) {
+                        $('#add_bank').modal({show: true});
+                    });
+                }
+            });
+        });
+
+        $(document).on('click', '.add_status', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/status_type_modal.php', function (result) {
+                        $('#Status_Type').modal({show: true});
+                    });
+                }
+            });
+        });
+
+        // Add Truck Function
         $(document).on("click", "#truck_add", function () {
             $.ajax({
                 type: 'POST',
                 success: function (data) {
-                    $('.modal-container').load('./master/add_fixpaycategory.php', function (result) {
-                        $('#Fix_Pay').modal({show: true});
+                    $('.modal-container').load('./admin/add_truck_modal.php', function (result) {
+                        $('#truck').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        // Add Trailer Function
+        $(document).on("click", "#trailer_add", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/add_trailer_modal.php', function (result) {
+                        $('#trailer').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        // Add Factoring Company Function
+        $(document).on("click", "#factoring_company", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/add_factoring_modal.php', function (result) {
+                        $('#factoring').modal({show: true});
                     });
                 },
             });
@@ -364,7 +407,11 @@
                                 <li>
                                     <a href="#" id="fix_category">Fix Pay Category</a>
                                 </li>
-                                <li class="has-submenu"><a href="#" data-toggle="modal" data-target="#mymodal">Bank</a>
+                                <li >
+                                    <a href="#" class="add_bank">Bank</a>
+                                </li>
+                                <li >
+                                    <a href="#" class="add_status">Status</a>
                                 </li>
                                 <li>
                                     <a href="#" class="ADDcompany">Company </a>

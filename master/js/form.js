@@ -432,7 +432,6 @@ function importLoadType() {
     });
 }
 
-//-----------------Currency Setting start-------------------------------------
 //ajax Function For insert Currency Setting
 function addCurrency() {
     var currencyType = document.getElementById("currency_add_type").value;
@@ -539,9 +538,6 @@ function exportCurrency() {
     });
 }
 
-//-----------------Currency Setting End-------------------------------------
-
-//-----------------Equipment Type Start-------------------------------------
 //ajax Function For insert Equipment Type
 function addEquipment() {
     var equipmentType = document.getElementById("equipment_add_type").value;
@@ -649,9 +645,6 @@ function exportEquipment() {
     });
 }
 
-//-----------------Equipment Type End-------------------------------------
-
-//-----------------Truck Type Start---------------------------------------
 //ajax Function For insert Truck Type
 function addTruck() {
     var truckType = document.getElementById("truck_add_type").value;
@@ -758,9 +751,6 @@ function exportTruck() {
     });
 }
 
-//-----------------Truck Type End---------------------------------------
-
-//-----------------Trailer Type Start-------------------------------------
 //ajax Function For insert Trailer Type
 function addTrailer() {
     var trailerType = document.getElementById("trailer_add_type").value;
@@ -867,9 +857,6 @@ function exporttrailer() {
     });
 }
 
-//-----------------Trailer Type End-------------------------------------
-
-//-----------------Fix Pay Type Start-------------------------------------
 //ajax Function For insert Fix Pay
 function addFixpay() {
     var fixpay = document.getElementById("fix_pay_add").value;
@@ -977,6 +964,436 @@ function importfixpay() {
     });
 }
 
-//-----------------Fix Pay Type Start-------------------------------------
+/* Debit Bank Category  START*/
 
+//Add Debit
+function addDebitCategory(){
+    var bankName = document.getElementById("debit_category_name").value;
+    var companyId = document.getElementById('companyId').value;
 
+    if (val_DebitValidate(bankName)) {
+        $.ajax({
+            url:'master/bank_debit_category.php?type='+'bank_debit',
+            type:'POST',
+            data:{
+                companyId: companyId,
+                bankName:bankName,
+            },
+            dataType:'text',
+            success: function(data){
+                swal('Success',data,'success');
+                $("#Add_Bank_Debit_Category").modal("hide");
+            },
+            error:function(){
+
+            },
+        });
+    }
+}
+
+// Delete Debit
+function deleteBankDebit(id) {
+    if (confirm('Are you Sure ?')) {
+        $.ajax({
+            url: 'master/bank_debit_category.php?type=' + 'delete_bank_term',
+            type: 'POST',
+            data: {id: id},
+            success: function (data) {
+                swal('Delete','Data Removed Successfully.','success');
+            }
+        });
+    }
+}
+
+// Update Debit
+function updateBankDebit(element,column,id){
+    var companyId = document.getElementById('companyId').value;
+    var value = element.innerText;
+    $.ajax({
+        url:'master/bank_debit_category.php?type='+'edit_bank_term',
+        type:'POST',
+        data:{
+            companyId: companyId,
+            column: column,
+            id:id,
+            value:value,
+        },
+        success: function (data) {
+            swal('Update',data,'success');
+            $('#Add_Bank_Debit_Category').modal('hide');
+        }
+    });
+}
+
+// Import Debit
+function importDebit() {
+    // var file = document.getElementById('file').value;
+    var form_data = new FormData();
+    //alert(form_data);
+    form_data.append("file",document.getElementById('file').files[0]);
+
+    $.ajax({
+        url:'master/bank_debit_category.php?type='+'import_Excel',
+        method:'post',
+        data:form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            swal('Success',data,'success');
+        }
+    });
+}
+
+// Export debit
+function export_Excel() {
+    $.ajax({
+        url: 'master/bank_debit_category.php?type='+'export_bank_terms',
+        type: 'post',
+        success: function (data) {
+            var rows = JSON.parse(data);
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            rows.forEach(function (rowArray) {
+                let row = rowArray.join(",");
+                csvContent += row + "\r\n";
+            });
+
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            alert(link);
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "my_debit.csv");
+            document.body.appendChild(link); // Required for FF
+
+            link.click();
+        }
+    });
+}
+
+/* Debit Bank Category END*/
+
+/* Credit Bank Category START*/
+
+// Add Credit
+function addCreditCategory() {
+    var creditName = document.getElementById("credit_category_name").value;
+    var companyId = document.getElementById('companyId').value;
+
+    if (val_CreditValidate(creditName)) {
+        $.ajax({
+            url:'master/bank_credit_category.php?type='+'bank_credit',
+            type:'POST',
+            data:{
+                companyId:companyId,
+                creditName:creditName,
+            },
+            dataType:'text',
+            success: function(data){
+                swal('Success',data,'success');
+                $("#Credit_Category").modal("hide");
+            },
+            error:function(){
+            },
+        });
+    }
+}
+
+// Update Credit
+function updateBankCredit(element,column,id){
+    var value = element.innerText;
+    var companyId = document.getElementById('companyId').value;
+
+    $.ajax({
+        url:'master/bank_credit_category.php?type='+'edit_bank_credit',
+        type:'POST',
+        data:{
+            companyId: companyId,
+            column: column,
+            id:id,
+            value:value,
+        },
+        success: function (data) {
+            swal('Update',"Data Update Successfully.",'success');
+            $('#Credit_Category').modal('hide');
+        }
+    });
+}
+
+// Delete Credit
+function deleteBankCredit(id) {
+    if (confirm("Are you Sure?")) {
+        $.ajax({
+            url:'master/bank_credit_category.php?type='+'delete_bank_credit',
+            type:'POST',
+            data:{id:id},
+            success: function (data) {
+                swal('Delete','Data Delete Successfully.','success');
+            }
+        });
+    }
+}
+
+// Import Credit
+function importCredit() {
+    var form_data = new FormData();
+    //alert(form_data);
+    form_data.append("file1",document.getElementById('file1').files[0]);
+
+    $.ajax({
+        url:'master/bank_credit_category.php?type='+'importCredit',
+        method:'post',
+        data:form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            swal('Success',data,'success');
+        }
+    });
+}
+
+// Export Credit
+function exportExcelCredit() {
+    $.ajax({
+        url:'master/bank_credit_category.php?type='+'export_bank_credit',
+        type:'POST',
+        success: function (data) {
+            var rows = JSON.parse(data);
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            rows.forEach(function(rowArray) {
+                let row = rowArray.join(",");
+                csvContent += row + "\r\n";
+            });
+
+            // var encodedUri = encodeURI(csvContent);
+            // window.open(encodedUri);
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "bank_credit.csv");
+            document.body.appendChild(link); // Required for FF
+
+            link.click();
+        }
+    });
+}
+
+/* Credit Bank Category END */
+
+/* Credit Card Category START */
+
+// Add Card
+function addCreditCard(){
+    var cardName = document.getElementById("credit_card_name").value;
+    var companyId = document.getElementById('companyId').value;
+
+    if (val_CardValidate(cardName)) {
+        $.ajax({
+            url:'master/credit_card_category.php?type='+'card_credit',
+            type:'POST',
+            data:{
+                companyId:companyId,
+                cardName:cardName,
+            },
+            dataType:'text',
+            success: function(data){
+                swal('Success',data,'success');
+                $("#Category").modal("hide");
+            },
+            error:function(){
+
+            },
+        });
+    }
+}
+
+// Update Card
+function updateBankCard(element,column,id){
+    var value = element.innerText;
+    var companyId = document.getElementById('companyId').value;
+
+    $.ajax({
+        url:'master/credit_card_category.php?type='+'edit_bank_card',
+        type:'POST',
+        data:{
+            companyId: companyId,
+            column: column,
+            id:id,
+            value:value,
+        },
+        success: function (data) {
+            swal('Success',"Data Update Successfully.",'success');
+            $('#Category').modal('hide');
+        }
+    });
+}
+
+// Delete Card
+function deleteBankCard(id) {
+    if (confirm("Are you Sure ?")) {
+        $.ajax({
+            url:'master/credit_card_category.php?type='+'delete_card',
+            type:'POST',
+            data:{id:id},
+            success: function (data) {
+                swal('Delete','Data Delete Successfully.','success');
+            }
+        });
+    }
+}
+
+// Import Debit
+function importCard() {
+    // var file = document.getElementById('file').value;
+    var form_data = new FormData();
+    //alert(form_data);
+    form_data.append("file_test",document.getElementById('file_test').files[0]);
+
+    $.ajax({
+        url:'master/credit_card_category.php?type='+'importCard',
+        method:'post',
+        data:form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            swal('Success',data,'success');
+        }
+    });
+}
+
+function export_Card() {
+    $.ajax({
+        url:'master/credit_card_category.php?type='+'export_Card',
+        type:'POST',
+
+        success: function (data) {
+            var rows = JSON.parse(data);
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            rows.forEach(function(rowArray) {
+                let row = rowArray.join(",");
+                csvContent += row + "\r\n";
+            });
+
+            // var encodedUri = encodeURI(csvContent);
+            // window.open(encodedUri);
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "credit_bank.csv");
+            document.body.appendChild(link); // Required for FF
+
+            link.click();
+        }
+    });
+}
+
+/* Credit Card Category END */
+
+/* Status Type START */
+
+function addStatusType() {
+    var status_name = document.getElementById("status_name").value;
+    var status_color = document.getElementById("status_color").value;
+    var companyId = document.getElementById('companyId').value;
+
+    if (val_statusValidate(status_name)) {
+        $.ajax({
+            url:'master/status_types.php?type='+'status_type',
+            type:'POST',
+            data:{
+                companyId: companyId,
+                status_name: status_name,
+                status_color: status_color
+            },
+            dataType:'text',
+            success: function(data){
+                swal('Success',data,'success');
+                $("#Add_Status_Type").modal("hide");
+            },
+            error:function(){
+            },
+        });
+    }
+}
+
+// Update Status
+function updateStatus(element,column,id){
+    var value = element.innerText;
+    //var statuscolor = document.getElementById('statuscolor').value;
+    var companyId = document.getElementById('companyId').value;
+    $.ajax({
+        url:'master/status_types.php?type='+'edit_status',
+        type:'POST',
+        data:{
+            companyId: companyId,
+            column: column,
+            id:id,
+            value:value,
+        },
+        success: function (data) {
+            swal('Success',"Data Update Success.",'success');
+            $('#Add_Status_Type').modal('hide');
+        }
+    });
+}
+
+function update_Status(element,column,id){
+    //var value = element.innerText;
+    var statuscolor = document.getElementById('statuscolor').value;
+    //alert(statuscolor);
+    var companyId = document.getElementById('companyId').value;
+    $.ajax({
+        url:'master/status_types.php?type='+'edit_color',
+        type:'POST',
+        data:{
+            companyId: companyId,
+            column: column,
+            id:id,
+            statuscolor:statuscolor,
+        },
+        success: function (data) {
+            swal('Success',"Data Update Success.",'success');
+            $('#Add_Status_Type').modal('hide');
+        }
+    });
+}
+
+// Import Status
+function importStatus() {
+    var form_data = new FormData();
+    //alert(form_data);
+    form_data.append("file",document.getElementById('file').files[0]);
+
+    $.ajax({
+        url:'master/status_types.php?type='+'importStatus',
+        method:'post',
+        data:form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            swal('Success',data,'success');
+        }
+    });
+}
+
+// Delete Status
+function deleteStatus(id) {
+    if (confirm("Are you Sure ?")) {
+        $.ajax({
+            url:'master/status_types.php?type='+'delete_Status',
+            type:'POST',
+            data:{id:id},
+            success: function (data) {
+                swal('Success','Data Delete Success.','success');
+            }
+        });
+    }
+}
+
+/* Status Type END */
