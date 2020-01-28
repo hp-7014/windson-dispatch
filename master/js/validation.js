@@ -194,4 +194,5 @@ function val_statusValidate(val) {
         return true;
     }
 }
+
 // STATUS TYPE ENDS

@@ -48,7 +48,7 @@ include '../database/connection.php';
                                         <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="importDebit()">Upload</button>
                                         <div class="custom-upload-btn-wrapper float-right">
                                             <button class="custom-btn">Choose file</button>
-                                            <input type="file" id="file" name="myfile" />
+                                            <input type="file" id="file" name="myfile" accept=".csv"/>
                                         </div>
 
                                         <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>
@@ -124,7 +124,7 @@ include '../database/connection.php';
                                             <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="importCredit()">Upload</button>
                                             <div class="custom-upload-btn-wrapper float-right">
                                                 <button class="custom-btn">Choose file</button>
-                                                <input type="file" id="file1" name="creditfile"/>
+                                                <input type="file" id="file1" name="creditfile" accept=".csv"/>
                                             </div>
                                             <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>
                                         </form>
@@ -195,7 +195,7 @@ include '../database/connection.php';
                                             <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="importCard()">Upload</button>
                                             <div class="custom-upload-btn-wrapper float-right">
                                                 <button class="custom-btn">Choose file</button>
-                                                <input type="file" id="file_test" name="cardfile"/>
+                                                <input type="file" id="file_test" name="cardfile" accept=".csv"/>
                                             </div>
                                             <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>
                                         </form>

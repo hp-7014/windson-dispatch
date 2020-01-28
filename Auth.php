@@ -100,10 +100,12 @@ class Auth implements IteratorAggregate {
             $company_id = $d['_id'];
             $email_data = $d['companyEmail'];
             $pass_data = $d['companyPassword'];
+            $companyName = $d['companyName'];
         }
 
         if ($email == $email_data && $pass == $pass_data) {
             $_SESSION['company'] = 'user';
+            $_SESSION['companyName'] = $companyName;
             $_SESSION['companyId'] = $company_id;
             echo "valid";
         } else {
