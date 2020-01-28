@@ -233,9 +233,12 @@
         }
 
         public function delete_Custom_Broker($c_broker,$db) {
-            $db->customs_broker->updateOne(['companyID' => (int)$_SESSION['companyId']], [
-                '$pull' => ['custom_b' => ['_id' => (int)$c_broker->getId()]]]
+            $db->customs_broker->updateOne(['companyID' => (int)$_SESSION['companyId'], 'custom_b._id' => (int)$this->getId()],
+                ['$set' => ['custom_b.$.delete_status' => "1"]]
             );
+            /*$db->customs_broker->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+                '$pull' => ['custom_b' => ['_id' => (int)$c_broker->getId()]]]
+            );*/
         }
 
         public function export_Custom_Broker($db) {

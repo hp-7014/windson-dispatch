@@ -333,9 +333,13 @@
         }
 
         public function delete_Credits($b_credit,$db) {
-            $db->credit_card_admin->updateOne(['companyID' => (int)$_SESSION['companyId']], [
-                    '$pull' => ['admin_credit' => ['_id' => (int)$b_credit->getId()]]]
+            $db->credit_card_admin->updateOne(['companyID' => (int)$_SESSION['companyId'], 'admin_credit._id' => (int)$this->getId()],
+                ['$set' => ['admin_credit.$.delete_status' => "1"]]
             );
+
+            /*$db->credit_card_admin->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+                    '$pull' => ['admin_credit' => ['_id' => (int)$b_credit->getId()]]]
+            );*/
         }
 
         public function update_Credit($b_credit,$db){

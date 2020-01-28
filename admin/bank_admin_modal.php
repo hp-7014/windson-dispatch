@@ -27,7 +27,7 @@
                         <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>
                     </form><br>
 
-                    <table class="table table-striped mb-0 table-editable table-debit">
+                    <table class="table table-striped mb-0 ">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -49,40 +49,55 @@
                             $no = 1;
                         ?>
 
-
                         <tbody>
                         <?php foreach ($g_data as $data) {
                             $bank_admin = $data['admin_bank'];
 
-                            foreach ($bank_admin as $admin) { ?>
-                                <tr>
-                                    <td><?php echo $no++ ?></td>
-                                    <td contenteditable="true" onblur="updateBank(this,'bankName',<?php echo $admin['_id']; ?>)"><?php echo $admin['bankName']; ?></td>
-                                    <td contenteditable="true" onblur="updateBank(this,'bankAddresss',<?php echo $admin['_id']; ?>)"><?php echo $admin['bankAddresss']; ?></td>
-                                    <td contenteditable="true" >
-                                        <select class="form-control" id="accountHolder" onchange="updateAccount(this.value,'accountHolder',<?php echo $admin['_id']; ?>)">
-                                            <?php
-                                               $show_data = $db->company->find(['companyID' => $_SESSION['companyId']]);
+                            foreach ($bank_admin as $admin) {
+                                if ($admin['delete_status'] == '0') {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $no++ ?></td>
+                                        <td contenteditable="true"
+                                            onblur="updateBank(this,'bankName',<?php echo $admin['_id']; ?>)"><?php echo $admin['bankName']; ?></td>
+                                        <td contenteditable="true"
+                                            onblur="updateBank(this,'bankAddresss',<?php echo $admin['_id']; ?>)"><?php echo $admin['bankAddresss']; ?></td>
+                                        <td>
+                                            <select class="form-control"
+                                                    onchange="updateAccount(this.value,'accountHolder',<?php echo $admin['_id']; ?>)">
+                                                <?php
+                                                $show_data = $db->company->find(['companyID' => $_SESSION['companyId']]);
 
-                                            foreach ($show_data as $show) {
-                                                $show = $show['company'];
-                                                foreach ($show as $s) {
-                                                    ?>
-                                                    <option value="<?php echo $s['companyName']; ?>" <?php if($s['companyName'] == $admin['accountHolder']) { echo 'selected=selected';} ?>><?php echo $s['companyName']; ?></option>
-                                                <?php }
-                                            } ?>
-                                        </select>
-                                    </td>
-                                    <td contenteditable="true" onblur="updateBank(this,'accountNo',<?php echo $admin['_id']; ?>)"><?php echo $admin['accountNo']; ?></td>
-                                    <td contenteditable="true" onblur="updateBank(this,'routingNo',<?php echo $admin['_id']; ?>)"><?php echo $admin['routingNo']; ?></td>
-                                    <td contenteditable="true" onblur="updateBank(this,'openingBalDate',<?php echo $admin['_id']; ?>)"><?php echo $admin['openingBalDate']; ?></td>
-                                    <td contenteditable="true" onblur="updateBank(this,'openingBalance',<?php echo $admin['_id']; ?>)"><?php echo $admin['openingBalance']; ?></td>
-                                    <td contenteditable="true" onblur="updateBank(this,'transacBalance',<?php echo $admin['_id']; ?>)"><?php echo $admin['transacBalance']; ?></td>
-                                    <td contenteditable="true" onblur="updateBank(this,'currentcheqNo',<?php echo $admin['_id']; ?>)"><?php echo $admin['currentcheqNo']; ?></td>
-                                    <td><a href="#" onclick="deleteBank(<?php echo $admin['_id']; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></i></a>
-                                    </td>
-                                </tr>
-                            <?php }
+                                                foreach ($show_data as $show) {
+                                                    $show = $show['company'];
+                                                    foreach ($show as $s) {
+                                                        ?>
+                                                        <option value="<?php echo $s['companyName']; ?>" <?php if ($s['companyName'] == $admin['accountHolder']) {
+                                                            echo 'selected=selected';
+                                                        } ?>><?php echo $s['companyName']; ?></option>
+                                                    <?php }
+                                                } ?>
+                                            </select>
+                                        </td>
+                                        <td contenteditable="true"
+                                            onblur="updateBank(this,'accountNo',<?php echo $admin['_id']; ?>)"><?php echo $admin['accountNo']; ?></td>
+                                        <td contenteditable="true"
+                                            onblur="updateBank(this,'routingNo',<?php echo $admin['_id']; ?>)"><?php echo $admin['routingNo']; ?></td>
+                                        <td contenteditable="true"
+                                            onblur="updateBank(this,'openingBalDate',<?php echo $admin['_id']; ?>)"><?php echo $admin['openingBalDate']; ?></td>
+                                        <td contenteditable="true"
+                                            onblur="updateBank(this,'openingBalance',<?php echo $admin['_id']; ?>)"><?php echo $admin['openingBalance']; ?></td>
+                                        <td contenteditable="true"
+                                            onblur="updateBank(this,'transacBalance',<?php echo $admin['_id']; ?>)"><?php echo $admin['transacBalance']; ?></td>
+                                        <td contenteditable="true"
+                                            onblur="updateBank(this,'currentcheqNo',<?php echo $admin['_id']; ?>)"><?php echo $admin['currentcheqNo']; ?></td>
+                                        <td><a href="#" onclick="deleteBank(<?php echo $admin['_id']; ?>)"><i
+                                                        class="mdi mdi-delete-sweep-outline"
+                                                        style="font-size: 20px; color: #FC3B3B"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php }
+                            }
                         }
                         ?>
                         </tbody>
@@ -138,10 +153,10 @@
                     <div class="form-group col-md-6">
                         <label>Account Holder Name *</label>
                         <div>
-                            <select class="form-control" name="accountHolder" id="accountHolder">
-                                <option value="">Select Account Holder *</option>
+                            <select class="form-control " name="accountHolder" id="accountHolder" >
+                                <option value="">Select Account Holder</option>
                                 <?php
-                                    //$company = new Company();
+
                                     $show_data = $db->company->find(['companyID' => $_SESSION['companyId']]);
 
                                     foreach ($show_data as $show) {
@@ -197,3 +212,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<script type="text/javascript">
+   // $("#accountHolder").select2();
+</script>

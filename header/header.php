@@ -16,9 +16,9 @@
     <link href="assets/css/style.css" rel="stylesheet" type="text/css">
     <link href="assets/css/modalStyle.css" rel="stylesheet" type="text/css">
     <link href="assets/css/modalFormStyle.css" rel="stylesheet" type="text/css">
-
-   <!-- <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
-    <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>-->
+    <!--<link href="assets/css/select2.min.css" rel="stylesheet" type="text/css">-->
+    <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
+    <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
 
     <script src="master/js/form.js"></script>
     <script src="admin/js/form.js"></script>
@@ -26,8 +26,8 @@
     <script src="admin/js/validation.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="admin/js/form.js"></script>
-    <script src="admin/js/validation.js"></script>
+    <!--<script src="admin/js/form.js"></script>
+    <script src="admin/js/validation.js"></script>-->
     <script>
 
         $(document).on('click', '.addShipper', function () {

@@ -48,31 +48,43 @@
                     <?php foreach ($g_data as $data) {
                         $sub_credit = $data['sub_credit'];
 
-                        foreach ($sub_credit as $admin) { ?>
-                            <tr>
-                                <td><?php echo $no++ ?></td>
-                                <td contenteditable="true" onblur="updateSubCredit(this,'displayName',<?php echo $admin['_id']; ?>)"><?php echo $admin['displayName']; ?></td>
-                                <td contenteditable="true" >
-                                    <select class="form-control" id="mainCard" onchange="updateSub_Credit(this.value,'mainCard',<?php echo $admin['_id']; ?>)">
-                                        <?php
+                        foreach ($sub_credit as $admin) {
+                            if ($admin['delete_status'] == '0') {
+                                ?>
+                                <tr>
+                                    <td><?php echo $no++ ?></td>
+                                    <td contenteditable="true"
+                                        onblur="updateSubCredit(this,'displayName',<?php echo $admin['_id']; ?>)"><?php echo $admin['displayName']; ?></td>
+                                    <td>
+                                        <select class="form-control"
+                                                onchange="updateSub_Credit(this.value,'mainCard',<?php echo $admin['_id']; ?>)">
+                                            <?php
 
-                                        $show_data = $db->credit_card_admin->find(['companyID' => $_SESSION['companyId']]);
+                                            $show_data = $db->credit_card_admin->find(['companyID' => $_SESSION['companyId']]);
 
-                                        foreach ($show_data as $show) {
-                                            $show = $show['admin_credit'];
-                                            foreach ($show as $s) {
-                                                ?>
-                                                <option value="<?php echo $s['Name']; ?>" <?php if($s['Name'] == $admin['mainCard']) { echo 'selected=selected';} ?>><?php echo $s['Name']; ?></option>
-                                            <?php }
-                                        }?>
-                                    </select>
-                                </td>
-                                <td contenteditable="true" onblur="updateSubCredit(this,'cardHolderName',<?php echo $admin['_id']; ?>)"><?php echo $admin['cardHolderName']; ?></td>
-                                <td contenteditable="true" onblur="updateSubCredit(this,'cardNo',<?php echo $admin['_id']; ?>)"><?php echo $admin['cardNo']; ?></td>
-                                <td><a href="#" onclick="deleteSubCredit(<?php echo $admin['_id']; ?>,<?php echo $admin['delete_status']?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></i></a>
-                                </td>
-                            </tr>
-                        <?php }
+                                            foreach ($show_data as $show) {
+                                                $show = $show['admin_credit'];
+                                                foreach ($show as $s) {
+                                                    ?>
+                                                    <option value="<?php echo $s['Name']; ?>" <?php if ($s['Name'] == $admin['mainCard']) {
+                                                        echo 'selected=selected';
+                                                    } ?>><?php echo $s['Name']; ?></option>
+                                                <?php }
+                                            } ?>
+                                        </select>
+                                    </td>
+                                    <td contenteditable="true"
+                                        onblur="updateSubCredit(this,'cardHolderName',<?php echo $admin['_id']; ?>)"><?php echo $admin['cardHolderName']; ?></td>
+                                    <td contenteditable="true"
+                                        onblur="updateSubCredit(this,'cardNo',<?php echo $admin['_id']; ?>)"><?php echo $admin['cardNo']; ?></td>
+                                    <td><a href="#"
+                                           onclick="deleteSubCredit(<?php echo $admin['_id']; ?>,<?php echo $admin['delete_status'] ?>)"><i
+                                                    class="mdi mdi-delete-sweep-outline"
+                                                    style="font-size: 20px; color: #FC3B3B"></i></a>
+                                    </td>
+                                </tr>
+                            <?php }
+                        }
                     }
                     ?>
                     </tbody>

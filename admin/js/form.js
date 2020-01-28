@@ -904,14 +904,14 @@ function AddBankAdmin() {
     var companyId = document.getElementById('companyId').value;
     var bankAddresss = document.getElementById('bankAddress').value;
     var bankName = document.getElementById('bankName').value;
-    var accountHolder = $("#accountHolder").val();
+    var accountHolder = document.getElementById('accountHolder').value;
     var accountNo = document.getElementById('accountNo').value;
     var routingNo = document.getElementById('routingNo').value;
     var openingBalDate = document.getElementById('openingBalDate').value;
     var openingBalance = document.getElementById('openingBalance').value;
     var currentcheqNo = document.getElementById('currentcheqNo').value;
     var transacBalance = document.getElementById('transacBalance').value;
-
+    //alert(accountHolder);
     if (val_bankName(bankName)) {
         if (val_accountHolder(accountHolder)) {
             if (val_accountNo(accountNo)) {
@@ -990,6 +990,8 @@ function updateAccount(element, column, id) {
 
 //Delete Bank Admin
 function deleteBank(id) {
+    //var companyId = document.getElementById('companyId').value;
+
     if (confirm('Are you Sure ?')) {
         $.ajax({
             url: 'admin/bank_admin.php?type=' + 'delete_bank',
@@ -1039,7 +1041,6 @@ function export_Admin() {
 
             var encodedUri = encodeURI(csvContent);
             var link = document.createElement("a");
-
             link.setAttribute("href", encodedUri);
             link.setAttribute("download", "bank_admin.csv");
             document.body.appendChild(link); // Required for FF
@@ -1442,7 +1443,6 @@ function export_CustomBroker() {
 
             var encodedUri = encodeURI(csvContent);
             var link = document.createElement("a");
-
             link.setAttribute("href", encodedUri);
             link.setAttribute("download", "custom_broker.csv");
             document.body.appendChild(link); // Required for FF

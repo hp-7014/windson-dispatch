@@ -277,10 +277,13 @@
             echo "Data Update Successfully.";
         }
 
-        public function delete_Banks($debit,$db) {
-            $db->bank_admin->updateOne(['companyID' => (int)$_SESSION['companyId']], [
-                    '$pull' => ['admin_bank' => ['_id' => (int)$debit->getId()]]]
+        public function delete_Banks($acc,$db) {
+            $db->bank_admin->updateOne(['companyID' => (int)$_SESSION['companyId'], 'admin_bank._id' => (int)$this->getId()],
+                ['$set' => ['admin_bank.$.delete_status' => "1"]]
             );
+            /*$db->bank_admin->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+                '$pull' => ['admin_bank' => ['_id' => (int)$debit->getId()]]]
+            );*/
         }
 
         public function import_Bank_Admin($targetPath, $helper)
