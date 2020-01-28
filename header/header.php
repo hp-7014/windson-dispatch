@@ -16,13 +16,11 @@
     <link href="assets/css/style.css" rel="stylesheet" type="text/css">
     <link href="assets/css/modalStyle.css" rel="stylesheet" type="text/css">
     <link href="assets/css/modalFormStyle.css" rel="stylesheet" type="text/css">
-<<<<<<< HEAD
+
     <!--<link href="assets/css/select2.min.css" rel="stylesheet" type="text/css">-->
-    <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
-=======
 
    <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
->>>>>>> d863a26e8453814aa6491d69a37be1eea256dffe
+
     <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
 
     <script src="master/js/form.js"></script>
