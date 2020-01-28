@@ -16,8 +16,13 @@
     <link href="assets/css/style.css" rel="stylesheet" type="text/css">
     <link href="assets/css/modalStyle.css" rel="stylesheet" type="text/css">
     <link href="assets/css/modalFormStyle.css" rel="stylesheet" type="text/css">
+<<<<<<< HEAD
     <!--<link href="assets/css/select2.min.css" rel="stylesheet" type="text/css">-->
     <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
+=======
+
+   <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
+>>>>>>> d863a26e8453814aa6491d69a37be1eea256dffe
     <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
 
     <script src="master/js/form.js"></script>
@@ -245,6 +250,44 @@
             });
         });
 
+        //admin chetan
+
+        // Add Truck Function
+        $(document).on("click", "#truck_add", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/add_truck_modal.php', function (result) {
+                        $('#truck').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        // Add Trailer Function
+        $(document).on("click", "#trailer_add", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/add_trailer_modal.php', function (result) {
+                        $('#trailer').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        // Add Factoring Company Function
+        $(document).on("click", "#factoring_company", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/add_factoring_modal.php', function (result) {
+                        $('#factoring').modal({show: true});
+                    });
+                },
+            });
+        });
+
     </script>
 </head>
 
@@ -447,6 +490,15 @@
 
                                 <li>
                                     <a href="#" class="addCustomer">Customer</a>
+                                </li>
+
+                                <li><a href="#" id="truck_add">Truck</a></li>
+
+                                <li>
+                                    <a href="#" id="trailer_add">Trailer</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="factoring_company">Factoring Company</a>
                                 </li>
                             </ul>
                         </li>

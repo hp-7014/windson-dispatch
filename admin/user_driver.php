@@ -71,21 +71,51 @@ else if ($_GET['type'] == 'export_user') {
     $user->exportUser($db);
 }
 
-//// delete function here
-//else if ($_GET['type'] == 'delete_shipper') {
-//    $user = new Shipper();
-//    $user->setId($_POST['id']);
-//    $user->deleteShipper($user, $db);
-//    echo 'Data Removed Successfully';
-//}
-//
-//// update function here
-//else if ($_GET['type'] == 'edit_shipper') {
-//    $user = new Shipper();
-//    $user->setId($_POST['id']);
-//    $user->setCompanyId($_POST['companyid']);
-//    $user->setShipperName($_POST['value']);
-//    $user->setColumn($_POST['column']);
-//    $user->updateShipper($user, $db);
-//    echo 'Data Update Successfully';
-//}
+// delete function here
+else if ($_GET['type'] == 'delete_user') {
+    $user = new User();
+    $user->setId($_POST['id']);
+    $user->deleteUser($user, $db);
+    echo 'Data Removed Successfully';
+}
+
+// update function here
+else if ($_GET['type'] == 'edit_user') {
+    $user = new User();
+    $user->setId($_POST['id']);
+    $user->setCompanyId($_POST['companyid']);
+    $user->setUserEmail($_POST['value']);
+    $user->setColumn($_POST['column']);
+    $user->updateUser($user, $db);
+    echo 'Data Update Successfully';
+}
+
+// update function here
+else if ($_GET['type'] == 'update_privilege') {
+    $user = new User();
+    $user->setId($_POST['objID']);
+    $user->setCompanyId($_POST['companyId']);
+    $user->setAddBank($_POST['addBank']);
+    $user->setAddCustomer($_POST['addCustomer']);
+    $user->setAddCompany($_POST['addCompany']);
+    $user->setAddShipper($_POST['addShipper']);
+    $user->setCurrency($_POST['currency']);
+    $user->setAddConsignee($_POST['addConsignee']);
+    $user->setPaymentTerms($_POST['paymentTerms']);
+    $user->setAddDriver($_POST['addDriver']);
+    $user->setOffice($_POST['office']);
+    $user->setAddTruck($_POST['addTruck']);
+    $user->setEquipmentType($_POST['equipmentType']);
+    $user->setAddTrailer($_POST['addTrailer']);
+    $user->setTruckType($_POST['truckType']);
+    $user->setAddExternalCarrier($_POST['addExternalCarrier']);
+    $user->setTrailerType($_POST['trailerType']);
+    $user->setFactoringCompany($_POST['factoringCompany']);
+    $user->setStatusType($_POST['statusType']);
+    $user->setCustomsBroker($_POST['customsBroker']);
+    $user->setLoadType($_POST['loadType']);
+    $user->setOwnerOperator($_POST['ownerOperator']);
+    $user->setFixPayCategory($_POST['fixPayCategory']);
+    $user->updatePrivilege($user, $db);
+    echo 'Data Update Successfully';
+}

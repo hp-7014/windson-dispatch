@@ -870,4 +870,50 @@ class User implements IteratorAggregate
         echo json_encode($p);
     }
 
+    // update function
+    public function updateUser($user, $db)
+    {
+        $db->user->updateOne(['companyID' => (int)$_SESSION['companyId'], 'user._id' => (int)$this->getId()],
+            ['$set' => ['user.$.' . $user->getColumn() => $user->getUserEmail()]]
+        );
+    }
+
+    // delete fucntion
+    public function deleteUser($user, $db)
+    {
+        $db->user->updateOne(['companyID' => (int)$_SESSION['companyId'], 'user._id' => (int)$this->getId()],
+            ['$set' => ['user.$.deleteStatus' => 1]]
+        );
+    }
+
+    // update Privilege
+    public function updatePrivilege($user, $db)
+    {
+        $db->user->updateOne(['companyID' => (int)$_SESSION['companyId'], 'user._id' => (int)$this->getId()],
+            ['$set' => [
+                'user.$.addBank' => $this->addBank,
+                'user.$.addCustomer' => $this->addCustomer,
+                'user.$.addCompany' => $this->addCompany,
+                'user.$.addShipper' => $this->addShipper,
+                'user.$.currency' => $this->currency,
+                'user.$.addConsignee' => $this->addConsignee,
+                'user.$.paymentTerms' => $this->paymentTerms,
+                'user.$.addDriver' => $this->addDriver,
+                'user.$.office' => $this->office,
+                'user.$.addTruck' => $this->addTruck,
+                'user.$.equipmentType' => $this->equipmentType,
+                'user.$.addTrailer' => $this->addTrailer,
+                'user.$.truckType' => $this->truckType,
+                'user.$.addExternalCarrier' => $this->addExternalCarrier,
+                'user.$.trailerType' => $this->trailerType,
+                'user.$.factoringCompany' => $this->factoringCompany,
+                'user.$.statusType' => $this->statusType,
+                'user.$.customsBroker' => $this->customsBroker,
+                'user.$.loadType' => $this->loadType,
+                'user.$.ownerOperator' => $this->ownerOperator,
+                'user.$.fixPayCategory' => $this->fixPayCategory
+            ]]
+        );
+    }
+
 }
