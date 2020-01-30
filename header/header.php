@@ -17,7 +17,10 @@
     <link href="assets/css/modalStyle.css" rel="stylesheet" type="text/css">
     <link href="assets/css/modalFormStyle.css" rel="stylesheet" type="text/css">
 
-    <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
+    <!--<link href="assets/css/select2.min.css" rel="stylesheet" type="text/css">-->
+
+   <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
+
     <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
 
     <script src="master/js/form.js"></script>
@@ -26,8 +29,8 @@
     <script src="admin/js/validation.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="admin/js/form.js"></script>
-    <script src="admin/js/validation.js"></script>
+    <!--<script src="admin/js/form.js"></script>
+    <script src="admin/js/validation.js"></script>-->
     <script>
 
         $(document).on('click', '.addShipper', function () {
@@ -244,15 +247,42 @@
                 }
             });
         });
-        //This function is invoked when external carrier is clicked from menu
-        $(document).on('click','#addCarrier', function () {
+
+        //admin chetan
+
+        // Add Truck Function
+        $(document).on("click", "#truck_add", function () {
             $.ajax({
                 type: 'POST',
                 success: function (data) {
-                    $('.modal-container').load('./admin/external_carrier_modal.php', function (result) {
-                        $('#External').modal({show: true});
-                    })
-                }
+                    $('.modal-container').load('./admin/add_truck_modal.php', function (result) {
+                        $('#truck').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        // Add Trailer Function
+        $(document).on("click", "#trailer_add", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/add_trailer_modal.php', function (result) {
+                        $('#trailer').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        // Add Factoring Company Function
+        $(document).on("click", "#factoring_company", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/add_factoring_modal.php', function (result) {
+                        $('#factoring').modal({show: true});
+                    });
+                },
             });
         });
 
@@ -271,7 +301,7 @@
                 <div>
                     <a href="index.html" class="logo">
                             <span class="logo-light">
-                                    <i class="mdi mdi-camera-control"></i> Windson
+                                    <i class="mdi mdi-camera-control"></i> Stexo
                             </span>
                     </a>
                 </div>
@@ -459,8 +489,14 @@
                                 <li>
                                     <a href="#" class="addCustomer">Customer</a>
                                 </li>
+
+                                <li><a href="#" id="truck_add">Truck</a></li>
+
                                 <li>
-                                    <a href="#" id="addCarrier">External Carrier</a>
+                                    <a href="#" id="trailer_add">Trailer</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="factoring_company">Factoring Company</a>
                                 </li>
                             </ul>
                         </li>

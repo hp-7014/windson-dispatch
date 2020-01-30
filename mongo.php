@@ -3,8 +3,8 @@
 require 'vendor/autoload.php';
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
-$collection = $db->payment_terms;
-    //update
+$collection = $db->user;
+//update
 //        $collection->updateOne(
 //            ['companyID' => 1 ,'currency._id'=> 2],
 //            ['$set' => ['currency.$.currencyType'=>'test 2 chetan']
@@ -16,14 +16,14 @@ $collection = $db->payment_terms;
 //    "category" => "Chutney",
 //    "price" => 150
 //]);
-$show = $collection->find(
-        ['$where' => function() {
-            return ['payment._id'] == 1;
-        }]
-);
-foreach ($show as $s) {
-    print_r($s);
-}
+//$show = $collection->find(['user._id' => 0]);
+//foreach ($show as $s) {
+//    print_r($s);
+//    $s1 = $s['user'];
+////    foreach ($s1 as $s2) {
+////        print_r($s2);
+////    }
+//}
 // code to create a nested collection
 
 //$collection->updateOne(['_id' => 2],['$set'=>['PackSizes'=>[[
@@ -68,16 +68,17 @@ foreach ($show as $s) {
 
 // code to fetch the embedded collection based on some value and print the entire sub collection
 
-//$cursor = $collection->find(['companyID.currencyType'=> 'test']);
-////var_dump($cursor);
+$cursor = $collection->find(['companyID' => 1],['user._id' => 1]);
+
 //$array = iterator_to_array($cursor);
-//
-//foreach($array as $value){
-//$array1 = iterator_to_array($value['companyID']);
-//foreach($array1 as $value1){
-//echo $value1['currencyType'];
-//}
-//}
+
+foreach ($cursor as $value) {
+//    $array1 = iterator_to_array($value['user']);
+    $array1 = $value['user'];
+    foreach ($array1 as $value1) {
+        print_r($value1);
+    }
+}
 
 
 // code to update the entries of embedded document through certain parameters

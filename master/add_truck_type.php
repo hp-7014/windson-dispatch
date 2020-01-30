@@ -40,7 +40,6 @@ require "../database/connection.php";?>
                     </thead>
                     <tbody>
                     <?php
-
                     $show = $db->truck_add->find(['companyID' => $_SESSION['companyId']]);
                     $no = 1;
                     foreach ($show as $row){

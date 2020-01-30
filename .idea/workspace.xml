@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+=======
     <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/Dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/bank_admin_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/bank_admin_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/credit_card_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/credit_card_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/custom_broker_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/custom_broker_modal.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/validation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/shipper_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/shipper_modal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/connection.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/connection.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/model/Bank_Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Bank_Admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/model/Credit_Card_Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Credit_Card_Admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/model/Customs_Broker.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Customs_Broker.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/model/Sub_Credit_Card.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Sub_Credit_Card.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/sub_credit_card_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/sub_credit_card_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/footer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/master/add_paymentTerms.php" beforeDir="false" afterPath="$PROJECT_DIR$/master/add_paymentTerms.php" afterDir="false" />
     </list>
+<<<<<<< HEAD
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+=======
+>>>>>>> ca8e0dddd50c8abc076979a13eb9334bbd470d64
+>>>>>>> d863a26e8453814aa6491d69a37be1eea256dffe
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,13 +53,51 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.2">
+<<<<<<< HEAD
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.txt" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/hello.txt" />
+        <option value="$PROJECT_DIR$/master/add_company.php" />
+        <option value="$PROJECT_DIR$/js/validation.js" />
+        <option value="$PROJECT_DIR$/master/model/PaymentTerms.php" />
+        <option value="$PROJECT_DIR$/admin/js/shipper_modal.php" />
+        <option value="$PROJECT_DIR$/master/js/form.js" />
+        <option value="$PROJECT_DIR$/master/js/validation.js" />
+        <option value="$PROJECT_DIR$/Auth.php" />
+        <option value="$PROJECT_DIR$/model.php" />
+        <option value="$PROJECT_DIR$/admin/user_modal.php" />
+        <option value="$PROJECT_DIR$/admin/js/validation.js" />
+        <option value="$PROJECT_DIR$/header/header.php" />
+        <option value="$PROJECT_DIR$/header/header.php" />
+        <option value="$PROJECT_DIR$/assets/css/style.css" />
+        <option value="$PROJECT_DIR$/admin/customer_driver.php" />
+        <option value="$PROJECT_DIR$/admin/model/Customer.php" />
+        <option value="$PROJECT_DIR$/admin/customer_modal.php" />
+        <option value="$PROJECT_DIR$/mongo.php" />
+        <option value="$PROJECT_DIR$/admin/model/Consignee.php" />
+        <option value="$PROJECT_DIR$/admin/consignee_modal.php" />
+        <option value="$PROJECT_DIR$/admin/consignee_driver.php" />
+        <option value="$PROJECT_DIR$/admin/model/Shipper.php" />
+        <option value="$PROJECT_DIR$/admin/shipper_driver.php" />
+        <option value="$PROJECT_DIR$/admin/js/form.js" />
+        <option value="$PROJECT_DIR$/admin/shipper_modal.php" />
+      </list>
+    </option>
+  </component>
+=======
+>>>>>>> ca8e0dddd50c8abc076979a13eb9334bbd470d64
+  <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/mongodb/mongodb" />
@@ -64,8 +114,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mongo" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -74,15 +124,15 @@
       <recent name="C:\xampp\htdocs\windson-dispatch\admin" />
     </key>
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
+  <component name="RunDashboard">
+    <option name="ruleStates">
       <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
       </list>
     </option>
   </component>
@@ -98,16 +148,70 @@
       <updated>1579614540717</updated>
       <workItem from="1579614544799" duration="3157000" />
       <workItem from="1579688110173" duration="4098000" />
-      <workItem from="1579857794828" duration="29677000" />
-      <workItem from="1580030924726" duration="17107000" />
-      <workItem from="1580101664092" duration="1608000" />
-      <workItem from="1580205429838" duration="884000" />
-      <workItem from="1580214413412" duration="15116000" />
-      <workItem from="1580291987086" duration="21386000" />
-      <workItem from="1580381356926" duration="1452000" />
+<<<<<<< HEAD
+      <workItem from="1579857794828" duration="30468000" />
     </task>
     <servers />
   </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="66803000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="1358" y="-8" width="1382" height="754" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15506808" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.85689354" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Command Line Tools Console" order="10" weight="0.32850242" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32850242" />
+      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15279879" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32850242" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.32850242" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Mongo Explorer" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+    </layout-to-restore>
+  </component>
+=======
+      <workItem from="1579857794828" duration="29677000" />
+      <workItem from="1580030924726" duration="17107000" />
+      <workItem from="1580101664092" duration="1608000" />
+      <workItem from="1580245667701" duration="3749000" />
+    </task>
+    <servers />
+  </component>
+>>>>>>> ca8e0dddd50c8abc076979a13eb9334bbd470d64
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
@@ -143,19 +247,14 @@
     <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'admin' of https://github.com/hp-7014/windson-dispatch into admin&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2038" y="0" key="#PHP" timestamp="1580133908397">
-      <screen x="1680" y="0" width="1366" height="768" />
-    </state>
-    <state x="2038" y="0" key="#PHP/1680.0.1366.768/0.0.1680.985@1680.0.1366.768" timestamp="1580133908397" />
     <state x="275" y="28" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580040839633">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="275" y="28" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1580040839633" />
-    <state x="585" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1580217527671">
-      <screen x="0" y="0" width="1680" height="1046" />
+    <state x="476" y="86" key="#com.intellij.ide.util.MemberChooser" timestamp="1580044822966">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="476" y="86" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1580044822966" />
-    <state x="585" y="122" key="#com.intellij.ide.util.MemberChooser/1680.0.1366.768/0.0.1680.1046@0.0.1680.1046" timestamp="1580217527671" />
     <state x="129" y="62" key="MergeDialog" timestamp="1579974151047">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -164,29 +263,14 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="395" y="86" key="MultipleFileMergeDialog/0.0.1366.738@0.0.1366.738" timestamp="1579974151065" />
-    <state x="568" y="261" key="NewPhpClassDialog" timestamp="1580215327353">
-      <screen x="0" y="0" width="1680" height="1046" />
+    <state x="462" y="184" key="NewPhpClassDialog" timestamp="1580043852437">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="462" y="184" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" timestamp="1580043852437" />
-    <state x="568" y="261" key="NewPhpClassDialog/1680.0.1366.768/0.0.1680.1046@0.0.1680.1046" timestamp="1580215327353" />
-    <state x="636" y="415" key="NewPhpFileDialog" timestamp="1580218833003">
-      <screen x="0" y="0" width="1680" height="1046" />
+    <state x="517" y="293" key="NewPhpFileDialog" timestamp="1580043804827">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="517" y="293" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1580043804827" />
-    <state x="636" y="415" key="NewPhpFileDialog/1680.0.1366.768/0.0.1680.1046@0.0.1680.1046" timestamp="1580218833003" />
-    <state x="1680" y="0" width="1366" height="768" maximized="true" key="dock-window-1" timestamp="1580306670957">
-      <screen x="1680" y="0" width="1366" height="768" />
-    </state>
-    <state x="0" y="305" width="1366" height="698" key="dock-window-1/0.23.1680.971@0.23.1680.971" timestamp="1580236360119" />
-    <state x="1680" y="0" width="1366" height="768" maximized="true" key="dock-window-1/1680.0.1366.768/0.0.1680.1050@0.0.1680.1050" timestamp="1580306670957" />
-    <state x="147" y="64" width="1366" height="692" key="dock-window-1/1680.23.1366.745/0.0.1680.987@0.0.1680.987" timestamp="1580292262157" />
-    <state x="1531" y="505" width="1366" height="692" key="dock-window-1/1680.23.1366.745/0.23.1680.962@0.23.1680.962" timestamp="1580291995843" />
-    <state x="1097" y="706" width="1366" height="692" key="dock-window-1/1680.23.1366.745/0.23.1680.964@0.23.1680.964" timestamp="1580292544261" />
-    <state x="1681" y="23" width="1480" height="694" key="dock-window-2" timestamp="1580382946763">
-      <screen x="1680" y="23" width="1366" height="745" />
-    </state>
-    <state x="1681" y="23" width="1480" height="745" key="dock-window-2/1680.0.1366.768/0.0.1680.1050@0.0.1680.1050" timestamp="1580382137228" />
-    <state x="1681" y="23" width="1480" height="694" key="dock-window-2/1680.23.1366.745/0.23.1680.964@0.23.1680.964" timestamp="1580382946763" />
     <state x="484" y="161" key="git4idea.merge.GitMergeDialog" timestamp="1579974428848">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
