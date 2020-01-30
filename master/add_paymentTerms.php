@@ -21,7 +21,7 @@ require "../database/connection.php";?>
                                             data-toggle="modal"
                                             data-target="#Add_Payment_Terms">Add
                                     </button>
-                                    <input type="submit" name="submit" onclick="importExcel()"
+                                    <input  type="submit" name="submit" onclick="importExcel()"
                                            class="btn btn-outline-info waves-effect waves-light float-right"
                                            value="Upload"/>
                                     <div class="custom-upload-btn-wrapper float-right">

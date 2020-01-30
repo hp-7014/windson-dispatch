@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/Dashboard.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/form.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/validation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/utils/Helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/utils/Helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/shipper_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/shipper_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/connection.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/connection.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/add_paymentTerms.php" beforeDir="false" afterPath="$PROJECT_DIR$/master/add_paymentTerms.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +47,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.2">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/mongodb/mongodb" />
@@ -59,6 +64,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mongo" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -68,15 +74,15 @@
       <recent name="C:\xampp\htdocs\windson-dispatch\admin" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
+  <component name="ServiceViewManager">
+    <option name="viewStates">
       <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
       </list>
     </option>
   </component>
@@ -95,6 +101,10 @@
       <workItem from="1579857794828" duration="29677000" />
       <workItem from="1580030924726" duration="17107000" />
       <workItem from="1580101664092" duration="1608000" />
+      <workItem from="1580205429838" duration="884000" />
+      <workItem from="1580214413412" duration="15116000" />
+      <workItem from="1580291987086" duration="21386000" />
+      <workItem from="1580381356926" duration="1452000" />
     </task>
     <servers />
   </component>
@@ -133,14 +143,19 @@
     <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'admin' of https://github.com/hp-7014/windson-dispatch into admin&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="2038" y="0" key="#PHP" timestamp="1580133908397">
+      <screen x="1680" y="0" width="1366" height="768" />
+    </state>
+    <state x="2038" y="0" key="#PHP/1680.0.1366.768/0.0.1680.985@1680.0.1366.768" timestamp="1580133908397" />
     <state x="275" y="28" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580040839633">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="275" y="28" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1580040839633" />
-    <state x="476" y="86" key="#com.intellij.ide.util.MemberChooser" timestamp="1580044822966">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state x="585" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1580217527671">
+      <screen x="0" y="0" width="1680" height="1046" />
     </state>
     <state x="476" y="86" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1580044822966" />
+    <state x="585" y="122" key="#com.intellij.ide.util.MemberChooser/1680.0.1366.768/0.0.1680.1046@0.0.1680.1046" timestamp="1580217527671" />
     <state x="129" y="62" key="MergeDialog" timestamp="1579974151047">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -149,14 +164,29 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="395" y="86" key="MultipleFileMergeDialog/0.0.1366.738@0.0.1366.738" timestamp="1579974151065" />
-    <state x="462" y="184" key="NewPhpClassDialog" timestamp="1580043852437">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state x="568" y="261" key="NewPhpClassDialog" timestamp="1580215327353">
+      <screen x="0" y="0" width="1680" height="1046" />
     </state>
     <state x="462" y="184" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" timestamp="1580043852437" />
-    <state x="517" y="293" key="NewPhpFileDialog" timestamp="1580043804827">
-      <screen x="0" y="0" width="1366" height="738" />
+    <state x="568" y="261" key="NewPhpClassDialog/1680.0.1366.768/0.0.1680.1046@0.0.1680.1046" timestamp="1580215327353" />
+    <state x="636" y="415" key="NewPhpFileDialog" timestamp="1580218833003">
+      <screen x="0" y="0" width="1680" height="1046" />
     </state>
     <state x="517" y="293" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1580043804827" />
+    <state x="636" y="415" key="NewPhpFileDialog/1680.0.1366.768/0.0.1680.1046@0.0.1680.1046" timestamp="1580218833003" />
+    <state x="1680" y="0" width="1366" height="768" maximized="true" key="dock-window-1" timestamp="1580306670957">
+      <screen x="1680" y="0" width="1366" height="768" />
+    </state>
+    <state x="0" y="305" width="1366" height="698" key="dock-window-1/0.23.1680.971@0.23.1680.971" timestamp="1580236360119" />
+    <state x="1680" y="0" width="1366" height="768" maximized="true" key="dock-window-1/1680.0.1366.768/0.0.1680.1050@0.0.1680.1050" timestamp="1580306670957" />
+    <state x="147" y="64" width="1366" height="692" key="dock-window-1/1680.23.1366.745/0.0.1680.987@0.0.1680.987" timestamp="1580292262157" />
+    <state x="1531" y="505" width="1366" height="692" key="dock-window-1/1680.23.1366.745/0.23.1680.962@0.23.1680.962" timestamp="1580291995843" />
+    <state x="1097" y="706" width="1366" height="692" key="dock-window-1/1680.23.1366.745/0.23.1680.964@0.23.1680.964" timestamp="1580292544261" />
+    <state x="1681" y="23" width="1480" height="694" key="dock-window-2" timestamp="1580382946763">
+      <screen x="1680" y="23" width="1366" height="745" />
+    </state>
+    <state x="1681" y="23" width="1480" height="745" key="dock-window-2/1680.0.1366.768/0.0.1680.1050@0.0.1680.1050" timestamp="1580382137228" />
+    <state x="1681" y="23" width="1480" height="694" key="dock-window-2/1680.23.1366.745/0.23.1680.964@0.23.1680.964" timestamp="1580382946763" />
     <state x="484" y="161" key="git4idea.merge.GitMergeDialog" timestamp="1579974428848">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

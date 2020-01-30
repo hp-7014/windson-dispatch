@@ -66,6 +66,10 @@ require "../database/connection.php";
 
                                     $shipper = new Shipper();
                                     $show_data = $db->shipper->find(['companyID' => $_SESSION['companyId']]);
+                                    //$show_data = $db->shipper->findOne(['companyID'=>$_SESSION['companyId']],['shipper.deleteStatus'=>['$elemMatch'=>['deleteStatus'=>0,'shipperLocation'=>'anand']]]);
+                                    //var_dump($show_data);
+
+
                                     $no = 1;
                                     foreach ($show_data as $show) {
                                         $show = $show['shipper'];

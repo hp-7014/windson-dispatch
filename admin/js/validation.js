@@ -654,3 +654,95 @@ function val_telephone(val) {
     }
 }
 /*--------------- Customs Broker END ---------------*/
+/*--------------- External Carrier Starts ----------*/
+
+function val_carrName(val) {
+    if(val == '') {
+        swal('Please Enter Carrier name');
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function val_carrAddress(val){
+    if(val == ''){
+        swal('Please Enter Carrier Address');
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+function val_carrLocation(val){
+    if(val == ''){
+        swal('Please Enter Carrier Location');
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+function val_carrZip(val){
+    if(val == ''){
+        swal('Please Enter Zip Code');
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+function val_carrEmail(val){
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(val.match(mailformat)){
+        return true;
+    }
+    else{
+        swal('Please Enter Valid Email');
+        return false;
+    }
+}
+
+function val_carrTelephone(val){
+    if(val.length != 10){
+        swal('Please Enter valid Phone Number');
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+function val_carrTaxID(val){
+    if(val == ''){
+        swal('Please Enter Valid Tax ID');
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+function val_carrMC(val){
+    if(val == ''){
+        swal('Please Enter Valid MC No');
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+function val_carrDOT(val){
+    if(val == ''){
+        swal('Please Enter valid DOT No');
+        return false;
+    }
+    else{
+        return true;
+    }
+}

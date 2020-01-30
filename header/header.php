@@ -17,8 +17,8 @@
     <link href="assets/css/modalStyle.css" rel="stylesheet" type="text/css">
     <link href="assets/css/modalFormStyle.css" rel="stylesheet" type="text/css">
 
-   <!-- <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
-    <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>-->
+    <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
+    <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
 
     <script src="master/js/form.js"></script>
     <script src="admin/js/form.js"></script>
@@ -244,6 +244,17 @@
                 }
             });
         });
+        //This function is invoked when external carrier is clicked from menu
+        $(document).on('click','#addCarrier', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/external_carrier_modal.php', function (result) {
+                        $('#External').modal({show: true});
+                    })
+                }
+            });
+        });
 
     </script>
 </head>
@@ -260,7 +271,7 @@
                 <div>
                     <a href="index.html" class="logo">
                             <span class="logo-light">
-                                    <i class="mdi mdi-camera-control"></i> Stexo
+                                    <i class="mdi mdi-camera-control"></i> Windson
                             </span>
                     </a>
                 </div>
@@ -447,6 +458,9 @@
 
                                 <li>
                                     <a href="#" class="addCustomer">Customer</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="addCarrier">External Carrier</a>
                                 </li>
                             </ul>
                         </li>
