@@ -286,6 +286,18 @@
             });
         });
 
+        //This function is invoked when external carrier is clicked from menu
+        $(document).on('click','#addCarrier', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/external_carrier_modal.php', function (result) {
+                        $('#External').modal({show: true});
+                    })
+                }
+            });
+        });
+
     </script>
 </head>
 
@@ -497,6 +509,9 @@
                                 </li>
                                 <li>
                                     <a href="#" id="factoring_company">Factoring Company</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="addCarrier">External Carrier</a>
                                 </li>
                             </ul>
                         </li>
