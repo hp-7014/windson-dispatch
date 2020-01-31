@@ -17,7 +17,14 @@
     <link href="assets/css/modalStyle.css" rel="stylesheet" type="text/css">
     <link href="assets/css/modalFormStyle.css" rel="stylesheet" type="text/css">
 
+<<<<<<< HEAD
    <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
+=======
+    <!--<link href="assets/css/select2.min.css" rel="stylesheet" type="text/css">-->
+
+   <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
+
+>>>>>>> 2eea0557ab06cd2d56101ba29a85e0bb26144926
     <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
 
     <script src="master/js/form.js"></script>
@@ -26,11 +33,16 @@
     <script src="admin/js/validation.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<<<<<<< HEAD
     <script src="admin/js/form.js"></script>
     <script src="admin/js/validation.js"></script>
 
 
 
+=======
+    <!--<script src="admin/js/form.js"></script>
+    <script src="admin/js/validation.js"></script>-->
+>>>>>>> 2eea0557ab06cd2d56101ba29a85e0bb26144926
     <script>
 
         $(document).on('click', '.addShipper', function () {
@@ -258,6 +270,44 @@
             });
         });
 
+        //admin chetan
+
+        // Add Truck Function
+        $(document).on("click", "#truck_add", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/add_truck_modal.php', function (result) {
+                        $('#truck').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        // Add Trailer Function
+        $(document).on("click", "#trailer_add", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/add_trailer_modal.php', function (result) {
+                        $('#trailer').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        // Add Factoring Company Function
+        $(document).on("click", "#factoring_company", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/add_factoring_modal.php', function (result) {
+                        $('#factoring').modal({show: true});
+                    });
+                },
+            });
+        });
+
     </script>
 </head>
 
@@ -464,6 +514,15 @@
 
                                 <li>
                                     <a href="#" class="addCustomer">Customer</a>
+                                </li>
+
+                                <li><a href="#" id="truck_add">Truck</a></li>
+
+                                <li>
+                                    <a href="#" id="trailer_add">Trailer</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="factoring_company">Factoring Company</a>
                                 </li>
                             </ul>
                         </li>

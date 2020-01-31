@@ -72,7 +72,7 @@ function addShipper() {
                                                                         shipperStatus: status,
                                                                         shippingNotes: shippingNotes,
                                                                         internalNotes: internalNotes,
-                                                                        asConsignee: asConsignee
+                                                                        asConsignee:asConsignee
                                                                     },
                                                                     success: function (data) {
                                                                         swal('Success', data, 'success');
@@ -201,16 +201,6 @@ function addConsignee() {
     var consigneeRecivingNote = document.getElementById('consigneeRecivingNote').value;
     var consigneeInternalNote = document.getElementById('consigneeInternalNote').value;
 
-    for (var i = 0; i < consignASshipper.length; i++) {
-        if (consignASshipper[i].checked) {
-            var asShipper = 1;
-            break;
-        } else {
-            var asShipper = 0;
-            break;
-        }
-    }
-    alert(asShipper);
     for (var i = 0; i < consigneeStatus.length; i++) {
         if (consigneeStatus[i].checked) {
             var status = consigneeStatus[i].value;
@@ -254,7 +244,6 @@ function addConsignee() {
                                                                         consigneeStatus: status,
                                                                         consigneeRecivingNote: consigneeRecivingNote,
                                                                         consigneeInternalNote: consigneeInternalNote,
-                                                                        asShipper: asShipper
                                                                     },
                                                                     success: function (data) {
                                                                         swal('Success', data, 'success');
@@ -750,8 +739,7 @@ function addUser() {
         var ownerOperator = 1;
     } else {
         var ownerOperator = 0;
-    }
-    if (fixPayCategory.checked) {
+    }if (fixPayCategory.checked) {
         var fixPayCategory = 1;
     } else {
         var fixPayCategory = 0;
@@ -907,187 +895,6 @@ function deleteUser(id) {
     }
 }
 
-// show privilege
-function show_privilege(id) {
-    $.ajax({
-        url: 'admin/show_data.php',
-        data: {id: id, type: 'pro'},
-        method: "POST",
-        dataType: 'html',
-        success: function (data) {
-            // alert(data);
-            $('#final_privilege').html(data);
-        }
-    });
-}
-
-// update Privilege
-function updatePrivilege() {
-    var objID = document.getElementById('objID').value;
-    var companyId = document.getElementById('companyId').value;
-    var addBank = document.getElementById('addBank');
-    var addCustomer = document.getElementById('addCustomer');
-    var addCompany = document.getElementById('addCompany');
-    var addShipper = document.getElementById('addShipper');
-    var currency = document.getElementById('currency');
-    var addConsignee = document.getElementById('addConsignee');
-    var paymentTerms = document.getElementById('paymentTerms');
-    var addDriver = document.getElementById('addDriver');
-    var office = document.getElementById('office');
-    var addTruck = document.getElementById('addTruck');
-    var equipmentType = document.getElementById('equipmentType');
-    var addTrailer = document.getElementById('addTrailer');
-    var truckType = document.getElementById('truckType');
-    var addExternalCarrier = document.getElementById('addExternalCarrier');
-    var trailerType = document.getElementById('trailerType');
-    var factoringCompany = document.getElementById('factoringCompany');
-    var statusType = document.getElementById('statusType');
-    var customsBroker = document.getElementById('customsBroker');
-    var loadType = document.getElementById('loadType');
-    var ownerOperator = document.getElementById('ownerOperator');
-    var fixPayCategory = document.getElementById('fixPayCategory');
-
-    if (addBank.checked) {
-        var addBank = 1;
-    } else {
-        var addBank = 0;
-    }
-    if (addCustomer.checked) {
-        var addCustomer = 1;
-    } else {
-        var addCustomer = 0;
-    }
-    if (addCompany.checked) {
-        var addCompany = 1;
-    } else {
-        var addCompany = 0;
-    }
-    if (addShipper.checked) {
-        var addShipper = 1;
-    } else {
-        var addShipper = 0;
-    }
-    if (currency.checked) {
-        var currency = 1;
-    } else {
-        var currency = 0;
-    }
-    if (addConsignee.checked) {
-        var addConsignee = 1;
-    } else {
-        var addConsignee = 0;
-    }
-    if (paymentTerms.checked) {
-        var paymentTerms = 1;
-    } else {
-        var paymentTerms = 0;
-    }
-    if (addDriver.checked) {
-        var addDriver = 1;
-    } else {
-        var addDriver = 0;
-    }
-    if (office.checked) {
-        var office = 1;
-    } else {
-        var office = 0;
-    }
-    if (addTruck.checked) {
-        var addTruck = 1;
-    } else {
-        var addTruck = 0;
-    }
-    if (equipmentType.checked) {
-        var equipmentType = 1;
-    } else {
-        var equipmentType = 0;
-    }
-    if (addTrailer.checked) {
-        var addTrailer = 1;
-    } else {
-        var addTrailer = 0;
-    }
-    if (truckType.checked) {
-        var truckType = 1;
-    } else {
-        var truckType = 0;
-    }
-    if (addExternalCarrier.checked) {
-        var addExternalCarrier = 1;
-    } else {
-        var addExternalCarrier = 0;
-    }
-    if (trailerType.checked) {
-        var trailerType = 1;
-    } else {
-        var trailerType = 0;
-    }
-    if (factoringCompany.checked) {
-        var factoringCompany = 1;
-    } else {
-        var factoringCompany = 0;
-    }
-    if (statusType.checked) {
-        var statusType = 1;
-    } else {
-        var statusType = 0;
-    }
-    if (customsBroker.checked) {
-        var customsBroker = 1;
-    } else {
-        var customsBroker = 0;
-    }
-    if (loadType.checked) {
-        var loadType = 1;
-    } else {
-        var loadType = 0;
-    }
-    if (ownerOperator.checked) {
-        var ownerOperator = 1;
-    } else {
-        var ownerOperator = 0;
-    }
-    if (fixPayCategory.checked) {
-        var fixPayCategory = 1;
-    } else {
-        var fixPayCategory = 0;
-    }
-
-    $.ajax({
-        url: 'admin/user_driver.php?type=' + 'update_privilege',
-        method: 'POST',
-        data: {
-            objID: objID,
-            companyId: companyId,
-            addBank: addBank,
-            addCustomer: addCustomer,
-            addCompany: addCompany,
-            addShipper: addShipper,
-            currency: currency,
-            addConsignee: addConsignee,
-            paymentTerms: paymentTerms,
-            addDriver: addDriver,
-            office: office,
-            addTruck: addTruck,
-            equipmentType: equipmentType,
-            addTrailer: addTrailer,
-            truckType: truckType,
-            addExternalCarrier: addExternalCarrier,
-            trailerType: trailerType,
-            factoringCompany: factoringCompany,
-            statusType: statusType,
-            customsBroker: customsBroker,
-            loadType: loadType,
-            ownerOperator: ownerOperator,
-            fixPayCategory: fixPayCategory
-        },
-        success: function (data) {
-            swal('Success', data, 'success');
-            $('#show_privilege').modal('hide');
-        }
-    });
-}
-
 //-----------User End------------------------------
 
 /*----------------- Bank Admin Add START -------------------------*/
@@ -1097,14 +904,14 @@ function AddBankAdmin() {
     var companyId = document.getElementById('companyId').value;
     var bankAddresss = document.getElementById('bankAddress').value;
     var bankName = document.getElementById('bankName').value;
-    var accountHolder = $("#accountHolder").val();
+    var accountHolder = document.getElementById('accountHolder').value;
     var accountNo = document.getElementById('accountNo').value;
     var routingNo = document.getElementById('routingNo').value;
     var openingBalDate = document.getElementById('openingBalDate').value;
     var openingBalance = document.getElementById('openingBalance').value;
     var currentcheqNo = document.getElementById('currentcheqNo').value;
     var transacBalance = document.getElementById('transacBalance').value;
-
+    //alert(accountHolder);
     if (val_bankName(bankName)) {
         if (val_accountHolder(accountHolder)) {
             if (val_accountNo(accountNo)) {
@@ -1183,6 +990,8 @@ function updateAccount(element, column, id) {
 
 //Delete Bank Admin
 function deleteBank(id) {
+    //var companyId = document.getElementById('companyId').value;
+
     if (confirm('Are you Sure ?')) {
         $.ajax({
             url: 'admin/bank_admin.php?type=' + 'delete_bank',
@@ -1232,7 +1041,6 @@ function export_Admin() {
 
             var encodedUri = encodeURI(csvContent);
             var link = document.createElement("a");
-
             link.setAttribute("href", encodedUri);
             link.setAttribute("download", "bank_admin.csv");
             document.body.appendChild(link); // Required for FF
@@ -1635,7 +1443,6 @@ function export_CustomBroker() {
 
             var encodedUri = encodeURI(csvContent);
             var link = document.createElement("a");
-
             link.setAttribute("href", encodedUri);
             link.setAttribute("download", "custom_broker.csv");
             document.body.appendChild(link); // Required for FF
@@ -1665,6 +1472,481 @@ function import_Custom_Broker() {
 }
 
 /*----------------- Customs Broker END -------------------------*/
+
+//-----------------Truck Add start-------------------------------------
+
+//ajax Function For insert Truck
+function TruckAdd() {
+    var truck_number = document.getElementById("truck_number").value;
+    var trucktype = document.getElementById('trucktype').value;
+    var license_plate = document.getElementById("license_plate").value;
+    var plate_expiry = document.getElementById('plate_expiry').value;
+    var inspection = document.getElementById("inspection").value;
+    var status = document.getElementById('status').value;
+    var ownership = document.getElementsByName('ownershipp');
+    var mileage = document.getElementById('mileage').value;
+    var axies = document.getElementById("axies").value;
+    var year = document.getElementById('year').value;
+    var fuel_type = document.getElementById("fuel_type").value;
+    var start_date = document.getElementById('start_date').value;
+    var deactivation = document.getElementById("deactivation").value;
+    var registered_state = document.getElementById('registered_state').value;
+    var Insurance_Policy = document.getElementById("Insurance_Policy").value;
+    var gross = document.getElementById('gross').value;
+    var vin = document.getElementById("vin").value;
+    var dot = document.getElementById('dot').value;
+    var transponder = document.getElementById("transponder").value;
+    var ifta = document.getElementById('customCheck1').value;
+    var Internal_note = document.getElementById("Internal_note").value;
+    var companyId = document.getElementById('companyId').value;
+
+//Get Radio Button Value
+    for (var i = 0; i < ownership.length; i++) {
+        if (ownership[i].checked) {
+            var ownershipstatus = ownership[i].value;
+            break;
+        }
+    }
+    if (val_truck_number(truck_number)) {
+        if(val_trucktype(trucktype)) {
+            if(val_license_plate(license_plate)) {
+                if(val_plate_expiry(plate_expiry)) {
+                    //if(val_inspection(inspection)) {
+                    //if(val_status(status)) {
+                    if(val_ownershipstatus(ownershipstatus)) {
+                        // if(val_mileage(mileage)) {
+                        //     if(val_axies(axies)) {
+                        //         if(val_year(year)) {
+                        //             if(val_fuel_type(fuel_type)) {
+                        //                 if(val_start_date(start_date)) {
+                        //                     if(val_deactivation(deactivation)) {
+                        //                         if(val_registered_state(registered_state)) {
+                        //                             if(val_Insurance_Policy(Insurance_Policy )) {
+                        //                                 if(val_gross(gross)) {
+                        if(val_vin(vin)) {
+                            // if(val_dot(dot)) {
+                            //     if(val_transponder(transponder)) {
+                            //         if(val_ifta(ifta)){
+                            //             if(val_Internal_note(Internal_note)){
+                            $.ajax({
+                                url: 'admin/truckadd_driver.php?type='+'truckadd',
+                                type: 'POST',
+                                data: {
+                                    companyId:companyId,
+                                    truck_number: truck_number,
+                                    trucktype: trucktype,
+                                    license_plate: license_plate,
+                                    plate_expiry: plate_expiry,
+                                    inspection: inspection,
+                                    status: status,
+                                    ownership: ownershipstatus,
+                                    mileage: mileage,
+                                    axies: axies,
+                                    year: year,
+                                    fuel_type: fuel_type,
+                                    start_date: start_date,
+                                    deactivation: deactivation,
+                                    registered_state: registered_state,
+                                    Insurance_Policy: Insurance_Policy,
+                                    gross: gross,
+                                    vin: vin,
+                                    dot: dot,
+                                    transponder: transponder,
+                                    ifta: ifta,
+                                    Internal_note: Internal_note,
+                                },
+                                dataType: "text",
+                                success: function (data) {
+                                    swal("Success",data,"success");
+                                    $('#add_Truck').modal('hide');
+                                },
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    }
+    //                                                         }
+    //                                                     }
+    //                                                 }
+    //                                             }
+    //                                         }
+    //                                     }
+    //                                 }
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+}
+
+//Import Excel Function For Truck Add
+function importExceltruck() {
+    // var file = document.getElementById('file').value;
+    var form_data = new FormData();
+
+    form_data.append("file",document.getElementById('file').files[0]);
+
+    $.ajax({
+        url:'admin/truckadd_driver.php?type='+'truckimport',
+        method:'post',
+        data:form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            swal("Success",data,"success");
+        }
+    });
+}
+
+// Export Excel Function For Truck Add
+function exportTruckAdd() {
+    $.ajax({
+        url: 'admin/truckadd_driver.php?type='+'truckexport',
+        type: 'POST',
+        success: function (data) {
+            var rows = JSON.parse(data);
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            rows.forEach(function (rowArray) {
+                let row = rowArray.join(",");
+                csvContent += row + "\r\n";
+            });
+
+            // var encodedUri = encodeURI(csvContent);
+            // window.open(encodedUri);
+
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "my_data.csv");
+            document.body.appendChild(link); // Required for FF
+
+            link.click();
+        }
+    });
+}
+
+//update Truck Function
+function updateTruckAdd(element,column,id){
+    var value = element.innerText;
+    var companyId = document.getElementById('companyId').value;
+    $.ajax({
+        url: 'admin/truckadd_driver.php?type='+'edit_truck',
+        type: 'POST',
+        data: {
+            companyId: companyId,
+            column: column,
+            id: id,
+            value: value,
+        },
+        success: function (data) {
+            swal("Success",data,"success");
+            //$('#currency').modal('hide');
+        }
+    });
+}
+
+// Delete Truck Function
+function deleteTruckAdd(id) {
+    if (confirm('Are you sure ???')) {
+        $.ajax({
+            url: 'admin/truckadd_driver.php?type='+'delete_truck',
+            type: 'POST',
+            data: {id: id},
+            success: function (data) {
+                swal("Success",data,"success");
+                //$('#currency').modal('hide');
+            }
+        });
+    }
+}
+//-----------------Truck Add End-------------------------------------
+
+
+//-----------------Trailer Add start-------------------------------------
+
+//Ajax Function For insert Trailer
+function Traileradd() {
+    var trailer_number = document.getElementById("trailer_number").value;
+    var trailer_type = document.getElementById('traileradd_type').value;
+    var license_plate = document.getElementById("license_plate").value;
+    var plate_expiry = document.getElementById('plate_expiry').value;
+    var inspection = document.getElementById("inspection").value;
+    var status = document.getElementById('status').value;
+    var model = document.getElementById('truckmod').value;
+    var year = document.getElementById('year').value;
+    var axies = document.getElementById("axies").value;
+    var register_state = document.getElementById('register_state').value;
+    var vin = document.getElementById("vin").value;
+    var dot = document.getElementById('dot').value;
+    var activation_date = document.getElementById("activation_date").value;
+    var internal_notes = document.getElementById('internal_notes').value;
+    var companyId = document.getElementById('companyId').value;
+
+    if (val_trailer_number(trailer_number)) {
+        if (val_trailer_type(trailer_type)) {
+            if (val_license_plate_trailer(license_plate)) {
+                if (val_plate_expiry_trailer(plate_expiry)) {
+                    if (val_vin_trailer(vin)) {
+                        $.ajax({
+                            url: 'admin/traileradd_driver.php?type='+'traileradd',
+                            type: 'POST',
+                            data: {
+                                companyId: companyId,
+                                trailer_number: trailer_number,
+                                trailer_type: trailer_type,
+                                license_plate: license_plate,
+                                plate_expiry: plate_expiry,
+                                inspection: inspection,
+                                status: status,
+                                model: model,
+                                year: year,
+                                axies: axies,
+                                register_state: register_state,
+                                vin: vin,
+                                dot: dot,
+                                activation_date: activation_date,
+                                internal_notes: internal_notes,
+                            },
+                            dataType: "text",
+                            success: function (data) {
+                                swal("Success", data, "success");
+                                $('#add_Trailer').modal('hide');
+                            },
+                        });
+                    }
+                }
+            }
+        }
+    }
+}
+
+//update Trailer Function
+function updateTrailerAdd(element,column,id){
+    var value = element.innerText;
+    var companyId = document.getElementById('companyId').value;
+    $.ajax({
+        url: 'admin/traileradd_driver.php?type=' + 'edit_trailer',
+        type: 'POST',
+        data: {
+            companyId: companyId,
+            column: column,
+            id: id,
+            value: value,
+        },
+        success: function (data) {
+            swal("Success",data,"success");
+            //$('#currency').modal('hide');
+        }
+    });
+}
+
+
+// Delete Trailer Function
+function deleteTrailerAdd(id) {
+    if (confirm('Are you sure ???')) {
+        $.ajax({
+            url: 'admin/traileradd_driver.php?type='+'delete_trailer',
+            type: 'POST',
+            data: {id: id},
+            success: function (data) {
+                swal("Success",data,"success");
+                //$('#currency').modal('hide');
+            }
+        });
+    }
+}
+
+
+//Import Excel Function For Trailer Add
+function importExceltrailer() {
+    // var file = document.getElementById('file').value;
+    var form_data = new FormData();
+
+    form_data.append("file",document.getElementById('file').files[0]);
+
+    $.ajax({
+        url:'admin/traileradd_driver.php?type='+'trailerimport',
+        method:'post',
+        data:form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            swal("Success",data,"success");
+        }
+    });
+}
+
+// Export Excel Function For Trailer Add
+function exportTrailerAdd() {
+    $.ajax({
+        url: 'admin/traileradd_driver.php?type='+'trailerexport',
+        type: 'POST',
+        success: function (data) {
+            var rows = JSON.parse(data);
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            rows.forEach(function (rowArray) {
+                let row = rowArray.join(",");
+                csvContent += row + "\r\n";
+            });
+
+            // var encodedUri = encodeURI(csvContent);
+            // window.open(encodedUri);
+
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "my_data.csv");
+            document.body.appendChild(link); // Required for FF
+
+            link.click();
+        }
+    });
+}
+
+//-----------------Trailer Add End-------------------------------------
+
+
+//-----------------Factoring Add Start---------------------------------
+
+//Ajax Function For insert Factoring
+function FactoringCompany() {
+
+    var factoring_company = document.getElementById("factoring_add_company").value;
+    var faddress = document.getElementById('faddress').value;
+    var flocation = document.getElementById("flocation").value;
+    var fzip = document.getElementById('fzip').value;
+    var fprimary_contact = document.getElementById("fprimary_contact").value;
+    var factoringtelephone = document.getElementById('ftelephone').value;
+    var factext = document.getElementById('factext').value;
+    var ffax = document.getElementById('ffax').value;
+    var ftollfree = document.getElementById("ftollfree").value;
+    var femail = document.getElementById('femail').value;
+    var fsecondaryContact = document.getElementById("fsecondaryContact").value;
+    var ftelephone = document.getElementById('facttelephone').value;
+    var ext = document.getElementById("ext").value;
+    var fcurrency = document.getElementById('fcurrency').value;
+    var fpaymentterms = document.getElementById('fpaymentterms').value;
+    var ftaxid = document.getElementById("ftaxid").value;
+    var finternal_notes = document.getElementById('finternal_notes_factoring').value;
+    var companyId = document.getElementById('companyId').value;
+
+    if (val_factoring_company(factoring_company)) {
+        if (val_faddress(faddress)) {
+            if (val_flocation(flocation)) {
+                if (val_fzip(fzip)) {
+                    if (val_ftaxid(ftaxid)) {
+                        $.ajax({
+                            url: 'admin/factoring_driver.php?type='+'factoringadd',
+                            type: 'POST',
+                            data: {
+                                companyId: companyId,
+                                factoring_company: factoring_company,
+                                faddress: faddress,
+                                flocation: flocation,
+                                fzip: fzip,
+                                fprimary_contact: fprimary_contact,
+                                factoringtelephone: factoringtelephone,
+                                fext: factext,
+                                ffax: ffax,
+                                ftollfree: ftollfree,
+                                femail: femail,
+                                fsecondaryContact: fsecondaryContact,
+                                ftelephone: ftelephone,
+                                ext: ext,
+                                fcurrency: fcurrency,
+                                fpaymentterms: fpaymentterms,
+                                ftaxid: ftaxid,
+                                finternal_notes: finternal_notes,
+                            },
+                            dataType: "text",
+                            success: function (data) {
+                                swal("Success", data, "success");
+                                $('#add_factoring').modal('hide');
+                            },
+                        });
+                    }
+                }
+            }
+        }
+    }
+}
+
+//update Factoring Function
+function updateFactoring(element,column,id){
+    var value = element.innerText;
+    var companyId = document.getElementById('companyId').value;
+    $.ajax({
+        url: 'admin/factoring_driver.php?type=' + 'edit_factoring',
+        type: 'POST',
+        data: {
+            companyId: companyId,
+            column: column,
+            id: id,
+            value: value,
+        },
+        success: function (data) {
+            swal("Success",data,"success");
+            //$('#currency').modal('hide');
+        }
+    });
+}
+
+// Delete Factoring Function
+function deletefactoring(id) {
+    if (confirm('Are you sure ???')) {
+        $.ajax({
+            url: 'admin/factoring_driver.php?type='+'delete_factoring',
+            type: 'POST',
+            data: {id: id},
+            success: function (data) {
+                swal("Success",data,"success");
+                //$('#currency').modal('hide');
+            }
+        });
+    }
+}
+
+// Export Excel Function for Factoring Company
+function exportFactoring() {
+    $.ajax({
+        url: 'admin/factoring_driver.php?type='+'export_factoring',
+        type: 'POST',
+        success: function (data) {
+            var rows = JSON.parse(data);
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            rows.forEach(function (rowArray) {
+                let row = rowArray.join(",");
+                csvContent += row + "\r\n";
+            });
+
+            // var encodedUri = encodeURI(csvContent);
+            // window.open(encodedUri);
+
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "my_data.csv");
+            document.body.appendChild(link); // Required for FF
+
+            link.click();
+        }
+    });
+}
+
+//-----------------Factoring Add End---------------------------------
 
 /*------------------- Driver Start -----------------------------*/
 function addDriver() {
@@ -1884,70 +2166,3 @@ function export_Driver(id) {
 }
 
 /*------------------- Driver End -----------------------------*/
-
-
-/*------------------- Owner Operator Driver Start-----------------------------*/
-
-// Add Function
-function addOwnerOperator() {
-
-    var driverName = document.getElementById('driverNames').value;
-    var percentage = document.getElementById('percentage').value;
-    var truckNo = document.getElementById('truckNo').value;
-    var installmentCategory = [];
-    var installmentType = [];
-    var amount = [];
-    var installment = [];
-    var startNo = [];
-    var startDate = [];
-    var internalNote = [];
-
-    for (var i = 0; i < document.getElementsByName('installmentCategory').length; i++) {
-        installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
-    }
-    for (var i = 0; i < document.getElementsByName('installmentType').length; i++) {
-        installmentType[i] = document.getElementsByName('installmentType')[i].value;
-    }
-    for (var i = 0; i < document.getElementsByName('amount').length; i++) {
-        amount[i] = document.getElementsByName('amount')[i].value;
-    }
-    for (var i = 0; i < document.getElementsByName('installment').length; i++) {
-        installment[i] = document.getElementsByName('installment')[i].value;
-    }
-    for (var i = 0; i < document.getElementsByName('startNo').length; i++) {
-        startNo[i] = document.getElementsByName('startNo')[i].value;
-    }
-    for (var i = 0; i < document.getElementsByName('startDate').length; i++) {
-        startDate[i] = document.getElementsByName('startDate')[i].value;
-    }
-    for (var i = 0; i < document.getElementsByName('internalNote').length; i++) {
-        internalNote[i] = document.getElementsByName('internalNote')[i].value;
-    }
-
-    $.ajax({
-        url: 'admin/owner_operator_driver.php?type=' + 'addOwner',
-        method: 'POST',
-        data: {
-
-            driverName: driverName,
-            percentage: percentage,
-            truckNo: truckNo,
-            installmentCategory: installmentCategory,
-            installmentType: installmentType,
-            amount: amount,
-            installment: installment,
-            startNo: startNo,
-            startDate: startDate,
-            internalNote: internalNote,
-        },
-        success: function (data) {
-            swal('Success', data, 'success');
-            $("#Owner_operator").modal("hide");
-
-        }
-    });
-
-
-}
-
-/*------------------- Owner Operator Driver End -----------------------------*/

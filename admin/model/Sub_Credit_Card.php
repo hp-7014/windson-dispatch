@@ -218,9 +218,13 @@
         }
 
         public function delete_Sub_Credit($s_credit,$db) {
-            $db->sub_credit_card->updateOne(['companyID' => (int)$_SESSION['companyId']], [
-                '$pull' => ['sub_credit' => ['_id' => (int)$s_credit->getId()]]]
+            $db->sub_credit_card->updateOne(['companyID' => (int)$_SESSION['companyId'], 'sub_credit._id' => (int)$this->getId()],
+                ['$set' => ['sub_credit.$.delete_status' => "1"]]
             );
+
+           /* $db->sub_credit_card->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+                '$pull' => ['sub_credit' => ['_id' => (int)$s_credit->getId()]]]
+            );*/
         }
 
         public function export_Sub_Credit($db){
