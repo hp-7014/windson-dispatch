@@ -53,20 +53,32 @@
                     <?php foreach ($broker as $brok) {
                         $c_broker = $brok['custom_b'];
 
-                        foreach ($c_broker as $custom) { ?>
-                            <tr>
-                                <td><?php echo $no++ ?></td>
-                                <td contenteditable="true" onblur="updateCustom(this,'brokerName',<?php echo $custom['_id']; ?>)"><?php echo $custom['brokerName']; ?></td>
-                                <td contenteditable="true" onblur="updateCustom(this,'crossing',<?php echo $custom['_id']; ?>)"><?php echo $custom['crossing']; ?></td>
-                                <td contenteditable="true" onblur="updateCustom(this,'telephone',<?php echo $custom['_id']; ?>)"><?php echo $custom['telephone']; ?></td>
-                                <td contenteditable="true" onblur="updateCustom(this,'ext',<?php echo $custom['_id']; ?>)"><?php echo $custom['ext']; ?></td>
-                                <td contenteditable="true" onblur="updateCustom(this,'tollfree',<?php echo $custom['_id']; ?>)"><?php echo $custom['tollfree']; ?></td>
-                                <td contenteditable="true" onblur="updateCustom(this,'fax',<?php echo $custom['_id']; ?>)"><?php echo $custom['fax']; ?></td>
-                                <td contenteditable="true" onblur="updateCustom(this,'Status',<?php echo $custom['_id']; ?>)"><?php echo $custom['Status']; ?></td>
-                                <td><a href="#" onclick="deleteCustom(<?php echo $custom['_id']; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></i></a>
-                                </td>
-                            </tr>
-                        <?php }
+                        foreach ($c_broker as $custom) {
+                            if ($custom['delete_status'] == '0') {
+                                ?>
+                                <tr>
+                                    <td><?php echo $no++ ?></td>
+                                    <td contenteditable="true"
+                                        onblur="updateCustom(this,'brokerName',<?php echo $custom['_id']; ?>)"><?php echo $custom['brokerName']; ?></td>
+                                    <td contenteditable="true"
+                                        onblur="updateCustom(this,'crossing',<?php echo $custom['_id']; ?>)"><?php echo $custom['crossing']; ?></td>
+                                    <td contenteditable="true"
+                                        onblur="updateCustom(this,'telephone',<?php echo $custom['_id']; ?>)"><?php echo $custom['telephone']; ?></td>
+                                    <td contenteditable="true"
+                                        onblur="updateCustom(this,'ext',<?php echo $custom['_id']; ?>)"><?php echo $custom['ext']; ?></td>
+                                    <td contenteditable="true"
+                                        onblur="updateCustom(this,'tollfree',<?php echo $custom['_id']; ?>)"><?php echo $custom['tollfree']; ?></td>
+                                    <td contenteditable="true"
+                                        onblur="updateCustom(this,'fax',<?php echo $custom['_id']; ?>)"><?php echo $custom['fax']; ?></td>
+                                    <td contenteditable="true"
+                                        onblur="updateCustom(this,'Status',<?php echo $custom['_id']; ?>)"><?php echo $custom['Status']; ?></td>
+                                    <td><a href="#" onclick="deleteCustom(<?php echo $custom['_id']; ?>)"><i
+                                                    class="mdi mdi-delete-sweep-outline"
+                                                    style="font-size: 20px; color: #FC3B3B"></i></a>
+                                    </td>
+                                </tr>
+                            <?php }
+                        }
                     }
                     ?>
                     </tbody>

@@ -7,11 +7,23 @@
 =======
     <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/bank_admin_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/bank_admin_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/credit_card_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/credit_card_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/custom_broker_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/custom_broker_modal.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/validation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/utils/Helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/utils/Helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/model/Bank_Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Bank_Admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/model/Credit_Card_Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Credit_Card_Admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/model/Customs_Broker.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Customs_Broker.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/model/Sub_Credit_Card.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Sub_Credit_Card.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/sub_credit_card_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/sub_credit_card_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
     </list>
+<<<<<<< HEAD
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+=======
 >>>>>>> ca8e0dddd50c8abc076979a13eb9334bbd470d64
+>>>>>>> d863a26e8453814aa6491d69a37be1eea256dffe
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,6 +53,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -102,6 +115,7 @@
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mongo" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -193,6 +207,7 @@
       <workItem from="1579857794828" duration="29677000" />
       <workItem from="1580030924726" duration="17107000" />
       <workItem from="1580101664092" duration="1608000" />
+      <workItem from="1580245667701" duration="3749000" />
     </task>
     <servers />
   </component>
