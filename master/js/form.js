@@ -475,7 +475,7 @@ function updateCurrency(element,column,id){
 }
 
 //insert data into Database using Excel
-function importExcel() {
+function importCurrency() {
     // var file = document.getElementById('file').value;
     var form_data = new FormData();
 

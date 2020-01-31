@@ -147,28 +147,28 @@ require "../database/connection.php";
             <div class="modal-body custom-modal-body">
                 <div class="row">
                     <div class="form-group col-md-3">
-                        <label>Consignee Name <span style="color: red">*</span></label>
+                        <label>Consignee Name <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Consignee Name *"
                                    type="text" id="consigneeName">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
-                        <label>Address <span style="color: red">*</span></label>
+                        <label>Address <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Address *" type="text"
                                    id="consigneeAddress">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label>Location <span style="color: red">*</span></label>
+                        <label>Location <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Location *"
                                    type="text" id="consigneeLocation">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label>Postal / Zip <span style="color: red">*</span></label>
+                        <label>Postal / Zip <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Postal / Zip *" type="text"
                                    id="consigneePostal">

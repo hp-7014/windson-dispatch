@@ -17,8 +17,8 @@
     <link href="assets/css/modalStyle.css" rel="stylesheet" type="text/css">
     <link href="assets/css/modalFormStyle.css" rel="stylesheet" type="text/css">
 
-   <!-- <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
-    <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>-->
+   <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
+    <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
 
     <script src="master/js/form.js"></script>
     <script src="admin/js/form.js"></script>
@@ -28,6 +28,9 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="admin/js/form.js"></script>
     <script src="admin/js/validation.js"></script>
+
+
+
     <script>
 
         $(document).on('click', '.addShipper', function () {
@@ -36,6 +39,16 @@
                 success: function (data) {
                     $('.modal-container').load('./admin/shipper_modal.php', function (result) {
                         $('#shipper').modal({show: true});
+                    });
+                }
+            });
+        });
+        $(document).on('click', '.addDriver', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/driver_modal.php', function (result) {
+                        $('#Driver').modal({show: true});
                     });
                 }
             });
@@ -419,8 +432,12 @@
                             <a href="#"><i class="icon-life-buoy"></i> Admin <i
                                         class="mdi mdi-chevron-down mdi-drop"></i></a>
                             <ul class="submenu">
-                                <li><a href="#" class="addShipper">Shipper</a></li>
-
+                                <li>
+                                    <a href="#" class="addShipper">Shipper</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="addDriver">Driver</a>
+                                </li>
                                 <li>
                                     <a href="#" class="addConsignee">Consignee</a>
                                 </li>
