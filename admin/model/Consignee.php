@@ -436,7 +436,6 @@ class Consignee implements IteratorAggregate
     }
 
     public function insert($consignee,$db,$helper) {
-        echo "inside class";
         $c_id = $db->consignee->find(['companyID' => (int)$consignee->getCompanyID()]);
         $count = 0;
         foreach ($c_id as $c) {

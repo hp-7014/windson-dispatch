@@ -3,12 +3,12 @@
 require 'model/Consignee.php';
 require 'utils/Helper.php'; // helper method
 require '../database/connection.php';   // connection
+require 'model/Shipper.php';
 
 $helper = new Helper();
 
 // insert consignee
 if ($_GET['type'] == 'add_consignee') {
-    echo $_POST['consigneeAppointments'];
     $consignee = new Consignee();
     $consignee->setId($helper->getNextSequence("consignee",$db));
     $consignee->setCompanyID($_POST['companyID']);
@@ -29,6 +29,29 @@ if ($_GET['type'] == 'add_consignee') {
     $consignee->setConsigneeRecivingNote($_POST['consigneeRecivingNote']);
     $consignee->setConsigneeInternalNote($_POST['consigneeInternalNote']);
     $consignee->insert($consignee,$db,$helper);
+
+    if ($_POST['asShipper'] == 1) {
+        $shipper = new Shipper();
+        $shipper->setId($helper->getNextSequence("shipper",$db));
+        $shipper->setCompanyID($_POST['companyID']);
+        $shipper->setShipperName($_POST['consigneeName']);
+        $shipper->setShipperAddress($_POST['consigneeAddress']);
+        $shipper->setShipperLocation($_POST['consigneeLocation']);
+        $shipper->setShipperPostal($_POST['consigneePostal']);
+        $shipper->setShipperContact($_POST['consigneeContact']);
+        $shipper->setShipperEmail($_POST['consigneeEmail']);
+        $shipper->setShipperTelephone($_POST['consigneeTelephone']);
+        $shipper->setShipperExt($_POST['consigneeExt']);
+        $shipper->setShipperTollFree($_POST['consigneeTollFree']);
+        $shipper->setShipperFax($_POST['consigneeFax']);
+        $shipper->setShipperShippingHours($_POST['consigneeReceiving']);
+        $shipper->setShipperAppointments($_POST['consigneeAppointments']);
+        $shipper->setShipperIntersaction($_POST['consigneeIntersaction']);
+        $shipper->setShipperStatus($_POST['consigneeStatus']);
+        $shipper->setShippingNotes($_POST['consigneeRecivingNote']);
+        $shipper->setInternalNotes($_POST['consigneeInternalNote']);
+        $shipper->insert($shipper,$db,$helper);
+    }
     echo "Data Added Successfully";
 }
 
