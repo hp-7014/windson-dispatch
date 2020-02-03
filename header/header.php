@@ -516,7 +516,7 @@
                         </li>
 
                         <li class="menu-item dropdown notification-list list-inline-item">
-                            <!-- Mobile menu toggle-->
+                            <!-- Mobile menu toggle-->1`
                             <a class="navbar-toggle nav-link">
                                 <div class="lines">
                                     <span></span>
@@ -658,14 +658,7 @@
                                 <li>
                                     <a href="#" id="add_toll">Add Toll </a>
                                 </li>
-                                    <li><a href="#" id="verify_treep">Verify Treep</a></li>
-                            </ul>
-                        </li>
 
-                        <li class="has-submenu">
-                            <a href="#"><i class="icon-life-buoy"></i> IFTA <i
-                                        class="mdi mdi-chevron-down mdi-drop"></i></a>
-                            <ul class="submenu">
                                 <li><a href="#" id="verify_treep">Verify Treep</a></li>
                             </ul>
                         </li>
