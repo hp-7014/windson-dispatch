@@ -72,9 +72,7 @@
                                         onblur="updateCustom(this,'fax',<?php echo $custom['_id']; ?>)"><?php echo $custom['fax']; ?></td>
                                     <td contenteditable="true"
                                         onblur="updateCustom(this,'Status',<?php echo $custom['_id']; ?>)"><?php echo $custom['Status']; ?></td>
-                                    <td><a href="#" onclick="deleteCustom(<?php echo $custom['_id']; ?>)"><i
-                                                    class="mdi mdi-delete-sweep-outline"
-                                                    style="font-size: 20px; color: #FC3B3B"></i></a>
+                                    <td><a href="#" onclick="deleteCustom(<?php echo $custom['_id']; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></i></a>
                                     </td>
                                 </tr>
                             <?php }
@@ -114,13 +112,13 @@
                 <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label>Broker Name*</label>
+                        <label>Broker Name <span style="color: red">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Broker Name *" type="text" name="brokerName" id="brokerName">
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Crossing *</label>
+                        <label>Crossing <span style="color: red">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Crossing *" type="text" name="crossing" id="crossing">
                         </div>

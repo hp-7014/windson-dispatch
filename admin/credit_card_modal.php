@@ -89,9 +89,7 @@
                                         onblur="updateCredit(this,'openingBalance',<?php echo $admin['_id']; ?>)"><?php echo $admin['openingBalance']; ?></td>
                                     <td contenteditable="true"
                                         onblur="updateCredit(this,'transacBalance',<?php echo $admin['_id']; ?>)"><?php echo $admin['transacBalance']; ?></td>
-                                    <td><a href="#" onclick="deleteCredit(<?php echo $admin['_id']; ?>)"><i
-                                                    class="mdi mdi-delete-sweep-outline"
-                                                    style="font-size: 20px; color: #FC3B3B"></i></a>
+                                    <td><a href="#" onclick="deleteCredit(<?php echo $admin['_id']; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></i></a>
                                     </td>
                                 </tr>
                             <?php }
@@ -132,13 +130,13 @@
                     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                     <input type="hidden" id="transacBalance" value="" name="transacBalance">
                     <div class="form-group col-md-6">
-                        <label>Name of Bank: *</label>
+                        <label>Name of Bank: <span style="color: red">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Name of Bank: *" type="text" name="Name" id="Name">
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Name To Display *</label>
+                        <label>Name To Display <span style="color: red">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Name To Display *" type="text" name="displayName" id="displayName">
                         </div>
@@ -146,7 +144,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label>Card Type *</label>
+                        <label>Card Type <span style="color: red">*</span></label>
                         <div>
                             <select class="form-control" name="cardType" id="cardType">
                                 <option value="">Select Card Type *</option>
@@ -157,7 +155,7 @@
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Card Holder Name*</label>
+                        <label>Card Holder Name <span style="color: red">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Card Holder Name *" type="text" name="cardHolderName" id="cardHolderName">
                         </div>
@@ -171,7 +169,7 @@
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Opening Bal Dt *</label>
+                        <label>Opening Bal Dt <span style="color: red">*</span></label>
                         <div>
                             <input class="form-control" type="date" name="openingBalanceDt" id="openingBalanceDt">
                         </div>
@@ -179,13 +177,13 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label>Card Limit*</label>
+                        <label>Card Limit <span style="color: red">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Card Limit * " type="text" name="cardLimit" id="cardLimit">
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Opening Balance *</label>
+                        <label>Opening Balance <span style="color: red">*</span></label>
                         <div>
                             <input class="form-control" type="text" placeholder="Opening Balance *" name="openingBalance" id="openingBalance">
                         </div>

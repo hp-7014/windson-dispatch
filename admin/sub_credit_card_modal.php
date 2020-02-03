@@ -121,13 +121,13 @@
                     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
 
                     <div class="form-group col-md-6">
-                        <label>Name To Display *</label>
+                        <label>Name To Display <span style="color: red">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Name To Display *" type="text" name="displayName" id="displayName">
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Main Card *</label>
+                        <label>Main Card <span style="color: red">*</span></label>
                         <div>
                             <select class="form-control" name="mainCard" id="mainCard">
                                 <option value="">Select Credit Card</option>
@@ -148,7 +148,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label>Card Holder Name*</label>
+                        <label>Card Holder Name <span style="color: red">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Card Holder Name *" type="text" name="cardHolderName" id="cardHolderName">
                         </div>
