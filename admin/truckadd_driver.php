@@ -17,14 +17,19 @@ if ($_GET['type'] == 'truckadd') {
     $truck->setPlateExpiry(strtotime($_POST['plate_expiry']));
     $truck->setInspectionExpiry(strtotime($_POST['inspection']));
     $truck->setStatus($_POST['status']);
-    $truck->setOwnership($_POST['ownership']);
+    $truck->setOwnership($_POST['ownershipp']);
     $truck->setMileage($_POST['mileage']);
     $truck->setAxies($_POST['axies']);
     $truck->setYear($_POST['year']);
     $truck->setFuelType($_POST['fuel_type']);
     $truck->setStartDate(strtotime($_POST['start_date']));
     $truck->setDeactivationDate(strtotime($_POST['deactivation']));
-    $truck->setIfta($_POST['ifta']);
+    if (empty($_POST['customCheck1'])) {
+        $ifta= "";
+    }else {
+        $ifta = $_POST['customCheck1'];
+    }
+    $truck->setIfta($ifta);
     $truck->setRegisteredState($_POST['registered_state']);
     $truck->setInsurancePolicy($_POST['Insurance_Policy']);
     $truck->setGrossWeight($_POST['gross']);
@@ -32,9 +37,45 @@ if ($_GET['type'] == 'truckadd') {
     $truck->setDotexpiryDate(strtotime($_POST['dot']));
     $truck->setTransponder($_POST['transponder']);
     $truck->setInternalNotes($_POST['Internal_note']);
-    $truck->Insert($truck,$db,$helper);
+
+    if (!empty(array_filter($_FILES['files']['name']))) {
+        $uploadDir = 'upload/Truck Documents/';
+        $response = '';
+        $allowTypes = array('pdf', 'jpg', 'png', 'jpeg');
+        $i = 0;
+        $docs = array();
+        foreach ($_FILES['files']['name'] as $key => $val) {
+            $fileName = rand(0, 9999999999) . $_FILES["files"]["name"][$key];
+
+            $temLoc = $_FILES['files']['tmp_name'][$key];
+            $targetFilePath = $uploadDir . $fileName;
+            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+            $fileSize = $_FILES['files']['size'][$key];
+            if (in_array($fileType, $allowTypes)) {
+                if ($fileSize < 200000) {
+                    $docs[] = $fileName;
+                    $truck->setUploadDocument($fileName, $i);
+
+                } else {
+                    echo "File Size is To Large For " . $fileName;
+                    exit();
+                }
+            } else {
+                echo "File Type Error For " . $fileName;
+                exit();
+            }
+            $i++;
+        }
+        for ($i = 0; $i < count($docs); $i++) {
+            move_uploaded_file($_FILES["files"]["tmp_name"][$i], $uploadDir . $docs[$i]);
+        }
+    }
+    $truck->Insert($truck, $db, $helper);
+
     echo "Data Insert Successful";
 }
+
 
 // Import Excel Function Here
 elseif ($_GET['type'] == 'truckimport') {

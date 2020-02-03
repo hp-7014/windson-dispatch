@@ -201,7 +201,7 @@ function val_statusValidate(val) {
 function val_cardHolderName(val) {
     if (val == '')
     {
-        alert('Please Select Card Holder Name.');
+        swal('Please Select Card Holder Name.');
         return false;
     } else {
         return true;
@@ -211,7 +211,7 @@ function val_cardHolderName(val) {
 function val_iftaCardNo(val) {
     if (val == '')
     {
-        alert('Please Enter IFTA Card NO.');
+        swal('Please Enter IFTA Card NO.');
         return false;
     } else {
         return true;
@@ -221,7 +221,7 @@ function val_iftaCardNo(val) {
 function val_CardType(val) {
     if (val == '')
     {
-        alert('Please Enter Card Type (Capital Letter).');
+        swal('Please Enter Card Type (Capital Letter).');
         return false;
     } else {
         return true;

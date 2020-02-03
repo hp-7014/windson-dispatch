@@ -1,36 +1,40 @@
 //------------Consignee Start-------------
 function val_consigneeName(val) {
     if (val == '') {
-        alert('Please Write an Consignee Name');
+        swal('Please Write an Consignee Name');
         return false;
     } else {
         return true;
     }
 }
+
 function val_consigneeAddress(val) {
     if (val == '') {
-        alert('Please Write an Address');
+        swal('Please Write an Address');
         return false;
     } else {
         return true;
     }
 }
+
 function val_consigneeLocation(val) {
     if (val == '') {
-        alert('Please Write an Location');
+        swal('Please Write an Location');
         return false;
     } else {
         return true;
     }
 }
+
 function val_consigneePostal(val) {
     if (val == '') {
-        alert('Please Write an Postal / Zip');
+        swal('Please Write an Postal / Zip');
         return false;
     } else {
         return true;
     }
 }
+
 function val_consigneeContact(val) {
     if (val != '') {
         return true;
@@ -38,6 +42,7 @@ function val_consigneeContact(val) {
         return true;
     }
 }
+
 function val_consigneeEmail(val) {
     if (val != '') {
         return true;
@@ -45,6 +50,7 @@ function val_consigneeEmail(val) {
         return true;
     }
 }
+
 function val_consigneeTelephone(val) {
     if (val != '') {
         return true;
@@ -52,6 +58,7 @@ function val_consigneeTelephone(val) {
         return true;
     }
 }
+
 function val_consigneeExt(val) {
     if (val != '') {
         return true;
@@ -59,6 +66,7 @@ function val_consigneeExt(val) {
         return true;
     }
 }
+
 function val_consigneeTollFree(val) {
     if (val != '') {
         return true;
@@ -66,6 +74,7 @@ function val_consigneeTollFree(val) {
         return true;
     }
 }
+
 function val_consigneeFax(val) {
     if (val != '') {
         return true;
@@ -73,6 +82,7 @@ function val_consigneeFax(val) {
         return true;
     }
 }
+
 function val_consigneeReceiving(val) {
     if (val != '') {
         return true;
@@ -80,6 +90,7 @@ function val_consigneeReceiving(val) {
         return true;
     }
 }
+
 function val_consigneeAppointments(val) {
     if (val != '') {
         return true;
@@ -87,6 +98,7 @@ function val_consigneeAppointments(val) {
         return true;
     }
 }
+
 function val_consigneeIntersaction(val) {
     if (val != '') {
         return true;
@@ -94,6 +106,7 @@ function val_consigneeIntersaction(val) {
         return true;
     }
 }
+
 function val_consigneeRecivingNote(val) {
     if (val != '') {
         return true;
@@ -101,6 +114,7 @@ function val_consigneeRecivingNote(val) {
         return true;
     }
 }
+
 function val_consigneeInternalNote(val) {
     if (val != '') {
         return true;
@@ -108,41 +122,46 @@ function val_consigneeInternalNote(val) {
         return true;
     }
 }
+
 //------------Consignee Start-------------
 
 //------------Shipper Start-----------
 function val_shipperName(val) {
     if (val == '') {
-        alert('Please Write an Shipper Name');
+        swal('Please Write an Shipper Name');
         return false;
     } else {
         return true;
     }
 }
+
 function val_shipperAddress(val) {
     if (val == '') {
-        alert('Please Write an Address');
+        swal('Please Write an Address');
         return false;
     } else {
         return true;
     }
 }
+
 function val_shipperLocation(val) {
     if (val == '') {
-        alert('Please Write an Location');
+        swal('Please Write an Location');
         return false;
     } else {
         return true;
     }
 }
+
 function val_shipperPostal(val) {
     if (val == '') {
-        alert('Please Write an Postal / Zip');
+        swal('Please Write an Postal / Zip');
         return false;
     } else {
         return true;
     }
 }
+
 function val_shipperContact(val) {
     if (val != '') {
         return true;
@@ -150,6 +169,7 @@ function val_shipperContact(val) {
         return true;
     }
 }
+
 function val_shipperEmail(val) {
     if (val != '') {
         return true;
@@ -157,6 +177,7 @@ function val_shipperEmail(val) {
         return true;
     }
 }
+
 function val_shipperTelephone(val) {
     if (val != '') {
         return true;
@@ -164,6 +185,7 @@ function val_shipperTelephone(val) {
         return true;
     }
 }
+
 function val_shipperExt(val) {
     if (val != '') {
         return true;
@@ -171,6 +193,7 @@ function val_shipperExt(val) {
         return true;
     }
 }
+
 function val_shipperTollFree(val) {
     if (val != '') {
         return true;
@@ -178,6 +201,7 @@ function val_shipperTollFree(val) {
         return true;
     }
 }
+
 function val_shipperFax(val) {
     if (val != '') {
         return true;
@@ -185,6 +209,7 @@ function val_shipperFax(val) {
         return true;
     }
 }
+
 function val_shipperShippingHours(val) {
     if (val != '') {
         return true;
@@ -192,6 +217,7 @@ function val_shipperShippingHours(val) {
         return true;
     }
 }
+
 function val_shipperAppointments(val) {
     if (val != '') {
         return true;
@@ -199,6 +225,7 @@ function val_shipperAppointments(val) {
         return true;
     }
 }
+
 function val_shipperIntersaction(val) {
     if (val != '') {
         return true;
@@ -206,6 +233,7 @@ function val_shipperIntersaction(val) {
         return true;
     }
 }
+
 function val_shippingNotes(val) {
     if (val != '') {
         return true;
@@ -213,6 +241,7 @@ function val_shippingNotes(val) {
         return true;
     }
 }
+
 function val_internalNotes(val) {
     if (val != '') {
         return true;
@@ -220,33 +249,37 @@ function val_internalNotes(val) {
         return true;
     }
 }
+
 //------------Shipper Start-----------
 
 //-------------Customer Start---------
 function val_custName(val) {
     if (val == '') {
-        alert("Please Write an Customer Name");
+        swal("Please Write an Customer Name");
         return false;
     } else {
         return true;
     }
 }
+
 function val_custAddress(val) {
     if (val == '') {
-        alert("Please Write an Customer Address");
+        swal("Please Write an Customer Address");
         return false;
     } else {
         return true;
     }
 }
+
 function val_custLocation(val) {
     if (val == '') {
-        alert("Please Write an Customer Location");
+        swal("Please Write an Customer Location");
         return false;
     } else {
         return true;
     }
 }
+
 function val_custZip(val) {
     if (val == '') {
         alert("Please Write an Customer Zip Code");
@@ -255,6 +288,7 @@ function val_custZip(val) {
         return true;
     }
 }
+
 function val_billingAddress(val) {
     if (val != '') {
         return true;
@@ -262,6 +296,7 @@ function val_billingAddress(val) {
         return true;
     }
 }
+
 function val_billingLocation(val) {
     if (val != '') {
         return true;
@@ -269,6 +304,7 @@ function val_billingLocation(val) {
         return true;
     }
 }
+
 function val_billingZip(val) {
     if (val != '') {
         return true;
@@ -276,6 +312,7 @@ function val_billingZip(val) {
         return true;
     }
 }
+
 function val_primaryContact(val) {
     if (val != '') {
         return true;
@@ -283,6 +320,7 @@ function val_primaryContact(val) {
         return true;
     }
 }
+
 function val_custTelephone(val) {
     if (val != '') {
         return true;
@@ -290,6 +328,7 @@ function val_custTelephone(val) {
         return true;
     }
 }
+
 function val_custExt(val) {
     if (val != '') {
         return true;
@@ -297,6 +336,7 @@ function val_custExt(val) {
         return true;
     }
 }
+
 function val_custEmail(val) {
     if (val != '') {
         return true;
@@ -304,6 +344,7 @@ function val_custEmail(val) {
         return true;
     }
 }
+
 function val_custFax(val) {
     if (val != '') {
         return true;
@@ -311,6 +352,7 @@ function val_custFax(val) {
         return true;
     }
 }
+
 function val_billingContact(val) {
     if (val != '') {
         return true;
@@ -318,6 +360,7 @@ function val_billingContact(val) {
         return true;
     }
 }
+
 function val_billingEmail(val) {
     if (val != '') {
         return true;
@@ -325,6 +368,7 @@ function val_billingEmail(val) {
         return true;
     }
 }
+
 function val_billingTelephone(val) {
     if (val != '') {
         return true;
@@ -332,6 +376,7 @@ function val_billingTelephone(val) {
         return true;
     }
 }
+
 function val_billingExt(val) {
     if (val != '') {
         return true;
@@ -339,6 +384,7 @@ function val_billingExt(val) {
         return true;
     }
 }
+
 function val_URS(val) {
     if (val != '') {
         return true;
@@ -346,6 +392,7 @@ function val_URS(val) {
         return true;
     }
 }
+
 function val_currencySetting(val) {
     if (val != '') {
         return true;
@@ -353,6 +400,7 @@ function val_currencySetting(val) {
         return true;
     }
 }
+
 function val_paymentTerms(val) {
     if (val != '') {
         return true;
@@ -360,6 +408,7 @@ function val_paymentTerms(val) {
         return true;
     }
 }
+
 function val_creditLimit(val) {
     if (val != '') {
         return true;
@@ -367,6 +416,7 @@ function val_creditLimit(val) {
         return true;
     }
 }
+
 function val_salesRep(val) {
     if (val == '') {
         return true;
@@ -374,6 +424,7 @@ function val_salesRep(val) {
         return true;
     }
 }
+
 function val_factoringCompany(val) {
     if (val != '') {
         return true;
@@ -381,6 +432,7 @@ function val_factoringCompany(val) {
         return true;
     }
 }
+
 function val_federalID(val) {
     if (val != '') {
         return true;
@@ -388,6 +440,7 @@ function val_federalID(val) {
         return true;
     }
 }
+
 function val_workerComp(val) {
     if (val != '') {
         return true;
@@ -395,6 +448,7 @@ function val_workerComp(val) {
         return true;
     }
 }
+
 function val_websiteURL(val) {
     if (val != '') {
         return true;
@@ -402,6 +456,7 @@ function val_websiteURL(val) {
         return true;
     }
 }
+
 function val_internalNotes(val) {
     if (val != '') {
         return true;
@@ -409,52 +464,58 @@ function val_internalNotes(val) {
         return true;
     }
 }
+
 //-------------Customer End-----------
 
 //---------------User Start------------
 function val_userEmail(val) {
     if (val == '') {
-        alert("Please Write an User Email");
+        swal("Please Write an User Email");
         return false;
     } else {
         return true;
     }
 }
+
 function val_userName(val) {
     if (val == '') {
-        alert("Please Write an User Name");
+        swal("Please Write an User Name");
         return false;
     } else {
         return true;
     }
 }
+
 function val_userPass(val) {
     if (val == '') {
-        alert("Please Write an User Password");
+        swal("Please Write an User Password");
         return false;
     } else {
         return true;
     }
 }
+
 function val_userFirstName(val) {
     if (val == '') {
-        alert("Please Write an User First Name");
+        swal("Please Write an User First Name");
         return false;
     } else {
         return true;
     }
 }
+
 function val_userLastName(val) {
     if (val == '') {
-        alert("Please Write an User Last Name");
+        swal("Please Write an User Last Name");
         return false;
     } else {
         return true;
     }
 }
+
 function val_userAddress(val) {
     if (val == '') {
-        alert("Please Write an User Address");
+        swal("Please Write an User Address");
         return false;
     } else {
         return true;
@@ -468,6 +529,7 @@ function val_userLocation(val) {
         return true;
     }
 }
+
 function val_userZip(val) {
     if (val != '') {
         return true;
@@ -475,6 +537,7 @@ function val_userZip(val) {
         return true;
     }
 }
+
 function val_userTelephone(val) {
     if (val != '') {
         return true;
@@ -482,6 +545,7 @@ function val_userTelephone(val) {
         return true;
     }
 }
+
 function val_userExt(val) {
     if (val != '') {
         return true;
@@ -489,6 +553,7 @@ function val_userExt(val) {
         return true;
     }
 }
+
 function val_uerTollFree(val) {
     if (val != '') {
         return true;
@@ -496,6 +561,7 @@ function val_uerTollFree(val) {
         return true;
     }
 }
+
 function val_userFax(val) {
     if (val != '') {
         return true;
@@ -503,6 +569,7 @@ function val_userFax(val) {
         return true;
     }
 }
+
 //---------------User End---------------
 
 /*--------------- Add Bank Admin START -------------*/
@@ -653,15 +720,265 @@ function val_telephone(val) {
         return true;
     }
 }
+
 /*--------------- Customs Broker END ---------------*/
 
-//
+/*----------------Driver Start-----------------------*/
+function val_driverName(val) {
+    if (val == '') {
+        swal('Please write an Driver Name');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_driverUsername(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_driverPassword(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_driverTelephone(val) {
+    if (val == '') {
+        swal('Please write an Telephone Number');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_driverAlt(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_driverEmail(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_driverAddress(val) {
+    if (val == '') {
+        swal('Please write an Driver Address');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_driverLocation(val) {
+    if (val == '') {
+        swal('Please write an Location');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_driverZip(val) {
+    if (val == '') {
+        alert('Please write an Zip Code');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_driverStatus(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_driverSocial(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_dateOfbirth(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_dateOfhire(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_driverLicenseNo(val) {
+    if (val == '') {
+        swal("Please Write an License Number")
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_driverLicenseIssue(val) {
+    if (val == '') {
+        swal("Please Wirte an License Issue Date");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_driverLicenseExp(val) {
+    if (val == '') {
+        swal("Please Write an Expiry Date");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_driverLastMedical(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_driverNextMedical(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_driverLastDrugTest(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_driverNestDrugTest(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_passportExpiry(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_fastCardExpiry(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_hazmatExpiry(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_driverMile(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_driverFlat(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_driverStop(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_driverTrap(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_driverPercentage(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_terminationDate(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+function val_InternalNote(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+/*----------------Driver End-----------------*/
+
 
 //--------Truck Add start-------
 //Truck Number
 function val_truck_number(val) {
     if (val == '') {
-        alert('Please Add Truck Number');
+        swal('Please Add Truck Number');
         return false;
     } else {
         return true;
@@ -670,7 +987,7 @@ function val_truck_number(val) {
 //Truck Type
 function val_trucktype(val) {
     if (val == '') {
-        alert('Please Add Truck Type');
+        swal('Please Add Truck Type');
         return false;
     } else {
         return true;
@@ -679,7 +996,7 @@ function val_trucktype(val) {
 //License Plate
 function val_license_plate(val) {
     if (val == '') {
-        alert('Please Add License Plate');
+        swal('Please Add License Plate');
         return false;
     } else {
         return true;
@@ -688,17 +1005,7 @@ function val_license_plate(val) {
 //Plate Expiry
 function val_plate_expiry(val) {
     if (val == '') {
-        alert('Please Add Plate Expiry');
-        return false;
-    } else {
-        return true;
-    }
-}
-
-//ownership
-function val_ownershipstatus(val) {
-    if (val == '') {
-        alert('Please Add Ownership');
+        swal('Please Add Plate Expiry');
         return false;
     } else {
         return true;
@@ -708,19 +1015,22 @@ function val_ownershipstatus(val) {
 //vin
 function val_vin(val) {
     if (val == '') {
-        alert('Please Add VIN');
+        swal('Please Add VIN');
         return false;
     } else {
         return true;
     }
 }
 
+// --------Truck Add End-------
+
+
 //--------Trailer Add Start-------
 
 //Trailer Number
 function val_trailer_number(val) {
     if (val == '') {
-        alert('Please Add Trailer Number');
+        swal('Please Add Trailer Number');
         return false;
     } else {
         return true;
@@ -729,7 +1039,7 @@ function val_trailer_number(val) {
 //Trailer Type
 function val_trailer_type(val) {
     if (val == '') {
-        alert('Please Add Trailer Type');
+        swal('Please Add Trailer Type');
         return false;
     } else {
         return true;
@@ -738,7 +1048,7 @@ function val_trailer_type(val) {
 //License Plate
 function val_license_plate_trailer(val) {
     if (val == '') {
-        alert('Please Add License Plate');
+        swal('Please Add License Plate');
         return false;
     } else {
         return true;
@@ -747,7 +1057,7 @@ function val_license_plate_trailer(val) {
 //Plate Expiry
 function val_plate_expiry_trailer(val) {
     if (val == '') {
-        alert('Please Add Plate Expiry');
+        swal('Please Add Plate Expiry');
         return false;
     } else {
         return true;
@@ -756,7 +1066,7 @@ function val_plate_expiry_trailer(val) {
 //vin
 function val_vin_trailer(val) {
     if (val == '') {
-        alert('Please Add VIN');
+        swal('Please Add VIN');
         return false;
     } else {
         return true;
@@ -765,12 +1075,13 @@ function val_vin_trailer(val) {
 
 //--------Trailer Add End------------------
 
+
 //--------Factoring Add Start--------------
 
 //Factoring Company
 function val_factoring_company(val) {
     if (val == '') {
-        alert('Please Add Factoring Company');
+        swal('Please Add Factoring Company');
         return false;
     } else {
         return true;
@@ -779,7 +1090,7 @@ function val_factoring_company(val) {
 //Factoring Address
 function val_faddress(val) {
     if (val == '') {
-        alert('Please Add Factoring Address');
+        swal('Please Add Factoring Address');
         return false;
     } else {
         return true;
@@ -788,7 +1099,7 @@ function val_faddress(val) {
 //Factoring Location
 function val_flocation(val) {
     if (val == '') {
-        alert('Please Add Factoring Location');
+        swal('Please Add Factoring Location');
         return false;
     } else {
         return true;
@@ -797,7 +1108,7 @@ function val_flocation(val) {
 //Factoring ZIP
 function val_fzip(val) {
     if (val == '') {
-        alert('Please Add Factoring ZIP');
+        swal('Please Add Factoring ZIP');
         return false;
     } else {
         return true;
@@ -806,7 +1117,7 @@ function val_fzip(val) {
 //Factoring Tax
 function val_ftaxid(val) {
     if (val == '') {
-        alert('Please Add Factoring Tax');
+        swal('Please Add Factoring Tax');
         return false;
     } else {
         return true;
@@ -814,3 +1125,154 @@ function val_ftaxid(val) {
 }
 
 //--------Factoring Add End--------------
+
+/*--------------- Add Bank Admin START -------------*/
+function val_bankName(val) {
+    if (val == '') {
+        swal('Please Enter Bank Name.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_accountHolder(val) {
+    if (val == '') {
+        swal('Please Select Account Holder Name');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_accountNo(val) {
+    if (val == '') {
+        swal('Please Enter Bank Account No.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_routingNo(val) {
+    if (val == '') {
+        swal('Please Enter Bank Routing No.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_openingBalDate(val) {
+    if (val == '') {
+        swal('Please Enter Opening Balance Date.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_openingBalance(val) {
+    if (val == '') {
+        swal('Please Enter Opening Balance.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+/*--------------- Add Bank Admin END ---------------*/
+
+
+/*--------------- Credit Card Admin START ---------------*/
+function val_Name(val) {
+    if (val == '') {
+        swal('Please Enter Name of Bank.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_displayName(val) {
+    if (val == '') {
+        swal('Please Enter Display Name.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_cardType(val) {
+    if (val == '') {
+        swal('Please Select Card Type.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_cardHolderName(val) {
+    if (val == '') {
+        swal('Please Enter Card Holder Name.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_cardLimit(val) {
+    if (val == '') {
+        swal('Please Enter Card Limit.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+/*--------------- Credit Card Admin END ---------------*/
+
+
+/*--------------- Sub Credit Card Admin START ---------------*/
+
+function val_mainCard(val) {
+    if (val == '') {
+        swal('Please Select Main Card.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+/*--------------- Sub Credit Card Admin END ---------------*/
+
+/*--------------- Customs Broker START ---------------*/
+
+function val_brokerName(val) {
+    if (val == '') {
+        swal('Please Enter Broker Name.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_Crossing(val) {
+    if (val == '') {
+        swal('Please Enter Crossing.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_telephone(val) {
+    if (val == '') {
+        swal('Please Enter Telephone No.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+/*--------------- Customs Broker END ---------------*/

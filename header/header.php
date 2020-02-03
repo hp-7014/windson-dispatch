@@ -35,6 +35,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+    <script src="admin/js/form.js"></script>
+    <script src="admin/js/validation.js"></script>
+
+<!------------Loader File's----------->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">-->
+<!--    <link rel="stylesheet" href="assets/css/loader_style.css">-->
+<!--    <script  src="assets/js/loader_script.js"></script>-->
+
+    <script src="admin/js/form.js"></script>
+    <script src="admin/js/validation.js"></script>
+    <script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false&amp;libraries=places&key=AIzaSyDnID4vOGNgMgJxF3Y3AR2SwjzueSonmW0'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
     <!--<script src="admin/js/form.js"></script>
     <script src="admin/js/validation.js"></script>-->
 
@@ -307,6 +320,18 @@
             });
         });
 
+        //--------------------IFTA Start----------------------//
+        // Add Verify Treep Function
+        $(document).on("click", "#verify_treep", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./ifta/verify_treep_model.php', function (result) {
+                        $('#verified').modal({show: true});
+                    });
+                },
+            });
+        });
         // Add Fuel Receipts IFTA
         $(document).on("click", "#fuel_receipts", function () {
             $.ajax({
@@ -513,11 +538,64 @@
                         </li>
 
                         <li class="has-submenu">
+                            <a href="#"><i class="icon-life-buoy"></i> Master <i
+                                        class="mdi mdi-chevron-down mdi-drop"></i></a>
+                            <ul class="submenu">
+                                <li><a href="#" id="currency_setting">Currency Setting</a></li>
+
+                                <li>
+                                    <a href="#" id="truck_type">Truck Type</a>
+                                </li>
+                                <li><a href="#" class="addShipper">Shipper</a></li>
+
+                                <li>
+                                    <a href="#" id="equipment_type">Equipment Type</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="trailer_type">Trailer Type</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="fix_category">Fix Pay Category</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="add_bank">Bank</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="add_status">Status</a>
+                                </li>
+
+                                <li>
+                                    <a href="#" id="add_driver">Add Driver</a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="ADDcompany">Company </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="add_office">Office </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="add_payment_terms">Payment Terms </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="add_loadType">Load Type </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="add_ifta_card">IFTA Card Category</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="has-submenu">
                             <a href="#"><i class="icon-life-buoy"></i> Admin <i
                                         class="mdi mdi-chevron-down mdi-drop"></i></a>
                             <ul class="submenu">
-                                <li><a href="#" class="addShipper">Shipper</a></li>
-
+                                <li>
+                                    <a href="#" class="addShipper">Shipper</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="addDriver">Driver</a>
+                                </li>
                                 <li>
                                     <a href="#" class="addConsignee">Consignee</a>
                                 </li>
@@ -539,10 +617,6 @@
                                 </li>
 
                                 <li>
-                                    <a href="#" id="add_driver">Add Driver</a>
-                                </li>
-
-                                <li>
                                     <a href="#" class="addUser">User</a>
                                 </li>
 
@@ -552,53 +626,9 @@
 
                                 <li><a href="#" id="truck_add">Truck</a></li>
 
-                                <li>
-                                    <a href="#" id="trailer_add">Trailer</a>
-                                </li>
+                                <li><a href="#" id="trailer_add">Trailer</a></li>
                                 <li>
                                     <a href="#" id="factoring_company">Factoring Company</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu">
-                            <a href="#"><i class="icon-life-buoy"></i> Master <i
-                                        class="mdi mdi-chevron-down mdi-drop"></i></a>
-                            <ul class="submenu">
-                                <li><a href="#" id="currency_setting">Currency Setting</a></li>
-
-                                <li>
-                                    <a href="#" id="truck_type">Truck Type</a>
-                                </li>
-                                <li>
-                                    <a href="#" id="equipment_type">Equipment Type</a>
-                                </li>
-                                <li>
-                                    <a href="#" id="trailer_type">Trailer Type</a>
-                                </li>
-                                <li>
-                                    <a href="#" id="fix_category">Fix Pay Category</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="add_bank">Bank</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="add_status">Status</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ADDcompany">Company </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="add_office">Office </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="add_payment_terms">Payment Terms </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="add_loadType">Load Type </a>
-                                </li>
-                                <li>
-                                    <a href="#" id="add_ifta_card">IFTA Card Category</a>
                                 </li>
                             </ul>
                         </li>
@@ -612,6 +642,7 @@
                                 <li>
                                     <a href="#" id="add_toll">Add Toll </a>
                                 </li>
+                                    <li><a href="#" id="verify_treep">Verify Treep</a></li>
                             </ul>
                         </li>
 
@@ -713,9 +744,4 @@
         <!-- end navbar-custom -->
     </header>
     <!-- End Navigation Bar-->
-    <!--    <div class="add_company_modal"></div>-->
-    <!--    <div class="add_office_modal"></div>-->
-    <!--    <div class="add_paymentTerm_modal"></div>-->
-    <!--    <div class="add_loadType_modal"></div>-->
     <div class="modal-container"></div>
-    <!--    <div class="add_shipper_modal"></div>-->

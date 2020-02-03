@@ -3,7 +3,32 @@
 require 'vendor/autoload.php';
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
-$collection = $db->user;
+$collection = $db->shipper;
+
+$data = $collection->aggregate([
+    ['$lookup' => [
+        'from' => 'consignee',
+        'localField' => 'companyID',
+        'foreignField' => 'companyID',
+        'as' => 'consigneeCollection'
+    ]]
+]);
+
+foreach ($data as $d) {
+
+    $in_data = $d['consigneeCollection'];
+    foreach ($in_data as $in) {
+
+        $new = $in['consignee'];
+        foreach ($new as $n) {
+
+            echo $n['consigneeName'];
+        }
+    }
+}
+
+//$data = $collection->find(['companyID' => 1]);
+
 //update
 //        $collection->updateOne(
 //            ['companyID' => 1 ,'currency._id'=> 2],
@@ -68,17 +93,17 @@ $collection = $db->user;
 
 // code to fetch the embedded collection based on some value and print the entire sub collection
 
-$cursor = $collection->find(['companyID' => 1],['user._id' => 1]);
+//$cursor = $collection->find(['companyID' => 1],['user._id' => 1]);
 
 //$array = iterator_to_array($cursor);
 
-foreach ($cursor as $value) {
-//    $array1 = iterator_to_array($value['user']);
-    $array1 = $value['user'];
-    foreach ($array1 as $value1) {
-        print_r($value1);
-    }
-}
+//foreach ($cursor as $value) {
+////    $array1 = iterator_to_array($value['user']);
+//    $array1 = $value['user'];
+//    foreach ($array1 as $value1) {
+//        print_r($value1);
+//    }
+//}
 
 
 // code to update the entries of embedded document through certain parameters

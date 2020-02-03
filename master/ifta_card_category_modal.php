@@ -96,18 +96,26 @@
                     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                     <label>Card Holder Name <span style="color: red">*</span></label>
                     <div>
-                        <select class="form-control" name="cardHolderName" id="cardHolderName">
-                            <option value="">Select Holder Name</option>
-                            <option value="DAVID GAGICH">DAVID GAGICH</option>
-                            <option value="DAUERNHEIM MICHAEL JOHN">DAUERNHEIM MICHAEL JOHN</option>
-                            <option value="CRAIG ELLIOTT">CRAIG ELLIOTT</option>
+                        <select class="form-control" name="cardHolderName" id="cardHolderName" onchange="ajaxGetid(this)">
+                            <option value="">Select Card Holder Name</option>
+                            <?php
+
+                            $show_data = $db->driver->find(['companyID' => $_SESSION['companyId']]);
+
+                            foreach ($show_data as $show) {
+                                $show = $show['driver'];
+                                foreach ($show as $s) {
+                                    ?>
+                                    <option value="<?php echo $s['driverName']; ?>"><?php echo $s['driverName']; ?></option>
+                                <?php }
+                            }?>
                         </select>
                     </div>
                 </div>
                 <div class="form-group col-md-12">
                     <label>Employee No </label>
                     <div>
-                        <input class="form-control" placeholder="Employee No" type="text" value="1" name="employeeNo" id="employeeNo" readonly>
+                        <input class="form-control" placeholder="Employee No" type="text" name="employeeNo" id="employeeNo" readonly>
                     </div>
                 </div>
 
@@ -134,7 +142,28 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<script type="text/javascript">
+    function ajaxGetid(x)
+    {
+        var v = x.value;
+        var companyId = document.getElementById('companyId').value;
+        //alert(v);
+        $.ajax({
+            type: 'POST',
+            url: 'master/ifta_card_category?type='+'driverdetails',
+            data: {
+                getoption:v,
+                companyId:companyId,
+            },
+            success: function (response) {
+                var j = JSON.parse(response);
+                alert(j._id);
+                $('#employeeNo').val(j._id);
+            }
+        });
+    }
 
+</script>
 
 
 

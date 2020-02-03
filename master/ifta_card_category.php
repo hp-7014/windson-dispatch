@@ -1,4 +1,5 @@
 <?php
+@session_start();
 
 require 'model/Ifta_Card_Category.php';
 require 'utils/Helper.php';
@@ -6,6 +7,24 @@ require '../vendor/autoload.php';
 require '../database/connection.php';
 
 $helper = new Helper();
+
+// Get Driver / Card Holder Details
+if ($_GET['type'] == 'driverdetails') {
+
+    $show_data = $db->driver->find(['companyID' => $_SESSION['companyId']]);
+
+    foreach ($show_data as $drive) {
+        $d = $drive['driver'];
+
+        foreach ($d as $t) {
+            //echo $t;
+            if ($_POST['getoption'] == $t['driverName']) {
+                echo json_encode($t);
+                break;
+            }
+        }
+    }
+}
 
 // Add Function Here
 if ($_GET['type'] == 'card_category') {

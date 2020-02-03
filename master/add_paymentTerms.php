@@ -16,6 +16,7 @@ require "../database/connection.php";?>
                     <div class="col-12">
                         <div class="card m-b-30">
                             <div class="card-body">
+
                                 <form method="post" enctype="multipart/form-data">
                                     <button type="button" class="btn btn-primary waves-effect waves-light"
                                             data-toggle="modal"
@@ -85,6 +86,7 @@ require "../database/connection.php";?>
 <!-----------------------------------------Add Payment Terms-------------------------------------------------------------------------------->
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
      id="Add_Payment_Terms" aria-hidden="true">
+    <div class="load"></div>
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #2A3988;">
