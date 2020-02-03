@@ -1398,3 +1398,95 @@ function deleteStatus(id) {
 
 /*---------------------- Status Type END ------------------------*/
 
+/*---------------------- IFTA Card Category START ------------------------*/
+
+// Add Ifta Card
+function add_CardCategory() {
+    var cardHolderName = $("#cardHolderName").val();
+    var iftaCardNo = document.getElementById("iftaCardNo").value;
+    var employeeNo = document.getElementById("employeeNo").value;
+    var cardType = document.getElementById("cardType").value;
+    var companyId = document.getElementById('companyId').value;
+
+    if (val_cardHolderName(cardHolderName)) {
+        if (val_iftaCardNo(iftaCardNo)) {
+            if (val_CardType(cardType)) {
+                $.ajax({
+                    url: 'master/ifta_card_category.php?type=' + 'card_category',
+                    type: 'POST',
+                    data: {
+                        companyId: companyId,
+                        cardHolderName: cardHolderName,
+                        iftaCardNo: iftaCardNo,
+                        employeeNo: employeeNo,
+                        cardType: cardType,
+                    },
+                    dataType: 'text',
+                    success: function (data) {
+                        swal('Success', data, 'success');
+                        $("#Add_Ifta_Card").modal("hide");
+                    },
+                    error: function () {
+                    },
+                });
+            }
+        }
+    }
+}
+
+// Update IFTA Card
+function updateCardCat(element,column,id){
+    var value = element.innerText;
+
+    var companyId = document.getElementById('companyId').value;
+    $.ajax({
+        url:'master/ifta_card_category.php?type='+'edit_ifta',
+        type:'POST',
+        data:{
+            companyId: companyId,
+            column: column,
+            id:id,
+            value:value,
+        },
+        success: function (data) {
+            swal('Success',"Data Update Success.",'success');
+            $('#Add_Ifta_Card').modal('hide');
+        }
+    });
+}
+
+function deleteCardCat(id) {
+    if (confirm("Are you Sure ?")) {
+        $.ajax({
+            url:'master/ifta_card_category.php?type='+'delete_Ifta',
+            type:'POST',
+            data:{id:id},
+            success: function (data) {
+                swal('Success','Data Delete Success.','success');
+            }
+        });
+    }
+}
+
+// Import IFTA Card
+function importCard_Cat() {
+    var form_data = new FormData();
+    //alert(form_data);
+    form_data.append("file",document.getElementById('file').files[0]);
+
+    $.ajax({
+        url:'master/ifta_card_category.php?type='+'import_Ifta',
+        method:'post',
+        data:form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            swal('Success',data,'success');
+        }
+    });
+}
+
+
+/*---------------------- IFTA Card Category END ------------------------*/
+

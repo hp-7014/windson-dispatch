@@ -228,7 +228,7 @@
                         'openingBalance'=>$this->openingBalance,
                         'transacBalance'=>$this->transacBalance,
                         'delete_status'=>'0',
-                        'insertedUser' => '1',
+                        'insertedUser' => $_SESSION['companyName'],
                     ])
                 )
             );
@@ -254,7 +254,7 @@
                     'openingBalance'=>$this->openingBalance,
                     'transacBalance'=>$this->transacBalance,
                     'delete_status'=>'0',
-                    'insertedUser' => '1',
+                    'insertedUser' => $_SESSION['companyName'],
                 ]]]);
             } else {
                 $b_admin = iterator_to_array($category);

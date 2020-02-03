@@ -190,7 +190,7 @@
                         'fax'=>$this->fax,
                         'Status'=>$this->Status,
                         'delete_status'=>'0',
-                        'insertedUser' => '1',
+                        'insertedUser' => $_SESSION['companyName'],
                     ])
                 )
             );
@@ -214,7 +214,7 @@
                     'fax'=>$this->fax,
                     'Status'=>$this->Status,
                     'delete_status'=>'0',
-                    'insertedUser' => '1',
+                    'insertedUser' => $_SESSION['companyName'],
                 ]]]);
             } else {
                 $c_broker = iterator_to_array($category);

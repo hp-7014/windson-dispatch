@@ -27,7 +27,6 @@
                                     <input type="file" id="file" name="cardfile"/>
                                 </div>
 
-                                <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV FORMATE</button>
                                 </form>
                                 <br>
                                 <table id="mainTable3" class="table table-striped mb-0 table-editable">
@@ -92,7 +91,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <label>Name *</label>
+                        <label>Name <span style="color: red">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Name *" type="text" name="status_name" id="status_name">
                         </div>

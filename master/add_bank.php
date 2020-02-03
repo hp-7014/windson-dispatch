@@ -51,7 +51,9 @@ include '../database/connection.php';
                                             <input type="file" id="file" name="myfile" accept=".csv"/>
                                         </div>
 
-                                        <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>
+                                        <a class="btn btn-outline-success waves-effect waves-light" href="download.php?file=Bank_Debit_Category.csv" style="margin-bottom: 5px;">CSV formate
+                                        </a>
+                                       <!-- <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>-->
                                         <!--</form>-->
 
                                         <!--<table id="mainTable" class="table table-striped mb-0 table-editable">
@@ -126,7 +128,8 @@ include '../database/connection.php';
                                                 <button class="custom-btn">Choose file</button>
                                                 <input type="file" id="file1" name="creditfile" accept=".csv"/>
                                             </div>
-                                            <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>
+                                            <a class="btn btn-outline-success waves-effect waves-light" href="download.php?file=Bank_Credit_Category.csv" style="margin-bottom: 2px;">CSV formate
+                                            </a>
                                         </form>
                                         <br>
                                         <table class="table table-striped mb-0 table-editable">
@@ -197,7 +200,8 @@ include '../database/connection.php';
                                                 <button class="custom-btn">Choose file</button>
                                                 <input type="file" id="file_test" name="cardfile" accept=".csv"/>
                                             </div>
-                                            <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>
+                                            <a class="btn btn-outline-success waves-effect waves-light" href="download.php?file=Credit_Card_Category.csv" style="margin-bottom: 2px;">CSV formate
+                                            </a>
                                         </form>
                                         <br>
                                         <table id="mainTable3" class="table table-striped mb-0 table-editable">
@@ -267,7 +271,7 @@ include '../database/connection.php';
             </div>
             <div class="modal-body">
                 <div class="form-group col-md-12">
-                    <label>Name *</label>
+                    <label>Name <span style="color: red">*</span></label>
                     <div>
                         <input class="form-control" placeholder="Name" name="debit_category_name" type="text" id="debit_category_name">
                         <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
@@ -297,7 +301,7 @@ include '../database/connection.php';
             </div>
             <div class="modal-body">
                 <div class="form-group col-md-12">
-                    <label>Name *</label>
+                    <label>Name <span style="color: red">*</span></label>
                     <div>
                         <input class="form-control" placeholder="Name" name="credit_category_name" type="text" id="credit_category_name">
                         <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
@@ -328,7 +332,7 @@ include '../database/connection.php';
             </div>
             <div class="modal-body">
                 <div class="form-group col-md-12">
-                    <label>Name *</label>
+                    <label>Name <span style="color: red">*</span></label>
                     <div>
                         <input class="form-control" placeholder="Name" name="credit_card_name" type="text" id="credit_card_name">
                         <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">

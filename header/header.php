@@ -22,15 +22,20 @@
    <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
 
     <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
-
     <script src="master/js/form.js"></script>
     <script src="admin/js/form.js"></script>
+    <script src="ifta/js/form.js"></script>
     <script src="master/js/validation.js"></script>
     <script src="admin/js/validation.js"></script>
+    <script src="ifta/js/validation.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!--<script src="admin/js/form.js"></script>
     <script src="admin/js/validation.js"></script>-->
+
+<!--    MAP    -->
+
+<!--    MAP END-->
     <script>
 
         $(document).on('click', '.addShipper', function () {
@@ -286,6 +291,41 @@
             });
         });
 
+        // Add Fuel Receipts IFTA
+        $(document).on("click", "#fuel_receipts", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                   // alert("test");
+                    $('.modal-container').load('./ifta/fuel_receipts_modal.php', function (result) {
+                        $('#Fuel_Receipt').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        $(document).on("click", "#add_ifta_card", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/ifta_card_category_modal.php', function (result) {
+                        $('#Ifta_Card_Category').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        $(document).on("click", "#add_toll", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./ifta/add_toll_modal.php', function (result) {
+                        $('#Add_Toll').modal({show: true});
+                    });
+                },
+            });
+        });
+
     </script>
 </head>
 
@@ -483,6 +523,10 @@
                                 </li>
 
                                 <li>
+                                    <a href="#" id="add_driver">Add Driver</a>
+                                </li>
+
+                                <li>
                                     <a href="#" class="addUser">User</a>
                                 </li>
 
@@ -536,6 +580,21 @@
                                 </li>
                                 <li>
                                     <a href="#" class="add_loadType">Load Type </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="add_ifta_card">IFTA Card Category</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="has-submenu">
+                            <a href="#"><i class="icon-life-buoy"></i> IFTA <i class="mdi mdi-chevron-down mdi-drop"></i></a>
+                            <ul class="submenu">
+                                <li>
+                                    <a href="#" id="fuel_receipts">Fuel Receipts </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="add_toll">Add Toll </a>
                                 </li>
                             </ul>
                         </li>

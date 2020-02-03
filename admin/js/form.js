@@ -969,6 +969,25 @@ function updateBank(element, column, id) {
     });
 }
 
+function update_Date(element, column, id) {
+    //var value = element.innerText;
+    var companyId = document.getElementById('companyId').value;
+
+    $.ajax({
+        url: 'admin/bank_admin.php?type=' + 'edit_date',
+        type: 'POST',
+        data: {
+            companyId: companyId,
+            column: column,
+            id: id,
+            openingBalDate: element,
+        },
+        success: function (data) {
+            swal("Update", data, 'success');
+        }
+    });
+}
+
 function updateAccount(element, column, id) {
     //var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
