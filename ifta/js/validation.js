@@ -7,3 +7,12 @@ function val_CardHolderName(val) {
         return true;
     }
 }
+
+function val_invoiceNumber(val) {
+    if (val == '') {
+        alert('Please Select Invoice Number.');
+        return false;
+    } else {
+        return true;
+    }
+}

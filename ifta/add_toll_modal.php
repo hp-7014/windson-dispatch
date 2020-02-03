@@ -29,21 +29,51 @@ include '../database/connection.php';
 
                 <table class="table table-striped mb-0 table-editable table-debit">
                     <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Card Holder Name</th>
-                        <th>Employee Number</th>
-                        <th>Card Number</th>
-                        <th>Card Type</th>
-                        <th>Unit Number</th>
-                        <th>Transaction Date</th>
-                        <th>Invoice No</th>
-                        <th>Action</th>
-                    </tr>
+                        <tr>
+                            <th>No</th>
+                            <th>Invoice No.</th>
+                            <th>Transaction Date</th>
+                            <th>Transaction Type</th>
+                            <th>Location</th>
+                            <th>Transponder</th>
+                            <th>License Plate</th>
+                            <th>Amount</th>
+                            <th>Truck No.</th>
+                            <th>Action</th>
+                        </tr>
                     </thead>
 
-                    <tbody>
+                    <?php
+                        $toll_data = $db->ifta_toll->find(['companyID' => $_SESSION['companyId']]);
+                        $no = 1;
+                    ?>
 
+                    <tbody>
+                    <?php foreach ($toll_data as $data) {
+                        $t_dt = $data['tolls'];
+
+                        foreach ($t_dt as $a_tl) {
+                            if ($a_tl['delete_status'] == '0') {
+                                ?>
+                                <tr>
+                                    <td><?php echo $no++ ?></td>
+                                    <td contenteditable="true" onblur="updateTolls(this,'invoiceNumber',<?php echo $a_tl['_id']; ?>)"><?php echo $a_tl['invoiceNumber']; ?></td>
+                                    <td contenteditable="true" onblur="updateTolls(this,'tollDate',<?php echo $a_tl['_id']; ?>)"><?php echo $a_tl['tollDate']; ?></td>
+                                    <td contenteditable="true" onblur="updateTolls(this,'transType',<?php echo $a_tl['_id']; ?>)"><?php echo $a_tl['transType']; ?></td>
+                                    <td contenteditable="true" onblur="updateTolls(this,'location',<?php echo $a_tl['_id']; ?>)"><?php echo $a_tl['location']; ?></td>
+                                    <td contenteditable="true" onblur="updateTolls(this,'transponder',<?php echo $a_tl['_id']; ?>)"><?php echo $a_tl['transponder']; ?></td>
+                                    <td contenteditable="true" onblur="updateTolls(this,'amount',<?php echo $a_tl['_id']; ?>)"><?php echo $a_tl['amount']; ?></td>
+                                    <td contenteditable="true" onblur="updateTolls(this,'licensePlate',<?php echo $a_tl['_id']; ?>)"><?php echo $a_tl['licensePlate']; ?></td>
+                                    <td contenteditable="true" onblur="updateTolls(this,'truckNo',<?php echo $a_tl['_id']; ?>)"><?php echo $a_tl['truckNo']; ?></td>
+                                    <td><a href="#" onclick="updateTolls(<?php echo $a_tl['_id']; ?>)"><i
+                                                    class="mdi mdi-delete-sweep-outline"
+                                                    style="font-size: 20px; color: #FC3B3B"></i></a>
+                                    </td>
+                                </tr>
+                            <?php }
+                        }
+                    }
+                    ?>
                     </tbody>
 
                 </table>
@@ -81,7 +111,7 @@ include '../database/connection.php';
                     <div class="form-group col-md-3">
                         <label>Invoice No</label>
                         <div>
-                            <select class="form-control " name="statePurch" id="statePurch" >
+                            <select class="form-control " name="invoiceNumber" id="invoiceNumber" >
                                 <option value="">Select Invoice No.</option>
                                 <option value="1" >1</option>
                                 <option value="2" >2</option>
@@ -93,19 +123,19 @@ include '../database/connection.php';
                     <div class="form-group col-md-3">
                         <label>Date</label>
                         <div>
-                            <input class="form-control" type="date" name="fuelDate" id="fuelDate">
+                            <input class="form-control" type="date" name="tollDate" id="tollDate">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
                         <label>Transaction Type</label>
                         <div>
-                            <input class="form-control" placeholder="Transaction Type" type="text" name="cardNo" id="cardNo">
+                            <input class="form-control" placeholder="Transaction Type" type="text" name="transType" id="transType">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
                         <label>Location</label>
                         <div>
-                            <input class="form-control" placeholder="Location" type="text" name="cardType" id="cardType">
+                            <input class="form-control" placeholder="Location" type="text" name="location" id="location">
                         </div>
                     </div>
 
@@ -115,27 +145,27 @@ include '../database/connection.php';
                     <div class="form-group col-md-3">
                         <label>Transponder</label>
                         <div>
-                            <input class="form-control" placeholder="Amount" type="text" name="transacTime" id="transacTime">
+                            <input class="form-control" placeholder="Amount" type="text" name="transponder" id="transponder">
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
                         <label>Amount</label>
                         <div>
-                            <input class="form-control" placeholder="Amount" type="text" name="transacTime" id="transacTime">
+                            <input class="form-control" placeholder="Amount" type="text" name="amount" id="amount">
                         </div>
                     </div>
 
                     <div class="form-group col-md-3">
                         <label>License Plate</label>
                         <div>
-                            <input class="form-control" placeholder="License Plate" type="text" name="transacTime" id="transacTime">
+                            <input class="form-control" placeholder="License Plate" type="text" name="licensePlate" id="licensePlate">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
                         <label>Truck No</label>
                         <div>
-                            <select class="form-control" name="cardHolderName" id="cardHolderName" >
+                            <select class="form-control" name="truckNo" id="truckNo" >
                                 <option value="">Select Truck Number</option>
                                 <?php
 
@@ -157,7 +187,7 @@ include '../database/connection.php';
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Close</button>
-                <button type="button" onclick="Add_FuelReceipts()" class="btn btn-primary waves-effect waves-light" >Save</button>
+                <button type="button" onclick="Add_TollData()" class="btn btn-primary waves-effect waves-light" >Save</button>
             </div>
 
         </div>

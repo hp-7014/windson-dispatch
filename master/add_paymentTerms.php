@@ -16,7 +16,7 @@ require "../database/connection.php";?>
                     <div class="col-12">
                         <div class="card m-b-30">
                             <div class="card-body">
-                                <form action="" method="post" enctype="multipart/form-data">
+                                <form method="post" enctype="multipart/form-data">
                                     <button type="button" class="btn btn-primary waves-effect waves-light"
                                             data-toggle="modal"
                                             data-target="#Add_Payment_Terms">Add

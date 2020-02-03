@@ -17,9 +17,13 @@
     <link href="assets/css/modalStyle.css" rel="stylesheet" type="text/css">
     <link href="assets/css/modalFormStyle.css" rel="stylesheet" type="text/css">
 
+
+   <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
+
     <!--<link href="assets/css/select2.min.css" rel="stylesheet" type="text/css">-->
 
    <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
+
 
     <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
     <script src="master/js/form.js"></script>
@@ -30,12 +34,14 @@
     <script src="ifta/js/validation.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!--<script src="admin/js/form.js"></script>
     <script src="admin/js/validation.js"></script>-->
 
 <!--    MAP    -->
 
 <!--    MAP END-->
+
     <script>
 
         $(document).on('click', '.addShipper', function () {
@@ -44,6 +50,16 @@
                 success: function (data) {
                     $('.modal-container').load('./admin/shipper_modal.php', function (result) {
                         $('#shipper').modal({show: true});
+                    });
+                }
+            });
+        });
+        $(document).on('click', '.addDriver', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/driver_modal.php', function (result) {
+                        $('#Driver').modal({show: true});
                     });
                 }
             });

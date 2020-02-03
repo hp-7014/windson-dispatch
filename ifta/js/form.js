@@ -134,3 +134,65 @@ function import_FuelReceipt() {
 }
 
 //-----------------Fuel Receipts Add ENDS---------------------------------
+
+//-----------------Add Toll START-----------------------------------------
+
+// Add Toll
+function Add_TollData() {
+    var companyId = document.getElementById('companyId').value;
+    var invoiceNumber = $("#invoiceNumber").val();
+    var tollDate = document.getElementById('tollDate').value;
+    var transType = document.getElementById('transType').value;
+    var location = document.getElementById('location').value;
+    var transponder = document.getElementById('transponder').value;
+    var amount = document.getElementById('amount').value;
+    var licensePlate = document.getElementById('licensePlate').value;
+    var truckNo = document.getElementById('truckNo').value;
+
+    if (val_invoiceNumber(invoiceNumber)) {
+        $.ajax({
+            url: 'ifta/add_toll_driver.php?type=' + 'toll_add',
+            type: 'POST',
+            data: {
+                companyId: companyId,
+                invoiceNumber: invoiceNumber,
+                tollDate: tollDate,
+                transType: transType,
+                location: location,
+                transponder: transponder,
+                amount: amount,
+                licensePlate: licensePlate,
+                truckNo: truckNo,
+            },
+            dataType: "text",
+            success: function (data) {
+                swal("Success", data, "success");
+                $('#add_tolls').modal('hide');
+            },
+        });
+    }
+}
+
+// Edit Toll
+function updateTolls(element,column,id) {
+    var value = element.innerText;
+
+    var companyId = document.getElementById('companyId').value;
+    $.ajax({
+        url: 'ifta/add_toll_driver.php?type=' + 'edit_toll',
+        type: 'POST',
+        data: {
+            companyId: companyId,
+            column: column,
+            id: id,
+            value: value,
+        },
+        success: function (data) {
+            swal("Success",data,"success");
+        }
+    });
+}
+
+
+//-----------------Add Toll ENDS------------------------------------------
+
