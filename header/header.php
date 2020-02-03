@@ -37,12 +37,14 @@
     <script src="admin/js/form.js"></script>
     <script src="admin/js/validation.js"></script>
 
-
-
+<!------------Loader File's----------->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">-->
+<!--    <link rel="stylesheet" href="assets/css/loader_style.css">-->
+<!--    <script  src="assets/js/loader_script.js"></script>-->
 =======
-    <!--<script src="admin/js/form.js"></script>
-    <script src="admin/js/validation.js"></script>-->
->>>>>>> 2eea0557ab06cd2d56101ba29a85e0bb26144926
+    <script src="admin/js/form.js"></script>
+    <script src="admin/js/validation.js"></script>
+
     <script>
 
         $(document).on('click', '.addShipper', function () {
@@ -664,9 +666,4 @@
         <!-- end navbar-custom -->
     </header>
     <!-- End Navigation Bar-->
-    <!--    <div class="add_company_modal"></div>-->
-    <!--    <div class="add_office_modal"></div>-->
-    <!--    <div class="add_paymentTerm_modal"></div>-->
-    <!--    <div class="add_loadType_modal"></div>-->
     <div class="modal-container"></div>
-    <!--    <div class="add_shipper_modal"></div>-->

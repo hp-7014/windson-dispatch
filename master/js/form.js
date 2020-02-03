@@ -13,9 +13,13 @@ function addPaymentTerms() {
                 companyid: companyId,
                 payment_term: payment_term,
             },
+            beforeSend: function () {
+                $('.load').load('master/js/loader.php');
+                setTimeout(1000);
+            },
             success: function (data) {
-                swal("Success",data,'success');
-                $('#Add_Payment_Terms').modal('hide');
+                // swal("Success", data, 'success');
+                // $('#Add_Payment_Terms').modal('hide');
             }
         });
     }
@@ -36,7 +40,7 @@ function importExcel() {
         cache: false,
         processData: false,
         success: function (data) {
-            swal("Success",data,'success');
+            swal("Success", data, 'success');
         }
     });
 }
@@ -55,7 +59,7 @@ function updatePayment(element, column, id) {
             value: value,
         },
         success: function (data) {
-            swal("Success",data,'success');
+            swal("Success", data, 'success');
             // $('#Payment_Terms').modal('hide');
         }
     });
@@ -69,7 +73,7 @@ function deletePayment(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
-                swal("Success",data,'success');
+                swal("Success", data, 'success');
             }
         });
     }
@@ -80,10 +84,10 @@ function exportExcel(id) {
 
     $.ajax({
         url: 'master/payment_terms.php?type=' + 'export_payment_terms',
-        data:{companyid:id},
+        data: {companyid: id},
         type: 'POST',
         success: function (data) {
-            
+
             var rows = JSON.parse(data);
 
             let csvContent = "data:text/csv;charset=utf-8,";
@@ -122,12 +126,12 @@ function addOffice() {
                 url: 'master/office_driver.php?type=' + 'add_office',
                 type: 'POST',
                 data: {
-                    companyId:companyId,
+                    companyId: companyId,
                     officeName: officeName,
                     officeLocation: officeLocation,
                 },
                 success: function (data) {
-                    swal("Success",data,'success');
+                    swal("Success", data, 'success');
                     $('#Add_Office').modal('hide');
                 }
             });
@@ -149,7 +153,7 @@ function updateOffice(element, column, id) {
             value: value,
         },
         success: function (data) {
-            swal("Success",data,'success');
+            swal("Success", data, 'success');
             // $('#Add_Office').modal('hide');
         }
     });
@@ -163,7 +167,7 @@ function deleteOffice(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
-                swal("Success",data,'success');
+                swal("Success", data, 'success');
             }
         });
     }
@@ -181,7 +185,7 @@ function importOffice() {
         cache: false,
         processData: false,
         success: function (data) {
-            swal("Success",data,'success');
+            swal("Success", data, 'success');
         }
     });
 }
@@ -247,7 +251,7 @@ function addCompany() {
                         factoringCompanyAddress: factoringCompanyAddress,
                     },
                     success: function (data) {
-                        swal("Success",data,'success');
+                        swal("Success", data, 'success');
                         $('#add_company').modal('hide');
                     }
                 });
@@ -264,7 +268,7 @@ function deleteCompany(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
-                swal("Success",data,'success');
+                swal("Success", data, 'success');
             }
         });
     }
@@ -283,7 +287,7 @@ function updateCompany(element, column, id) {
             value: value,
         },
         success: function (data) {
-            swal("Success",data,'success');
+            swal("Success", data, 'success');
             // $('#add_company').modal('hide');
         }
     });
@@ -327,10 +331,11 @@ function importCompany() {
         cache: false,
         processData: false,
         success: function (data) {
-            swal("Success",data,'success');
+            swal("Success", data, 'success');
         }
     });
 }
+
 //-------------Company function End--------------
 
 //------------Load function Start----------------
@@ -341,19 +346,19 @@ function addLoadType() {
 
     if (val_loadName(loadName)) {
         if (val_loadType(loadType)) {
-                $.ajax({
-                    url: 'master/loadType_driver.php?type=' + 'add_loadType',
-                    type: 'POST',
-                    data: {
-                        companyid: companyId,
-                        loadName: loadName,
-                        loadType: loadType,
-                    },
-                    success: function (data) {
-                        swal("Success",data,'success');
-                        $('#Active_Load_Type').modal('hide');
-                    }
-                });
+            $.ajax({
+                url: 'master/loadType_driver.php?type=' + 'add_loadType',
+                type: 'POST',
+                data: {
+                    companyid: companyId,
+                    loadName: loadName,
+                    loadType: loadType,
+                },
+                success: function (data) {
+                    swal("Success", data, 'success');
+                    $('#Active_Load_Type').modal('hide');
+                }
+            });
         }
     }
 }
@@ -372,10 +377,11 @@ function updateloadType(element, column, id) {
             value: value,
         },
         success: function (data) {
-            swal("Success",data,'success');
+            swal("Success", data, 'success');
         }
     });
 }
+
 // delete load
 function deleteloadType(id) {
     if (confirm('Are you sure to remove this record ?')) {
@@ -384,11 +390,12 @@ function deleteloadType(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
-                swal("Success",data,'success');
+                swal("Success", data, 'success');
             }
         });
     }
 }
+
 //export load
 function exportLoadType() {
     $.ajax({
@@ -415,6 +422,7 @@ function exportLoadType() {
         }
     });
 }
+
 // import excel function
 function importLoadType() {
     var form_data = new FormData();
@@ -427,7 +435,7 @@ function importLoadType() {
         cache: false,
         processData: false,
         success: function (data) {
-            swal("Success",data,'success');
+            swal("Success", data, 'success');
         }
     });
 }
@@ -438,7 +446,7 @@ function addCurrency() {
     var companyId = document.getElementById('companyId').value;
     if (val_currencyType(currencyType)) {
         $.ajax({
-            url: 'master/currency_add.php?type='+'currencyadd',
+            url: 'master/currency_add.php?type=' + 'currencyadd',
             type: 'POST',
             data: {
                 companyID: companyId,
@@ -446,7 +454,7 @@ function addCurrency() {
             },
             dataType: 'text',
             success: function (data) {
-                swal("Success",data,"success");
+                swal("Success", data, "success");
                 $('#center').modal('hide');
             },
 
@@ -455,7 +463,7 @@ function addCurrency() {
 }
 
 //update currency Function
-function updateCurrency(element,column,id){
+function updateCurrency(element, column, id) {
     var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
     $.ajax({
@@ -468,7 +476,7 @@ function updateCurrency(element,column,id){
             value: value,
         },
         success: function (data) {
-            swal("Success",data,"success");
+            swal("Success", data, "success");
             //$('#currency').modal('hide');
         }
     });
@@ -479,17 +487,17 @@ function importCurrency() {
     // var file = document.getElementById('file').value;
     var form_data = new FormData();
 
-    form_data.append("file",document.getElementById('file').files[0]);
+    form_data.append("file", document.getElementById('file').files[0]);
 
     $.ajax({
-        url:'master/currency_add.php?type='+'importExcel',
-        method:'post',
-        data:form_data,
+        url: 'master/currency_add.php?type=' + 'importExcel',
+        method: 'post',
+        data: form_data,
         contentType: false,
         cache: false,
         processData: false,
         success: function (data) {
-            swal("Success",data,"success");
+            swal("Success", data, "success");
         }
     });
 }
@@ -502,7 +510,7 @@ function deleteCurrency(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
-                swal("Success",data,"success");
+                swal("Success", data, "success");
                 //$('#currency').modal('hide');
             }
         });
@@ -512,7 +520,7 @@ function deleteCurrency(id) {
 // Export Excel Function for Currency Type
 function exportCurrency() {
     $.ajax({
-        url: 'master/currency_add.php?type='+'export_currency',
+        url: 'master/currency_add.php?type=' + 'export_currency',
         type: 'POST',
         success: function (data) {
             var rows = JSON.parse(data);
@@ -544,7 +552,7 @@ function addEquipment() {
     var companyId = document.getElementById('companyId').value;
     if (val_equipmentType(equipmentType)) {
         $.ajax({
-            url: 'master/equipment_add.php?type='+'equipmentadd',
+            url: 'master/equipment_add.php?type=' + 'equipmentadd',
             type: 'POST',
             data: {
 
@@ -553,7 +561,7 @@ function addEquipment() {
             },
             dataType: 'text',
             success: function (data) {
-                swal("Success",data,"success");
+                swal("Success", data, "success");
                 $('#Add_Equipment_Type').modal('hide');
             },
 
@@ -562,11 +570,11 @@ function addEquipment() {
 }
 
 //update Equipment Function
-function updateEquipment(element,column,id){
+function updateEquipment(element, column, id) {
     var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
     $.ajax({
-        url: 'master/equipment_add.php?type='+'edit_equipment',
+        url: 'master/equipment_add.php?type=' + 'edit_equipment',
         type: 'POST',
         data: {
             companyID: companyId,
@@ -575,7 +583,7 @@ function updateEquipment(element,column,id){
             value: value,
         },
         success: function (data) {
-            swal("Success",data,"success");
+            swal("Success", data, "success");
             //$('#currency').modal('hide');
         }
     });
@@ -585,11 +593,11 @@ function updateEquipment(element,column,id){
 function deleteEquipment(id) {
     if (confirm('Are you sure ???')) {
         $.ajax({
-            url: 'master/equipment_add.php?type='+'delete_equipment',
+            url: 'master/equipment_add.php?type=' + 'delete_equipment',
             type: 'POST',
             data: {id: id},
             success: function (data) {
-                swal("Success",data,"success");
+                swal("Success", data, "success");
                 //$('#currency').modal('hide');
             }
         });
@@ -601,17 +609,17 @@ function importEquipment() {
     // var file = document.getElementById('file').value;
     var form_data = new FormData();
 
-    form_data.append("file",document.getElementById('file').files[0]);
+    form_data.append("file", document.getElementById('file').files[0]);
 
     $.ajax({
-        url:'master/equipment_add.php?type='+'importExcel',
-        method:'post',
-        data:form_data,
+        url: 'master/equipment_add.php?type=' + 'importExcel',
+        method: 'post',
+        data: form_data,
         contentType: false,
         cache: false,
         processData: false,
         success: function (data) {
-            swal("Success",data,"success");
+            swal("Success", data, "success");
         }
     });
 }
@@ -619,7 +627,7 @@ function importEquipment() {
 // Export Excel Function for Equipment Type
 function exportEquipment() {
     $.ajax({
-        url: 'master/equipment_add.php?type='+'export_equipment',
+        url: 'master/equipment_add.php?type=' + 'export_equipment',
         type: 'POST',
         success: function (data) {
             var rows = JSON.parse(data);
@@ -651,7 +659,7 @@ function addTruck() {
     var companyId = document.getElementById('companyId').value;
     if (val_truckType(truckType)) {
         $.ajax({
-            url: 'master/truck_add.php?type='+'truckadd',
+            url: 'master/truck_add.php?type=' + 'truckadd',
             type: 'POST',
             data: {
                 companyID: companyId,
@@ -659,7 +667,7 @@ function addTruck() {
             },
             dataType: 'text',
             success: function (data) {
-                swal("Success",data,"success");
+                swal("Success", data, "success");
                 $('#Add_Truck_Type').modal('hide');
             },
 
@@ -668,11 +676,11 @@ function addTruck() {
 }
 
 //Update Truck Type
-function updateTruck(element,column,id){
+function updateTruck(element, column, id) {
     var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
     $.ajax({
-        url: 'master/truck_add.php?type='+'edit_truck',
+        url: 'master/truck_add.php?type=' + 'edit_truck',
         type: 'POST',
         data: {
             companyID: companyId,
@@ -681,7 +689,7 @@ function updateTruck(element,column,id){
             value: value,
         },
         success: function (data) {
-            swal("Success",data,"success");
+            swal("Success", data, "success");
             //$('#currency').modal('hide');
         }
     });
@@ -691,11 +699,11 @@ function updateTruck(element,column,id){
 function deleteTruck(id) {
     if (confirm('Are you sure ???')) {
         $.ajax({
-            url: 'master/truck_add.php?type='+'delete_Truck',
+            url: 'master/truck_add.php?type=' + 'delete_Truck',
             type: 'POST',
             data: {id: id},
             success: function (data) {
-                swal("Success",data,"success");
+                swal("Success", data, "success");
                 //$('#currency').modal('hide');
             }
         });
@@ -707,17 +715,17 @@ function importTruck() {
     // var file = document.getElementById('file').value;
     var form_data = new FormData();
 
-    form_data.append("file",document.getElementById('file').files[0]);
+    form_data.append("file", document.getElementById('file').files[0]);
 
     $.ajax({
-        url:'master/truck_add.php?type='+'importExcel',
-        method:'post',
-        data:form_data,
+        url: 'master/truck_add.php?type=' + 'importExcel',
+        method: 'post',
+        data: form_data,
         contentType: false,
         cache: false,
         processData: false,
         success: function (data) {
-            swal("Success",data,"success");
+            swal("Success", data, "success");
         }
     });
 }
@@ -725,7 +733,7 @@ function importTruck() {
 // Export Excel Function for Truck Type
 function exportTruck() {
     $.ajax({
-        url: 'master/truck_add.php?type='+'export_truck',
+        url: 'master/truck_add.php?type=' + 'export_truck',
         type: 'POST',
         success: function (data) {
             var rows = JSON.parse(data);
@@ -757,7 +765,7 @@ function addTrailer() {
     var companyId = document.getElementById('companyId').value;
     if (val_trailerType(trailerType)) {
         $.ajax({
-            url: 'master/trailer_add.php?type='+'traileradd',
+            url: 'master/trailer_add.php?type=' + 'traileradd',
             type: 'POST',
             data: {
                 companyID: companyId,
@@ -765,7 +773,7 @@ function addTrailer() {
             },
             dataType: 'text',
             success: function (data) {
-                swal("Success",data,"success");
+                swal("Success", data, "success");
                 $('#Add_Trailer_Type').modal('hide');
             },
 
@@ -774,11 +782,11 @@ function addTrailer() {
 }
 
 //update Trailer Function
-function updateTrailer(element,column,id){
+function updateTrailer(element, column, id) {
     var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
     $.ajax({
-        url: 'master/trailer_add.php?type='+'edit_trailer',
+        url: 'master/trailer_add.php?type=' + 'edit_trailer',
         type: 'POST',
         data: {
             companyID: companyId,
@@ -787,7 +795,7 @@ function updateTrailer(element,column,id){
             value: value,
         },
         success: function (data) {
-            swal("Success",data,"success");
+            swal("Success", data, "success");
             //$('#currency').modal('hide');
         }
     });
@@ -797,11 +805,11 @@ function updateTrailer(element,column,id){
 function deleteTrailer(id) {
     if (confirm('Are you sure ???')) {
         $.ajax({
-            url: 'master/trailer_add.php?type='+'delete_trailer',
+            url: 'master/trailer_add.php?type=' + 'delete_trailer',
             type: 'POST',
             data: {id: id},
             success: function (data) {
-                swal("Success",data,"success");
+                swal("Success", data, "success");
                 //$('#currency').modal('hide');
             }
         });
@@ -813,17 +821,17 @@ function importTrailer() {
     // var file = document.getElementById('file').value;
     var form_data = new FormData();
 
-    form_data.append("file",document.getElementById('file').files[0]);
+    form_data.append("file", document.getElementById('file').files[0]);
 
     $.ajax({
-        url:'master/trailer_add.php?type='+'importExcel',
-        method:'post',
-        data:form_data,
+        url: 'master/trailer_add.php?type=' + 'importExcel',
+        method: 'post',
+        data: form_data,
         contentType: false,
         cache: false,
         processData: false,
         success: function (data) {
-            swal("Success",data,"success");
+            swal("Success", data, "success");
         }
     });
 }
@@ -831,7 +839,7 @@ function importTrailer() {
 // Export Excel Function for Trailer Type
 function exporttrailer() {
     $.ajax({
-        url: 'master/trailer_add.php?type='+'export_trailer',
+        url: 'master/trailer_add.php?type=' + 'export_trailer',
         type: 'POST',
         success: function (data) {
             var rows = JSON.parse(data);
@@ -863,7 +871,7 @@ function addFixpay() {
     var companyId = document.getElementById('companyId').value;
     if (val_fixpay(fixpay)) {
         $.ajax({
-            url: 'master/fixpay_add.php?type='+'fixpayadd',
+            url: 'master/fixpay_add.php?type=' + 'fixpayadd',
             type: 'POST',
             data: {
                 companyID: companyId,
@@ -871,7 +879,7 @@ function addFixpay() {
             },
             dataType: 'text',
             success: function (data) {
-                swal("Success",data,"success");
+                swal("Success", data, "success");
                 $('#Fix_Pay_Category').modal('hide');
             },
 
@@ -880,12 +888,12 @@ function addFixpay() {
 }
 
 //update fixPay Function
-function updatefixPay(element,column,id){
+function updatefixPay(element, column, id) {
     var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
 
     $.ajax({
-        url: 'master/fixpay_add.php?type='+'edit_fixpay',
+        url: 'master/fixpay_add.php?type=' + 'edit_fixpay',
         type: 'POST',
         data: {
             companyID: companyId,
@@ -894,7 +902,7 @@ function updatefixPay(element,column,id){
             value: value,
         },
         success: function (data) {
-            swal("Success",data,"success");
+            swal("Success", data, "success");
             //$('#currency').modal('hide');
         }
     });
@@ -904,11 +912,11 @@ function updatefixPay(element,column,id){
 function deletefixpay(id) {
     if (confirm('Are you sure ???')) {
         $.ajax({
-            url: 'master/fixpay_add.php?type='+'delete_fixpay',
+            url: 'master/fixpay_add.php?type=' + 'delete_fixpay',
             type: 'POST',
             data: {id: id},
             success: function (data) {
-                swal("Success",data,"success");
+                swal("Success", data, "success");
                 //$('#currency').modal('hide');
             }
         });
@@ -918,7 +926,7 @@ function deletefixpay(id) {
 // Export Excel Function for FixPay
 function exportfixpay() {
     $.ajax({
-        url: 'master/fixpay_add.php?type='+'export_fixpay',
+        url: 'master/fixpay_add.php?type=' + 'export_fixpay',
         type: 'POST',
         success: function (data) {
             var rows = JSON.parse(data);
@@ -949,17 +957,17 @@ function importfixpay() {
     // var file = document.getElementById('file').value;
     var form_data = new FormData();
 
-    form_data.append("file",document.getElementById('file').files[0]);
+    form_data.append("file", document.getElementById('file').files[0]);
 
     $.ajax({
-        url:'master/fixpay_add.php?type='+'importExcel',
-        method:'post',
-        data:form_data,
+        url: 'master/fixpay_add.php?type=' + 'importExcel',
+        method: 'post',
+        data: form_data,
         contentType: false,
         cache: false,
         processData: false,
         success: function (data) {
-            swal("Success",data,"success");
+            swal("Success", data, "success");
         }
     });
 }
@@ -967,24 +975,24 @@ function importfixpay() {
 /*------------- Debit Bank Category  START  --------------------*/
 
 //Add Debit
-function addDebitCategory(){
+function addDebitCategory() {
     var bankName = document.getElementById("debit_category_name").value;
     var companyId = document.getElementById('companyId').value;
 
     if (val_DebitValidate(bankName)) {
         $.ajax({
-            url:'master/bank_debit_category.php?type='+'bank_debit',
-            type:'POST',
-            data:{
+            url: 'master/bank_debit_category.php?type=' + 'bank_debit',
+            type: 'POST',
+            data: {
                 companyId: companyId,
-                bankName:bankName,
+                bankName: bankName,
             },
-            dataType:'text',
-            success: function(data){
-                swal('Success',data,'success');
+            dataType: 'text',
+            success: function (data) {
+                swal('Success', data, 'success');
                 $("#Add_Bank_Debit_Category").modal("hide");
             },
-            error:function(){
+            error: function () {
 
             },
         });
@@ -999,27 +1007,27 @@ function deleteBankDebit(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
-                swal('Delete','Data Removed Successfully.','success');
+                swal('Delete', 'Data Removed Successfully.', 'success');
             }
         });
     }
 }
 
 // Update Debit
-function updateBankDebit(element,column,id){
+function updateBankDebit(element, column, id) {
     var companyId = document.getElementById('companyId').value;
     var value = element.innerText;
     $.ajax({
-        url:'master/bank_debit_category.php?type='+'edit_bank_term',
-        type:'POST',
-        data:{
+        url: 'master/bank_debit_category.php?type=' + 'edit_bank_term',
+        type: 'POST',
+        data: {
             companyId: companyId,
             column: column,
-            id:id,
-            value:value,
+            id: id,
+            value: value,
         },
         success: function (data) {
-            swal('Update',data,'success');
+            swal('Update', data, 'success');
             $('#Add_Bank_Debit_Category').modal('hide');
         }
     });
@@ -1030,17 +1038,17 @@ function importDebit() {
     // var file = document.getElementById('file').value;
     var form_data = new FormData();
     //alert(form_data);
-    form_data.append("file",document.getElementById('file').files[0]);
+    form_data.append("file", document.getElementById('file').files[0]);
 
     $.ajax({
-        url:'master/bank_debit_category.php?type='+'import_Excel',
-        method:'post',
-        data:form_data,
+        url: 'master/bank_debit_category.php?type=' + 'import_Excel',
+        method: 'post',
+        data: form_data,
         contentType: false,
         cache: false,
         processData: false,
         success: function (data) {
-            swal('Success',data,'success');
+            swal('Success', data, 'success');
         }
     });
 }
@@ -1048,7 +1056,7 @@ function importDebit() {
 // Export debit
 function export_Excel() {
     $.ajax({
-        url: 'master/bank_debit_category.php?type='+'export_bank_terms',
+        url: 'master/bank_debit_category.php?type=' + 'export_bank_terms',
         type: 'post',
         success: function (data) {
             var rows = JSON.parse(data);
@@ -1083,39 +1091,39 @@ function addCreditCategory() {
 
     if (val_CreditValidate(creditName)) {
         $.ajax({
-            url:'master/bank_credit_category.php?type='+'bank_credit',
-            type:'POST',
-            data:{
-                companyId:companyId,
-                creditName:creditName,
+            url: 'master/bank_credit_category.php?type=' + 'bank_credit',
+            type: 'POST',
+            data: {
+                companyId: companyId,
+                creditName: creditName,
             },
-            dataType:'text',
-            success: function(data){
-                swal('Success',data,'success');
+            dataType: 'text',
+            success: function (data) {
+                swal('Success', data, 'success');
                 $("#Credit_Category").modal("hide");
             },
-            error:function(){
+            error: function () {
             },
         });
     }
 }
 
 // Update Credit
-function updateBankCredit(element,column,id){
+function updateBankCredit(element, column, id) {
     var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
 
     $.ajax({
-        url:'master/bank_credit_category.php?type='+'edit_bank_credit',
-        type:'POST',
-        data:{
+        url: 'master/bank_credit_category.php?type=' + 'edit_bank_credit',
+        type: 'POST',
+        data: {
             companyId: companyId,
             column: column,
-            id:id,
-            value:value,
+            id: id,
+            value: value,
         },
         success: function (data) {
-            swal('Update',"Data Update Successfully.",'success');
+            swal('Update', "Data Update Successfully.", 'success');
             $('#Credit_Category').modal('hide');
         }
     });
@@ -1125,11 +1133,11 @@ function updateBankCredit(element,column,id){
 function deleteBankCredit(id) {
     if (confirm("Are you Sure?")) {
         $.ajax({
-            url:'master/bank_credit_category.php?type='+'delete_bank_credit',
-            type:'POST',
-            data:{id:id},
+            url: 'master/bank_credit_category.php?type=' + 'delete_bank_credit',
+            type: 'POST',
+            data: {id: id},
             success: function (data) {
-                swal('Delete','Data Delete Successfully.','success');
+                swal('Delete', 'Data Delete Successfully.', 'success');
             }
         });
     }
@@ -1139,17 +1147,17 @@ function deleteBankCredit(id) {
 function importCredit() {
     var form_data = new FormData();
     //alert(form_data);
-    form_data.append("file1",document.getElementById('file1').files[0]);
+    form_data.append("file1", document.getElementById('file1').files[0]);
 
     $.ajax({
-        url:'master/bank_credit_category.php?type='+'importCredit',
-        method:'post',
-        data:form_data,
+        url: 'master/bank_credit_category.php?type=' + 'importCredit',
+        method: 'post',
+        data: form_data,
         contentType: false,
         cache: false,
         processData: false,
         success: function (data) {
-            swal('Success',data,'success');
+            swal('Success', data, 'success');
         }
     });
 }
@@ -1157,13 +1165,13 @@ function importCredit() {
 // Export Credit
 function exportExcelCredit() {
     $.ajax({
-        url:'master/bank_credit_category.php?type='+'export_bank_credit',
-        type:'POST',
+        url: 'master/bank_credit_category.php?type=' + 'export_bank_credit',
+        type: 'POST',
         success: function (data) {
             var rows = JSON.parse(data);
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function(rowArray) {
+            rows.forEach(function (rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
@@ -1186,24 +1194,24 @@ function exportExcelCredit() {
 /*----------------------- Credit Card Category START ------------------*/
 
 // Add Card
-function addCreditCard(){
+function addCreditCard() {
     var cardName = document.getElementById("credit_card_name").value;
     var companyId = document.getElementById('companyId').value;
 
     if (val_CardValidate(cardName)) {
         $.ajax({
-            url:'master/credit_card_category.php?type='+'card_credit',
-            type:'POST',
-            data:{
-                companyId:companyId,
-                cardName:cardName,
+            url: 'master/credit_card_category.php?type=' + 'card_credit',
+            type: 'POST',
+            data: {
+                companyId: companyId,
+                cardName: cardName,
             },
-            dataType:'text',
-            success: function(data){
-                swal('Success',data,'success');
+            dataType: 'text',
+            success: function (data) {
+                swal('Success', data, 'success');
                 $("#Category").modal("hide");
             },
-            error:function(){
+            error: function () {
 
             },
         });
@@ -1211,21 +1219,21 @@ function addCreditCard(){
 }
 
 // Update Card
-function updateBankCard(element,column,id){
+function updateBankCard(element, column, id) {
     var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
 
     $.ajax({
-        url:'master/credit_card_category.php?type='+'edit_bank_card',
-        type:'POST',
-        data:{
+        url: 'master/credit_card_category.php?type=' + 'edit_bank_card',
+        type: 'POST',
+        data: {
             companyId: companyId,
             column: column,
-            id:id,
-            value:value,
+            id: id,
+            value: value,
         },
         success: function (data) {
-            swal('Success',"Data Update Successfully.",'success');
+            swal('Success', "Data Update Successfully.", 'success');
             $('#Category').modal('hide');
         }
     });
@@ -1235,11 +1243,11 @@ function updateBankCard(element,column,id){
 function deleteBankCard(id) {
     if (confirm("Are you Sure ?")) {
         $.ajax({
-            url:'master/credit_card_category.php?type='+'delete_card',
-            type:'POST',
-            data:{id:id},
+            url: 'master/credit_card_category.php?type=' + 'delete_card',
+            type: 'POST',
+            data: {id: id},
             success: function (data) {
-                swal('Delete','Data Delete Successfully.','success');
+                swal('Delete', 'Data Delete Successfully.', 'success');
             }
         });
     }
@@ -1250,31 +1258,31 @@ function importCard() {
     // var file = document.getElementById('file').value;
     var form_data = new FormData();
     //alert(form_data);
-    form_data.append("file_test",document.getElementById('file_test').files[0]);
+    form_data.append("file_test", document.getElementById('file_test').files[0]);
 
     $.ajax({
-        url:'master/credit_card_category.php?type='+'importCard',
-        method:'post',
-        data:form_data,
+        url: 'master/credit_card_category.php?type=' + 'importCard',
+        method: 'post',
+        data: form_data,
         contentType: false,
         cache: false,
         processData: false,
         success: function (data) {
-            swal('Success',data,'success');
+            swal('Success', data, 'success');
         }
     });
 }
 
 function export_Card() {
     $.ajax({
-        url:'master/credit_card_category.php?type='+'export_Card',
-        type:'POST',
+        url: 'master/credit_card_category.php?type=' + 'export_Card',
+        type: 'POST',
 
         success: function (data) {
             var rows = JSON.parse(data);
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function(rowArray) {
+            rows.forEach(function (rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
@@ -1303,61 +1311,61 @@ function addStatusType() {
 
     if (val_statusValidate(status_name)) {
         $.ajax({
-            url:'master/status_types.php?type='+'status_type',
-            type:'POST',
-            data:{
+            url: 'master/status_types.php?type=' + 'status_type',
+            type: 'POST',
+            data: {
                 companyId: companyId,
                 status_name: status_name,
                 status_color: status_color
             },
-            dataType:'text',
-            success: function(data){
-                swal('Success',data,'success');
+            dataType: 'text',
+            success: function (data) {
+                swal('Success', data, 'success');
                 $("#Add_Status_Type").modal("hide");
             },
-            error:function(){
+            error: function () {
             },
         });
     }
 }
 
 // Update Status
-function updateStatus(element,column,id){
+function updateStatus(element, column, id) {
     var value = element.innerText;
     //var statuscolor = document.getElementById('statuscolor').value;
     var companyId = document.getElementById('companyId').value;
     $.ajax({
-        url:'master/status_types.php?type='+'edit_status',
-        type:'POST',
-        data:{
+        url: 'master/status_types.php?type=' + 'edit_status',
+        type: 'POST',
+        data: {
             companyId: companyId,
             column: column,
-            id:id,
-            value:value,
+            id: id,
+            value: value,
         },
         success: function (data) {
-            swal('Success',"Data Update Success.",'success');
+            swal('Success', "Data Update Success.", 'success');
             $('#Add_Status_Type').modal('hide');
         }
     });
 }
 
-function update_Status(element,column,id){
+function update_Status(element, column, id) {
     //var value = element.innerText;
     var statuscolor = document.getElementById('statuscolor').value;
     //alert(statuscolor);
     var companyId = document.getElementById('companyId').value;
     $.ajax({
-        url:'master/status_types.php?type='+'edit_color',
-        type:'POST',
-        data:{
+        url: 'master/status_types.php?type=' + 'edit_color',
+        type: 'POST',
+        data: {
             companyId: companyId,
             column: column,
-            id:id,
-            statuscolor:statuscolor,
+            id: id,
+            statuscolor: statuscolor,
         },
         success: function (data) {
-            swal('Success',"Data Update Success.",'success');
+            swal('Success', "Data Update Success.", 'success');
             $('#Add_Status_Type').modal('hide');
         }
     });
@@ -1367,17 +1375,17 @@ function update_Status(element,column,id){
 function importStatus() {
     var form_data = new FormData();
     //alert(form_data);
-    form_data.append("file",document.getElementById('file').files[0]);
+    form_data.append("file", document.getElementById('file').files[0]);
 
     $.ajax({
-        url:'master/status_types.php?type='+'importStatus',
-        method:'post',
-        data:form_data,
+        url: 'master/status_types.php?type=' + 'importStatus',
+        method: 'post',
+        data: form_data,
         contentType: false,
         cache: false,
         processData: false,
         success: function (data) {
-            swal('Success',data,'success');
+            swal('Success', data, 'success');
         }
     });
 }
@@ -1386,11 +1394,11 @@ function importStatus() {
 function deleteStatus(id) {
     if (confirm("Are you Sure ?")) {
         $.ajax({
-            url:'master/status_types.php?type='+'delete_Status',
-            type:'POST',
-            data:{id:id},
+            url: 'master/status_types.php?type=' + 'delete_Status',
+            type: 'POST',
+            data: {id: id},
             success: function (data) {
-                swal('Success','Data Delete Success.','success');
+                swal('Success', 'Data Delete Success.', 'success');
             }
         });
     }

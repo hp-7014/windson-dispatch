@@ -201,6 +201,16 @@ function addConsignee() {
     var consigneeRecivingNote = document.getElementById('consigneeRecivingNote').value;
     var consigneeInternalNote = document.getElementById('consigneeInternalNote').value;
 
+    for (var i = 0; i < consignASshipper.length; i++) {
+        if (consignASshipper[i].checked) {
+            var asShipper = 1;
+            break;
+        } else {
+            var asShipper = 0;
+            break;
+        }
+    }
+
     for (var i = 0; i < consigneeStatus.length; i++) {
         if (consigneeStatus[i].checked) {
             var status = consigneeStatus[i].value;
@@ -244,6 +254,7 @@ function addConsignee() {
                                                                         consigneeStatus: status,
                                                                         consigneeRecivingNote: consigneeRecivingNote,
                                                                         consigneeInternalNote: consigneeInternalNote,
+                                                                        asShipper:asShipper,
                                                                     },
                                                                     success: function (data) {
                                                                         swal('Success', data, 'success');
@@ -602,6 +613,188 @@ function deleteCustomer(id) {
 //----------Customer End--------------
 
 //-----------User Start-----------------------------
+
+// show privilege
+function show_privilege(id) {
+    $.ajax({
+        url: 'admin/show_data.php',
+        data: {id: id, type: 'pro'},
+        method: "POST",
+        dataType: 'html',
+        success: function (data) {
+            // alert(data);
+            $('#final_privilege').html(data);
+        }
+    });
+}
+
+// update Privilege
+function updatePrivilege() {
+    var objID = document.getElementById('objID').value;
+    var companyId = document.getElementById('companyId').value;
+    var addBank = document.getElementById('addBank');
+    var addCustomer = document.getElementById('addCustomer');
+    var addCompany = document.getElementById('addCompany');
+    var addShipper = document.getElementById('addShipper');
+    var currency = document.getElementById('currency');
+    var addConsignee = document.getElementById('addConsignee');
+    var paymentTerms = document.getElementById('paymentTerms');
+    var addDriver = document.getElementById('addDriver');
+    var office = document.getElementById('office');
+    var addTruck = document.getElementById('addTruck');
+    var equipmentType = document.getElementById('equipmentType');
+    var addTrailer = document.getElementById('addTrailer');
+    var truckType = document.getElementById('truckType');
+    var addExternalCarrier = document.getElementById('addExternalCarrier');
+    var trailerType = document.getElementById('trailerType');
+    var factoringCompany = document.getElementById('factoringCompany');
+    var statusType = document.getElementById('statusType');
+    var customsBroker = document.getElementById('customsBroker');
+    var loadType = document.getElementById('loadType');
+    var ownerOperator = document.getElementById('ownerOperator');
+    var fixPayCategory = document.getElementById('fixPayCategory');
+
+    if (addBank.checked) {
+        var addBank = 1;
+    } else {
+        var addBank = 0;
+    }
+    if (addCustomer.checked) {
+        var addCustomer = 1;
+    } else {
+        var addCustomer = 0;
+    }
+    if (addCompany.checked) {
+        var addCompany = 1;
+    } else {
+        var addCompany = 0;
+    }
+    if (addShipper.checked) {
+        var addShipper = 1;
+    } else {
+        var addShipper = 0;
+    }
+    if (currency.checked) {
+        var currency = 1;
+    } else {
+        var currency = 0;
+    }
+    if (addConsignee.checked) {
+        var addConsignee = 1;
+    } else {
+        var addConsignee = 0;
+    }
+    if (paymentTerms.checked) {
+        var paymentTerms = 1;
+    } else {
+        var paymentTerms = 0;
+    }
+    if (addDriver.checked) {
+        var addDriver = 1;
+    } else {
+        var addDriver = 0;
+    }
+    if (office.checked) {
+        var office = 1;
+    } else {
+        var office = 0;
+    }
+    if (addTruck.checked) {
+        var addTruck = 1;
+    } else {
+        var addTruck = 0;
+    }
+    if (equipmentType.checked) {
+        var equipmentType = 1;
+    } else {
+        var equipmentType = 0;
+    }
+    if (addTrailer.checked) {
+        var addTrailer = 1;
+    } else {
+        var addTrailer = 0;
+    }
+    if (truckType.checked) {
+        var truckType = 1;
+    } else {
+        var truckType = 0;
+    }
+    if (addExternalCarrier.checked) {
+        var addExternalCarrier = 1;
+    } else {
+        var addExternalCarrier = 0;
+    }
+    if (trailerType.checked) {
+        var trailerType = 1;
+    } else {
+        var trailerType = 0;
+    }
+    if (factoringCompany.checked) {
+        var factoringCompany = 1;
+    } else {
+        var factoringCompany = 0;
+    }
+    if (statusType.checked) {
+        var statusType = 1;
+    } else {
+        var statusType = 0;
+    }
+    if (customsBroker.checked) {
+        var customsBroker = 1;
+    } else {
+        var customsBroker = 0;
+    }
+    if (loadType.checked) {
+        var loadType = 1;
+    } else {
+        var loadType = 0;
+    }
+    if (ownerOperator.checked) {
+        var ownerOperator = 1;
+    } else {
+        var ownerOperator = 0;
+    }
+    if (fixPayCategory.checked) {
+        var fixPayCategory = 1;
+    } else {
+        var fixPayCategory = 0;
+    }
+
+    $.ajax({
+        url: 'admin/user_driver.php?type=' + 'update_privilege',
+        method: 'POST',
+        data: {
+            objID: objID,
+            companyId: companyId,
+            addBank: addBank,
+            addCustomer: addCustomer,
+            addCompany: addCompany,
+            addShipper: addShipper,
+            currency: currency,
+            addConsignee: addConsignee,
+            paymentTerms: paymentTerms,
+            addDriver: addDriver,
+            office: office,
+            addTruck: addTruck,
+            equipmentType: equipmentType,
+            addTrailer: addTrailer,
+            truckType: truckType,
+            addExternalCarrier: addExternalCarrier,
+            trailerType: trailerType,
+            factoringCompany: factoringCompany,
+            statusType: statusType,
+            customsBroker: customsBroker,
+            loadType: loadType,
+            ownerOperator: ownerOperator,
+            fixPayCategory: fixPayCategory
+        },
+        success: function (data) {
+            swal('Success', data, 'success');
+            $('#show_privilege').modal('hide');
+        }
+    });
+}
+
 // add customer
 function addUser() {
     var companyId = document.getElementById('companyId').value;
