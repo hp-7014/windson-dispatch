@@ -3,17 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/bank_admin_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/bank_admin_modal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/credit_card_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/credit_card_modal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/custom_broker_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/custom_broker_modal.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/model/Bank_Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Bank_Admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/model/Credit_Card_Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Credit_Card_Admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/model/Customs_Broker.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Customs_Broker.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/model/Sub_Credit_Card.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/Sub_Credit_Card.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/sub_credit_card_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/sub_credit_card_modal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/header/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifta/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifta/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/ifta/js/form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifta/search.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifta/verify_treep_model.php" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
