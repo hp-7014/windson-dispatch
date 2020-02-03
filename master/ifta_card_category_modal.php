@@ -120,7 +120,7 @@
                 <div class="form-group col-md-12">
                     <label>Card Type</label>
                     <div>
-                        <input class="form-control" placeholder="Card Type" type="text" name="cardType" id="cardType">
+                        <input class="form-control" placeholder="Card Type" type="text" name="cardType" id="cardType" style="text-transform:uppercase">
                     </div>
                 </div>
             </div>

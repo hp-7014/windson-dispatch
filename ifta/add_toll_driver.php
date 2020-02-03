@@ -33,8 +33,34 @@ else if ($_GET['type'] == 'edit_toll') {
     $a_toll->setCompanyID($_POST['companyId']);
     $a_toll->setInvoiceNumber($_POST['value']);
     $a_toll->setColumn($_POST['column']);
-    $a_toll->update_FuelReceipt($a_toll,$db);
+    $a_toll->update_Tolls($a_toll,$db);
 }
 
+// Delete Toll
+else if ($_GET['type'] == 'delete_toll') {
+    $a_toll = new Add_Toll();
+    $a_toll->setId($_POST['id']);
+    $a_toll->delete_Tolls($a_toll,$db);
+}
+
+// Export Toll
+else if ($_GET['type'] == 'export_toll') {
+    $a_toll = new Add_Toll();
+    $a_toll->export_Tolls($db);
+}
+
+// Import Toll
+else if ($_GET['type'] == 'import_toll') {
+    $allowedFileType = ['application/vnd.ms-excel','text/xls','text/xlsx','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+
+    if(in_array($_FILES["file"]["type"],$allowedFileType)){
+
+        $targetPath = 'upload/'.$_FILES['file']['name'];
+        move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
+
+        $a_toll = new Add_Toll();
+        $a_toll->import_Tolls($targetPath,$helper);
+    }
+}
 
 

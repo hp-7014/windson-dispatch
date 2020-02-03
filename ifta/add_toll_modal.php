@@ -17,7 +17,7 @@ include '../database/connection.php';
             <div class="modal-body custom-modal-body">
                 <form method="post" enctype="multipart/form-data">
                     <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#add_tolls">ADD</button>
-                    <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="import_FuelReceipt()">Upload</button>
+                    <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="importTolls()">Upload</button>
                     <div class="custom-upload-btn-wrapper float-right">
                         <button class="custom-btn">Choose file</button>
                         <input type="file" id="file" name="myfile" />
@@ -65,7 +65,7 @@ include '../database/connection.php';
                                     <td contenteditable="true" onblur="updateTolls(this,'amount',<?php echo $a_tl['_id']; ?>)"><?php echo $a_tl['amount']; ?></td>
                                     <td contenteditable="true" onblur="updateTolls(this,'licensePlate',<?php echo $a_tl['_id']; ?>)"><?php echo $a_tl['licensePlate']; ?></td>
                                     <td contenteditable="true" onblur="updateTolls(this,'truckNo',<?php echo $a_tl['_id']; ?>)"><?php echo $a_tl['truckNo']; ?></td>
-                                    <td><a href="#" onclick="updateTolls(<?php echo $a_tl['_id']; ?>)"><i
+                                    <td><a href="#" onclick="deleteTolls(<?php echo $a_tl['_id']; ?>)"><i
                                                     class="mdi mdi-delete-sweep-outline"
                                                     style="font-size: 20px; color: #FC3B3B"></i></a>
                                     </td>
@@ -80,7 +80,7 @@ include '../database/connection.php';
             </div>
 
             <div class="modal-footer">
-                <button type="button" onclick="export_FuelReceipt()" class="btn btn-primary waves-effect" data-dismiss="modal">
+                <button type="button" onclick="exportTolls()" class="btn btn-primary waves-effect" data-dismiss="modal">
                     Export
                 </button>
 
@@ -129,7 +129,7 @@ include '../database/connection.php';
                     <div class="form-group col-md-3">
                         <label>Transaction Type</label>
                         <div>
-                            <input class="form-control" placeholder="Transaction Type" type="text" name="transType" id="transType">
+                            <input class="form-control" placeholder="Transaction Type" type="text" name="transType" id="transType" style="text-transform:uppercase">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
@@ -145,7 +145,7 @@ include '../database/connection.php';
                     <div class="form-group col-md-3">
                         <label>Transponder</label>
                         <div>
-                            <input class="form-control" placeholder="Amount" type="text" name="transponder" id="transponder">
+                            <input class="form-control" placeholder="Transponder" type="text" name="transponder" id="transponder">
                         </div>
                     </div>
 

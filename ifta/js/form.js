@@ -21,35 +21,49 @@ function Add_FuelReceipts() {
     var totalAmt = document.getElementById('totalAmt').value;
     var invoiceNo = document.getElementById('invoiceNo').value;
 
-    if (val_CardHolderName(cardHolderName)) {
-        $.ajax({
-            url: 'ifta/fuel_receipts_driver.php?type=' + 'fuel_add',
-            type: 'POST',
-            data: {
-                companyId: companyId,
-                cardHolderName: cardHolderName,
-                employeeNo: employeeNo,
-                cardNo: cardNo,
-                cardType: cardType,
-                unit_number: unit_number,
-                fuelDate: fuelDate,
-                transacTime: transacTime,
-                merchantName: merchantName,
-                merchantCity: merchantCity,
-                statePurch: statePurch,
-                dGallons: dGallons,
-                dGrossCost: dGrossCost,
-                cashAdvanced: cashAdvanced,
-                discountAmt: discountAmt,
-                totalAmt: totalAmt,
-                invoiceNo: invoiceNo,
-            },
-            dataType: "text",
-            success: function (data) {
-                swal("Success", data, "success");
-                $('#add_fuel_receipts').modal('hide');
-            },
-        });
+    if (val_unitNumber(unit_number)) {
+        if (val_fuelDate(fuelDate)) {
+            if (val_transacTime(transacTime)) {
+                if (val_merchantName(merchantName)) {
+                    if (val_statePurch(statePurch)) {
+                        if (val_dGallons(dGallons)) {
+                            if (val_dGrossCost(dGrossCost)) {
+                                if (val_invoiceNo(invoiceNo)) {
+                                    $.ajax({
+                                        url: 'ifta/fuel_receipts_driver.php?type=' + 'fuel_add',
+                                        type: 'POST',
+                                        data: {
+                                            companyId: companyId,
+                                            cardHolderName: cardHolderName,
+                                            employeeNo: employeeNo,
+                                            cardNo: cardNo,
+                                            cardType: cardType,
+                                            unit_number: unit_number,
+                                            fuelDate: fuelDate,
+                                            transacTime: transacTime,
+                                            merchantName: merchantName,
+                                            merchantCity: merchantCity,
+                                            statePurch: statePurch,
+                                            dGallons: dGallons,
+                                            dGrossCost: dGrossCost,
+                                            cashAdvanced: cashAdvanced,
+                                            discountAmt: discountAmt,
+                                            totalAmt: totalAmt,
+                                            invoiceNo: invoiceNo,
+                                        },
+                                        dataType: "text",
+                                        success: function (data) {
+                                            swal("Success", data, "success");
+                                            $('#add_fuel_receipts').modal('hide');
+                                        },
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -150,26 +164,38 @@ function Add_TollData() {
     var truckNo = document.getElementById('truckNo').value;
 
     if (val_invoiceNumber(invoiceNumber)) {
-        $.ajax({
-            url: 'ifta/add_toll_driver.php?type=' + 'toll_add',
-            type: 'POST',
-            data: {
-                companyId: companyId,
-                invoiceNumber: invoiceNumber,
-                tollDate: tollDate,
-                transType: transType,
-                location: location,
-                transponder: transponder,
-                amount: amount,
-                licensePlate: licensePlate,
-                truckNo: truckNo,
-            },
-            dataType: "text",
-            success: function (data) {
-                swal("Success", data, "success");
-                $('#add_tolls').modal('hide');
-            },
-        });
+        if (val_tollDate(tollDate)) {
+            if (val_transType(transType)) {
+                if (val_location(location)) {
+                    if (val_amount(amount)) {
+                        if (val_licensePlate(licensePlate)) {
+                            if (val_truckNo(truckNo)) {
+                                $.ajax({
+                                    url: 'ifta/add_toll_driver.php?type=' + 'toll_add',
+                                    type: 'POST',
+                                    data: {
+                                        companyId: companyId,
+                                        invoiceNumber: invoiceNumber,
+                                        tollDate: tollDate,
+                                        transType: transType,
+                                        location: location,
+                                        transponder: transponder,
+                                        amount: amount,
+                                        licensePlate: licensePlate,
+                                        truckNo: truckNo,
+                                    },
+                                    dataType: "text",
+                                    success: function (data) {
+                                        swal("Success", data, "success");
+                                        $('#add_tolls').modal('hide');
+                                    },
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -193,6 +219,65 @@ function updateTolls(element,column,id) {
     });
 }
 
+// Delete Toll
+function deleteTolls(id) {
+    if (confirm('Are you sure ???')) {
+        $.ajax({
+            url: 'ifta/add_toll_driver.php?type='+'delete_toll',
+            type: 'POST',
+            data: {id: id},
+            success: function (data) {
+                swal("Success",data,"success");
+            }
+        });
+    }
+}
+
+// Export Toll
+function exportTolls() {
+    $.ajax({
+        url: 'ifta/add_toll_driver.php?type='+'export_toll',
+        type: 'POST',
+        success: function (data) {
+            var rows = JSON.parse(data);
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            rows.forEach(function (rowArray) {
+                let row = rowArray.join(",");
+                csvContent += row + "\r\n";
+            });
+
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "tolls.csv");
+            document.body.appendChild(link); // Required for FF
+
+            link.click();
+        }
+    });
+}
+
+// Import Toll
+function importTolls() {
+    // var file = document.getElementById('file').value;
+    var form_data = new FormData();
+
+    form_data.append("file",document.getElementById('file').files[0]);
+
+    $.ajax({
+        url:'ifta/add_toll_driver.php?type='+'import_toll',
+        method:'post',
+        data:form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            swal("Success",data,"success");
+        }
+    });
+}
 
 //-----------------Add Toll ENDS------------------------------------------
 

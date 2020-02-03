@@ -241,4 +241,87 @@ class Add_Toll implements IteratorAggregate
 
         echo "Data Insert Successfully";
     }
+
+    public function update_Tolls($toll_A, $db) {
+        $db->ifta_toll->updateOne(['companyID' => (int) $_SESSION['companyId'], 'tolls._id' => (int)$this->getId()],
+            ['$set' => ['tolls.$.' . $toll_A->getColumn() => $toll_A->getInvoiceNumber()]]
+        );
+
+        echo "Data Update Successfully.";
+    }
+
+    public function delete_Tolls($toll_A,$db) {
+        $db->ifta_toll->updateOne(['companyID' => (int)$_SESSION['companyId'], 'tolls._id' => (int)$this->getId()],
+            ['$set' => ['tolls.$.delete_status' => "1"]]
+        );
+    }
+
+    public function export_Tolls($db) {
+        $i_fuel = $db->ifta_toll->find(['companyID' => $_SESSION['companyId']]);
+        foreach ($i_fuel as $bdebit) {
+            $fuel_R = $bdebit['tolls'];
+            foreach ($fuel_R as $test) {
+                if ($test['delete_status'] == '0') {
+                    $p[] = array(
+                        $test['invoiceNumber'],
+                        $test['tollDate'],
+                        $test['transType'],
+                        $test['location'],
+                        $test['transponder'],
+                        $test['amount'],
+                        $test['licensePlate'],
+                        $test['truckNo'],
+                    );
+                }
+            }
+        }
+        echo json_encode($p);
+    }
+
+    public function import_Tolls($targetPath, $helper)
+    {
+        require_once('../excel/excel_reader2.php');
+        require_once('../excel/SpreadsheetReader.php');
+        include '../database/connection.php';   // connection
+
+        $Reader = new SpreadsheetReader($targetPath);
+
+        $sheetCount = count($Reader->sheets());
+
+        for ($i = 0; $i < $sheetCount; $i++) {
+
+            $Reader->ChangeSheet($i);
+
+            foreach ($Reader as $Row) {
+                $this->companyID = $_SESSION['companyId'];
+                $this->setId($helper->getNextSequence("toll_data",$db));
+                if(isset($Row[0])) {
+                    $this->invoiceNumber = $Row[0];
+                }
+                if(isset($Row[1])) {
+                    $this->tollDate = $Row[1];
+                }
+                if(isset($Row[2])) {
+                    $this->transType = $Row[2];
+                }
+                if(isset($Row[3])) {
+                    $this->location = $Row[3];
+                }
+                if(isset($Row[4])) {
+                    $this->transponder = $Row[4];
+                }
+                if(isset($Row[5])) {
+                    $this->amount = $Row[5];
+                }
+                if(isset($Row[6])) {
+                    $this->licensePlate = $Row[6];
+                }
+                if(isset($Row[7])) {
+                    $this->truckNo = $Row[7];
+                }
+
+                $this->Insert($this,$db,$helper);
+            }
+        }
+    }
 }
