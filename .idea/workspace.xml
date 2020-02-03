@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
+    <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="Merge branch 'admin' of https://github.com/hp-7014/windson-dispatch into ifta&#10;&#10;# Conflicts:&#10;#&#9;header/header.php">
       <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifta/index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifta/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/ifta/js/form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifta/search.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ifta/verify_treep_model.php" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -138,41 +131,23 @@
     <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'admin' of https://github.com/hp-7014/windson-dispatch into admin&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="275" y="28" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580040839633">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state x="275" y="28" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1580040839633" />
-    <state x="476" y="86" key="#com.intellij.ide.util.MemberChooser" timestamp="1580044822966">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state x="476" y="86" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1580044822966" />
-    <state x="129" y="62" key="MergeDialog" timestamp="1579974151047">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state x="129" y="62" key="MergeDialog/0.0.1366.738@0.0.1366.738" timestamp="1579974151047" />
-    <state x="395" y="86" key="MultipleFileMergeDialog" timestamp="1579974151065">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state x="395" y="86" key="MultipleFileMergeDialog/0.0.1366.738@0.0.1366.738" timestamp="1579974151065" />
-    <state x="462" y="184" key="NewPhpClassDialog" timestamp="1580043852437">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state x="462" y="184" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" timestamp="1580043852437" />
-    <state x="517" y="293" key="NewPhpFileDialog" timestamp="1580043804827">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state x="517" y="293" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1580043804827" />
-    <state x="484" y="161" key="git4idea.merge.GitMergeDialog" timestamp="1579974428848">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state x="484" y="161" key="git4idea.merge.GitMergeDialog/0.0.1366.738@0.0.1366.738" timestamp="1579974428848" />
-    <state x="424" y="0" width="517" height="698" key="refactoring.ChangeSignatureDialog" timestamp="1580053209372">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state x="424" y="0" width="517" height="698" key="refactoring.ChangeSignatureDialog/0.0.1366.738@0.0.1366.738" timestamp="1580053209372" />
-    <state x="339" y="165" key="run.anything.popup" timestamp="1579973982640">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1579973982640" />
+    <state x="275" y="28" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
+    <state x="275" y="28" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" />
+    <state x="476" y="86" key="#com.intellij.ide.util.MemberChooser" />
+    <state x="476" y="86" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" />
+    <state x="129" y="62" key="MergeDialog" />
+    <state x="129" y="62" key="MergeDialog/0.0.1366.738@0.0.1366.738" />
+    <state x="395" y="86" key="MultipleFileMergeDialog" />
+    <state x="395" y="86" key="MultipleFileMergeDialog/0.0.1366.738@0.0.1366.738" />
+    <state x="462" y="184" key="NewPhpClassDialog" />
+    <state x="462" y="184" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" />
+    <state x="517" y="293" key="NewPhpFileDialog" />
+    <state x="517" y="293" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" />
+    <state x="484" y="161" key="git4idea.merge.GitMergeDialog" />
+    <state x="484" y="161" key="git4idea.merge.GitMergeDialog/0.0.1366.738@0.0.1366.738" />
+    <state x="424" y="0" width="517" height="698" key="refactoring.ChangeSignatureDialog" />
+    <state x="424" y="0" width="517" height="698" key="refactoring.ChangeSignatureDialog/0.0.1366.738@0.0.1366.738" />
+    <state x="339" y="165" key="run.anything.popup" />
+    <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" />
   </component>
 </project>
