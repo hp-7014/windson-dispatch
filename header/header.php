@@ -44,8 +44,6 @@
 
     <script src="admin/js/form.js"></script>
     <script src="admin/js/validation.js"></script>
-    <script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false&amp;libraries=places&key=AIzaSyDnID4vOGNgMgJxF3Y3AR2SwjzueSonmW0'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
 
         $(document).on('click', '.addShipper', function () {
@@ -310,19 +308,6 @@
                 },
             });
         });
-
-        //--------------------IFTA Start----------------------//
-        // Add Verify Treep Function
-        $(document).on("click", "#verify_treep", function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./ifta/verify_treep_model.php', function (result) {
-                        $('#verified').modal({show: true});
-                    });
-                },
-            });
-        });
     </script>
 </head>
 
@@ -578,14 +563,6 @@
                                 <li>
                                     <a href="#" id="factoring_company">Factoring Company</a>
                                 </li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu">
-                            <a href="#"><i class="icon-life-buoy"></i> IFTA <i
-                                        class="mdi mdi-chevron-down mdi-drop"></i></a>
-                            <ul class="submenu">
-                                <li><a href="#" id="verify_treep">Verify Treep</a></li>
                             </ul>
                         </li>
 
