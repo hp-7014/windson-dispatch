@@ -2240,3 +2240,67 @@ function export_Driver(id) {
 }
 
 /*------------------- Driver End -----------------------------*/
+
+/*------------------- Owner Operator Driver Start-----------------------------*/
+
+// Add Function
+function addOwnerOperator() {
+
+    var driverName = document.getElementById('driverNames').value;
+    var percentage = document.getElementById('percentage').value;
+    var truckNo = document.getElementById('truckNo').value;
+    var installmentCategory = [];
+    var installmentType = [];
+    var amount = [];
+    var installment = [];
+    var startNo = [];
+    var startDate = [];
+    var internalNote = [];
+
+    for (var i = 0; i < document.getElementsByName('installmentCategory').length; i++) {
+        installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
+    }
+    for (var i = 0; i < document.getElementsByName('installmentType').length; i++) {
+        installmentType[i] = document.getElementsByName('installmentType')[i].value;
+    }
+    for (var i = 0; i < document.getElementsByName('amount').length; i++) {
+        amount[i] = document.getElementsByName('amount')[i].value;
+    }
+    for (var i = 0; i < document.getElementsByName('installment').length; i++) {
+        installment[i] = document.getElementsByName('installment')[i].value;
+    }
+    for (var i = 0; i < document.getElementsByName('startNo').length; i++) {
+        startNo[i] = document.getElementsByName('startNo')[i].value;
+    }
+    for (var i = 0; i < document.getElementsByName('startDate').length; i++) {
+        startDate[i] = document.getElementsByName('startDate')[i].value;
+    }
+    for (var i = 0; i < document.getElementsByName('internalNote').length; i++) {
+        internalNote[i] = document.getElementsByName('internalNote')[i].value;
+    }
+
+    $.ajax({
+        url: 'admin/owner_operator_driver.php?type=' + 'addOwner',
+        method: 'POST',
+        data: {
+
+            driverName: driverName,
+            percentage: percentage,
+            truckNo: truckNo,
+            installmentCategory: installmentCategory,
+            installmentType: installmentType,
+            amount: amount,
+            installment: installment,
+            startNo: startNo,
+            startDate: startDate,
+            internalNote: internalNote,
+        },
+        success: function (data) {
+            swal('Success', data, 'success');
+            $("#Owner_operator").modal("hide");
+
+        }
+    });
+
+
+}
