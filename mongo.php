@@ -14,19 +14,6 @@ $data = $collection->aggregate([
     ]]
 ]);
 
-foreach ($data as $d) {
-
-    $in_data = $d['consigneeCollection'];
-    foreach ($in_data as $in) {
-
-        $new = $in['consignee'];
-        foreach ($new as $n) {
-
-            echo $n['consigneeName'];
-        }
-    }
-}
-
 //$data = $collection->find(['companyID' => 1]);
 
 //update
