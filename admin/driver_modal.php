@@ -532,19 +532,6 @@ require "../database/connection.php";
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<datalist id="fixpaycat">
-    <?php
-
-    $show_data = $db->fixpay_add->find(['companyID' => $_SESSION['companyId']]);
-
-    foreach ($show_data as $show) {
-        $show = $show['fixPay'];
-        foreach ($show as $s) {
-            ?>
-            <option value="<?php echo $s['fixPayType']; ?>"><?php echo $s['fixPayType']; ?></option>
-        <?php }
-    }?>
-</datalist>
 <!--- for driver->owner_operator --->
 <script>
     $(function () {

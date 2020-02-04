@@ -1,29 +1,14 @@
-<?php
-$latfrom = 22.416470;
-$longfrom = 72.792732;
-
-$latto = 22.359538;
-$longto = 72.900242;
-
-$theta = $longfrom - $longto;
-$dist = sin(deg2rad($latfrom)) * sin(deg2rad($latto)) + cos(deg2rad($latfrom)) * cos(deg2rad($latto)) * cos(deg2rad($theta));
-$dist = acos($dist);
-$dist = rad2deg($dist);
-$miles = $dist * 60 * 1.1515;
-
-echo round($distance = ($miles * 1.609344),2).'km';
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <title>Google Map</title>
 </head>
 <style type="text/css">
     #map{
-        width: 650%;
-        height: 450%;
+        height: 50%;
+        width: 20%;
+    }
+    html , body {
+        height: 90%;
     }
 </style>
 <body onload="myfunction();">
@@ -69,3 +54,5 @@ echo round($distance = ($miles * 1.609344),2).'km';
         }
     }
 </script>
+<!-- google map api -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnID4vOGNgMgJxF3Y3AR2SwjzueSonmW0&libraries=places"></script>
