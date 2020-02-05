@@ -70,4 +70,12 @@ else if ($_GET['type'] == 'import_Ifta') {
     }
 }
 
+// Export Excel Here
+else if ($_GET['type'] == 'export_ifta') {
+    $i_card = new Ifta_Card_Category();
+    $i_card->exportIftaCard($db);
+}
+
+
+
 

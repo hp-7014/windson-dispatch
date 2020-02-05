@@ -45,8 +45,6 @@
 
     <script src="admin/js/form.js"></script>
     <script src="admin/js/validation.js"></script>
-    <script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false&amp;libraries=places&key=AIzaSyDnID4vOGNgMgJxF3Y3AR2SwjzueSonmW0'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <!--<script src="admin/js/form.js"></script>
     <script src="admin/js/validation.js"></script>-->

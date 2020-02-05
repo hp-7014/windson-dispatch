@@ -4,6 +4,11 @@
     <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifta/fuel_receipts_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/ifta/fuel_receipts_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/ifta_card_category.php" beforeDir="false" afterPath="$PROJECT_DIR$/master/ifta_card_category.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/ifta_card_category_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/master/ifta_card_category_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/master/js/form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/model/Ifta_Card_Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/master/model/Ifta_Card_Category.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -86,6 +91,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="" />
       <created>1580749472181</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -94,6 +100,8 @@
       <workItem from="1580030924726" duration="17107000" />
       <workItem from="1580101664092" duration="1608000" />
       <workItem from="1580245667701" duration="3749000" />
+      <workItem from="1580808812848" duration="12052000" />
+      <workItem from="1580895294796" duration="2457000" />
     </task>
     <servers />
   </component>
