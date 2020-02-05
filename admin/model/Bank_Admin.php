@@ -225,7 +225,7 @@
                         'currentcheqNo'=>$this->currentcheqNo,
                         'transacBalance'=>$this->transacBalance,
                         'delete_status'=>'0',
-                        'insertedUser' => '1',
+                        'insertedUser' => $_SESSION['companyName'],
                     ])
                 )
             );
@@ -251,7 +251,7 @@
                     'currentcheqNo'=>$this->currentcheqNo,
                     'transacBalance'=>$this->transacBalance,
                     'delete_status'=>'0',
-                    'insertedUser' => '1',
+                    'insertedUser' => $_SESSION['companyName'],
                 ]]]);
             } else {
                 $b_admin = iterator_to_array($category);
@@ -272,6 +272,14 @@
         public function update_Account($acc,$db){
             $db->bank_admin->updateOne(['companyID' => (int) $_SESSION['companyId'], 'admin_bank._id' => (int)$this->getId()],
                 ['$set' => ['admin_bank.$.' . $acc->getColumn() => $acc->getAccountHolder()]]
+            );
+
+            echo "Data Update Successfully.";
+        }
+
+        public function update_Dates($acc,$db){
+            $db->bank_admin->updateOne(['companyID' => (int) $_SESSION['companyId'], 'admin_bank._id' => (int)$this->getId()],
+                ['$set' => ['admin_bank.$.' . $acc->getColumn() => $acc->getOpeningBalDate()]]
             );
 
             echo "Data Update Successfully.";

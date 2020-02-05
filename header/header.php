@@ -26,16 +26,14 @@
 
 
     <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
-
     <script src="master/js/form.js"></script>
     <script src="admin/js/form.js"></script>
+    <script src="ifta/js/form.js"></script>
     <script src="master/js/validation.js"></script>
     <script src="admin/js/validation.js"></script>
+    <script src="ifta/js/validation.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-    <script src="admin/js/form.js"></script>
-    <script src="admin/js/validation.js"></script>
 
 <!------------Loader File's----------->
 <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">-->
@@ -44,8 +42,15 @@
 
     <script src="admin/js/form.js"></script>
     <script src="admin/js/validation.js"></script>
+    <script src="header/modal.js"></script>
+
+    <!--<script src="admin/js/form.js"></script>
+    <script src="admin/js/validation.js"></script>-->
+
+<!--    MAP    -->
     <script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false&amp;libraries=places&key=AIzaSyDnID4vOGNgMgJxF3Y3AR2SwjzueSonmW0'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!--    MAP END-->
     <style type="text/css">
         #map{
             height: 50%;
@@ -55,284 +60,6 @@
             height: 90%;
         }
     </style>
-    <script>
-
-        $(document).on('click', '.addShipper', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./admin/shipper_modal.php', function (result) {
-                        $('#shipper').modal({show: true});
-                    });
-                }
-            });
-        });
-        $(document).on('click', '.addDriver', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./admin/driver_modal.php', function (result) {
-                        $('#Driver').modal({show: true});
-                    });
-                }
-            });
-        });
-        $(document).on('click', '.addUser', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./admin/user_modal.php', function (result) {
-                        $('#user').modal({show: true});
-                    });
-                }
-            });
-        });
-        $(document).on('click', '.addConsignee', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./admin/consignee_modal.php', function (result) {
-                        $('#consignee').modal({show: true});
-                    });
-                }
-            });
-        });
-        $(document).on('click', '.addCustomer', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./admin/customer_modal.php', function (result) {
-                        $('#customer').modal({show: true});
-                    });
-                }
-            });
-        });
-
-
-        $(document).on("click", "#currency_setting", function () {
-            //alert('test');
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./master/add_currency.php', function (result) {
-                        $('#currency').modal({show: true});
-                    });
-                },
-            });
-        });
-
-
-        $(document).on("click", "#truck_type", function () {
-            //alert('test');
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./master/add_truck_type.php', function (result) {
-                        $('#truck').modal({show: true});
-                    });
-                },
-            });
-        });
-
-
-        $(document).on("click", "#equipment_type", function () {
-            //alert('test');
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./master/add_equipment_type.php', function (result) {
-                        $('#equipment').modal({show: true});
-                    });
-                },
-            });
-        });
-
-        $(document).on("click", "#trailer_type", function () {
-            //alert('test');
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./master/add_trailer_type.php', function (result) {
-                        $('#trailer').modal({show: true});
-                    });
-                },
-            });
-        });
-
-        $(document).on("click", "#fix_category", function () {
-            //alert('test');
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./master/add_fixpaycategory.php', function (result) {
-                        $('#Fix_Pay').modal({show: true});
-                    });
-                },
-            });
-        });
-
-        $(document).on('click', '.ADDcompany', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./master/add_company.php', function (result) {
-                        $('#company_modal').modal({show: true});
-                    });
-                }
-            });
-        });
-        $(document).on('click', '.add_loadType', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./master/add_loadType.php', function (result) {
-                        $('#Load_Type').modal({show: true});
-                    });
-                }
-            });
-        });
-
-        $(document).on('click', '.add_office', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./master/add_office.php', function (result) {
-                        $('#Office').modal({show: true});
-                    });
-                }
-            });
-        });
-
-        $(document).on('click', '.add_payment_terms', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./master/add_paymentTerms.php', function (result) {
-                        $('#Payment_Terms').modal({show: true});
-                    });
-                }
-            });
-        });
-
-        $(document).on('click', '.add_bank', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./master/add_bank.php', function (result) {
-                        $('#add_bank').modal({show: true});
-                    });
-                }
-            });
-        });
-
-        $(document).on('click', '.add_status', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./master/status_type_modal.php', function (result) {
-                        $('#Status_Type').modal({show: true});
-                    });
-                }
-            });
-        });
-
-        $(document).on('click','#bankadmin', function () {
-            $.ajax({
-               type: 'POST',
-               success: function (data) {
-
-                   $('.modal-container').load('./admin/bank_admin_modal.php', function (result) {
-                       $('#bank').modal({show: true});
-                   })
-               }
-            });
-        });
-
-        $(document).on('click','#credit_card', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./admin/credit_card_modal.php', function (result) {
-                        $('#CreditCard').modal({show: true});
-                    })
-                }
-            });
-        });
-
-        $(document).on('click','#sub_credit_card', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-
-                    $('.modal-container').load('./admin/sub_credit_card_modal.php', function (result) {
-                        $('#Credit_Card').modal({show: true});
-                    })
-                }
-            });
-        });
-
-        $(document).on('click','#custom_broker', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./admin/custom_broker_modal.php', function (result) {
-                        $('#Custom_Broker').modal({show: true});
-                    })
-                }
-            });
-        });
-
-        //admin chetan
-
-        // Add Truck Function
-        $(document).on("click", "#truck_add", function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./admin/add_truck_modal.php', function (result) {
-                        $('#truck').modal({show: true});
-                    });
-                },
-            });
-        });
-
-        // Add Trailer Function
-        $(document).on("click", "#trailer_add", function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./admin/add_trailer_modal.php', function (result) {
-                        $('#trailer').modal({show: true});
-                    });
-                },
-            });
-        });
-
-        // Add Factoring Company Function
-        $(document).on("click", "#factoring_company", function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./admin/add_factoring_modal.php', function (result) {
-                        $('#factoring').modal({show: true});
-                    });
-                },
-            });
-        });
-
-        //--------------------IFTA Start----------------------//
-        // Add Verify Treep Function
-        $(document).on("click", "#verify_treep", function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.modal-container').load('./ifta/verify_treep_model.php', function (result) {
-                        $('#verified').modal({show: true});
-                    });
-                },
-            });
-        });
-    </script>
 </head>
 
 <body>
@@ -466,7 +193,7 @@
                         </li>
 
                         <li class="menu-item dropdown notification-list list-inline-item">
-                            <!-- Mobile menu toggle-->
+                            <!-- Mobile menu toggle-->1`
                             <a class="navbar-toggle nav-link">
                                 <div class="lines">
                                     <span></span>
@@ -511,6 +238,8 @@
                                 <li>
                                     <a href="#" id="truck_type">Truck Type</a>
                                 </li>
+                                <li><a href="#" class="addShipper">Shipper</a></li>
+
                                 <li>
                                     <a href="#" id="equipment_type">Equipment Type</a>
                                 </li>
@@ -526,6 +255,11 @@
                                 <li>
                                     <a href="#" class="add_status">Status</a>
                                 </li>
+
+                                <li>
+                                    <a href="#" id="add_driver">Add Driver</a>
+                                </li>
+
                                 <li>
                                     <a href="#" class="ADDcompany">Company </a>
                                 </li>
@@ -537,6 +271,9 @@
                                 </li>
                                 <li>
                                     <a href="#" class="add_loadType">Load Type </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="add_ifta_card">IFTA Card Category</a>
                                 </li>
                             </ul>
                         </li>
@@ -581,9 +318,7 @@
 
                                 <li><a href="#" id="truck_add">Truck</a></li>
 
-                                <li>
-                                    <a href="#" id="trailer_add">Trailer</a>
-                                </li>
+                                <li><a href="#" id="trailer_add">Trailer</a></li>
                                 <li>
                                     <a href="#" id="factoring_company">Factoring Company</a>
                                 </li>
@@ -591,10 +326,18 @@
                         </li>
 
                         <li class="has-submenu">
-                            <a href="#"><i class="icon-life-buoy"></i> IFTA <i
-                                        class="mdi mdi-chevron-down mdi-drop"></i></a>
+
+                            <a href="#"><i class="icon-life-buoy"></i> IFTA <i class="mdi mdi-chevron-down mdi-drop"></i></a>
                             <ul class="submenu">
+                                <li>
+                                    <a href="#" id="fuel_receipts">Fuel Receipts </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="add_toll">Add Toll </a>
+                                </li>
+
                                 <li><a href="#" id="verify_treep">Verify Treep</a></li>
+                                <li><a href="#" id="verify_trip">Verify Trip</a></li>
                             </ul>
                         </li>
 

@@ -46,9 +46,9 @@ require "../database/connection.php";
                         <div class="leftside">
                             <table>
                                 <thead>
-                                    <tr>
-                                        <th>Location</th>
-                                    </tr>
+                                <tr>
+                                    <th>Location</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                 <?php
@@ -60,9 +60,9 @@ require "../database/connection.php";
                                         foreach ($show12 as $row2) {
                                             $loc = $row2['location'];
                                             ?>
-                                <tr>
-                                    <th><input class="form-control row-md-6" type="text" id="origin" name="origin" value="<?php echo $loc; ?>" placeholder="Add Location">
-                                </tr>
+                                            <tr>
+                                                <th><input class="form-control row-md-6" type="text" id="origin" name="origin" value="<?php echo $loc; ?>" placeholder="Add Location">
+                                            </tr>
                                             <?php
                                         }
                                     }
@@ -72,7 +72,7 @@ require "../database/connection.php";
                                 </tbody>
                             </table>
                         </div>
-                        </div>
+                    </div>
                     <div class="col">
                         <div class="rightside">
                             <iframe width="650" height="450" frameborder="1" style="border:1"
