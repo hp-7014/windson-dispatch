@@ -1,3 +1,6 @@
+<?php session_start();
+require "../database/connection.php";
+?>
 <!-- Modal content for the above example -->
 <style>
     .leftside, .rightside{
@@ -41,14 +44,35 @@
                 <div class="row">
                     <div class="col">
                         <div class="leftside">
-                            <label>Location</label>
-                            <div class="row_address">
-                                <input class="form-control col-md-8" type="text" id="origin" name="origin" placeholder="Add Location">
-                                <button class="remove btn btn-danger" disabled>X</button>
-                            </div>
-                            <button id="new" class="btn btn-primary">Add Location</button>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $show = $db->truckadd->find(['companyID' => $_SESSION['companyId']]);
+                                foreach ($show as $row){
+                                    $show1 = $row['truck'];
+                                    foreach ($show1 as $row1) {
+                                        $show12 = $row1['trucDoc'];
+                                        foreach ($show12 as $row2) {
+                                            $loc = $row2['location'];
+                                            ?>
+                                <tr>
+                                    <th><input class="form-control row-md-6" type="text" id="origin" name="origin" value="<?php echo $loc; ?>" placeholder="Add Location">
+                                </tr>
+                                            <?php
+                                        }
+                                    }
+                                }
+                                ?>
+                                <button id="new" class="btn btn-primary">Add Location</button></th>
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
+                        </div>
                     <div class="col">
                         <div class="rightside">
                             <iframe width="650" height="450" frameborder="1" style="border:1"
@@ -69,7 +93,7 @@
             var inc = $(".row_address").length + 1,
                 $newAddressRow = `
 					<div id="${inc}" class="row_address">
-						<input class="form-control col-md-8" type="text" name="address" placeholder="Add Location">
+						<input class="form-control col-md-6" type="text" name="address" placeholder="Add Location">
   	        <button class="remove btn btn-danger">X</button>
           </div>
 				`;

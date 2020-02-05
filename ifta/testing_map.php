@@ -16,9 +16,6 @@
   <input id="destinationautocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text"></input>
 </div>
 <br>
-<div id="locationField">
-    <input id="destinationautocomplete1" placeholder="Enter your address" onFocus="geolocate()" type="text"></input>
-</div>
 <br>
 <div>
   <input type='button' value="Find travelled distance" onclick="CalculatedRecommededDistance()"></input>
