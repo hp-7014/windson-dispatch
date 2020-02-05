@@ -1,6 +1,6 @@
 <?php
-session_start();
-include '../database/connection.php';
+    session_start();
+    include '../database/connection.php';
 ?>
 
 <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="Fuel_Receipt"
