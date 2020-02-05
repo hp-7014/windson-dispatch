@@ -45,6 +45,16 @@ else if ($_GET['type'] == 'edit_account') {
     $acc->update_Account($acc,$db);
 }
 
+// Edit Account Date Here
+else if ($_GET['type'] == 'edit_date') {
+    $acc = new Bank_Admin();
+    $acc->setId($_POST['id']);
+    $acc->setCompanyID($_POST['companyId']);
+    $acc->setOpeningBalDate($_POST['openingBalDate']);
+    $acc->setColumn($_POST['column']);
+    $acc->update_Dates($acc,$db);
+}
+
 // Delete Bank Here
 else if ($_GET['type'] == 'delete_bank') {
     $b_admin = new Bank_Admin();
@@ -54,7 +64,7 @@ else if ($_GET['type'] == 'delete_bank') {
 
 // Import Excel Here
 else if ($_GET['type'] == 'import_admin_bank') {
-    print_r($_FILES['file']);
+   // print_r($_FILES['file']);
     $allowedFileType = ['application/vnd.ms-excel','text/xls','text/xlsx','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
 
     if(in_array($_FILES["file"]["type"],$allowedFileType)){

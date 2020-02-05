@@ -135,7 +135,7 @@
                         'cardHolderName'=>$this->cardHolderName,
                         'cardNo'=>$this->cardNo,
                         'delete_status'=>'0',
-                        'insertedUser' => '1',
+                        'insertedUser' => $_SESSION['companyName'],
                     ])
                 )
             );
@@ -156,7 +156,7 @@
                     'cardHolderName'=>$this->cardHolderName,
                     'cardNo'=>$this->cardNo,
                     'delete_status'=>'0',
-                    'insertedUser' => '1',
+                    'insertedUser' => $_SESSION['companyName'],
                 ]]]);
             } else {
                 $s_credit = iterator_to_array($category);

@@ -12,12 +12,12 @@ if ($_GET['type'] == 'traileradd') {
     $trailer->setId($helper->getNextSequence("traileraddcount",$db));
     $trailer->setCompanyID($_POST['companyId']);
     $trailer->setTrailerNumber($_POST['trailer_number']);
-    $trailer->setTrailerType($_POST['trailer_type']);
+    $trailer->setTrailerType($_POST['traileradd_type']);
     $trailer->setLicenseType($_POST['license_plate']);
     $trailer->setPlateExpiry(strtotime($_POST['plate_expiry']));
     $trailer->setInspectionExpiration(strtotime($_POST['inspection']));
     $trailer->setStatus($_POST['status']);
-    $trailer->setModel($_POST['model']);
+    $trailer->setModel($_POST['truckmod']);
     $trailer->setYear($_POST['year']);
     $trailer->setAxies($_POST['axies']);
     $trailer->setRegisteredState($_POST['register_state']);
@@ -25,9 +25,45 @@ if ($_GET['type'] == 'traileradd') {
     $trailer->setDot(strtotime($_POST['dot']));
     $trailer->setActivationDate(strtotime($_POST['activation_date']));
     $trailer->setInternalNotes($_POST['internal_notes']);
+
+    if (!empty(array_filter($_FILES['files']['name']))) {
+        $uploadDir = 'upload/Trailer Documents/';
+        $response = '';
+        $allowTypes = array('pdf', 'jpg', 'png', 'jpeg');
+        $i = 0;
+        $docs = array();
+        foreach ($_FILES['files']['name'] as $key => $val) {
+            $fileName = rand(0, 9999999999) . $_FILES["files"]["name"][$key];
+
+            $temLoc = $_FILES['files']['tmp_name'][$key];
+            $targetFilePath = $uploadDir . $fileName;
+            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+            $fileSize = $_FILES['files']['size'][$key];
+            if (in_array($fileType, $allowTypes)) {
+                if ($fileSize < 200000) {
+                    $docs[] = $fileName;
+                    $trailer->setUploadDocument($fileName, $i);
+
+                } else {
+                    echo "File Size is To Large For " . $fileName;
+                    exit();
+                }
+            } else {
+                echo "File Type Error For " . $fileName;
+                exit();
+            }
+            $i++;
+        }
+        for ($i = 0; $i < count($docs); $i++) {
+            move_uploaded_file($_FILES["files"]["tmp_name"][$i], $uploadDir . $docs[$i]);
+        }
+    }
     $trailer->Insert($trailer,$db,$helper);
+
     echo "Data Insert Successful";
 }
+
 
 // Import Excel Function Here
 elseif ($_GET['type'] == 'trailerimport') {

@@ -79,7 +79,7 @@ function val_loadType(val) {
 function val_currencyType(val)
 {
     if (val == '') {
-        swal('Please Enter Currency Type');
+        alert('Please Enter Currency Type');
         return false;
     } else {
         return true;
@@ -90,7 +90,7 @@ function val_currencyType(val)
 function val_equipmentType(val)
 {
     if (val == '') {
-        swal('Please Enter Equipment Type');
+        alert('Please Enter Equipment Type');
         return false;
     } else {
         return true;
@@ -101,7 +101,7 @@ function val_equipmentType(val)
 function val_truckType(val)
 {
     if (val == '') {
-        swal('Please Enter Truck Type');
+        alert('Please Enter Truck Type');
         return false;
     } else {
         return true;
@@ -112,7 +112,7 @@ function val_truckType(val)
 function val_trailerType(val)
 {
     if (val == '') {
-        swal('Please Enter Trailer Type');
+        alert('Please Enter Trailer Type');
         return false;
     } else {
         return true;
@@ -123,7 +123,7 @@ function val_trailerType(val)
 function val_fixpay(val)
 {
     if (val == '') {
-        swal('Please Enter Fix Pay Category');
+        alert('Please Enter Fix Pay Category');
         return false;
     } else {
         return true;
@@ -134,7 +134,7 @@ function val_fixpay(val)
 function val_loadType(val)
 {
     if (val == '') {
-        swal('Please Enter Load Type');
+        alert('Please Enter Load Type');
         return false;
     } else {
         return true;
@@ -145,7 +145,7 @@ function val_loadType(val)
 function val_unit(val)
 {
     if (val == '') {
-        swal('Please Enter Unit');
+        alert('Please Enter Unit');
         return false;
     } else {
         return true;
@@ -156,7 +156,7 @@ function val_unit(val)
 function val_DebitValidate(val) {
     if(val == '')
     {
-        swal('Please Enter Debit Bank Name.');
+        alert('Please Enter Debit Bank Name.');
         return false;
     } else {
         return true;
@@ -166,7 +166,7 @@ function val_DebitValidate(val) {
 function val_CreditValidate(val) {
     if(val == '')
     {
-        swal('Please Enter Credit Bank Name.');
+        alert('Please Enter Credit Bank Name.');
         return false;
     } else {
         return true;
@@ -176,7 +176,7 @@ function val_CreditValidate(val) {
 function val_CardValidate(val) {
     if(val == '')
     {
-        swal('Please Enter Credit Card Name.');
+        alert('Please Enter Credit Card Name.');
         return false;
     } else {
         return true;
@@ -188,7 +188,7 @@ function val_CardValidate(val) {
 function val_statusValidate(val) {
     if(val == '')
     {
-        swal('Please Enter Status Name.');
+        alert('Please Enter Status Name.');
         return false;
     } else {
         return true;
@@ -196,3 +196,35 @@ function val_statusValidate(val) {
 }
 
 // STATUS TYPE ENDS
+
+// IFTA CARD CATEGORY START
+function val_cardHolderName(val) {
+    if (val == '')
+    {
+        swal('Please Select Card Holder Name.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_iftaCardNo(val) {
+    if (val == '')
+    {
+        swal('Please Enter IFTA Card NO.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_CardType(val) {
+    if (val == '')
+    {
+        swal('Please Enter Card Type (Capital Letter).');
+        return false;
+    } else {
+        return true;
+    }
+}
+// IFTA CARD CATEGORY ENDS
