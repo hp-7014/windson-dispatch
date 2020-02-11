@@ -16,25 +16,37 @@
     <link href="assets/css/style.css" rel="stylesheet" type="text/css">
     <link href="assets/css/modalStyle.css" rel="stylesheet" type="text/css">
     <link href="assets/css/modalFormStyle.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/activeload.css" rel="stylesheet" type="text/css">
+
+
 
     <!--<link href="assets/css/select2.min.css" rel="stylesheet" type="text/css">-->
-
-   <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.js"></script>-->
+    <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
 
     <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
 
     <script src="master/js/form.js"></script>
+    <script src="js/activeload.js"></script>
     <script src="admin/js/form.js"></script>
     <script src="master/js/validation.js"></script>
     <script src="admin/js/validation.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnID4vOGNgMgJxF3Y3AR2SwjzueSonmW0&libraries=places"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!--<script src="admin/js/form.js"></script>
-    <script src="admin/js/validation.js"></script>-->
+
+
     <script>
+            $(document).ready(function(){
+                $(".driver").css("display","none");
+                $(".owner").css("display","none");
+
+            });
+
 
         $(document).on('click', '.addShipper', function () {
-            $.ajax({
+            // alert("called");
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./admin/shipper_modal.php', function (result) {
@@ -44,7 +56,7 @@
             });
         });
         $(document).on('click', '.addUser', function () {
-            $.ajax({
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./admin/user_modal.php', function (result) {
@@ -53,8 +65,8 @@
                 }
             });
         });
-        $(document).on('click', '.addConsignee', function () {
-            $.ajax({
+         $(document).on('click', '.addConsignee', function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./admin/consignee_modal.php', function (result) {
@@ -63,8 +75,8 @@
                 }
             });
         });
-        $(document).on('click', '.addCustomer', function () {
-            $.ajax({
+         $(document).on('click', '.addCustomer', function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./admin/customer_modal.php', function (result) {
@@ -75,9 +87,9 @@
         });
 
 
-        $(document).on("click", "#currency_setting", function () {
+         $(document).on("click", "#currency_setting", function () {
             //alert('test');
-            $.ajax({
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./master/add_currency.php', function (result) {
@@ -88,9 +100,9 @@
         });
 
 
-        $(document).on("click", "#truck_type", function () {
+         $(document).on("click", "#truck_type", function () {
             //alert('test');
-            $.ajax({
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./master/add_truck_type.php', function (result) {
@@ -101,9 +113,9 @@
         });
 
 
-        $(document).on("click", "#equipment_type", function () {
+         $(document).on("click", "#equipment_type", function () {
             //alert('test');
-            $.ajax({
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./master/add_equipment_type.php', function (result) {
@@ -113,9 +125,9 @@
             });
         });
 
-        $(document).on("click", "#trailer_type", function () {
+         $(document).on("click", "#trailer_type", function () {
             //alert('test');
-            $.ajax({
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./master/add_trailer_type.php', function (result) {
@@ -125,9 +137,9 @@
             });
         });
 
-        $(document).on("click", "#fix_category", function () {
+         $(document).on("click", "#fix_category", function () {
             //alert('test');
-            $.ajax({
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./master/add_fixpaycategory.php', function (result) {
@@ -137,8 +149,8 @@
             });
         });
 
-        $(document).on('click', '.ADDcompany', function () {
-            $.ajax({
+         $(document).on('click', '.ADDcompany', function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./master/add_company.php', function (result) {
@@ -147,8 +159,53 @@
                 }
             });
         });
-        $(document).on('click', '.add_loadType', function () {
-            $.ajax({
+         $(document).on('click', '#AddCompany', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.company-container').load('./master/add_company_sub.php', function (result) {
+                        $('#add_company').modal({show: true});
+                    });
+                }
+            });
+        });
+
+         $(document).on('click', '#AddCustomer', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.customer-container').load('./admin/customer_modal_sub.php', function (result) {
+                        $('#add_customer').modal({show: true});
+                    });
+                }
+            });
+        });
+
+            $(document).on('click', '#AddCarrier', function () {
+
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.carrier-container').load('./admin/external_carrier_modal_sub.php', function (result) {
+                            $('#add_External').modal({show: true});
+                        });
+                    }
+                });
+            });
+
+
+
+            $(document).on('click', '.modalCompany', function () {
+                $('#add_company').modal('hide');
+            });
+            $(document).on('click', '.modalCustomer', function () {
+                $('#add_customer').modal('hide');
+            });
+            $(document).on('click', '.modalCarrier', function () {
+                $('#add_External').modal('hide');
+            });
+         $(document).on('click', '.add_loadType', function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./master/add_loadType.php', function (result) {
@@ -158,8 +215,8 @@
             });
         });
 
-        $(document).on('click', '.add_office', function () {
-            $.ajax({
+         $(document).on('click', '.add_office', function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./master/add_office.php', function (result) {
@@ -169,8 +226,8 @@
             });
         });
 
-        $(document).on('click', '.add_payment_terms', function () {
-            $.ajax({
+         $(document).on('click', '.add_payment_terms', function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./master/add_paymentTerms.php', function (result) {
@@ -180,8 +237,8 @@
             });
         });
 
-        $(document).on('click', '.add_bank', function () {
-            $.ajax({
+         $(document).on('click', '.add_bank', function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./master/add_bank.php', function (result) {
@@ -191,8 +248,8 @@
             });
         });
 
-        $(document).on('click', '.add_status', function () {
-            $.ajax({
+         $(document).on('click', '.add_status', function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./master/status_type_modal.php', function (result) {
@@ -202,20 +259,20 @@
             });
         });
 
-        $(document).on('click','#bankadmin', function () {
-            $.ajax({
-               type: 'POST',
-               success: function (data) {
+         $(document).on('click','#bankadmin', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
 
-                   $('.modal-container').load('./admin/bank_admin_modal.php', function (result) {
-                       $('#bank').modal({show: true});
-                   })
-               }
+                    $('.modal-container').load('./admin/bank_admin_modal.php', function (result) {
+                        $('#bank').modal({show: true});
+                    })
+                }
             });
         });
 
-        $(document).on('click','#credit_card', function () {
-            $.ajax({
+         $(document).on('click','#credit_card', function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./admin/credit_card_modal.php', function (result) {
@@ -225,8 +282,8 @@
             });
         });
 
-        $(document).on('click','#sub_credit_card', function () {
-            $.ajax({
+         $(document).on('click','#sub_credit_card', function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
 
@@ -237,8 +294,8 @@
             });
         });
 
-        $(document).on('click','#custom_broker', function () {
-            $.ajax({
+         $(document).on('click','#custom_broker', function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./admin/custom_broker_modal.php', function (result) {
@@ -251,8 +308,8 @@
         //admin chetan
 
         // Add Truck Function
-        $(document).on("click", "#truck_add", function () {
-            $.ajax({
+         $(document).on("click", "#truck_add", function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./admin/add_truck_modal.php', function (result) {
@@ -263,8 +320,8 @@
         });
 
         // Add Trailer Function
-        $(document).on("click", "#trailer_add", function () {
-            $.ajax({
+         $(document).on("click", "#trailer_add", function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./admin/add_trailer_modal.php', function (result) {
@@ -275,8 +332,8 @@
         });
 
         // Add Factoring Company Function
-        $(document).on("click", "#factoring_company", function () {
-            $.ajax({
+         $(document).on("click", "#factoring_company", function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./admin/add_factoring_modal.php', function (result) {
@@ -287,8 +344,8 @@
         });
 
         //This function is invoked when external carrier is clicked from menu
-        $(document).on('click','#addCarrier', function () {
-            $.ajax({
+         $(document).on('click','#addCarrier', function () {
+             $.ajax({
                 type: 'POST',
                 success: function (data) {
                     $('.modal-container').load('./admin/external_carrier_modal.php', function (result) {
@@ -297,6 +354,20 @@
                 }
             });
         });
+
+        //This function is invoked when external carrier is clicked from menu
+         $(document).on('click','#active_load_button', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./activeLoad/active_load_modal.php', function (result) {
+                        $('#new_active_load1').modal({show: true});
+                    })
+                }
+            });
+        });
+
+
 
     </script>
 </head>
@@ -313,7 +384,7 @@
                 <div>
                     <a href="index.html" class="logo">
                             <span class="logo-light">
-                                    <i class="mdi mdi-camera-control"></i> Stexo
+                                    <i class="mdi mdi-camera-control"></i> Windson Dispatch
                             </span>
                     </a>
                 </div>
@@ -512,6 +583,9 @@
                                 </li>
                                 <li>
                                     <a href="#" id="addCarrier">External Carrier</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="new_active_load">Active Load</a>
                                 </li>
                             </ul>
                         </li>

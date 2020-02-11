@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/Dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/carrier_driver.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/carrier_driver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/customer_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/customer_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/external_carrier_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/external_carrier_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/js/validation.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/validation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/model/External_Carrier.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/model/External_Carrier.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/bootstrap.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/bootstrap.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/footer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/master/add_company.php" beforeDir="false" afterPath="$PROJECT_DIR$/master/add_company.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,12 +71,23 @@
     <property name="DatabaseDriversLRU" value="mongo" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/css" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/css" />
+      <recent name="$PROJECT_DIR$/assets/js" />
       <recent name="C:\xampp\htdocs\windson-dispatch\admin" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/css" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/js" />
+      <recent name="$PROJECT_DIR$/assets" />
+      <recent name="$PROJECT_DIR$/assets/js" />
     </key>
   </component>
   <component name="ServiceViewManager">
@@ -97,6 +121,13 @@
       <workItem from="1580214413412" duration="15116000" />
       <workItem from="1580291987086" duration="21386000" />
       <workItem from="1580381356926" duration="1452000" />
+      <workItem from="1580464882448" duration="28927000" />
+      <workItem from="1580808894499" duration="14120000" />
+      <workItem from="1580895528195" duration="7705000" />
+      <workItem from="1580994491247" duration="9470000" />
+      <workItem from="1581071482031" duration="5736000" />
+      <workItem from="1581328572142" duration="22722000" />
+      <workItem from="1581413536998" duration="2859000" />
     </task>
     <servers />
   </component>
@@ -161,11 +192,21 @@
     </state>
     <state x="462" y="184" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" timestamp="1580043852437" />
     <state x="568" y="261" key="NewPhpClassDialog/1680.0.1366.768/0.0.1680.1046@0.0.1680.1046" timestamp="1580215327353" />
-    <state x="636" y="415" key="NewPhpFileDialog" timestamp="1580218833003">
-      <screen x="0" y="0" width="1680" height="1046" />
+    <state x="2197" y="305" key="NewPhpFileDialog" timestamp="1581414020785">
+      <screen x="1680" y="0" width="1366" height="768" />
     </state>
     <state x="517" y="293" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1580043804827" />
     <state x="636" y="415" key="NewPhpFileDialog/1680.0.1366.768/0.0.1680.1046@0.0.1680.1046" timestamp="1580218833003" />
+    <state x="636" y="417" key="NewPhpFileDialog/1680.0.1366.768/0.0.1680.1050@0.0.1680.1050" timestamp="1580724177479" />
+    <state x="2197" y="305" key="NewPhpFileDialog/1680.0.1366.768/0.0.1680.1050@1680.0.1366.768" timestamp="1581414020785" />
+    <state x="1680" y="322" key="SettingsEditor" timestamp="1581342830951">
+      <screen x="1680" y="0" width="768" height="1366" />
+    </state>
+    <state x="1680" y="322" key="SettingsEditor/1680.0.768.1366/0.0.1680.1050@1680.0.768.1366" timestamp="1581342830951" />
+    <state width="500" height="445" key="SwitcherDM" timestamp="1580399270428">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="500" height="445" key="SwitcherDM/1680.0.1366.768/0.0.1680.1050@0.0.1680.1050" timestamp="1580399270428" />
     <state x="1680" y="0" width="1366" height="768" maximized="true" key="dock-window-1" timestamp="1580306670957">
       <screen x="1680" y="0" width="1366" height="768" />
     </state>
@@ -174,11 +215,25 @@
     <state x="147" y="64" width="1366" height="692" key="dock-window-1/1680.23.1366.745/0.0.1680.987@0.0.1680.987" timestamp="1580292262157" />
     <state x="1531" y="505" width="1366" height="692" key="dock-window-1/1680.23.1366.745/0.23.1680.962@0.23.1680.962" timestamp="1580291995843" />
     <state x="1097" y="706" width="1366" height="692" key="dock-window-1/1680.23.1366.745/0.23.1680.964@0.23.1680.964" timestamp="1580292544261" />
-    <state x="1681" y="23" width="1480" height="694" key="dock-window-2" timestamp="1580382946763">
+    <state x="1680" y="0" width="1366" height="768" maximized="true" key="dock-window-2" timestamp="1580994539089">
       <screen x="1680" y="23" width="1366" height="745" />
     </state>
-    <state x="1681" y="23" width="1480" height="745" key="dock-window-2/1680.0.1366.768/0.0.1680.1050@0.0.1680.1050" timestamp="1580382137228" />
-    <state x="1681" y="23" width="1480" height="694" key="dock-window-2/1680.23.1366.745/0.23.1680.964@0.23.1680.964" timestamp="1580382946763" />
+    <state x="-35" y="23" width="1366" height="745" key="dock-window-2/0.23.1680.962@0.23.1680.962" timestamp="1580841460500" />
+    <state x="0" y="0" width="1680" height="1050" key="dock-window-2/0.23.1680.965@0.23.1680.965" timestamp="1580409477944" />
+    <state x="0" y="0" width="1680" height="1050" maximized="true" key="dock-window-2/0.23.1680.967@0.23.1680.967" timestamp="1580406933663" />
+    <state x="1680" y="0" width="1366" height="768" key="dock-window-2/1680.0.1366.768/0.0.1680.1050@0.0.1680.1050" timestamp="1580895800028" />
+    <state x="1680" y="23" width="1366" height="745" maximized="true" key="dock-window-2/1680.0.1366.768/0.23.1680.962@0.23.1680.962" timestamp="1580472971450" />
+    <state x="1680" y="0" width="1366" height="768" key="dock-window-2/1680.0.1366.768/0.23.1680.967@0.23.1680.967" timestamp="1580392619298" />
+    <state x="1680" y="0" width="1366" height="768" key="dock-window-2/1680.0.1366.768/0.23.1680.971@0.23.1680.971" timestamp="1580401552285" />
+    <state x="1680" y="0" width="1366" height="768" key="dock-window-2/1680.23.1366.696/0.0.1680.1050@0.0.1680.1050" timestamp="1580835253134" />
+    <state x="1754" y="100" width="1366" height="696" key="dock-window-2/1680.23.1366.696/0.23.1680.1027@0.23.1680.1027" timestamp="1580840446398" />
+    <state x="1721" y="0" width="1366" height="768" key="dock-window-2/1680.23.1366.745/0.0.1680.985@0.0.1680.985" timestamp="1580895560681" />
+    <state x="1680" y="0" width="1366" height="768" key="dock-window-2/1680.23.1366.745/0.0.1680.987@0.0.1680.987" timestamp="1580915659314" />
+    <state x="201" y="141" width="1366" height="745" maximized="true" key="dock-window-2/1680.23.1366.745/0.0.1680.988@0.0.1680.988" timestamp="1580820254210" />
+    <state x="1680" y="0" width="1366" height="768" maximized="true" key="dock-window-2/1680.23.1366.745/0.23.1680.1023@0.23.1680.1023" timestamp="1580994539089" />
+    <state x="706" y="287" width="1366" height="745" key="dock-window-2/1680.23.1366.745/0.23.1680.964@0.23.1680.964" timestamp="1580915045259" />
+    <state x="1923" y="23" width="1480" height="694" key="dock-window-2/1680.23.1366.745/0.23.1680.965@0.23.1680.965" timestamp="1580401139072" />
+    <state x="1680" y="23" width="1366" height="697" key="dock-window-2/1680.23.1366.745/0.23.1680.967@0.23.1680.967" timestamp="1580735071307" />
     <state x="484" y="161" key="git4idea.merge.GitMergeDialog" timestamp="1579974428848">
       <screen x="0" y="0" width="1366" height="738" />
     </state>

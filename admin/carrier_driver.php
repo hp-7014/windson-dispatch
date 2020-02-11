@@ -60,5 +60,6 @@ if($_GET['type'] == 'add_carrier'){
     $carrier->setSecondaryEmail($_POST['secondaryEmail']);
     $carrier->setAccountingNotes($_POST['primaryNotes']);
     $carrier->setSizeOfFleet($_POST['sizeOfFleet']);
+    $carrier->setEquipment($_POST['equipment'],$_POST['quantity']);
     $carrier->insert($carrier,$db,$helper);
 }

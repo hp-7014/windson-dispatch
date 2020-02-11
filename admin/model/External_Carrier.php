@@ -1,47 +1,6 @@
 <?php
 
 @session_start();
-class Equipment{
-    private $quantity;
-    private $equipment;
-
-    /**
-     * @return mixed
-     */
-    public function getQuantity()
-    {
-        return $this->quantity;
-    }
-
-    /**
-     * @param mixed $quantity
-     */
-    public function setQuantity($quantity): void
-    {
-        $this->quantity = $quantity;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEquipment()
-    {
-        return $this->equipment;
-    }
-
-    /**
-     * @param mixed $equipment
-     */
-    public function setEquipment($equipment): void
-    {
-        $this->equipment = $equipment;
-    }
-
-
-
-
-}
-
 class External_Carrier implements IteratorAggregate
 {
     private $id;
@@ -975,9 +934,13 @@ class External_Carrier implements IteratorAggregate
     /**
      * @param mixed $equipment
      */
-    public function setEquipment($equipment): void
+    public function setEquipment($equipment,$amount): void
     {
-        $this->equipment = $equipment;
+        $this->equipment = array();
+        for($i = 0; $i < count($equipment); $i++){
+            $this->equipment[] = array("equipment"=>$equipment[$i],"amount"=>$amount[$i]);
+        }
+
     }
 
 
@@ -1046,7 +1009,8 @@ class External_Carrier implements IteratorAggregate
                     'sizeOfFleet' => $this->sizeOfFleet,
                     'equipmentNotes' => $this->equipmentNotes,
                     'insertedUserId' => $_SESSION['companyName'],
-                    'deleteStatus' => 0
+                    'deleteStatus' => 0,
+                    'equipment'=>$this->equipment,
                 ])
             )
         );
@@ -1117,7 +1081,8 @@ class External_Carrier implements IteratorAggregate
                 'sizeOfFleet' => $this->sizeOfFleet,
                 'equipmentNotes' => $this->equipmentNotes,
                 'insertedUserId' => $_SESSION['companyName'],
-                'deleteStatus' => 0
+                'deleteStatus' => 0,
+                'equipment'=>$this->equipment,
             ]]]);
         } else {
             $cons = iterator_to_array($carrier);

@@ -6,6 +6,8 @@
 <!-- End Footer -->
 
 <!-- jQuery  -->
+
+
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/jquery.slimscroll.js"></script>
@@ -42,7 +44,33 @@
     //$('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
 </script>
 <!-- App js -->
+<!------------------- Function to get location suggestion -------------------->
+<script type="text/javascript">
+var options = {
+types: ['(cities)']
+}
+function getLocation() {
+var location = new google.maps.places.Autocomplete(document.getElementById("carrierLocation"), options);
+}
+</script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/modalTab.js"></script>
-<!--<script src="assets/js/select2.min.js"></script>-->
+
+<script>
+    $(function () {
+        $('.table-responsive').responsiveTable({
+            addDisplayAllBtn: 'btn btn-secondary'
+        });
+    });
+</script>
+
+<script src="assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
+<script src="assets/pages/form-advanced.js"></script>
+
+
+
+
 </body>

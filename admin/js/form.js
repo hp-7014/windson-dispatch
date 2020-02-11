@@ -2323,7 +2323,14 @@ function addCarrier(){
     var secondaryEmail = document.getElementById('secondaryEmail').value;
     var primaryNotes = document.getElementById('primaryNotes').value;
     var sizeOfFleet = document.getElementById('sizeOfFleet').value;
-
+    var equipment = [];
+    for(var i = 0; i < document.getElementsByName('equipment').length; i++){
+        equipment[i] = document.getElementsByName('equipment')[i].value;
+    }
+    var quantity = [];
+    for(var i = 0; i < document.getElementsByName('quantity').length; i++){
+        quantity[i] = document.getElementsByName('quantity')[i].value;
+    }
     $.ajax({
         url: 'admin/carrier_driver.php?type=' + 'add_carrier',
         type: 'POST',
@@ -2380,9 +2387,12 @@ function addCarrier(){
             secondaryEmail:secondaryEmail,
             primaryNotes:primaryNotes,
             sizeOfFleet:sizeOfFleet,
+            quantity:quantity,
+            equipment:equipment,
         },
         success: function (data) {
             swal("Success", data, 'success');
         }
     });
 }
+

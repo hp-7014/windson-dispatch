@@ -3658,6 +3658,7 @@ table.focus-on tbody tr.focused td {
 
 ::-webkit-scrollbar {
   width: 4px;
+  height:4px;
 }
 
 /* Track */
