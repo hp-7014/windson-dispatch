@@ -3,6 +3,7 @@
 require 'model/Shipper.php';
 require 'utils/Helper.php'; // helper method
 require '../database/connection.php';   // connection
+require 'model/Consignee.php';
 
 $helper = new Helper();
 
@@ -31,7 +32,26 @@ if ($_GET['type'] == 'add_shipper') {
     $shipper->insert($shipper,$db,$helper);
 //    print_r($shipper);
     if ($_POST['asConsignee'] == 1) {
-        $helper->asConsignee($shipper);
+        $consignee = new Consignee();
+        $consignee->setId($helper->getNextSequence("consignee",$db));
+        $consignee->setCompanyID($_POST['companyID']);
+        $consignee->setConsigneeName($_POST['shipperName']);
+        $consignee->setConsigneeAddress($_POST['shipperAddress']);
+        $consignee->setConsigneeLocation($_POST['shipperLocation']);
+        $consignee->setConsigneePostal($_POST['shipperPostal']);
+        $consignee->setConsigneeContact($_POST['shipperContact']);
+        $consignee->setConsigneeEmail($_POST['shipperEmail']);
+        $consignee->setConsigneeTelephone($_POST['shipperTelephone']);
+        $consignee->setConsigneeExt($_POST['shipperExt']);
+        $consignee->setConsigneeTollFree($_POST['shipperTollFree']);
+        $consignee->setConsigneeFax($_POST['shipperFax']);
+        $consignee->setConsigneeReceiving($_POST['shipperShippingHours']);
+        $consignee->setConsigneeAppointments($_POST['shipperAppointments']);
+        $consignee->setConsigneeIntersaction($_POST['shipperIntersaction']);
+        $consignee->setConsigneeStatus($_POST['shipperStatus']);
+        $consignee->setConsigneeRecivingNote($_POST['shippingNotes']);
+        $consignee->setConsigneeInternalNote($_POST['internalNotes']);
+        $consignee->insert($consignee,$db,$helper);
     }
     echo "Data Added Successfully";
 }

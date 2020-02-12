@@ -24,9 +24,8 @@ require "../database/connection.php";?>
                         <button class="custom-btn">Choose file</button>
                         <input type="file" id="file" name="myfile" />
                     </div>
-                    <button type="button"
-                            class="btn btn-outline-success waves-effect waves-light float-right">CSV formate
-                    </button>
+                    <a class="btn btn-outline-success waves-effect waves-light" href="download.php?file=Truck_Type.csv" style="margin-bottom: 2px;">CSV formate
+                    </a>
                 </form>
                 <br>
                 <table id="mainTable"

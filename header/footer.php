@@ -4,7 +4,7 @@
 </footer>
 
 <!-- End Footer -->
-
+<!--<script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false&amp;libraries=places&key=AIzaSyDnID4vOGNgMgJxF3Y3AR2SwjzueSonmW0'></script>-->
 <!-- jQuery  -->
 
 
@@ -49,8 +49,8 @@
 var options = {
 types: ['(cities)']
 }
-function getLocation() {
-var location = new google.maps.places.Autocomplete(document.getElementById("carrierLocation"), options);
+function getLocation(fieldID) {
+var location = new google.maps.places.Autocomplete(document.getElementById(fieldID), options);
 }
 </script>
 <script src="assets/js/app.js"></script>

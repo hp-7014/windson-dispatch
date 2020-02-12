@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+    <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="Merge branch 'admin' of https://github.com/hp-7014/windson-dispatch into ifta&#10;&#10;# Conflicts:&#10;#&#9;header/header.php">
     <list default="true" id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/Dashboard.php" afterDir="false" />
@@ -17,6 +18,7 @@
       <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/master/add_company.php" beforeDir="false" afterPath="$PROJECT_DIR$/master/add_company.php" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,6 +54,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="PhpWorkspaceProjectConfiguration">
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.2">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/composer" />
@@ -107,10 +110,10 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="" />
-      <created>1579614540717</created>
+      <created>1580749472181</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
+      <updated>1580749472181</updated>
       <updated>1579614540717</updated>
       <workItem from="1579614544799" duration="3157000" />
       <workItem from="1579688110173" duration="4098000" />
@@ -246,5 +249,23 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1579973982640" />
+    <state x="275" y="28" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
+    <state x="275" y="28" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" />
+    <state x="476" y="86" key="#com.intellij.ide.util.MemberChooser" />
+    <state x="476" y="86" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" />
+    <state x="129" y="62" key="MergeDialog" />
+    <state x="129" y="62" key="MergeDialog/0.0.1366.738@0.0.1366.738" />
+    <state x="395" y="86" key="MultipleFileMergeDialog" />
+    <state x="395" y="86" key="MultipleFileMergeDialog/0.0.1366.738@0.0.1366.738" />
+    <state x="462" y="184" key="NewPhpClassDialog" />
+    <state x="462" y="184" key="NewPhpClassDialog/0.0.1366.738@0.0.1366.738" />
+    <state x="517" y="293" key="NewPhpFileDialog" />
+    <state x="517" y="293" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" />
+    <state x="484" y="161" key="git4idea.merge.GitMergeDialog" />
+    <state x="484" y="161" key="git4idea.merge.GitMergeDialog/0.0.1366.738@0.0.1366.738" />
+    <state x="424" y="0" width="517" height="698" key="refactoring.ChangeSignatureDialog" />
+    <state x="424" y="0" width="517" height="698" key="refactoring.ChangeSignatureDialog/0.0.1366.738@0.0.1366.738" />
+    <state x="339" y="165" key="run.anything.popup" />
+    <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" />
   </component>
 </project>

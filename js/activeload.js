@@ -1,7 +1,5 @@
 var room = 0;
 var count = 0;
-
-
 function add_fields() {
     room++;
 
@@ -11,14 +9,14 @@ function add_fields() {
     var divtest = '<li class="nav-item list-item" id = "home-title'+room+'"><a class = "nav-link shipper list-anchors" id = "home-tab'+room+'" data-toggle="tab" href="#home'+room+'" role="tab" aria-controls="home" aria-selected="false">Shipper</a><i class="mdi mdi-window-close ico" onclick="removeTab('+mainID+','+contentID+')" aria-hidden="true"></i></li>'
     objTo.innerHTML += divtest;
     document.getElementById('sc-card').classList.add("shadow");
-    var contentTo = document.getElementById("myTabContent");
+    //var contentTo = document.getElementById("myTabContent");
+    var contentTo = $("#myTabContent");
     var contenttest = '<div class="tab-pane fade" id="home'+room+'" role="tabpanel" aria-labelledby="home-tab'+room+'"><div class="row m-2">\n' +
         '                                            <div class="form-group col-md-3">\n' +
         '                                                <label>Name*</label>\n' +
-        '                                                <div>\n' +
-        '                                                    <input class="form-control" placeholder="Name "\n' +
-        '                                                           type="text" >\n' +
-        '                                                </div>\n' +
+        '                                                 <input list="shipper'+room+'" class="form-control" placeholder="--Select--" id="shipperlist'+room+'" name="shipperlist">\n'+
+        '                                                 <datalist id="shipper'+room+'">\n'+
+        '                                                 </datalist>\n'+
         '                                            </div>\n' +
         '                                            <div class="form-group col-md-2">\n' +
         '                                                <label>Address*</label>\n' +
@@ -100,7 +98,9 @@ function add_fields() {
         '                                                </div>\n' +
         '                                            </div>\n' +
         '                                        </div></div>';
-    contentTo.innerHTML += contenttest;
+    //contentTo.innerHTML += contenttest;
+    $(contentTo).append(contenttest);
+    getShip("shipper"+room);
     renameShipper();
     makeActive();
 
@@ -160,14 +160,14 @@ function add_consignee() {
     var divtest = '<li class="nav-item list-item"  id="consig-title'+count+'"><a class="nav-link active consignee list-anchors-consig" id="consig-tab'+count+'" data-toggle="tab" href="#consig'+count+'" role="tab" aria-controls="home" aria-selected="true">Consignee</a><i class="mdi mdi-window-close ico" onclick="removeConsignee('+mainID+','+contentID+')" aria-hidden="true"></i> </li>'
     objTo.innerHTML += divtest;
 
-    var contentTo = document.getElementById("consigneeContent");
+    //var contentTo = document.getElementById("consigneeContent");
+    var contentTo = $("#consigneeContent");
     var contenttest = '<div class="tab-pane fade" id="consig'+count+'" role="tabpanel" aria-labelledby="consig-tab'+count+'"><div class="row m-2">\n' +
         '                                            <div class="form-group col-md-3">\n' +
         '                                                <label>Name*</label>\n' +
-        '                                                <div>\n' +
-        '                                                    <input class="form-control" placeholder="Name "\n' +
-        '                                                           type="text" >\n' +
-        '                                                </div>\n' +
+        '                                                <input list="consigneee'+count+'" class="form-control" placeholder="--Select--" id="consigneelist'+count+'" name="consigneelist">\n'+
+        '                                                 <datalist id="consigneee'+count+'">\n'+
+        '                                                 </datalist>\n'+
         '                                            </div>\n' +
         '                                            <div class="form-group col-md-2">\n' +
         '                                                <label>Address*</label>\n' +
@@ -249,8 +249,10 @@ function add_consignee() {
         '                                                </div>\n' +
         '                                            </div>\n' +
         '                                        </div></div>';
-    contentTo.innerHTML += contenttest;
+    //contentTo.innerHTML += contenttest;
+    $(contentTo).append(contenttest);
     renameConsignee();
+    getConsig("consignee"+count);
     makeConsigneeActive();
 
 }
@@ -315,9 +317,29 @@ function Showdriver() {
 }
 
 function Showowner() {
-    $(".carrier").css("display","nonw");
+    $(".carrier").css("display","none");
     $(".driver").css("display","none");
     $(".owner").css("display","block");
+}
+
+function getShip(shipID){
+    $.ajax({
+        url: 'admin/getShipper.php',
+        type: 'POST',
+        success: function (data) {
+            document.getElementById(shipID).innerHTML += data;
+        }
+    });
+}
+
+function getConsig(consigID){
+    $.ajax({
+        url: 'admin/getConsignee.php',
+        type: 'POST',
+        success: function (data) {
+            document.getElementById(consigID).innerHTML += data;
+        }
+    });
 }
 
 $(document).on("click", "#add_Customer_Modal", function () {
@@ -347,8 +369,106 @@ $(document).on("click", "#add_Driver_Modal", function () {
     $.ajax({
         type: 'POST',
         success: function (data) {
-            $('.activeload-container').load('admin/external_carrier_modal_sub.php', function (result) {
-                $('#add_External').modal({show: true});
+            $('.activeload-container').load('admin/driver_modal_sub.php', function (result) {
+                $('#add_Driver').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on("click", "#add_Truck_Modal", function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('admin/add_truck_modal_sub.php', function (result) {
+                $('#add_Truck').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on("click", "#add_Trailer_Modal", function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('admin/add_trailer_modal_sub.php', function (result) {
+                $('#add_Trailer').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on("click", "#add_Owner_Operator", function () {
+
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('admin/owner_operator_modal_sub.php', function (result) {
+                $('#Owner_operator').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on("click", "#add_shipper_modal", function () {
+
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('admin/shipper_modal_sub.php', function (result) {
+                $('#add_shipper').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on("click", "#add_consignee_modal", function () {
+
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('admin/consignee_modal_sub.php', function (result) {
+                $('#add_consignee').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on("click", "#add_Owner_Other", function () {
+
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('admin/other_charges_modal.php', function (result) {
+                $('#otherCharges').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on("click", "#add_Driver_Other", function () {
+
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('admin/other_charges_modal.php', function (result) {
+                $('#otherCharges').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on("click", "#add_carrier_other", function () {
+
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('admin/other_charges_modal.php', function (result) {
+                $('#otherCharges').modal({show: true});
+            });
+        }
+    });
+});
+
+$(document).on("click", "#add_other", function () {
+
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('admin/other_charges_modal.php', function (result) {
+                $('#otherCharges').modal({show: true});
             });
         }
     });

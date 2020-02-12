@@ -67,7 +67,7 @@ require "../database/connection.php";
                             <div class="form-group col-md-2">
                                 <label>Location *</label>
                                 <div>
-                                    <input class="form-control" placeholder="Enter a location" onkeydown="getLocation()" type="text" id="carrierLocation" name="carrierLocation">
+                                    <input class="form-control" placeholder="Enter a location" onkeydown="getLocation('carrierLocation')" type="text" id="carrierLocation" name="carrierLocation">
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
@@ -594,7 +594,7 @@ require "../database/connection.php";
 </div><!-- /.modal -->
 </div>
 <style>
-    .pac-container { z-index: 100000; }
+
 </style>
 <!-------------------------------------------------------------------------------------------------------------------------------------------->
 

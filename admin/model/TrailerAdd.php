@@ -26,6 +26,11 @@ class TrailerAdd implements IteratorAggregate
     private $dot;
     private $activationDate;
     private $internalNotes;
+    private $uploadDocument = array();
+    private $insertTime;
+    private $insertUserName;
+    private $deleteStatus;
+    private $deleteUserName;
 
     /**
      * @return mixed
@@ -300,6 +305,86 @@ class TrailerAdd implements IteratorAggregate
         $this->internalNotes = $internalNotes;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getInsertTime()
+    {
+        return $this->insertTime;
+    }
+
+    /**
+     * @param mixed $insertTime
+     */
+    public function setInsertTime($insertTime)
+    {
+        $this->insertTime = $insertTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInsertUserName()
+    {
+        return $this->insertUserName;
+    }
+
+    /**
+     * @param mixed $insertUserName
+     */
+    public function setInsertUserName($insertUserName)
+    {
+        $this->insertUserName = $insertUserName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeleteStatus()
+    {
+        return $this->deleteStatus;
+    }
+
+    /**
+     * @param mixed $deleteStatus
+     */
+    public function setDeleteStatus($deleteStatus)
+    {
+        $this->deleteStatus = $deleteStatus;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeleteUserName()
+    {
+        return $this->deleteUserName;
+    }
+
+    /**
+     * @param mixed $deleteUserName
+     */
+    public function setDeleteUserName($deleteUserName)
+    {
+        $this->deleteUserName = $deleteUserName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUploadDocument()
+    {
+        return $this->uploadDocument;
+    }
+
+    /**
+     * @param mixed $uploadDocument
+     */
+    public function setUploadDocument($uploadDocument,$i)
+    {
+        $this->uploadDocument[$i] = array("uploadDocument" => $uploadDocument);
+    }
+
 
     public function getIterator()
     {
@@ -323,21 +408,28 @@ class TrailerAdd implements IteratorAggregate
                     'vin' => $this->vin,
                     'dot' => $this->dot,
                     'activationDate' => $this->activationDate,
-                    'internalNotes' => $this->internalNotes]
+                    'internalNotes' => $this->internalNotes,
+                    'trailerDoc' => $this->uploadDocument,
+                    'insertedTime' => time(),
+                    'insertedUserId' => $_SESSION['companyName'],
+                    'deleteStatus' => 0]
                 )
             )
         );
     }
 
+
     //Insert Trailer Function
+
     public function insert($trailer,$db,$helper)
-    {
-        $c_id = $db->trailer_admin_add->find(['companyID' =>(int)$trailer->getCompanyID()]);
-        $count = 0;
-        foreach ($c_id as $c) {
-            $count++;
-        }
-        if ($count > 0) {
+       {
+           $collection = $db->trailer_admin_add;
+                $criteria = array(
+                   'companyID' => (int)$trailer->getCompanyID(),
+                );
+                $doc = $collection->findOne($criteria);
+
+            if (!empty($doc)) {
             $db->trailer_admin_add->updateOne(['companyID' => (int)$this->companyID],['$push'=>['trailer'=>[
                 '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->trailer_admin_add),
                 'trailerNumber' => $this->trailerNumber,
@@ -353,7 +445,11 @@ class TrailerAdd implements IteratorAggregate
                 'vin' => $this->vin,
                 'dot' => $this->dot,
                 'activationDate' => $this->activationDate,
-                'internalNotes' => $this->internalNotes
+                'internalNotes' => $this->internalNotes,
+                'trailerDoc' => $this->uploadDocument,
+                'insertedTime' => time(),
+                'insertedUserId' => $_SESSION['companyName'],
+                'deleteStatus' => 0
             ]]]);
         } else {
             $trailer = iterator_to_array($trailer);
@@ -361,71 +457,6 @@ class TrailerAdd implements IteratorAggregate
         }
     }
 
-    //import Excel
-    public function importExceltrailer($targetPath, $helper)
-    {
-        require_once('../excel/excel_reader2.php');
-        require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
-
-        $Reader = new SpreadsheetReader($targetPath);
-
-        $sheetCount = count($Reader->sheets());
-
-        for ($i = 0; $i < $sheetCount; $i++) {
-
-            $Reader->ChangeSheet($i);
-
-            $this->setId($helper->getNextSequence("traileraddcount", $db));
-            $this->companyID = $_SESSION['companyId'];
-
-            foreach ($Reader as $Row) {
-                if (isset($Row[0])) {
-                    $this->trailerNumber = $Row[0];
-                }
-                if (isset($Row[1])) {
-                    $this->trailerType = $Row[1];
-                }
-                if (isset($Row[2])) {
-                    $this->licenseType = $Row[2];
-                }
-                if (isset($Row[3])) {
-                    $this->plateExpiry = $Row[3];
-                }
-                if (isset($Row[4])) {
-                    $this->inspectionExpiration = $Row[4];
-                }
-                if (isset($Row[5])) {
-                    $this->status = $Row[5];
-                }
-                if (isset($Row[6])) {
-                    $this->model = $Row[6];
-                }
-                if (isset($Row[7])) {
-                    $this->year = $Row[7];
-                }
-                if (isset($Row[8])) {
-                    $this->axies = $Row[8];
-                }
-                if (isset($Row[9])) {
-                    $this->registeredState = $Row[9];
-                }
-                if (isset($Row[10])) {
-                    $this->vin = $Row[10];
-                }
-                if (isset($Row[11])) {
-                    $this->dot = $Row[11];
-                }
-                if (isset($Row[12])) {
-                    $this->activationDate = $Row[12];
-                }
-                if (isset($Row[13])) {
-                    $this->internalNotes = $Row[13];
-                }
-                $this->insert($this,$db,$helper);
-            }
-        }
-    }
 
     //update
     public function updateTrailer($trailer,$db){
@@ -435,12 +466,14 @@ class TrailerAdd implements IteratorAggregate
             ]);
     }
 
+
     //Delete
     public function deleteTrailer($trailer,$db){
-        $db->trailer_admin_add->updateOne(['companyID' => (int)$_SESSION['companyId']],
-            ['$pull' => ['trailer' => ['_id' => (int)$trailer->getId()]]]
+        $db->trailer_admin_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'trailer._id' => (int)$this->getId()],
+            ['$set' => ['trailer.$.deleteStatus' => 1]]
         );
     }
+
 
     //Export
     public function exportTrailer($db)

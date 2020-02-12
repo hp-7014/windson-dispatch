@@ -33,6 +33,11 @@ class TruckAdd implements IteratorAggregate
     private $dotexpiryDate;
     private $transponder;
     private $internalNotes;
+    private $uploadDocument = array();
+    private $insertTime;
+    private $insertUserName;
+    private $deleteStatus;
+    private $deleteUserName;
 
     /**
      * @return mixed
@@ -410,6 +415,88 @@ class TruckAdd implements IteratorAggregate
         $this->internalNotes = $internalNotes;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getInsertTime()
+    {
+        return $this->insertTime;
+    }
+
+    /**
+     * @param mixed $insertTime
+     */
+    public function setInsertTime($insertTime)
+    {
+        $this->insertTime = $insertTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInsertUserName()
+    {
+        return $this->insertUserName;
+    }
+
+    /**
+     * @param mixed $insertUserName
+     */
+    public function setInsertUserName($insertUserName)
+    {
+        $this->insertUserName = $insertUserName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeleteStatus()
+    {
+        return $this->deleteStatus;
+    }
+
+    /**
+     * @param mixed $deleteStatus
+     */
+    public function setDeleteStatus($deleteStatus)
+    {
+        $this->deleteStatus = $deleteStatus;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeleteUserName()
+    {
+        return $this->deleteUserName;
+    }
+
+    /**
+     * @param mixed $deleteUserName
+     */
+    public function setDeleteUserName($deleteUserName)
+    {
+        $this->deleteUserName = $deleteUserName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUploadDocument()
+    {
+        return $this->uploadDocument;
+    }
+
+    /**
+     * @param mixed $uploadDocument
+     */
+    public function setUploadDocument($uploadDocument,$i)
+    {
+        $this->uploadDocument[$i] = array("uploadDocument" => $uploadDocument);
+
+    }
+
+
     public function getIterator()
     {
         // TODO: Implement getIterator() method.
@@ -439,21 +526,28 @@ class TruckAdd implements IteratorAggregate
                     'vin' => $this->vin,        
                     'dotexpiryDate' => $this->dotexpiryDate,
                     'transponder' => $this->transponder,    
-                    'internalNotes' => $this->internalNotes]
+                    'internalNotes' => $this->internalNotes,
+                    'trucDoc' => $this->uploadDocument,
+                    'insertedTime' => time(),
+                    'insertedUserId' => $_SESSION['companyName'],
+                    'deleteStatus' => 0]
                 )
             )
         );
     }
-    
+
+
     //Insert Truck Function
+
     public function insert($truck,$db,$helper)
-    {
-        $c_id = $db->truckadd->find(['companyID' =>(int)$truck->getCompanyID()]);
-        $count = 0;
-        foreach ($c_id as $c) {
-            $count++;
-        }
-        if ($count > 0) {
+            {
+                $collection = $db->truckadd;
+                $criteria = array(
+                    'companyID' => (int)$truck->getCompanyID(),
+                );
+                $doc = $collection->findOne($criteria);
+
+            if (!empty($doc)) {
             $db->truckadd->updateOne(['companyID' => (int)$this->companyID],['$push'=>['truck'=>[
                 '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->truckadd),
                     'truckNumber' => $this->truckNumber,
@@ -476,7 +570,11 @@ class TruckAdd implements IteratorAggregate
                     'vin' => $this->vin,        
                     'dotexpiryDate' => $this->dotexpiryDate,
                     'transponder' => $this->transponder,    
-                    'internalNotes' => $this->internalNotes
+                    'internalNotes' => $this->internalNotes,
+                    'trucDoc' => $this->uploadDocument,
+                    'insertedTime' => time(),
+                    'insertedUserId' => $_SESSION['companyName'],
+                    'deleteStatus' => 0
             ]]]);
         } else {
             $truck = iterator_to_array($truck);
@@ -484,92 +582,6 @@ class TruckAdd implements IteratorAggregate
         }
     }
 
-    //import Excel
-    public function importExceltruck($targetPath, $helper)
-    {
-        require_once('../excel/excel_reader2.php');
-        require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
-
-        $Reader = new SpreadsheetReader($targetPath);
-
-        $sheetCount = count($Reader->sheets());
-
-        for ($i = 0; $i < $sheetCount; $i++) {
-
-            $Reader->ChangeSheet($i);
-
-            $this->setId($helper->getNextSequence("truckcount", $db));
-            $this->companyID = $_SESSION['companyId'];
-
-            foreach ($Reader as $Row) {
-                if (isset($Row[0])) {
-                    $this->truckNumber = $Row[0];
-                }
-                if (isset($Row[1])) {
-                    $this->truckType = $Row[1];
-                }
-                if (isset($Row[2])) {
-                    $this->licensePlate = $Row[2];
-                }
-                if (isset($Row[3])) {
-                    $this->plateExpiry = $Row[3];
-                }
-                if (isset($Row[4])) {
-                    $this->inspectionExpiry = $Row[4];
-                }
-                if (isset($Row[5])) {
-                    $this->status = $Row[5];
-                }
-                if (isset($Row[6])) {
-                    $this->ownership = $Row[6];
-                }
-                if (isset($Row[7])) {
-                    $this->mileage = $Row[7];
-                }
-                if (isset($Row[8])) {
-                    $this->axies = $Row[8];
-                }
-                if (isset($Row[9])) {
-                    $this->year = $Row[9];
-                }
-                if (isset($Row[10])) {
-                    $this->fuelType = $Row[10];
-                }
-                if (isset($Row[11])) {
-                    $this->startDate = $Row[11];
-                }
-                if (isset($Row[12])) {
-                    $this->deactivationDate = $Row[12];
-                }
-                if (isset($Row[13])) {
-                    $this->ifta = $Row[13];
-                }
-                if (isset($Row[14])) {
-                    $this->registeredState = $Row[14];
-                }
-                if (isset($Row[15])) {
-                    $this->insurancePolicy = $Row[15];
-                }
-                if (isset($Row[16])) {
-                    $this->grossWeight = $Row[16];
-                }
-                if (isset($Row[17])) {
-                    $this->vin = $Row[17];
-                }
-                if (isset($Row[18])) {
-                    $this->dotexpiryDate = $Row[18];
-                }
-                if (isset($Row[19])) {
-                    $this->transponder = $Row[19];
-                }
-                if (isset($Row[20])) {
-                    $this->internalNotes = $Row[20];
-                }
-                $this->insert($this,$db,$helper);
-            }
-        }
-    }
 
     //update
     public function updateTruckAdd($truck,$db){
@@ -579,12 +591,14 @@ class TruckAdd implements IteratorAggregate
             ]);
     }
 
+
     //Delete
     public function deleteTruckAdd($truck,$db){
-        $db->truckadd->updateOne(['companyID' => (int)$_SESSION['companyId']],
-            ['$pull' => ['truck' => ['_id' => (int)$truck->getId()]]]
-        );
+            $db->truckadd->updateOne(['companyID' => (int)$_SESSION['companyId'], 'truck._id' => (int)$this->getId()],
+                ['$set' => ['truck.$.deleteStatus' => 1]]
+            );
     }
+
 
     //Export
     public function exportTruck($db)

@@ -16,7 +16,8 @@ require "../database/connection.php";?>
                     <div class="col-12">
                         <div class="card m-b-30">
                             <div class="card-body">
-                                <form action="" method="post" enctype="multipart/form-data">
+
+                                <form method="post" enctype="multipart/form-data">
                                     <button type="button" class="btn btn-primary waves-effect waves-light"
                                             data-toggle="modal"
                                             data-target="#Add_Payment_Terms">Add
@@ -28,10 +29,8 @@ require "../database/connection.php";?>
                                         <button class="custom-btn">Choose file</button>
                                         <input type="file" name="file" id="file" accept=".csv"/>
                                     </div>
-                                    <button type="button"
-                                            class="btn btn-outline-success waves-effect waves-light float-right">CSV
-                                        formate
-                                    </button>
+                                    <a class="btn btn-outline-success waves-effect waves-light" href="download.php?file=Payment_Terms.csv" style="margin-bottom: 2px;">CSV formate
+                                    </a>
                                 </form>
                                 <br>
                                 <table id="mainTable"
@@ -87,6 +86,7 @@ require "../database/connection.php";?>
 <!-----------------------------------------Add Payment Terms-------------------------------------------------------------------------------->
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
      id="Add_Payment_Terms" aria-hidden="true">
+    <div class="load"></div>
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #2A3988;">
