@@ -1667,53 +1667,54 @@ function import_Custom_Broker() {
 /*----------------- Customs Broker END -------------------------*/
 
 //-----------------Truck Add start-------------------------------------
-
 //ajax Function For insert Truck
-function TruckAdd() {
-    var form_data = new FormData(document.getElementById('truckform'));
-    var totalfiles = document.getElementById('files').files.length;
+    function TruckAdd() {
+        var form_data = new FormData(document.getElementById('truckform'));
+        var totalfiles = document.getElementById('files').files.length;
+        if (totalfiles <= 5) {
+            for (var index = 0; index < totalfiles; index++) {
+            }
+            var truck_number = document.getElementById("truck_number").value;
+            var trucktype1 = document.getElementById("trucktype").value;
+            var truck_type = trucktype1.split(")");
+            var trucktype = truck_type[0];
+            form_data.append("trucktype1", trucktype);
+            var license_plate = document.getElementById("license_plate").value;
+            var plate_expiry = document.getElementById("plate_expiry").value;
+            var vin = document.getElementById("vin").value;
+            var ownership = document.getElementById('ownership').checked;
+            var Own = document.getElementById('Own').checked;
+            if ((ownership == "") && (Own == "")) {
+                swal("Please Select Ownership");
+                return false;
+            }
 
-    if (totalfiles <= 5) {
-        for (var index = 0; index < totalfiles; index++) {
-        }
-        var truck_number = document.getElementById("truck_number").value;
-        var trucktype = document.getElementById("trucktype").value;
-        var license_plate = document.getElementById("license_plate").value;
-        var plate_expiry = document.getElementById("plate_expiry").value;
-        var vin = document.getElementById("vin").value;
-        var ownership = document.getElementById('ownership').checked;
-        var Own = document.getElementById('Own').checked;
-        if ((ownership=="")&&(Own=="")){
-            swal("Please Select Ownership");
-            return false;
-        }
-
-        if (val_truck_number(truck_number)) {
-            if (val_trucktype(trucktype)) {
-                if (val_license_plate(license_plate)) {
-                    if (val_plate_expiry(plate_expiry)) {
-                        if (val_vin(vin)) {
-                            $.ajax({
-                                url: 'admin/truckadd_driver.php?type=' + 'truckadd',
-                                method: 'post',
-                                data: form_data,
-                                contentType: false,
-                                cache: false,
-                                processData: false,
-                                success: function (data) {
-                                    swal("Success", data, "success");
-                                    $('#add_Truck').modal('hide');
-                                }
-                            });
+            if (val_truck_number(truck_number)) {
+                if (val_trucktype(trucktype1)) {
+                    if (val_license_plate(license_plate)) {
+                        if (val_plate_expiry(plate_expiry)) {
+                            if (val_vin(vin)) {
+                                $.ajax({
+                                    url: 'admin/truckadd_driver.php?type=' + 'truckadd',
+                                    method: 'post',
+                                    data: form_data,
+                                    contentType: false,
+                                    cache: false,
+                                    processData: false,
+                                    success: function (data) {
+                                        swal("Success", data, "success");
+                                        $('#add_Truck').modal('hide');
+                                    }
+                                });
+                            }
                         }
                     }
                 }
             }
+        } else {
+            swal('Please Select Only 5 File')
         }
-    }else {
-        swal('Please Select Only 5 File')
     }
-}
 
 // Export Excel Function For Truck Add
 function exportTruckAdd() {
@@ -1792,13 +1793,16 @@ function Traileradd() {
         for (var index = 0; index < totalfiles; index++) {
         }
         var trailer_number = document.getElementById("trailer_number").value;
-        var trailertypes = document.getElementById("trailertypes").value;
+        var trailertypes1 = document.getElementById("trailertype").value;
+        var trailer_type = trailertypes1.split(")");
+        var trailertype = trailer_type[0];
+        form_data.append("traileradd_type", trailertype);
         var license_plate = document.getElementById("license_plate").value;
         var plate_expiry = document.getElementById("plate_expiry").value;
         var vin = document.getElementById("vin").value;
 
         if (val_trailer_number(trailer_number)) {
-            if (val_trailer_type(trailertypes)) {
+            if (val_trailer_type(trailertypes1)) {
                 if (val_license_plate_trailer(license_plate)) {
                     if (val_plate_expiry_trailer(plate_expiry)) {
                         if (val_vin_trailer(vin)) {

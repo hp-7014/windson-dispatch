@@ -96,6 +96,7 @@ require "../database/connection.php";
                             }
                         $transponder = $row1['transponder'];
                         $internalNotes = $row1['internalNotes'];
+
                         ?>
                         <tr>
                             <th><div contenteditable="true" onblur="updateTruckAdd(this,'truckNumber','<?php echo $id; ?>')"
@@ -176,7 +177,7 @@ require "../database/connection.php";
                 <div class="modal-body custom-modal-body">
                     <div class="row">
                         <div class="form-group col-md-2">
-                            <label>Truck Number *</label>
+                            <label>Truck Number <span class="mandatory">*</span></label>
                             <div>
                                 <input class="form-control" placeholder="Truck Number *"
                                        type="text" id="truck_number" name="truck_number" required/>
@@ -184,20 +185,20 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2">
                             <p class="form-box">
-                                <label for="trucktype">Truck Type</label>
-                                <input id="trucktype" name="trucktype" list="trucktypes" required/>
+                                <label for="trucktype">Truck Type <span class="mandatory">*</span></label>
+                                <input class="form-control" id="trucktype" name="trucktype1" list="trucktypes" placeholder="Truck Type" required/>
                             </p>
 
                         </div>
                         <div class="form-group col-md-2">
-                            <label>License Plate</label>
+                            <label>License Plate <span class="mandatory">*</span></label>
                             <div>
                                 <input class="form-control" placeholder="License Plate"
                                        type="text" id="license_plate" name="license_plate" required/>
                             </div>
                         </div>
                         <div class="form-group col-md-2 ">
-                            <label>Plate Expiry</label>
+                            <label>Plate Expiry <span class="mandatory">*</span></label>
                             <div>
                                 <input class="form-control" type="date" id="plate_expiry" name="plate_expiry" required/>
                             </div>
@@ -219,7 +220,7 @@ require "../database/connection.php";
                         </div>
 
                         <div class="form-group col-md-2">
-                            <label>Ownership</label>
+                            <label>Ownership <span class="mandatory">*</span></label>
                             <div class="row">
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" class="custom-control-input"
@@ -280,16 +281,15 @@ require "../database/connection.php";
                         </div>
 
                         <div class="form-group col-md-2">
-                            <label>
-                                Registered State *</label>
-                            <select class="form-control" id="registered_state" name="registered_state">
-                                <option value="LA">LA</option>
-                                <option value="NY">NY</option>
-                            </select>
+                            <p class="form-box">
+                                <label for="RegisteredState">Registered State</label>
+                                <input class="form-control" id="RegisteredState" name="registered_state" list="registered_state" placeholder="Registered State" required/>
+                            </p>
+
                         </div>
 
                         <div class="form-group col-md-2">
-                            <label>Insurance Policy #</label>
+                            <label>Insurance Policy</label>
                             <div>
                                 <input class="form-control" placeholder="Insurance Policy #"
                                        type="text" id="Insurance_Policy" name="Insurance_Policy">
@@ -302,7 +302,7 @@ require "../database/connection.php";
                             </div>
                         </div>
                         <div class="form-group col-md-2 ">
-                            <label>VIN #</label>
+                            <label>VIN <span class="mandatory">*</span></label>
                             <div>
                                 <input class="form-control" type="text"  placeholder="VIN #" id="vin" name="vin" required>
                             </div>
@@ -362,10 +362,74 @@ require "../database/connection.php";
                         $id = $row1['_id'];
                         $truckType = $row1['truckType'];
                         ?>
-                        <option value="<?php echo $id; ?>"><?php echo $truckType;  ?></option>
+                        <option value="<?php echo $id.")".$truckType; ?>">
                     <?php }
                 }?>
+            </datalist>
+            <datalist id="registered_state">
+                <option value="AL">
+                <option value="AK">
+                <option value="AR">
+                <option value="CA">
+                <option value="CO">
+                <option value="CT">
+                <option value="DE">
+                <option value="FL">
+                <option value="GA">
+                <option value="HI">
+                <option value="ID">
+                <option value="IL">
+                <option value="IN">
+                <option value="IA">
+                <option value="KS">
+                <option value="KY">
+                <option value="LA">
+                <option value="ME">
+                <option value="MD">
+                <option value="MA">
+                <option value="MI">
+                <option value="MN">
+                <option value="MS">
+                <option value="MO">
+                <option value="MT">
+                <option value="NE">
+                <option value="NV">
+                <option value="NH">
+                <option value="NJ">
+                <option value="NM">
+                <option value="NY">
+                <option value="NC">
+                <option value="ND">
+                <option value="OH">
+                <option value="OK">
+                <option value="OR">
+                <option value="PA">
+                <option value="RI">
+                <option value="SC">
+                <option value="SD">
+                <option value="TN">
+                <option value="TX">
+                <option value="UT">
+                <option value="VT">
+                <option value="VA">
+                <option value="WA">
+                <option value="WV">
+                <option value="WI">
+                <option value="WY">
             </datalist>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script>
+    var filesize = document.getElementById("files");
+    filesize.onchange = function() {
+        for (var i = 0; i < this.files.length; i++) {
+            var filesize1 = this.files[i].size;
+            if (filesize1 < 200000) {
+            } else {
+                swal("Oops...", "File size is to large! Please Select a file less than 200KB", "error");
+                this.value = "";
+            }
+        }
+    };
+</script>

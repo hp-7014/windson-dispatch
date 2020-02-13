@@ -142,25 +142,25 @@ require "../database/connection.php";
             <div class="modal-body custom-modal-body">
                 <div class="row">
                     <div class="form-group col-md-2">
-                        <label>Trailer Number *</label>
+                        <label>Trailer Number <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Trailer Number *"
                                    type="text" id="trailer_number" name="trailer_number">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label for="trailertype">Trailer Type</label>
-                        <input id="trailertype" name="traileradd_type" list="trailertypes"/>
+                        <label for="trailertype">Trailer Type <span class="mandatory">*</span></label>
+                        <input class="form-control" id="trailertype" name="traileradd_type" list="trailertypes" placeholder="Trailer Type"/>
                     </div>
                     <div class="form-group col-md-2">
-                        <label>License Plate</label>
+                        <label>License Plate <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" placeholder="License Plate"
                                    type="text" id="license_plate" name="license_plate">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
-                        <label>Plate Expiry</label>
+                        <label>Plate Expiry <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" type="date" id="plate_expiry" name="plate_expiry">
                         </div>
@@ -203,15 +203,13 @@ require "../database/connection.php";
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label>
-                            Registered State *</label>
-                        <select class="form-control" id="register_state" name="register_state">
-                            <option value="LA">LA</option>
-                            <option value="NY">NY</option>
-                        </select>
+                        <p class="form-box">
+                            <label for="RegisteredState">Registered State</label>
+                            <input class="form-control" id="registered_state" name="registered_state" list="registeredstate" placeholder="Registered State" required/>
+                        </p>
                     </div>
                     <div class="form-group col-md-2 ">
-                        <label>VIN #</label>
+                        <label>VIN <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" type="text" placeholder="VIN #" id="vin" name="vin">
                         </div>
@@ -253,9 +251,60 @@ require "../database/connection.php";
                         $id = $row1['_id'];
                         $trailerType = $row1['trailerType'];
                         ?>
-                        <option value="<?php echo $id; ?>"><?php echo $trailerType;  ?></option>
+                        <option value="<?php echo $id.")".$trailerType; ?>">
                     <?php }
                 } ?>
+            </datalist>
+            <datalist id="registeredstate">
+                <option value="AL">
+                <option value="AK">
+                <option value="AR">
+                <option value="CA">
+                <option value="CO">
+                <option value="CT">
+                <option value="DE">
+                <option value="FL">
+                <option value="GA">
+                <option value="HI">
+                <option value="ID">
+                <option value="IL">
+                <option value="IN">
+                <option value="IA">
+                <option value="KS">
+                <option value="KY">
+                <option value="LA">
+                <option value="ME">
+                <option value="MD">
+                <option value="MA">
+                <option value="MI">
+                <option value="MN">
+                <option value="MS">
+                <option value="MO">
+                <option value="MT">
+                <option value="NE">
+                <option value="NV">
+                <option value="NH">
+                <option value="NJ">
+                <option value="NM">
+                <option value="NY">
+                <option value="NC">
+                <option value="ND">
+                <option value="OH">
+                <option value="OK">
+                <option value="OR">
+                <option value="PA">
+                <option value="RI">
+                <option value="SC">
+                <option value="SD">
+                <option value="TN">
+                <option value="TX">
+                <option value="UT">
+                <option value="VT">
+                <option value="VA">
+                <option value="WA">
+                <option value="WV">
+                <option value="WI">
+                <option value="WY">
             </datalist>
             <div class="modal-footer">
                 <label class="text-danger" style="padding-right: 360px"><b>Note :</b>&nbsp; The Document Upload Only One Time After Upload Document You Cannot Change. Only .jpg .jpeg .png .pdf Formate Upload.  File Size Limit 200KB.  Only 5 File Upload. </label>
@@ -268,3 +317,16 @@ require "../database/connection.php";
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script>
+    var filesize = document.getElementById("files");
+    filesize.onchange = function() {
+        for (var i = 0; i < this.files.length; i++) {
+            var filesize1 = this.files[i].size;
+            if (filesize1 < 200000) {
+            } else {
+                swal("Oops...", "File size is to large! Please Select a file less than 200KB", "error");
+                this.value = "";
+            }
+        }
+    };
+</script>
