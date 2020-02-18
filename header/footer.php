@@ -44,5 +44,22 @@
 <!-- App js -->
 <script src="assets/js/app.js"></script>
 <script src="assets/js/modalTab.js"></script>
+
+<script type="text/javascript">
+    var options = {
+        types: ['(cities)']
+    }
+    function getLocation(fieldID) {
+        //alert(fieldID);
+        var location = new google.maps.places.Autocomplete(document.getElementById(fieldID), options);
+
+    }
+</script>
+<script src="assets/plugins/moment/moment.js"></script>
+<script src="assets/plugins/x-editable/js/bootstrap-editable.min.js"></script>
+<script src="assets/pages/xeditable.js"></script>
+
+<!-- Responsive-table-->
+<script src="assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js"></script>
 <!--<script src="assets/js/select2.min.js"></script>-->
 </body>

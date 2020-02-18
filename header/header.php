@@ -43,12 +43,14 @@
     <script src="admin/js/form.js"></script>
     <script src="admin/js/validation.js"></script>
     <script src="header/modal.js"></script>
+    <script src="ifta/main_mileage/jquery-1.11.1.min.js"></script>
+    <script src="ifta/main_mileage/main.js"></script>
 
     <!--<script src="admin/js/form.js"></script>
     <script src="admin/js/validation.js"></script>-->
 
 <!--    MAP    -->
-    <script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false&amp;libraries=places&key=AIzaSyDnID4vOGNgMgJxF3Y3AR2SwjzueSonmW0'></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <!--    MAP END-->
     <style type="text/css">
@@ -335,8 +337,6 @@
                                 <li>
                                     <a href="#" id="add_toll">Add Toll </a>
                                 </li>
-
-                                <li><a href="#" id="verify_treep">Verify Treep</a></li>
                                 <li><a href="#" id="verify_trip">Verify Trip</a></li>
                             </ul>
                         </li>

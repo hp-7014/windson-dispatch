@@ -38,10 +38,9 @@ if ($_GET['type'] == 'verifyLoad') {
 
                 $output .= "
                     <tr>
-                        <td>".$no++."</td>
+                        <td>" . $no++ . "</td>
                         <td>" . $date['invoiceNo'] . "</td>
                         <td>" . $date['startLocation'] . "</td>";
-
                 foreach ($date['shipperName'] as $shipper) {
                     $output .= "<td>" . $shipper['ShipperLocation'] . "</td>";
                 }
@@ -51,7 +50,10 @@ if ($_GET['type'] == 'verifyLoad') {
                 }
 
                 $output .= "<td>" . $date['endLocation'] . "</td>
-                            <td>" . $date['shipDate'] . "</td></tr>";
+                            <td>" . $date['shipDate'] . "</td><td></td>
+                            <td></td>
+                            <td><a href='#' id=".$date['invoiceNo']." class='editifta' data-toggle='modal' data-target='#verified'>Edit</a></td></tr>";
+
             }
         }
     }

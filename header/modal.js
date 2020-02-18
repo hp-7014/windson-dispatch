@@ -263,17 +263,6 @@ $(document).on("click", "#factoring_company", function () {
 });
 
 //--------------------IFTA Start----------------------//
-// Add Verify Treep Function
-$(document).on("click", "#verify_treep", function () {
-    $.ajax({
-        type: 'POST',
-        success: function (data) {
-            $('.modal-container').load('./ifta/verify_treep_model.php', function (result) {
-                $('#verified').modal({show: true});
-            });
-        },
-    });
-});
 // Add Fuel Receipts IFTA
 $(document).on("click", "#fuel_receipts", function () {
     $.ajax({
