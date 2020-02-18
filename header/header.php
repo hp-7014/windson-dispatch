@@ -59,33 +59,516 @@
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+
+
+    <script src="admin/js/form.js"></script>
+    <script src="admin/js/validation.js"></script>
+
 <!------------Loader File's----------->
 <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">-->
 <!--    <link rel="stylesheet" href="assets/css/loader_style.css">-->
 <!--    <script  src="assets/js/loader_script.js"></script>-->
-
-    <script src="admin/js/form.js"></script>
-    <script src="admin/js/validation.js"></script>
-    <script src="header/modal.js"></script>
-    <script src="ifta/main_mileage/jquery-1.11.1.min.js"></script>
-    <script src="ifta/main_mileage/main.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script> -->
+    <script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false&amp;libraries=places&key=AIzaSyDnID4vOGNgMgJxF3Y3AR2SwjzueSonmW0'></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    
 
     <!--<script src="admin/js/form.js"></script>
     <script src="admin/js/validation.js"></script>-->
 
 <!--    MAP    -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <!--    MAP END-->
-    <style type="text/css">
-        #map{
-            height: 50%;
-            width: 20%;
-        }
-        html , body {
-            height: 90%;
-        }
-    </style>
+
+
+    <script>
+
+        $(document).ready(function(){
+
+            $(".driver").css("display","none");
+            $(".owner").css("display","none");
+
+        });
+        $(document).on('click', '.addShipper', function () {
+            // alert("called");
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/shipper_modal.php', function (result) {
+                        $('#shipper').modal({show: true});
+                    });
+                }
+            });
+        });
+        $(document).on('click', '.addDriver', function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/driver_modal.php', function (result) {
+                        $('#Driver').modal({show: true});
+                    });
+                }
+            });
+        });
+        $(document).on('click', '.addUser', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/user_modal.php', function (result) {
+                        $('#user').modal({show: true});
+                    });
+                }
+            });
+        });
+         $(document).on('click', '.addConsignee', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/consignee_modal.php', function (result) {
+                        $('#consignee').modal({show: true});
+                    });
+                }
+            });
+        });
+         $(document).on('click', '.addCustomer', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/customer_modal.php', function (result) {
+                        $('#customer').modal({show: true});
+                    });
+                }
+            });
+        });
+
+
+         $(document).on("click", "#currency_setting", function () {
+            //alert('test');
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_currency.php', function (result) {
+                        $('#currency').modal({show: true});
+                    });
+                },
+            });
+        });
+
+
+         $(document).on("click", "#truck_type", function () {
+            //alert('test');
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_truck_type.php', function (result) {
+                        $('#truck').modal({show: true});
+                    });
+                },
+            });
+        });
+
+
+         $(document).on("click", "#equipment_type", function () {
+            //alert('test');
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_equipment_type.php', function (result) {
+                        $('#equipment').modal({show: true});
+                    });
+                },
+            });
+        });
+
+         $(document).on("click", "#trailer_type", function () {
+            //alert('test');
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_trailer_type.php', function (result) {
+                        $('#trailer').modal({show: true});
+                    });
+                },
+            });
+        });
+
+         $(document).on("click", "#fix_category", function () {
+            //alert('test');
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_fixpaycategory.php', function (result) {
+                        $('#Fix_Pay').modal({show: true});
+                    });
+                },
+            });
+        });
+
+         $(document).on('click', '.ADDcompany', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_company.php', function (result) {
+                        $('#company_modal').modal({show: true});
+                    });
+                }
+            });
+        });
+         $(document).on('click', '#AddCompany', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.company-container').load('./master/add_company_sub.php', function (result) {
+                        $('#add_company').modal({show: true});
+                    });
+                }
+            });
+        });
+
+         $(document).on('click', '#AddCustomer', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.customer-container').load('./admin/customer_modal_sub.php', function (result) {
+                        $('#add_customer').modal({show: true});
+                    });
+                }
+            });
+        });
+
+            $(document).on('click', '#AddCarrier', function () {
+
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.carrier-container').load('./admin/external_carrier_modal_sub.php', function (result) {
+                            $('#add_External').modal({show: true});
+                        });
+                    }
+                });
+            });
+            $(document).on('click', '#AddDriver', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.driver-container').load('./admin/driver_modal_sub.php', function (result) {
+                            $('#add_Driver').modal({show: true});
+                        });
+                    }
+                });
+            });
+
+            $(document).on('click', '#AddOwnerOperator', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.owner-container').load('./admin/owner_operator_modal_sub.php', function (result) {
+                            $('#Owner_operator').modal({show: true});
+                        });
+                    }
+                });
+            });
+            $(document).on('click', '#AddTruck', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.truck-container').load('./admin/add_truck_modal_sub.php', function (result) {
+                            $('#add_Truck').modal({show: true});
+                        });
+                    }
+                });
+            });
+            $(document).on('click', '#AddTrailer', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.trailer-container').load('./admin/add_trailer_modal_sub.php', function (result) {
+                            $('#add_Trailer').modal({show: true});
+                        });
+                    }
+                });
+            });
+            $(document).on('click', '#AddShipper', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.shipper-container').load('./admin/shipper_modal_sub.php', function (result) {
+                            $('#add_shipper').modal({show: true});
+                        });
+                    }
+                });
+            });
+            $(document).on('click', '#AddConsignee', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.consignee-container').load('./admin/consignee_modal_sub.php', function (result) {
+                            $('#add_consignee').modal({show: true});
+                        });
+                    }
+                });
+            });
+            $(document).on('click', '#AddActiveLoad', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.activeload-container').load('active_load.php', function (result) {
+                            $('#active_new').modal({show: true});
+                        });
+                    }
+                });
+            });
+
+            $(document).on('click', '.modalCompany', function () {
+                $('#add_company').modal('hide');
+            });
+
+            $(document).on('click', '.modalCustomer', function () {
+                $('#add_customer').modal('hide');
+            });
+
+            $(document).on('click', '.modalCarrier', function () {
+                $('#add_External').modal('hide');
+            });
+
+            $(document).on('click', '.modalDriver', function () {
+                $('#add_Driver').modal('hide');
+            });
+            $(document).on('click', '.modalOwner', function () {
+                $('#Owner_operator').modal('hide');
+            });
+            $(document).on('click', '.modalTruck', function () {
+                $('#add_Truck').modal('hide');
+            });
+            $(document).on('click', '.modalTrailer', function () {
+                $('#add_Trailer').modal('hide');
+            });
+            $(document).on('click', '.modalShipper', function () {
+                $('#add_shipper').modal('hide');
+            });
+            $(document).on('click', '.modalConsignee', function () {
+                $('#add_consignee').modal('hide');
+            });
+            $(document).on('click', '.modalOther', function () {
+                $('#otherCharges').modal('hide');
+            });
+
+
+         $(document).on('click', '.add_loadType', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_loadType.php', function (result) {
+                        $('#Load_Type').modal({show: true});
+                    });
+                }
+            });
+        });
+
+         $(document).on('click', '.add_office', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_office.php', function (result) {
+                        $('#Office').modal({show: true});
+                    });
+                }
+            });
+        });
+
+         $(document).on('click', '.add_payment_terms', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_paymentTerms.php', function (result) {
+                        $('#Payment_Terms').modal({show: true});
+                    });
+                }
+            });
+        });
+
+         $(document).on('click', '.add_bank', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/add_bank.php', function (result) {
+                        $('#add_bank').modal({show: true});
+                    });
+                }
+            });
+        });
+
+         $(document).on('click', '.add_status', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/status_type_modal.php', function (result) {
+                        $('#Status_Type').modal({show: true});
+                    });
+                }
+            });
+        });
+
+         $(document).on('click','#bankadmin', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+
+                    $('.modal-container').load('./admin/bank_admin_modal.php', function (result) {
+                        $('#bank').modal({show: true});
+                    })
+                }
+            });
+        });
+
+         $(document).on('click','#credit_card', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/credit_card_modal.php', function (result) {
+                        $('#CreditCard').modal({show: true});
+                    })
+                }
+            });
+        });
+
+         $(document).on('click','#sub_credit_card', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+
+                    $('.modal-container').load('./admin/sub_credit_card_modal.php', function (result) {
+                        $('#Credit_Card').modal({show: true});
+                    })
+                }
+            });
+        });
+
+         $(document).on('click','#custom_broker', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/custom_broker_modal.php', function (result) {
+                        $('#Custom_Broker').modal({show: true});
+                    })
+                }
+            });
+        });
+
+        //admin chetan
+
+        // Add Truck Function
+         $(document).on("click", "#truck_add", function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/add_truck_modal.php', function (result) {
+                        $('#truck').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        // Add Trailer Function
+         $(document).on("click", "#trailer_add", function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/add_trailer_modal.php', function (result) {
+                        $('#trailer').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        // Add Factoring Company Function
+         $(document).on("click", "#factoring_company", function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/add_factoring_modal.php', function (result) {
+                        $('#factoring').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        //This function is invoked when external carrier is clicked from menu
+         $(document).on('click','#addCarrier', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./admin/external_carrier_modal.php', function (result) {
+                        $('#External').modal({show: true});
+                    })
+                }
+            });
+        });
+
+        //This function is invoked when external carrier is clicked from menu
+         $(document).on('click','#active_load_button', function () {
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./activeLoad/active_load_modal.php', function (result) {
+                        $('#new_active_load1').modal({show: true});
+                    })
+                }
+            });
+        });
+
+
+
+        //--------------------IFTA Start----------------------//
+        // Add Verify Treep Function
+        $(document).on("click", "#verify_treep", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./ifta/verify_treep_model.php', function (result) {
+                        $('#verified').modal({show: true});
+                    });
+                },
+            });
+        });
+        // Add Fuel Receipts IFTA
+        $(document).on("click", "#fuel_receipts", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                   // alert("test");
+                    $('.modal-container').load('./ifta/fuel_receipts_modal.php', function (result) {
+                        $('#Fuel_Receipt').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        $(document).on("click", "#add_ifta_card", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./master/ifta_card_category_modal.php', function (result) {
+                        $('#Ifta_Card_Category').modal({show: true});
+                    });
+                },
+            });
+        });
+
+        $(document).on("click", "#add_toll", function () {
+            $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-container').load('./ifta/add_toll_modal.php', function (result) {
+                        $('#Add_Toll').modal({show: true});
+                    });
+                },
+            });
+        });
+
+    </script>
 </head>
 
 <body>
@@ -219,7 +702,7 @@
                         </li>
 
                         <li class="menu-item dropdown notification-list list-inline-item">
-                            <!-- Mobile menu toggle-->1`
+                            <!-- Mobile menu toggle-->
                             <a class="navbar-toggle nav-link">
                                 <div class="lines">
                                     <span></span>
@@ -367,11 +850,12 @@
                                 <li>
                                     <a href="#" id="add_toll">Add Toll </a>
                                 </li>
-                                <li><a href="#" id="verify_trip">Verify Trip</a></li>
+                                    <li><a href="#" id="verify_treep">Verify Treep</a></li>
                             </ul>
                         </li>
 
                         <li class="has-submenu">
+
                             <a href="#"><i class="icon-pencil-ruler"></i> UI Elements <i
                                         class="mdi mdi-chevron-down mdi-drop"></i></a>
                             <ul class="submenu megamenu">

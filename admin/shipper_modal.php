@@ -60,7 +60,7 @@ require "../database/connection.php";
                                             $total_pages = ceil($total_records / $limit);
                                     ?>
                                             <tr>
-                                                <td><?php echo $no++; ?></td>
+                                                <th><?php echo $no++; ?></th>
                                                 <td>
                                                     <a href="#" id="shipperName<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperName');" class="text-overflow"><?php echo $s['shipperName']; ?></a>
                                                     <button type="button" id="shipperName<?php echo $s['_id']; ?>" onclick="updateShipper('shipperName',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
