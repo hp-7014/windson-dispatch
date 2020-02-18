@@ -67,6 +67,10 @@
                             </div>
 
                             <div class="modal-footer">
+                                <button type="button" onclick="exportifta()" class="btn btn-primary waves-effect" data-dismiss="modal">
+                                    Export
+                                </button>
+
                                 <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">
                                     Close
                                 </button>
@@ -157,7 +161,7 @@
             },
             success: function (response) {
                 var j = JSON.parse(response);
-                alert(j._id);
+                //alert(j._id);
                 $('#employeeNo').val(j._id);
             }
         });

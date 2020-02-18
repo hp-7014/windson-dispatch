@@ -57,21 +57,21 @@ var location = new google.maps.places.Autocomplete(document.getElementById(field
 <script src="assets/js/app.js"></script>
 <script src="assets/js/modalTab.js"></script>
 
-<script>
-    $(function () {
-        $('.table-responsive').responsiveTable({
-            addDisplayAllBtn: 'btn btn-secondary'
-        });
-    });
+<script type="text/javascript">
+    var options = {
+        types: ['(cities)']
+    }
+    function getLocation(fieldID) {
+        //alert(fieldID);
+        var location = new google.maps.places.Autocomplete(document.getElementById(fieldID), options);
+
+    }
 </script>
+<script src="assets/plugins/moment/moment.js"></script>
+<script src="assets/plugins/x-editable/js/bootstrap-editable.min.js"></script>
+<script src="assets/pages/xeditable.js"></script>
 
-<script src="assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
-<script src="assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
-<script src="assets/pages/form-advanced.js"></script>
-
-
-
-
+<!-- Responsive-table-->
+<script src="assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js"></script>
+<!--<script src="assets/js/select2.min.js"></script>-->
 </body>

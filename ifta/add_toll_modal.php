@@ -14,6 +14,7 @@ include '../database/connection.php';
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body custom-modal-body">
                 <form method="post" enctype="multipart/form-data">
                     <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#add_tolls">ADD</button>

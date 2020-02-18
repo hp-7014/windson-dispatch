@@ -30,7 +30,7 @@
 }
 
 .editable-buttons.editable-buttons-bottom {
-   display: block; 
+   display: none;
    margin-top: 7px;
    margin-left: 0;
 }

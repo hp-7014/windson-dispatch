@@ -1522,6 +1522,7 @@ function updateCardCat(element,column,id){
     });
 }
 
+// Delete IFTA Card
 function deleteCardCat(id) {
     if (confirm("Are you Sure ?")) {
         $.ajax({
@@ -1554,6 +1555,31 @@ function importCard_Cat() {
     });
 }
 
+// Export IFTA Card
+function exportifta() {
+    $.ajax({
+        url: 'master/ifta_card_category.php?type=' + 'export_ifta',
+        type: 'POST',
+
+        success: function (data) {
+            var rows = JSON.parse(data);
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            rows.forEach(function (rowArray) {
+                let row = rowArray.join(",");
+                csvContent += row + "\r\n";
+            });
+
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "ifta_card.csv");
+            document.body.appendChild(link); // Required for FF
+
+            link.click();
+        }
+    });
+}
 
 /*---------------------- IFTA Card Category END ------------------------*/
 

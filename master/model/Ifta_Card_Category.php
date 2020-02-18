@@ -216,5 +216,21 @@ class Ifta_Card_Category implements IteratorAggregate
         }
     }
 
+    public function exportIftaCard($db)
+    {
+        $ifta_card = $db->ifta_card_category->find(['companyID' => $_SESSION['companyId']]);
+        foreach ($ifta_card as $bdebit) {
+            $i_card = $bdebit['ifta_card'];
+            foreach ($i_card as $test) {
+                $p[] = array(
+                    $test['cardHolderName'],
+                    $test['employeeNo'],
+                    $test['iftaCardNo'],
+                    $test['cardType'],
+                );
+            }
+        }
+        echo json_encode($p);
+    }
 
 }
