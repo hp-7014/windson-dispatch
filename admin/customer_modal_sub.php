@@ -16,14 +16,14 @@ require "../database/connection.php";
             </div>
             <div class="modal-body custom-modal-body">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item show" id="home-title">
-                        <a class="nav-link active" onclick="toggle()" id="home-tab" data-toggle="tab" href="#"
+                    <li class="nav-item1 show" id="home-title">
+                        <a class="nav-link1 active" onclick="toggle()" id="home-tab" data-toggle="tab" href="#"
                            role="tab" aria-controls="home"
                            aria-selected="true">Add Customer
                         </a>
                     </li>
-                    <li class="nav-item" id="profile-title">
-                        <a class="nav-link" onclick="toggle()" id="profile-tab" data-toggle="tab" href="#"
+                    <li class="nav-item1" id="profile-title">
+                        <a class="nav-link1" onclick="toggle()" id="profile-tab" data-toggle="tab" href="#"
                            role="tab" aria-controls="profile"
                            aria-selected="false">Add Advance</a>
                     </li>

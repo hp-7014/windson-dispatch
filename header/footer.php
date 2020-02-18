@@ -12,6 +12,7 @@
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/jquery.slimscroll.js"></script>
 <script src="assets/js/waves.min.js"></script>
+<script src="master/js/form.js"></script>
 
 <!--Morris Chart-->
 <script src="./assets/plugins/morris/morris.min.js"></script>

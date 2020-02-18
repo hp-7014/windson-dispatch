@@ -20,24 +20,24 @@ require "../database/connection.php";
             </div>
             <div class="modal-body custom-modal-body">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item show" id="home-title">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab"
+                    <li class="nav-item1 show" id="home-title">
+                        <a class="nav-link1 active" id="home-tab" data-toggle="tab"
                            href="#carrier" role="tab" aria-controls="home"
                            aria-selected="true" onclick="toggleAll('first');">Add External Carrier</a>
                     </li>
-                    <li class="nav-item" id="insurance-title">
-                        <a class="nav-link" id="insurance-tab" data-toggle="tab"
+                    <li class="nav-item1" id="insurance-title">
+                        <a class="nav-link1" id="insurance-tab" data-toggle="tab"
                            href="#insurance" role="tab" aria-controls="profile"
                            aria-selected="false" onclick="toggleAll('second');">Add Insurance</a>
                     </li>
-                    <li class="nav-item" id="accounting-title">
-                        <a class="nav-link" id="accounting-tab" data-toggle="tab"
+                    <li class="nav-item1" id="accounting-title">
+                        <a class="nav-link1" id="accounting-tab" data-toggle="tab"
                            href="#accounting" role="tab" aria-controls="contact"
 
                            aria-selected="false" onclick="toggleAll('third');">Add Accounting</a>
                     </li>
-                    <li class="nav-item" id="equipment-title">
-                        <a class="nav-link" id="equipment-tab" data-toggle="tab"
+                    <li class="nav-item1" id="equipment-title">
+                        <a class="nav-link1" id="equipment-tab" data-toggle="tab"
                            href="#equipment" role="tab" aria-controls="contact"
 
                            aria-selected="false" onclick="toggleAll('fourth');">Add Equipment</a>

@@ -19,7 +19,25 @@
     <link href="assets/css/activeload.css" rel="stylesheet" type="text/css">
 
 
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-analytics.js"></script>
+        <script type="text/javascript">
+        var firebaseConfig = {
+        apiKey: "AIzaSyBq9ZG84S1wX0AhGi7FgtvN44S-Ij9oshc",
+        authDomain: "windson-26222.firebaseapp.com",
+        databaseURL: "https://windson-26222.firebaseio.com",
+        projectId: "windson-26222",
+        storageBucket: "windson-26222.appspot.com",
+        messagingSenderId: "487372843980",
+        appId: "1:487372843980:web:049b557cdd02fce445cb69",
+        measurementId: "G-MPX7ETYC5Q"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    var database = firebase.database(); </script>
 
    <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
 
@@ -30,7 +48,7 @@
 
 
     <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
-    <script src="master/js/form.js"></script>
+    <!-- <script src="master/js/form.js"></script> -->
     <script src="js/activeload.js"></script>
     <script src="admin/js/form.js"></script>
     <script src="ifta/js/form.js"></script>
@@ -38,7 +56,7 @@
     <script src="admin/js/validation.js"></script>
 <!--    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnID4vOGNgMgJxF3Y3AR2SwjzueSonmW0&libraries=places"></script>-->
     <script src="ifta/js/validation.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
@@ -50,10 +68,13 @@
 <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">-->
 <!--    <link rel="stylesheet" href="assets/css/loader_style.css">-->
 <!--    <script  src="assets/js/loader_script.js"></script>-->
-
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script> -->
     <script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false&amp;libraries=places&key=AIzaSyDnID4vOGNgMgJxF3Y3AR2SwjzueSonmW0'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <link href="assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    
+
     <!--<script src="admin/js/form.js"></script>
     <script src="admin/js/validation.js"></script>-->
 

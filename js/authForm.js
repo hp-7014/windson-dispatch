@@ -39,6 +39,7 @@ function companyRegister() {
 
 //------------Admin Login Start---------------
 function companyLogin(){
+   // alert("called");
     var companyEmail = document.getElementById('companyEmail').value;
     var companyPassword = document.getElementById('companyPassword').value;
 
@@ -56,7 +57,7 @@ function companyLogin(){
                         window.location="./Dashboard.php";
                     } else {
                         swal("Invalid Email and Password!! Please Try Agian Later");
-                        window.location="./index.php";
+                        //window.location="./index.php";
                     }
                 }
             });

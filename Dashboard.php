@@ -106,6 +106,7 @@ require "database/connection.php";
                                             <div>
                                                 <input class="form-control" placeholder="Company Name"
                                                        type="text" id="example-text-input">
+                                                <input type="hidden" id="companyid" value="<?php echo $_SESSION['companyId']; ?>">
                                             </div>
                                         </div>
 
@@ -513,7 +514,7 @@ require "database/connection.php";
                                                             <div>
                                                                 <input class="form-control"
                                                                        placeholder="Enter a location"
-                                                                       type="text">
+                                                                       type="text" onkeydown="getLocation('activeshipper')" id = "activeshipper">
                                                             </div>
                                                         </div>
                                                         <div class="form-group col-md-2">
@@ -644,7 +645,7 @@ require "database/connection.php";
                                                                 <div>
                                                                     <input class="form-control"
                                                                            placeholder="Enter a location"
-                                                                           type="text">
+                                                                           type="text" onkeydown="getLocation('activeconsignee')" id="activeconsignee">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group col-md-2">

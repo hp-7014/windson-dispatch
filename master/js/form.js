@@ -444,6 +444,7 @@ function importLoadType() {
 function addCurrency() {
     var currencyType = document.getElementById("currency_add_type").value;
     var companyId = document.getElementById('companyId').value;
+   
     if (val_currencyType(currencyType)) {
         $.ajax({
             url: 'master/currency_add.php?type=' + 'currencyadd',
@@ -454,13 +455,62 @@ function addCurrency() {
             },
             dataType: 'text',
             success: function (data) {
+                var companyid = $('#companyid').val();
+                database.ref('currency_settings').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, "success");
                 $('#center').modal('hide');
+                
             },
 
         });
     }
 }
+
+//update currency table
+
+    var path = "currency_settings/";
+    var path1 = $('#companyid').val();
+    var data = path1.toString();
+    var test = path+data;
+  
+
+database.ref(test).on('child_added', function(data) {
+    updateCurrencyTable();
+});
+database.ref(test).on('child_changed', function(data) {
+    updateCurrencyTable();
+});
+database.ref(test).on('child_removed', function(data) {
+    updateCurrencyTable();
+});
+//update table fields
+
+function updateCurrencyTable(){
+    $.ajax({
+        url: 'master/utils/getCurrency.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+           document.getElementById('currencyBody').innerHTML = response;
+            
+        },
+
+    });
+}
+
+//random string generator
+function randomString() {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < 7; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
+ 
 
 //update currency Function
 function updateCurrency(element, column, id) {
@@ -476,6 +526,10 @@ function updateCurrency(element, column, id) {
             value: value,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('currency_settings').child(companyid).set({
+                data:randomString(),
+            });
             swal("Success", data, "success");
             //$('#currency').modal('hide');
         }
@@ -510,7 +564,12 @@ function deleteCurrency(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                database.ref('currency_settings').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, "success");
+               
                 //$('#currency').modal('hide');
             }
         });
