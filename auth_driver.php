@@ -5,7 +5,7 @@ require 'master/utils/Helper.php'; // helper method
 require 'vendor/autoload.php';
 
 // connection to mongoDB
-$connect = new MongoDB\Client("mongodb://127.0.0.1/");
+$connect = new MongoDB\Client("mongodb://localhost:27017");
 
 // database selection
 $db = $connect->WindsonDispatch;

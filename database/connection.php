@@ -1,9 +1,17 @@
 <?php
 
-require '../vendor/autoload.php';
+if(isset($page)) {
+    require 'vendor/autoload.php';
+}
+else if(isset($helper)){
+    require '../../vendor/autoload.php';
+}
+else{
+    require '../vendor/autoload.php';
+}
 
 // connection to mongoDB
-$connect = new MongoDB\Client("mongodb://127.0.0.1/");
+$connect = new MongoDB\Client("mongodb://localhost:27017");
 
 // database selection
 $db = $connect->WindsonDispatch;

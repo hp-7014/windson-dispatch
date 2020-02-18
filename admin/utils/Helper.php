@@ -31,7 +31,5 @@ class Helper
         return $id;
     }
 
-
-
 }
 
