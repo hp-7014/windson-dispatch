@@ -2,7 +2,11 @@
 
 if(isset($page)) {
     require 'vendor/autoload.php';
-}else{
+}
+else if(isset($helper)){
+    require '../../vendor/autoload.php';
+}
+else{
     require '../vendor/autoload.php';
 }
 

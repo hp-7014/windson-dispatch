@@ -444,6 +444,7 @@ function importLoadType() {
 function addCurrency() {
     var currencyType = document.getElementById("currency_add_type").value;
     var companyId = document.getElementById('companyId').value;
+   
     if (val_currencyType(currencyType)) {
         $.ajax({
             url: 'master/currency_add.php?type=' + 'currencyadd',
@@ -454,12 +455,47 @@ function addCurrency() {
             },
             dataType: 'text',
             success: function (data) {
+                var companyid = $('#companyid').val();
+                database.ref('currency_settings').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, "success");
                 $('#center').modal('hide');
             },
-
         });
     }
+}
+
+//update currency table
+
+    var path = "currency_settings/";
+    var path1 = $('#companyid').val();
+    var data = path1.toString();
+    var test = path+data;
+  
+
+database.ref(test).on('child_added', function(data) {
+    updateCurrencyTable();
+});
+database.ref(test).on('child_changed', function(data) {
+    updateCurrencyTable();
+});
+database.ref(test).on('child_removed', function(data) {
+    updateCurrencyTable();
+});
+//update table fields
+
+function updateCurrencyTable(){
+    $.ajax({
+        url: 'master/utils/getCurrency.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+           document.getElementById('currencyBody').innerHTML = response;
+            
+        },
+
+    });
 }
 
 //update currency Function
@@ -476,6 +512,10 @@ function updateCurrency(element, column, id) {
             value: value,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('currency_settings').child(companyid).set({
+                data:randomString(),
+            });
             swal("Success", data, "success");
             //$('#currency').modal('hide');
         }
@@ -510,7 +550,12 @@ function deleteCurrency(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                database.ref('currency_settings').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, "success");
+               
                 //$('#currency').modal('hide');
             }
         });
@@ -1463,6 +1508,7 @@ function updateCardCat(element,column,id){
     });
 }
 
+// Delete IFTA Card
 function deleteCardCat(id) {
     if (confirm("Are you Sure ?")) {
         $.ajax({
@@ -1495,6 +1541,31 @@ function importCard_Cat() {
     });
 }
 
+// Export IFTA Card
+function exportifta() {
+    $.ajax({
+        url: 'master/ifta_card_category.php?type=' + 'export_ifta',
+        type: 'POST',
+
+        success: function (data) {
+            var rows = JSON.parse(data);
+            let csvContent = "data:text/csv;charset=utf-8,";
+
+            rows.forEach(function (rowArray) {
+                let row = rowArray.join(",");
+                csvContent += row + "\r\n";
+            });
+
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "ifta_card.csv");
+            document.body.appendChild(link); // Required for FF
+
+            link.click();
+        }
+    });
+}
 
 /*---------------------- IFTA Card Category END ------------------------*/
 

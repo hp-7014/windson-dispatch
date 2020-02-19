@@ -12,6 +12,8 @@
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/jquery.slimscroll.js"></script>
 <script src="assets/js/waves.min.js"></script>
+<script src="master/js/form.js"></script>
+<script src="admin/js/form.js"></script>
 
 <!--Morris Chart-->
 <script src="./assets/plugins/morris/morris.min.js"></script>
@@ -45,32 +47,38 @@
 </script>
 <!-- App js -->
 <!------------------- Function to get location suggestion -------------------->
-<script type="text/javascript">
-var options = {
-types: ['(cities)']
-}
-function getLocation(fieldID) {
-var location = new google.maps.places.Autocomplete(document.getElementById(fieldID), options);
-}
-</script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/modalTab.js"></script>
 
-<script>
-    $(function () {
-        $('.table-responsive').responsiveTable({
-            addDisplayAllBtn: 'btn btn-secondary'
-        });
-    });
+<script type="text/javascript">
+
+    // google location suggestion
+    var options = {
+        types: ['(cities)']
+    }
+
+    function getLocation(fieldID) {
+        var location = new google.maps.places.Autocomplete(document.getElementById(fieldID), options);
+
+    }
+
+    // random string function for live data
+    function randomString() {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < 7; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+
 </script>
+<script src="assets/plugins/moment/moment.js"></script>
+<script src="assets/plugins/x-editable/js/bootstrap-editable.min.js"></script>
+<script src="assets/pages/xeditable.js"></script>
 
-<script src="assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
-<script src="assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
-<script src="assets/pages/form-advanced.js"></script>
-
-
-
-
+<!-- Responsive-table-->
+<script src="assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js"></script>
+<!--<script src="assets/js/select2.min.js"></script>-->
 </body>

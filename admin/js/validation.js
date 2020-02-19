@@ -171,18 +171,30 @@ function val_shipperContact(val) {
 }
 
 function val_shipperEmail(val) {
-    if (val != '') {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (val == '') {
         return true;
     } else {
-        return true;
+        if(val.match(mailformat)){
+            return true;
+        }
+        else{
+            swal('Please Enter Valid Email');
+            return false;
+        }
     }
 }
 
 function val_shipperTelephone(val) {
-    if (val != '') {
+    if (val == '') {
         return true;
     } else {
-        return true;
+        if (val.length != 10) {
+            swal('Please Enter valid Telephone Number');
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
@@ -195,18 +207,28 @@ function val_shipperExt(val) {
 }
 
 function val_shipperTollFree(val) {
-    if (val != '') {
+    if (val == '') {
         return true;
     } else {
-        return true;
+        if (val.length != 10) {
+            swal('Please Enter valid Toll Free Number');
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
 function val_shipperFax(val) {
-    if (val != '') {
+    if (val == '') {
         return true;
     } else {
-        return true;
+        if (val.length != 10) {
+            swal('Please Enter valid Fax Number');
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 

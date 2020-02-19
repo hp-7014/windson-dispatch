@@ -13,101 +13,158 @@ require "../database/connection.php";
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body custom-modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card m-b-30">
-                            <div class="card-body">
-                                <form action="" method="post" enctype="multipart/form-data">
-                                    <button type="button" class="btn btn-primary waves-effect waves-light"
-                                            data-toggle="modal"
-                                            data-target="#add_user">Add
-                                    </button>
-                                    <input type="submit" name="submit" onclick="importUser()"
-                                           class="btn btn-outline-info waves-effect waves-light float-right"
-                                           value="Upload"/>
-                                    <div class="custom-upload-btn-wrapper float-right">
-                                        <button class="custom-btn">Choose file</button>
-                                        <input type="file" name="file" id="file" accept=".csv"/>
-                                    </div>
-                                    <button type="button"
-                                            class="btn btn-outline-success waves-effect waves-light float-right">CSV
-                                        formate
-                                    </button>
-                                </form>
-                                <br>
-                                <table id="mainTable"
-                                       class="table table-striped mb-0">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Email</th>
-                                        <th>Username</th>
-                                        <th>Password</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Address</th>
-                                        <th>Location</th>
-                                        <th>Zip</th>
-                                        <th>Telephone</th>
-                                        <th>Ext</th>
-                                        <th>Toll Free</th>
-                                        <th>Fax</th>
-                                        <th>Privilege</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                    require 'model/User.php';
+            <div class="modal-body custom-modal-body" style="padding: 0.1rem">
+                <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right"type="text" id="search" placeholder="search" style="margin-left: 5px;">
+                <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#add_user"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD</button>
 
-                                    $User = new User();
-                                    $show_data = $db->user->find(['companyID' => $_SESSION['companyId']]);
-                                    $no = 1;
-                                    foreach ($show_data as $show) {
-                                        $show = $show['user'];
-                                        foreach ($show as $s) {
+                <div class="table-rep-plugin">
+                    <div class="table-responsive b-0" data-pattern="priority-columns">
+                        <br>
+                        <div id="table-scroll" class="table-scroll">
+                            <table id="user_table" class="scroll" >
+                                <thead>
+                                <tr>
+                                    <th scope="col" col width="160">No</th>
+                                    <th scope="col" col width="160" data-priority="1">Email</th>
+                                    <th scope="col" col width="160" data-priority="3">Username</th>
+                                    <th scope="col" col width="160" data-priority="1">Password</th>
+                                    <th scope="col" col width="160" data-priority="3">First Name</th>
+                                    <th scope="col" col width="160" data-priority="3">Last Name</th>
+                                    <th scope="col" col width="160" data-priority="6">Address</th>
+                                    <th scope="col" col width="160" data-priority="6">Location</th>
+                                    <th scope="col" col width="160" data-priority="6">Zip</th>
+                                    <th scope="col" col width="160" data-priority="1">Telephone</th>
+                                    <th scope="col" col width="160" data-priority="3">Ext</th>
+                                    <th scope="col" col width="160" data-priority="1">Toll Free</th>
+                                    <th scope="col" col width="160" data-priority="3">Fax</th>
+                                    <th scope="col" col width="160" data-priority="3">Privilege</th>
+                                    <th scope="col" col width="160" data-priority="6">Action</th>
+                                </tr>
+                                </thead>
+                                <?php
+                                require 'model/User.php';
+
+                                $User = new User();
+                                $show_data = $db->user->find(['companyID' => $_SESSION['companyId']]);
+                                $i = 1;
+                                ?>
+
+                                <tbody>
+                                <?php foreach ($show_data as $show) {
+                                    $show = $show['user'];
+                                    foreach ($show as $s) {
+                                        $limit = 4;
+                                        $total_records = $s->count();
+                                        $total_pages = ceil($total_records / $limit);
+                                        if ($s['deleteStatus'] == '0') {
                                             ?>
                                             <tr>
-                                                <td><a href="#"><?php echo $no++; ?></a></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateUser(this,'userEmail',<?php echo $s['_id']; ?>)"><?php echo $s['userEmail']; ?></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateUser(this,'userName',<?php echo $s['_id']; ?>)"><?php echo $s['userName']; ?></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateUser(this,'userPass',<?php echo $s['_id']; ?>)"><?php echo $s['userPass']; ?></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateUser(this,'userFirstName',<?php echo $s['_id']; ?>)"><?php echo $s['userFirstName']; ?></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateUser(this,'userLastName',<?php echo $s['_id']; ?>)"><?php echo $s['userLastName']; ?></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateUser(this,'userAddress',<?php echo $s['_id']; ?>)"><?php echo $s['userAddress']; ?></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateUser(this,'userLocation',<?php echo $s['_id']; ?>)"><?php echo $s['userLocation']; ?></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateUser(this,'userZip',<?php echo $s['_id']; ?>)"><?php echo $s['userZip']; ?></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateUser(this,'userTelephone',<?php echo $s['_id']; ?>)"><?php echo $s['userTelephone']; ?></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateUser(this,'userExt',<?php echo $s['_id']; ?>)"><?php echo $s['userExt']; ?></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateUser(this,'TollFree',<?php echo $s['_id']; ?>)"><?php echo $s['TollFree']; ?></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateUser(this,'userFax',<?php echo $s['_id']; ?>)"><?php echo $s['userFax']; ?></td>
+                                                <th><?php echo $i++ ?></th>
+                                                <td>
+                                                    <a href="#" id="userEmail<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userEmail');" class="text-overflow"><?php echo $s['userEmail']; ?></a>
+                                                    <button type="button" id="userEmail<?php echo $s['_id']; ?>" onclick="updateUser('userEmail',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                </td>
+                                                <td>
+                                                    <a href="#" id="userName<?php echo $s['_id']; ?>2" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userName');" class="text-overflow"><?php echo $s['userName']; ?></a>
+                                                    <button type="button" id="userName<?php echo $s['_id']; ?>" onclick="updateUser('userName',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                </td>
+                                                <td>
+                                                    <a href="#" id="userPass<?php echo $s['_id']; ?>3" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userPass');" class="text-overflow"><?php echo $s['userPass']; ?></a>
+                                                    <button type="button" id="userPass<?php echo $s['_id']; ?>" onclick="updateUser('userPass',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                </td>
+                                                <td>
+                                                    <a href="#" id="userFirstName<?php echo $s['_id']; ?>4" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userFirstName');" class="text-overflow"><?php echo $s['userFirstName']; ?></a>
+                                                    <button type="button" id="userFirstName<?php echo $s['_id']; ?>" onclick="updateUser('userFirstName',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                </td>
+                                                <td>
+                                                    <a href="#" id="userLastName<?php echo $s['_id']; ?>5" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userLastName');" class="text-overflow"><?php echo $s['userLastName']; ?></a>
+                                                    <button type="button" id="userLastName<?php echo $s['_id']; ?>" onclick="updateUser('userLastName',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                </td>
+                                                <td>
+                                                    <a href="#" id="userAddress<?php echo $s['_id']; ?>6" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userAddress');" class="text-overflow"><?php echo $s['userAddress']; ?></a>
+                                                    <button type="button" id="userAddress<?php echo $s['_id']; ?>" onclick="updateUser('userAddress',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                </td>
+                                                <td>
+                                                    <a href="#" id="userLocation<?php echo $s['_id']; ?>7" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userLocation');" class="text-overflow"><?php echo $s['userLocation']; ?></a>
+                                                    <button type="button" id="userLocation<?php echo $s['_id']; ?>" onclick="updateUser('userLocation',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                </td>
+                                                <td>
+                                                    <a href="#" id="userZip<?php echo $s['_id']; ?>8" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userZip');" class="text-overflow"><?php echo $s['userZip']; ?></a>
+                                                    <button type="button" id="userZip<?php echo $s['_id']; ?>" onclick="updateUser('userZip',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                </td>
+                                                <td>
+                                                    <a href="#" id="userTelephone<?php echo $s['_id']; ?>9" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userTelephone');" class="text-overflow"><?php echo $s['userTelephone']; ?></a>
+                                                    <button type="button" id="userTelephone<?php echo $s['_id']; ?>" onclick="updateUser('userTelephone',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                </td>
+                                                <td>
+                                                    <a href="#" id="userExt<?php echo $s['_id']; ?>10" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userExt');" class="text-overflow"><?php echo $s['userExt']; ?></a>
+                                                    <button type="button" id="userExt<?php echo $s['_id']; ?>" onclick="updateUser('userExt',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                </td>
+                                                <td>
+                                                    <a href="#" id="TollFree<?php echo $s['_id']; ?>11" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'TollFree');" class="text-overflow"><?php echo $s['TollFree']; ?></a>
+                                                    <button type="button" id="TollFree<?php echo $s['_id']; ?>" onclick="updateUser('TollFree',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                </td>
+                                                <td>
+                                                    <a href="#" id="userFax<?php echo $s['_id']; ?>12" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userFax');" class="text-overflow"><?php echo $s['userFax']; ?></a>
+                                                    <button type="button" id="userFax<?php echo $s['_id']; ?>" onclick="updateUser('userFax',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                </td>
+
                                                 <td><a href="#" onclick="show_privilege(<?php echo $s['_id']; ?>)" data-toggle="modal" data-target="#show_privilege" class="btn btn-warning">Privilege</a></td>
                                                 <td><a href="#" onclick="deleteUser(<?php echo $s['_id']; ?>)"><i
                                                                 class="mdi mdi-delete-sweep-outline"
                                                                 style="font-size: 20px; color: #FC3B3B"></i></a></td>
+
                                             </tr>
                                         <?php }
-                                    } ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                    }
+                                }
+                                ?>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Email</th>
+                                    <th>Username</th>
+                                    <th>Password</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Address</th>
+                                    <th>Location</th>
+                                    <th>Zip</th>
+                                    <th>Telephone</th>
+                                    <th>Ext</th>
+                                    <th>Toll Free</th>
+                                    <th>Fax</th>
+                                    <th>Privilege</th>
+                                    <th>Action</th>
+                                </tr>
+                                </tfoot>
+                            </table>
                         </div>
-                    </div> <!-- end col -->
-                </div> <!-- end row -->
+                    </div>
+                    <br>
+                    <nav aria-label="..." class="float-right">
+                        <ul class="pagination">
+                            <?php
+                            for($i=1; $i<=$total_pages; $i++){
+                                if($i == 1){
+                                    ?>
+                                    <li class="pageitem active" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" data-id="<?php echo $i;?>" class="page-link" ><?php echo $i;?></a></li>
+
+                                    <?php
+                                }
+                                else{
+                                    ?>
+                                    <li class="pageitem" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" class="page-link" data-id="<?php echo $i;?>"><?php echo $i;?></a></li>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </ul>
+                    </nav>
+                </div>
             </div>
+
             <div class="modal-footer">
                 <button type="button" onclick="exportUser(<?php echo $_SESSION['companyId']; ?>)"
                         class="btn btn-primary waves-effect waves-light">Export
@@ -172,6 +229,15 @@ require "../database/connection.php";
                 </button>
             </div>
             <div class="modal-body custom-modal-body">
+                <div class="row">
+                    <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>
+                    <div class="custom-upload-btn-wrapper float-right">
+                        <button class="custom-btn">Choose file</button>
+                        <input type="file" name="file" id="file" accept=".csv"/>
+                    </div>
+                    <input type="submit" name="submit" onclick="importUser()" class="btn btn-outline-info waves-effect waves-light float-right" value="Upload"/>
+                </div>
+                <hr>
                 <div class="row">
                     <div class="form-group col-md-3">
                         <label>Email <span style="color: red">*</span></label>
@@ -347,3 +413,109 @@ require "../database/connection.php";
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<style>
+    .table-scroll {
+        position: relative;
+        width: 100%;
+        z-index: 1;
+        margin: auto;
+        overflow: auto;
+        height: 320px;
+    }
+
+    .table-scroll table {
+        width: 100%;
+        min-width: 1280px;
+        margin: auto;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table-wrap {
+        position: relative;
+    }
+
+    .table-scroll th,
+    .table-scroll td {
+        /*padding: 5px 10px;*/
+        border: 1px solid #000;
+        background: #fff;
+        vertical-align: bottom;
+        text-align: center;
+    }
+
+    .table-scroll thead th {
+        background: #30419B;
+        color: #fff;
+        padding: 4px;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+    }
+
+    /* safari and ios need the tfoot itself to be position:sticky also */
+    .table-scroll tfoot,
+    .table-scroll tfoot th,
+    .table-scroll tfoot td {
+        position: -webkit-sticky;
+        position: sticky;
+        bottom: 0;
+        background: #666;
+        color: #fff;
+        z-index: 4;
+    }
+
+    /* testing links*/
+
+    th:first-child {
+        position: -webkit-sticky;
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: #ccc;
+    }
+
+    thead th:first-child,
+    tfoot th:first-child {
+        z-index: 5;
+    }
+
+    table {
+        table-layout: fixed;
+    }
+
+    .text-overflow {
+        padding-top: 10px;
+        display:block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    a.editable-click { border-bottom: none;
+        color: #000000;}
+    a.editable-click:hover{
+        border-bottom: none;
+    }
+    .table-scroll::-webkit-scrollbar {
+        width: 12px;
+        height: 8px;
+    }
+
+    /* Track */
+
+    .table-scroll::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+    }
+
+
+    .table-scroll::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        background: rgb(48, 65, 155);
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    }
+
+</style>

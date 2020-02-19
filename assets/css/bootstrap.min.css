@@ -4014,12 +4014,32 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 
 }
 
+.nav-tabs .nav-item1 {
+    margin-bottom: -1px;
+    border:1px solid black;
+    border-radius: 25px;
+    padding:8px;
+    margin-right: 5px;
+}
+
+.nav-tabs .nav-item1.show{
+    background-color: #30149b;
+}
+
 .nav-tabs .nav-link {
     /*border: 1px solid transparent;*/
 
     border-top-left-radius: .25rem;
     border-bottom-left-radius: .25rem;
 
+}
+
+.nav-tabs .nav-link1 {
+    color: black;
+}
+
+.nav-tabs .nav-link1.active{
+    color: white;
 }
 
 .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {

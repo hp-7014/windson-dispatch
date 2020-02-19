@@ -20,7 +20,7 @@ if ($_GET['type'] == 'traileradd') {
     $trailer->setModel($_POST['truckmod']);
     $trailer->setYear($_POST['year']);
     $trailer->setAxies($_POST['axies']);
-    $trailer->setRegisteredState($_POST['register_state']);
+    $trailer->setRegisteredState($_POST['registered_state']);
     $trailer->setVin($_POST['vin']);
     $trailer->setDot(strtotime($_POST['dot']));
     $trailer->setActivationDate(strtotime($_POST['activation_date']));

@@ -12,7 +12,7 @@ if ($_GET['type'] == 'truckadd') {
     $truck->setId($helper->getNextSequence("truckcount",$db));
     $truck->setCompanyID($_POST['companyId']);
     $truck->setTruckNumber($_POST['truck_number']);
-    $truck->setTruckType($_POST['trucktype']);
+    $truck->setTruckType($_POST['trucktype1']);
     $truck->setLicensePlate($_POST['license_plate']);
     $truck->setPlateExpiry(strtotime($_POST['plate_expiry']));
     $truck->setInspectionExpiry(strtotime($_POST['inspection']));

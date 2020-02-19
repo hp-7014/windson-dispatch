@@ -29,7 +29,7 @@ function add_fields() {
         '                                                <label>Location *</label>\n' +
         '                                                <div>\n' +
         '                                                    <input class="form-control" placeholder="Enter a location"\n' +
-        '                                                           type="text" >\n' +
+        '                                                           type="text" onkeydown="getLocation(this.id)" id="activeshipper'+room+'">\n' +
         '                                                </div>\n' +
         '                                            </div>\n' +
         '                                            <div class="form-group col-md-2">\n' +
@@ -180,7 +180,7 @@ function add_consignee() {
         '                                                <label>Location *</label>\n' +
         '                                                <div>\n' +
         '                                                    <input class="form-control" placeholder="Enter a location"\n' +
-        '                                                           type="text" >\n' +
+        '                                                           type="text" onkeydown="getLocation(this.id)" id="activeconsignee'+count+'">\n' +
         '                                                </div>\n' +
         '                                            </div>\n' +
         '                                            <div class="form-group col-md-2">\n' +
@@ -252,7 +252,7 @@ function add_consignee() {
     //contentTo.innerHTML += contenttest;
     $(contentTo).append(contenttest);
     renameConsignee();
-    getConsig("consignee"+count);
+    getConsig("consigneee"+count);
     makeConsigneeActive();
 
 }

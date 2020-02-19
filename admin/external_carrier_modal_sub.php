@@ -20,24 +20,24 @@ require "../database/connection.php";
             </div>
             <div class="modal-body custom-modal-body">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item show" id="home-title">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab"
+                    <li class="nav-item1 show" id="home-title">
+                        <a class="nav-link1 active" id="home-tab" data-toggle="tab"
                            href="#carrier" role="tab" aria-controls="home"
                            aria-selected="true" onclick="toggleAll('first');">Add External Carrier</a>
                     </li>
-                    <li class="nav-item" id="insurance-title">
-                        <a class="nav-link" id="insurance-tab" data-toggle="tab"
+                    <li class="nav-item1" id="insurance-title">
+                        <a class="nav-link1" id="insurance-tab" data-toggle="tab"
                            href="#insurance" role="tab" aria-controls="profile"
                            aria-selected="false" onclick="toggleAll('second');">Add Insurance</a>
                     </li>
-                    <li class="nav-item" id="accounting-title">
-                        <a class="nav-link" id="accounting-tab" data-toggle="tab"
+                    <li class="nav-item1" id="accounting-title">
+                        <a class="nav-link1" id="accounting-tab" data-toggle="tab"
                            href="#accounting" role="tab" aria-controls="contact"
 
                            aria-selected="false" onclick="toggleAll('third');">Add Accounting</a>
                     </li>
-                    <li class="nav-item" id="equipment-title">
-                        <a class="nav-link" id="equipment-tab" data-toggle="tab"
+                    <li class="nav-item1" id="equipment-title">
+                        <a class="nav-link1" id="equipment-tab" data-toggle="tab"
                            href="#equipment" role="tab" aria-controls="contact"
 
                            aria-selected="false" onclick="toggleAll('fourth');">Add Equipment</a>
@@ -60,14 +60,17 @@ require "../database/connection.php";
                             <div class="form-group col-md-3">
                                 <label>Address *</label>
                                 <div>
-                                    <input class="form-control" placeholder="Address *" id="carrierAddress" name="carrierAddress"
+                                    <input class="form-control" placeholder="Address *" id="carrierAddress"
+                                           name="carrierAddress"
                                            type="text">
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Location *</label>
                                 <div>
-                                    <input class="form-control" placeholder="Enter a location" onkeydown="getLocation('carrierLocation')" type="text" id="carrierLocation" name="carrierLocation">
+                                    <input class="form-control" placeholder="Enter a location"
+                                           onkeydown="getLocation('carrierLocation')" type="text" id="carrierLocation"
+                                           name="carrierLocation">
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
@@ -94,7 +97,8 @@ require "../database/connection.php";
                             <div class="form-group col-md-2">
                                 <label>Telephone *</label>
                                 <div>
-                                    <input class="form-control" type="text" id="carrierTelephone" name="carrierTelephone"
+                                    <input class="form-control" type="text" id="carrierTelephone"
+                                           name="carrierTelephone"
                                     >
                                 </div>
                             </div>
@@ -131,8 +135,9 @@ require "../database/connection.php";
                                         $show = $show['payment'];
                                         foreach ($show as $s) {
                                             ?>
-                                            <option value="<?php echo $s['paymentTerm'] ;?>"></option>
-                                        <?php } }?>
+                                            <option value="<?php echo $s['paymentTerm']; ?>"></option>
+                                        <?php }
+                                    } ?>
                                 </datalist>
 
 
@@ -161,7 +166,8 @@ require "../database/connection.php";
                             <div class="form-group col-md-3">
                                 <label>Factoring Company</label>
 
-                                <input list="browsers1" class="form-control" id="carrierFactoring" name="carrierFactoring">
+                                <input list="browsers1" class="form-control" id="carrierFactoring"
+                                       name="carrierFactoring">
                                 <datalist id="browsers1">
                                     <?php
                                     $show_data = $db->factoring_company_add->find(['companyID' => $_SESSION['companyId']]);
@@ -170,15 +176,17 @@ require "../database/connection.php";
                                         $show = $show['factoring'];
                                         foreach ($show as $s) {
                                             ?>
-                                            <option value="<?php echo $s['_id'] ;?>"><?php echo $s['factoringCompanyname'] ;?></option>
-                                        <?php } }?>
+                                            <option value="<?php echo $s['_id']; ?>"><?php echo $s['factoringCompanyname']; ?></option>
+                                        <?php }
+                                    } ?>
                                 </datalist>
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Internal Notes</label>
                                 <div>
                                                                 <textarea rows="1" cols="30" class="form-control"
-                                                                          type="textarea" id="carrierNotes" name="carrierNotes"
+                                                                          type="textarea" id="carrierNotes"
+                                                                          name="carrierNotes"
                                                                 ></textarea>
                                 </div>
                             </div>
@@ -186,7 +194,8 @@ require "../database/connection.php";
                                 <label>Blacklisted</label>
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input"
-                                           id="carrierBlacklisted" name="carrierBlacklisted" data-parsley-multiple="groups"
+                                           id="carrierBlacklisted" name="carrierBlacklisted"
+                                           data-parsley-multiple="groups"
                                            data-parsley-mincheck="2">
                                     <label class="custom-control-label" for="carrierBlacklisted">This
                                         Carrier is Blacklisted</label>
@@ -196,7 +205,8 @@ require "../database/connection.php";
                                 <label>Corporation</label>
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input"
-                                           id="carrierCorporation" name="carrierCorporation" data-parsley-multiple="groups"
+                                           id="carrierCorporation" name="carrierCorporation"
+                                           data-parsley-multiple="groups"
                                            data-parsley-mincheck="2">
                                     <label class="custom-control-label" for="carrierCorporation">This
                                         carrier is a corporation</label>
@@ -244,14 +254,15 @@ require "../database/connection.php";
                                             <label>Telephone *</label>
                                             <div>
                                                 <input class="form-control"
-                                                       placeholder="Telephone *" type="text" id="liabilityTelephone" name="liabilityTelephone">
+                                                       placeholder="Telephone *" type="text" id="liabilityTelephone"
+                                                       name="liabilityTelephone">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-1">
                                             <label>Ext</label>
                                             <div>
                                                 <input class="form-control" placeholder="Ext"
-                                                       type="text" id="liabilityEXT" name="liabilityEXT" >
+                                                       type="text" id="liabilityEXT" name="liabilityEXT">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-2">
@@ -274,7 +285,8 @@ require "../database/connection.php";
                                             <label>Internal Notes</label>
                                             <div>
                                                 <textarea rows="1" cols="30"
-                                                          class="form-control" type="textarea" id="liabilityNotes" name="liabilityNotes"
+                                                          class="form-control" type="textarea" id="liabilityNotes"
+                                                          name="liabilityNotes"
                                                 ></textarea>
                                             </div>
                                         </div>
@@ -329,7 +341,8 @@ require "../database/connection.php";
                                             <label>Telephone *</label>
                                             <div>
                                                 <input class="form-control"
-                                                       placeholder="Telephone *" type="text" id="insuranceTelephone" name="insuranceTelephone"
+                                                       placeholder="Telephone *" type="text" id="insuranceTelephone"
+                                                       name="insuranceTelephone"
                                                 >
                                             </div>
                                         </div>
@@ -345,7 +358,8 @@ require "../database/connection.php";
                                             <div>
                                                 <input class="form-control"
                                                        placeholder="Contact Name"
-                                                       type="text" id="insuranceContactName" name="insuranceContactName">
+                                                       type="text" id="insuranceContactName"
+                                                       name="insuranceContactName">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-2">
@@ -361,7 +375,8 @@ require "../database/connection.php";
                                             <div>
                                                                         <textarea rows="1" cols="30"
                                                                                   class="form-control" type="textarea"
-                                                                                  id="insuranceNotes" name="insuranceNotes"
+                                                                                  id="insuranceNotes"
+                                                                                  name="insuranceNotes"
                                                                         ></textarea>
                                             </div>
                                         </div>
@@ -416,7 +431,8 @@ require "../database/connection.php";
                                             <label>Telephone *</label>
                                             <div>
                                                 <input class="form-control"
-                                                       placeholder="Telephone *" type="text" id="cargoTelephone" name="cargoTelephone">
+                                                       placeholder="Telephone *" type="text" id="cargoTelephone"
+                                                       name="cargoTelephone">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-1">
@@ -439,14 +455,16 @@ require "../database/connection.php";
                                             <div>
                                                 <input class="form-control"
                                                        placeholder="Cargo Insurance ($)"
-                                                       type="text" id="cargoInsuranceAmount" name="cargoInsuranceAmount">
+                                                       type="text" id="cargoInsuranceAmount"
+                                                       name="cargoInsuranceAmount">
                                             </div>
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label>Internal Notes</label>
                                             <div>
                                                                 <textarea rows="1" cols="30" class="form-control"
-                                                                          type="textarea" id="cargoNotes" name="cargoNotes"
+                                                                          type="textarea" id="cargoNotes"
+                                                                          name="cargoNotes"
                                                                 ></textarea>
                                             </div>
                                         </div>
@@ -464,9 +482,11 @@ require "../database/connection.php";
                         </div>
                         <hr>
 
-                        <button onclick="toggleCarrier('second')" style="margin-right: 3px"  class="btn btn-success float-right">Next
+                        <button onclick="toggleCarrier('second')" style="margin-right: 3px"
+                                class="btn btn-success float-right">Next
                         </button>
-                        <button onclick="togglePrev('second')" style="margin-right: 3px" class="float-right btn btn-secondary">
+                        <button onclick="togglePrev('second')" style="margin-right: 3px"
+                                class="float-right btn btn-secondary">
                             Previous
                         </button>
                     </div>
@@ -525,15 +545,18 @@ require "../database/connection.php";
                                 <label>Add Notes</label>
                                 <div>
                                                                 <textarea rows="3" cols="30" class="form-control"
-                                                                          type="textarea" id="primaryNotes" name="primaryNotes"
+                                                                          type="textarea" id="primaryNotes"
+                                                                          name="primaryNotes"
                                                                 ></textarea>
                                 </div>
                             </div>
                         </div>
                         <hr>
-                        <button onclick="toggleCarrier('third')" style="margin-right: 3px" class="btn btn-success float-right">Next
+                        <button onclick="toggleCarrier('third')" style="margin-right: 3px"
+                                class="btn btn-success float-right">Next
                         </button>
-                        <button onclick="togglePrev('third')" style="margin-right: 3px" class="float-right btn btn-secondary">
+                        <button onclick="togglePrev('third')" style="margin-right: 3px"
+                                class="float-right btn btn-secondary">
                             Previous
                         </button>
 
@@ -570,16 +593,21 @@ require "../database/connection.php";
                                         <label>Equipment Type</label>
                                         <div>
                                             <input class="form-control"
-                                                   type="text" name="equipment" value="<?php echo $s['equipmentType']; ?>">
+                                                   type="text" name="equipment"
+                                                   value="<?php echo $s['equipmentType']; ?>">
                                         </div>
                                     </div>
                                 </div>
-                            <?php } }?>
+                            <?php }
+                        } ?>
                         <hr>
-                        <button onclick="toggleCarrier('fourth')" style="margin-right: 3px" class="float-right btn btn-secondary">
+                        <button onclick="toggleCarrier('fourth')" style="margin-right: 3px"
+                                class="float-right btn btn-secondary">
                             Previous
                         </button>
-                        <button onclick="addCarrier()" style="margin-right: 3px" class="float-right btn btn-primary">Save</button>
+                        <button onclick="addCarrier()" style="margin-right: 3px" class="float-right btn btn-primary">
+                            Save
+                        </button>
                         <button style="margin-right: 3px" class="float-right btn btn-danger modalCarrier">
                             Close
                         </button>

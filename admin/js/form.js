@@ -75,6 +75,10 @@ function addShipper() {
                                                                         asConsignee: asConsignee
                                                                     },
                                                                     success: function (data) {
+                                                                        var companyid = $('#companyid').val();
+                                                                        database.ref('shipper').child(companyid).set({
+                                                                            data:randomString(),
+                                                                        });
                                                                         swal('Success', data, 'success');
                                                                         $('#add_shipper').modal('hide');
                                                                     }
@@ -94,6 +98,35 @@ function addShipper() {
             }
         }
     }
+}
+
+//update currency table
+
+var shipper_path = "shipper/";
+var shipper_path1 = $('#companyid').val();
+var shipper_data = shipper_path1.toString();
+var shipper_test = shipper_path+shipper_data;
+
+database.ref(shipper_test).on('child_added', function(shipper_data) {
+    updateShipperTable();
+});
+database.ref(shipper_test).on('child_changed', function(shipper_data) {
+    updateShipperTable();
+});
+database.ref(shipper_test).on('child_removed', function(shipper_data) {
+    updateShipperTable();
+});
+
+//update table fields
+function updateShipperTable(){
+    $.ajax({
+        url: 'admin/utils/getShipper.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('shipperBody').innerHTML = response;
+        },
+    });
 }
 
 //Import shipper
@@ -146,9 +179,11 @@ function exportShipper(id) {
 }
 
 //edit function
-function updateShipper(element, column, id) {
-    var value = element.innerText;
+function updateShipper(column, id) {
+    var data = $('#shipper_table').find('input[type="text"],textarea').val();
+
     var companyId = document.getElementById('companyID').value;
+
     $.ajax({
         url: 'admin/shipper_driver.php?type=' + 'edit_shipper',
         type: 'POST',
@@ -156,10 +191,11 @@ function updateShipper(element, column, id) {
             companyid: companyId,
             column: column,
             id: id,
-            value: value,
+            value: data,
         },
         success: function (data) {
-            swal("Success", data, 'success');
+            swal("Success", data, "success");
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -327,8 +363,9 @@ function exportConsignee(id) {
 }
 
 //edit function
-function updateConsignee(element, column, id) {
-    var value = element.innerText;
+function updateConsignee(column, id) {
+    var data = $('#consignee_table').find('input[type="text"],textarea').val();
+
     var companyId = document.getElementById('companyId').value;
     $.ajax({
         url: 'admin/consignee_driver.php?type=' + 'edit_consignee',
@@ -337,10 +374,11 @@ function updateConsignee(element, column, id) {
             companyid: companyId,
             column: column,
             id: id,
-            value: value,
+            value: data,
         },
         success: function (data) {
-            swal("Success", data, 'success');
+            swal("Success", data, "success");
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -579,8 +617,9 @@ function exportCustomer(id) {
 }
 
 //edit function
-function updateCustomer(element, column, id) {
-    var value = element.innerText;
+function updateCustomer(column, id) {
+    var data = $('#customer_table').find('input[type="text"],textarea').val();
+
     var companyId = document.getElementById('companyId').value;
     $.ajax({
         url: 'admin/customer_driver.php?type=' + 'edit_customer',
@@ -589,10 +628,11 @@ function updateCustomer(element, column, id) {
             companyid: companyId,
             column: column,
             id: id,
-            value: value,
+            value: data,
         },
         success: function (data) {
-            swal("Success", data, 'success');
+            swal("Success", data, "success");
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -993,7 +1033,7 @@ function addUser() {
                                                         },
                                                         success: function (data) {
                                                             swal('Success', data, 'success');
-                                                            $('#add_user').modal('hide');
+                                                            $('#user').modal('hide');
                                                         }
                                                     });
                                                 }
@@ -1059,8 +1099,8 @@ function exportUser(id) {
 }
 
 //edit function
-function updateUser(element, column, id) {
-    var value = element.innerText;
+function updateUser(column, id) {
+    var data = $('#user_table').find('input[type="text"],textarea').val();
     var companyId = document.getElementById('companyId').value;
     $.ajax({
         url: 'admin/user_driver.php?type=' + 'edit_user',
@@ -1069,10 +1109,11 @@ function updateUser(element, column, id) {
             companyid: companyId,
             column: column,
             id: id,
-            value: value,
+            value: data,
         },
         success: function (data) {
-            swal("Success", data, 'success');
+            swal("Success", data, "success");
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -1146,8 +1187,8 @@ function AddBankAdmin() {
 }
 
 //Edit Bank Admin
-function updateBank(element, column, id) {
-    var value = element.innerText;
+function updateBank(column, id) {
+    var data = $('#bank_table').find('input[type="text"],textarea').val();
     var companyId = document.getElementById('companyId').value;
 
     $.ajax({
@@ -1157,10 +1198,11 @@ function updateBank(element, column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: value,
+            value: data,
         },
         success: function (data) {
-            swal("Update", data, 'success');
+            swal("Success", data, "success");
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -1383,8 +1425,8 @@ function deleteCredit(id) {
 }
 
 //Edit Bank Credit
-function updateCredit(element, column, id) {
-    var value = element.innerText;
+function updateCredit(column, id) {
+    var data = $('#credit_bank_table').find('input[type="text"],textarea').val();
     var companyId = document.getElementById('companyId').value;
 
     $.ajax({
@@ -1394,10 +1436,11 @@ function updateCredit(element, column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: value,
+            value: data,
         },
         success: function (data) {
-            swal("Update", data, 'success');
+            swal("Success", data, "success");
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -1480,8 +1523,8 @@ function import_Sub_credit() {
 }
 
 //Edit Sub Credit
-function updateSubCredit(element, column, id) {
-    var value = element.innerText;
+function updateSubCredit(column, id) {
+    var data = $('#sub_credit_table').find('input[type="text"],textarea').val();
     var companyId = document.getElementById('companyId').value;
 
     $.ajax({
@@ -1491,10 +1534,11 @@ function updateSubCredit(element, column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: value,
+            value: data,
         },
         success: function (data) {
-            swal("Update", data, 'success');
+            swal("Success", data, "success");
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -1576,7 +1620,7 @@ function Add_CustomBroker() {
     var tollfree = document.getElementById('tollfree').value;
     var fax = document.getElementById('fax').value;
     var Status = $("input[name='Status']:checked").val();
-
+    //alert(Status);
     if (val_brokerName(brokerName)) {
         if (val_Crossing(crossing)) {
             if (val_telephone(telephone)) {
@@ -1607,10 +1651,11 @@ function Add_CustomBroker() {
 }
 
 // Edit Custom Broker
-function updateCustom(element, column, id) {
-    var value = element.innerText;
+function updateCustom(column, id) {
+    var data = $('#custom_broker_table').find('input[type="text"],textarea').val();
+
     var companyId = document.getElementById('companyId').value;
-    // alert(value);
+
     $.ajax({
         url: 'admin/custom_broker.php?type=' + 'edit_custom_broker',
         type: 'POST',
@@ -1618,10 +1663,11 @@ function updateCustom(element, column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: value,
+            value: data,
         },
         success: function (data) {
-            swal("Update", data, 'success');
+            swal("Success", data, "success");
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -1767,8 +1813,9 @@ function exportTruckAdd() {
 }
 
 //update Truck Function
-function updateTruckAdd(element, column, id) {
-    var value = element.innerText;
+function updateTruckAdd(column, id) {
+    var data = $('#truck_table').find('input[type="text"],textarea').val();
+
     var companyId = document.getElementById('companyId').value;
     $.ajax({
         url: 'admin/truckadd_driver.php?type=' + 'edit_truck',
@@ -1777,11 +1824,11 @@ function updateTruckAdd(element, column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: value,
+            value: data,
         },
         success: function (data) {
             swal("Success", data, "success");
-            //$('#currency').modal('hide');
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -1815,13 +1862,16 @@ function Traileradd() {
         for (var index = 0; index < totalfiles; index++) {
         }
         var trailer_number = document.getElementById("trailer_number").value;
-        var trailertypes = document.getElementById("trailertypes").value;
+        var trailertypes1 = document.getElementById("trailertype").value;
+        var trailer_type = trailertypes1.split(")");
+        var trailertype = trailer_type[0];
+        form_data.append("traileradd_type", trailertype);
         var license_plate = document.getElementById("license_plate").value;
         var plate_expiry = document.getElementById("plate_expiry").value;
         var vin = document.getElementById("vin").value;
 
         if (val_trailer_number(trailer_number)) {
-            if (val_trailer_type(trailertypes)) {
+            if (val_trailer_type(trailertypes1)) {
                 if (val_license_plate_trailer(license_plate)) {
                     if (val_plate_expiry_trailer(plate_expiry)) {
                         if (val_vin_trailer(vin)) {
@@ -1848,9 +1898,11 @@ function Traileradd() {
 }
 
 //update Trailer Function
-function updateTrailerAdd(element, column, id) {
-    var value = element.innerText;
+function updateTrailerAdd(column, id) {
+    var data = $('#trailer_table').find('input[type="text"],textarea').val();
+
     var companyId = document.getElementById('companyId').value;
+
     $.ajax({
         url: 'admin/traileradd_driver.php?type=' + 'edit_trailer',
         type: 'POST',
@@ -1858,11 +1910,11 @@ function updateTrailerAdd(element, column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: value,
+            value: data,
         },
         success: function (data) {
             swal("Success", data, "success");
-            //$('#currency').modal('hide');
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -1981,8 +2033,9 @@ function FactoringCompany() {
 }
 
 //update Factoring Function
-function updateFactoring(element, column, id) {
-    var value = element.innerText;
+function updateFactoring(column, id) {
+    var data = $('#factoring_table').find('input[type="text"],textarea').val();
+
     var companyId = document.getElementById('companyId').value;
     $.ajax({
         url: 'admin/factoring_driver.php?type=' + 'edit_factoring',
@@ -1991,11 +2044,11 @@ function updateFactoring(element, column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: value,
+            value: data,
         },
         success: function (data) {
             swal("Success", data, "success");
-            //$('#currency').modal('hide');
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -2202,19 +2255,22 @@ function importDriver() {
 }
 
 // Edit function
-function updateDriver(element, column, id) {
-    var value = element.innerText;
-    // alert(value);
+function updateDriver(column, id) {
+    var data = $('#driver_table').find('input[type="text"],textarea').val();
+
+    var companyId = document.getElementById('companyId').value;
+
     $.ajax({
         url: 'admin/driver_driver.php?type=' + 'editDriver',
         type: 'POST',
         data: {
             column: column,
             id: id,
-            value: value,
+            value: data,
         },
         success: function (data) {
-            swal("Update", data, 'success');
+            swal("Success", data, "success");
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -2265,19 +2321,6 @@ function export_Driver(id) {
 /*------------------- Driver End -----------------------------*/
 
 /*------------------- Owner Operator Driver Start-----------------------------*/
-
-function addAsOwner(id) {
-    $.ajax({
-        url: 'admin/owner_operator_driver.php?type=' + 'addAsOwner',
-        method: 'POST',
-        data: {
-            id: id,
-        },
-        success: function (data) {
-            swal('Success', data, 'success');
-        }
-    });
-}
 
 // Add Function
 function addOwnerOperator() {
@@ -2781,4 +2824,3 @@ function addCarrier() {
         }
     });
 }
-

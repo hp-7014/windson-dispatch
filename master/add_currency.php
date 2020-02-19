@@ -38,7 +38,7 @@ require "../database/connection.php";
                         <th>Action</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="currencyBody">
                     <?php
 
                     $show = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);

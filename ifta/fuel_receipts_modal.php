@@ -1,6 +1,6 @@
 <?php
-session_start();
-include '../database/connection.php';
+    session_start();
+    include '../database/connection.php';
 ?>
 
 <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="Fuel_Receipt"
@@ -15,84 +15,206 @@ include '../database/connection.php';
                 </button>
             </div>
             <div class="modal-body custom-modal-body">
-                <form method="post" enctype="multipart/form-data">
-                    <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#add_fuel_receipts">ADD</button>
-                    <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="import_FuelReceipt()">Upload</button>
+               <!-- <form method="post" enctype="multipart/form-data">-->
+                    <!--<button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#add_fuel_receipts">ADD</button>-->
+                    <!--<<button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="import_FuelReceipt()">Upload</button>
                     <div class="custom-upload-btn-wrapper float-right">
                         <button class="custom-btn">Choose file</button>
                         <input type="file" id="file" name="myfile" />
-                    </div>
+                    </div>-->
 
-                    <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>
-                </form>
+                    <!--<button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>-->
+                <!--</form>-->
                 <br>
+                <div class="modal-body custom-modal-body" style="padding: 0.1rem">
+                    <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right"type="text" id="search" placeholder="search" style="margin-left: 5px;">
+                    <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#add_fuel_receipts"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD</button>
+                    <div class="table-rep-plugin">
+                        <div class="table-responsive b-0" data-pattern="priority-columns">
 
-                <table class="table table-striped mb-0 table-editable table-debit">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Card Holder Name</th>
-                            <th>Employee Number</th>
-                            <th>Card Number</th>
-                            <th>Card Type</th>
-                            <th>Unit Number</th>
-                            <th>Transaction Date</th>
-                            <th>Transaction Time</th>
-                            <th>Merchant Name</th>
-                            <th>Merchant City</th>
-                            <th>ST</th>
-                            <th>Diesel Gallons</th>
-                            <th>Diesel Gross Cost</th>
-                            <th>Cash Advance Amount</th>
-                            <th>Discount AMT</th>
-                            <th>Total Amt Due</th>
-                            <th>Invoice No</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
+                            <br>
+                            <div id="table-scroll" class="table-scroll">
+                                <table id="fuel_receipt_table" class="scroll" >
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" col width="160">No</th>
+                                        <th scope="col" col width="160" data-priority="1">Card Holder Name</th>
+                                        <th scope="col" col width="160" data-priority="3">Employee Number</th>
+                                        <th scope="col" col width="160" data-priority="1">Card Number</th>
+                                        <th scope="col" col width="160" data-priority="3">Card Type</th>
+                                        <th scope="col" col width="160" data-priority="3">Unit Number</th>
+                                        <th scope="col" col width="160" data-priority="6">Transaction Date</th>
+                                        <th scope="col" col width="160" data-priority="6">Transaction Time</th>
+                                        <th scope="col" col width="160" data-priority="6">Merchant Name</th>
+                                        <th scope="col" col width="160" data-priority="1">Merchant City</th>
+                                        <th scope="col" col width="160" data-priority="3">ST</th>
+                                        <th scope="col" col width="160" data-priority="1">Diesel Gallons</th>
+                                        <th scope="col" col width="160" data-priority="3">Diesel Gross Cost</th>
+                                        <th scope="col" col width="160" data-priority="3">Cash Advance Amount</th>
+                                        <th scope="col" col width="160" data-priority="6">Discount AMT</th>
+                                        <th scope="col" col width="160" data-priority="6">Total Amt Due</th>
+                                        <th scope="col" col width="160" data-priority="6">Invoice No</th>
+                                        <th scope="col" col width="160" data-priority="1">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                        $ifta_data = $db->ifta_fuel_receipts->find(['companyID' => $_SESSION['companyId']]);
+                                        $i = 1;
+                                    ?>
 
-                    <?php
-                        $ifta_data = $db->ifta_fuel_receipts->find(['companyID' => $_SESSION['companyId']]);
-                        $no = 1;
-                    ?>
+                                    <tbody>
+                                    <?php foreach ($ifta_data as $data) {
 
-                    <tbody>
-                        <?php foreach ($ifta_data as $data) {
-                            $f_receipt = $data['fuel_receipt'];
+                                        $f_receipt = $data['fuel_receipt'];
+                                        $limit = 3;
+                                        //$test = $db->ifta_fuel_receipts->find([$f_receipt])->limit($limit);
+                                       // var_dump($test);
+                                        $options = [
+                                            "limit" => 10,
+                                            "skip" => 0
+                                        ];
+                                        //$test = $f_receipt->find(array(),array('limit' => 1));
+                                        $limit = 4;
+                                        $total_records = $f_receipt->count();
+                                        $total_pages = ceil($total_records / $limit);
 
-                            foreach ($f_receipt as $fuel) {
-                                if ($fuel['delete_status'] == '0') {
+                                        foreach ($f_receipt as $fuel) {
+                                          /*  if (empty($fuel['fuelDate'])) {
+                                                $fuelDate = "";
+                                            } else {
+                                                $fuelDate = date('mm/m/Y', $fuel['fuelDate']);
+                                            }*/
+
+                                            if ($fuel['delete_status'] == '0') {
+
+                                                ?>
+                                                <tr>
+                                                    <th><?php echo $i++; ?></th>
+                                                    <td>
+                                                        <a href="#" id="cardHolderName<?php echo $fuel['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'cardHolderName');" class="text-overflow"><?php echo $fuel['cardHolderName']; ?></a>
+                                                        <button type="button" id="cardHolderName<?php echo $fuel['_id']; ?>" onclick="updateFuel('cardHolderName',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="employeeNo<?php echo $fuel['_id']; ?>2" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'employeeNo');" class="text-overflow"><?php echo $fuel['employeeNo']; ?></a>
+                                                        <button type="button" id="employeeNo<?php echo $fuel['_id']; ?>" onclick="updateFuel('employeeNo',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="cardNo<?php echo $fuel['_id']; ?>3" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'cardNo');" class="text-overflow"><?php echo $fuel['cardNo']; ?></a>
+                                                        <button type="button" id="cardNo<?php echo $fuel['_id']; ?>" onclick="updateFuel('cardNo',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="cardType<?php echo $fuel['_id']; ?>4" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'cardType');" class="text-overflow"><?php echo $fuel['cardType']; ?></a>
+                                                        <button type="button" id="cardType<?php echo $fuel['_id']; ?>" onclick="updateFuel('cardType',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="unit_number<?php echo $fuel['_id']; ?>5" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'unit_number');" class="text-overflow"><?php echo $fuel['unit_number']; ?></a>
+                                                        <button type="button" id="unit_number<?php echo $fuel['_id']; ?>" onclick="updateFuel('unit_number',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="fuelDate<?php echo $fuel['_id']; ?>6" data-type="date" ondblclick="showTextarea(this.id,'date',<?php echo $fuel['_id']; ?>,'fuelDate');" class="text-overflow"><?php echo $fuel['fuelDate']; ?></a>
+                                                        <button type="button" id="fuelDate<?php echo $fuel['_id']; ?>" onclick="updateFuel('fuelDate',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="transacTime<?php echo $fuel['_id']; ?>7" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'transacTime');" class="text-overflow"><?php echo $fuel['transacTime']; ?></a>
+                                                        <button type="button" id="transacTime<?php echo $fuel['_id']; ?>" onclick="updateFuel('transacTime',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="merchantName<?php echo $fuel['_id']; ?>8" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'merchantName');" class="text-overflow"><?php echo $fuel['merchantName']; ?></a>
+                                                        <button type="button" id="merchantName<?php echo $fuel['_id']; ?>" onclick="updateFuel('merchantName',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="statePurch<?php echo $fuel['_id']; ?>9" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'statePurch');" class="text-overflow"><?php echo $fuel['statePurch']; ?></a>
+                                                        <button type="button" id="statePurch<?php echo $fuel['_id']; ?>" onclick="updateFuel('statePurch',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="merchantCity<?php echo $fuel['_id']; ?>10" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'merchantCity');" class="text-overflow"><?php echo $fuel['merchantCity']; ?></a>
+                                                        <button type="button" id="merchantCity<?php echo $fuel['_id']; ?>" onclick="updateFuel('merchantCity',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="dGallons<?php echo $fuel['_id']; ?>11" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'dGallons');" class="text-overflow"><?php echo $fuel['dGallons']; ?></a>
+                                                        <button type="button" id="dGallons<?php echo $fuel['_id']; ?>" onclick="updateFuel('dGallons',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="dGrossCost<?php echo $fuel['_id']; ?>12" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'dGrossCost');" class="text-overflow"><?php echo $fuel['dGrossCost']; ?></a>
+                                                        <button type="button" id="dGrossCost<?php echo $fuel['_id']; ?>" onclick="updateFuel('dGrossCost',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="cashAdvanced<?php echo $fuel['_id']; ?>13" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'cashAdvanced');" class="text-overflow"><?php echo $fuel['cashAdvanced']; ?></a>
+                                                        <button type="button" id="cashAdvanced<?php echo $fuel['_id']; ?>" onclick="updateFuel('cashAdvanced',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="discountAmt<?php echo $fuel['_id']; ?>14" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'discountAmt');" class="text-overflow"><?php echo $fuel['discountAmt']; ?></a>
+                                                        <button type="button" id="discountAmt<?php echo $fuel['_id']; ?>" onclick="updateFuel('discountAmt',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="totalAmt<?php echo $fuel['_id']; ?>15" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'totalAmt');" class="text-overflow"><?php echo $fuel['totalAmt']; ?></a>
+                                                        <button type="button" id="totalAmt<?php echo $fuel['_id']; ?>" onclick="updateFuel('totalAmt',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" id="invoiceNo<?php echo $fuel['_id']; ?>16" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $fuel['_id']; ?>,'invoiceNo');" class="text-overflow"><?php echo $fuel['invoiceNo']; ?></a>
+                                                        <button type="button" id="invoiceNo<?php echo $fuel['_id']; ?>" onclick="updateFuel('invoiceNo',<?php echo $fuel['_id']; ?>)" style="display:none; margin-left:6px;"class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    </td>
+                                                    <td><a href="#" onclick="deleteFuel(<?php echo $fuel['_id']; ?>)"><i
+                                                                    class="mdi mdi-delete-sweep-outline"
+                                                                    style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                    </td>
+                                                </tr>
+                                            <?php }
+
+                                            }
+
+                                        //}
+                                    }
+                                    ?>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Card Holder Name</th>
+                                            <th>Employee Number</th>
+                                            <th>Card Number</th>
+                                            <th>Card Type</th>
+                                            <th>Unit Number</th>
+                                            <th>Transaction Date</th>
+                                            <th>Transaction Time</th>
+                                            <th>Merchant Name</th>
+                                            <th>Merchant City</th>
+                                            <th>ST</th>
+                                            <th>Diesel Gallons</th>
+                                            <th>Diesel Gross Cost</th>
+                                            <th>Cash Advance Amount</th>
+                                            <th>Discount AMT</th>
+                                            <th>Total Amt Due</th>
+                                            <th>Invoice No</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <br>
+                        <nav aria-label="..." class="float-right">
+                            <ul class="pagination">
+                                <?php
+                                for($i=1; $i<=$total_pages; $i++){
+                                    if($i == 1){
+                                        ?>
+                                        <li class="pageitem active" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" data-id="<?php echo $i;?>" class="page-link" ><?php echo $i;?></a></li>
+
+                                        <?php
+                                    }
+                                    else{
+                                        ?>
+                                        <li class="pageitem" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" class="page-link" data-id="<?php echo $i;?>"><?php echo $i;?></a></li>
+                                        <?php
+                                    }
+                                }
                                 ?>
-                                <tr>
-                                    <td><?php echo $no++ ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'cardHolderName',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['cardHolderName']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'employeeNo',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['employeeNo']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'cardNo',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['cardNo']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'cardType',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['cardType']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'unit_number',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['unit_number']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'fuelDate',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['fuelDate']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'transacTime',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['transacTime']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'merchantName',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['merchantName']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'merchantCity',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['merchantCity']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'statePurch',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['statePurch']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'dGallons',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['dGallons']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'dGrossCost',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['dGrossCost']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'cashAdvanced',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['cashAdvanced']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'discountAmt',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['discountAmt']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'totalAmt',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['totalAmt']; ?></td>
-                                    <td contenteditable="true" onblur="updateFuel(this,'invoiceNo',<?php echo $fuel['_id']; ?>)"><?php echo $fuel['invoiceNo']; ?></td>
-                                    <td><a href="#" onclick="deleteFuel(<?php echo $fuel['_id']; ?>)"><i
-                                                    class="mdi mdi-delete-sweep-outline"
-                                                    style="font-size: 20px; color: #FC3B3B"></i></a>
-                                    </td>
-                                </tr>
-                            <?php }
-                            }
-                        }
-                        ?>
-                    </tbody>
-
-                </table>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -159,7 +281,7 @@ include '../database/connection.php';
                     <div class="form-group col-md-3">
                         <label>Card Type</label>
                         <div>
-                            <input class="form-control" placeholder="Card Number" type="text" name="cardType" id="cardType">
+                            <input class="form-control" placeholder="Card Type" type="text" name="cardType" id="cardType">
                         </div>
                     </div>
 
@@ -319,6 +441,16 @@ include '../database/connection.php';
     </div>
 </div>
 
+<script>
+    /*function show(d) {
+        $("show"+d).show();
+    }*/
+    /*function hide() {
+        document.getElementById("show").style.display = "none";
+    }*/
+
+</script>
+
 <script type="text/javascript">
     function ajaxGetfuel(x)
     {
@@ -341,4 +473,134 @@ include '../database/connection.php';
         });
     }
 
+    $("#search").keyup(function () {
+        var value = this.value.toLowerCase().trim();
+
+        $("table tr").each(function (index) {
+            if (!index) return;
+            $(this).find("td").each(function () {
+                var id = $(this).text().toLowerCase().trim();
+                var not_found = (id.indexOf(value) == -1);
+                $(this).closest('tr').toggle(!not_found);
+                return not_found;
+            });
+        });
+    });
+
+    /*function loaData(page) {
+
+    }*/
 </script>
+
+<!--<script src="assets/plugins/moment/moment.js"></script>
+<script src="assets/plugins/x-editable/js/bootstrap-editable.min.js"></script>
+<script src="assets/pages/xeditable.js"></script>-->
+
+<!-- Responsive-table-->
+<!--<script src="assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js"></script>-->
+
+<style>
+    .table-scroll {
+        position: relative;
+        width: 100%;
+        z-index: 1;
+        margin: auto;
+        overflow: auto;
+        height: 320px;
+    }
+
+    .table-scroll table {
+        width: 100%;
+        min-width: 1280px;
+        margin: auto;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table-wrap {
+        position: relative;
+    }
+
+    .table-scroll th,
+    .table-scroll td {
+        /*padding: 5px 10px;*/
+        border: 1px solid #000;
+        background: #fff;
+        vertical-align: bottom;
+        text-align: center;
+    }
+
+    .table-scroll thead th {
+        background: #30419B;
+        color: #fff;
+        padding: 4px;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+    }
+
+    /* safari and ios need the tfoot itself to be position:sticky also */
+    .table-scroll tfoot,
+    .table-scroll tfoot th,
+    .table-scroll tfoot td {
+        position: -webkit-sticky;
+        position: sticky;
+        bottom: 0;
+        background: #666;
+        color: #fff;
+        z-index: 4;
+    }
+
+    /* testing links*/
+
+    th:first-child {
+        position: -webkit-sticky;
+        position: sticky;
+        left: 0;
+        z-index: 2;
+        background: #ccc;
+    }
+
+    thead th:first-child,
+    tfoot th:first-child {
+        z-index: 5;
+    }
+
+    table {
+        table-layout: fixed;
+    }
+
+    .text-overflow {
+        padding-top: 10px;
+        display:block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    a.editable-click { border-bottom: none;
+        color: #000000;}
+    a.editable-click:hover{
+        border-bottom: none;
+    }
+    .table-scroll::-webkit-scrollbar {
+        width: 12px;
+        height: 8px;
+    }
+
+    /* Track */
+
+    .table-scroll::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+    }
+
+
+    .table-scroll::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        background: rgb(48, 65, 155);
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    }
+
+</style>

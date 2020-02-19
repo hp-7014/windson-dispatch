@@ -17,6 +17,29 @@
       <change beforePath="$PROJECT_DIR$/header/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/footer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/master/add_company.php" beforeDir="false" afterPath="$PROJECT_DIR$/master/add_company.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/add_trailer_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/add_trailer_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/add_truck_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/add_truck_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/bank_admin_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/bank_admin_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/credit_card_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/credit_card_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/custom_broker_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/custom_broker_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/customer_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/customer_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/admin/js/form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/sub_credit_card_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/sub_credit_card_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/user_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/user_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/pages/xeditable.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/pages/xeditable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/x-editable/css/bootstrap-editable.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/x-editable/css/bootstrap-editable.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/header/modal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifta/fuel_receipts_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/ifta/fuel_receipts_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifta/iftaVerifying.php" beforeDir="false" afterPath="$PROJECT_DIR$/ifta/iftaVerifying.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifta/js/form.js" beforeDir="false" afterPath="$PROJECT_DIR$/ifta/js/form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifta/testing_map.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifta/verifyTrip.php" beforeDir="false" afterPath="$PROJECT_DIR$/ifta/verifyTrip.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ifta/verify_treep_model.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing_map.php" beforeDir="false" afterPath="$PROJECT_DIR$/testing_map.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -62,9 +85,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1WtfRKsO3anRqtAL2cHOm2V5La6" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -78,8 +99,17 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\chetan\windson-dispatch\ifta\js" />
+      <recent name="C:\xampp\htdocs\windson-dispatch\ifta" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/assets/css" />
       <recent name="$PROJECT_DIR$/assets/js" />
@@ -110,6 +140,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="04dccdb7-2457-4119-83e1-5769db433b38" name="Default Changelist" comment="" />
       <created>1580749472181</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -131,6 +162,21 @@
       <workItem from="1581071482031" duration="5736000" />
       <workItem from="1581328572142" duration="22722000" />
       <workItem from="1581413536998" duration="2859000" />
+      <workItem from="1580245667701" duration="3749000" />
+      <workItem from="1580808812848" duration="12052000" />
+      <workItem from="1580895294796" duration="2457000" />
+      <workItem from="1580981778547" duration="28543000" />
+      <workItem from="1581068050322" duration="22618000" />
+      <workItem from="1581413951129" duration="19606000" />
+      <workItem from="1581443322611" duration="56000" />
+      <workItem from="1581443393070" duration="2615000" />
+      <workItem from="1581500254974" duration="30300000" />
+      <workItem from="1581586254400" duration="29134000" />
+      <workItem from="1581673009405" duration="31336000" />
+      <workItem from="1581932418494" duration="18881000" />
+      <workItem from="1581954734426" duration="9834000" />
+      <workItem from="1582017841953" duration="1779000" />
+      <workItem from="1582019648087" duration="185000" />
     </task>
     <servers />
   </component>

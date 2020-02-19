@@ -64,14 +64,15 @@ function Add_FuelReceipts() {
                 }
             }
         }
-    }
+    } 
 }
 
 // Edit Fuel
-function updateFuel(element,column,id) {
-    var value = element.innerText;
+function updateFuel(column, id) {
+    var data = $('#fuel_receipt_table').find('input[type="text"],textarea').val();
 
     var companyId = document.getElementById('companyId').value;
+
     $.ajax({
         url: 'ifta/fuel_receipts_driver.php?type=' + 'edit_fuel',
         type: 'POST',
@@ -79,10 +80,11 @@ function updateFuel(element,column,id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: value,
+            value: data,
         },
         success: function (data) {
-            swal("Success",data,"success");
+            swal("Success", data, "success");
+            document.getElementById(column+id).style.display = "none";
         }
     });
 }
@@ -280,4 +282,10 @@ function importTolls() {
 }
 
 //-----------------Add Toll ENDS------------------------------------------
+
+//----------------- IftaVerify START ----------------------------------
+/*function addNew_Loc() {
+
+}*/
+//----------------- IftaVerify ENDS ----------------------------------
 
