@@ -64,7 +64,7 @@ function Add_FuelReceipts() {
                 }
             }
         }
-    }
+    } 
 }
 
 // Edit Fuel
