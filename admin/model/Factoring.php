@@ -33,6 +33,10 @@ class Factoring implements IteratorAggregate {
     private $paymentTerms;
     private $taxID;
     private $internalNote;
+    private $insertTime;
+    private $insertUserName;
+    private $deleteStatus;
+    private $deleteUserName;
 
     /**
      * @return mixed
@@ -355,6 +359,70 @@ class Factoring implements IteratorAggregate {
         $this->internalNote = $internalNote;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getInsertTime()
+    {
+        return $this->insertTime;
+    }
+
+    /**
+     * @param mixed $insertTime
+     */
+    public function setInsertTime($insertTime)
+    {
+        $this->insertTime = $insertTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInsertUserName()
+    {
+        return $this->insertUserName;
+    }
+
+    /**
+     * @param mixed $insertUserName
+     */
+    public function setInsertUserName($insertUserName)
+    {
+        $this->insertUserName = $insertUserName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeleteStatus()
+    {
+        return $this->deleteStatus;
+    }
+
+    /**
+     * @param mixed $deleteStatus
+     */
+    public function setDeleteStatus($deleteStatus)
+    {
+        $this->deleteStatus = $deleteStatus;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeleteUserName()
+    {
+        return $this->deleteUserName;
+    }
+
+    /**
+     * @param mixed $deleteUserName
+     */
+    public function setDeleteUserName($deleteUserName)
+    {
+        $this->deleteUserName = $deleteUserName;
+    }
+
 
     function getIterator() {
         return new ArrayIterator(
@@ -379,21 +447,26 @@ class Factoring implements IteratorAggregate {
                     'currencySetting' => $this->currencySetting,
                     'paymentTerms' => $this->paymentTerms,
                     'taxID' => $this->taxID,
-                    'internalNote' => $this->internalNote]
+                    'internalNote' => $this->internalNote,
+                    'insertedTime' => time(),
+                    'insertedUserId' => $_SESSION['companyName'],
+                    'deleteStatus' => 0]
                 )
             )
         );
     }
-    
+
+
     //Insert Factoring Function
     public function insert($factoring,$db,$helper)
-    {
-        $c_id = $db->factoring_company_add->find(['companyID' =>(int)$factoring->getCompanyID()]);
-        $count = 0;
-        foreach ($c_id as $c) {
-            $count++;
-        }
-        if ($count > 0) {
+        {
+          $collection = $db->factoring_company_add;
+             $criteria = array(
+                'companyID' => (int)$factoring->getCompanyID(),
+        );
+             $doc = $collection->findOne($criteria);
+
+        if (!empty($doc)) {
             $db->factoring_company_add->updateOne(['companyID' => (int)$this->companyID],['$push'=>['factoring'=>[
                 '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->factoring_company_add),
                     'factoringCompanyname' => $this->factoringCompanyname,
@@ -412,13 +485,17 @@ class Factoring implements IteratorAggregate {
                     'currencySetting' => $this->currencySetting,
                     'paymentTerms' => $this->paymentTerms,
                     'taxID' => $this->taxID,
-                    'internalNote' => $this->internalNote
+                    'internalNote' => $this->internalNote,
+                    'insertedTime' => time(),
+                    'insertedUserId' => $_SESSION['companyName'],
+                    'deleteStatus' => 0
             ]]]);
         } else {
             $factoring = iterator_to_array($factoring);
             $db->factoring_company_add->insertOne($factoring);
         }
     }
+
 
     //update
     public function updateFactoring($factoring,$db){
@@ -428,12 +505,14 @@ class Factoring implements IteratorAggregate {
             ]);
     }
 
+
     //Delete
     public function deleteFactoring($factoring,$db){
-        $db->factoring_company_add->updateOne(['companyID' => (int)$_SESSION['companyId']],
-            ['$pull' => ['factoring' => ['_id' => (int)$factoring->getId()]]]
+        $db->factoring_company_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'factoring._id' => (int)$this->getId()],
+            ['$set' => ['factoring.$.deleteStatus' => 1]]
         );
     }
+
 
     //Export
     public function exportFactoring($db)

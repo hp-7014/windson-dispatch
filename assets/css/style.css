@@ -7,7 +7,6 @@
 /* ============
 TABLES OF CSS
 ---------------
-
 01. General
 02. Bootstrap-custom
 03. Helper
@@ -125,7 +124,7 @@ b, strong {
   padding: 4px 0;
   font-size: 13px;
   -webkit-box-shadow: 0px 0px 13px 0px rgba(236, 236, 241, 0.44);
-          box-shadow: 0px 0px 13px 0px rgba(236, 236, 241, 0.44);
+  box-shadow: 0px 0px 13px 0px rgba(236, 236, 241, 0.44);
   background-color: #ffffff;
   border-color: #e9ecef;
   margin: 0;
@@ -585,11 +584,11 @@ dt {
   color: #adb5bd;
 }
 
-.bg-pattern {
+/*.bg-pattern {
   background-image: url("../images/bg-pattern.png");
   background-size: cover;
   background-position: bottom;
-}
+}*/
 
 /* ==============
  Demo Only css
@@ -601,7 +600,7 @@ dt {
 
 .mfp-content .card {
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .bs-example-modal {
@@ -635,7 +634,7 @@ dt {
 .icon-demo-content .col-md-4:hover i {
   color: #30419b;
   -webkit-transform: scale(1.5);
-          transform: scale(1.5);
+  transform: scale(1.5);
 }
 
 /* ==============
@@ -713,11 +712,11 @@ dt {
 }
 
 .waves-button,
-.waves-circle {
+/*.waves-circle {
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
-}
+}*/
 
 .waves-button,
 .waves-button:hover,
@@ -1112,7 +1111,7 @@ dt {
   margin-right: 16px;
   background: rgba(255, 255, 255, 0.1);
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   border-radius: 30px;
   color: rgba(255, 255, 255, 0.7);
   width: 200px;
@@ -1282,7 +1281,7 @@ Responsive Menu
     background-color: #ffffff;
     border-radius: 4px;
     -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
-            box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
   }
   #topnav .navigation-menu > li .submenu.megamenu {
     white-space: nowrap;
@@ -1860,7 +1859,7 @@ button:focus {
   width: 38%;
   background-color: rgba(255, 255, 255, 0.15);
   -webkit-clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
-          clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+  clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
 }
@@ -1868,7 +1867,7 @@ button:focus {
 .btn-icon:hover::before {
   width: 100%;
   -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 100% 100%, 0% 100%);
-          clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 100% 100%, 0% 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 100% 100%, 0% 100%);
 }
 
 /* ==============
@@ -1877,7 +1876,7 @@ button:focus {
 .card {
   border: none;
   -webkit-box-shadow: 0px 0px 13px 0px rgba(236, 236, 241, 0.44);
-          box-shadow: 0px 0px 13px 0px rgba(236, 236, 241, 0.44);
+  box-shadow: 0px 0px 13px 0px rgba(236, 236, 241, 0.44);
   margin-bottom: 30px;
 }
 
@@ -2016,7 +2015,7 @@ button:focus {
   border: 2px solid #9ca8b3;
   font-size: 16px;
   -webkit-box-shadow: none !important;
-          box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 .swal2-modal .swal2-file:focus, .swal2-modal .swal2-input:focus, .swal2-modal .swal2-textarea:focus {
@@ -2026,7 +2025,7 @@ button:focus {
 
 .swal2-popup .swal2-styled:focus {
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .swal2-icon.swal2-question {
@@ -2073,7 +2072,7 @@ label {
 .form-control:focus {
   border-color: #30419b;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .custom-control-input:checked ~ .custom-control-indicator {
@@ -2088,19 +2087,19 @@ label {
 .has-success .form-control {
   border-color: #02c58d;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .has-warning .form-control {
   border-color: #fcbe2d;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .has-danger .form-control {
   border-color: #fc5454;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .input-group-addon {
@@ -2157,7 +2156,7 @@ label {
   background-color: #30419b !important;
   background-image: none;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   color: #ffffff;
 }
 
@@ -2438,7 +2437,7 @@ label {
   background: #ffffff;
   border: none;
   -webkit-box-shadow: 0 5px 25px 5px rgba(0, 0, 0, 0.14);
-          box-shadow: 0 5px 25px 5px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 5px 25px 5px rgba(0, 0, 0, 0.14);
 }
 
 .morris-hover.morris-default-style .morris-hover-point {
@@ -2462,7 +2461,7 @@ label {
   z-index: 100;
   color: #354558;
   -webkit-box-shadow: 0 5px 25px 5px rgba(0, 0, 0, 0.14);
-          box-shadow: 0 5px 25px 5px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 5px 25px 5px rgba(0, 0, 0, 0.14);
   border-radius: 1px;
 }
 
@@ -2595,7 +2594,7 @@ label {
 
 .c3-tooltip {
   -webkit-box-shadow: 0 8px 40px 0 rgba(0, 0, 0, 0.12);
-          box-shadow: 0 8px 40px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 40px 0 rgba(0, 0, 0, 0.12);
   opacity: 1;
 }
 
@@ -2722,7 +2721,7 @@ table.focus-on tbody tr.focused td {
   left: auto;
   right: 0;
   -webkit-transform: none !important;
-          transform: none !important;
+  transform: none !important;
   top: 100% !important;
 }
 
@@ -2985,7 +2984,7 @@ table.focus-on tbody tr.focused td {
   line-height: 75px;
   cursor: default;
   -webkit-transition-duration: .3s;
-          transition-duration: .3s;
+  transition-duration: .3s;
 }
 
 .message-list li a {
@@ -2995,7 +2994,7 @@ table.focus-on tbody tr.focused td {
 .message-list li:hover {
   background: rgba(53, 69, 88, 0.08);
   -webkit-transition-duration: .05s;
-          transition-duration: .05s;
+  transition-duration: .05s;
 }
 
 .message-list li .col-mail {
@@ -3077,7 +3076,7 @@ table.focus-on tbody tr.focused td {
 .message-list li.active,
 .message-list li.active:hover {
   -webkit-box-shadow: inset 3px 0 0 #30419b;
-          box-shadow: inset 3px 0 0 #30419b;
+  box-shadow: inset 3px 0 0 #30419b;
 }
 
 .message-list li.unread {
@@ -3098,7 +3097,7 @@ table.focus-on tbody tr.focused td {
   position: relative;
   display: inline-block;
   -webkit-box-shadow: inset 0 0 0 1px #dee2e6;
-          box-shadow: inset 0 0 0 1px #dee2e6;
+  box-shadow: inset 0 0 0 1px #dee2e6;
   border-radius: 1px;
 }
 
@@ -3120,7 +3119,7 @@ table.focus-on tbody tr.focused td {
   opacity: 0;
   margin-bottom: 0;
   -webkit-transition-duration: .05s;
-          transition-duration: .05s;
+  transition-duration: .05s;
   top: 0;
 }
 
@@ -3151,7 +3150,7 @@ table.focus-on tbody tr.focused td {
   margin-right: 16px;
   background: #f6f6f6;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   border: none;
 }
 
@@ -3185,7 +3184,7 @@ table.focus-on tbody tr.focused td {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
   text-align: center;
   left: 0;
   right: 0px;
@@ -3374,7 +3373,7 @@ table.focus-on tbody tr.focused td {
   background: #ffffff;
   border: 2px solid #adb5bd;
   -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  box-sizing: content-box;
   margin: auto;
   position: absolute;
   top: 0;
@@ -3410,7 +3409,7 @@ table.focus-on tbody tr.focused td {
   top: 50%;
   right: 35%;
   -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .main-timeline .year:before {
@@ -3440,7 +3439,7 @@ table.focus-on tbody tr.focused td {
   top: 50%;
   right: -20px;
   -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .main-timeline .title {
@@ -3563,7 +3562,7 @@ table.focus-on tbody tr.focused td {
     left: auto;
     right: auto;
     -webkit-transform: none;
-            transform: none;
+    transform: none;
   }
   .main-timeline .timeline:nth-child(2n) .year:before {
     border-left: none;
@@ -3590,7 +3589,7 @@ table.focus-on tbody tr.focused td {
     left: 50%;
     right: auto;
     -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
+    transform: translateX(-50%);
   }
 }
 
@@ -3658,6 +3657,7 @@ table.focus-on tbody tr.focused td {
 
 ::-webkit-scrollbar {
   width: 4px;
+  height:4px;
 }
 
 /* Track */
@@ -3685,3 +3685,6 @@ table.focus-on tbody tr.focused td {
 .mandatory {
   color:red;
 }
+
+/*--------- to bring the location suggestion above the modal-------*/
+.pac-container { z-index: 100000; }

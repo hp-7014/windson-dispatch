@@ -219,7 +219,7 @@ require "../database/connection.php";
                     <div class="form-group col-md-2">
                         <label>Location </label>
                         <div>
-                            <input class="form-control" id="userLocation" placeholder="Location" type="text"
+                            <input class="form-control" onclick="getLocation(this.id)" id="userLocation" placeholder="Location" type="text"
                             >
                         </div>
                     </div>

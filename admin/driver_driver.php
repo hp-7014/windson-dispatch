@@ -64,7 +64,6 @@ else if ($_GET['type'] == 'importDriver') {
 else if ($_GET['type'] == 'editDriver') {
     $driver = new Driver();
     $driver->setId($_POST['id']);
-    $driver->setCompanyId($_POST['companyId']);
     $driver->setDriverName($_POST['value']);
     $driver->setColumn($_POST['column']);
     $driver->updateDriver($driver, $db);

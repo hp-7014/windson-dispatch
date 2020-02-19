@@ -45,6 +45,23 @@ class Driver implements IteratorAggregate
     private $insertedUserID;
     private $deleteStatus;
     private $deleteUserID;
+    private $ownerOperatorStatus;
+
+    /**
+     * @return mixed
+     */
+    public function getOwnerOperatorStatus()
+    {
+        return $this->ownerOperatorStatus;
+    }
+
+    /**
+     * @param mixed $ownerOperatorStatus
+     */
+    public function setOwnerOperatorStatus($ownerOperatorStatus): void
+    {
+        $this->ownerOperatorStatus = $ownerOperatorStatus;
+    }
 
     /**
      * @return mixed
@@ -677,9 +694,11 @@ class Driver implements IteratorAggregate
                     'driverTrap' => $this->driverTrap,
                     'InternalNote' => $this->InternalNote,
                     'driverPercentage' => $this->driverPercentage,
+                    'terminationDate' => $this->terminationDate,
                     'insertedTime' => time(),
                     'insertedUserId' => $_SESSION['companyName'],
-                    'deleteStatus' => 0
+                    'deleteStatus' => 0,
+                    'ownerOperatorStatus' => 0,
                 ])
             )
         );
@@ -725,9 +744,11 @@ class Driver implements IteratorAggregate
                 'driverTrap' => $this->driverTrap,
                 'InternalNote' => $this->InternalNote,
                 'driverPercentage' => $this->driverPercentage,
+                'terminationDate' => $this->terminationDate,
                 'insertedTime' => time(),
                 'insertedUserId' => $_SESSION['companyName'],
-                'deleteStatus' => 0
+                'deleteStatus' => 0,
+                'ownerOperatorStatus' => 0,
             ]]]);
         } else {
             $ship = iterator_to_array($driver);

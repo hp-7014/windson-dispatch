@@ -14,6 +14,89 @@ class Owner_Operator_Driver implements IteratorAggregate
     private $percentage;
     private $truckNo;
     private $installment;
+    private $driverId;
+    private $insertId;
+    private $insertedTime;
+
+    /**
+     * @return mixed
+     */
+    public function getDriverId()
+    {
+        return $this->driverId;
+    }
+
+    /**
+     * @param mixed $driverId
+     */
+    public function setDriverId($driverId): void
+    {
+        $this->driverId = $driverId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInsertId()
+    {
+        return $this->insertId;
+    }
+
+    /**
+     * @param mixed $insertId
+     */
+    public function setInsertId($insertId): void
+    {
+        $this->insertId = $insertId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInsertedTime()
+    {
+        return $this->insertedTime;
+    }
+
+    /**
+     * @param mixed $insertedTime
+     */
+    public function setInsertedTime($insertedTime): void
+    {
+        $this->insertedTime = $insertedTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeleteStatus()
+    {
+        return $this->deleteStatus;
+    }
+
+    /**
+     * @param mixed $deleteStatus
+     */
+    public function setDeleteStatus($deleteStatus): void
+    {
+        $this->deleteStatus = $deleteStatus;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeleteedId()
+    {
+        return $this->deleteedId;
+    }
+
+    /**
+     * @param mixed $deleteedId
+     */
+    public function setDeleteedId($deleteedId): void
+    {
+        $this->deleteedId = $deleteedId;
+    }
 
     /**
      * @return mixed
@@ -115,7 +198,7 @@ class Owner_Operator_Driver implements IteratorAggregate
                 'counter' => 0,
                 'ownerOperator' => array([
                     '_id' => 0,
-                    'driverName' => $this->driverName,
+                    'driverId' => (int)$this->driverName,
                     'percentage' => $this->percentage,
                     'truckNo' => $this->truckNo,
                     'installment' => $this->installment
@@ -136,16 +219,36 @@ class Owner_Operator_Driver implements IteratorAggregate
 
         if (!empty($doc)) {
 
-            $db->owner_operator_driver->updateOne(['companyID' => $_SESSION['companyId']], ['$push' => ['ownerOperator' => array([
+            $db->owner_operator_driver->updateOne(['companyID' => $_SESSION['companyId']], ['$push' => ['ownerOperator' => array(
                 '_id' => $helper->getDocumentSequence($_SESSION['companyId'], $db->owner_operator_driver),
-                'driverName' => $this->driverName,
+                'driverId' => (int)$this->driverName,
                 'percentage' => $this->percentage,
                 'truckNo' => $this->truckNo,
                 'installment' => $this->installment,
-            ])]]);
+            )]]);
         } else {
             $ship = iterator_to_array($owner);
             $db->owner_operator_driver->insertOne($ship);
         }
     }
+
+    public function addOwner($id, $db, $helper) {
+        $collection = $db->owner_operator_driver;
+        $criteria = array(
+            'companyID' => $_SESSION['companyId'],
+        );
+
+        $doc = $collection->findOne($criteria);
+
+        if (!empty($doc)) {
+
+            $db->owner_operator_driver->updateOne(['companyID' => $_SESSION['companyId']], ['$push' => ['ownerOperator' => array(
+                '_id' => $helper->getDocumentSequence($_SESSION['companyId'], $db->owner_operator_driver),
+                'driverId' => (int)$id
+            )]]);
+        } else {
+            $db->owner_operator_driver->insertOne(['driver_id' => (int)$id]);
+        }
+    }
+
 }

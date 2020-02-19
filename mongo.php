@@ -5,17 +5,19 @@ $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
 $collection = $db->shipper;
 
-$data = $collection->aggregate([
-    ['$lookup' => [
-        'from' => 'consignee',
-        'localField' => 'companyID',
-        'foreignField' => 'companyID',
-        'as' => 'consigneeCollection'
-    ]]
-]);
+//$data = $collection->aggregate([
+//    ['$lookup' => [
+//        'from' => 'consignee',
+//        'localField' => 'companyID',
+//        'foreignField' => 'companyID',
+//        'as' => 'consigneeCollection'
+//    ]]
+//]);
 
-//$data = $collection->find(['companyID' => 1]);
-
+$data = $collection->find()->limit(1);
+foreach ($data as $d) {
+    print_r($d);
+}
 //update
 //        $collection->updateOne(
 //            ['companyID' => 1 ,'currency._id'=> 2],

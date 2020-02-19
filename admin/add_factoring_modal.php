@@ -17,31 +17,32 @@ require "../database/connection.php";
                 <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal"
                         data-target="#add_factoring">ADD
                 </button>
-            </div>
-            <div id="table-scroll" class="table-scroll">
-                <table id="main-table" class="main-table ">
+
+
+                <table id="mainTable" class="table table-striped mb-0 table-editable">
                     <thead>
                     <tr>
-                        <th scope="col" style="background-color:#666666">Factoring Company Name</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Location</th>
-                        <th scope="col">Postal/Zip</th>
-                        <th scope="col">Primary Contact</th>
-                        <th scope="col">Telephone</th>
-                        <th scope="col">Ext</th>
-                        <th scope="col">Fax</th>
-                        <th scope="col">Toll Free</th>
-                        <th scope="col">Contact Email</th>
-                        <th scope="col">Secondary Contact</th>
-                        <th scope="col">Telephone</th>
-                        <th scope="col">Ext</th>
-                        <th scope="col">Currency Setting</th>
-                        <th scope="col">Payment Terms</th>
-                        <th scope="col">Tax ID</th>
-                        <th scope="col">Internal Notes</th>
-                        <th scope="col">Action</th>
+                        <th>Factoring Company Name</th>
+                        <th>Address</th>
+                        <th>Location</th>
+                        <th>Postal/Zip</th>
+                        <th>Primary Contact</th>
+                        <th>Telephone</th>
+                        <th>Ext</th>
+                        <th>Fax</th>
+                        <th>Toll Free</th>
+                        <th>Contact Email</th>
+                        <th>Secondary Contact</th>
+                        <th>Telephone</th>
+                        <th>Ext</th>
+                        <th>Currency Setting</th>
+                        <th>Payment Terms</th>
+                        <th>Tax ID</th>
+                        <th>Internal Notes</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
+                    <tbody>
                     <?php
                     $show = $db->factoring_company_add->find(['companyID' => $_SESSION['companyId']]);
                     foreach ($show as $row){
@@ -67,15 +68,6 @@ require "../database/connection.php";
                     $finternalNotes = $row1['internalNote'];
                     ?>
                     <tbody>
-                    <?php
-//                    $show = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
-//                    foreach ($show as $row) {
-//                        $show1 = $row['currency'];
-//                        foreach ($show1 as $row1) {
-//                            $currencyType = $row1['currencyType'];
-//                            ?>
-<!--                        --><?php //}
-//                    }?>
                     <tr>
                         <th><div contenteditable="true" onblur="updateFactoring(this,'factoringCompanyname','<?php echo $id; ?>')"
                                  onclick="activate(this)"><?php echo $factoringCompany; ?></div></th>
@@ -225,35 +217,14 @@ require "../database/connection.php";
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label>Currency Setting *</label>
-                        <select class="form-control" id="fcurrency">
-                            <?php
-                            $show = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
-                            foreach ($show as $row) {
-                                $show1 = $row['currency'];
-                                foreach ($show1 as $row1) {
-                                    $currencyType = $row1['currencyType'];
-                                    ?>
-                                    <option value="<?php echo $currencyType; ?>"><?php echo $currencyType;  ?></option>
-                                <?php }
-                            }?>
-                        </select>
+                        <label for="currencysetting">Currency Setting *</label>
+                        <input id="fcurrency" name="fcurrency" list="currencysetting"/>
                     </div>
                     <div class="form-group col-md-2">
-                        <label>Payment Terms*</label>
-                        <select class="form-control" id="fpaymentterms">
-                            <?php
-                            $show = $db->payment_terms->find(['companyID' => $_SESSION['companyId']]);
-                            foreach ($show as $row) {
-                                $show1 = $row['payment'];
-                                foreach ($show1 as $row1) {
-                                    $paymentTerms = $row1['paymentTerm'];
-                                    ?>
-                                    <option value="<?php echo $paymentTerms; ?>"><?php echo $paymentTerms; ?></option>
-                                <?php }
-                            }?>
-                        </select>
+                        <label for="currencysetting">Payment Terms*</label>
+                        <input id="fpaymentterms" name="fpaymentterms" list="paymentterms"/>
                     </div>
+
                     <div class="form-group col-md-2">
                         <label>Tax ID *</label>
                         <div>
@@ -278,6 +249,32 @@ require "../database/connection.php";
                 <button type="button" class="btn btn-primary waves-effect waves-light" onclick="FactoringCompany()">Save
                 </button>
             </div>
+            <datalist id="currencysetting">
+                <?php
+                $show = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
+                foreach ($show as $row) {
+                    $show1 = $row['currency'];
+                    foreach ($show1 as $row1) {
+                        $id = $row1['_id'];
+                        $currencyType = $row1['currencyType'];
+                        ?>
+                        <option value="<?php echo $id; ?>"><?php echo $currencyType;  ?></option>
+                    <?php }
+                }?>
+            </datalist>
+            <datalist id="paymentterms">
+                <?php
+                $show = $db->payment_terms->find(['companyID' => $_SESSION['companyId']]);
+                foreach ($show as $row) {
+                    $show1 = $row['payment'];
+                    foreach ($show1 as $row1) {
+                        $id = $row1['_id'];
+                        $paymentTerms = $row1['paymentTerm'];
+                        ?>
+                        <option value="<?php echo $id; ?>"><?php echo $paymentTerms; ?></option>
+                    <?php }
+                }?>
+            </datalist>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
