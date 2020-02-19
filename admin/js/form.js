@@ -1697,6 +1697,24 @@ function import_Custom_Broker() {
     });
 }
 
+
+function paginate_custom_broker(start,limit){
+    
+    $.ajax({
+        url: 'admin/utils/paginateCustomBroker.php',
+        type: 'POST',
+        data:{
+            start:start,
+            limit:limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('custom_broker_body').innerHTML = response;
+        },
+
+    });
+}
+
 /*----------------- Customs Broker END -------------------------*/
 
 //-----------------Truck Add start-------------------------------------

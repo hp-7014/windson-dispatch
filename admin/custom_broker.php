@@ -2,7 +2,7 @@
 
 require 'model/Customs_Broker.php';
 require 'utils/Helper.php';
-require '../vendor/autoload.php';
+// require '../vendor/autoload.php';
 require '../database/connection.php';
 
 $helper = new Helper();
