@@ -132,12 +132,47 @@ require "../database/connection.php"; ?>
 
                                     </tbody>
                                 </table>
-<!--                                <button id="new" class="btn btn-primary">Add Location</button>-->
+                                <!--<button id="new" class="btn btn-primary">Add Location</button>-->
                             </div>
                         </div>
                         <div class="col-md-9">
                             <div class="rightside">
                                 <div id="map">
+                                </div>
+                            </div>
+                            <button type='button' onclick='get_addresses()' class='btn btn-success btn-sm'> Calculate Mileage</button>
+                            <div id="summary_panel" class="panel panel-default">
+                                <div class="panel-heading">
+                                    Summary
+                                </div>
+                                <div class="panel-body">
+                                    <div id="distance">
+                                        <table>
+                                            <tr>
+                                                <td style="width: 75px;">
+                                                    From:
+                                                </td>
+                                                <td class="from_cell">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    To:
+                                                </td>
+                                                <td class="to_cell">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Duration:
+                                                </td>
+                                                <td class="t_cell">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div id="by_state">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -148,17 +183,15 @@ require "../database/connection.php"; ?>
     </div><!-- /.modal-dialog -->
 
     <script>
-        function addAddress() {
+        /*function addAddress() {
 
             $("#new").on("click", function () {
 
                 var inc = $(".row_address").length + 1,
-                    $newAddressRow = `
-					<div id="${inc}" class="row_address">
+                    $newAddressRow = `<div id="${inc}" class="row_address">
 						<input class="form-control col-md-8" type="text" name="address" placeholder="Add Location">
-  	        <button class="remove btn btn-danger">X</button>
-          </div>
-				`;
+  	                    <button class="remove btn btn-danger">X</button>
+                    </div>`;
 
                 $($newAddressRow).insertBefore($(this));
 
@@ -169,18 +202,18 @@ require "../database/connection.php"; ?>
 
             });
 
-        };
+        };*/
 
-        function delAddress() {
+        /*function delAddress() {
             $(document).on("click", ".remove", function () {
                 $(this).closest(".row_address").remove();
                 // https://developers.google.com/maps/documentation/javascript/places-autocomplete#style_autocomplete
                 // remove predictions
                 $("#predictions_" + $(this).closest("div").attr("id")).remove();
             });
-        };
+        };*/
 
-        function applySearchAddress($input) {
+        /*function applySearchAddress($input) {
 
             if (google.maps.places.PlacesServiceStatus.OK != "OK") {
                 console.warn(google.maps.places.PlacesServiceStatus)
@@ -226,11 +259,12 @@ require "../database/connection.php"; ?>
                 $(".pac-container:last").attr("id", "predictions_" + rowId);
             }, 100);
 
-        };
+        };*/
 
         $(document).ready(function () {
-            addAddress();
-            delAddress();
+
+           // addAddress();
+            //delAddress();
         });
 
         function verifyLoad() {

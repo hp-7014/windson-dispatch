@@ -27,10 +27,8 @@ require "../database/connection.php";?>
                                         <button class="custom-btn">Choose file</button>
                                         <input type="file" name="file" id="file" accept=".csv"/>
                                     </div>
-                                    <button type="button"
-                                            class="btn btn-outline-success waves-effect waves-light float-right">CSV
-                                        formate
-                                    </button>
+                                    <a class="btn btn-outline-success waves-effect waves-light" href="download.php?file=Active_Load_Type.csv" style="margin-bottom: 2px;">CSV formate
+                                    </a>
                                 </form>
                                 <br>
                                 <br>
