@@ -14,14 +14,14 @@ function showTextarea(columnID,type,id,columnName){
         $('#' + columnID).editable({
             showbuttons: 'bottom',
             mode: 'inline',
-            inputclass: 'form-control-sm-6',
+            inputclass: 'form-control col-sm-8',
             row: 3,
         });
     } else if(type == "date") {
         $('#' + columnID).editable({
             showbuttons: 'bottom',
             mode: 'inline',
-            inputclass: 'form-control-sm-6 ',
+            inputclass: 'form-control col-sm-6 ',
             row: 3,
         });
     }

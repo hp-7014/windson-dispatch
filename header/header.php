@@ -226,6 +226,18 @@
                 }
             });
         });
+        $(document).on('click', '#AddCurrency', function () {
+            
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+                    
+                    $('.currency-container').load('./master/add_currency_sub.php', function (result) {
+                        $('#currencysub').modal({show: true});
+                    });
+                }
+            });
+        });
 
          $(document).on('click', '#AddCustomer', function () {
              $.ajax({
@@ -314,11 +326,47 @@
                 $.ajax({
                     type: 'POST',
                     success: function (data) {
+                      //$('#mainbody').toggleClass('modal-open');
+                       //$("#mainbody").addClass("modal-open");
+                       $('#active_new').bind('mouseenter touchstart', function(e) {
+                            var current = $(window).scrollTop();
+                            $(window).scroll(function(event) {
+                                $(window).scrollTop(current);
+                            });
+                        });
+                        $('#active_new').bind('mouseleave touchend', function(e) {
+                            $(window).off('scroll');
+                        });
                         $('.activeload-container').load('active_load.php', function (result) {
                             $('#active_new').modal({show: true});
                         });
                     }
                 });
+            });
+            
+            $(document).on('click', '#AddFactoring', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.factoring-container').load('./admin/add_factoring_modal_sub.php', function (result) {
+                            $('#add_factoring').modal({show: true});
+                        });
+                    }
+                });
+            });
+            $(document).on('click', '#AddCustomBroker', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.custombroker-container').load('./admin/add_custom_broker_sub.php', function (result) {
+                            $('#Add_Customs_Broker').modal({show: true});
+                        });
+                    }
+                });
+            });
+
+            $(document).on('click', '.modalCurrrency', function () {
+                $('#currencysub').modal('hide');
             });
 
             $(document).on('click', '.modalCompany', function () {
@@ -353,6 +401,16 @@
             });
             $(document).on('click', '.modalOther', function () {
                 $('#otherCharges').modal('hide');
+            });
+            $(document).on('click', '.modalFactoring', function () {
+                $('#add_factoring').modal('hide');
+            });
+            $(document).on('click', '.modalBroker', function () {
+                $('#Add_Customs_Broker').modal('hide');
+            });
+
+            $(document).on('click', '.modalCurrency', function () {
+                $('#currency').modal('hide');
             });
 
 
@@ -571,7 +629,7 @@
     </script>
 </head>
 
-<body>
+<body id="mainbody">
 
 <div class="header-bg">
     <!-- Navigation Bar-->
