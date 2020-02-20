@@ -22,6 +22,30 @@ require "../database/connection.php";
                 <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#add_Driver">
                     <i class="mdi mdi-gamepad-down"></i>&nbsp;ADD
                 </button>
+                <div class="modal-body custom-modal-body" style="padding: 0.1rem">
+                <div class="driver-container" style="z-index: 1400"></div>
+                <div class="row">
+                        <div class="col-12">
+                            <div class="card m-b-30">
+                                <div class="card-body">
+                                    <form action="" method="post" enctype="multipart/form-data">
+                                    <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#" id="AddDriver"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD</button>
+                                        <input type="submit" name="submit" onclick="importDriver()"
+                                               class="btn btn-outline-info waves-effect waves-light float-right"
+                                               value="Upload"/>
+                                        <div class="custom-upload-btn-wrapper float-right">
+                                            <button class="custom-btn">Choose file</button>
+                                            <input type="file" name="file" id="file" accept=".csv"/>
+                                        </div>
+                                        <button type="button"
+                                                class="btn btn-outline-success waves-effect waves-light float-right">CSV
+                                            formate
+                                        </button>
+                                    </form>
+                                    <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right"type="text" id="search" placeholder="search" style="margin-left: 5px;">
+                                    <br>
+
+
 
                 <div class="table-rep-plugin">
                     <div class="table-responsive b-0" data-pattern="priority-columns">
@@ -438,6 +462,10 @@ require "../database/connection.php";
                                 </tr>
                                 </tfoot>
                             </table>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                         </div>
                     </div>
 
@@ -970,20 +998,3 @@ require "../database/connection.php";
         height: 8px;
     }
 
-    /* Track */
-
-    .table-scroll::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-        -webkit-border-radius: 10px;
-        border-radius: 10px;
-    }
-
-
-    .table-scroll::-webkit-scrollbar-thumb {
-        -webkit-border-radius: 10px;
-        border-radius: 10px;
-        background: rgb(48, 65, 155);
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
-    }
-
-</style>

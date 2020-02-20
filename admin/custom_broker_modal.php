@@ -17,8 +17,19 @@ include '../database/connection.php';
             </div>
 
             <div class="modal-body custom-modal-body" style="padding: 0.1rem">
+            <div class="custombroker-container" style="z-index: 1400"></div>
+            <form action="" method="post" enctype="multipart/form-data">
+            <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#" id="AddCustomBroker"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD</button>
+                 <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>
+                    <div class="custom-upload-btn-wrapper float-right">
+                        <button class="custom-btn">Choose file</button>
+                        <input type="file" id="file" name="myfile" />
+                    </div>
+
+                    <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="import_Custom_Broker()">Upload</button>
+                    </form>
                 <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right"type="text" id="search" placeholder="search" style="margin-left: 5px;">
-                <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#Add_Customs_Broker"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD</button>
+                <br>
 
                 <div class="table-rep-plugin">
                     <div class="table-responsive b-0" data-pattern="priority-columns">
@@ -152,194 +163,4 @@ include '../database/connection.php';
 </div><!-- /.modal -->
 
 
-<!-----------------------------------------------Add Custom Broker------------------------------------------------------------------------------------->
-<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" id="Add_Customs_Broker"
-     aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #2A3988;">
-                <h5 class="modal-title mt-0" style="color: white;">Add Customs Broker</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>
-                    <div class="custom-upload-btn-wrapper float-right">
-                        <button class="custom-btn">Choose file</button>
-                        <input type="file" id="file" name="myfile" />
-                    </div>
-
-                    <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="import_Custom_Broker()">Upload</button>
-                </div>
-                <br>
-                <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label>Broker Name <span style="color: red">*</span></label>
-                        <div>
-                            <input class="form-control" placeholder="Broker Name *" type="text" name="brokerName" id="brokerName">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Crossing <span style="color: red">*</span></label>
-                        <div>
-                            <input class="form-control" placeholder="Crossing *" type="text" name="crossing" id="crossing">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label>Telephone</label>
-                        <div>
-                            <input class="form-control" placeholder="Telephone No" type="text" name="telephone" id="telephone">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label>Ext</label>
-                        <div>
-                            <input class="form-control" placeholder="Ext" type="text" name="ext" id="ext">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label>Toll Free</label>
-                        <div>
-                            <input class="form-control" placeholder="Toll Free" type="text" name="tollfree" id="tollfree">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Fax</label>
-                        <div>
-                            <input class="form-control" placeholder="Fax No" type="text" name="fax" id="fax">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Status </label>
-                        <div class="row">
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="status1" name="Status" value="Active" checked>
-                                <label class="custom-control-label" for="status1">Active</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="status2" name="Status" value="InActive">
-                                <label class="custom-control-label" for="status2">Inactive</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="Add_CustomBroker()">Save</button>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<style>
-    .table-scroll {
-        position: relative;
-        width: 100%;
-        z-index: 1;
-        margin: auto;
-        overflow: auto;
-        height: 320px;
-    }
-
-    .table-scroll table {
-        width: 100%;
-        min-width: 1280px;
-        margin: auto;
-        border-collapse: separate;
-        border-spacing: 0;
-    }
-
-    .table-wrap {
-        position: relative;
-    }
-
-    .table-scroll th,
-    .table-scroll td {
-        /*padding: 5px 10px;*/
-        border: 1px solid #000;
-        background: #fff;
-        vertical-align: bottom;
-        text-align: center;
-    }
-
-    .table-scroll thead th {
-        background: #30419B;
-        color: #fff;
-        padding: 4px;
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0;
-    }
-
-    /* safari and ios need the tfoot itself to be position:sticky also */
-    .table-scroll tfoot,
-    .table-scroll tfoot th,
-    .table-scroll tfoot td {
-        position: -webkit-sticky;
-        position: sticky;
-        bottom: 0;
-        background: #666;
-        color: #fff;
-        z-index: 4;
-    }
-
-    /* testing links*/
-
-    th:first-child {
-        position: -webkit-sticky;
-        position: sticky;
-        left: 0;
-        z-index: 2;
-        background: #ccc;
-    }
-
-    thead th:first-child,
-    tfoot th:first-child {
-        z-index: 5;
-    }
-
-    table {
-        table-layout: fixed;
-    }
-
-    .text-overflow {
-        padding-top: 10px;
-        display:block;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-    a.editable-click { border-bottom: none;
-        color: #000000;}
-    a.editable-click:hover{
-        border-bottom: none;
-    }
-    .table-scroll::-webkit-scrollbar {
-        width: 12px;
-        height: 8px;
-    }
-
-    /* Track */
-
-    .table-scroll::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-        -webkit-border-radius: 10px;
-        border-radius: 10px;
-    }
-
-
-    .table-scroll::-webkit-scrollbar-thumb {
-        -webkit-border-radius: 10px;
-        border-radius: 10px;
-        background: rgb(48, 65, 155);
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
-    }
-
-</style>
 

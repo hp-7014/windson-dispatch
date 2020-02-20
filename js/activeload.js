@@ -343,6 +343,7 @@ function getConsig(consigID) {
 }
 
 $(document).on("click", "#add_Customer_Modal", function () {
+    
     $.ajax({
         type: 'POST',
         success: function (data) {
@@ -366,6 +367,7 @@ $(document).on("click", "#add_Carrier_Modal", function () {
 });
 
 $(document).on("click", "#add_Driver_Modal", function () {
+    //alert("clicked");
     $.ajax({
         type: 'POST',
         success: function (data) {

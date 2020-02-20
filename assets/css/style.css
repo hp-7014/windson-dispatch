@@ -3688,3 +3688,10 @@ table.focus-on tbody tr.focused td {
 
 /*--------- to bring the location suggestion above the modal-------*/
 .pac-container { z-index: 100000; }
+
+
+#mainbody.modal-open{
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+}

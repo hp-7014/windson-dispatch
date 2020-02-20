@@ -253,6 +253,18 @@
                 }
             });
         });
+        $(document).on('click', '#AddCurrency', function () {
+
+             $.ajax({
+                type: 'POST',
+                success: function (data) {
+
+                    $('.currency-container').load('./master/add_currency_sub.php', function (result) {
+                        $('#currencysub').modal({show: true});
+                    });
+                }
+            });
+        });
 
         $(document).on('click', '#AddCustomer', function () {
             $.ajax({
@@ -288,6 +300,98 @@
             });
         });
 
+            $(document).on('click', '#AddOwnerOperator', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.owner-container').load('./admin/owner_operator_modal_sub.php', function (result) {
+                            $('#Owner_operator').modal({show: true});
+                        });
+                    }
+                });
+            });
+            $(document).on('click', '#AddTruck', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.truck-container').load('./admin/add_truck_modal_sub.php', function (result) {
+                            $('#add_Truck').modal({show: true});
+                        });
+                    }
+                });
+            });
+            $(document).on('click', '#AddTrailer', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.trailer-container').load('./admin/add_trailer_modal_sub.php', function (result) {
+                            $('#add_Trailer').modal({show: true});
+                        });
+                    }
+                });
+            });
+            $(document).on('click', '#AddShipper', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.shipper-container').load('./admin/shipper_modal_sub.php', function (result) {
+                            $('#add_shipper').modal({show: true});
+                        });
+                    }
+                });
+            });
+            $(document).on('click', '#AddConsignee', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.consignee-container').load('./admin/consignee_modal_sub.php', function (result) {
+                            $('#add_consignee').modal({show: true});
+                        });
+                    }
+                });
+            });
+            $(document).on('click', '#AddActiveLoad', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                      //$('#mainbody').toggleClass('modal-open');
+                       //$("#mainbody").addClass("modal-open");
+                       $('#active_new').bind('mouseenter touchstart', function(e) {
+                            var current = $(window).scrollTop();
+                            $(window).scroll(function(event) {
+                                $(window).scrollTop(current);
+                            });
+                        });
+                        $('#active_new').bind('mouseleave touchend', function(e) {
+                            $(window).off('scroll');
+                        });
+                        $('.activeload-container').load('active_load.php', function (result) {
+                            $('#active_new').modal({show: true});
+                        });
+                    }
+                });
+            });
+
+            $(document).on('click', '#AddFactoring', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.factoring-container').load('./admin/add_factoring_modal_sub.php', function (result) {
+                            $('#add_factoring').modal({show: true});
+                        });
+                    }
+                });
+            });
+            $(document).on('click', '#AddCustomBroker', function () {
+                $.ajax({
+                    type: 'POST',
+                    success: function (data) {
+                        $('.custombroker-container').load('./admin/add_custom_broker_sub.php', function (result) {
+                            $('#Add_Customs_Broker').modal({show: true});
+                        });
+                    }
+                });
+            });
         $(document).on('click', '#AddOwnerOperator', function () {
             $.ajax({
                 type: 'POST',
@@ -510,6 +614,13 @@
         $(document).on('click', '.modalSubCredit', function () {
             $('#add_sub_credit').modal('hide');
         });
+            $(document).on('click', '.modalCurrrency', function () {
+                $('#currencysub').modal('hide');
+            });
+
+            $(document).on('click', '.modalCompany', function () {
+                $('#add_company').modal('hide');
+            });
 
         $(document).on('click', '.modalCustomer', function () {
             $('#add_customer').modal('hide');
@@ -518,6 +629,38 @@
         $(document).on('click', '.modalCarrier', function () {
             $('#add_External').modal('hide');
         });
+
+            $(document).on('click', '.modalDriver', function () {
+                $('#add_Driver').modal('hide');
+            });
+            $(document).on('click', '.modalOwner', function () {
+                $('#Owner_operator').modal('hide');
+            });
+            $(document).on('click', '.modalTruck', function () {
+                $('#add_Truck').modal('hide');
+            });
+            $(document).on('click', '.modalTrailer', function () {
+                $('#add_Trailer').modal('hide');
+            });
+            $(document).on('click', '.modalShipper', function () {
+                $('#add_shipper').modal('hide');
+            });
+            $(document).on('click', '.modalConsignee', function () {
+                $('#add_consignee').modal('hide');
+            });
+            $(document).on('click', '.modalOther', function () {
+                $('#otherCharges').modal('hide');
+            });
+            $(document).on('click', '.modalFactoring', function () {
+                $('#add_factoring').modal('hide');
+            });
+            $(document).on('click', '.modalBroker', function () {
+                $('#Add_Customs_Broker').modal('hide');
+            });
+
+            $(document).on('click', '.modalCurrency', function () {
+                $('#currency').modal('hide');
+            });
 
         $(document).on('click', '.modalDriver', function () {
             $('#add_Driver').modal('hide');
@@ -761,7 +904,7 @@
     </script>
 </head>
 
-<body>
+<body id="mainbody">
 
 <div class="header-bg">
     <!-- Navigation Bar-->
