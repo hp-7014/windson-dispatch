@@ -5,7 +5,7 @@
  File: Xeditable js
  */
 function showTextarea(columnID,type,id,columnName){
-    alert('hello');
+
     if(type == "text") {
         $('#' + columnID).editable({
             showbuttons: 'bottom',

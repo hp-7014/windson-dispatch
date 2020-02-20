@@ -10,6 +10,7 @@ require "../database/connection.php";?>
                 </button>
             </div>
             <div class="modal-body custom-modal-body">
+                <div class="office-container" style="z-index: 1800"></div>
                 <div class="row">
                     <div class="col-12">
                         <div class="card m-b-30">
@@ -17,7 +18,7 @@ require "../database/connection.php";?>
                                 <form action="" method="post" enctype="multipart/form-data">
                                     <button type="button" class="btn btn-primary waves-effect waves-light"
                                             data-toggle="modal"
-                                            data-target="#Add_Office">Add
+                                            data-target="#" id="Add_Office">Add
                                     </button>
                                     <input type="submit" name="submit" onclick="importOffice()"
                                            class="btn btn-outline-info waves-effect waves-light float-right"
@@ -83,42 +84,3 @@ require "../database/connection.php";?>
 </div><!-- /.modal -->
 
 <!---- Add office Modal here ----->
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-     id="Add_Office" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #2A3988;">
-                <h5 class="modal-title mt-0" style="color: white;">Add Office</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label>Name *</label>
-                        <div>
-                            <input class="form-control" placeholder="Name *" id="officeName" type="text"
-                                   id="example-text-input">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label>Location *</label>
-                        <div>
-                            <input class="form-control" placeholder="Location *" id="officeLocation" type="text"
-                                   id="example-text-input">
-                            <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger waves-effect"
-                            data-dismiss="modal">Close
-                    </button>
-                    <input type="submit" name="submit" onclick="addOffice()" value="Save"
-                           class="btn btn-primary waves-effect waves-light"/>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-</div>

@@ -39,18 +39,24 @@ include '../database/connection.php';
                                 </tr>
                                 </thead>
                                 <?php
-                                    $broker = $db->customs_broker->find(['companyID' => $_SESSION['companyId']]);
+                                    $limit = 100;
+                                    $cursor = $db->customs_broker->find(array('companyID'=>$_SESSION['companyId']));
+                                    foreach($cursor as $value){
+                                        $total_records = sizeof($value['custom_b']);
+                                        $total_pages = ceil($total_records / $limit);
+                                    }
+                                    $broker = $db->customs_broker->find(array('companyID'=>$_SESSION['companyId']),array('projection'=>array('custom_b'=>array('$slice'=>[0,$limit]))));
                                     $i = 1;
                                 ?>
 
-                                <tbody>
+                                <tbody id="custom_broker_body">
                                 <?php foreach ($broker as $brok) {
                                     $c_broker = $brok['custom_b'];
 
                                     foreach ($c_broker as $custom) {
-                                        $limit = 4;
-                                        $total_records = $custom->count();
-                                        $total_pages = ceil($total_records / $limit);
+                                        
+                                       
+                                        
                                         if ($custom['delete_status'] == '0') {
                                             ?>
                                             <tr>
@@ -111,18 +117,20 @@ include '../database/connection.php';
                     <nav aria-label="..." class="float-right">
                         <ul class="pagination">
                             <?php
-                            for($i=1; $i<=$total_pages; $i++){
-                                if($i == 1){
+                            $j = 1;
+                            for($i=0; $i<$total_pages; $i++){
+                                if($i == 0){
                                     ?>
-                                    <li class="pageitem active" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" data-id="<?php echo $i;?>" class="page-link" ><?php echo $i;?></a></li>
+                                    <li class="pageitem active" onclick="paginate_custom_broker(<?php echo $i* $limit;?>,<?php echo $limit?>)" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" data-id="<?php echo $i;?>" class="page-link" ><?php echo $j;?></a></li>
 
                                     <?php
                                 }
                                 else{
                                     ?>
-                                    <li class="pageitem" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" class="page-link" data-id="<?php echo $i;?>"><?php echo $i;?></a></li>
+                                    <li class="pageitem" onclick="paginate_custom_broker(<?php echo $i* $limit;?>,<?php echo $limit?>)" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" class="page-link" data-id="<?php echo $i;?>"><?php echo $j;?></a></li>
                                     <?php
                                 }
+                                $j++;
                             }
                             ?>
                         </ul>

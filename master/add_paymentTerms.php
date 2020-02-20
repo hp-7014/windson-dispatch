@@ -1,5 +1,5 @@
 <?php session_start();
-require "../database/connection.php";?>
+require "../database/connection.php"; ?>
 <!--  Modal content for the above example -->
 <div id="Payment_Terms" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
@@ -12,6 +12,7 @@ require "../database/connection.php";?>
                 </button>
             </div>
             <div class="modal-body custom-modal-body">
+                <div class="payment-container" style="z-index: 1800"></div>
                 <div class="row">
                     <div class="col-12">
                         <div class="card m-b-30">
@@ -20,16 +21,18 @@ require "../database/connection.php";?>
                                 <form method="post" enctype="multipart/form-data">
                                     <button type="button" class="btn btn-primary waves-effect waves-light"
                                             data-toggle="modal"
-                                            data-target="#Add_Payment_Terms">Add
+                                            data-target="#" id="Add_Payment_Terms">Add
                                     </button>
-                                    <input  type="submit" name="submit" onclick="importExcel()"
+                                    <input type="submit" name="submit" onclick="importExcel()"
                                            class="btn btn-outline-info waves-effect waves-light float-right"
                                            value="Upload"/>
                                     <div class="custom-upload-btn-wrapper float-right">
                                         <button class="custom-btn">Choose file</button>
                                         <input type="file" name="file" id="file" accept=".csv"/>
                                     </div>
-                                    <a class="btn btn-outline-success waves-effect waves-light" href="download.php?file=Payment_Terms.csv" style="margin-bottom: 2px;">CSV formate
+                                    <a class="btn btn-outline-success waves-effect waves-light"
+                                       href="download.php?file=Payment_Terms.csv" style="margin-bottom: 2px;">CSV
+                                        formate
                                     </a>
                                 </form>
                                 <br>
@@ -84,38 +87,3 @@ require "../database/connection.php";?>
 </div><!-- /.modal -->
 
 <!-----------------------------------------Add Payment Terms-------------------------------------------------------------------------------->
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-     id="Add_Payment_Terms" aria-hidden="true">
-    <div class="load"></div>
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #2A3988;">
-                <h5 class="modal-title mt-0" style="color: white;">Payment Terms</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label>Name *</label>
-                        <div>
-                            <input class="form-control" placeholder="Name *" type="text"
-                                   id="payment_term">
-                            <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger waves-effect"
-                            data-dismiss="modal">Close
-                    </button>
-                    <button type="submit" name="submit" onclick="addPaymentTerms()"
-                            class="btn btn-primary waves-effect waves-light">
-                        Save
-                    </button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-</div>

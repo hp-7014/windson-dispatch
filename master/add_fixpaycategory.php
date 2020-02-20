@@ -13,10 +13,11 @@ require "../database/connection.php";?>
                 </button>
             </div>
             <div class="modal-body custom-modal-body">
+                <div class="fixpay-container" style="z-index: 1800"></div>
                 <form method="post" enctype="multipart/form-data">
                     <button type="button" class="btn btn-primary waves-effect waves-light"
                             data-toggle="modal"
-                            data-target="#Fix_Pay_Category">Add
+                            data-target="#" id="Fix_Pay_Category">Add
                     </button>
                     <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="importfixpay()">Upload
                     </button>
@@ -70,36 +71,3 @@ require "../database/connection.php";?>
 </div><!-- /.modal -->
 </div>
 <!----------------------------------------------------------------------- Add Fix Pay Category-------------------------------------------------------------------->
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
-     aria-labelledby="mySmallModalLabel" id="Fix_Pay_Category" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #2A3988;">
-                <h5 class="modal-title mt-0" style="color: white;">Fix Pay Category</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label>Name *</label>
-                        <div>
-                            <input class="form-control" placeholder="Name *" type="text"
-                                   id="fix_pay_add">
-                            <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger waves-effect"
-                            data-dismiss="modal">Close
-                    </button>
-                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="addFixpay()">
-                        Save
-                    </button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-</div>

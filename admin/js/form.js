@@ -124,6 +124,10 @@ function updateShipperTable(){
         type: 'POST',
         dataType: 'text',
         success: function (response) {
+            var companyid = $('#companyid').val();
+            database.ref('shipper').child(companyid).set({
+                data:randomString(),
+            });
             document.getElementById('shipperBody').innerHTML = response;
         },
     });
@@ -1729,6 +1733,24 @@ function import_Custom_Broker() {
         success: function (data) {
             swal('Success', data, 'success');
         }
+    });
+}
+
+
+function paginate_custom_broker(start,limit){
+    
+    $.ajax({
+        url: 'admin/utils/paginateCustomBroker.php',
+        type: 'POST',
+        data:{
+            start:start,
+            limit:limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('custom_broker_body').innerHTML = response;
+        },
+
     });
 }
 

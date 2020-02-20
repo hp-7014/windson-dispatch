@@ -15,6 +15,7 @@ include '../database/connection.php';
             </div>
 
             <div class="modal-body custom-modal-body">
+                <div class="masterbank-container" style="z-index: 1800"></div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="home-tab" data-toggle="tab"
@@ -42,7 +43,7 @@ include '../database/connection.php';
                             <div class="col-12">
                                 <div class="card m-b-30">
                                     <div class="card-body">
-                                        <button type="button" class="btn btn-primary waves-effect waves-light mt-0 header-title" data-toggle="modal" data-target="#Add_Bank_Debit_Category">Add</button>
+                                        <button type="button" class="btn btn-primary waves-effect waves-light mt-0 header-title" data-toggle="modal" data-target="#" id="Add_Bank_Debit_Category">Add</button>
 
                                         <!--<form method="post" enctype="multipart/form-data">-->
                                         <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="importDebit()">Upload</button>
@@ -122,7 +123,7 @@ include '../database/connection.php';
                                 <div class="card m-b-30">
                                     <div class="card-body">
                                         <form method="post" enctype="multipart/form-data">
-                                            <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#Credit_Category">Add</button>
+                                            <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#" id="addCategory">Add</button>
                                             <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="importCredit()">Upload</button>
                                             <div class="custom-upload-btn-wrapper float-right">
                                                 <button class="custom-btn">Choose file</button>
@@ -193,7 +194,7 @@ include '../database/connection.php';
                                 <div class="card m-b-30">
                                     <div class="card-body">
                                         <form method="post" enctype="multipart/form-data">
-                                            <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#Category">Add</button>
+                                            <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#" id="creditCard">Add</button>
 
                                             <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="importCard()">Upload</button>
                                             <div class="custom-upload-btn-wrapper float-right">
@@ -256,96 +257,3 @@ include '../database/connection.php';
         </div>
     </div>
 </div>
-
-<!------------------------------------------------------------------------------------------------------------------------------------>
-
-<!----------------------------------Add Bank Debit Category--------------------------------------------------------------------------->
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="Add_Bank_Debit_Category" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #2A3988;">
-                <h5 class="modal-title mt-0" style="color: white;">Bank Debit Category</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group col-md-12">
-                    <label>Name <span style="color: red">*</span></label>
-                    <div>
-                        <input class="form-control" placeholder="Name" name="debit_category_name" type="text" id="debit_category_name">
-                        <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">
-                    Close
-                </button>
-                <button type="submit" name="submit" onclick="addDebitCategory()" id="" class="btn btn-primary waves-effect waves-light">Save</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-------------------------------------------------------------------------------------------------------------------------------------->
-
-<!----------------------------------Add Bank Credit Category---------------------------------------------------------------------------->
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="Credit_Category" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #2A3988;">
-                <h5 class="modal-title mt-0" style="color: white;">Bank Credit Category</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group col-md-12">
-                    <label>Name <span style="color: red">*</span></label>
-                    <div>
-                        <input class="form-control" placeholder="Name" name="credit_category_name" type="text" id="credit_category_name">
-                        <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">
-                    Close
-                </button>
-                <button type="submit" name="submit" onclick="addCreditCategory()" class="btn btn-primary waves-effect waves-light">Save</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<!------------------------------------------------------------------------------------------------------------------------------------------>
-
-<!----------------------------------Credit Card Category------------------------------------------------------------------------------------>
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="Category" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #2A3988;">
-                <h5 class="modal-title mt-0" style="color: white;">Credit Card Category</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group col-md-12">
-                    <label>Name <span style="color: red">*</span></label>
-                    <div>
-                        <input class="form-control" placeholder="Name" name="credit_card_name" type="text" id="credit_card_name">
-                        <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">
-                    Close
-                </button>
-                <button type="submit" id="submit" onclick="addCreditCard()" class="btn btn-primary waves-effect waves-light">Save</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-

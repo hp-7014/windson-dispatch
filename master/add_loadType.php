@@ -11,6 +11,7 @@ require "../database/connection.php";?>
                 </button>
             </div>
             <div class="modal-body custom-modal-body">
+                <div class="loadtype-container" style="z-index: 1800"></div>
                 <div class="row">
                     <div class="col-12">
                         <div class="card m-b-30">
@@ -18,7 +19,7 @@ require "../database/connection.php";?>
                                 <form action="" method="post" enctype="multipart/form-data">
                                     <button type="button" class="btn btn-primary waves-effect waves-light"
                                             data-toggle="modal"
-                                            data-target="#Active_Load_Type">Add
+                                            data-target="#" id="Active_Load_Type">Add
                                     </button>
                                     <input type="submit" name="submit" onclick="importLoadType()"
                                            class="btn btn-outline-info waves-effect waves-light float-right"
@@ -86,46 +87,3 @@ require "../database/connection.php";?>
 </div><!-- /.modal -->
 </div>
 <!-----------------------------------------------------------------------Add Active Load Type-------------------------------------------------------------------------->
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-     id="Active_Load_Type" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: #2A3988;">
-                <h5 class="modal-title mt-0" style="color: white;">Active Load Type</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label>Name *</label>
-                        <div>
-                            <input class="form-control" placeholder="Name *" type="text"
-                                   id="loadName">
-                            <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label>
-                            Unit # *</label>
-                        <select class="form-control" id="loadType">
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger waves-effect"
-                            data-dismiss="modal">Close
-                    </button>
-                    <button type="submit" name="submit" onclick="addLoadType()"
-                            class="btn btn-primary waves-effect waves-light">
-                        Save
-                    </button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-</div>
-<!------------------------------------------------------------------------------------------------------------------------------------------------>

@@ -43,8 +43,7 @@ foreach ($show as $row) {
         $internalNotesColmn = 'internalNotes';
         $type = 'text';
         $no += 1;
-        echo "
-            <tr>
+        echo "<tr>
                 <th>$no</th>
                 <td>
                     <a href='#' id='shipperName".$id."1' data-type='textarea' onclick='showTextarea(this.id,$type,$id,$shipperNameColmn)' class='text-overflow'>$shipperName</a>

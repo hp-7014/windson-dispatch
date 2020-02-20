@@ -1,22 +1,23 @@
 var room = 0;
 var count = 0;
+
 function add_fields() {
     room++;
 
-    var mainID = "'home-title"+room+"'";
-    var contentID = "'home"+room+"'";
+    var mainID = "'home-title" + room + "'";
+    var contentID = "'home" + room + "'";
     var objTo = document.getElementById('myTab');
-    var divtest = '<li class="nav-item list-item" id = "home-title'+room+'"><a class = "nav-link shipper list-anchors" id = "home-tab'+room+'" data-toggle="tab" href="#home'+room+'" role="tab" aria-controls="home" aria-selected="false">Shipper</a><i class="mdi mdi-window-close ico" onclick="removeTab('+mainID+','+contentID+')" aria-hidden="true"></i></li>'
+    var divtest = '<li class="nav-item list-item" id = "home-title' + room + '"><a class = "nav-link shipper list-anchors" id = "home-tab' + room + '" data-toggle="tab" href="#home' + room + '" role="tab" aria-controls="home" aria-selected="false">Shipper</a><i class="mdi mdi-window-close ico" onclick="removeTab(' + mainID + ',' + contentID + ')" aria-hidden="true"></i></li>'
     objTo.innerHTML += divtest;
     document.getElementById('sc-card').classList.add("shadow");
     //var contentTo = document.getElementById("myTabContent");
     var contentTo = $("#myTabContent");
-    var contenttest = '<div class="tab-pane fade" id="home'+room+'" role="tabpanel" aria-labelledby="home-tab'+room+'"><div class="row m-2">\n' +
+    var contenttest = '<div class="tab-pane fade" id="home' + room + '" role="tabpanel" aria-labelledby="home-tab' + room + '"><div class="row m-2">\n' +
         '                                            <div class="form-group col-md-3">\n' +
         '                                                <label>Name*</label>\n' +
-        '                                                 <input list="shipper'+room+'" class="form-control" placeholder="--Select--" id="shipperlist'+room+'" name="shipperlist">\n'+
-        '                                                 <datalist id="shipper'+room+'">\n'+
-        '                                                 </datalist>\n'+
+        '                                                 <input list="shipper' + room + '" class="form-control" placeholder="--Select--" id="shipperlist' + room + '" name="shipperlist">\n' +
+        '                                                 <datalist id="shipper' + room + '">\n' +
+        '                                                 </datalist>\n' +
         '                                            </div>\n' +
         '                                            <div class="form-group col-md-2">\n' +
         '                                                <label>Address*</label>\n' +
@@ -29,7 +30,7 @@ function add_fields() {
         '                                                <label>Location *</label>\n' +
         '                                                <div>\n' +
         '                                                    <input class="form-control" placeholder="Enter a location"\n' +
-        '                                                           type="text" onkeydown="getLocation(this.id)" id="activeshipper'+room+'">\n' +
+        '                                                           type="text" onkeydown="getLocation(this.id)" id="activeshipper' + room + '">\n' +
         '                                                </div>\n' +
         '                                            </div>\n' +
         '                                            <div class="form-group col-md-2">\n' +
@@ -100,53 +101,53 @@ function add_fields() {
         '                                        </div></div>';
     //contentTo.innerHTML += contenttest;
     $(contentTo).append(contenttest);
-    getShip("shipper"+room);
+    getShip("shipper" + room);
     renameShipper();
     makeActive();
 
 }
-function makeActive(){
 
-    for(var i = 0; i < room; i++){
-        var component = document.getElementById('home-tab'+i);
-        var component1 = document.getElementById('home'+i);
-        if(component && component1){
+function makeActive() {
+
+    for (var i = 0; i < room; i++) {
+        var component = document.getElementById('home-tab' + i);
+        var component1 = document.getElementById('home' + i);
+        if (component && component1) {
             component.classList.remove("active");
             component1.classList.remove("show");
             component1.classList.remove("active");
-            component.setAttribute("aria-selected",false);
+            component.setAttribute("aria-selected", false);
         }
     }
-    var newcomponent = document.getElementById('home-tab'+i);
-    var newcomponent1 = document.getElementById('home'+i);
+    var newcomponent = document.getElementById('home-tab' + i);
+    var newcomponent1 = document.getElementById('home' + i);
     newcomponent.classList.add("active");
     newcomponent1.classList.add("show");
     newcomponent1.classList.add("active");
-    newcomponent.setAttribute("aria-selected",true);
+    newcomponent.setAttribute("aria-selected", true);
 }
 
-function renameShipper(){
+function renameShipper() {
     var shippers = document.getElementsByClassName('shipper');
-    for(var i = 0; i < document.getElementById('myTab').getElementsByTagName("li").length; i++){
+    for (var i = 0; i < document.getElementById('myTab').getElementsByTagName("li").length; i++) {
 
-        shippers[i].innerHTML = "Shipper "+(i+1);
+        shippers[i].innerHTML = "Shipper " + (i + 1);
     }
 }
 
-function removeTab(mainid,contentid){
+function removeTab(mainid, contentid) {
 
     var element1 = document.getElementById(mainid);
     var element2 = document.getElementById(contentid);
-    if(mainid == 'home-title'){
+    if (mainid == 'home-title') {
         alert("First Shipper can't be removed");
         return;
     }
-    if(document.getElementById('myTab').getElementsByTagName("li").length > 1){
+    if (document.getElementById('myTab').getElementsByTagName("li").length > 1) {
         document.getElementById('myTab').removeChild(element1);
         document.getElementById('myTabContent').removeChild(element2);
         renameShipper();
-    }
-    else{
+    } else {
         alert("All shippers cannot be removed.");
     }
 }
@@ -154,20 +155,20 @@ function removeTab(mainid,contentid){
 
 function add_consignee() {
     count++;
-    var mainID = "'consig-title"+count+"'";
-    var contentID = "'consig"+count+"'";
+    var mainID = "'consig-title" + count + "'";
+    var contentID = "'consig" + count + "'";
     var objTo = document.getElementById('consignee');
-    var divtest = '<li class="nav-item list-item"  id="consig-title'+count+'"><a class="nav-link active consignee list-anchors-consig" id="consig-tab'+count+'" data-toggle="tab" href="#consig'+count+'" role="tab" aria-controls="home" aria-selected="true">Consignee</a><i class="mdi mdi-window-close ico" onclick="removeConsignee('+mainID+','+contentID+')" aria-hidden="true"></i> </li>'
+    var divtest = '<li class="nav-item list-item"  id="consig-title' + count + '"><a class="nav-link active consignee list-anchors-consig" id="consig-tab' + count + '" data-toggle="tab" href="#consig' + count + '" role="tab" aria-controls="home" aria-selected="true">Consignee</a><i class="mdi mdi-window-close ico" onclick="removeConsignee(' + mainID + ',' + contentID + ')" aria-hidden="true"></i> </li>'
     objTo.innerHTML += divtest;
 
     //var contentTo = document.getElementById("consigneeContent");
     var contentTo = $("#consigneeContent");
-    var contenttest = '<div class="tab-pane fade" id="consig'+count+'" role="tabpanel" aria-labelledby="consig-tab'+count+'"><div class="row m-2">\n' +
+    var contenttest = '<div class="tab-pane fade" id="consig' + count + '" role="tabpanel" aria-labelledby="consig-tab' + count + '"><div class="row m-2">\n' +
         '                                            <div class="form-group col-md-3">\n' +
         '                                                <label>Name*</label>\n' +
-        '                                                <input list="consigneee'+count+'" class="form-control" placeholder="--Select--" id="consigneelist'+count+'" name="consigneelist">\n'+
-        '                                                 <datalist id="consigneee'+count+'">\n'+
-        '                                                 </datalist>\n'+
+        '                                                <input list="consigneee' + count + '" class="form-control" placeholder="--Select--" id="consigneelist' + count + '" name="consigneelist">\n' +
+        '                                                 <datalist id="consigneee' + count + '">\n' +
+        '                                                 </datalist>\n' +
         '                                            </div>\n' +
         '                                            <div class="form-group col-md-2">\n' +
         '                                                <label>Address*</label>\n' +
@@ -180,7 +181,7 @@ function add_consignee() {
         '                                                <label>Location *</label>\n' +
         '                                                <div>\n' +
         '                                                    <input class="form-control" placeholder="Enter a location"\n' +
-        '                                                           type="text" onkeydown="getLocation(this.id)" id="activeconsignee'+count+'">\n' +
+        '                                                           type="text" onkeydown="getLocation(this.id)" id="activeconsignee' + count + '">\n' +
         '                                                </div>\n' +
         '                                            </div>\n' +
         '                                            <div class="form-group col-md-2">\n' +
@@ -252,52 +253,51 @@ function add_consignee() {
     //contentTo.innerHTML += contenttest;
     $(contentTo).append(contenttest);
     renameConsignee();
-    getConsig("consigneee"+count);
+    getConsig("consigneee" + count);
     makeConsigneeActive();
 
 }
 
-function renameConsignee(){
+function renameConsignee() {
     var consignee = document.getElementsByClassName('consignee');
-    for(var i = 0; i < document.getElementById('consignee').getElementsByTagName("li").length; i++){
+    for (var i = 0; i < document.getElementById('consignee').getElementsByTagName("li").length; i++) {
 
-        consignee[i].innerHTML = "Consignee "+(i+1);
+        consignee[i].innerHTML = "Consignee " + (i + 1);
     }
 }
 
-function makeConsigneeActive(){
+function makeConsigneeActive() {
 
-    for(var i = 0; i < count; i++){
-        var component = document.getElementById('consig-tab'+i);
-        var component1 = document.getElementById('consig'+i);
-        if(component && component1){
+    for (var i = 0; i < count; i++) {
+        var component = document.getElementById('consig-tab' + i);
+        var component1 = document.getElementById('consig' + i);
+        if (component && component1) {
             component.classList.remove("active");
             component1.classList.remove("show");
             component1.classList.remove("active");
-            component.setAttribute("aria-selected",false);
+            component.setAttribute("aria-selected", false);
         }
     }
-    var newcomponent = document.getElementById('consig-tab'+i);
-    var newcomponent1 = document.getElementById('consig'+i);
+    var newcomponent = document.getElementById('consig-tab' + i);
+    var newcomponent1 = document.getElementById('consig' + i);
     newcomponent.classList.add("active");
     newcomponent1.classList.add("show");
     newcomponent1.classList.add("active");
-    newcomponent.setAttribute("aria-selected",true);
+    newcomponent.setAttribute("aria-selected", true);
 }
 
-function removeConsignee(consigid,consigcontent){
+function removeConsignee(consigid, consigcontent) {
     var element1 = document.getElementById(consigid);
     var element2 = document.getElementById(consigcontent);
-    if(consigid == 'consig-title'){
+    if (consigid == 'consig-title') {
         alert("First Consignee can't be removed");
         return;
     }
-    if(document.getElementById('consignee').getElementsByTagName("li").length > 1){
+    if (document.getElementById('consignee').getElementsByTagName("li").length > 1) {
         document.getElementById('consignee').removeChild(element1);
         document.getElementById('consigneeContent').removeChild(element2);
         renameConsignee();
-    }
-    else{
+    } else {
         alert("All consignee cannot be removed.");
     }
 
@@ -305,24 +305,24 @@ function removeConsignee(consigid,consigcontent){
 
 
 function Showcarrier() {
-    $(".carrier").css("display","block");
-    $(".driver").css("display","none");
-    $(".owner").css("display","none");
+    $(".carrier").css("display", "block");
+    $(".driver").css("display", "none");
+    $(".owner").css("display", "none");
 }
 
 function Showdriver() {
-    $(".carrier").css("display","none");
-    $(".driver").css("display","block");
-    $(".owner").css("display","none");
+    $(".carrier").css("display", "none");
+    $(".driver").css("display", "block");
+    $(".owner").css("display", "none");
 }
 
 function Showowner() {
-    $(".carrier").css("display","none");
-    $(".driver").css("display","none");
-    $(".owner").css("display","block");
+    $(".carrier").css("display", "none");
+    $(".driver").css("display", "none");
+    $(".owner").css("display", "block");
 }
 
-function getShip(shipID){
+function getShip(shipID) {
     $.ajax({
         url: 'admin/getShipper.php',
         type: 'POST',
@@ -332,7 +332,7 @@ function getShip(shipID){
     });
 }
 
-function getConsig(consigID){
+function getConsig(consigID) {
     $.ajax({
         url: 'admin/getConsignee.php',
         type: 'POST',
@@ -376,6 +376,7 @@ $(document).on("click", "#add_Driver_Modal", function () {
     });
 });
 $(document).on("click", "#add_Truck_Modal", function () {
+    alert(10);
     $.ajax({
         type: 'POST',
         success: function (data) {

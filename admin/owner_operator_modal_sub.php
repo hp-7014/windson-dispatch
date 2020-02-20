@@ -41,7 +41,7 @@ require "../database/connection.php";
                         </div>
 
                         <div class="form-group col-md-4">
-                            <label>Select Truck</label>
+                            <label>Select Truck</label>&nbsp;<i class="mdi mdi-plus-circle plus" id="add_Truck_Modal"></i>
                             <select class="form-control" name="truckNo" id="truckNo">
                                 <option value="123">123</option>
                                 <option value="456">456</option>
