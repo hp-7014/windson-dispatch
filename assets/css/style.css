@@ -3690,8 +3690,8 @@ table.focus-on tbody tr.focused td {
 .pac-container { z-index: 100000; }
 
 
-#mainbody.modal-open{
+/* #mainbody.modal-open{
   width: 100%;
   overflow: hidden;
   position: fixed;
-}
+} */

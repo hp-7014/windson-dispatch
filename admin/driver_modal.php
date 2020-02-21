@@ -17,12 +17,6 @@ require "../database/connection.php";
             </div>
 
             <div class="modal-body custom-modal-body" style="padding: 0.1rem">
-                <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" type="text" id="search"
-                       placeholder="search" style="margin-left: 5px;">
-                <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#add_Driver">
-                    <i class="mdi mdi-gamepad-down"></i>&nbsp;ADD
-                </button>
-                <div class="modal-body custom-modal-body" style="padding: 0.1rem">
                 <div class="driver-container" style="z-index: 1400"></div>
                 <div class="row">
                         <div class="col-12">

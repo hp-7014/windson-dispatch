@@ -289,7 +289,6 @@
             });
         });
         $(document).on('click', '#AddDriver', function () {
-            alert(1);
             $.ajax({
                 type: 'POST',
                 success: function (data) {
@@ -402,26 +401,7 @@
                 }
             });
         });
-        $(document).on('click', '#AddTruck', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.truck-container').load('./admin/add_truck_modal_sub.php', function (result) {
-                        $('#add_Truck').modal({show: true});
-                    });
-                }
-            });
-        });
-        $(document).on('click', '#AddTrailer', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.trailer-container').load('./admin/add_trailer_modal_sub.php', function (result) {
-                        $('#add_Trailer').modal({show: true});
-                    });
-                }
-            });
-        });
+        
         $(document).on('click', '#AddShipper', function () {
             $.ajax({
                 type: 'POST',
@@ -432,16 +412,7 @@
                 }
             });
         });
-        $(document).on('click', '#AddConsignee', function () {
-            $.ajax({
-                type: 'POST',
-                success: function (data) {
-                    $('.consignee-container').load('./admin/consignee_modal_sub.php', function (result) {
-                        $('#add_consignee').modal({show: true});
-                    });
-                }
-            });
-        });
+        
         $(document).on('click', '#AddActiveLoad', function () {
             $.ajax({
                 type: 'POST',
