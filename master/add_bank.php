@@ -17,18 +17,18 @@ include '../database/connection.php';
             <div class="modal-body custom-modal-body">
                 <div class="masterbank-container" style="z-index: 1800"></div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab"
+                    <li class="nav-item1 show">
+                        <a class="nav-link1 active" id="home-tab" data-toggle="tab"
                            href="#Bank_Debit_Category" role="tab" aria-controls="home"
                            aria-selected="true">Debit Category </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab"
+                    <li class="nav-item1">
+                        <a class="nav-link1" id="profile-tab" data-toggle="tab"
                            href="#Bank_Credit_Category" role="tab" aria-controls="profile"
                            aria-selected="false">Credit Category</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab"
+                    <li class="nav-item1">
+                        <a class="nav-link1" id="contact-tab" data-toggle="tab"
                            href="#Credit_Card_Category" role="tab" aria-controls="contact"
                            aria-selected="false">Credit Card</a>
                     </li>
