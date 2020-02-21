@@ -3,17 +3,16 @@
     © 2019 Stexo <span class="d-none d-sm-inline-block"> - Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesdesign</span>.
 </footer>
 
-<!-- End Footer -->
-<!--<script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false&amp;libraries=places&key=AIzaSyDnID4vOGNgMgJxF3Y3AR2SwjzueSonmW0'></script>-->
-<!-- jQuery  -->
-
-
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/jquery.slimscroll.js"></script>
 <script src="assets/js/waves.min.js"></script>
 <script src="master/js/form.js"></script>
 <script src="admin/js/form.js"></script>
+<script src="ifta/js/form.js"></script>
+<script src="master/js/validation.js"></script>
+<script src="admin/js/validation.js"></script>
+<script src="ifta/js/validation.js"></script>
 
 <!--Morris Chart-->
 <script src="./assets/plugins/morris/morris.min.js"></script>
@@ -42,10 +41,7 @@
 <script src="assets/pages/datatables.init.js"></script>
 
 <script src="assets/pages/dashboard.init.js"></script>
-<script>
-    //$('#mainTable').editableTableWidget().numericInputExample().find('td:first').focus();
-</script>
-<!-- App js -->
+
 <!------------------- Function to get location suggestion -------------------->
 <script src="assets/js/app.js"></script>
 <script src="assets/js/modalTab.js"></script>
@@ -80,5 +76,5 @@
 
 <!-- Responsive-table-->
 <script src="assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js"></script>
-<!--<script src="assets/js/select2.min.js"></script>-->
+<script src="js/link.js"></script>
 </body>
