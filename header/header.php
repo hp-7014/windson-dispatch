@@ -95,7 +95,7 @@
 
         });
         $(document).on('click', '.addShipper', function () {
-            // alert("called");
+
             $.ajax({
                 type: 'POST',
                 success: function (data) {
@@ -171,7 +171,7 @@
 
 
         $(document).on("click", "#currency_setting", function () {
-            //alert('test');
+
             $.ajax({
                 type: 'POST',
                 success: function (data) {
@@ -184,7 +184,7 @@
 
 
         $(document).on("click", "#truck_type", function () {
-            //alert('test');
+
             $.ajax({
                 type: 'POST',
                 success: function (data) {
@@ -197,7 +197,7 @@
 
 
         $(document).on("click", "#equipment_type", function () {
-            //alert('test');
+
             $.ajax({
                 type: 'POST',
                 success: function (data) {
@@ -209,7 +209,7 @@
         });
 
         $(document).on("click", "#trailer_type", function () {
-            //alert('test');
+
             $.ajax({
                 type: 'POST',
                 success: function (data) {
@@ -222,7 +222,7 @@
         });
 
         $(document).on("click", "#fix_category", function () {
-            //alert('test');
+
             $.ajax({
                 type: 'POST',
                 success: function (data) {
@@ -329,16 +329,7 @@
                     }
                 });
             });
-            $(document).on('click', '#AddShipper', function () {
-                $.ajax({
-                    type: 'POST',
-                    success: function (data) {
-                        $('.shipper-container').load('./admin/shipper_modal_sub.php', function (result) {
-                            $('#add_shipper').modal({show: true});
-                        });
-                    }
-                });
-            });
+
             $(document).on('click', '#AddConsignee', function () {
                 $.ajax({
                     type: 'POST',
@@ -401,7 +392,6 @@
                 }
             });
         });
-        
         $(document).on('click', '#AddShipper', function () {
             $.ajax({
                 type: 'POST',
@@ -412,7 +402,6 @@
                 }
             });
         });
-        
         $(document).on('click', '#AddActiveLoad', function () {
             $.ajax({
                 type: 'POST',
