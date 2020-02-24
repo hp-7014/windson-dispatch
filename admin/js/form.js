@@ -199,7 +199,7 @@ function updateShipper(column, id) {
             });
             swal("Success", data, "success");
             // console.log(column + id);
-            document.getElementById(column+id).style.display = "none";
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -2098,6 +2098,39 @@ function FactoringCompany() {
     }
 }
 
+//update driver table
+var driver_path = "driver/";
+var driver_path1 = $('#companyid').val();
+var driver_data = driver_path1.toString();
+var driver_test = driver_path+driver_data;
+
+
+database.ref(driver_test).on('child_added', function(data) {
+    updateDriverTable();
+});
+database.ref(driver_test).on('child_changed', function(data) {
+    updateDriverTable();
+});
+database.ref(driver_test).on('child_removed', function(data) {
+    updateDriverTable();
+});
+
+//update table fields
+function updateDriverTable(){
+    var driverBody = document.getElementById('driverBody');
+
+    $.ajax({
+        url: 'admin/utils/getDriver.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            if(driverBody != null){
+                driverBody.innerHTML = response;
+            }
+        },
+    });
+}
+
 //update Factoring Function
 function updateFactoring(column, id) {
     var data = $('#factoring_table').find('input[type="text"],textarea').val();
@@ -2266,6 +2299,10 @@ function addDriver() {
                                                                                                                                     InternalNote: InternalNote
                                                                                                                                 },
                                                                                                                                 success: function (data) {
+                                                                                                                                    var companyid = $('#companyid').val();
+                                                                                                                                    database.ref('driver').child(companyid).set({
+                                                                                                                                        data:randomString(),
+                                                                                                                                    });
                                                                                                                                     swal('Success', data, 'success');
                                                                                                                                     $('#add_Driver').modal('hide');
                                                                                                                                 }
@@ -2302,6 +2339,39 @@ function addDriver() {
     }
 }
 
+//update driver table
+var driver_path = "driver/";
+var driver_path1 = $('#companyid').val();
+var driver_data = driver_path1.toString();
+var driver_test = driver_path+driver_data;
+
+
+database.ref(driver_test).on('child_added', function(data) {
+    updateDriverTable();
+});
+database.ref(driver_test).on('child_changed', function(data) {
+    updateDriverTable();
+});
+database.ref(driver_test).on('child_removed', function(data) {
+    updateDriverTable();
+});
+
+//update table fields
+function updateDriverTable(){
+    var driverBody = document.getElementById('driverBody');
+
+    $.ajax({
+        url: 'admin/utils/getDriver.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            if(driverBody != null){
+                driverBody.innerHTML = response;
+            }
+        },
+    });
+}
+
 // Import function
 function importDriver() {
     var form_data = new FormData();
@@ -2335,6 +2405,10 @@ function updateDriver(column, id) {
             value: data,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('driver').child(companyid).set({
+                data:randomString(),
+            });
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
         }
@@ -2349,6 +2423,10 @@ function deleteDriver(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                database.ref('driver').child(companyid).set({
+                    data:randomString(),
+                });
                 swal('Delete', 'Data Removed Successfully.', 'success');
             }
         });
@@ -2886,7 +2964,45 @@ function addCarrier() {
             equipment: equipment,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('carrier').child(companyid).set({
+                data:randomString(),
+            });
             swal("Success", data, 'success');
+            $('#add_External').modal('hide');
         }
+    });
+}
+
+//update external carrier table
+var external_path = "carrier/";
+var external_path1 = $('#companyid').val();
+var external_data = external_path1.toString();
+var external_test = external_path+external_data;
+
+
+database.ref(external_test).on('child_added', function(data) {
+    updateCarrierTable();
+});
+database.ref(external_test).on('child_changed', function(data) {
+    updateCarrierTable();
+});
+database.ref(external_test).on('child_removed', function(data) {
+    updateCarrierTable();
+});
+
+//update table fields
+function updateCarrierTable(){
+    var carrierBody = document.getElementById('carrierBody');
+
+    $.ajax({
+        url: 'admin/utils/getCarrier.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            if(carrierBody != null){
+                carrierBody.innerHTML = response;
+            }
+        },
     });
 }
