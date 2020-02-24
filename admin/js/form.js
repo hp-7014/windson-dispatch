@@ -209,7 +209,7 @@ function updateShipper(column, id) {
             });
             swal("Success", data, "success");
             // console.log(column + id);
-            document.getElementById(column+id).style.display = "none";
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -1875,50 +1875,86 @@ function paginate_custom_broker(start, limit) {
 
 //ajax Function For insert Truck
 function TruckAdd() {
-    var form_data = new FormData(document.getElementById('truckform'));
-    var totalfiles = document.getElementById('files').files.length;
+        var form_data = new FormData(document.getElementById('truckform'));
+        var totalfiles = document.getElementById('files').files.length;
+        if (totalfiles <= 5) {
+            for (var index = 0; index < totalfiles; index++) {
+            }
+            var truck_number = document.getElementById("truck_number").value;
+            var trucktype1 = document.getElementById("trucktype").value;
+            var truck_type = trucktype1.split(")");
+            var trucktype = truck_type[0];
+            form_data.append("trucktype1", trucktype);
+            var license_plate = document.getElementById("license_plate").value;
+            var plate_expiry = document.getElementById("plate_expiry").value;
+            var vin = document.getElementById("vin").value;
+            var ownership = document.getElementById('ownership').checked;
+            var Own = document.getElementById('Own').checked;
+            if ((ownership == "") && (Own == "")) {
+                swal("Please Select Ownership");
+                return false;
+            }
 
-    if (totalfiles <= 5) {
-        for (var index = 0; index < totalfiles; index++) {
-        }
-        var truck_number = document.getElementById("truck_number").value;
-        var trucktype = document.getElementById("trucktype").value;
-        var license_plate = document.getElementById("license_plate").value;
-        var plate_expiry = document.getElementById("plate_expiry").value;
-        var vin = document.getElementById("vin").value;
-        var ownership = document.getElementById('ownership').checked;
-        var Own = document.getElementById('Own').checked;
-        if ((ownership == "") && (Own == "")) {
-            swal("Please Select Ownership");
-            return false;
-        }
-
-        if (val_truck_number(truck_number)) {
-            if (val_trucktype(trucktype)) {
-                if (val_license_plate(license_plate)) {
-                    if (val_plate_expiry(plate_expiry)) {
-                        if (val_vin(vin)) {
-                            $.ajax({
-                                url: 'admin/truckadd_driver.php?type=' + 'truckadd',
-                                method: 'post',
-                                data: form_data,
-                                contentType: false,
-                                cache: false,
-                                processData: false,
-                                success: function (data) {
-                                    swal("Success", data, "success");
-                                    $('#add_Truck').modal('hide');
-                                }
-                            });
+            if (val_truck_number(truck_number)) {
+                if (val_trucktype(trucktype1)) {
+                    if (val_license_plate(license_plate)) {
+                        if (val_plate_expiry(plate_expiry)) {
+                            if (val_vin(vin)) {
+                                $.ajax({
+                                    url: 'admin/truckadd_driver.php?type=' + 'truckadd',
+                                    method: 'post',
+                                    data: form_data,
+                                    contentType: false,
+                                    cache: false,
+                                    processData: false,
+                                    success: function (data) {
+                                        var companyid = $('#companyid').val();
+                                        database.ref('truck').child(companyid).set({
+                                            data: randomString(),
+                                        });
+                                        swal("Success", data, "success");
+                                        $('#add_Truck').modal('hide');
+                                    }
+                                });
+                            }
                         }
                     }
                 }
             }
+        } else {
+            swal('Please Select Only 5 File')
         }
-    } else {
-        swal('Please Select Only 5 File')
     }
-}
+
+//
+//update truck table
+var truck_path = "truck/";
+var truck_path1 = $('#companyid').val();
+var truck_data = truck_path1.toString();
+var truck_test = truck_path + truck_data;
+
+database.ref(truck_test).on('child_added', function (data) {
+    updateTruckTable();
+});
+database.ref(truck_test).on('child_changed', function (data) {
+    updateTruckTable();
+});
+database.ref(truck_test).on('child_removed', function (data) {
+    updateTruckTable();
+});
+
+// update table fields
+function updateTruckTable() {
+    $.ajax({
+        url: 'admin/utils/getTruck.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('truckBody').innerHTML = response;
+        },
+    });
+}    
+//
 
 // Export Excel Function For Truck Add
 function exportTruckAdd() {
@@ -1964,6 +2000,10 @@ function updateTruckAdd(column, id) {
             value: data,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+                database.ref('truck').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
         }
@@ -1978,6 +2018,10 @@ function deleteTruckAdd(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                    database.ref('truck').child(companyid).set({
+                    data: randomString(),
+                });
                 swal("Success", data, "success");
                 //$('#currency').modal('hide');
             }
@@ -2020,6 +2064,10 @@ function Traileradd() {
                                 cache: false,
                                 processData: false,
                                 success: function (data) {
+                                    var companyid = $('#companyid').val();
+                                        database.ref('trailer').child(companyid).set({
+                                        data: randomString(),
+                                        });
                                     swal("Success", data, "success");
                                     $('#add_Trailer').modal('hide');
                                 }
@@ -2033,6 +2081,36 @@ function Traileradd() {
         swal("Please Select Only 5 File")
     }
 }
+
+//
+//update trailer table
+var trailer_path = "trailer/";
+var trailer_path1 = $('#companyid').val();
+var trailer_data = trailer_path1.toString();
+var trailer_test = trailer_path + trailer_data;
+
+database.ref(trailer_test).on('child_added', function (data) {
+    updateTrailerTable();
+});
+database.ref(trailer_test).on('child_changed', function (data) {
+    updateTrailerTable();
+});
+database.ref(trailer_test).on('child_removed', function (data) {
+    updateTrailerTable();
+});
+
+// update table fields
+function updateTrailerTable() {
+    $.ajax({
+        url: 'admin/utils/getTrailer.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('trailerBody').innerHTML = response;
+        },
+    });
+}    
+//
 
 //update Trailer Function
 function updateTrailerAdd(column, id) {
@@ -2050,6 +2128,10 @@ function updateTrailerAdd(column, id) {
             value: data,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+                database.ref('trailer').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
         }
@@ -2059,12 +2141,17 @@ function updateTrailerAdd(column, id) {
 
 // Delete Trailer Function
 function deleteTrailerAdd(id) {
+    alert(id);
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/traileradd_driver.php?type=' + 'delete_trailer',
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                    database.ref('trailer').child(companyid).set({
+                    data: randomString(),
+                });
                 swal("Success", data, "success");
                 //$('#currency').modal('hide');
             }
@@ -2122,8 +2209,12 @@ function FactoringCompany() {
     var fsecondaryContact = document.getElementById("fsecondaryContact").value;
     var ftelephone = document.getElementById('facttelephone').value;
     var ext = document.getElementById("ext").value;
-    var fcurrency = document.getElementById('fcurrency').value;
-    var fpaymentterms = document.getElementById('fpaymentterms').value;
+    var fcurrency1 = document.getElementById('fcurrency').value;
+    var fcurrency_1 = fcurrency1.split(")");
+    var fcurrency = fcurrency_1[0];
+    var fpaymentterms1 = document.getElementById('fpaymentterms').value;
+    var fpaymentterms_1 = fpaymentterms1.split(")");
+    var fpaymentterms = fpaymentterms_1[0];
     var ftaxid = document.getElementById("ftaxid").value;
     var finternal_notes = document.getElementById('finternal_notes_factoring').value;
     var companyId = document.getElementById('companyId').value;
@@ -2134,7 +2225,7 @@ function FactoringCompany() {
                 if (val_fzip(fzip)) {
                     if (val_ftaxid(ftaxid)) {
                         $.ajax({
-                            url: 'admin/factoring_driver.php?type=' + 'factoringadd',
+                            url: 'admin/factoring_driver.php?type='+'factoringadd',
                             type: 'POST',
                             data: {
                                 companyId: companyId,
@@ -2167,6 +2258,39 @@ function FactoringCompany() {
             }
         }
     }
+}
+
+//update driver table
+var driver_path = "driver/";
+var driver_path1 = $('#companyid').val();
+var driver_data = driver_path1.toString();
+var driver_test = driver_path+driver_data;
+
+
+database.ref(driver_test).on('child_added', function(data) {
+    updateDriverTable();
+});
+database.ref(driver_test).on('child_changed', function(data) {
+    updateDriverTable();
+});
+database.ref(driver_test).on('child_removed', function(data) {
+    updateDriverTable();
+});
+
+//update table fields
+function updateDriverTable(){
+    var driverBody = document.getElementById('driverBody');
+
+    $.ajax({
+        url: 'admin/utils/getDriver.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            if(driverBody != null){
+                driverBody.innerHTML = response;
+            }
+        },
+    });
 }
 
 //update Factoring Function
@@ -2337,6 +2461,10 @@ function addDriver() {
                                                                                                                                     InternalNote: InternalNote
                                                                                                                                 },
                                                                                                                                 success: function (data) {
+                                                                                                                                    var companyid = $('#companyid').val();
+                                                                                                                                    database.ref('driver').child(companyid).set({
+                                                                                                                                        data:randomString(),
+                                                                                                                                    });
                                                                                                                                     swal('Success', data, 'success');
                                                                                                                                     $('#add_Driver').modal('hide');
                                                                                                                                 }
@@ -2373,6 +2501,39 @@ function addDriver() {
     }
 }
 
+//update driver table
+var driver_path = "driver/";
+var driver_path1 = $('#companyid').val();
+var driver_data = driver_path1.toString();
+var driver_test = driver_path+driver_data;
+
+
+database.ref(driver_test).on('child_added', function(data) {
+    updateDriverTable();
+});
+database.ref(driver_test).on('child_changed', function(data) {
+    updateDriverTable();
+});
+database.ref(driver_test).on('child_removed', function(data) {
+    updateDriverTable();
+});
+
+//update table fields
+function updateDriverTable(){
+    var driverBody = document.getElementById('driverBody');
+
+    $.ajax({
+        url: 'admin/utils/getDriver.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            if(driverBody != null){
+                driverBody.innerHTML = response;
+            }
+        },
+    });
+}
+
 // Import function
 function importDriver() {
     var form_data = new FormData();
@@ -2406,6 +2567,10 @@ function updateDriver(column, id) {
             value: data,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('driver').child(companyid).set({
+                data:randomString(),
+            });
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
         }
@@ -2420,6 +2585,10 @@ function deleteDriver(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                database.ref('driver').child(companyid).set({
+                    data:randomString(),
+                });
                 swal('Delete', 'Data Removed Successfully.', 'success');
             }
         });
@@ -2957,7 +3126,45 @@ function addCarrier() {
             equipment: equipment,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('carrier').child(companyid).set({
+                data:randomString(),
+            });
             swal("Success", data, 'success');
+            $('#add_External').modal('hide');
         }
+    });
+}
+
+//update external carrier table
+var external_path = "carrier/";
+var external_path1 = $('#companyid').val();
+var external_data = external_path1.toString();
+var external_test = external_path+external_data;
+
+
+database.ref(external_test).on('child_added', function(data) {
+    updateCarrierTable();
+});
+database.ref(external_test).on('child_changed', function(data) {
+    updateCarrierTable();
+});
+database.ref(external_test).on('child_removed', function(data) {
+    updateCarrierTable();
+});
+
+//update table fields
+function updateCarrierTable(){
+    var carrierBody = document.getElementById('carrierBody');
+
+    $.ajax({
+        url: 'admin/utils/getCarrier.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            if(carrierBody != null){
+                carrierBody.innerHTML = response;
+            }
+        },
     });
 }
