@@ -4,6 +4,7 @@
 ?>
 <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="Ifta_Card_Category"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
+     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-xxl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
@@ -46,7 +47,7 @@
                                     $card_cat = $db->ifta_card_category->find(['companyID' => $_SESSION['companyId']]);
                                     $no = 1;
                                     ?>
-                                    <tbody>
+                                    <tbody id="iftacardBody">
                                     <?php foreach ($card_cat as $card) {
                                         $ifta_card = $card['ifta_card'];
 

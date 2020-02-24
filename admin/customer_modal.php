@@ -78,7 +78,7 @@ require "../database/connection.php";
                                 </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody id="customerBody">
                                 <?php
                                     require 'model/Customer.php';
 

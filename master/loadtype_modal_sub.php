@@ -1,5 +1,6 @@
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
      id="addLoad_Type" aria-hidden="true">
+     
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #2A3988;">
@@ -11,7 +12,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <label>Name *</label>
+                        <label>Name <span style="color: red;">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Name *" type="text"
                                    id="loadName">
@@ -20,7 +21,7 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label>
-                            Unit # *</label>
+                            Unit # <span style="color: red;">*</span></label>
                         <select class="form-control" id="loadType">
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>

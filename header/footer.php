@@ -39,7 +39,6 @@
 
 <!-- Datatable init js -->
 <script src="assets/pages/datatables.init.js"></script>
-
 <script src="assets/pages/dashboard.init.js"></script>
 
 <!------------------- Function to get location suggestion -------------------->

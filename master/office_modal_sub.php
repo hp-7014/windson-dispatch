@@ -13,17 +13,16 @@ require "../database/connection.php";?>
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <label>Name *</label>
+                        <label>Name <span style="color: red;">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Name *" id="officeName" type="text"
                                    id="example-text-input">
                         </div>
                     </div>
                     <div class="form-group col-md-12">
-                        <label>Location *</label>
+                        <label>Location <span style="color: red;">*</span></label>
                         <div>
-                            <input class="form-control" placeholder="Location *" id="officeLocation" type="text"
-                                   id="example-text-input">
+                            <input class="form-control" placeholder="Location *" onkeydown="getLocation('officeLocation')" id="officeLocation" type="text">
                             <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                         </div>
                     </div>
