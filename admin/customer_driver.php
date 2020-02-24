@@ -10,7 +10,7 @@ $helper = new Helper();
 if ($_GET['type'] == 'addCustomer') {
     $customer = new Customer();
     $customer->setId($helper->getNextSequence("customer",$db));
-    $customer->setCompanyId($_POST['companyId']);
+    $customer->setCompanyId($_SESSION['companyId']);
     $customer->setCustName($_POST['custName']);
     $customer->setCustAddress($_POST['custAddress']);
     $customer->setCustLocation($_POST['custLocation']);

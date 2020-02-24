@@ -79,9 +79,9 @@ require "database/connection.php";
                                                 foreach ($show_customer as $showcustomer) {
                                                      $customer = $showcustomer['customer'];
                                                     foreach ($customer as $scus) {
-                                                        ?>
-                                                        <option value="<?php echo $scus['_id'].") ".$scus['custName'] ;?>"></option>
-                                                    <?php } }?>
+                                                        
+                                                       echo '<option value='.$scus["_id"].')'.$scus["custName"].'></option>';
+                                                    } }?>
                                             </datalist>
                                         </div>
 

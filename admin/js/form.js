@@ -118,12 +118,22 @@ database.ref(shipper_test).on('child_removed', function (data) {
 
 // update table fields
 function updateShipperTable() {
+    var shipperBody = document.getElementById('shipperBody');
+    var shipperList = document.getElementById('shipper');
     $.ajax({
         url: 'admin/utils/getShipper.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            document.getElementById('shipperBody').innerHTML = response;
+            var res = response.split('^');
+            if(shipperBody != null){
+                shipperBody.innerHTML = res[0];
+            }
+
+            if(shipperList != null){
+                shipperList.innerHTML = res[1];
+            }
+            
         },
     });
 }
@@ -301,6 +311,10 @@ function addConsignee() {
                                                                         asShipper: asShipper,
                                                                     },
                                                                     success: function (data) {
+                                                                        var companyid = $('#companyid').val();
+                                                                        database.ref('consignee').child(companyid).set({
+                                                                            data: randomString(),
+                                                                        });
                                                                         swal('Success', data, 'success');
                                                                         $('#add_consignee').modal('hide');
                                                                     }
@@ -320,6 +334,45 @@ function addConsignee() {
             }
         }
     }
+}
+
+//update currency table
+var consignee_path = "consignee/";
+var consignee_path1 = $('#companyid').val();
+var consignee_data = consignee_path1.toString();
+var consignee_test = consignee_path +consignee_data;
+
+database.ref(consignee_test).on('child_added', function (data) {
+    updateConsigneeTable();
+});
+database.ref(consignee_test).on('child_changed', function (data) {
+    updateConsigneeTable();
+});
+database.ref(consignee_test).on('child_removed', function (data) {
+    updateConsigneeTable();
+});
+
+
+// update table fields
+function updateConsigneeTable() {
+    var consigneeBody = document.getElementById('consigneeBody');
+    var consigneeList = document.getElementById('consigneee');
+    $.ajax({
+        url: 'admin/utils/getConsignee.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            var res = response.split('^');
+            if(consigneeBody != null){
+                consigneeBody.innerHTML = res[0];
+            }
+
+            if(consigneeList != null){
+                consigneeList.innerHTML = res[1];
+            }
+            
+        },
+    });
 }
 
 //Import consignee
@@ -385,6 +438,10 @@ function updateConsignee(column, id) {
             value: data,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('consignee').child(companyid).set({
+                data: randomString(),
+            });                                                           
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
         }
@@ -399,6 +456,10 @@ function deleteConsignee(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                database.ref('consignee').child(companyid).set({
+                    data: randomString(),
+                });
                 swal("Success", data, 'success');
             }
         });
@@ -598,12 +659,22 @@ database.ref(customer_test).on('child_removed', function (data) {
 
 // update table fields
 function updateCustomerTable() {
+    var customerTable = document.getElementById('customerBody');
+    var customerList =  document.getElementById('browserscustomer');
     $.ajax({
         url: 'admin/utils/getCustomer.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            document.getElementById('customerBody').innerHTML = response;
+            var res = response.split('^');
+            if(customerTable != null){
+                customerTable.innerHTML = res[0];
+            }
+
+            if(customerList != null){
+                customerList.innerHTML = res[1];
+            }
+            
         },
     });
 }

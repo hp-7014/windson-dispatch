@@ -61,7 +61,7 @@ require "../database/connection.php";
                                     <th scope="col" col width="160" data-priority="1">Action</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="consigneeBody">
                                 <?php
                                 require 'model/Consignee.php';
 

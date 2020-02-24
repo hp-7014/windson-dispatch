@@ -12,7 +12,7 @@ if ($_GET['type'] == 'add_shipper') {
 
     $shipper = new Shipper();
     $shipper->setId($helper->getNextSequence("shipper",$db));
-    $shipper->setCompanyID($_POST['companyID']);
+    $shipper->setCompanyID($_SESSION['companyId']);
     $shipper->setShipperName($_POST['shipperName']);
     $shipper->setShipperAddress($_POST['shipperAddress']);
     $shipper->setShipperLocation($_POST['shipperLocation']);

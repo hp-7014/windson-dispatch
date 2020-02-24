@@ -4,6 +4,8 @@ $helper = "helper";
 require "../../database/connection.php";
 $show = $db->shipper->find(['companyID' => $_SESSION['companyId']]);
 $no = 0;
+$table = "";
+$list  = "";
 foreach ($show as $row) {
     $show1 = $row['shipper'];
     foreach ($show1 as $row1) {
@@ -43,7 +45,7 @@ foreach ($show as $row) {
         $internalNotesColmn = 'internalNotes';
         $type = 'text';
         $no += 1;
-        echo "<tr>
+        $table .=  "<tr>
                 <th>$no</th>
                 <td>
                     <a href='#' id='shipperName".$id."1' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$shipperName</a>
@@ -114,5 +116,9 @@ foreach ($show as $row) {
                 </td>
             </tr>
         ";
+        $list .='<option value='.$id.')'.$shipperName.'></option>';
     }
 }
+
+echo $total."^".$list;
+

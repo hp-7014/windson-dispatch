@@ -4,6 +4,8 @@ $helper = "helper";
 require "../../database/connection.php";
 $show = $db->customer->find(['companyID' => $_SESSION['companyId']]);
 $no = 0;
+$table = "";
+$list = "";
 foreach ($show as $row) {
     $show1 = $row['customer'];
     foreach ($show1 as $row1) {
@@ -37,7 +39,7 @@ foreach ($show as $row) {
         $MC = $row1['MC'];
         $type = 'text';
         $no += 1;
-        echo "
+        $table .= "
         <tr>
             <th>$no</th>
                                         <td>
@@ -154,5 +156,9 @@ foreach ($show as $row) {
                                         
         </tr>
         ";
+
+        $list .= '<option value='.$id.')'.$custName.'></option>';
     }
 }
+
+echo $table."^".$list;
