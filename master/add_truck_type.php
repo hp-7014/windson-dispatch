@@ -2,6 +2,7 @@
 require "../database/connection.php";?>
 <div id="truck" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
+     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header custom-modal-header">
@@ -38,24 +39,25 @@ require "../database/connection.php";?>
                         <th>Action</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="truckBody">
                     <?php
-                    $show = $db->truck_add->find(['companyID' => $_SESSION['companyId']]);
-                    $no = 1;
-                    foreach ($show as $row){
-                    $show1 = $row['truck'];
-                    foreach ($show1 as $row1) {
-                        $id = $row1['_id'];
-                        $truckType = $row1['truckType'];
+                        $show = $db->truck_add->find(['companyID' => $_SESSION['companyId']]);
+                        $no = 1;
+                        foreach ($show as $row){
+                        $show1 = $row['truck'];
+                        foreach ($show1 as $row1) {
+                            $id = $row1['_id'];
+                            $truckType = $row1['truckType'];
 
-                        ?>
-                        <tr>
-                            <td><?php echo $no++; ?></td>
-                            <td><div contenteditable="true" onblur="updateTruck(this,'truckType','<?php echo $id; ?>')" onclick="activate(this)"><?php echo $truckType; ?></div></td>
-                            <td><a href="#" onclick="deleteTruck(<?php echo $id; ?>)"><i class="mdi mdi-delete-sweep-outline"  style="font-size: 20px; color: #FC3B3B"></a></i>
-                            </td>
-                        </tr>
-                    <?php } }?>
+                            ?>
+                            <tr>
+                                <td><?php echo $no++; ?></td>
+                                <td><div contenteditable="true" onblur="updateTruck(this,'truckType','<?php echo $id; ?>')" onclick="activate(this)"><?php echo $truckType; ?></div></td>
+                                <td><a href="#" onclick="deleteTruck(<?php echo $id; ?>)"><i class="mdi mdi-delete-sweep-outline"  style="font-size: 20px; color: #FC3B3B"></a></i>
+                                </td>
+                            </tr>
+                        <?php }
+                        } ?>
                     </tbody>
                 </table>
             </div>

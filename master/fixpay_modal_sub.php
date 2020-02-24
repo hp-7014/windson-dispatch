@@ -13,7 +13,7 @@ require "../database/connection.php";?>
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <label>Name *</label>
+                        <label>Name <span style="color: red;">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Name *" type="text"
                                    id="fix_pay_add">
