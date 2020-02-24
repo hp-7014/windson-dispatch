@@ -57,6 +57,10 @@ foreach ($show as $row) {
                                             <button type='button' id='custName' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
                                         </td>
                                         <td>
+                                            <a href='#' id='custName1' data-type='textarea' class='text-overflow'>$billingAddress</a>
+                                            <button type='button' id='custName' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
+                                        </td>
+                                        <td>
                                             <a href='#' id='custName1' data-type='textarea' class='text-overflow'>$billingLocation</a>
                                             <button type='button' id='custName' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
                                         </td>
@@ -144,6 +148,9 @@ foreach ($show as $row) {
                                             <a href='#' id='custName1' data-type='textarea' class='text-overflow'>$internalNotes</a>
                                             <button type='button' id='custName' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
                                         </td>
+                                        <td><a href='#' onclick='deleteCustomer($id)'><i
+                                                        class='mdi mdi-delete-sweep-outline'
+                                                        style='font-size: 20px; color: #FC3B3B'></i></a></td>
                                         
         </tr>
         ";
