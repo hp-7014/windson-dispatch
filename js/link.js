@@ -250,27 +250,27 @@ $(document).on('click', '#AddDriver', function () {
             }
         });
     });
-    $(document).on('click', '#AddActiveLoad', function () {
-        $.ajax({
-            type: 'POST',
-            success: function (data) {
-              //$('#mainbody').toggleClass('modal-open');
-               //$("#mainbody").addClass("modal-open");
-               $('#active_new').bind('mouseenter touchstart', function(e) {
-                    var current = $(window).scrollTop();
-                    $(window).scroll(function(event) {
-                        $(window).scrollTop(current);
-                    });
-                });
-                $('#active_new').bind('mouseleave touchend', function(e) {
-                    $(window).off('scroll');
-                });
-                $('.activeload-container').load('active_load.php', function (result) {
-                    $('#active_new').modal({show: true});
-                });
-            }
-        });
-    });
+    // $(document).on('click', '#AddActiveLoad', function () {
+    //     $.ajax({
+    //         type: 'POST',
+    //         success: function (data) {
+    //           //$('#mainbody').toggleClass('modal-open');
+    //            //$("#mainbody").addClass("modal-open");
+    //            $('#active_new').bind('mouseenter touchstart', function(e) {
+    //                 var current = $(window).scrollTop();
+    //                 $(window).scroll(function(event) {
+    //                     $(window).scrollTop(current);
+    //                 });
+    //             });
+    //             $('#active_new').bind('mouseleave touchend', function(e) {
+    //                 $(window).off('scroll');
+    //             });
+    //             $('.activeload-container').load('active_load.php', function (result) {
+    //                 $('#active_new').modal({show: true});
+    //             });
+    //         }
+    //     });
+    // });
 
     $(document).on('click', '#AddFactoring', function () {
         $.ajax({
@@ -312,16 +312,16 @@ $(document).on('click', '#AddShipper', function () {
         }
     });
 });
-$(document).on('click', '#AddActiveLoad', function () {
-    $.ajax({
-        type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('active_load.php', function (result) {
-                $('#active_new').modal({show: true});
-            });
-        }
-    });
-});
+// $(document).on('click', '#AddActiveLoad', function () {
+//     $.ajax({
+//         type: 'POST',
+//         success: function (data) {
+//             $('.activeload-container').load('active_load.php', function (result) {
+//                 $('#active_new').modal({show: true});
+//             });
+//         }
+//     });
+// });
 
 $(document).on('click', '#addCreditCard', function () {
     $.ajax({
@@ -768,5 +768,53 @@ $(document).on("click", "#add_toll", function () {
                 $('#Add_Toll').modal({show: true});
             });
         },
+    });
+});
+
+
+//--------------------IFTA Start----------------------//
+// Add Fuel Receipts IFTA
+$(document).on("click", "#fuel_receipts", function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            // alert("test");
+            $('.modal-container').load('./ifta/fuel_receipts_modal.php', function (result) {
+                $('#Fuel_Receipt').modal({show: true});
+            });
+        },
+    });
+});
+
+$(document).on("click", "#add_ifta_card", function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.modal-container').load('./master/ifta_card_category_modal.php', function (result) {
+                $('#Ifta_Card_Category').modal({show: true});
+            });
+        },
+    });
+});
+
+$(document).on("click", "#add_toll", function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.modal-container').load('./ifta/add_toll_modal.php', function (result) {
+                $('#Add_Toll').modal({show: true});
+            });
+        },
+    });
+});
+
+$(document).on('click', '#verify_trip', function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.modal-container').load('./ifta/verifyTrip.php', function (result) {
+                $('#verifyTrip').modal({show: true});
+            });
+        }
     });
 });

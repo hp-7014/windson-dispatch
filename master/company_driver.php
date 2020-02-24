@@ -8,10 +8,9 @@ $helper = new Helper();
 
 // insert function here
 if ($_GET['type'] == 'add_company') {
-
     $Company = new Company();
     $Company->setId($helper->getNextSequence("company",$db));
-    $Company->setCompanyID($_POST['companyid']);
+    $Company->setCompanyID($_SESSION['companyId']);
     $Company->setCompanyName($_POST['companyName']);
     $Company->setShippingAddress($_POST['shippingAddress']);
     $Company->setTelephoneNo($_POST['telephoneNo']);

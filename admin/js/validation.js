@@ -157,6 +157,9 @@ function val_shipperPostal(val) {
     if (val == '') {
         swal('Please Write an Postal / Zip');
         return false;
+    } else if (val.length < 4) {
+        swal('Please Write an Valid Postal / Zip Code');
+        return false;
     } else {
         return true;
     }
@@ -189,9 +192,12 @@ function val_shipperTelephone(val) {
     if (val == '') {
         return true;
     } else {
-        if (val.length != 10) {
-            swal('Please Enter valid Telephone Number');
+        if (isNaN(val)) {
+            swal('Please Enter Only Numeric Telephone Number');
             return false;
+        } else if (val.length != 10) {
+                swal('Please Enter valid Telephone Number');
+                return false;
         } else {
             return true;
         }
@@ -210,8 +216,11 @@ function val_shipperTollFree(val) {
     if (val == '') {
         return true;
     } else {
-        if (val.length != 10) {
-            swal('Please Enter valid Toll Free Number');
+        if (isNaN(val)) {
+            swal('Please Enter Only Numeric Toll Free');
+            return false;
+        } else if (val.length != 10) {
+            swal('Please Enter valid Toll Free');
             return false;
         } else {
             return true;
@@ -223,7 +232,10 @@ function val_shipperFax(val) {
     if (val == '') {
         return true;
     } else {
-        if (val.length != 10) {
+        if (isNaN(val)) {
+            swal('Please Enter Only Numeric Fax Number');
+            return false;
+        } else if (val.length != 10) {
             swal('Please Enter valid Fax Number');
             return false;
         } else {

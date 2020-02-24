@@ -378,7 +378,6 @@ $(document).on("click", "#add_Driver_Modal", function () {
     });
 });
 $(document).on("click", "#add_Truck_Modal", function () {
-    alert(10);
     $.ajax({
         type: 'POST',
         success: function (data) {
@@ -389,6 +388,26 @@ $(document).on("click", "#add_Truck_Modal", function () {
     });
 });
 $(document).on("click", "#add_Trailer_Modal", function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('admin/add_trailer_modal_sub.php', function (result) {
+                $('#add_Trailer').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on("click", "#add_Truck_Modal1", function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('admin/add_truck_modal_sub.php', function (result) {
+                $('#add_Truck').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on("click", "#add_Trailer_Modal1", function () {
     $.ajax({
         type: 'POST',
         success: function (data) {
@@ -472,6 +491,48 @@ $(document).on("click", "#add_other", function () {
         success: function (data) {
             $('.activeload-container').load('admin/other_charges_modal.php', function (result) {
                 $('#otherCharges').modal({show: true});
+            });
+        }
+    });
+});
+
+$(document).on("click", "#add_Company_Modal", function () {
+
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('master/add_company_sub.php', function (result) {
+                $('#add_company').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on("click", "#active_type_Modal", function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('master/loadtype_modal_sub.php', function (result) {
+                $('#addLoad_Type').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on("click", "#equipment_type_Modal", function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('master/equipment_type_modal_sub.php', function (result) {
+                $('#Add_Equipment_Type').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on("click", "#add_currency_modal", function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('master/add_currency_sub.php', function (result) {
+                $('#currencysub').modal({show: true});
             });
         }
     });

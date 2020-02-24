@@ -324,14 +324,22 @@ database.ref(companytest).on('child_removed', function(data) {
 //update table fields
 
 function updateCompanyTable(){
-   
+    var companyBody = document.getElementById('companyBody');
+    var selectCompany = document.getElementById('selectCompany');
     $.ajax({
         url: 'master/utils/getCompany.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-           // alert(response);
-            document.getElementById('companyBody').innerHTML = response;   
+            var res = response.split('^');
+            
+           //alert(res.length);
+           if(companyBody != null ){
+            companyBody.innerHTML = res[0]; 
+           }
+           if(selectCompany != null){
+                selectCompany.innerHTML = res[1];
+           }
         },
     });
 }
@@ -486,13 +494,20 @@ database.ref(loadtest).on('child_removed', function(data) {
 //update table fields
 
 function updateLoadTable(){
+    var loadBody =  document.getElementById('loadTypeBody');
+    var loadList = document.getElementById('browsersloadtype');
     $.ajax({
         url: 'master/utils/getLoadType.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-           // alert(response);
-            document.getElementById('loadTypeBody').innerHTML = response;   
+            var res = response.split('^');
+            if(loadBody != null){
+                loadBody.innerHTML = res[0];   
+            }
+            if(loadList != null){
+                loadList.innerHTML = res[1];   
+            }
         },
     });
 }
@@ -653,12 +668,20 @@ database.ref(test).on('child_removed', function(data) {
 //update table fields
 
 function updateCurrencyTable(){
+    var currencyBody = document.getElementById('currencyBody');
+    var currencyList = document.getElementById('selectCurrency');
     $.ajax({
         url: 'master/utils/getCurrency.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-           document.getElementById('currencyBody').innerHTML = response;
+            var res = response.split('^');
+           if(currencyBody != null){
+                currencyBody.innerHTML = res[0];
+           } 
+           if(currencyList != null){
+               currencyList.innerHTML = res[1];
+           }
         },
 
     });
@@ -779,13 +802,20 @@ database.ref(equipmenttest).on('child_removed', function(data) {
 //update table fields
 
 function updateEquipmentTypeTable(){
-    
+    var equipmentBody = document.getElementById('equipmentBody');
+    var equipmentList = document.getElementById('browsersequipment');
     $.ajax({
         url: 'master/utils/getEquipmentType.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-        document.getElementById('equipmentBody').innerHTML = response;
+            var res = response.split('^');
+            if(equipmentBody != null){
+                equipmentBody.innerHTML = res[0];
+            }
+            if(equipmentList != null){
+                equipmentList.innerHTML = res[1];
+            }
             
         },
 

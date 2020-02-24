@@ -21,7 +21,8 @@ function showTextarea(columnID,type,id,columnName){
             row: 3,
         });
     }
-
+    console.log(columnID);
+    console.log(columnName);
     if (columnName) {
         document.getElementById(columnName+id).style.display = "block";
     }
