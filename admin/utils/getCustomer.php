@@ -124,7 +124,26 @@ foreach ($show as $row) {
                                             <a href='#' id='custName1' data-type='textarea' class='text-overflow'>$salesRep</a>
                                             <button type='button' id='custName' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
                                         </td>
-                                        
+                                        <td>
+                                            <a href='#' id='custName1' data-type='textarea' class='text-overflow'>$factoringCompany</a>
+                                            <button type='button' id='custName' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
+                                        </td>
+                                        <td>
+                                            <a href='#' id='custName1' data-type='textarea' class='text-overflow'>$federalID</a>
+                                            <button type='button' id='custName' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
+                                        </td>
+                                        <td>
+                                            <a href='#' id='custName1' data-type='textarea' class='text-overflow'>$workerComp</a>
+                                            <button type='button' id='custName' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
+                                        </td>
+                                        <td>
+                                            <a href='#' id='custName1' data-type='textarea' class='text-overflow'>$websiteURL</a>
+                                            <button type='button' id='custName' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
+                                        </td>
+                                        <td>
+                                            <a href='#' id='custName1' data-type='textarea' class='text-overflow'>$internalNotes</a>
+                                            <button type='button' id='custName' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
+                                        </td>
                                         
         </tr>
         ";
