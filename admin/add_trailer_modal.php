@@ -50,6 +50,10 @@ require "../database/connection.php";
                                 $i = 1;
                                 $collection = $db->trailer_admin_add;
                                 $show1 = $collection->aggregate([
+                                    ['$match'=>['companyID'=>$_SESSION['companyId']]],
+                                    ['$unwind'=>'$trailerdetails'],
+                                    ['$unwind'=>'$trailer'],
+                                    ['$match'=>['deleteStatus'=>0]],
                                     ['$lookup' => [
                                         'from' => 'trailer_add',
                                         'localField' => 'companyID',

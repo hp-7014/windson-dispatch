@@ -56,6 +56,7 @@ require "../database/connection.php";
                                     $no = 1;
                                     $collection = $db->truckadd;
                                     $show1 = $collection->aggregate([
+                                        ['$match'=>['companyID'=>$_SESSION['companyId']]],
                                         ['$lookup' => [
                                             'from' => 'truck_add',
                                             'localField' => 'companyID',
