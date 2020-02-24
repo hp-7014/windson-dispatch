@@ -2,6 +2,7 @@
 require "../database/connection.php";?>
 <div id="trailer" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
+     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header custom-modal-header">
@@ -37,7 +38,7 @@ require "../database/connection.php";?>
                         <th>Action</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="trailerTBody">
                     <?php
 
                     $show = $db->trailer_add->find(['companyID' => $_SESSION['companyId']]);

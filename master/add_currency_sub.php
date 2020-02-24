@@ -1,3 +1,7 @@
+<?php 
+    session_start();
+    require "../database/connection.php";
+?>
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="currencysub"
      aria-hidden="true">
     <div class="modal-dialog modal-sm">

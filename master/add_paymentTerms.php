@@ -3,6 +3,7 @@ require "../database/connection.php"; ?>
 <!--  Modal content for the above example -->
 <div id="Payment_Terms" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
+     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header custom-modal-header">
@@ -45,7 +46,7 @@ require "../database/connection.php"; ?>
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="paymentTermsBody">
                                     <?php
                                     require 'model/PaymentTerms.php';
 
