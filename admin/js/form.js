@@ -1837,6 +1837,10 @@ function TruckAdd() {
                                     cache: false,
                                     processData: false,
                                     success: function (data) {
+                                        var companyid = $('#companyid').val();
+                                        database.ref('truck').child(companyid).set({
+                                            data: randomString(),
+                                        });
                                         swal("Success", data, "success");
                                         $('#add_Truck').modal('hide');
                                     }
@@ -1850,6 +1854,36 @@ function TruckAdd() {
             swal('Please Select Only 5 File')
         }
     }
+
+//
+//update truck table
+var truck_path = "truck/";
+var truck_path1 = $('#companyid').val();
+var truck_data = truck_path1.toString();
+var truck_test = truck_path + truck_data;
+
+database.ref(truck_test).on('child_added', function (data) {
+    updateTruckTable();
+});
+database.ref(truck_test).on('child_changed', function (data) {
+    updateTruckTable();
+});
+database.ref(truck_test).on('child_removed', function (data) {
+    updateTruckTable();
+});
+
+// update table fields
+function updateTruckTable() {
+    $.ajax({
+        url: 'admin/utils/getTruck.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('truckBody').innerHTML = response;
+        },
+    });
+}    
+//
 
 // Export Excel Function For Truck Add
 function exportTruckAdd() {
@@ -1895,6 +1929,10 @@ function updateTruckAdd(column, id) {
             value: data,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+                database.ref('truck').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
         }
@@ -1909,6 +1947,10 @@ function deleteTruckAdd(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                    database.ref('truck').child(companyid).set({
+                    data: randomString(),
+                });
                 swal("Success", data, "success");
                 //$('#currency').modal('hide');
             }
@@ -1951,6 +1993,10 @@ function Traileradd() {
                                 cache: false,
                                 processData: false,
                                 success: function (data) {
+                                    var companyid = $('#companyid').val();
+                                        database.ref('trailer').child(companyid).set({
+                                        data: randomString(),
+                                        });
                                     swal("Success", data, "success");
                                     $('#add_Trailer').modal('hide');
                                 }
@@ -1964,6 +2010,36 @@ function Traileradd() {
         swal("Please Select Only 5 File")
     }
 }
+
+//
+//update trailer table
+var trailer_path = "trailer/";
+var trailer_path1 = $('#companyid').val();
+var trailer_data = trailer_path1.toString();
+var trailer_test = trailer_path + trailer_data;
+
+database.ref(trailer_test).on('child_added', function (data) {
+    updateTrailerTable();
+});
+database.ref(trailer_test).on('child_changed', function (data) {
+    updateTrailerTable();
+});
+database.ref(trailer_test).on('child_removed', function (data) {
+    updateTrailerTable();
+});
+
+// update table fields
+function updateTrailerTable() {
+    $.ajax({
+        url: 'admin/utils/getTrailer.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('trailerBody').innerHTML = response;
+        },
+    });
+}    
+//
 
 //update Trailer Function
 function updateTrailerAdd(column, id) {
@@ -1981,6 +2057,10 @@ function updateTrailerAdd(column, id) {
             value: data,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+                database.ref('trailer').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
         }
@@ -1990,12 +2070,17 @@ function updateTrailerAdd(column, id) {
 
 // Delete Trailer Function
 function deleteTrailerAdd(id) {
+    alert(id);
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/traileradd_driver.php?type=' + 'delete_trailer',
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                    database.ref('trailer').child(companyid).set({
+                    data: randomString(),
+                });
                 swal("Success", data, "success");
                 //$('#currency').modal('hide');
             }

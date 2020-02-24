@@ -51,7 +51,7 @@ require "../database/connection.php";
                                     </tr>
                                     </thead>
 
-                                    <tbody>
+                                    <tbody id="truckBody">
                                     <?php
                                     $no = 1;
                                     $collection = $db->truckadd;
@@ -69,7 +69,6 @@ require "../database/connection.php";
                                      
                                      foreach ($show1 as $row) {
                                          $companyID = $row['companyID'];
-                                         if ($companyID == $_SESSION['companyId']) {
                                          $truckNumber = $row['truck'];
                                          $truckdetails = $row['truckdetails'];
                                          $truckTypes = array();
@@ -222,7 +221,6 @@ require "../database/connection.php";
                                                 </td>
                                             </tr>
                                         <?php }
-                                        }
                                     } ?>
                                     </tbody>
                                     <tfoot>
