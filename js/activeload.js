@@ -343,7 +343,7 @@ function getConsig(consigID) {
 }
 
 $(document).on("click", "#add_Customer_Modal", function () {
-    
+
     $.ajax({
         type: 'POST',
         success: function (data) {

@@ -111,7 +111,7 @@ require "../database/connection.php";
                                                     </tr>
                                                     </thead>
 
-                                                    <tbody>
+                                                    <tbody id="driverBody">
                                                     <?php
                                                     require 'model/Driver.php';
 

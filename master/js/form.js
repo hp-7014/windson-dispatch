@@ -683,7 +683,6 @@ function updateCurrencyTable(){
                currencyList.innerHTML = res[1];
            }
         },
-
     });
 }
 
