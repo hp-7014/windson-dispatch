@@ -8,7 +8,7 @@ require "../database/connection.php";?>
             <div class="modal-header custom-modal-header">
                 <h5 class="modal-title custom-modal-title mt-0" id="myLargeModalLabel">Equipment
                     Type</h5>
-                <button type="button" class="close modalEquipmentType" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>

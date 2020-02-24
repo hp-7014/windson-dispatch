@@ -37,7 +37,7 @@ else if ($_GET['type'] == 'equipmentadd') {
 else if ($_GET['type'] == 'edit_equipment'){
     $equipment = new Equipment();
     $equipment->setId($_POST['id']);
-    $equipment->setCompanyID($_POST['companyID']);
+    $equipment->setCompanyID($_SESSION['companyId']);
     $equipment->setEquipment($_POST['value']);
     $equipment->setColumn($_POST['column']);
     $equipment->updateEquipment($equipment,$db);

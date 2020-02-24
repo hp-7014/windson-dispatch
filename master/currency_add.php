@@ -27,7 +27,7 @@ if ($_GET['type'] == 'importExcel') {
 else if ($_GET['type'] == 'currencyadd') {
     $currency = new Currency();
     $currency->setId($helper->getNextSequence("currencycount",$db));
-    $currency->setCompanyID($_POST['companyID']);
+    $currency->setCompanyID($_SESSION['companyId']);
     $currency->setCurrencyType($_POST['currencyType']);
     $currency->Insert($currency,$db,$helper);
     echo "Data Insert Successful";

@@ -4,6 +4,8 @@ $helper = "helper";
 require "../../database/connection.php";
  $load_data = $db->load_type->find(['companyID' => $_SESSION['companyId']]);
  $no = 0;
+ $table = "";
+ $list = "";
  foreach ($load_data as $s_type) {
      $show1 = $s_type['loadType'];
      foreach ($show1 as $row1) {
@@ -13,7 +15,7 @@ require "../../database/connection.php";
          $column1 = 'loadName';
          $column2 = 'loadType';
          $no += 1;
-         echo "<tr>
+         $table .= "<tr>
              <td> $no</td>
              <td>
                  <div contenteditable='true'
@@ -30,5 +32,7 @@ require "../../database/connection.php";
                              style='font-size: 20px; color: #FC3B3B'></a></i>
              </td>
          </tr>";
+         $list .= "<option value=$id)$loadName></option>";
       }
+      echo $table."^".$list;
  }

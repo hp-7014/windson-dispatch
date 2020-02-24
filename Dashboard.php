@@ -55,7 +55,7 @@ require "database/connection.php";
                                     <div class="row">
                                         <div class="form-group col-md-3">
                                             <label>Select Your Company</label><i class="mdi mdi-plus-circle plus" title="Add Company" id="add_Company_Modal"></i>
-                                            <select class="form-control">
+                                            <select class="form-control" id="selectCompany">
                                                 <option value="0">--Select--</option>
                                                 <?php
                                                 $show_company = $db->company->find(['companyID' => $_SESSION['companyId']]);
@@ -290,7 +290,7 @@ require "database/connection.php";
 
                                         <div class="form-group col-md-2 carrier">
                                             <label>Currency</label><i class="mdi mdi-plus-circle plus" id="add_currency_modal"></i>
-                                            <select class="form-control">
+                                            <select class="form-control" id="selectCurrency">
                                                 <option value="0">--Select--</option>
                                                 <?php
                                                 $show_currency = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
@@ -892,7 +892,7 @@ require "database/connection.php";
         </div>
         <!-- end col -->
 
-        <div class="col-xl-4">
+       
             <div class="card m-b-30">
                 <div class="card-body">
                     <h4 class="mt-0 header-title mb-4">Donut Chart</h4>
