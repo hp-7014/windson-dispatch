@@ -64,80 +64,80 @@ require "../database/connection.php";
                                     <?php
                                     require 'model/Shipper.php';
 
+                                    $limit = 1;
+                                    $cursor = $db->shipper->find(array('companyID' => $_SESSION['companyId']));
+
                                     $shipper = new Shipper();
                                     $show_data = $db->shipper->find(['companyID' => $_SESSION['companyId']]);
                                     $no = 1;
                                     foreach ($show_data as $show) {
                                         $show = $show['shipper'];
                                         foreach ($show as $s) {
-                                            $limit = 4;
-                                            $total_records = $s->count();
-                                            $total_pages = ceil($total_records / $limit);
                                     ?>
                                             <tr>
                                                 <th><?php echo $no++; ?></th>
                                                 <td>
-                                                    <a href="#" id="shipperName<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperName');" class="text-overflow"><?php echo $s['shipperName']; ?></a>
+                                                    <a href="#" id="shipperName<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperName');" class="text-overflow"><?php echo $s['shipperName']; ?></a>
                                                     <button type="button" id="shipperName<?php echo $s['_id']; ?>" onclick="updateShipper('shipperName',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="shipperAddress<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperAddress');" class="text-overflow"><?php echo $s['shipperAddress']; ?></a>
+                                                    <a href="#" id="shipperAddress<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperAddress');" class="text-overflow"><?php echo $s['shipperAddress']; ?></a>
                                                     <button type="button" id="shipperAddress<?php echo $s['_id']; ?>" onclick="updateShipper('shipperAddress',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="shipperLocation<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperLocation');" class="text-overflow"><?php echo $s['shipperLocation']; ?></a>
+                                                    <a href="#" id="shipperLocation<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperLocation');" class="text-overflow"><?php echo $s['shipperLocation']; ?></a>
                                                     <button type="button" id="shipperLocation<?php echo $s['_id']; ?>" onclick="updateShipper('shipperLocation',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="shipperPostal<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperPostal');" class="text-overflow"><?php echo $s['shipperPostal']; ?></a>
+                                                    <a href="#" id="shipperPostal<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperPostal');" class="text-overflow"><?php echo $s['shipperPostal']; ?></a>
                                                     <button type="button" id="shipperPostal<?php echo $s['_id']; ?>" onclick="updateShipper('shipperPostal',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="shipperContact<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperContact');" class="text-overflow"><?php echo $s['shipperContact']; ?></a>
+                                                    <a href="#" id="shipperContact<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperContact');" class="text-overflow"><?php echo $s['shipperContact']; ?></a>
                                                     <button type="button" id="shipperContact<?php echo $s['_id']; ?>" onclick="updateShipper('shipperContact',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="shipperEmail<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperEmail');" class="text-overflow"><?php echo $s['shipperEmail']; ?></a>
+                                                    <a href="#" id="shipperEmail<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperEmail');" class="text-overflow"><?php echo $s['shipperEmail']; ?></a>
                                                     <button type="button" id="shipperEmail<?php echo $s['_id']; ?>" onclick="updateShipper('shipperEmail',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="shipperTelephone<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperTelephone');" class="text-overflow"><?php echo $s['shipperTelephone']; ?></a>
+                                                    <a href="#" id="shipperTelephone<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperTelephone');" class="text-overflow"><?php echo $s['shipperTelephone']; ?></a>
                                                     <button type="button" id="shipperTelephone<?php echo $s['_id']; ?>" onclick="updateShipper('shipperTelephone',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="shipperExt<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperExt');" class="text-overflow"><?php echo $s['shipperExt']; ?></a>
+                                                    <a href="#" id="shipperExt<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperExt');" class="text-overflow"><?php echo $s['shipperExt']; ?></a>
                                                     <button type="button" id="shipperExt<?php echo $s['_id']; ?>" onclick="updateShipper('shipperExt',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="shipperTollFree<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperTollFree');" class="text-overflow"><?php echo $s['shipperTollFree']; ?></a>
+                                                    <a href="#" id="shipperTollFree<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperTollFree');" class="text-overflow"><?php echo $s['shipperTollFree']; ?></a>
                                                     <button type="button" id="shipperTollFree<?php echo $s['_id']; ?>" onclick="updateShipper('shipperTollFree',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="shipperFax<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperFax');" class="text-overflow"><?php echo $s['shipperFax']; ?></a>
+                                                    <a href="#" id="shipperFax<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperFax');" class="text-overflow"><?php echo $s['shipperFax']; ?></a>
                                                     <button type="button" id="shipperFax<?php echo $s['_id']; ?>" onclick="updateShipper('shipperFax',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="shipperShippingHours<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperShippingHours');" class="text-overflow"><?php echo $s['shipperShippingHours']; ?></a>
+                                                    <a href="#" id="shipperShippingHours<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperShippingHours');" class="text-overflow"><?php echo $s['shipperShippingHours']; ?></a>
                                                     <button type="button" id="shipperShippingHours<?php echo $s['_id']; ?>" onclick="updateShipper('shipperShippingHours',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="shipperAppointments<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperAppointments');" class="text-overflow"><?php echo $s['shipperAppointments']; ?></a>
+                                                    <a href="#" id="shipperAppointments<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperAppointments');" class="text-overflow"><?php echo $s['shipperAppointments']; ?></a>
                                                     <button type="button" id="shipperAppointments<?php echo $s['_id']; ?>" onclick="updateShipper('shipperAppointments',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="shipperIntersaction<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperIntersaction');" class="text-overflow"><?php echo $s['shipperIntersaction']; ?></a>
+                                                    <a href="#" id="shipperIntersaction<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperIntersaction');" class="text-overflow"><?php echo $s['shipperIntersaction']; ?></a>
                                                     <button type="button" id="shipperIntersaction<?php echo $s['_id']; ?>" onclick="updateShipper('shipperIntersaction',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="shipperStatus<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperStatus');" class="text-overflow"><?php echo $s['shipperStatus']; ?></a>
+                                                    <a href="#" id="shipperStatus<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperStatus');" class="text-overflow"><?php echo $s['shipperStatus']; ?></a>
                                                     <button type="button" id="shipperStatus<?php echo $s['_id']; ?>" onclick="updateShipper('shipperStatus',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="shippingNotes<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shippingNotes');" class="text-overflow"><?php echo $s['shippingNotes']; ?></a>
+                                                    <a href="#" id="shippingNotes<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shippingNotes');" class="text-overflow"><?php echo $s['shippingNotes']; ?></a>
                                                     <button type="button" id="shippingNotes<?php echo $s['_id']; ?>" onclick="updateShipper('shippingNotes',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="internalNotes<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'internalNotes');" class="text-overflow"><?php echo $s['internalNotes']; ?></a>
+                                                    <a href="#" id="internalNotes<?php echo $s['_id']; ?>1" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'internalNotes');" class="text-overflow"><?php echo $s['internalNotes']; ?></a>
                                                     <button type="button" id="internalNotes<?php echo $s['_id']; ?>" onclick="updateShipper('internalNotes',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 
@@ -175,25 +175,7 @@ require "../database/connection.php";
                         </div>
                     </div>
                     <br>
-                    <nav aria-label="..." class="float-right">
-                        <ul class="pagination">
-                            <?php
-                            for($i=1; $i<=$total_pages; $i++){
-                                if($i == 1){
-                                    ?>
-                                    <li class="pageitem active" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" data-id="<?php echo $i;?>" class="page-link" ><?php echo $i;?></a></li>
 
-                                    <?php
-                                }
-                                else{
-                                    ?>
-                                    <li class="pageitem" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" class="page-link" data-id="<?php echo $i;?>"><?php echo $i;?></a></li>
-                                    <?php
-                                }
-                            }
-                            ?>
-                        </ul>
-                    </nav>
                 </div>
             </div>
 

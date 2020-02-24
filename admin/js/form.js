@@ -77,7 +77,7 @@ function addShipper() {
                                                                     success: function (data) {
                                                                         var companyid = $('#companyid').val();
                                                                         database.ref('shipper').child(companyid).set({
-                                                                            data:randomString(),
+                                                                            data: randomString(),
                                                                         });
                                                                         swal('Success', data, 'success');
                                                                         $('#add_shipper').modal('hide');
@@ -101,37 +101,32 @@ function addShipper() {
 }
 
 //update currency table
+var shipper_path = "shipper/";
+var shipper_path1 = $('#companyid').val();
+var shipper_data = shipper_path1.toString();
+var shipper_test = shipper_path + shipper_data;
 
-// var shipper_path = "shipper/";
-// var shipper_path1 = $('#companyid').val();
-// var shipper_data = shipper_path1.toString();
-// var shipper_test = shipper_path+shipper_data;
+database.ref(shipper_test).on('child_added', function (data) {
+    updateShipperTable();
+});
+database.ref(shipper_test).on('child_changed', function (data) {
+    updateShipperTable();
+});
+database.ref(shipper_test).on('child_removed', function (data) {
+    updateShipperTable();
+});
 
-// database.ref(shipper_test).on('child_added', function(shipper_data) {
-//     updateShipperTable();
-// });
-// database.ref(shipper_test).on('child_changed', function(shipper_data) {
-//     updateShipperTable();
-// });
-// database.ref(shipper_test).on('child_removed', function(shipper_data) {
-//     updateShipperTable();
-// });
-
-// //update table fields
-// function updateShipperTable(){
-//     $.ajax({
-//         url: 'admin/utils/getShipper.php',
-//         type: 'POST',
-//         dataType: 'text',
-//         success: function (response) {
-//             var companyid = $('#companyid').val();
-//             database.ref('shipper').child(companyid).set({
-//                 data:randomString(),
-//             });
-//             document.getElementById('shipperBody').innerHTML = response;
-//         },
-//     });
-// }
+// update table fields
+function updateShipperTable() {
+    $.ajax({
+        url: 'admin/utils/getShipper.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('shipperBody').innerHTML = response;
+        },
+    });
+}
 
 //Import shipper
 function importShipper() {
@@ -186,7 +181,7 @@ function exportShipper(id) {
 function updateShipper(column, id) {
     var data = $('#shipper_table').find('input[type="text"],textarea').val();
 
-    var companyId = document.getElementById('companyID').value;
+    var companyId = document.getElementById('companyid').value;
 
     $.ajax({
         url: 'admin/shipper_driver.php?type=' + 'edit_shipper',
@@ -198,8 +193,13 @@ function updateShipper(column, id) {
             value: data,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('shipper').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
-            document.getElementById(column + id).style.display = "none";
+            // console.log(column + id);
+            document.getElementById(column+id).style.display = "none";
         }
     });
 }
@@ -212,6 +212,10 @@ function deleteShipper(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                database.ref('shipper').child(companyid).set({
+                    data: randomString(),
+                });
                 swal("Success", data, 'success');
             }
         });
@@ -544,6 +548,10 @@ function addCustomer() {
                                                                                                     MC: MC
                                                                                                 },
                                                                                                 success: function (data) {
+                                                                                                    var companyid = $('#companyid').val();
+                                                                                                    database.ref('customer').child(companyid).set({
+                                                                                                        data: randomString(),
+                                                                                                    });
                                                                                                     swal('Success', data, 'success');
                                                                                                     $('#add_customer').modal('hide');
                                                                                                 }
@@ -570,6 +578,34 @@ function addCustomer() {
             }
         }
     }
+}
+
+//update currency table
+var customer_path = "customer/";
+var customer_path1 = $('#companyid').val();
+var customer_data = customer_path1.toString();
+var customer_test = customer_path + customer_data;
+
+database.ref(customer_test).on('child_added', function (data) {
+    updateCustomerTable();
+});
+database.ref(customer_test).on('child_changed', function (data) {
+    updateCustomerTable();
+});
+database.ref(customer_test).on('child_removed', function (data) {
+    updateCustomerTable();
+});
+
+// update table fields
+function updateCustomerTable() {
+    $.ajax({
+        url: 'admin/utils/getCustomer.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('customerBody').innerHTML = response;
+        },
+    });
 }
 
 //Import customer
@@ -635,6 +671,10 @@ function updateCustomer(column, id) {
             value: data,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('customer').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
         }
@@ -649,6 +689,10 @@ function deleteCustomer(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                database.ref('customer').child(companyid).set({
+                    data: randomString(),
+                });
                 swal("Success", data, 'success');
             }
         });
@@ -1737,14 +1781,14 @@ function import_Custom_Broker() {
 }
 
 
-function paginate_custom_broker(start,limit){
-    
+function paginate_custom_broker(start, limit) {
+
     $.ajax({
         url: 'admin/utils/paginateCustomBroker.php',
         type: 'POST',
-        data:{
-            start:start,
-            limit:limit,
+        data: {
+            start: start,
+            limit: limit,
         },
         dataType: 'text',
         success: function (response) {
