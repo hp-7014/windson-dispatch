@@ -3,6 +3,7 @@ require "../database/connection.php";?>
 <!--  Modal content for the above example -->
 <div id="Load_Type" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
+    <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
         <div class="modal-content">
             <div class="modal-header custom-modal-header">
                 <h5 class="modal-title custom-modal-title mt-0" id="myLargeModalLabel">Active Load Type</h5>
@@ -43,7 +44,7 @@ require "../database/connection.php";?>
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="loadTypeBody">
                                     <?php
                                     require 'model/LoadType.php';
 

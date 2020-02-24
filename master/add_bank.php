@@ -1,9 +1,11 @@
-<?php session_start();
-include '../database/connection.php';
+<?php 
+    session_start();
+    include '../database/connection.php';
 ?>
 
 <!--  Modal content for the above example -->
 <div id="add_bank" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header custom-modal-header">
@@ -146,7 +148,7 @@ include '../database/connection.php';
                                                 $credit_bk = $db->bank_credit_category->find(['companyID' => $_SESSION['companyId']]);
                                                 $no = 1;
                                             ?>
-                                            <tbody>
+                                            <tbody id="creditBody">
                                             <?php foreach ($credit_bk as $c_bank) {
                                                 $bank_credit = $c_bank['bank_credit'];
 
@@ -218,7 +220,7 @@ include '../database/connection.php';
                                                 $card_credit = $db->credit_card_category->find(['companyID' => $_SESSION['companyId']]);
                                                 $no = 1;
                                             ?>
-                                            <tbody>
+                                            <tbody id="cardBody">
                                                 <?php foreach ($card_credit as $card) {
                                                 $credit_card = $card['credit_card'];
 

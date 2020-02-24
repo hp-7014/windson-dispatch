@@ -45,7 +45,7 @@
                                     $no = 1;
                                     ?>
 
-                                    <tbody>
+                                    <tbody id="statusBody">
                                     <?php foreach ($statustype as $status) {
                                         $status_data = $status['status'];
                                         foreach ($status_data as $data) {
@@ -53,7 +53,7 @@
                                         <tr>
                                             <td><?php echo $no++; ?></td>
                                             <td contenteditable="true" onblur="updateStatus(this,'status_name',<?php echo $data['_id']; ?>)"><?php echo $data['status_name']; ?></td>
-                                            <td contenteditable="true" onblur="update_Status(this,'status_color',<?php echo $data['_id']; ?>)"><input class="form-control" type="color" value="<?php echo $data['status_color']; ?>" name="status_color" id="statuscolor"></td>
+                                            <td contenteditable="true"><input class="form-control" type="color" value="<?php echo $data['status_color']; ?>" name="status_color" onchange="update_Status(this.value,'status_color',<?php echo $data['_id']; ?>)"></td>
                                             <td><a href="#" onclick="deleteStatus(<?php echo $data['_id']; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></i></a>
                                             </td>
                                         </tr>

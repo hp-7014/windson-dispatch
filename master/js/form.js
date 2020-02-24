@@ -1,4 +1,38 @@
+var companyid = $('#companyid').val();
 //-----------------Payment Terms start-------------------------------------
+
+//update Payment Terms table
+
+var paymentpath = "payment_terms/";
+var paymentpath1 = $('#companyid').val();
+var paymentdata = paymentpath1.toString();
+var payment_test = paymentpath+paymentdata;
+
+database.ref(payment_test).on('child_added', function(data) {
+    updatePaymentTermTable();
+});
+
+database.ref(payment_test).on('child_changed', function(data) {
+    updatePaymentTermTable();
+});
+
+database.ref(payment_test).on('child_removed', function(data) {
+    updatePaymentTermTable();
+});
+
+//update table fields
+
+function updatePaymentTermTable(){
+    $.ajax({
+        url: 'master/utils/getPaymentTerms.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('paymentTermsBody').innerHTML = response;   
+        },
+    });
+}
+
 // Insert function for ADD Payment Terms
 function addPaymentTerms() {
     var payment_term = document.getElementById('payment_term').value;
@@ -13,13 +47,16 @@ function addPaymentTerms() {
                 companyid: companyId,
                 payment_term: payment_term,
             },
-            beforeSend: function () {
-                $('.load').load('master/js/loader.php');
-                setTimeout(1000);
-            },
+            // beforeSend: function () {
+            //     $('.load').load('master/js/loader.php');
+            //     setTimeout(1000);
+            // },
             success: function (data) {
-                // swal("Success", data, 'success');
-                // $('#Add_Payment_Terms').modal('hide');
+                database.ref('payment_terms').child(companyid).set({
+                    data:randomString(),
+                });
+                swal("Success", data, 'success');
+                $('#AddPayment').modal('hide');
             }
         });
     }
@@ -59,6 +96,9 @@ function updatePayment(element, column, id) {
             value: value,
         },
         success: function (data) {
+            database.ref('payment_terms').child(companyid).set({
+                data:randomString(),
+            });
             swal("Success", data, 'success');
             // $('#Payment_Terms').modal('hide');
         }
@@ -73,6 +113,9 @@ function deletePayment(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                database.ref('payment_terms').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, 'success');
             }
         });
@@ -81,7 +124,6 @@ function deletePayment(id) {
 
 // Export Excel function for Payment Terms
 function exportExcel(id) {
-
     $.ajax({
         url: 'master/payment_terms.php?type=' + 'export_payment_terms',
         data: {companyid: id},
@@ -114,6 +156,39 @@ function exportExcel(id) {
 //-----------------Payment Terms End-------------------------------------
 
 //-----------------Office Terms start-------------------------------------
+
+//update Debit Bank table
+
+var officepath = "office/";
+var officepath1 = $('#companyid').val();
+var officedata = officepath1.toString();
+var officetest = officepath+officedata;
+
+database.ref(officetest).on('child_added', function(data) {
+    updateOfficeTable();
+});
+
+database.ref(officetest).on('child_changed', function(data) {
+    updateOfficeTable();
+});
+
+database.ref(officetest).on('child_removed', function(data) {
+    updateOfficeTable();
+});
+
+//update table fields
+
+function updateOfficeTable(){
+    $.ajax({
+        url: 'master/utils/getOffice.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('officeBody').innerHTML = response;   
+        },
+    });
+}
+
 // Insert function
 function addOffice() {
     var officeName = document.getElementById('officeName').value;
@@ -131,8 +206,11 @@ function addOffice() {
                     officeLocation: officeLocation,
                 },
                 success: function (data) {
+                    database.ref('office').child(companyid).set({
+                        data:randomString(),
+                    });
                     swal("Success", data, 'success');
-                    $('#Add_Office').modal('hide');
+                    $('#addOffice').modal('hide');
                 }
             });
         }
@@ -153,6 +231,9 @@ function updateOffice(element, column, id) {
             value: value,
         },
         success: function (data) {
+            database.ref('office').child(companyid).set({
+                data:randomString(),
+            });
             swal("Success", data, 'success');
             // $('#Add_Office').modal('hide');
         }
@@ -167,6 +248,9 @@ function deleteOffice(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                database.ref('office').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, 'success');
             }
         });
@@ -219,6 +303,39 @@ function exportOffice() {
 //-------------office function end-----------------
 
 //-------------Company function start--------------
+
+//update company table
+
+var companypath = "company/";
+var companypath1 = $('#companyid').val();
+var companydata = companypath1.toString();
+var companytest = companypath+companydata;
+
+
+database.ref(companytest).on('child_added', function(data) {
+    updateCompanyTable();
+});
+database.ref(companytest).on('child_changed', function(data) {
+    updateCompanyTable();
+});
+database.ref(companytest).on('child_removed', function(data) {
+    updateCompanyTable();
+});
+//update table fields
+
+function updateCompanyTable(){
+   
+    $.ajax({
+        url: 'master/utils/getCompany.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+           // alert(response);
+            document.getElementById('companyBody').innerHTML = response;   
+        },
+    });
+}
+
 // Insert function
 function addCompany() {
     var companyName = document.getElementById('companyName').value;
@@ -251,6 +368,9 @@ function addCompany() {
                         factoringCompanyAddress: factoringCompanyAddress,
                     },
                     success: function (data) {
+                        database.ref('company').child(companyid).set({
+                            data:randomString(),
+                        });
                         swal("Success", data, 'success');
                         $('#add_company').modal('hide');
                     }
@@ -268,6 +388,9 @@ function deleteCompany(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                database.ref('company').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, 'success');
             }
         });
@@ -276,17 +399,21 @@ function deleteCompany(id) {
 
 // update function
 function updateCompany(element, column, id) {
+    var companyId = document.getElementById('companyId').value;
     var value = element.innerText;
     $.ajax({
         url: 'master/company_driver.php?type=' + 'edit_company',
         type: 'POST',
         data: {
-            companyid: "1",
+            companyid: companyId,
             column: column,
             id: id,
             value: value,
         },
         success: function (data) {
+            database.ref('company').child(companyid).set({
+                data:randomString(),
+            });
             swal("Success", data, 'success');
             // $('#add_company').modal('hide');
         }
@@ -339,6 +466,37 @@ function importCompany() {
 //-------------Company function End--------------
 
 //------------Load function Start----------------
+//update Load Type table
+
+var loadpath = "load_type/";
+var loadpath1 = $('#companyid').val();
+var loaddata = loadpath1.toString();
+var loadtest = loadpath+loaddata;
+
+
+database.ref(loadtest).on('child_added', function(data) {
+    updateLoadTable();
+});
+database.ref(loadtest).on('child_changed', function(data) {
+    updateLoadTable();
+});
+database.ref(loadtest).on('child_removed', function(data) {
+    updateLoadTable();
+});
+//update table fields
+
+function updateLoadTable(){
+    $.ajax({
+        url: 'master/utils/getLoadType.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+           // alert(response);
+            document.getElementById('loadTypeBody').innerHTML = response;   
+        },
+    });
+}
+
 function addLoadType() {
     var loadName = document.getElementById('loadName').value;
     var loadType = document.getElementById('loadType').value;
@@ -355,8 +513,11 @@ function addLoadType() {
                     loadType: loadType,
                 },
                 success: function (data) {
+                    database.ref('load_type').child(companyid).set({
+                        data:randomString(),
+                    });
                     swal("Success", data, 'success');
-                    $('#Active_Load_Type').modal('hide');
+                    $('#addLoad_Type').modal('hide');
                 }
             });
         }
@@ -377,6 +538,9 @@ function updateloadType(element, column, id) {
             value: value,
         },
         success: function (data) {
+            database.ref('load_type').child(companyid).set({
+                data:randomString(),
+            });
             swal("Success", data, 'success');
         }
     });
@@ -390,6 +554,9 @@ function deleteloadType(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                database.ref('load_type').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, 'success');
             }
         });
@@ -460,7 +627,7 @@ function addCurrency() {
                     data:randomString(),
                 });
                 swal("Success", data, "success");
-                $('#center').modal('hide');
+                $('#currencysub').modal('hide');
             },
         });
     }
@@ -518,7 +685,7 @@ function updateCurrency(element, column, id) {
                 data:randomString(),
             });
             swal("Success", data, "success");
-            //$('#currency').modal('hide');
+            $("#currencysub").modal('hide');
         }
     });
 }
@@ -556,8 +723,7 @@ function deleteCurrency(id) {
                     data:randomString(),
                 });
                 swal("Success", data, "success");
-               
-                //$('#currency').modal('hide');
+                $('#currencysub').modal('hide');
             }
         });
     }
@@ -593,6 +759,41 @@ function exportCurrency() {
 }
 
 //ajax Function For insert Equipment Type
+
+//update Equipment Type table
+
+var equipmentpath = "equipment_add/";
+var equipmentpath1 = $('#companyid').val();
+var equipmentdata = equipmentpath1.toString();
+var equipmenttest = equipmentpath+equipmentdata;
+
+
+database.ref(equipmenttest).on('child_added', function(data) {
+    updateEquipmentTypeTable();
+});
+database.ref(equipmenttest).on('child_changed', function(data) {
+    updateEquipmentTypeTable();
+});
+database.ref(equipmenttest).on('child_removed', function(data) {
+    updateEquipmentTypeTable();
+});
+
+//update table fields
+
+function updateEquipmentTypeTable(){
+    
+    $.ajax({
+        url: 'master/utils/getEquipmentType.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+        document.getElementById('equipmentBody').innerHTML = response;
+            
+        },
+
+    });
+}
+
 function addEquipment() {
     var equipmentType = document.getElementById("equipment_add_type").value;
     var companyId = document.getElementById('companyId').value;
@@ -607,6 +808,9 @@ function addEquipment() {
             },
             dataType: 'text',
             success: function (data) {
+                database.ref('equipment_add').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, "success");
                 $('#Add_Equipment_Type').modal('hide');
             },
@@ -629,6 +833,9 @@ function updateEquipment(element, column, id) {
             value: value,
         },
         success: function (data) {
+            database.ref('equipment_add').child(companyid).set({
+                data:randomString(),
+            });
             swal("Success", data, "success");
             //$('#currency').modal('hide');
         }
@@ -643,6 +850,9 @@ function deleteEquipment(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                database.ref('equipment_add').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, "success");
                 //$('#currency').modal('hide');
             }
@@ -700,6 +910,36 @@ function exportEquipment() {
 }
 
 //ajax Function For insert Truck Type
+
+//update Truck Type table
+
+var trucktypepath = "truck_add/";
+var trucktypepath1 = $('#companyid').val();
+var trucktypedata = trucktypepath1.toString();
+var trucktypetest = trucktypepath+trucktypedata;
+
+database.ref(trucktypetest).on('child_added', function(data) {
+    updateTruckTypeTable();
+});
+database.ref(trucktypetest).on('child_changed', function(data) {
+    updateTruckTypeTable();
+});
+database.ref(trucktypetest).on('child_removed', function(data) {
+    updateTruckTypeTable();
+});
+//update table fields
+
+function updateTruckTypeTable(){
+    $.ajax({
+        url: 'master/utils/getTruckType.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('truckBody').innerHTML = response;   
+        },
+    });
+}
+
 function addTruck() {
     var truckType = document.getElementById("truck_add_type").value;
     var companyId = document.getElementById('companyId').value;
@@ -713,6 +953,9 @@ function addTruck() {
             },
             dataType: 'text',
             success: function (data) {
+                database.ref('truck_add').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, "success");
                 $('#Add_Truck_Type').modal('hide');
             },
@@ -725,6 +968,7 @@ function addTruck() {
 function updateTruck(element, column, id) {
     var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
+    
     $.ajax({
         url: 'master/truck_add.php?type=' + 'edit_truck',
         type: 'POST',
@@ -735,6 +979,9 @@ function updateTruck(element, column, id) {
             value: value,
         },
         success: function (data) {
+            database.ref('truck_add').child(companyid).set({
+                data:randomString(),
+            });
             swal("Success", data, "success");
             //$('#currency').modal('hide');
         }
@@ -749,6 +996,9 @@ function deleteTruck(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                database.ref('truck_add').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, "success");
                 //$('#currency').modal('hide');
             }
@@ -806,6 +1056,39 @@ function exportTruck() {
 }
 
 //ajax Function For insert Trailer Type
+
+//ajax Function For insert Trailer Type
+var trailertypepath = "trailer_type_add/";
+var trailertypepath1 = $('#companyid').val();
+var trailertypedata = trailertypepath1.toString();
+var trailertypetest = trailertypepath+trailertypedata;
+
+
+database.ref(trailertypetest).on('child_added', function(data) {
+    updateTrailerTypeTable();
+});
+
+database.ref(trailertypetest).on('child_changed', function(data) {
+    updateTrailerTypeTable();
+});
+
+database.ref(trailertypetest).on('child_removed', function(data) {
+    updateTrailerTypeTable();
+});
+
+//update table fields
+
+function updateTrailerTypeTable(){
+    $.ajax({
+        url: 'master/utils/getTrailerType.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('trailerTBody').innerHTML = response;   
+        },
+    });
+}
+
 function addTrailer() {
     var trailerType = document.getElementById("trailer_add_type").value;
     var companyId = document.getElementById('companyId').value;
@@ -819,6 +1102,9 @@ function addTrailer() {
             },
             dataType: 'text',
             success: function (data) {
+                database.ref('trailer_type_add').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, "success");
                 $('#Add_Trailer_Type').modal('hide');
             },
@@ -841,6 +1127,9 @@ function updateTrailer(element, column, id) {
             value: value,
         },
         success: function (data) {
+            database.ref('trailer_type_add').child(companyid).set({
+                data:randomString(),
+            });
             swal("Success", data, "success");
             //$('#currency').modal('hide');
         }
@@ -855,6 +1144,9 @@ function deleteTrailer(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                 database.ref('trailer_type_add').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, "success");
                 //$('#currency').modal('hide');
             }
@@ -912,6 +1204,40 @@ function exporttrailer() {
 }
 
 //ajax Function For insert Fix Pay
+
+//update Fix Pay Category table
+
+var fixpaypath = "fixpay_add/";
+var fixpaypath1 = $('#companyid').val();
+var fixpaydata = fixpaypath1.toString();
+var fixpaytest = fixpaypath+fixpaydata;
+
+
+database.ref(fixpaytest).on('child_added', function(data) {
+    updateFixPayTable();
+});
+
+database.ref(fixpaytest).on('child_changed', function(data) {
+    updateFixPayTable();
+});
+
+database.ref(fixpaytest).on('child_removed', function(data) {
+    updateFixPayTable();
+});
+
+//update table fields
+
+function updateFixPayTable(){
+    $.ajax({
+        url: 'master/utils/getFixPayCategory.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('fixpayBody').innerHTML = response;   
+        },
+    });
+}
+
 function addFixpay() {
     var fixpay = document.getElementById("fix_pay_add").value;
     var companyId = document.getElementById('companyId').value;
@@ -925,8 +1251,11 @@ function addFixpay() {
             },
             dataType: 'text',
             success: function (data) {
+                database.ref('fixpay_add').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, "success");
-                $('#Fix_Pay_Category').modal('hide');
+                $('#addFixPay').modal('hide');
             },
 
         });
@@ -948,6 +1277,9 @@ function updatefixPay(element, column, id) {
             value: value,
         },
         success: function (data) {
+            database.ref('fixpay_add').child(companyid).set({
+                data:randomString(),
+            });
             swal("Success", data, "success");
             //$('#currency').modal('hide');
         }
@@ -962,6 +1294,9 @@ function deletefixpay(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                database.ref('fixpay_add').child(companyid).set({
+                    data:randomString(),
+                });
                 swal("Success", data, "success");
                 //$('#currency').modal('hide');
             }
@@ -1020,6 +1355,39 @@ function importfixpay() {
 
 /*------------- Debit Bank Category  START  --------------------*/
 
+//update Debit Bank table
+
+var debitpath = "bank_debit_category/";
+var debitpath1 = $('#companyid').val();
+var debitdata = debitpath1.toString();
+var debittest = debitpath+debitdata;
+
+
+database.ref(debittest).on('child_added', function(data) {
+    updateDebitTable();
+});
+
+database.ref(debittest).on('child_changed', function(data) {
+    updateDebitTable();
+});
+
+database.ref(debittest).on('child_removed', function(data) {
+    updateDebitTable();
+});
+
+//update table fields
+
+function updateDebitTable(){
+    $.ajax({
+        url: 'master/utils/getBankDebit.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('bankDebitID').innerHTML = response;   
+        },
+    });
+}
+
 //Add Debit
 function addDebitCategory() {
     var bankName = document.getElementById("debit_category_name").value;
@@ -1035,8 +1403,11 @@ function addDebitCategory() {
             },
             dataType: 'text',
             success: function (data) {
+                database.ref('bank_debit_category').child(companyid).set({
+                    data:randomString(),
+                });
                 swal('Success', data, 'success');
-                $("#Add_Bank_Debit_Category").modal("hide");
+                $("#Add_Debit_Category").modal("hide");
             },
             error: function () {
 
@@ -1053,6 +1424,9 @@ function deleteBankDebit(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                database.ref('bank_debit_category').child(companyid).set({
+                    data:randomString(),
+                });
                 swal('Delete', 'Data Removed Successfully.', 'success');
             }
         });
@@ -1063,6 +1437,7 @@ function deleteBankDebit(id) {
 function updateBankDebit(element, column, id) {
     var companyId = document.getElementById('companyId').value;
     var value = element.innerText;
+    //alert(companyId);
     $.ajax({
         url: 'master/bank_debit_category.php?type=' + 'edit_bank_term',
         type: 'POST',
@@ -1073,8 +1448,11 @@ function updateBankDebit(element, column, id) {
             value: value,
         },
         success: function (data) {
+            database.ref('bank_debit_category').child(companyId).set({
+                data:randomString(),
+            });
             swal('Update', data, 'success');
-            $('#Add_Bank_Debit_Category').modal('hide');
+            //$('#Add_Bank_Debit_Category').modal('hide');
         }
     });
 }
@@ -1116,7 +1494,7 @@ function export_Excel() {
 
             var encodedUri = encodeURI(csvContent);
             var link = document.createElement("a");
-            alert(link);
+            //alert(link);
             link.setAttribute("href", encodedUri);
             link.setAttribute("download", "my_debit.csv");
             document.body.appendChild(link); // Required for FF
@@ -1129,6 +1507,39 @@ function export_Excel() {
 /*------------------ Debit Bank Category END  -------------------------------*/
 
 /*------------------ Credit Bank Category START -----------------------------*/
+
+//update Credit Bank table
+
+var creditpath = "bank_credit_category/";
+var creditpath1 = $('#companyid').val();
+var creditdata = creditpath1.toString();
+var credittest = creditpath+creditdata;
+
+
+database.ref(credittest).on('child_added', function(data) {
+    updateCreditTable();
+});
+
+database.ref(credittest).on('child_changed', function(data) {
+    updateCreditTable();
+});
+
+database.ref(credittest).on('child_removed', function(data) {
+    updateCreditTable();
+});
+
+//update table fields
+
+function updateCreditTable(){
+    $.ajax({
+        url: 'master/utils/getCreditCategory.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('creditBody').innerHTML = response;   
+        },
+    });
+}
 
 // Add Credit
 function addCreditCategory() {
@@ -1145,8 +1556,11 @@ function addCreditCategory() {
             },
             dataType: 'text',
             success: function (data) {
+                database.ref('bank_credit_category').child(companyid).set({
+                    data:randomString(),
+                });
                 swal('Success', data, 'success');
-                $("#Credit_Category").modal("hide");
+                $("#addCredit_Category").modal("hide");
             },
             error: function () {
             },
@@ -1169,8 +1583,11 @@ function updateBankCredit(element, column, id) {
             value: value,
         },
         success: function (data) {
+            database.ref('bank_credit_category').child(companyid).set({
+                data:randomString(),
+            });
             swal('Update', "Data Update Successfully.", 'success');
-            $('#Credit_Category').modal('hide');
+            //$('#Credit_Category').modal('hide');
         }
     });
 }
@@ -1183,6 +1600,9 @@ function deleteBankCredit(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                database.ref('bank_credit_category').child(companyid).set({
+                    data:randomString(),
+                });
                 swal('Delete', 'Data Delete Successfully.', 'success');
             }
         });
@@ -1239,6 +1659,39 @@ function exportExcelCredit() {
 
 /*----------------------- Credit Card Category START ------------------*/
 
+//update Credit Card  table
+
+var cardpath = "credit_card_category/";
+var cardpath1 = $('#companyid').val();
+var carddata = cardpath1.toString();
+var cardtest = cardpath+carddata;
+
+
+database.ref(cardtest).on('child_added', function(data) {
+    updateCardTable();
+});
+
+database.ref(cardtest).on('child_changed', function(data) {
+    updateCardTable();
+});
+
+database.ref(cardtest).on('child_removed', function(data) {
+    updateCardTable();
+});
+
+//update table fields
+
+function updateCardTable(){
+    $.ajax({
+        url: 'master/utils/getCreditCard.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('cardBody').innerHTML = response;   
+        },
+    });
+}
+
 // Add Card
 function addCreditCard() {
     var cardName = document.getElementById("credit_card_name").value;
@@ -1254,8 +1707,11 @@ function addCreditCard() {
             },
             dataType: 'text',
             success: function (data) {
+                database.ref('credit_card_category').child(companyid).set({
+                    data:randomString(),
+                });
                 swal('Success', data, 'success');
-                $("#Category").modal("hide");
+                $("#addCreditcard").modal("hide");
             },
             error: function () {
 
@@ -1279,8 +1735,10 @@ function updateBankCard(element, column, id) {
             value: value,
         },
         success: function (data) {
+            database.ref('credit_card_category').child(companyid).set({
+                data:randomString(),
+            });
             swal('Success', "Data Update Successfully.", 'success');
-            $('#Category').modal('hide');
         }
     });
 }
@@ -1293,6 +1751,9 @@ function deleteBankCard(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                database.ref('credit_card_category').child(companyid).set({
+                    data:randomString(),
+                });
                 swal('Delete', 'Data Delete Successfully.', 'success');
             }
         });
@@ -1350,6 +1811,37 @@ function export_Card() {
 
 /*----------------------- Status Type START ----------------------*/
 
+var statustypepath = "status_type/";
+var statustypepath1 = $('#companyid').val();
+var statustypedata = statustypepath1.toString();
+var statustypetest = statustypepath+statustypedata;
+
+
+database.ref(statustypetest).on('child_added', function(data) {
+    updateStatusTypeTable();
+});
+
+database.ref(statustypetest).on('child_changed', function(data) {
+    updateStatusTypeTable();
+});
+
+database.ref(statustypetest).on('child_removed', function(data) {
+    updateStatusTypeTable();
+});
+
+//update table fields
+
+function updateStatusTypeTable(){
+    $.ajax({
+        url: 'master/utils/getStatus.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('statusBody').innerHTML = response;   
+        },
+    });
+}
+
 function addStatusType() {
     var status_name = document.getElementById("status_name").value;
     var status_color = document.getElementById("status_color").value;
@@ -1397,9 +1889,7 @@ function updateStatus(element, column, id) {
 }
 
 function update_Status(element, column, id) {
-    //var value = element.innerText;
-    var statuscolor = document.getElementById('statuscolor').value;
-    //alert(statuscolor);
+    
     var companyId = document.getElementById('companyId').value;
     $.ajax({
         url: 'master/status_types.php?type=' + 'edit_color',
@@ -1408,7 +1898,7 @@ function update_Status(element, column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            statuscolor: statuscolor,
+            statuscolor: element,
         },
         success: function (data) {
             swal('Success', "Data Update Success.", 'success');
@@ -1454,6 +1944,37 @@ function deleteStatus(id) {
 
 /*---------------------- IFTA Card Category START ------------------------*/
 
+var iftacardpath = "ifta_card_category/";
+var iftacardpath1 = $('#companyid').val();
+var iftacarddata = iftacardpath1.toString();
+var iftacardtest = iftacardpath+iftacarddata;
+
+
+database.ref(iftacardtest).on('child_added', function(data) {
+    updateIftaCardTable();
+});
+
+database.ref(iftacardtest).on('child_changed', function(data) {
+    updateIftaCardTable();
+});
+
+database.ref(iftacardtest).on('child_removed', function(data) {
+    updateIftaCardTable();
+});
+
+//update table fields
+
+function updateIftaCardTable(){
+    $.ajax({
+        url: 'master/utils/getIftaCardCategory.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('iftacardBody').innerHTML = response;   
+        },
+    });
+}
+
 // Add Ifta Card
 function add_CardCategory() {
     var cardHolderName = $("#cardHolderName").val();
@@ -1477,8 +1998,11 @@ function add_CardCategory() {
                     },
                     dataType: 'text',
                     success: function (data) {
+                        database.ref('ifta_card_category').child(companyid).set({
+                            data:randomString(),
+                        });
                         swal('Success', data, 'success');
-                        $("#Add_Ifta_Card").modal("hide");
+                        $("#addIftaCard").modal("hide");
                     },
                     error: function () {
                     },
@@ -1503,8 +2027,11 @@ function updateCardCat(element,column,id){
             value:value,
         },
         success: function (data) {
+            database.ref('ifta_card_category').child(companyid).set({
+                data:randomString(),
+            });
             swal('Success',"Data Update Success.",'success');
-            $('#Add_Ifta_Card').modal('hide');
+            
         }
     });
 }
@@ -1517,6 +2044,9 @@ function deleteCardCat(id) {
             type:'POST',
             data:{id:id},
             success: function (data) {
+                database.ref('ifta_card_category').child(companyid).set({
+                    data:randomString(),
+                });
                 swal('Success','Data Delete Success.','success');
             }
         });

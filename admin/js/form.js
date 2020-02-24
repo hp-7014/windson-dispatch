@@ -102,36 +102,36 @@ function addShipper() {
 
 //update currency table
 
-var shipper_path = "shipper/";
-var shipper_path1 = $('#companyid').val();
-var shipper_data = shipper_path1.toString();
-var shipper_test = shipper_path+shipper_data;
+// var shipper_path = "shipper/";
+// var shipper_path1 = $('#companyid').val();
+// var shipper_data = shipper_path1.toString();
+// var shipper_test = shipper_path+shipper_data;
 
-database.ref(shipper_test).on('child_added', function(shipper_data) {
-    updateShipperTable();
-});
-database.ref(shipper_test).on('child_changed', function(shipper_data) {
-    updateShipperTable();
-});
-database.ref(shipper_test).on('child_removed', function(shipper_data) {
-    updateShipperTable();
-});
+// database.ref(shipper_test).on('child_added', function(shipper_data) {
+//     updateShipperTable();
+// });
+// database.ref(shipper_test).on('child_changed', function(shipper_data) {
+//     updateShipperTable();
+// });
+// database.ref(shipper_test).on('child_removed', function(shipper_data) {
+//     updateShipperTable();
+// });
 
-//update table fields
-function updateShipperTable(){
-    $.ajax({
-        url: 'admin/utils/getShipper.php',
-        type: 'POST',
-        dataType: 'text',
-        success: function (response) {
-            var companyid = $('#companyid').val();
-            database.ref('shipper').child(companyid).set({
-                data:randomString(),
-            });
-            document.getElementById('shipperBody').innerHTML = response;
-        },
-    });
-}
+// //update table fields
+// function updateShipperTable(){
+//     $.ajax({
+//         url: 'admin/utils/getShipper.php',
+//         type: 'POST',
+//         dataType: 'text',
+//         success: function (response) {
+//             var companyid = $('#companyid').val();
+//             database.ref('shipper').child(companyid).set({
+//                 data:randomString(),
+//             });
+//             document.getElementById('shipperBody').innerHTML = response;
+//         },
+//     });
+// }
 
 //Import shipper
 function importShipper() {

@@ -4,6 +4,7 @@ require "../database/connection.php";?>
 <!--  Modal content for the above example -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="company_modal"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
+     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
@@ -53,7 +54,7 @@ require "../database/connection.php";?>
                                         <th>Delete</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="companyBody">
                                     <?php
                                     require 'model/Company.php';
                                     $company = new Company();
