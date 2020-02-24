@@ -492,7 +492,6 @@ function updateCurrencyTable(){
         dataType: 'text',
         success: function (response) {
            document.getElementById('currencyBody').innerHTML = response;
-            
         },
 
     });

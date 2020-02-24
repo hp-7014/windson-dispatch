@@ -64,15 +64,15 @@ require "../database/connection.php";
                                     <?php
                                     require 'model/Shipper.php';
 
+                                    $limit = 1;
+                                    $cursor = $db->shipper->find(array('companyID' => $_SESSION['companyId']));
+
                                     $shipper = new Shipper();
                                     $show_data = $db->shipper->find(['companyID' => $_SESSION['companyId']]);
                                     $no = 1;
                                     foreach ($show_data as $show) {
                                         $show = $show['shipper'];
                                         foreach ($show as $s) {
-                                            $limit = 4;
-                                            $total_records = $s->count();
-                                            $total_pages = ceil($total_records / $limit);
                                     ?>
                                             <tr>
                                                 <th><?php echo $no++; ?></th>
@@ -175,25 +175,7 @@ require "../database/connection.php";
                         </div>
                     </div>
                     <br>
-                    <nav aria-label="..." class="float-right">
-                        <ul class="pagination">
-                            <?php
-                            for($i=1; $i<=$total_pages; $i++){
-                                if($i == 1){
-                                    ?>
-                                    <li class="pageitem active" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" data-id="<?php echo $i;?>" class="page-link" ><?php echo $i;?></a></li>
 
-                                    <?php
-                                }
-                                else{
-                                    ?>
-                                    <li class="pageitem" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" class="page-link" data-id="<?php echo $i;?>"><?php echo $i;?></a></li>
-                                    <?php
-                                }
-                            }
-                            ?>
-                        </ul>
-                    </nav>
                 </div>
             </div>
 

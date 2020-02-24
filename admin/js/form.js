@@ -77,7 +77,7 @@ function addShipper() {
                                                                     success: function (data) {
                                                                         var companyid = $('#companyid').val();
                                                                         database.ref('shipper').child(companyid).set({
-                                                                            data:randomString(),
+                                                                            data: randomString(),
                                                                         });
                                                                         swal('Success', data, 'success');
                                                                         $('#add_shipper').modal('hide');
@@ -105,29 +105,25 @@ function addShipper() {
 var shipper_path = "shipper/";
 var shipper_path1 = $('#companyid').val();
 var shipper_data = shipper_path1.toString();
-var shipper_test = shipper_path+shipper_data;
+var shipper_test = shipper_path + shipper_data;
 
-database.ref(shipper_test).on('child_added', function(shipper_data) {
+database.ref(shipper_test).on('child_added', function (data) {
     updateShipperTable();
 });
-database.ref(shipper_test).on('child_changed', function(shipper_data) {
+database.ref(shipper_test).on('child_changed', function (data) {
     updateShipperTable();
 });
-database.ref(shipper_test).on('child_removed', function(shipper_data) {
+database.ref(shipper_test).on('child_removed', function (data) {
     updateShipperTable();
 });
 
-//update table fields
-function updateShipperTable(){
+// update table fields
+function updateShipperTable() {
     $.ajax({
         url: 'admin/utils/getShipper.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            var companyid = $('#companyid').val();
-            database.ref('shipper').child(companyid).set({
-                data:randomString(),
-            });
             document.getElementById('shipperBody').innerHTML = response;
         },
     });
@@ -198,6 +194,10 @@ function updateShipper(column, id) {
             value: data,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('shipper').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
         }
@@ -212,6 +212,10 @@ function deleteShipper(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                database.ref('shipper').child(companyid).set({
+                    data: randomString(),
+                });
                 swal("Success", data, 'success');
             }
         });
@@ -1737,14 +1741,14 @@ function import_Custom_Broker() {
 }
 
 
-function paginate_custom_broker(start,limit){
-    
+function paginate_custom_broker(start, limit) {
+
     $.ajax({
         url: 'admin/utils/paginateCustomBroker.php',
         type: 'POST',
-        data:{
-            start:start,
-            limit:limit,
+        data: {
+            start: start,
+            limit: limit,
         },
         dataType: 'text',
         success: function (response) {
