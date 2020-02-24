@@ -491,8 +491,9 @@ function updateCurrencyTable(){
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-           document.getElementById('currencyBody').innerHTML = response;
-            
+           if(document.getElementById('currencyBody').innerHTML){
+            document.getElementById('currencyBody').innerHTML = response;
+           } 
         },
 
     });

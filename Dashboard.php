@@ -29,11 +29,11 @@ require "database/connection.php";
             </div>
 
             <div class="row">
-                <div class="activeload-container" style="z-index: 1600"></div>
+                
                 <div class="col-sm-6 col-md-3 m-t-30">
                     <div class="text-center">
                         <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal"
-                                data-target="#active_new" id="AddActiveLoad">New active load
+                                data-target="#active_new" >New active load
                         </button>
                     </div>
 
@@ -49,12 +49,12 @@ require "database/connection.php";
                                     </button>
                                 </div>
                                 <div class="modal-body custom-modal-body">
-
+                                <div class="activeload-container" style="z-index: 1600"></div>
                                     <!-- Modal First Row Start -->
 
                                     <div class="row">
                                         <div class="form-group col-md-3">
-                                            <label>Select Your Company</label>
+                                            <label>Select Your Company</label><i class="mdi mdi-plus-circle plus" title="Add Company" id="add_Company_Modal"></i>
                                             <select class="form-control">
                                                 <option value="0">--Select--</option>
                                                 <?php
@@ -132,7 +132,7 @@ require "database/connection.php";
                                     <!-- Start of Modal Second Row -->
                                     <div class="row">
                                         <div class="form-group col-md-2">
-                                            <label>Active Type</label>
+                                            <label>Active Type</label><i class="mdi mdi-plus-circle plus" title="Add Active Type" id="active_type_Modal"></i>
                                             <input list="browsersloadtype" placeholder="--Select--" class="form-control" id="loadtypelist" name="loadtypelist">
                                             <datalist id="browsersloadtype">
                                                 <?php
@@ -199,7 +199,7 @@ require "database/connection.php";
                                         </div>
 
                                         <div class="form-group col-md-2">
-                                            <label>Equipment Type</label>
+                                            <label>Equipment Type</label><i class="mdi mdi-plus-circle plus" title="Add Equipment Type" id="equipment_type_Modal"></i>
                                             <input list="browsersequipment" class="form-control" placeholder="--Select--" id="equipmentlist" name="equipmentlist">
                                             <datalist id="browsersequipment">
                                                 <?php
@@ -238,7 +238,7 @@ require "database/connection.php";
                                                 <input type="radio" class="custom-control-input" id="owner"
                                                        name="groupOfDefaultRadios" onclick="Showowner()"/>
                                                 <label class="custom-control-label" for="owner">Owner
-                                                    Oprator</label>
+                                                    Operator</label>
                                             </div>
 
                                         </div>
@@ -289,7 +289,7 @@ require "database/connection.php";
                                         </div>
 
                                         <div class="form-group col-md-2 carrier">
-                                            <label>Currency</label>
+                                            <label>Currency</label><i class="mdi mdi-plus-circle plus" id="add_currency_modal"></i>
                                             <select class="form-control">
                                                 <option value="0">--Select--</option>
                                                 <?php
@@ -430,7 +430,7 @@ require "database/connection.php";
                                         </div>
                                         <div class="form-group col-md-1 owner">
                                             <label>
-                                                Truck</label>
+                                                Truck</label><i class="mdi mdi-plus-circle plus" id="add_Truck_Modal1"></i>
                                             <input list="browsers1truck" class="form-control" placeholder="--Select--" id="truck1list" name="truck1list">
                                             <datalist id="browsers1truck">
                                                 <?php
@@ -446,7 +446,7 @@ require "database/connection.php";
                                         </div>
                                         <div class="form-group col-md-1 owner">
                                             <label>
-                                                Trailer</label>
+                                                Trailer</label><i class="mdi mdi-plus-circle plus" id="add_Trailer_Modal1"></i>
                                             <input list="browserstrailer1" class="form-control" id="trailer1list" placeholder="--Select--" name="trailer1list">
                                             <datalist id="browserstrailer1">
                                                 <?php
