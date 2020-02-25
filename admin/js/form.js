@@ -2249,6 +2249,10 @@ function FactoringCompany() {
                             },
                             dataType: "text",
                             success: function (data) {
+                                var companyid = $('#companyid').val();
+                                        database.ref('factoring').child(companyid).set({
+                                        data: randomString(),
+                                        });
                                 swal("Success", data, "success");
                                 $('#add_factoring').modal('hide');
                             },
@@ -2260,38 +2264,35 @@ function FactoringCompany() {
     }
 }
 
-//update driver table
-var driver_path = "driver/";
-var driver_path1 = $('#companyid').val();
-var driver_data = driver_path1.toString();
-var driver_test = driver_path+driver_data;
+//
+//update factoring table
+var factoring_path = "factoring/";
+var factoring_path1 = $('#companyid').val();
+var factoring_data = factoring_path1.toString();
+var factoring_test = factoring_path + factoring_data;
 
-
-database.ref(driver_test).on('child_added', function(data) {
-    updateDriverTable();
+database.ref(factoring_test).on('child_added', function (data) {
+    updateFactoringTable();
 });
-database.ref(driver_test).on('child_changed', function(data) {
-    updateDriverTable();
+database.ref(factoring_test).on('child_changed', function (data) {
+    updateFactoringTable();
 });
-database.ref(driver_test).on('child_removed', function(data) {
-    updateDriverTable();
+database.ref(factoring_test).on('child_removed', function (data) {
+    updateFactoringTable();
 });
 
-//update table fields
-function updateDriverTable(){
-    var driverBody = document.getElementById('driverBody');
-
+// update table fields
+function updateFactoringTable() {
     $.ajax({
-        url: 'admin/utils/getDriver.php',
+        url: 'admin/utils/getFactoring.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            if(driverBody != null){
-                driverBody.innerHTML = response;
-            }
+            document.getElementById('factoringBody').innerHTML = response;
         },
     });
-}
+}    
+//
 
 //update Factoring Function
 function updateFactoring(column, id) {
@@ -2308,6 +2309,10 @@ function updateFactoring(column, id) {
             value: data,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+                database.ref('factoring').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
         }
@@ -2322,6 +2327,10 @@ function deletefactoring(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                    database.ref('factoring').child(companyid).set({
+                    data: randomString(),
+                });
                 swal("Success", data, "success");
                 //$('#currency').modal('hide');
             }
