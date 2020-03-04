@@ -345,6 +345,7 @@ function updateCompanyTable() {
         type: 'POST',
         dataType: 'text',
         success: function (response) {
+            //alert(response);
             var res = response.split('^');
 
             //alert(res.length);
@@ -695,6 +696,7 @@ function updateCurrencyTable() {
     var currencyList = document.getElementById('selectCurrency');
     var currencyFactoring = document.getElementById('currencyset');
     var currencySetting = document.getElementById('currencySetting');
+    var currencyList1 = document.getElementById('driverCurrency');
     $.ajax({
         url: 'master/utils/getCurrency.php',
         type: 'POST',
@@ -2174,4 +2176,45 @@ function exportifta() {
 }
 
 /*---------------------- IFTA Card Category END ------------------------*/
+/*---------------------- Update Table Scripts -----------------------*/
 
+
+function updateTableColumn(columnvalue,functionname,type,id,column,title,pencilid){
+
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.custombroker-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+
+            setTimeout(function(){
+                 document.getElementById('modal-title').innerHTML = "Update "+title;
+                 document.getElementById('fieldLabel').innerHTML = title;
+                 document.getElementById('field-value').value = columnvalue;
+                 document.getElementById('fieldid').value = id;
+                 document.getElementById('fieldname').value = column;
+                 document.getElementById('functionname').value = functionname;
+            },300);
+        }
+    });
+
+}
+function updateTableField(){
+    var value =  document.getElementById('field-value').value;
+    var id = document.getElementById('fieldid').value;
+    var name = document.getElementById('fieldname').value;
+    var functionname = document.getElementById('functionname').value;
+    if(functionname == "updateCustom"){
+        updateCustom(name,id,value);
+    }
+
+}
+function showPencil(id){
+    document.getElementById(id).style.display = "inline-block";
+    document.getElementById(id).style.float = "left";
+    document.getElementById(id).style.marginRight = "5px";
+}
+function hidePencil(id){
+    document.getElementById(id).style.display = "none";
+}

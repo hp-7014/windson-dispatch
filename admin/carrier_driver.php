@@ -8,7 +8,7 @@ $helper = new Helper();
 if($_GET['type'] == 'add_carrier'){
     $carrier = new External_Carrier();
     $carrier->setId($helper->getNextSequence("carrier",$db));
-    $carrier->setCompanyID($_POST['companyID']);
+    $carrier->setCompanyID($_SESSION['companyId']);
     $carrier->setName($_POST['carrierName']);
     $carrier->setAddress($_POST['carrierAddress']);
     $carrier->setLocation($_POST['carrierLocation']);

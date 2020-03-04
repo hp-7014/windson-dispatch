@@ -1611,6 +1611,7 @@ function Add_Credit() {
     var openingBalanceDt = document.getElementById('openingBalanceDt').value;
     var cardLimit = document.getElementById('cardLimit').value;
     var openingBalance = document.getElementById('openingBalance').value;
+    var transacBalance = document.getElementById('transacBalance').value;
 
     if (val_Name(Name)) {
         if (val_displayName(displayName)) {
@@ -2043,9 +2044,9 @@ function Add_CustomBroker() {
 }
 
 // Edit Custom Broker
-function updateCustom(column, id) {
-    var data = $('#custom_broker_table').find('input[type="text"],textarea').val();
+function updateCustom(column, id, value) {
 
+    alert(column + "," + id + "," + value);
     var companyId = document.getElementById('companyId').value;
 
     $.ajax({
@@ -2055,14 +2056,14 @@ function updateCustom(column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: data,
+            value: value,
         },
         success: function (data) {
             database.ref('custom_broker').child(companyid).set({
                 data: randomString(),
             });
             swal("Success", data, "success");
-            document.getElementById(column + id).style.display = "none";
+
         }
     });
 }
@@ -2224,12 +2225,21 @@ database.ref(truck_test).on('child_removed', function (data) {
 
 // update table fields
 function updateTruckTable() {
+    var truckBody = document.getElementById('truckBody');
+    var truckList = document.getElementById('browserstruck');
     $.ajax({
         url: 'admin/utils/getTruck.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            document.getElementById('truckBody').innerHTML = response;
+            var res = response.split('^');
+            if (truckBody != null) {
+                truckBody.innerHTML = res[0];
+            }
+            if (truckList != null) {
+                truckList.innerHTML = res[1];
+            }
+
         },
     });
 }
@@ -2381,16 +2391,21 @@ database.ref(trailer_test).on('child_removed', function (data) {
 
 // update table fields
 function updateTrailerTable() {
-
     var trailerBody = document.getElementById('trailerBody');
-
+    var trailerList = document.getElementById('browserstrailer');
     $.ajax({
         url: 'admin/utils/getTrailer.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
+
+            var res = response.split('^');
+
             if (trailerBody != null) {
-                trailerBody.innerHTML = response;
+                trailerBody.innerHTML = res[0];
+            }
+            if (trailerList != null) {
+                trailerList.innerHTML = res[1];
             }
         },
     });
@@ -2591,6 +2606,8 @@ function updateFactoringTable() {
     });
 }
 
+//
+
 //update Factoring Function
 function updateFactoring(column, id) {
     var data = $('#factoring_table').find('input[type="text"],textarea').val();
@@ -2668,6 +2685,42 @@ function exportFactoring() {
 //-----------------Factoring Add End---------------------------------
 
 /*------------------- Driver Start -----------------------------*/
+
+// driver pay variable
+var loadedmiles = '';
+var emptymiles = '';
+var pickrate = '';
+var pickstart = '';
+var droprate = '';
+var dropstart = '';
+var driverTarp = '';
+
+// get driver pay info
+function getDriverPayInfo() {
+    loadedmiles = document.getElementById('loadedmiles').value;
+    emptymiles = document.getElementById('emptymiles').value;
+    pickrate = document.getElementById('pickrate').value;
+    pickstart = document.getElementById('pickstart').value;
+    droprate = document.getElementById('droprate').value;
+    dropstart = document.getElementById('dropstart').value;
+    driverTarp = document.getElementById('driverTarp').value;
+    $('#driverpayinfo').modal('hide');
+}
+
+// get add fields
+function addPayFields() {
+
+    if (loadedmiles != '' || emptymiles != '' || pickrate != '' || pickstart != '' || droprate != '' || dropstart != '' || driverTarp != '') {
+        document.getElementById('loadedmiles').value = loadedmiles;
+        document.getElementById('emptymiles').value = emptymiles;
+        document.getElementById('pickrate').value = pickrate;
+        document.getElementById('pickstart').value = pickstart;
+        document.getElementById('droprate').value = droprate;
+        document.getElementById('dropstart').value = dropstart;
+        document.getElementById('driverTarp').value = driverTarp;
+    }
+}
+
 function addDriver() {
     var companyId = document.getElementById('companyId').value;
     var driverName = document.getElementById('driverName').value;
@@ -2693,11 +2746,15 @@ function addDriver() {
     var passportExpiry = document.getElementById('passportExpiry').value;
     var fastCardExpiry = document.getElementById('fastCardExpiry').value;
     var hazmatExpiry = document.getElementById('hazmatExpiry').value;
-    var driverMile = document.getElementById('driverMile').value;
-    var driverFlat = document.getElementById('driverFlat').value;
-    var driverStop = document.getElementById('driverStop').value;
-    var driverTrap = document.getElementById('driverTrap').value;
-    var driverPercentage = document.getElementById('driverPercentage').value;
+    var rate = document.getElementById('rate').value;
+    var currency = document.getElementById('currency').value;
+    var driverLoadedMile = document.getElementById('loadedmiles').value;
+    var driverEmptyMile = document.getElementById('emptymiles').value;
+    var pickupRate = document.getElementById('pickrate').value;
+    var pickupAfter = document.getElementById('pickstart').value;
+    var dropRate = document.getElementById('droprate').value;
+    var dropAfter = document.getElementById('dropstart').value;
+    var tarp = document.getElementById('driverTarp').value;
     var terminationDate = document.getElementById('terminationDate').value;
     var InternalNote = document.getElementById('InternalNote').value;
 
@@ -2724,58 +2781,70 @@ function addDriver() {
                                                                                     if (val_passportExpiry(passportExpiry)) {
                                                                                         if (val_fastCardExpiry(fastCardExpiry)) {
                                                                                             if (val_hazmatExpiry(hazmatExpiry)) {
-                                                                                                if (val_driverMile(driverMile)) {
-                                                                                                    if (val_driverFlat(driverFlat)) {
-                                                                                                        if (val_driverStop(driverStop)) {
-                                                                                                            if (val_driverTrap(driverTrap)) {
-                                                                                                                if (val_driverPercentage(driverPercentage)) {
-                                                                                                                    if (val_terminationDate(terminationDate)) {
-                                                                                                                        if (val_InternalNote(InternalNote)) {
-                                                                                                                            $.ajax({
-                                                                                                                                url: 'admin/driver_driver.php?type=' + 'addDriver',
-                                                                                                                                method: 'POST',
-                                                                                                                                data: {
-                                                                                                                                    companyId: companyId,
-                                                                                                                                    driverName: driverName,
-                                                                                                                                    driverUsername: driverUsername,
-                                                                                                                                    driverPassword: driverPassword,
-                                                                                                                                    driverTelephone: driverTelephone,
-                                                                                                                                    driverAlt: driverAlt,
-                                                                                                                                    driverEmail: driverEmail,
-                                                                                                                                    driverAddress: driverAddress,
-                                                                                                                                    driverLocation: driverLocation,
-                                                                                                                                    driverZip: driverZip,
-                                                                                                                                    driverStatus: driverStatus,
-                                                                                                                                    driverSocial: driverSocial,
-                                                                                                                                    dateOfbirth: dateOfbirth,
-                                                                                                                                    dateOfhire: dateOfhire,
-                                                                                                                                    driverLicenseNo: driverLicenseNo,
-                                                                                                                                    driverLicenseIssue: driverLicenseIssue,
-                                                                                                                                    driverLicenseExp: driverLicenseExp,
-                                                                                                                                    driverLastMedical: driverLastMedical,
-                                                                                                                                    driverNextMedical: driverNextMedical,
-                                                                                                                                    driverLastDrugTest: driverLastDrugTest,
-                                                                                                                                    driverNextDrugTest: driverNestDrugTest,
-                                                                                                                                    passportExpiry: passportExpiry,
-                                                                                                                                    fastCardExpiry: fastCardExpiry,
-                                                                                                                                    hazmatExpiry: hazmatExpiry,
-                                                                                                                                    driverMile: driverMile,
-                                                                                                                                    driverFlat: driverFlat,
-                                                                                                                                    driverStop: driverStop,
-                                                                                                                                    driverTrap: driverTrap,
-                                                                                                                                    driverPercentage: driverPercentage,
-                                                                                                                                    terminationDate: terminationDate,
-                                                                                                                                    InternalNote: InternalNote
-                                                                                                                                },
-                                                                                                                                success: function (data) {
-                                                                                                                                    var companyid = $('#companyid').val();
-                                                                                                                                    database.ref('driver').child(companyid).set({
-                                                                                                                                        data: randomString(),
-                                                                                                                                    });
-                                                                                                                                    swal('Success', data, 'success');
-                                                                                                                                    $('#add_Driver').modal('hide');
+                                                                                                if (val_rate(rate)) {
+                                                                                                    if (val_currency(currency)) {
+                                                                                                        if (val_loadedMile(driverLoadedMile)) {
+                                                                                                            if (val_emptyMile(driverEmptyMile)) {
+                                                                                                                if (val_pickupRate(pickupRate)) {
+                                                                                                                    if (val_pickupAfter(pickupAfter)) {
+                                                                                                                        if (val_dropRate(dropRate)) {
+                                                                                                                            if (val_tarp(tarp)) {
+                                                                                                                                if (val_dropAfter(dropAfter)) {
+                                                                                                                                    if (val_terminationDate(terminationDate)) {
+                                                                                                                                        if (val_InternalNote(InternalNote)) {
+                                                                                                                                            $.ajax({
+                                                                                                                                                url: 'admin/driver_driver.php?type=' + 'addDriver',
+                                                                                                                                                method: 'POST',
+                                                                                                                                                data: {
+                                                                                                                                                    companyId: companyId,
+                                                                                                                                                    driverName: driverName,
+                                                                                                                                                    driverUsername: driverUsername,
+                                                                                                                                                    driverPassword: driverPassword,
+                                                                                                                                                    driverTelephone: driverTelephone,
+                                                                                                                                                    driverAlt: driverAlt,
+                                                                                                                                                    driverEmail: driverEmail,
+                                                                                                                                                    driverAddress: driverAddress,
+                                                                                                                                                    driverLocation: driverLocation,
+                                                                                                                                                    driverZip: driverZip,
+                                                                                                                                                    driverStatus: driverStatus,
+                                                                                                                                                    driverSocial: driverSocial,
+                                                                                                                                                    dateOfbirth: dateOfbirth,
+                                                                                                                                                    dateOfhire: dateOfhire,
+                                                                                                                                                    driverLicenseNo: driverLicenseNo,
+                                                                                                                                                    driverLicenseIssue: driverLicenseIssue,
+                                                                                                                                                    driverLicenseExp: driverLicenseExp,
+                                                                                                                                                    driverLastMedical: driverLastMedical,
+                                                                                                                                                    driverNextMedical: driverNextMedical,
+                                                                                                                                                    driverLastDrugTest: driverLastDrugTest,
+                                                                                                                                                    driverNextDrugTest: driverNestDrugTest,
+                                                                                                                                                    passportExpiry: passportExpiry,
+                                                                                                                                                    fastCardExpiry: fastCardExpiry,
+                                                                                                                                                    hazmatExpiry: hazmatExpiry,
+                                                                                                                                                    rate:rate,
+                                                                                                                                                    currency:currency,
+                                                                                                                                                    driverLoadedMile:driverLoadedMile,
+                                                                                                                                                    driverEmptyMile:driverEmptyMile,
+                                                                                                                                                    pickupRate:pickupRate,
+                                                                                                                                                    pickupAfter:pickupAfter,
+                                                                                                                                                    dropRate:dropRate,
+                                                                                                                                                    dropAfter:dropAfter,
+                                                                                                                                                    tarp:tarp,
+                                                                                                                                                    terminationDate: terminationDate,
+                                                                                                                                                    InternalNote: InternalNote
+                                                                                                                                                },
+                                                                                                                                                success: function (data) {
+                                                                                                                                                    var companyid = $('#companyid').val();
+                                                                                                                                                    database.ref('driver').child(companyid).set({
+                                                                                                                                                        data: randomString(),
+                                                                                                                                                    });
+                                                                                                                                                    swal('Success', data, 'success');
+                                                                                                                                                    $('#add_Driver').modal('hide');
+                                                                                                                                                }
+                                                                                                                                            });
+                                                                                                                                        }
+                                                                                                                                    }
                                                                                                                                 }
-                                                                                                                            });
+                                                                                                                            }
                                                                                                                         }
                                                                                                                     }
                                                                                                                 }
@@ -2828,14 +2897,18 @@ database.ref(driver_test).on('child_removed', function (data) {
 //update table fields
 function updateDriverTable() {
     var driverBody = document.getElementById('driverBody');
-
+    var driverList = document.getElementById('browsersdriver');
     $.ajax({
         url: 'admin/utils/getDriver.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
+            var res = response.split('^');
             if (driverBody != null) {
-                driverBody.innerHTML = response;
+                driverBody.innerHTML = res[0];
+            }
+            if (driverList != null) {
+                driverList.innerHTML = res[1];
             }
         },
     });
@@ -2987,6 +3060,10 @@ function addOwnerOperator() {
             internalNote: internalNote,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('owner').child(companyid).set({
+                data: randomString(),
+            });
             swal('Success', data, 'success');
             $("#Owner_operator").modal("hide");
 
@@ -2994,6 +3071,38 @@ function addOwnerOperator() {
     });
 
 
+}
+
+//update driver table
+var owner_path = "owner/";
+var owner_path1 = $('#companyid').val();
+var owner_data = owner_path1.toString();
+var owner_test = owner_path + owner_data;
+
+
+database.ref(owner_test).on('child_added', function (data) {
+    updateOwnerTable();
+});
+database.ref(owner_test).on('child_changed', function (data) {
+    updateOwnerTable();
+});
+database.ref(owner_test).on('child_removed', function (data) {
+    updateOwnerTable();
+});
+
+//update table fields
+function updateOwnerTable() {
+    var ownerList = document.getElementById('browsersowner');
+    $.ajax({
+        url: 'admin/utils/getOwnerOperator.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            if (ownerList != null) {
+                ownerList.innerHTML = response;
+            }
+        },
+    });
 }
 
 /*----------------- External Carrier Starts --------------------*/
@@ -3330,7 +3439,12 @@ function addCarrier() {
     var carrierDOT = document.getElementById('carrierDOT').value;
     var carrierFactoring = document.getElementById('carrierFactoring').value;
     var carrierNotes = document.getElementById('carrierNotes').value;
-    var carrierBlacklisted = document.getElementById('carrierBlacklisted').value;
+    var carrierBlacklisted = "on";
+    if (document.getElementById('carrierBlacklisted').checked == true) {
+        carrierBlacklisted = "on";
+    } else {
+        carrierBlacklisted = "off";
+    }
     var carrierCorporation = document.getElementById('carrierCorporation').value;
     var liabilityCompany = document.getElementById('liabilityCompany').value;
     var liabilityPolicy = document.getElementById('liabilityPolicy').value;
@@ -3488,14 +3602,18 @@ database.ref(external_test).on('child_removed', function (data) {
 //update table fields
 function updateCarrierTable() {
     var carrierBody = document.getElementById('carrierBody');
-
+    var carrierList = document.getElementById('browserscarrier');
     $.ajax({
         url: 'admin/utils/getCarrier.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
+            var res = response.split('^');
             if (carrierBody != null) {
-                carrierBody.innerHTML = response;
+                carrierBody.innerHTML = res[0];
+            }
+            if (carrierList != null) {
+                carrierList.innerHTML = res[1];
             }
         },
     });

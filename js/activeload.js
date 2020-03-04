@@ -1,5 +1,10 @@
 var room = 0;
 var count = 0;
+var otherDescription = [];
+var otherCharges = [];
+var carrierotherDescription = [];
+var carrierotherCharges = [];
+var carrierotherAdvances = [];
 
 function add_fields() {
     room++;
@@ -477,9 +482,10 @@ $(document).on("click", "#add_carrier_other", function () {
     $.ajax({
         type: 'POST',
         success: function (data) {
-            $('.activeload-container').load('admin/other_charges_modal.php', function (result) {
-                $('#otherCharges').modal({show: true});
+            $('.activeload-container').load('admin/carrier_other_charges_modal.php', function (result) {
+                $('#carrierOtherCharges').modal({show: true});
             });
+            setTimeout(function(){  addcarrierFields(); }, 300);
         }
     });
 });
@@ -492,8 +498,44 @@ $(document).on("click", "#add_other", function () {
             $('.activeload-container').load('admin/other_charges_modal.php', function (result) {
                 $('#otherCharges').modal({show: true});
             });
+            setTimeout(function(){  addFields(); }, 300);
+           
+        }
+        
+    });
+    
+});
+
+
+
+$(document).on("click", "#carrierOther", function () {
+
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('admin/carrier_other_charges_modal.php', function (result) {
+                $('#carrierOtherCharges').modal({show: true});
+            });
+            setTimeout(function(){  addcarrierFields(); }, 300);
         }
     });
+});
+
+$(document).on("click", "#OtherCharges", function () {
+
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.activeload-container').load('admin/other_charges_modal.php', function (result) {
+                $('#otherCharges').modal({show: true});
+            });
+            setTimeout(function(){  addFields(); }, 300);
+           
+        }
+        
+    });
+   
+    
 });
 
 $(document).on("click", "#add_Company_Modal", function () {
@@ -537,3 +579,244 @@ $(document).on("click", "#add_currency_modal", function () {
         }
     });
 });
+
+
+
+function enableUnits(value){
+    var values = value.split(')');
+    var val = values[0];
+   
+    $.ajax({
+        url: 'admin/utils/helpers.php',
+        data: {value: val,
+               type: 'enableUnit',
+            },
+        method: "POST",
+        dataType: 'html',
+        success: function (data) {
+            if(data == 'Yes'){
+                document.getElementById('no-of-units').disabled = false;
+            }
+            if(data == "No"){
+                document.getElementById('no-of-units').disabled = true;
+            }
+        }
+    });
+}
+function getCarrier(value){
+    var values = value.split(')');
+    var val = values[0];
+    $.ajax({
+        url: 'admin/utils/helpers.php',
+        data: {value: val,
+               type: 'carrier',
+            },
+        method: "POST",
+        dataType: 'html',
+        success: function (data) {
+            if(data != ""){
+                swal({
+                    title: 'Are you sure? You Want to Continue!',
+                    type: 'warning',
+                    type: 'info',
+                    html: data,
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Continue!',
+                    cancelButtonText: 'No, cancel!',
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger ml-2',
+                    buttonsStyling: false
+                });
+            }
+        }
+    });
+}
+function getTotal(){
+    var rateAmount = document.getElementById('rateAmount').value;
+    var noOfUnits = document.getElementById('no-of-units').value;
+    var fsc = document.getElementById('fsc').value;
+    var totalAmount = document.getElementById('totalAmount');
+    var ratePercentage = document.getElementById('customCheck1');
+    var otherCharges = document.getElementById('OtherCharges').value;
+    if(rateAmount != "" && noOfUnits == "" && fsc == "" && otherCharges == ""){
+        totalAmount.value = parseFloat(rateAmount).toFixed(2);
+    }
+
+    if(noOfUnits != "" && fsc == ""){
+        if(rateAmount != ""){
+            totalAmount.value = parseFloat(rateAmount * noOfUnits).toFixed(2);
+        }
+        else{
+            swal({
+                title: 'Warning!',
+                text: "Rate cannot be empty",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonClass: 'btn btn-danger ml-2',
+            });
+           
+        }
+    }
+     if(fsc != "" && otherCharges == ""){
+        if(ratePercentage.checked == true){
+            if(rateAmount != ""){
+                    var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(rateAmount * fsc)/100 : parseFloat(parseFloat(rateAmount * noOfUnits) + (parseFloat(rateAmount * noOfUnits * fsc)/100));
+                    totalAmount.value = total.toFixed(2);
+            }
+            else{
+                swal({
+                    title: 'Warning!',
+                    text: "Rate cannot be empty",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger ml-2',
+                });
+            }
+        }
+        else{
+                if(rateAmount != ""){ 
+                    if(typeof(rateAmount) == 'number'){
+                        var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(fsc) : parseInt(rateAmount * noOfUnits) + parseInt(fsc);
+                        totalAmount.value = total.toFixed(2);;
+                    }
+                    else{
+                        var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(fsc) : parseFloat(rateAmount * noOfUnits) + parseFloat(fsc);
+                        totalAmount.value = total.toFixed(2);;
+                    }
+                }
+                else{
+                    swal({
+                        title: 'Warning!',
+                        text: "Rate cannot be empty",
+                        type: 'warning',
+                        showCancelButton: true,
+                        cancelButtonClass: 'btn btn-danger ml-2',
+                    });
+                }
+            }
+    }
+
+    if(otherCharges != ""){
+        if(ratePercentage.checked == true){
+            if(rateAmount != ""){
+                    var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(rateAmount * fsc)/100 + parseFloat(otherCharges): parseFloat(parseFloat(rateAmount * noOfUnits) + (parseFloat(rateAmount * noOfUnits * fsc)/100) + parseFloat(otherCharges));
+                    totalAmount.value = total.toFixed(2);
+            }
+            else{
+                swal({
+                    title: 'Warning!',
+                    text: "Rate cannot be empty",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger ml-2',
+                });
+            }
+        }
+        else{
+                if(rateAmount != ""){ 
+                        var total = noOfUnits == "" ? parseFloat(rateAmount) + getFSC(fsc) + parseFloat(otherCharges) : parseInt(rateAmount * noOfUnits) +getFSC(fsc) +parseFloat(otherCharges);
+                        totalAmount.value = total.toFixed(2);
+                   
+                }
+                else{
+                    swal({
+                        title: 'Warning!',
+                        text: "Rate cannot be empty",
+                        type: 'warning',
+                        showCancelButton: true,
+                        cancelButtonClass: 'btn btn-danger ml-2',
+                    });
+                }
+            }
+    }
+}
+function getFSC(fsc){
+    if(fsc == ""){
+        return 0;
+    }
+    else{
+        return parseFloat(fsc);
+    }
+}
+
+function getOtherCharges(){
+    var oth_chg = document.getElementById('OtherCharges');
+    var other_total = 0;
+    for(var i = 0; i < document.getElementsByName('otherDescription').length; i++){
+        otherDescription[i] = document.getElementsByName('otherDescription')[i].value;
+        otherCharges[i] = document.getElementsByName('other_charges')[i].value;
+        other_total += parseInt(document.getElementsByName('other_charges')[i].value);
+        
+    }
+    oth_chg.value = other_total;
+    $('#otherCharges').modal('hide');
+    getTotal();
+}
+
+function addFields(){
+    if(otherDescription.length > 0){
+        var innerData = "";
+        for(var i = 0 ; i < otherDescription.length; i++){
+            innerData += '<tr id="otherRow'+i+'"><td width="200"><input name = "otherDescription" type="text" value = "' + otherDescription[i] + '" class="form-control" /></td>' + '<td width="150"><input name = "other_charges" type="text" value = "' + otherCharges[i] + '"class="form-control" /></td>' + '<td><button type="button" class="btn btn-danger" onclick="removeRow('+i+')"><span aria-hidden="true">&times;</span></button></td></tr>';
+        }
+        document.getElementById('TextBoxContainer1').innerHTML = innerData;
+    }
+    
+}
+
+function getcarrierOtherCharges(){
+    var oth_chg = document.getElementById('carrierOther');
+    var carrier_other_total = 0;
+    for(var i = 0; i < document.getElementsByName('carrierotherDescription').length; i++){
+        
+        carrierotherDescription[i] = document.getElementsByName('carrierotherDescription')[i].value;
+        carrierotherCharges[i] = document.getElementsByName('Carrier_other_charges')[i].value;
+        carrierotherAdvances[i] = document.getElementsByName('Carrier_other_advances')[i].value;
+        carrier_other_total += parseFloat(parseFloat(document.getElementsByName('Carrier_other_charges')[i].value) + parseFloat(document.getElementsByName('Carrier_other_advances')[i].value));
+        
+        
+        
+    }
+    oth_chg.value = carrier_other_total;
+    getCarrierTotal();
+    $('#carrierOtherCharges').modal('hide');
+    
+}
+
+function addcarrierFields(){
+    if(carrierotherDescription.length > 0){
+        var innerData = "";
+        for(var i = 0 ; i < carrierotherDescription.length; i++){
+            innerData += '<tr id="carrierotherRow'+i+'"><td width="200"><input name = "carrierotherDescription" type="text" value = "' + carrierotherDescription[i] + '" class="form-control" /></td>' + '<td width="150"><input name = "Carrier_other_charges" type="text" value = "' + carrierotherCharges[i] + '"class="form-control" /></td>' +'<td width="150"><input name="Carrier_other_advances" type="text" value="' + carrierotherAdvances[i] + '" class="form-control"/></td>'+ '<td><button type="button" class="btn btn-danger" onclick="carrierRemoveRow('+i+')"><span aria-hidden="true">&times;</span></button></td></tr>';
+        }
+        document.getElementById('CarrierTextBoxContainer1').innerHTML = innerData;
+    }
+    
+}
+
+function getCarrierTotal(){
+    var flatrate = document.getElementById('carrierFlat').value;
+    var advancecharges = document.getElementById('carrierOther').value;
+    var total_charges = document.getElementById('carrierTotal');
+    if(flatrate != "" && advancecharges == ""){
+        total_charges.value = parseFloat(flatrate).toFixed(2);
+    }
+    if(advancecharges != ""){
+        if(flatrate == ""){
+            swal({
+                title: 'Warning!',
+                text: "Flatrate cannot be empty",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonClass: 'btn btn-danger ml-2',
+            });
+        }
+        else{
+            total_charges.value = parseFloat(parseFloat(flatrate) + parseFloat(advancecharges)).toFixed(2); 
+        }
+    }
+    
+
+}
+
+

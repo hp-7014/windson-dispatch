@@ -186,8 +186,8 @@ foreach ($show as $row) {
                                         
         </tr>
         ";
-
-        $list .= '<option value='.$id.')'.$custName.'></option>';
+        $value = "'".$id.')&nbsp;'.$custName."'";
+        $list .= "<option value=$value></option>";
     }
 }
 
