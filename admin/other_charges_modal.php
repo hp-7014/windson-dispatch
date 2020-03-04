@@ -76,6 +76,7 @@ require "../database/connection.php";
       otherDescription.splice(index,1);
       otherCharges.splice(index,1);
     }
+    
     function GetDynamicTextBox(value) {
         return '<td width="200"><input name = "otherDescription" type="text" value = "' + value + '" class="form-control" /></td>' + '<td width="150"><input name = "other_charges" type="text" value = "' + value + '"class="form-control" /></td>' + '<td><button type="button" class="btn btn-danger remove"><span aria-hidden="true">&times;</span></button></td>'
     }

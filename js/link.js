@@ -343,9 +343,11 @@ $(document).on('click', '#recurrenceplus', function () {
             $('.owner-container').load('./admin/addRecurrence.php', function (result) {
                 $('#addRecurrence').modal({show: true});
             });
+            setTimeout(function(){  addRecurrenceFields(); }, 300);
         }
     });
 });
+
 $(document).on('click', '#recurrenceminus', function () {
     $.ajax({
         type: 'POST',
@@ -353,6 +355,7 @@ $(document).on('click', '#recurrenceminus', function () {
             $('.owner-container').load('./admin/substractRecurrence.php', function (result) {
                 $('#substractRecurrence').modal({show: true});
             });
+            setTimeout(function(){  Recurrence_Fields(); }, 300);
         }
     });
 });
