@@ -5,7 +5,7 @@ require "../../database/connection.php";
 $show = $db->carrier->find(['companyID' => $_SESSION['companyId']]);
 $no = 0;
 $table = "";
-
+$list = "";
 foreach ($show as $row) {
     $show1 = $row['carrier'];
     foreach ($show1 as $row1) {
@@ -74,15 +74,10 @@ foreach ($show as $row) {
              <td><a href='#' onclick='deleteExternal($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></a></i>
              </td>
          </tr>";
+            $value = "'".$id.")&nbsp;".$name."'";
+            $list .="<option value=$value></option>";
     }
+
 }
 
-echo $table;
-
-?>
-<script>
-    function getParentId(e) {
-        alert(10);
-        console.log(e.target.parentNode.id);
-    }
-</script>
+echo $table."^".$list;

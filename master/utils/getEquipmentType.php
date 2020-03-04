@@ -25,7 +25,8 @@ require "../../database/connection.php";
                              style='font-size: 20px; color: #FC3B3B'></a></i>
              </td>
          </tr>";
-         $list .= "<option value=".$id.")".$equipmentType."></option>";
+         $value = "'".$id.")&nbsp;".$equipmentType."'";
+         $list .= "<option value=$value></option>";
       }
 
       echo $table."^".$list;

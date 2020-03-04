@@ -118,7 +118,8 @@ foreach ($show as $row) {
                 </td>
             </tr>
         ";
-        $list .='<option value='.$id.')'.$shipperName.'></option>';
+        $value = "'".$id.")&nbsp;".$shipperName."'";
+        $list .="<option value=$value></option>";
     }
 }
 

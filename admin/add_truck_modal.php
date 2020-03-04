@@ -4,7 +4,7 @@ require "../database/connection.php";
 <!-- Modal content for the above example -->
     <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="truck"
          aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="truck-container" style="z-index: 1400"></div>
+        <div class="truck-container" style="z-index: 1600"></div>
         <div class="modal-dialog modal-xxl modal-dialog-scrollable">
             <div class="modal-content custom-modal-content">
                 <div class="modal-header custom-modal-header">
