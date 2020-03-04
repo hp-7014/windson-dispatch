@@ -820,3 +820,94 @@ function getCarrierTotal(){
 }
 
 
+function getDriver(value){
+    var values = value.split(')');
+    var val = values[0];
+    $.ajax({
+        url: 'admin/utils/helpers.php',
+        data: {value: val,
+               type: 'driver',
+            },
+        method: "POST",
+        dataType: 'html',
+        success: function (data) {
+            var response = data.split('^');
+            document.getElementById('loadedmile').value = response[1];
+            document.getElementById('emptymile').value = response[2];
+            if(response[0] != ""){
+                swal({
+                    title: 'Are you sure? You Want to Continue!',
+                    type: 'warning',
+                    type: 'info',
+                    html: response[0],
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Continue!',
+                    cancelButtonText: 'No, cancel!',
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger ml-2',
+                    buttonsStyling: false
+                });
+            }
+        }
+    });
+}
+
+function getTruck(value){
+    var values = value.split(')');
+    var val = values[0];
+    $.ajax({
+        url: 'admin/utils/helpers.php',
+        data: {value: val,
+               type: 'truck',
+            },
+        method: "POST",
+        dataType: 'html',
+        success: function (data) {
+           
+            if(data != ""){
+                swal({
+                    title: 'Are you sure? You Want to Continue!',
+                    type: 'warning',
+                    type: 'info',
+                    html: data,
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Continue!',
+                    cancelButtonText: 'No, cancel!',
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger ml-2',
+                    buttonsStyling: false
+                });
+            }
+        }
+    });
+}
+
+function getTrailer(value){
+    var values = value.split(')');
+    var val = values[0];
+    $.ajax({
+        url: 'admin/utils/helpers.php',
+        data: {value: val,
+               type: 'trailer',
+            },
+        method: "POST",
+        dataType: 'html',
+        success: function (data) {
+            
+            if(data != ""){
+                swal({
+                    title: 'Are you sure? You Want to Continue!',
+                    type: 'warning',
+                    type: 'info',
+                    html: data,
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Continue!',
+                    cancelButtonText: 'No, cancel!',
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger ml-2',
+                    buttonsStyling: false
+                });
+            }
+        }
+    });
+}

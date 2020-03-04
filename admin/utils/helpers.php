@@ -25,7 +25,7 @@ if($_POST['type'] == 'carrier'){
    $id = (int)$_POST['value'];
    $collection = $db->carrier;
    $show1 = $collection->aggregate([
-           ['$match'=>['companyID'=>2]],
+           ['$match'=>['companyID'=>$_SESSION['companyId']]],
            ['$unwind'=>'$carrier'],
            ['$match'=>['carrier._id'=>$id]]
    ]);
@@ -45,19 +45,140 @@ if($_POST['type'] == 'carrier'){
          {
                echo "- <b style='font-weight:bold;line-height:1.5'>Some fields are empty.</b>"."<br>";
          }
-         if(($now - $liabilityExpiry)  >= 2592000){
-            echo "- <b style='font-weight:bold;line-height:1.5'>Liability Insurance is Expired.</b>"."<br>";
+         if(($liabilityExpiry - $now)  <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>Liability Insurance is Expiring in less than 30 days.</b>"."<br>";
          }
-         if(($now - $autoExpiry)  >= 2592000){
-            echo "- <b style='font-weight:bold;line-height:1.5'>Auto Insurance is Expired.</b>"."<br>";
+         if(($autoExpiry - $now)  <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>Auto Insurance is Expiring in less than 30 days.</b>"."<br>";
          }
-         if(($now - $cargoExpiry)  >= 2592000){
-            echo "- <b style='font-weight:bold;line-height:1.5'>Cargo Insurance is Expired.</b>"."<br>";
+         if(($cargoExpiry - $now)  <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>Cargo Insurance is Expiring in less than 30 days.</b>"."<br>";
          } 
 
          if($row['blacklisted']  == "on"){
             echo "- <b style='color:red;font-weight:bold;line-height:1.5'>This carrier is blacklisted.</b>"."<br>";
          }
+
+      }
+   }
+ 
+}
+
+if($_POST['type'] == 'driver'){
+   $id = (int)$_POST['value'];
+   $collection = $db->driver;
+   $show1 = $collection->aggregate([
+           ['$match'=>['companyID'=>$_SESSION['companyId']]],
+           ['$unwind'=>'$driver'],
+           ['$match'=>['driver._id'=>$id]]
+   ]);
+   
+   foreach ($show1 as $row) {
+     
+   $driver = array();
+   $k = 0;
+   $driver[$k] = $row['driver'];
+   $k++;
+   foreach ($driver as $row) {
+         $now = strtotime("now");
+         $licenseExpiry = $row['driverLicenseExp'];
+         $nextMedical = $row['driverNextMedical'];
+         $nextDrug = $row['driverNextDrugTest'];
+         $passportExpiry = $row['passportExpiry'];
+         $fastcardexpiry = $row['fastCardExpiry'];
+         $hazmatexpiry = $row['hazmatExpiry'];
+         $loadedMile = $row['driverLoadedMile'];
+         $emptyMile = $row['driverEmptyMile'];
+         if($licenseExpiry - $now <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>License is Expiring in less than 30 days.</b>"."<br>";
+         }
+         if(($nextMedical - $now)  <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>Next Medical is within 30 days.</b>"."<br>";
+         }
+         if(($nextDrug - $now)  <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>Next Drugtest is within 30 days.</b>"."<br>";
+         } 
+         if(($passportExpiry - $now)  <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>Passport is expiring in 30 days.</b>"."<br>";
+         }
+         if(($fastcardexpiry - $now)  <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>Fast card is expiring in 30 days.</b>"."<br>";
+         }
+         if(($hazmatexpiry - $now)  <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>Hazmat is expiring in 30 days.</b>"."<br>";
+         } 
+         
+         echo "^".$loadedMile."^".$emptyMile;
+
+      }
+   }
+ 
+}
+
+if($_POST['type'] == 'truck'){
+   $id = (int)$_POST['value'];
+   $collection = $db->truckadd;
+   $show1 = $collection->aggregate([
+           ['$match'=>['companyID'=>$_SESSION['companyId']]],
+           ['$unwind'=>'$truck'],
+           ['$match'=>['truck._id'=>$id]]
+   ]);
+   
+   foreach ($show1 as $row) {
+     
+   $driver = array();
+   $k = 0;
+   $driver[$k] = $row['truck'];
+   $k++;
+   foreach ($driver as $row) {
+         $now = strtotime("now");
+         $plateExpiry = $row['plateExpiry'];
+         $inspectionExpiry = $row['inspectionExpiry'];
+         $dotExpiry  =$row['dotexpiryDate'];
+         if($plateExpiry - $now <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>License plate is Expiring in less than 30 days.</b>"."<br>";
+         }
+         if(($inspectionExpiry - $now)  <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>Inspection expiry is within 30 days.</b>"."<br>";
+         }
+         if(($dotExpiry - $now)  <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>DOT is expiring in 30 days.</b>"."<br>";
+         } 
+
+      }
+   }
+ 
+}
+
+if($_POST['type'] == 'trailer'){
+   $id = (int)$_POST['value'];
+   $collection = $db->trailer_admin_add;
+   $show1 = $collection->aggregate([
+           ['$match'=>['companyID'=>$_SESSION['companyId']]],
+           ['$unwind'=>'$trailer'],
+           ['$match'=>['trailer._id'=>$id]]
+   ]);
+   
+   foreach ($show1 as $row) {
+     
+   $driver = array();
+   $k = 0;
+   $driver[$k] = $row['trailer'];
+   $k++;
+   foreach ($driver as $row) {
+         $now = strtotime("now");
+         $plateExpiry = $row['plateExpiry'];
+         $inspectionExpiry = $row['inspectionExpiration'];
+         $dotExpiry  =$row['dot'];
+         if($plateExpiry - $now <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>License plate is Expiring in less than 30 days.</b>"."<br>";
+         }
+         if(($inspectionExpiry - $now)  <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>Inspection expiry is within 30 days.</b>"."<br>";
+         }
+         if(($dotExpiry - $now)  <= 2592000){
+            echo "- <b style='font-weight:bold;line-height:1.5'>DOT is expiring in 30 days.</b>"."<br>";
+         } 
 
       }
    }
