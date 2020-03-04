@@ -66,7 +66,6 @@ require "../database/connection.php";
         $("body").on("click", ".remove", function (){
             $(this).closest("tr").remove();
         });
-        
     });
 
     function removeRow(index){

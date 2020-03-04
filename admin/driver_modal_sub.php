@@ -13,12 +13,12 @@ require "../database/connection.php";
             <div class="modal-header custom-modal-header">
                 <h5 class="modal-title custom-modal-title mt-0" id="myLargeModalLabel">Add
                     Driver</h5>
-                <button type="button" class="close modalDriver"  aria-label="Close">
+                <button type="button" class="close modalDriver" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body custom-modal-body">
-            
+
                 <div class="owner-container" style="z-index: 1600"></div>
                 <div class="row">
                     <div class="form-group col-md-3">
@@ -71,7 +71,8 @@ require "../database/connection.php";
                     <div class="form-group col-md-2">
                         <label>Location <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control" onkeyup="getLocation('driverLocation')" id="driverLocation" placeholder="Location *" type="text">
+                            <input class="form-control" onkeyup="getLocation('driverLocation')" id="driverLocation"
+                                   placeholder="Location *" type="text">
                         </div>
                     </div>
                     <div class="form-group col-md-1">
@@ -223,44 +224,52 @@ require "../database/connection.php";
                     </div>
                     <div class="form-group col-md-2">
                         <label>Rate</label>
-                        <select class="form-control">
+                        <select class="form-control" id="rate">
                             <option value="0" selected disabled>Select</option>
                             <option value="mile">Per Mile</option>
-                            <option value="">Percentage</option>
-                            <option value="">Hourly</option>
+                            <option value="percentage">Percentage</option>
+                            <option value="hour">Hourly</option>
                         </select>
                     </div>
                     <div class="form-group col-md-2 ">
-                                            <label>Currency</label><i class="mdi mdi-plus-circle plus" id="add_driver_currency_modal"></i>
-                                                <input list="driverCurrency" class="form-control" placeholder="--Select--" id="driverCurrencyList" name="driverCurrencyList">
-                                                <datalist id="driverCurrency">
-                                                <?php
-                                                $show_currency = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
-                                                $no = 1;
-                                                foreach ($show_currency as $showcurrency) {
-                                                    $currency = $showcurrency['currency'];
-                                                    foreach ($currency as $scur) {
-                                                        $currencyValue = "'".$scur['_id'].")&nbsp;".$scur['currencyType']."'";
-                                                        echo "<option value=$currencyValue></option>";
-                                                         } }?>
-                                            </datalist>
-                                        </div>
+                        <label>Currency</label><i class="mdi mdi-plus-circle plus" id="add_driver_currency_modal"></i>
+                        <input list="driverCurrency" class="form-control" placeholder="--Select--"
+                               id="driverCurrencyList" name="driverCurrencyList">
+                        <datalist id="driverCurrency">
+                            <?php
+                            $show_currency = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
+                            $no = 1;
+                            foreach ($show_currency as $showcurrency) {
+                                $currency = $showcurrency['currency'];
+                                foreach ($currency as $scur) {
+                                    $currencyValue = "'" . $scur['_id'] . ")&nbsp;" . $scur['currencyType'] . "'";
+                                    echo "<option value=$currencyValue></option>";
+                                }
+                            } ?>
+                        </datalist>
+                    </div>
                     <div class="form-group col-md-2 ">
                         <label>Driver Pay Info</label>
                         <div>
-                            <button  id="driverpaybutton" class="btn btn-outline-dark waves-effect waves-light">Open Pay Info</button> 
+                            <button id="driverpaybutton" class="btn btn-outline-dark waves-effect waves-light">Open Pay
+                                Info
+                            </button>
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Recurrence +</label>
                         <div>
-                            <button  id="recurrenceplus" class="btn btn-outline-dark waves-effect waves-light">Open recurrence +</button> 
+                            <button id="recurrenceplus" class="btn btn-outline-dark waves-effect waves-light">Open
+                                recurrence +
+                            </button>
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Recurrence -</label>
                         <div>
-                            <button  id="recurrenceminus" class="btn btn-outline-dark waves-effect waves-light">Open recurrence -</button> 
+                            <button id="recurrenceminus" class="btn btn-outline-dark waves-effect waves-light">Open
+                                recurrence -
+                            </button>
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
@@ -279,13 +288,14 @@ require "../database/connection.php";
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger waves-effect modalDriver" >
+                <button type="button" class="btn btn-danger waves-effect modalDriver">
                     Close
                 </button>
                 <button type="submit" onclick="addDriver()" class="btn btn-primary waves-effect waves-light">Add as
                     Driver
                 </button>
-                <button type="button" onclick="addDriver()" class="btn btn-info waves-effect waves-light" data-toggle="modal" data-target="#" id="AddOwnerOperator">Add as Owner-operator
+                <button type="button" onclick="addDriver()" class="btn btn-info waves-effect waves-light"
+                        data-toggle="modal" data-target="#" id="AddOwnerOperator">Add as Owner-operator
                 </button>
             </div>
         </div><!-- /.modal-content -->

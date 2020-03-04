@@ -59,12 +59,6 @@ require "../database/connection.php";
                     </div>
                     <div class="row col-md-12">
                     <div class="form-group col-md-6">
-                        <label>Rate/Stop</label>
-                        <div>
-                            <input class="form-control" id="stop" placeholder="Stop" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
                         <label>Rate/Tarp</label>
                         <div>
                             <input class="form-control" id="driverTarp" placeholder="Tarp" type="text">
@@ -77,7 +71,7 @@ require "../database/connection.php";
                 <button type="button" class="btn btn-danger waves-effect modalDriverPay">
                     Close
                 </button>
-                <button type="button" class="btn btn-primary waves-effect waves-light" onclick="getOtherCharges()">Save
+                <button type="button" class="btn btn-primary waves-effect waves-light" onclick="getDriverPayInfo()">Save
                 </button>
             </div>
         </div><!-- /.modal-content -->

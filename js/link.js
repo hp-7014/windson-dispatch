@@ -330,6 +330,7 @@ $(document).on('click', '#driverpaybutton', function () {
             $('.owner-container').load('./admin/driver_pay_info.php', function (result) {
                 $('#driverpayinfo').modal({show: true});
             });
+            setTimeout(function(){  addPayFields(); }, 300);
         }
     });
 });

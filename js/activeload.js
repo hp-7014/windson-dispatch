@@ -503,7 +503,6 @@ $(document).on("click", "#add_other", function () {
         }
         
     });
-   
     
 });
 
@@ -739,6 +738,7 @@ function getFSC(fsc){
         return parseFloat(fsc);
     }
 }
+
 function getOtherCharges(){
     var oth_chg = document.getElementById('OtherCharges');
     var other_total = 0;
