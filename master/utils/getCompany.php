@@ -4,7 +4,7 @@ $helper = "helper";
 require "../../database/connection.php";
  $company_data = $db->company->find(['companyID' => $_SESSION['companyId']]);
  $no = 0;
- $option = "<option value='0'>--Select--</option>";
+ $option = "";
  $table = "";
  foreach ($company_data as $s_type) {
      $show1 = $s_type['company'];
@@ -81,9 +81,10 @@ require "../../database/connection.php";
                              style='font-size: 20px; color: #FC3B3B'></a></i>
              </td>
          </tr>";
-
-
-         $option .= "<option value='$companyName'>$companyName</option>";
+        
+        $value = "'".$id.')&nbsp;'.$companyName."'"; 
+        
+        $option .= "<option value=$value></option>";
       }
  }
 

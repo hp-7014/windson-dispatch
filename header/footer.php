@@ -76,4 +76,7 @@
 <!-- Responsive-table-->
 <script src="assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js"></script>
 <script src="js/link.js"></script>
+<!-- Sweet-Alert  -->
+<script src="assets/plugins/sweet-alert2/sweetalert2.min.js"></script>
+    <script src="assets/pages/sweet-alert.init.js"></script> 
 </body>

@@ -1770,9 +1770,9 @@ function Add_CustomBroker() {
 }
 
 // Edit Custom Broker
-function updateCustom(column, id) {
-    var data = $('#custom_broker_table').find('input[type="text"],textarea').val();
-
+function updateCustom(column, id, value) {
+    
+    alert(column+","+id+","+value);
     var companyId = document.getElementById('companyId').value;
 
     $.ajax({
@@ -1782,11 +1782,11 @@ function updateCustom(column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: data,
+            value: value,
         },
         success: function (data) {
             swal("Success", data, "success");
-            document.getElementById(column + id).style.display = "none";
+            
         }
     });
 }
@@ -1945,12 +1945,21 @@ database.ref(truck_test).on('child_removed', function (data) {
 
 // update table fields
 function updateTruckTable() {
+    var truckBody = document.getElementById('truckBody');
+    var truckList = document.getElementById('browserstruck');
     $.ajax({
         url: 'admin/utils/getTruck.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            document.getElementById('truckBody').innerHTML = response;
+            var res = response.split('^');
+            if(truckBody != null){
+                truckBody.innerHTML = res[0];
+            }
+            if(truckList != null){
+                truckList.innerHTML = res[1];
+            }
+            
         },
     });
 }    
@@ -2101,12 +2110,21 @@ database.ref(trailer_test).on('child_removed', function (data) {
 
 // update table fields
 function updateTrailerTable() {
+    var trailerBody = document.getElementById('trailerBody');
+    var trailerList = document.getElementById('browserstrailer');
     $.ajax({
         url: 'admin/utils/getTrailer.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            document.getElementById('trailerBody').innerHTML = response;
+            var res = response.split('^');
+
+            if(trailerBody != null){
+                trailerBody.innerHTML = res[0];
+            }
+            if(trailerList != null){
+                trailerList.innerHTML = res[1];
+            }
         },
     });
 }    
@@ -2521,14 +2539,18 @@ database.ref(driver_test).on('child_removed', function(data) {
 //update table fields
 function updateDriverTable(){
     var driverBody = document.getElementById('driverBody');
-
+    var driverList = document.getElementById('browsersdriver');    
     $.ajax({
         url: 'admin/utils/getDriver.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
+            var res = response.split('^');
             if(driverBody != null){
-                driverBody.innerHTML = response;
+                driverBody.innerHTML = res[0];
+            }
+            if(driverList != null){
+                driverList.innerHTML = res[1];
             }
         },
     });
@@ -2680,6 +2702,10 @@ function addOwnerOperator() {
             internalNote: internalNote,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+                database.ref('owner').child(companyid).set({
+                    data:randomString(),
+            });
             swal('Success', data, 'success');
             $("#Owner_operator").modal("hide");
 
@@ -2687,6 +2713,38 @@ function addOwnerOperator() {
     });
 
 
+}
+
+//update driver table
+var owner_path = "owner/";
+var owner_path1 = $('#companyid').val();
+var owner_data = owner_path1.toString();
+var owner_test = owner_path+owner_data;
+
+
+database.ref(owner_test).on('child_added', function(data) {
+    updateOwnerTable();
+});
+database.ref(owner_test).on('child_changed', function(data) {
+    updateOwnerTable();
+});
+database.ref(owner_test).on('child_removed', function(data) {
+    updateOwnerTable();
+});
+
+//update table fields
+function updateOwnerTable(){
+    var ownerList = document.getElementById('browsersowner');    
+    $.ajax({
+        url: 'admin/utils/getOwnerOperator.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            if(ownerList != null){
+                ownerList.innerHTML = response;
+            }
+        },
+    });
 }
 
 /*----------------- External Carrier Starts --------------------*/
@@ -3023,7 +3081,12 @@ function addCarrier() {
     var carrierDOT = document.getElementById('carrierDOT').value;
     var carrierFactoring = document.getElementById('carrierFactoring').value;
     var carrierNotes = document.getElementById('carrierNotes').value;
-    var carrierBlacklisted = document.getElementById('carrierBlacklisted').value;
+    var carrierBlacklisted = "on";
+    if(document.getElementById('carrierBlacklisted').checked == true){
+        carrierBlacklisted = "on";
+    }else{
+        carrierBlacklisted = "off";
+    }
     var carrierCorporation = document.getElementById('carrierCorporation').value;
     var liabilityCompany = document.getElementById('liabilityCompany').value;
     var liabilityPolicy = document.getElementById('liabilityPolicy').value;
@@ -3156,14 +3219,18 @@ database.ref(external_test).on('child_removed', function(data) {
 //update table fields
 function updateCarrierTable(){
     var carrierBody = document.getElementById('carrierBody');
-
+    var carrierList = document.getElementById('browserscarrier');
     $.ajax({
         url: 'admin/utils/getCarrier.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
+            var res = response.split('^');
             if(carrierBody != null){
-                carrierBody.innerHTML = response;
+                carrierBody.innerHTML = res[0];
+            }
+            if(carrierList != null){
+                carrierList.innerHTML = res[1];
             }
         },
     });

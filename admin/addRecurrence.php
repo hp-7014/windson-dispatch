@@ -3,13 +3,13 @@ session_start();
 require "../database/connection.php";
 ?>
 <!--  Modal content for the above example -->
-<div id="otherCharges" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div id="addRecurrence" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header custom-modal-header">
-                <h5 class="modal-title custom-modal-title mt-0" id="myLargeModalLabel">Other</h5>
-                <button type="button" class="close modalOther" aria-label="Close">
+                <h5 class="modal-title custom-modal-title mt-0" id="myLargeModalLabel">Add Recurrence</h5>
+                <button type="button" class="close modalrecurrenceadd" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -46,7 +46,7 @@ require "../database/connection.php";
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger waves-effect modalOther">
+                <button type="button" class="btn btn-danger waves-effect modalrecurrenceadd">
                     Close
                 </button>
                 <button type="button" class="btn btn-primary waves-effect waves-light" onclick="getOtherCharges()">Save

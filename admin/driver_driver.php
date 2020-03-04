@@ -10,7 +10,7 @@ $helper = new Helper();
 if ($_GET['type'] == 'addDriver') {
     $driver = new Driver();
     $driver->setId($helper->getNextSequence("driver",$db));
-    $driver->setCompanyID($_POST['companyId']);
+    $driver->setCompanyID($_SESSION['companyId']);
     $driver->setDriverName($_POST['driverName']);
     $driver->setDriverUsername($_POST['driverUsername']);
     $driver->setDriverPassword($_POST['driverPassword']);

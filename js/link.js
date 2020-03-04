@@ -312,16 +312,48 @@ $(document).on('click', '#AddShipper', function () {
         }
     });
 });
-// $(document).on('click', '#AddActiveLoad', function () {
-//     $.ajax({
-//         type: 'POST',
-//         success: function (data) {
-//             $('.activeload-container').load('active_load.php', function (result) {
-//                 $('#active_new').modal({show: true});
-//             });
-//         }
-//     });
-// });
+$(document).on('click', '#add_driver_currency_modal', function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.owner-container').load('./master/add_currency_sub.php', function (result) {
+                $('#currencysub').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on('click', '#driverpaybutton', function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.owner-container').load('./admin/driver_pay_info.php', function (result) {
+                $('#driverpayinfo').modal({show: true});
+            });
+        }
+    });
+});
+
+$(document).on('click', '#recurrenceplus', function () {
+
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.owner-container').load('./admin/addRecurrence.php', function (result) {
+                $('#addRecurrence').modal({show: true});
+            });
+        }
+    });
+});
+$(document).on('click', '#recurrenceminus', function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.owner-container').load('./admin/substractRecurrence.php', function (result) {
+                $('#substractRecurrence').modal({show: true});
+            });
+        }
+    });
+});
 
 $(document).on('click', '#addCreditCard', function () {
     $.ajax({
@@ -491,6 +523,9 @@ $(document).on('click', '.modalSubCredit', function () {
     $(document).on('click', '.modalCompany', function () {
         $('#add_company').modal('hide');
     });
+    $(document).on('click', '.modalupdatetable', function () {
+        $('#updateTable').modal('hide');
+    });
 
 $(document).on('click', '.modalCustomer', function () {
     $('#add_customer').modal('hide');
@@ -531,6 +566,22 @@ $(document).on('click', '.modalCarrier', function () {
     $(document).on('click', '.modalCurrency', function () {
         $('#currency').modal('hide');
     });
+
+    $(document).on('click', '.modalOtherCarrier', function () {
+        $('#carrierOtherCharges').modal('hide');
+    });
+
+    $(document).on('click', '.modalDriverPay', function () {
+        $('#driverpayinfo').modal('hide');
+    });
+    $(document).on('click', '.modalrecurrenceadd', function () {
+        $('#addRecurrence').modal('hide');
+    });
+    $(document).on('click', '.modalrecurrencesubstarct', function () {
+        $('#substractRecurrence').modal('hide');
+    });
+
+
 
 $(document).on('click', '.modalDriver', function () {
     $('#add_Driver').modal('hide');

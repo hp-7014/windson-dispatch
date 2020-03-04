@@ -10,7 +10,7 @@ $helper = new Helper();
 if ($_GET['type'] == 'traileradd') {
     $trailer = new TrailerAdd();
     $trailer->setId($helper->getNextSequence("traileraddcount",$db));
-    $trailer->setCompanyID($_POST['companyId']);
+    $trailer->setCompanyID($_SESSION['companyId']);
     $trailer->setTrailerNumber($_POST['trailer_number']);
     $trailer->setTrailerType($_POST['traileradd_type']);
     $trailer->setLicenseType($_POST['license_plate']);

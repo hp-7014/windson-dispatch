@@ -18,6 +18,7 @@ require "../database/connection.php";
                 </button>
             </div>
             <div class="modal-body custom-modal-body">
+            
                 <div class="owner-container" style="z-index: 1600"></div>
                 <div class="row">
                     <div class="form-group col-md-3">
@@ -168,34 +169,46 @@ require "../database/connection.php";
                             <input class="form-control" id="hazmatExpiry" type="date">
                         </div>
                     </div>
-                    <div class="form-group col-md-1">
-                        <label>Mile</label>
-                        <div>
-                            <input class="form-control" id="driverMile" placeholder="Mile" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-1">
-                        <label>Flat</label>
-                        <div>
-                            <input class="form-control" id="driverFlat" placeholder="Flat" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-1">
-                        <label>Stop</label>
-                        <div>
-                            <input class="form-control" id="driverStop" placeholder="Stop" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-1">
-                        <label>Tarp</label>
-                        <div>
-                            <input class="form-control" id="driverTrap" placeholder="Tarp" type="text">
-                        </div>
-                    </div>
                     <div class="form-group col-md-2">
-                        <label>Percentage</label>
+                        <label>Rate</label>
+                        <select class="form-control">
+                            <option value="0" selected disabled>Select</option>
+                            <option value="mile">Per Mile</option>
+                            <option value="">Percentage</option>
+                            <option value="">Hourly</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2 ">
+                                            <label>Currency</label><i class="mdi mdi-plus-circle plus" id="add_driver_currency_modal"></i>
+                                                <input list="driverCurrency" class="form-control" placeholder="--Select--" id="driverCurrencyList" name="driverCurrencyList">
+                                                <datalist id="driverCurrency">
+                                                <?php
+                                                $show_currency = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
+                                                $no = 1;
+                                                foreach ($show_currency as $showcurrency) {
+                                                    $currency = $showcurrency['currency'];
+                                                    foreach ($currency as $scur) {
+                                                        $currencyValue = "'".$scur['_id'].")&nbsp;".$scur['currencyType']."'";
+                                                        echo "<option value=$currencyValue></option>";
+                                                         } }?>
+                                            </datalist>
+                                        </div>
+                    <div class="form-group col-md-2 ">
+                        <label>Driver Pay Info</label>
                         <div>
-                            <input class="form-control" id="driverPercentage" placeholder="Percentage" type="text">
+                            <button  id="driverpaybutton" class="btn btn-outline-dark waves-effect waves-light">Open Pay Info</button> 
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2 ">
+                        <label>Recurrence +</label>
+                        <div>
+                            <button  id="recurrenceplus" class="btn btn-outline-dark waves-effect waves-light">Open recurrence +</button> 
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2 ">
+                        <label>Recurrence -</label>
+                        <div>
+                            <button  id="recurrenceminus" class="btn btn-outline-dark waves-effect waves-light">Open recurrence -</button> 
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
@@ -204,7 +217,7 @@ require "../database/connection.php";
                             <input class="form-control" id="terminationDate" type="date">
                         </div>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-12">
                         <label>Internal Notes</label>
                         <div>
                             <textarea rows="1" cols="30" placeholder="Notes" id="InternalNote" class="form-control"

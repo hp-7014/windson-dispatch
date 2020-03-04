@@ -5,7 +5,7 @@ require "../../database/connection.php";
  $show = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
  $no = 0;
  $table = "";
- $list = "<option value='0'>--Select--</option>";
+ $list = "";
  foreach ($show as $row) {
      $show1 = $row['currency'];
      foreach ($show1 as $row1) {
@@ -25,7 +25,8 @@ require "../../database/connection.php";
                              style='font-size: 20px; color: #FC3B3B'></a></i>
              </td>
          </tr>";
-         $list .= "<option value=".$id.">".$currencyType."</option>";
+         $value = "'".$id.")&nbsp;".$currencyType."'";
+         $list .= "<option value=$value></option>";
       }
  }
 

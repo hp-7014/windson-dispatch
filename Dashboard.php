@@ -49,24 +49,25 @@ require "database/connection.php";
                                     </button>
                                 </div>
                                 <div class="modal-body custom-modal-body">
-                                <div class="activeload-container" style="z-index: 1600"></div>
+                                <div class="activeload-container" style="z-index: 1800"></div>
                                     <!-- Modal First Row Start -->
 
                                     <div class="row">
                                         <div class="form-group col-md-3">
                                             <label>Select Your Company</label><i class="mdi mdi-plus-circle plus" title="Add Company" id="add_Company_Modal"></i>
-                                            <select class="form-control" id="selectCompany">
-                                                <option value="0">--Select--</option>
+                                                <input list="browserscompany" placeholder="--Select--" class="form-control" id="selectCompany" name="selectCompany">
+                                                <datalist id="browserscompany">
                                                 <?php
                                                 $show_company = $db->company->find(['companyID' => $_SESSION['companyId']]);
                                                 $no = 1;
                                                 foreach ($show_company as $showcompany) {
                                                     $company = $showcompany['company'];
                                                     foreach ($company as $sc) {
-                                                        ?>
-                                                        <option value="<?php echo $sc['companyName'];?>"><?php echo $sc['companyName'];?></option>
-                                                    <?php } }?>
-                                            </select>
+                                                        $value = "'".$sc['_id'].')'.$sc['companyName']."'";
+                                                        
+                                                        echo "<option value=$value></option>";
+                                                     } }?>
+                                                    </datalist>
                                         </div>
 
                                         <div class="form-group col-md-3">
@@ -79,8 +80,8 @@ require "database/connection.php";
                                                 foreach ($show_customer as $showcustomer) {
                                                      $customer = $showcustomer['customer'];
                                                     foreach ($customer as $scus) {
-                                                        
-                                                       echo '<option value='.$scus["_id"].')'.$scus["custName"].'></option>';
+                                                        $customervalue = "'".$scus['_id'].")&nbsp;".$scus['custName']."'";
+                                                       echo "<option value=$customervalue></option>";
                                                     } }?>
                                             </datalist>
                                         </div>
@@ -133,7 +134,7 @@ require "database/connection.php";
                                     <div class="row">
                                         <div class="form-group col-md-2">
                                             <label>Active Type</label><i class="mdi mdi-plus-circle plus" title="Add Active Type" id="active_type_Modal"></i>
-                                            <input list="browsersloadtype" placeholder="--Select--" class="form-control" id="loadtypelist" name="loadtypelist">
+                                            <input list="browsersloadtype" placeholder="--Select--" onchange="enableUnits(this.value)" class="form-control" id="loadtypelist" name="loadtypelist">
                                             <datalist id="browsersloadtype">
                                                 <?php
                                                 $show_loadtype = $db->load_type->find(['companyID' => $_SESSION['companyId']]);
@@ -141,9 +142,9 @@ require "database/connection.php";
                                                 foreach ($show_loadtype as $showloadtype) {
                                                     $loadtype = $showloadtype['loadType'];
                                                     foreach ($loadtype as $sl) {
-                                                        ?>
-                                                        <option value="<?php echo $sl['_id'].") ".$sl['loadName'] ;?>"></option>
-                                                    <?php } }?>
+                                                        $loadValue = "'".$sl['_id'].")&nbsp;".$sl['loadName']."'";
+                                                        echo "<option value=$loadValue></option>";
+                                                        } } ?>
                                             </datalist>
                                         </div>
 
@@ -151,27 +152,33 @@ require "database/connection.php";
                                             <label>Rate</label>
                                             <div>
                                                 <input class="form-control" placeholder="Rate" type="text"
-                                                       id="example-text-input">
+                                                       id="rateAmount" name="rateAmount" onkeyup="getTotal()">
                                             </div>
                                         </div>
 
-                                        <div class="form-group col-md-1">
+                                        <div class="form-group col-md-1" >
                                             <label># of Units</label>
                                             <div>
-                                                <input class="form-control" placeholder="Units" type="text"
-                                                       id="example-text-input">
+                                                <input class="form-control" placeholder="Units" type="text" 
+                                                       id="no-of-units" name="no-of-units" onkeyup="getTotal()" disabled>
                                             </div>
                                         </div>
 
-                                        <div class="form-group col-md-1">
-                                            <label>F.S.C.</label>
+                                        <div class="form-group col-md-2">
+                                            <label style="display:inline">F.S.C.</label>&nbsp;&nbsp;<div style="display:inline" class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input"
+                                                       id="customCheck1" data-parsley-multiple="groups"
+                                                       data-parsley-mincheck="2" onclick= "getTotal()">
+                                                <label class="custom-control-label"
+                                                       for="customCheck1">Rate%</label>
+                                            </div>
                                             <div>
-                                                <input class="form-control" placeholder="F.S.C." type="text"
-                                                       id="example-text-input">
+                                                <input class="form-control mt-2" placeholder="F.S.C." type="text"
+                                                       id="fsc" name="fsc" onkeyup="getTotal()">
                                             </div>
                                         </div>
 
-                                        <div class="form-group  col-md-1">
+                                        <!-- <div class="form-group  col-md-1">
                                             <label>Rate %</label>
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input"
@@ -180,13 +187,13 @@ require "database/connection.php";
                                                 <label class="custom-control-label"
                                                        for="customCheck1">Rate%</label>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="form-group col-md-2">
                                             <label>Other Charges</label>&nbsp;<i class="mdi mdi-plus-circle plus" id="add_other"></i>
                                             <div>
                                                 <input class="form-control" placeholder="Other Charges"
-                                                       type="text" id="example-text-input">
+                                                       type="text" id="OtherCharges" name="OtherCharges" onkeyup = "getTotal()" readonly>
                                             </div>
                                         </div>
 
@@ -194,7 +201,7 @@ require "database/connection.php";
                                             <label>Total Rate</label>
                                             <div>
                                                 <input class="form-control" placeholder="Total Rate" type="text"
-                                                       id="example-text-input">
+                                                       id="totalAmount" name="totalAmount">
                                             </div>
                                         </div>
 
@@ -208,8 +215,10 @@ require "database/connection.php";
                                                 foreach ($show_equipment as $showequipment) {
                                                     $equipment = $showequipment['equipment'];
                                                     foreach ($equipment as $se) {
+                                                         $equipValue = "'".$se['_id'].")&nbsp;".$se['equipmentType']."'";
+                                                         echo " <option value=$equipValue></option>"
                                                         ?>
-                                                        <option value="<?php echo $se['_id'].") ".$se['equipmentType'] ;?>"></option>
+                                                       
                                                     <?php } }?>
                                             </datalist>
                                         </div>
@@ -244,7 +253,7 @@ require "database/connection.php";
                                         </div>
                                         <div class="form-group col-md-2 carrier">
                                             <label>Carrier Name</label><i class="mdi mdi-plus-circle plus" id="add_Carrier_Modal"></i>
-                                            <input list="browserscarrier" class="form-control" placeholder="--Select--" id="carrierlist" name="carrierlist">
+                                            <input list="browserscarrier" class="form-control" onchange="getCarrier(this.value)" placeholder="--Select--" id="carrierlist" name="carrierlist">
                                             <datalist id="browserscarrier">
                                                 <?php
                                                 $show_carrier = $db->carrier->find(['companyID' => $_SESSION['companyId']]);
@@ -252,56 +261,49 @@ require "database/connection.php";
                                                 foreach ($show_carrier as $showcarrier) {
                                                     $carrier = $showcarrier['carrier'];
                                                     foreach ($carrier as $scar) {
-                                                        ?>
-                                                        <option value="<?php echo $scar['_id'].") ".$scar['name'] ;?>"></option>
-                                                    <?php } }?>
+                                                        $carrierValue = "'".$scar['_id'].")&nbsp;".$scar['name']."'";
+                                                        echo "<option value=$carrierValue></option>";
+                                                         } }?>
                                             </datalist>
                                         </div>
                                         <div class="form-group col-md-1 carrier">
                                             <label>Flat Rate</label>
                                             <div>
                                                 <input class="form-control" placeholder="Flat Rate"
-                                                       type="text" id="example-text-input">
+                                                       type="text" id="carrierFlat" onkeyup="getCarrierTotal()">
                                             </div>
                                         </div>
-                                        <div class="form-group col-md-1 carrier">
-                                            <label>Advance</label>
+                                        <div class="form-group col-md-2 carrier">
+                                            <label>Advance Charges</label><i class="mdi mdi-plus-circle plus" id="add_carrier_other" ></i>
                                             <div>
-                                                <input class="form-control" placeholder="F.S.C." type="text"
-                                                       id="example-text-input">
+                                                <input class="form-control" placeholder="Other Charges"
+                                                       type="text" id="carrierOther" onkeyup="getCarrierTotal()" readonly>
                                             </div>
                                         </div>
 
-                                        <div class="form-group col-md-2 carrier">
-                                            <label>Charges</label><i class="mdi mdi-plus-circle plus" id="add_carrier_other"></i>
-                                            <div>
-                                                <input class="form-control" placeholder="Other Charges"
-                                                       type="text" id="example-text-input">
-                                            </div>
-                                        </div>
 
                                         <div class="form-group col-md-2 carrier">
                                             <label>Total</label>
                                             <div>
                                                 <input class="form-control" placeholder="Total Rate"
-                                                       type="text" id="example-text-input">
+                                                       type="text" id="carrierTotal">
                                             </div>
                                         </div>
 
                                         <div class="form-group col-md-2 carrier">
                                             <label>Currency</label><i class="mdi mdi-plus-circle plus" id="add_currency_modal"></i>
-                                            <select class="form-control" id="selectCurrency">
-                                                <option value="0">--Select--</option>
+                                                <input list="selectCurrency" class="form-control" placeholder="--Select--" id="currencylist" name="currencylist">
+                                                <datalist id="selectCurrency">
                                                 <?php
                                                 $show_currency = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
                                                 $no = 1;
                                                 foreach ($show_currency as $showcurrency) {
                                                     $currency = $showcurrency['currency'];
                                                     foreach ($currency as $scur) {
-                                                        ?>
-                                                        <option value="<?php echo $scur['_id'];?>"><?php echo $scur['currencyType'];?></option>
-                                                    <?php } }?>
-                                            </select>
+                                                        $currencyValue = "'".$scur['_id'].")&nbsp;".$scur['currencytype']."'";
+                                                        echo "<option value=$currencyValue></option>";
+                                                         } }?>
+                                            </datalist>
                                         </div>
 
 
@@ -316,9 +318,9 @@ require "database/connection.php";
                                                     foreach ($show_driver as $showdriver) {
                                                         $driver = $showdriver['driver'];
                                                         foreach ($driver as $sdri) {
-                                                            ?>
-                                                            <option value="<?php echo $sdri['_id'].") ".$sdri['driverName'] ;?>"></option>
-                                                        <?php } }?>
+                                                            $driverValue = "'".$sdri['_id'].")&nbsp;".$sdri['driverName']."'";
+                                                            echo "<option value=$driverValue></option>";
+                                                            } }?>
                                                 </datalist>
                                             
                                         </div>
@@ -332,9 +334,9 @@ require "database/connection.php";
                                                 foreach ($show_truck as $showtruck) {
                                                     $truck = $showtruck['truck'];
                                                     foreach ($truck as $stru) {
-                                                        ?>
-                                                        <option value="<?php echo $stru['_id'].") ".$stru['truckNumber'] ;?>"></option>
-                                                    <?php } }?>
+                                                        $truckValue = "'".$stru['_id'].")&nbsp;".$stru['truckNumber']."'";
+                                                        echo "<option value=$truckValue></option>";
+                                                        } }?>
                                             </datalist>
                                         </div>
                                         <div class="form-group col-md-1 driver">
@@ -347,9 +349,9 @@ require "database/connection.php";
                                                 foreach ($show_trailer as $showtrailer) {
                                                     $trailer = $showtrailer['trailer'];
                                                     foreach ($trailer as $stra) {
-                                                        ?>
-                                                        <option value="<?php echo $stra['_id'].") ".$stra['trailerNumber'] ;?>"></option>
-                                                    <?php } }?>
+                                                        $trialerValue = "'".$stra['_id'].")&nbsp;".$stra['trialerNumber']."'";
+                                                        echo "<option value=$trialerValue></option>";
+                                                        } }?>
                                             </datalist>
                                         </div>
                                         <div class="form-group col-md-1 driver">
@@ -398,15 +400,39 @@ require "database/connection.php";
                                             <label>Select Owner Operator</label><i class="mdi mdi-plus-circle plus" id="add_Owner_Operator"></i>
                                             <input list="browsersowner" class="form-control" placeholder="--Select--" id="ownerlist" name="ownerlist">
                                             <datalist id="browsersowner">
-                                                <?php
-                                                $show_owner = $db->owner_operator_driver->find(['companyID' => $_SESSION['companyId']]);
-                                                $no = 1;
-                                                foreach ($show_owner as $showowner) {
-                                                    $owner = $showowner['ownerOperator'];
-                                                    foreach ($owner as $sown) {
-                                                        ?>
-                                                        <option value="<?php echo $sown['_id'].") ".$sown['driverName'] ;?>"></option>
-                                                    <?php } }?>
+                                            <?php 
+                                            $collection = $db->owner_operator_driver;
+                                            $show1 = $collection->aggregate([
+                                            ['$lookup' => [
+                                                'from' => 'driver',
+                                                'localField' => 'companyID',
+                                                'foreignField' => 'companyID',
+                                                'as' => 'owner'
+                                            ]
+                                            ]]);
+
+                                                foreach ($show1 as $row) {
+                                                    $ownerOperator = $row['ownerOperator'];
+                                                    $owner = $row['owner'];
+                                                    $drivername = array();
+                                                    foreach ($owner as $row2) {
+                                                                $owner1 = $row2['driver'];
+                                                                $k = 0;
+                                                                foreach ($owner1 as $row3) {
+                                                                    $id = $row3['_id'];
+                                                                    $drivername[$k] = $id.")&nbsp;".$row3['driverName'];
+                                                                    $k++;
+                                                                }    
+                                                        }
+
+                                                    $j = 0;
+                                                            foreach ($ownerOperator as $row1) {
+                                                                $drivername1 = "'".$drivername[$row1['driverId']]."'";
+                                                                $j++;
+                                                            $list .= "<option value=$drivername1></option>";
+
+                                                            }
+                                                        } ?>
                                             </datalist>
                                         </div>
                                         <div class="form-group col-md-2 owner">
@@ -497,9 +523,9 @@ require "database/connection.php";
                                                                 foreach ($show_shipper as $showshipper) {
                                                                     $shipper = $showshipper['shipper'];
                                                                     foreach ($shipper as $sshi) {
-                                                                        ?>
-                                                                        <option value="<?php echo $sshi['_id'].") ".$sshi['shipperName'] ;?>"></option>
-                                                                    <?php } }?>
+                                                                         $shipperValue = "'".$sshi['_id'].")&nbsp;".$sshi['shipperName']."'";
+                                                                         echo "<option value=$shipperValue></option>";
+                                                                     } }?>
                                                             </datalist>
                                                         </div>
                                                         <div class="form-group col-md-2">
@@ -628,9 +654,9 @@ require "database/connection.php";
                                                                         foreach ($show_consignee as $showconsignee) {
                                                                             $consignee = $showconsignee['consignee'];
                                                                             foreach ($consignee as $scon) {
-                                                                                ?>
-                                                                                <option value="<?php echo $scon['_id'].") ".$scon['consigneeName'] ;?>"></option>
-                                                                            <?php } }?>
+                                                                                $consigneeValue = "'".$scon['_id'].")&nbsp;".$scon['consigneeName']."'";
+                                                                                echo "<option value=$consigneeValue></option>";
+                                                                               } }?>
                                                                     </datalist>
                                                             </div>
                                                             <div class="form-group col-md-2">

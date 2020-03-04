@@ -10,7 +10,7 @@ $helper = new Helper();
 if ($_GET['type'] == 'truckadd') {
     $truck = new TruckAdd();
     $truck->setId($helper->getNextSequence("truckcount",$db));
-    $truck->setCompanyID($_POST['companyId']);
+    $truck->setCompanyID($_SESSION['companyId']);
     $truck->setTruckNumber($_POST['truck_number']);
     $truck->setTruckType($_POST['trucktype1']);
     $truck->setLicensePlate($_POST['license_plate']);
