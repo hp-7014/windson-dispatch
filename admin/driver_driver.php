@@ -25,7 +25,7 @@ if ($_GET['type'] == 'addDriver') {
     $driver->setDateOfbirth(strtotime($_POST['dateOfbirth']));
     $driver->setDateOfhire(strtotime($_POST['dateOfhire']));
     $driver->setDriverLicenseNo($_POST['driverLicenseNo']);
-    $driver->setDriverLicenseIssue(strtotime($_POST['driverLicenseIssue']));
+    $driver->setDriverLicenseIssue($_POST['driverLicenseIssue']);
     $driver->setDriverLicenseExp(strtotime($_POST['driverLicenseExp']));
     $driver->setDriverLastMedical(strtotime($_POST['driverLastMedical']));
     $driver->setDriverNextMedical(strtotime($_POST['driverNextMedical']));

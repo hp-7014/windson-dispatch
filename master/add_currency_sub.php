@@ -3,7 +3,7 @@
     require "../database/connection.php";
 ?>
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="currencysub"
-     aria-hidden="true">
+     aria-hidden="true" style="z-index: 10000">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #2A3988;">

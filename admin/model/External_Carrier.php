@@ -58,10 +58,24 @@ class External_Carrier implements IteratorAggregate
     private $sizeOfFleet;
     private $equipmentNotes;
     private $equipment;
+    private $column;
 
     /**
      * @return mixed
      */
+    public function getColumn()
+    {
+        return $this->column;
+    }
+
+    /**
+     * @param mixed $column
+     */
+    public function setColumn($column): void
+    {
+        $this->column = $column;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -1088,5 +1102,11 @@ class External_Carrier implements IteratorAggregate
             $cons = iterator_to_array($carrier);
             $db->carrier->insertOne($cons);
         }
+    }
+
+    public function updateExternal($external, $db) {
+        $db->carrier->updateOne(['companyID' => (int)$_SESSION['companyId'], 'carrier._id' => (int)$this->getId()],
+            ['$set' => ['carrier.$.' . $external->getColumn() => $external->getName()]]
+        );
     }
 }

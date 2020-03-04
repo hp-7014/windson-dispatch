@@ -63,3 +63,11 @@ if($_GET['type'] == 'add_carrier'){
     $carrier->setEquipment($_POST['equipment'],$_POST['quantity']);
     $carrier->insert($carrier,$db,$helper);
 }
+// edit external carrier
+else if ($_GET['type'] == 'edit_external') {
+    $carrier = new External_Carrier();
+    $carrier->setId($_POST['id']);
+    $carrier->setName($_POST['value']);
+    $carrier->setColumn($_POST['column']);
+    $carrier->updateExternal($carrier,$db);
+}

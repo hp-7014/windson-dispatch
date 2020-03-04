@@ -1,3 +1,4 @@
+
 //----------Shipper Start-------------
 // add shipper
 function addShipper() {
@@ -126,14 +127,14 @@ function updateShipperTable() {
         dataType: 'text',
         success: function (response) {
             var res = response.split('^');
-            if(shipperBody != null){
+            if (shipperBody != null) {
                 shipperBody.innerHTML = res[0];
             }
 
-            if(shipperList != null){
+            if (shipperList != null) {
                 shipperList.innerHTML = res[1];
             }
-            
+
         },
     });
 }
@@ -208,7 +209,6 @@ function updateShipper(column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-            // console.log(column + id);
             document.getElementById(column + id).style.display = "none";
         }
     });
@@ -340,7 +340,7 @@ function addConsignee() {
 var consignee_path = "consignee/";
 var consignee_path1 = $('#companyid').val();
 var consignee_data = consignee_path1.toString();
-var consignee_test = consignee_path +consignee_data;
+var consignee_test = consignee_path + consignee_data;
 
 database.ref(consignee_test).on('child_added', function (data) {
     updateConsigneeTable();
@@ -363,14 +363,14 @@ function updateConsigneeTable() {
         dataType: 'text',
         success: function (response) {
             var res = response.split('^');
-            if(consigneeBody != null){
+            if (consigneeBody != null) {
                 consigneeBody.innerHTML = res[0];
             }
 
-            if(consigneeList != null){
+            if (consigneeList != null) {
                 consigneeList.innerHTML = res[1];
             }
-            
+
         },
     });
 }
@@ -427,7 +427,7 @@ function exportConsignee(id) {
 function updateConsignee(column, id) {
     var data = $('#consignee_table').find('input[type="text"],textarea').val();
 
-    var companyId = document.getElementById('companyId').value;
+    var companyId = $('#companyid').val();
     $.ajax({
         url: 'admin/consignee_driver.php?type=' + 'edit_consignee',
         type: 'POST',
@@ -441,7 +441,7 @@ function updateConsignee(column, id) {
             var companyid = $('#companyid').val();
             database.ref('consignee').child(companyid).set({
                 data: randomString(),
-            });                                                           
+            });
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
         }
@@ -480,37 +480,89 @@ function toggle() {
     var custName = document.getElementById('custName').value;
     var custAddress = document.getElementById('custAddress').value;
     var custLocation = document.getElementById('custLocation').value;
+    var custZip = document.getElementById('custZip').value;
 
+    var billingAddress = document.getElementById('billingAddress').value;
+    var billingLocation = document.getElementById('billingLocation').value;
+    var billingZip = document.getElementById('billingZip').value;
+    var primaryContact = document.getElementById('primaryContact').value;
+    var custTelephone = document.getElementById('custTelephone').value;
+    var custExt = document.getElementById('custExt').value;
+    var custEmail = document.getElementById('custEmail').value;
+    var custFax = document.getElementById('custFax').value;
+    var billingContact = document.getElementById('billingContact').value;
+    var billingEmail = document.getElementById('billingEmail').value;
+    var billingTelephone = document.getElementById('billingTelephone').value;
+    var billingExt = document.getElementById('billingExt').value;
+    var URS = document.getElementById('URS').value;
 
     if (val_custName(custName)) {
         if (val_custAddress(custAddress)) {
             if (val_custLocation(custLocation)) {
                 if (val_custZip(custZip)) {
+                    if (val_billingAddress(billingAddress)) {
+                        if (val_billingLocation(billingLocation)) {
+                            if (val_billingZip(billingZip)) {
+                                if (val_primaryContact(primaryContact)) {
+                                    if (val_custTelephone(custTelephone)) {
+                                        if (val_custExt(custExt)) {
+                                            if (val_custEmail(custEmail)) {
+                                                if (val_custFax(custFax)) {
+                                                    if (val_billingContact(billingContact)) {
+                                                        if (val_billingEmail(billingEmail)) {
+                                                            if (val_billingTelephone(billingTelephone)) {
+                                                                if (val_billingExt(billingExt)) {
+                                                                    if (val_URS(URS)) {
+                                                                        $("#home").toggleClass("show");
+                                                                        $("#home").toggleClass("active");
+                                                                        $("#profile").toggleClass("show");
+                                                                        $("#profile").toggleClass("active");
+                                                                        $("#home-tab").toggleClass("active");
+                                                                        $("#profile-tab").toggleClass("active");
 
-                    $("#home").toggleClass("show");
-                    $("#home").toggleClass("active");
-                    $("#profile").toggleClass("show");
-                    $("#profile").toggleClass("active");
-                    $("#home-tab").toggleClass("active");
-                    $("#profile-tab").toggleClass("active");
+                                                                        if ($("#home-tab").attr("aria-selected") === 'true') {
+                                                                            $("#home-tab").attr("aria-selected", "false");
+                                                                        } else {
+                                                                            $("#home-tab").attr("aria-selected", "true");
+                                                                        }
 
-                    if ($("#home-tab").attr("aria-selected") === 'true') {
-                        $("#home-tab").attr("aria-selected", "false");
-                    } else {
-                        $("#home-tab").attr("aria-selected", "true");
+                                                                        if ($("#profile-tab").attr("aria-selected") === 'true') {
+                                                                            $("#profile-tab").attr("aria-selected", "false");
+                                                                        } else {
+                                                                            $("#profile-tab").attr("aria-selected", "true");
+                                                                        }
+
+                                                                        $("#home-title").toggleClass("show");
+                                                                        $("#profile-title").toggleClass("show");
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
-
-                    if ($("#profile-tab").attr("aria-selected") === 'true') {
-                        $("#profile-tab").attr("aria-selected", "false");
-                    } else {
-                        $("#profile-tab").attr("aria-selected", "true");
-                    }
-
-                    $("#home-title").toggleClass("show");
-                    $("#profile-title").toggleClass("show");
                 }
             }
         }
+    }
+}
+
+function setBillingDetail(val) {
+    var checkbox = document.getElementById('customCheck1');
+    if (checkbox.checked == true) {
+        document.getElementById('billingAddress').value = document.getElementById('custAddress').value;
+        document.getElementById('billingLocation').value = document.getElementById('custLocation').value;
+        document.getElementById('billingZip').value = document.getElementById('custZip').value;
+    } else {
+        document.getElementById('billingAddress').value = "";
+        document.getElementById('billingLocation').value = "";
+        document.getElementById('billingZip').value = "";
     }
 }
 
@@ -542,10 +594,21 @@ function addCustomer() {
     var MC = document.getElementById('MC').value;
 
     var currencySetting = document.getElementById('currencySetting').value;
-    var paymentTerms = document.getElementById('paymentTerms').value;
+
+    var paymentTerms_1 = document.getElementById('paymentTerms').value;
+    var paymentTerms1 = paymentTerms_1.split(")");
+    var paymentTerms = paymentTerms1[0];
+
     var creditLimit = document.getElementById('creditLimit').value;
-    var salesRep = document.getElementById('salesRep').value;
-    var factoringCompany = document.getElementById('factoringCompany').value;
+
+    var salesRep_1 = document.getElementById('salesRep').value;
+    var salesRep1 = salesRep_1.split(")");
+    var salesRep = salesRep1[0];
+
+    var factoringCompany_1 = document.getElementById('factoringCompany').value;
+    var factoringCompany1 = factoringCompany_1.split(")");
+    var factoringCompany = factoringCompany1[0];
+
     var federalID = document.getElementById('federalID').value;
     var workerComp = document.getElementById('workerComp').value;
     var websiteURL = document.getElementById('websiteURL').value;
@@ -553,83 +616,57 @@ function addCustomer() {
     var customerRate = document.getElementsByName('customerRate');
     var internalNotes = document.getElementById('internalNotes').value;
 
-    if (val_billingAddress(billingAddress)) {
-        if (val_billingLocation(billingLocation)) {
-            if (val_billingZip(billingZip)) {
-                if (val_primaryContact(primaryContact)) {
-                    if (val_custTelephone(custTelephone)) {
-                        if (val_custExt(custExt)) {
-                            if (val_custEmail(custEmail)) {
-                                if (val_custFax(custFax)) {
-                                    if (val_billingContact(billingContact)) {
-                                        if (val_billingEmail(billingEmail)) {
-                                            if (val_billingTelephone(billingTelephone)) {
-                                                if (val_billingExt(billingExt)) {
-                                                    if (val_URS(URS)) {
-                                                        if (val_currencySetting(currencySetting)) {
-                                                            if (val_paymentTerms(paymentTerms)) {
-                                                                if (val_creditLimit(creditLimit)) {
-                                                                    if (val_salesRep(salesRep)) {
-                                                                        if (val_factoringCompany(factoringCompany)) {
-                                                                            if (val_federalID(federalID)) {
-                                                                                if (val_workerComp(workerComp)) {
-                                                                                    if (val_websiteURL(websiteURL)) {
-                                                                                        if (val_internalNotes(internalNotes)) {
-                                                                                            $.ajax({
-                                                                                                url: 'admin/customer_driver.php?type=' + 'addCustomer',
-                                                                                                type: 'POST',
-                                                                                                data: {
-                                                                                                    companyId: companyId,
-                                                                                                    custName: custName,
-                                                                                                    custAddress: custAddress,
-                                                                                                    custLocation: custLocation,
-                                                                                                    custZip: custZip,
-                                                                                                    billingAddress: billingAddress,
-                                                                                                    billingLocation: billingLocation,
-                                                                                                    billingZip: billingZip,
-                                                                                                    primaryContact: primaryContact,
-                                                                                                    custTelephone: custTelephone,
-                                                                                                    custExt: custExt,
-                                                                                                    custEmail: custEmail,
-                                                                                                    custFax: custFax,
-                                                                                                    billingContact: billingContact,
-                                                                                                    billingEmail: billingEmail,
-                                                                                                    billingTelephone: billingTelephone,
-                                                                                                    billingExt: billingExt,
-                                                                                                    URS: URS,
-                                                                                                    currencySetting: currencySetting,
-                                                                                                    paymentTerms: paymentTerms,
-                                                                                                    creditLimit: creditLimit,
-                                                                                                    salesRep: salesRep,
-                                                                                                    factoringCompany: factoringCompany,
-                                                                                                    federalID: federalID,
-                                                                                                    workerComp: workerComp,
-                                                                                                    websiteURL: websiteURL,
-                                                                                                    internalNotes: internalNotes,
-                                                                                                    MC: MC
-                                                                                                },
-                                                                                                success: function (data) {
-                                                                                                    var companyid = $('#companyid').val();
-                                                                                                    database.ref('customer').child(companyid).set({
-                                                                                                        data: randomString(),
-                                                                                                    });
-                                                                                                    swal('Success', data, 'success');
-                                                                                                    $('#add_customer').modal('hide');
-                                                                                                }
-                                                                                            });
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
+    if (val_currencySetting(currencySetting)) {
+        if (val_paymentTerms(paymentTerms)) {
+            if (val_creditLimit(creditLimit)) {
+                if (val_salesRep(salesRep)) {
+                    if (val_factoringCompany(factoringCompany)) {
+                        if (val_federalID(federalID)) {
+                            if (val_workerComp(workerComp)) {
+                                if (val_websiteURL(websiteURL)) {
+                                    if (val_internalNotes(internalNotes)) {
+                                        $.ajax({
+                                            url: 'admin/customer_driver.php?type=' + 'addCustomer',
+                                            type: 'POST',
+                                            data: {
+                                                companyId: companyId,
+                                                custName: custName,
+                                                custAddress: custAddress,
+                                                custLocation: custLocation,
+                                                custZip: custZip,
+                                                billingAddress: billingAddress,
+                                                billingLocation: billingLocation,
+                                                billingZip: billingZip,
+                                                primaryContact: primaryContact,
+                                                custTelephone: custTelephone,
+                                                custExt: custExt,
+                                                custEmail: custEmail,
+                                                custFax: custFax,
+                                                billingContact: billingContact,
+                                                billingEmail: billingEmail,
+                                                billingTelephone: billingTelephone,
+                                                billingExt: billingExt,
+                                                URS: URS,
+                                                currencySetting: currencySetting,
+                                                paymentTerms: paymentTerms,
+                                                creditLimit: creditLimit,
+                                                salesRep: salesRep,
+                                                factoringCompany: factoringCompany,
+                                                federalID: federalID,
+                                                workerComp: workerComp,
+                                                websiteURL: websiteURL,
+                                                internalNotes: internalNotes,
+                                                MC: MC
+                                            },
+                                            success: function (data) {
+                                                var companyid = $('#companyid').val();
+                                                database.ref('customer').child(companyid).set({
+                                                    data: randomString(),
+                                                });
+                                                swal('Success', data, 'success');
+                                                $('#add_customer').modal('hide');
                                             }
-                                        }
+                                        });
                                     }
                                 }
                             }
@@ -660,21 +697,21 @@ database.ref(customer_test).on('child_removed', function (data) {
 // update table fields
 function updateCustomerTable() {
     var customerTable = document.getElementById('customerBody');
-    var customerList =  document.getElementById('browserscustomer');
+    var customerList = document.getElementById('browserscustomer');
     $.ajax({
         url: 'admin/utils/getCustomer.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
             var res = response.split('^');
-            if(customerTable != null){
+            if (customerTable != null) {
                 customerTable.innerHTML = res[0];
             }
 
-            if(customerList != null){
+            if (customerList != null) {
                 customerList.innerHTML = res[1];
             }
-            
+
         },
     });
 }
@@ -955,7 +992,40 @@ function updatePrivilege() {
     });
 }
 
-// add customer
+//update currency table
+var user_path = "user/";
+var user_path1 = $('#companyid').val();
+var user_data = user_path1.toString();
+var user_test = user_path + user_data;
+
+database.ref(user_test).on('child_added', function (data) {
+    updateUserTable();
+});
+database.ref(user_test).on('child_changed', function (data) {
+    updateUserTable();
+});
+database.ref(user_test).on('child_removed', function (data) {
+    updateUserTable();
+});
+
+// update table fields
+function updateUserTable() {
+    var UserBody = document.getElementById('UserBody');
+
+    $.ajax({
+        url: 'admin/utils/getUser.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+
+            if (UserBody != null) {
+                UserBody.innerHTML = response;
+            }
+        },
+    });
+}
+
+// add user
 function addUser() {
     var companyId = document.getElementById('companyId').value;
     var userEmail = document.getElementById('userEmail').value;
@@ -1151,8 +1221,12 @@ function addUser() {
                                                             fixPayCategory: fixPayCategory
                                                         },
                                                         success: function (data) {
+                                                            var companyid = $('#companyid').val();
+                                                            database.ref('user').child(companyid).set({
+                                                                data: randomString(),
+                                                            });
                                                             swal('Success', data, 'success');
-                                                            $('#user').modal('hide');
+                                                            $('#add_user').modal('hide');
                                                         }
                                                     });
                                                 }
@@ -1209,7 +1283,7 @@ function exportUser(id) {
             var encodedUri = encodeURI(csvContent);
             var link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "my_data.csv");
+            link.setAttribute("download", "user_export.csv");
             document.body.appendChild(link); // Required for FF
 
             link.click();
@@ -1231,6 +1305,10 @@ function updateUser(column, id) {
             value: data,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('user').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
         }
@@ -1245,6 +1323,10 @@ function deleteUser(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                database.ref('user').child(companyid).set({
+                    data: randomString(),
+                });
                 swal("Success", data, 'success');
             }
         });
@@ -1254,6 +1336,46 @@ function deleteUser(id) {
 //-----------User End------------------------------
 
 /*----------------- Bank Admin Add START -------------------------*/
+
+//update credit Bank table
+var bankpath = "bank/";
+var bankpath1 = $('#companyid').val();
+var bankdata = bankpath1.toString();
+var banktest = bankpath + bankdata;
+
+database.ref(banktest).on('child_added', function (data) {
+    updateBankTable();
+});
+
+database.ref(banktest).on('child_changed', function (data) {
+    updateBankTable();
+});
+
+database.ref(banktest).on('child_removed', function (data) {
+    updateBankTable();
+});
+
+//update table fields
+
+function updateBankTable() {
+    var bankBody = document.getElementById('bankBody');
+    var bankList = document.getElementById('Name');
+    $.ajax({
+        url: 'admin/utils/getBank.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            var res = response.split("^");
+            if (bankBody != null) {
+                bankBody.innerHTML = res[0];
+            }
+            if (bankList != null) {
+                bankList.innerHTML = res[1];
+            }
+
+        },
+    });
+}
 
 //Add Bank Admin
 function AddBankAdmin() {
@@ -1267,7 +1389,7 @@ function AddBankAdmin() {
     var openingBalance = document.getElementById('openingBalance').value;
     var currentcheqNo = document.getElementById('currentcheqNo').value;
     var transacBalance = document.getElementById('transacBalance').value;
-    //alert(accountHolder);
+
     if (val_bankName(bankName)) {
         if (val_accountHolder(accountHolder)) {
             if (val_accountNo(accountNo)) {
@@ -1291,6 +1413,9 @@ function AddBankAdmin() {
                                 },
                                 dataType: 'text',
                                 success: function (data) {
+                                    database.ref('bank').child(companyid).set({
+                                        data: randomString(),
+                                    });
                                     swal('Success', data, 'success');
                                     $("#add_bank").modal("hide");
                                 },
@@ -1308,7 +1433,7 @@ function AddBankAdmin() {
 //Edit Bank Admin
 function updateBank(column, id) {
     var data = $('#bank_table').find('input[type="text"],textarea').val();
-    var companyId = document.getElementById('companyId').value;
+    var companyId = $('#companyid').val();
 
     $.ajax({
         url: 'admin/bank_admin.php?type=' + 'edit_bank',
@@ -1320,6 +1445,9 @@ function updateBank(column, id) {
             value: data,
         },
         success: function (data) {
+            database.ref('bank').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
         }
@@ -1374,6 +1502,9 @@ function deleteBank(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                database.ref('bank').child(companyid).set({
+                    data: randomString(),
+                });
                 swal('Delete', 'Data Removed Successfully.', 'success');
             }
         });
@@ -1430,6 +1561,46 @@ function export_Admin() {
 
 /*----------------- Credit Card START -------------------------*/
 
+//update credit Bank table
+var bankCreditpath = "bank_credit/";
+var bankCreditpath1 = $('#companyid').val();
+var bankCreditdata = bankCreditpath1.toString();
+var bankCredittest = bankCreditpath + bankCreditdata;
+
+database.ref(bankCredittest).on('child_added', function (data) {
+    updateBankCreditTable();
+});
+
+database.ref(bankCredittest).on('child_changed', function (data) {
+    updateBankCreditTable();
+});
+
+database.ref(bankCredittest).on('child_removed', function (data) {
+    updateBankCreditTable();
+});
+
+//update table fields
+
+function updateBankCreditTable() {
+    var CreditbankBody = document.getElementById('CreditbankBody');
+    var CreditbankList = document.getElementById('mainCard');
+    $.ajax({
+        url: 'admin/utils/getBankCredit.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            var res = response.split("^");
+            if (CreditbankBody != null) {
+                alert(10);
+                CreditbankBody.innerHTML = res[0];
+            }
+            if (CreditbankList != null) {
+                CreditbankList.innerHTML = res[1];
+            }
+        },
+    });
+}
+
 // Add CreditCard Admin
 function Add_Credit() {
     var companyId = document.getElementById('companyId').value;
@@ -1463,10 +1634,13 @@ function Add_Credit() {
                                         openingBalanceDt: openingBalanceDt,
                                         cardLimit: cardLimit,
                                         openingBalance: openingBalance,
-                                        transacBalance: transacBalance,
+                                        transacBalance: openingBalance,
                                     },
                                     dataType: 'text',
                                     success: function (data) {
+                                        database.ref('bank_credit').child(companyid).set({
+                                            data: randomString(),
+                                        });
                                         swal('Success', data, 'success');
                                         $("#Add_CreditCard").modal("hide");
                                     },
@@ -1537,6 +1711,9 @@ function deleteCredit(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                database.ref('bank_credit').child(companyid).set({
+                    data: randomString(),
+                });
                 swal('Delete', 'Data Removed Successfully.', 'success');
             }
         });
@@ -1546,7 +1723,7 @@ function deleteCredit(id) {
 //Edit Bank Credit
 function updateCredit(column, id) {
     var data = $('#credit_bank_table').find('input[type="text"],textarea').val();
-    var companyId = document.getElementById('companyId').value;
+    var companyId = document.getElementById('companyid').value;
 
     $.ajax({
         url: 'admin/bank_credit.php?type=' + 'edit_credit',
@@ -1558,14 +1735,18 @@ function updateCredit(column, id) {
             value: data,
         },
         success: function (data) {
+            database.ref('bank_credit').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
+            console.log(column + id);
             document.getElementById(column + id).style.display = "none";
         }
     });
 }
 
 //Edit Card type
-function update_Credit(element, column, id) {
+function update_Credit(column, id) {
     //var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
 
@@ -1579,6 +1760,9 @@ function update_Credit(element, column, id) {
             cardType: element,
         },
         success: function (data) {
+            database.ref('bank_credit').child(companyid).set({
+                data: randomString(),
+            });
             swal("Update", data, 'success');
         }
     });
@@ -1587,6 +1771,43 @@ function update_Credit(element, column, id) {
 /*----------------- Credit Card END -------------------------*/
 
 /*----------------- Sub Credit Card START -------------------------*/
+
+//update credit Bank table
+var subcardpath = "sub_credit_card/";
+var subcardpath1 = $('#companyid').val();
+var subcarddata = subcardpath1.toString();
+var subcardtest = subcardpath + subcarddata;
+
+database.ref(subcardtest).on('child_added', function (data) {
+    updateSubCardTable();
+});
+
+database.ref(subcardtest).on('child_changed', function (data) {
+    updateSubCardTable();
+});
+
+database.ref(subcardtest).on('child_removed', function (data) {
+    updateSubCardTable();
+});
+
+//update table fields
+
+function updateSubCardTable() {
+    var SubCardBody = document.getElementById('SubCardBody');
+
+    $.ajax({
+        url: 'admin/utils/getSub_credit_card.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            var res = response.split("^");
+            if (SubCardBody != null) {
+                SubCardBody.innerHTML = response;
+            }
+        },
+    });
+}
+
 
 // Add Sub Credit
 function Add_SubCredit() {
@@ -1599,24 +1820,29 @@ function Add_SubCredit() {
     if (val_displayName(displayName)) {
         if (val_mainCard(mainCard)) {
             if (val_cardHolderName(cardHolderName)) {
-                $.ajax({
-                    url: 'admin/sub_credit_card.php?type=' + 'sub_credit_card',
-                    type: 'POST',
-                    data: {
-                        companyId: companyId,
-                        displayName: displayName,
-                        mainCard: mainCard,
-                        cardHolderName: cardHolderName,
-                        cardNo: cardNo,
-                    },
-                    dataType: 'text',
-                    success: function (data) {
-                        swal('Success', data, 'success');
-                        $("#add_sub_credit").modal("hide");
-                    },
-                    error: function () {
-                    },
-                });
+                if (val_cardNo(cardNo)) {
+                    $.ajax({
+                        url: 'admin/sub_credit_card.php?type=' + 'sub_credit_card',
+                        type: 'POST',
+                        data: {
+                            companyId: companyId,
+                            displayName: displayName,
+                            mainCard: mainCard,
+                            cardHolderName: cardHolderName,
+                            cardNo: cardNo,
+                        },
+                        dataType: 'text',
+                        success: function (data) {
+                            database.ref('sub_credit_card').child(companyid).set({
+                                data: randomString(),
+                            });
+                            swal('Success', data, 'success');
+                            $("#add_sub_credit").modal("hide");
+                        },
+                        error: function () {
+                        },
+                    });
+                }
             }
         }
     }
@@ -1644,7 +1870,7 @@ function import_Sub_credit() {
 //Edit Sub Credit
 function updateSubCredit(column, id) {
     var data = $('#sub_credit_table').find('input[type="text"],textarea').val();
-    var companyId = document.getElementById('companyId').value;
+    var companyId = $('#companyid').val();
 
     $.ajax({
         url: 'admin/sub_credit_card.php?type=' + 'edit_sub_credit',
@@ -1656,6 +1882,9 @@ function updateSubCredit(column, id) {
             value: data,
         },
         success: function (data) {
+            database.ref('sub_credit_card').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
         }
@@ -1663,9 +1892,10 @@ function updateSubCredit(column, id) {
 }
 
 //Edit Sub Credit
-function updateSub_Credit(element, column, id) {
+function updateSub_Credit(column, id) {
     //var value = element.innerText;
-    var companyId = document.getElementById('companyId').value;
+    var data = $('#sub_credit_table').find('input[type="text"],textarea').val();
+    var companyId = $('#companyid').val();
 
     $.ajax({
         url: 'admin/sub_credit_card.php?type=' + 'edit_card_type',
@@ -1674,10 +1904,14 @@ function updateSub_Credit(element, column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            mainCard: element,
+            mainCard: data,
         },
         success: function (data) {
+            database.ref('sub_credit_card').child(companyid).set({
+                data: randomString(),
+            });
             swal("Update", data, 'success');
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -1729,6 +1963,44 @@ function export_SubCredit() {
 
 /*----------------- Customs Broker START -------------------------*/
 
+//update credit Bank table
+var custompath = "custom_broker/";
+var custompath1 = $('#companyid').val();
+var customdata = custompath1.toString();
+var customtest = custompath + customdata;
+
+database.ref(customtest).on('child_added', function (data) {
+    UpdateCustomTable();
+});
+
+database.ref(customtest).on('child_changed', function (data) {
+    UpdateCustomTable();
+});
+
+database.ref(customtest).on('child_removed', function (data) {
+    UpdateCustomTable();
+});
+
+//update table fields
+
+function UpdateCustomTable() {
+    var custom_broker_body = document.getElementById('custom_broker_body');
+    var custom_broker_body = document.getElementById('custom_broker_body');
+    // var bankList = document.getElementById('Name');
+    $.ajax({
+        url: 'admin/utils/getCustom.php',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            if (custom_broker_body != null) {
+                alert(response);
+                custom_broker_body.innerHTML = response;
+            }
+        },
+    });
+}
+
+
 // Add Customs Broker
 function Add_CustomBroker() {
     var companyId = document.getElementById('companyId').value;
@@ -1758,6 +2030,9 @@ function Add_CustomBroker() {
                     },
                     dataType: 'text',
                     success: function (data) {
+                        database.ref('custom_broker').child(companyid).set({
+                            data: randomString(),
+                        });
                         swal('Success', data, 'success');
                         $("#Add_Customs_Broker").modal("hide");
                     },
@@ -1771,7 +2046,7 @@ function Add_CustomBroker() {
 
 // Edit Custom Broker
 function updateCustom(column, id, value) {
-    
+
     alert(column+","+id+","+value);
     var companyId = document.getElementById('companyId').value;
 
@@ -1785,8 +2060,11 @@ function updateCustom(column, id, value) {
             value: value,
         },
         success: function (data) {
+            database.ref('custom_broker').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
-            
+
         }
     });
 }
@@ -1800,6 +2078,9 @@ function deleteCustom(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                database.ref('custom_broker').child(companyid).set({
+                    data: randomString(),
+                });
                 swal('Delete', 'Data Removed Successfully.', 'success');
             }
         });
@@ -1875,56 +2156,56 @@ function paginate_custom_broker(start, limit) {
 
 //ajax Function For insert Truck
 function TruckAdd() {
-        var form_data = new FormData(document.getElementById('truckform'));
-        var totalfiles = document.getElementById('files').files.length;
-        if (totalfiles <= 5) {
-            for (var index = 0; index < totalfiles; index++) {
-            }
-            var truck_number = document.getElementById("truck_number").value;
-            var trucktype1 = document.getElementById("trucktype").value;
-            var truck_type = trucktype1.split(")");
-            var trucktype = truck_type[0];
-            form_data.append("trucktype1", trucktype);
-            var license_plate = document.getElementById("license_plate").value;
-            var plate_expiry = document.getElementById("plate_expiry").value;
-            var vin = document.getElementById("vin").value;
-            var ownership = document.getElementById('ownership').checked;
-            var Own = document.getElementById('Own').checked;
-            if ((ownership == "") && (Own == "")) {
-                swal("Please Select Ownership");
-                return false;
-            }
+    var form_data = new FormData(document.getElementById('truckform'));
+    var totalfiles = document.getElementById('files').files.length;
+    if (totalfiles <= 5) {
+        for (var index = 0; index < totalfiles; index++) {
+        }
+        var truck_number = document.getElementById("truck_number").value;
+        var trucktype1 = document.getElementById("trucktype").value;
+        var truck_type = trucktype1.split(")");
+        var trucktype = truck_type[0];
+        form_data.append("trucktype1", trucktype);
+        var license_plate = document.getElementById("license_plate").value;
+        var plate_expiry = document.getElementById("plate_expiry").value;
+        var vin = document.getElementById("vin").value;
+        var ownership = document.getElementById('ownership').checked;
+        var Own = document.getElementById('Own').checked;
+        if ((ownership == "") && (Own == "")) {
+            swal("Please Select Ownership");
+            return false;
+        }
 
-            if (val_truck_number(truck_number)) {
-                if (val_trucktype(trucktype1)) {
-                    if (val_license_plate(license_plate)) {
-                        if (val_plate_expiry(plate_expiry)) {
-                            if (val_vin(vin)) {
-                                $.ajax({
-                                    url: 'admin/truckadd_driver.php?type=' + 'truckadd',
-                                    method: 'post',
-                                    data: form_data,
-                                    contentType: false,
-                                    cache: false,
-                                    processData: false,
-                                    success: function (data) {
-                                        var companyid = $('#companyid').val();
-                                        database.ref('truck').child(companyid).set({
-                                            data: randomString(),
-                                        });
-                                        swal("Success", data, "success");
-                                        $('#add_Truck').modal('hide');
-                                    }
-                                });
-                            }
+        if (val_truck_number(truck_number)) {
+            if (val_trucktype(trucktype1)) {
+                if (val_license_plate(license_plate)) {
+                    if (val_plate_expiry(plate_expiry)) {
+                        if (val_vin(vin)) {
+                            $.ajax({
+                                url: 'admin/truckadd_driver.php?type=' + 'truckadd',
+                                method: 'post',
+                                data: form_data,
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function (data) {
+                                    var companyid = $('#companyid').val();
+                                    database.ref('truck').child(companyid).set({
+                                        data: randomString(),
+                                    });
+                                    swal("Success", data, "success");
+                                    $('#add_Truck').modal('hide');
+                                }
+                            });
                         }
                     }
                 }
             }
-        } else {
-            swal('Please Select Only 5 File')
         }
+    } else {
+        swal('Please Select Only 5 File')
     }
+}
 
 //
 //update truck table
@@ -1959,10 +2240,11 @@ function updateTruckTable() {
             if(truckList != null){
                 truckList.innerHTML = res[1];
             }
-            
+
         },
     });
-}    
+}
+
 //
 
 // Export Excel Function For Truck Add
@@ -1998,7 +2280,7 @@ function exportTruckAdd() {
 function updateTruckAdd(column, id) {
     var data = $('#truck_table').find('input[type="text"],textarea').val();
 
-    var companyId = document.getElementById('companyId').value;
+    var companyId = $('#companyid').val();
     $.ajax({
         url: 'admin/truckadd_driver.php?type=' + 'edit_truck',
         type: 'POST',
@@ -2010,7 +2292,7 @@ function updateTruckAdd(column, id) {
         },
         success: function (data) {
             var companyid = $('#companyid').val();
-                database.ref('truck').child(companyid).set({
+            database.ref('truck').child(companyid).set({
                 data: randomString(),
             });
             swal("Success", data, "success");
@@ -2028,7 +2310,7 @@ function deleteTruckAdd(id) {
             data: {id: id},
             success: function (data) {
                 var companyid = $('#companyid').val();
-                    database.ref('truck').child(companyid).set({
+                database.ref('truck').child(companyid).set({
                     data: randomString(),
                 });
                 swal("Success", data, "success");
@@ -2074,9 +2356,9 @@ function Traileradd() {
                                 processData: false,
                                 success: function (data) {
                                     var companyid = $('#companyid').val();
-                                        database.ref('trailer').child(companyid).set({
+                                    database.ref('trailer').child(companyid).set({
                                         data: randomString(),
-                                        });
+                                    });
                                     swal("Success", data, "success");
                                     $('#add_Trailer').modal('hide');
                                 }
@@ -2117,6 +2399,7 @@ function updateTrailerTable() {
         type: 'POST',
         dataType: 'text',
         success: function (response) {
+
             var res = response.split('^');
 
             if(trailerBody != null){
@@ -2127,14 +2410,15 @@ function updateTrailerTable() {
             }
         },
     });
-}    
+}
+
 //
 
 //update Trailer Function
 function updateTrailerAdd(column, id) {
     var data = $('#trailer_table').find('input[type="text"],textarea').val();
 
-    var companyId = document.getElementById('companyId').value;
+    var companyId = $('#companyid').val();
 
     $.ajax({
         url: 'admin/traileradd_driver.php?type=' + 'edit_trailer',
@@ -2147,10 +2431,11 @@ function updateTrailerAdd(column, id) {
         },
         success: function (data) {
             var companyid = $('#companyid').val();
-                database.ref('trailer').child(companyid).set({
+            database.ref('trailer').child(companyid).set({
                 data: randomString(),
             });
             swal("Success", data, "success");
+
             document.getElementById(column + id).style.display = "none";
         }
     });
@@ -2167,7 +2452,7 @@ function deleteTrailerAdd(id) {
             data: {id: id},
             success: function (data) {
                 var companyid = $('#companyid').val();
-                    database.ref('trailer').child(companyid).set({
+                database.ref('trailer').child(companyid).set({
                     data: randomString(),
                 });
                 swal("Success", data, "success");
@@ -2243,7 +2528,7 @@ function FactoringCompany() {
                 if (val_fzip(fzip)) {
                     if (val_ftaxid(ftaxid)) {
                         $.ajax({
-                            url: 'admin/factoring_driver.php?type='+'factoringadd',
+                            url: 'admin/factoring_driver.php?type=' + 'factoringadd',
                             type: 'POST',
                             data: {
                                 companyId: companyId,
@@ -2268,9 +2553,9 @@ function FactoringCompany() {
                             dataType: "text",
                             success: function (data) {
                                 var companyid = $('#companyid').val();
-                                        database.ref('factoring').child(companyid).set({
-                                        data: randomString(),
-                                        });
+                                database.ref('factoring').child(companyid).set({
+                                    data: randomString(),
+                                });
                                 swal("Success", data, "success");
                                 $('#add_factoring').modal('hide');
                             },
@@ -2282,41 +2567,52 @@ function FactoringCompany() {
     }
 }
 
-//
-//update factoring table
+//update driver table
 var factoring_path = "factoring/";
 var factoring_path1 = $('#companyid').val();
 var factoring_data = factoring_path1.toString();
-var factoring_test = factoring_path + factoring_data;
+var fatoring_test = factoring_path + factoring_data;
 
-database.ref(factoring_test).on('child_added', function (data) {
+database.ref(fatoring_test).on('child_added', function (data) {
     updateFactoringTable();
 });
-database.ref(factoring_test).on('child_changed', function (data) {
+database.ref(fatoring_test).on('child_changed', function (data) {
     updateFactoringTable();
 });
-database.ref(factoring_test).on('child_removed', function (data) {
+database.ref(fatoring_test).on('child_removed', function (data) {
     updateFactoringTable();
 });
 
-// update table fields
+//update table fields
 function updateFactoringTable() {
+    var factoringBody = document.getElementById('factoringBody');
+    var factoringList = document.getElementById('searchFactoring');
+    var factoringCustomer = document.getElementById('factoringlist');
     $.ajax({
         url: 'admin/utils/getFactoring.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            document.getElementById('factoringBody').innerHTML = response;
+            var res = response.split("^");
+            if (factoringBody != null) {
+                factoringBody.innerHTML = res[0];
+            }
+            if (factoringList != null) {
+                factoringList.innerHTML = res[1];
+            }
+            if (factoringCustomer != null) {
+                factoringCustomer.innerHTML = res[2];
+            }
         },
     });
-}    
+}
 //
 
 //update Factoring Function
 function updateFactoring(column, id) {
     var data = $('#factoring_table').find('input[type="text"],textarea').val();
 
-    var companyId = document.getElementById('companyId').value;
+    var companyId = $('#companyid').val();
     $.ajax({
         url: 'admin/factoring_driver.php?type=' + 'edit_factoring',
         type: 'POST',
@@ -2328,10 +2624,11 @@ function updateFactoring(column, id) {
         },
         success: function (data) {
             var companyid = $('#companyid').val();
-                database.ref('factoring').child(companyid).set({
+            database.ref('factoring').child(companyid).set({
                 data: randomString(),
             });
             swal("Success", data, "success");
+            console.log(column + id);
             document.getElementById(column + id).style.display = "none";
         }
     });
@@ -2346,7 +2643,7 @@ function deletefactoring(id) {
             data: {id: id},
             success: function (data) {
                 var companyid = $('#companyid').val();
-                    database.ref('factoring').child(companyid).set({
+                database.ref('factoring').child(companyid).set({
                     data: randomString(),
                 });
                 swal("Success", data, "success");
@@ -2420,7 +2717,7 @@ function addDriver() {
     var driverPercentage = document.getElementById('driverPercentage').value;
     var terminationDate = document.getElementById('terminationDate').value;
     var InternalNote = document.getElementById('InternalNote').value;
-    alert(driverLicenseIssue);
+
     if (val_driverName(driverName)) {
         if (val_driverUsername(driverUsername)) {
             if (val_driverPassword(driverPassword)) {
@@ -2490,7 +2787,7 @@ function addDriver() {
                                                                                                                                 success: function (data) {
                                                                                                                                     var companyid = $('#companyid').val();
                                                                                                                                     database.ref('driver').child(companyid).set({
-                                                                                                                                        data:randomString(),
+                                                                                                                                        data: randomString(),
                                                                                                                                     });
                                                                                                                                     swal('Success', data, 'success');
                                                                                                                                     $('#add_Driver').modal('hide');
@@ -2532,23 +2829,23 @@ function addDriver() {
 var driver_path = "driver/";
 var driver_path1 = $('#companyid').val();
 var driver_data = driver_path1.toString();
-var driver_test = driver_path+driver_data;
+var driver_test = driver_path + driver_data;
 
 
-database.ref(driver_test).on('child_added', function(data) {
+database.ref(driver_test).on('child_added', function (data) {
     updateDriverTable();
 });
-database.ref(driver_test).on('child_changed', function(data) {
+database.ref(driver_test).on('child_changed', function (data) {
     updateDriverTable();
 });
-database.ref(driver_test).on('child_removed', function(data) {
+database.ref(driver_test).on('child_removed', function (data) {
     updateDriverTable();
 });
 
 //update table fields
-function updateDriverTable(){
+function updateDriverTable() {
     var driverBody = document.getElementById('driverBody');
-    var driverList = document.getElementById('browsersdriver');    
+    var driverList = document.getElementById('browsersdriver');
     $.ajax({
         url: 'admin/utils/getDriver.php',
         type: 'POST',
@@ -2587,7 +2884,7 @@ function importDriver() {
 function updateDriver(column, id) {
     var data = $('#driver_table').find('input[type="text"],textarea').val();
 
-    var companyId = document.getElementById('companyId').value;
+    var companyId = $('#companyid').val();
 
     $.ajax({
         url: 'admin/driver_driver.php?type=' + 'editDriver',
@@ -2600,7 +2897,7 @@ function updateDriver(column, id) {
         success: function (data) {
             var companyid = $('#companyid').val();
             database.ref('driver').child(companyid).set({
-                data:randomString(),
+                data: randomString(),
             });
             swal("Success", data, "success");
             document.getElementById(column + id).style.display = "none";
@@ -2618,7 +2915,7 @@ function deleteDriver(id) {
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('driver').child(companyid).set({
-                    data:randomString(),
+                    data: randomString(),
                 });
                 swal('Delete', 'Data Removed Successfully.', 'success');
             }
@@ -2743,7 +3040,7 @@ database.ref(owner_test).on('child_removed', function(data) {
 
 //update table fields
 function updateOwnerTable(){
-    var ownerList = document.getElementById('browsersowner');    
+    var ownerList = document.getElementById('browsersowner');
     $.ajax({
         url: 'admin/utils/getOwnerOperator.php',
         type: 'POST',
@@ -3200,10 +3497,35 @@ function addCarrier() {
         success: function (data) {
             var companyid = $('#companyid').val();
             database.ref('carrier').child(companyid).set({
-                data:randomString(),
+                data: randomString(),
             });
             swal("Success", data, 'success');
             $('#add_External').modal('hide');
+        }
+    });
+}
+
+function updateExternal(column, id) {
+    var data = $('#carrier_table').find('input[type="text"],textarea').val();
+
+    var companyId = document.getElementById('companyid').value;
+
+    $.ajax({
+        url: 'admin/carrier_driver.php?type=' + 'edit_external',
+        type: 'POST',
+        data: {
+            companyid: companyId,
+            column: column,
+            id: id,
+            value: data,
+        },
+        success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('carrier').child(companyid).set({
+                data: randomString(),
+            });
+            swal("Success", data, "success");
+            document.getElementById(column + id).style.display = "none";
         }
     });
 }
@@ -3212,21 +3534,21 @@ function addCarrier() {
 var external_path = "carrier/";
 var external_path1 = $('#companyid').val();
 var external_data = external_path1.toString();
-var external_test = external_path+external_data;
+var external_test = external_path + external_data;
 
 
-database.ref(external_test).on('child_added', function(data) {
+database.ref(external_test).on('child_added', function (data) {
     updateCarrierTable();
 });
-database.ref(external_test).on('child_changed', function(data) {
+database.ref(external_test).on('child_changed', function (data) {
     updateCarrierTable();
 });
-database.ref(external_test).on('child_removed', function(data) {
+database.ref(external_test).on('child_removed', function (data) {
     updateCarrierTable();
 });
 
 //update table fields
-function updateCarrierTable(){
+function updateCarrierTable() {
     var carrierBody = document.getElementById('carrierBody');
     var carrierList = document.getElementById('browserscarrier');
     $.ajax({
@@ -3243,4 +3565,142 @@ function updateCarrierTable(){
             }
         },
     });
+}
+
+//Driver Recurrence +
+var installmentCategory = [];
+var installmentType = [];
+var amount = [];
+var installment = [];
+var startNo = [];
+var startDate = [];
+var internalNote = [];
+
+function getrecurrence(){
+    for(var i = 0; i < document.getElementsByName('installmentCategory').length; i++){
+        installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
+        installmentType[i] = document.getElementsByName('installmentType')[i].value;
+        amount[i] = document.getElementsByName('amount')[i].value;
+        installment[i] = document.getElementsByName('installment')[i].value;
+        startNo[i] = document.getElementsByName('startNo')[i].value;
+        startDate[i] = document.getElementsByName('startDate')[i].value;
+        internalNote[i] = document.getElementsByName('internalNote')[i].value;
+    }
+    $('#addRecurrence').modal('hide');
+}
+
+function addRecurrenceFields(){
+    if(installmentCategory.length > 0){
+        var innerData = "";
+        for(var i = 0 ; i < installmentCategory.length-1; i++){
+            innerData +='<tr id="recurrenceadd'+i+'">' 
+            +'<td width="150">'
+            +'<input value = "' + installmentCategory[i] + '" class="form-control" name="installmentCategory" list="fixpaycat"/></td>'
+            +'<td width="150">'
+            +'<select name="installmentType" id="installmentType'+i+'" value = "' + installmentType[i] + '" class="form-control">'
+            +'<option value="" > Select Type</option>'
+            +'<option value="Weekly" > Weekly</option>'
+            +'<option value="Monthly"> Monthly</option>'
+            +'<option value="Yearly"> Yearly</option>'
+            +'<option value="Quartely"> Quartely</option>'
+            +'</select></td>'
+            +'<td width="100">'
+            +'<input name="amount" type="text" value = "' + amount[i] + '" class="form-control" /></td>'
+            +'<td width="100">'
+            +'<input name="installment" type="text" value = "' + installment[i] + '" class="form-control" /></td>'
+            +'<td width="100"><input name="startNo" type="text" value = "' + startNo[i] + '" class="form-control" /></td>'
+            +'<td width="10"><input name="startDate" type="date" value = "' + startDate[i] + '" class="form-control" /></td>'
+            +'<td width="250"><textarea rows="1" cols="30" value = "' + internalNote[i] + '" class="form-control" type="textarea" name="internalNote">'+internalNote[i]+'</textarea></td>'
+            +'<td><button type="button" class="btn btn-danger" onclick="removeRowRecurrence('+i+')"><span aria-hidden="true">&times;</span></button></td></tr>'
+            
+        }
+        
+        document.getElementById('TextBoxContainer2').innerHTML = innerData;
+        for(var i = 0; i < installmentCategory.length - 1; i++){
+            var id = "installmentType"+i;
+            if(installmentType[i] == "Weekly"){
+                document.getElementById(id).selectedIndex = "1";
+            }
+            else if(installmentType[i] == "Monthly"){
+                document.getElementById(id).selectedIndex = "2";
+            }
+            else if(installmentType[i] == "Yearly"){
+                document.getElementById(id).selectedIndex = "3";
+            }
+            else if(installmentType[i] == "Quarterly"){
+                document.getElementById(id).selectedIndex = "4";
+            }
+           
+        }
+    }
+    
+}
+
+//Driver Recurrence -
+var installment_Category = [];
+var installment_Type = [];
+var amount_recurrence = [];
+var installment_sub = [];
+var start_No = [];
+var start_Date = [];
+var internal_Note = [];
+
+function recurrencesubstract(){
+    for(var i = 0; i < document.getElementsByName('installment_Category').length; i++){
+        installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
+        installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
+        amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
+        installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
+        start_No[i] = document.getElementsByName('start_No')[i].value;
+        start_Date[i] = document.getElementsByName('start_Date')[i].value;
+        internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
+    }
+    $('#substractRecurrence').modal('hide');
+}
+
+function Recurrence_Fields(){
+    if(installment_Category.length > 0){
+        var innerData = "";
+        for(var i = 0 ; i < installment_Category.length-1; i++){
+            innerData +='<tr id="recurrencesubstractadd'+i+'">' 
+            +'<td width="150">'
+            +'<input value = "' + installment_Category[i] + '" class="form-control" name="installment_Category" list="fixpaycat"/></td>'
+            +'<td width="150">'
+            +'<select name="installment_Type" id="installment_Type'+i+'" value = "' + installment_Type[i] + '" class="form-control">'
+            +'<option value="" > Select Type</option>'
+            +'<option value="Weekly" > Weekly</option>'
+            +'<option value="Monthly"> Monthly</option>'
+            +'<option value="Yearly"> Yearly</option>'
+            +'<option value="Quartely"> Quartely</option>'
+            +'</select></td>'
+            +'<td width="100">'
+            +'<input name="amount_recurrence" type="text" value = "' + amount_recurrence[i] + '" class="form-control" /></td>'
+            +'<td width="100">'
+            +'<input name="installment_sub" type="text" value = "' + installment_sub[i] + '" class="form-control" /></td>'
+            +'<td width="100"><input name="start_No" type="text" value = "' + start_No[i] + '" class="form-control" /></td>'
+            +'<td width="10"><input name="start_Date" type="date" value = "' + start_Date[i] + '" class="form-control" /></td>'
+            +'<td width="250"><textarea rows="1" cols="30" value = "' + internal_Note[i] + '" class="form-control" type="textarea" name="internal_Note">'+internal_Note[i]+'</textarea></td>'
+            +'<td><button type="button" class="btn btn-danger" onclick="recurrence_substract('+i+')"><span aria-hidden="true">&times;</span></button></td></tr>'
+            
+        }
+        
+        document.getElementById('TextBoxContainer3').innerHTML = innerData;
+        for(var i = 0; i < installment_Category.length - 1; i++){
+            var id = "installment_Type"+i;
+            if(installment_Type[i] == "Weekly"){
+                document.getElementById(id).selectedIndex = "1";
+            }
+            else if(installment_Type[i] == "Monthly"){
+                document.getElementById(id).selectedIndex = "2";
+            }
+            else if(installment_Type[i] == "Yearly"){
+                document.getElementById(id).selectedIndex = "3";
+            }
+            else if(installment_Type[i] == "Quarterly"){
+                document.getElementById(id).selectedIndex = "4";
+            }
+           
+        }
+    }
+    
 }

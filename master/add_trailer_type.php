@@ -1,8 +1,8 @@
 <?php session_start();
-require "../database/connection.php";?>
+require "../database/connection.php"; ?>
 <div id="trailer" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
-     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
+    <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header custom-modal-header">
@@ -19,13 +19,15 @@ require "../database/connection.php";?>
                             data-toggle="modal"
                             data-target="#" id="addTrailerType">Add
                     </button>
-                    <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="importTrailer()">Upload
+                    <button type="button" class="btn btn-outline-info waves-effect waves-light float-right"
+                            onclick="importTrailer()">Upload
                     </button>
                     <div class="custom-upload-btn-wrapper float-right">
                         <button class="custom-btn">Choose file</button>
-                        <input type="file" id="file" name="myfile" />
+                        <input type="file" id="file" name="myfile"/>
                     </div>
-                    <a class="btn btn-outline-success waves-effect waves-light" href="download.php?file=Trailer_Type.csv" style="margin-bottom: 2px;">CSV formate
+                    <a class="btn btn-outline-success waves-effect waves-light"
+                       href="download.php?file=Trailer_Type.csv" style="margin-bottom: 2px;">CSV formate
                     </a>
                 </form>
                 <br>
@@ -40,22 +42,28 @@ require "../database/connection.php";?>
                     </thead>
                     <tbody id="trailerTBody">
                     <?php
-
                     $show = $db->trailer_add->find(['companyID' => $_SESSION['companyId']]);
                     $no = 1;
-                    foreach ($show as $row){
-                    $show1 = $row['trailer'];
-                    foreach ($show1 as $row1) {
-                        $id = $row1['_id'];
-                        $trailerType = $row1['trailerType'];
-                        ?>
-                        <tr>
-                            <td><?php echo $no++; ?></td>
-                            <td><div contenteditable="true" onblur="updateTrailer(this,'trailerType','<?php echo $id; ?>')" onclick="activate(this)"><?php echo $trailerType; ?></div></td>
-                            <td><a href="#" onclick="deleteTrailer(<?php echo $id; ?>)"><i class="mdi mdi-delete-sweep-outline"  style="font-size: 20px; color: #FC3B3B"></a></i>
-                            </td>
-                        </tr>
-                    <?php } }?>
+                    foreach ($show as $row) {
+                        $show1 = $row['trailer'];
+                        foreach ($show1 as $row1) {
+                            $id = $row1['_id'];
+                            $trailerType = $row1['trailerType'];
+                            ?>
+                            <tr>
+                                <td><?php echo $no++; ?></td>
+                                <td>
+                                    <div contenteditable="true"
+                                         onblur="updateTrailer(this,'trailerType','<?php echo $id; ?>')"
+                                         onclick="activate(this)"><?php echo $trailerType; ?></div>
+                                </td>
+                                <td><a href="#" onclick="deleteTrailer(<?php echo $id; ?>)"><i
+                                                class="mdi mdi-delete-sweep-outline"
+                                                style="font-size: 20px; color: #FC3B3B"></a></i>
+                                </td>
+                            </tr>
+                        <?php }
+                    } ?>
                     </tbody>
                 </table>
             </div>

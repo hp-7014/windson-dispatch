@@ -27,7 +27,7 @@ require "../database/connection.php";
                                     <th scope="col" col width="160">No</th>
                                     <th scope="col" col width="160" data-priority="1">Email</th>
                                     <th scope="col" col width="160" data-priority="3">Username</th>
-                                    <th scope="col" col width="160" data-priority="1">Password</th>
+<!--                                    <th scope="col" col width="160" data-priority="1">Password</th>-->
                                     <th scope="col" col width="160" data-priority="3">First Name</th>
                                     <th scope="col" col width="160" data-priority="3">Last Name</th>
                                     <th scope="col" col width="160" data-priority="6">Address</th>
@@ -49,7 +49,7 @@ require "../database/connection.php";
                                 $i = 1;
                                 ?>
 
-                                <tbody>
+                                <tbody id="UserBody">
                                 <?php foreach ($show_data as $show) {
                                     $show = $show['user'];
                                     foreach ($show as $s) {
@@ -61,51 +61,51 @@ require "../database/connection.php";
                                             <tr>
                                                 <th><?php echo $i++ ?></th>
                                                 <td>
-                                                    <a href="#" id="userEmail<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userEmail');" class="text-overflow"><?php echo $s['userEmail']; ?></a>
+                                                    <a href="#" id="1userEmail<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userEmail');" class="text-overflow"><?php echo $s['userEmail']; ?></a>
                                                     <button type="button" id="userEmail<?php echo $s['_id']; ?>" onclick="updateUser('userEmail',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="userName<?php echo $s['_id']; ?>2" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userName');" class="text-overflow"><?php echo $s['userName']; ?></a>
+                                                    <a href="#" id="1userName<?php echo $s['_id']; ?>2" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userName');" class="text-overflow"><?php echo $s['userName']; ?></a>
                                                     <button type="button" id="userName<?php echo $s['_id']; ?>" onclick="updateUser('userName',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
-                                                <td>
-                                                    <a href="#" id="userPass<?php echo $s['_id']; ?>3" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userPass');" class="text-overflow"><?php echo $s['userPass']; ?></a>
+                                                <!---<td>
+                                                    <a href="#" id="1userPass<?php echo $s['_id']; ?>3" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>//,'userPass');" class="text-overflow"><?php echo $s['userPass']; ?></a>
                                                     <button type="button" id="userPass<?php echo $s['_id']; ?>" onclick="updateUser('userPass',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                                </td>
+                                             </td>--->
                                                 <td>
-                                                    <a href="#" id="userFirstName<?php echo $s['_id']; ?>4" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userFirstName');" class="text-overflow"><?php echo $s['userFirstName']; ?></a>
+                                                    <a href="#" id="1userFirstName<?php echo $s['_id']; ?>4" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userFirstName');" class="text-overflow"><?php echo $s['userFirstName']; ?></a>
                                                     <button type="button" id="userFirstName<?php echo $s['_id']; ?>" onclick="updateUser('userFirstName',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="userLastName<?php echo $s['_id']; ?>5" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userLastName');" class="text-overflow"><?php echo $s['userLastName']; ?></a>
+                                                    <a href="#" id="1userLastName<?php echo $s['_id']; ?>5" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userLastName');" class="text-overflow"><?php echo $s['userLastName']; ?></a>
                                                     <button type="button" id="userLastName<?php echo $s['_id']; ?>" onclick="updateUser('userLastName',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="userAddress<?php echo $s['_id']; ?>6" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userAddress');" class="text-overflow"><?php echo $s['userAddress']; ?></a>
+                                                    <a href="#" id="1userAddress<?php echo $s['_id']; ?>6" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userAddress');" class="text-overflow"><?php echo $s['userAddress']; ?></a>
                                                     <button type="button" id="userAddress<?php echo $s['_id']; ?>" onclick="updateUser('userAddress',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="userLocation<?php echo $s['_id']; ?>7" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userLocation');" class="text-overflow"><?php echo $s['userLocation']; ?></a>
+                                                    <a href="#" id="1userLocation<?php echo $s['_id']; ?>7" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userLocation');" class="text-overflow"><?php echo $s['userLocation']; ?></a>
                                                     <button type="button" id="userLocation<?php echo $s['_id']; ?>" onclick="updateUser('userLocation',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="userZip<?php echo $s['_id']; ?>8" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userZip');" class="text-overflow"><?php echo $s['userZip']; ?></a>
+                                                    <a href="#" id="1userZip<?php echo $s['_id']; ?>8" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userZip');" class="text-overflow"><?php echo $s['userZip']; ?></a>
                                                     <button type="button" id="userZip<?php echo $s['_id']; ?>" onclick="updateUser('userZip',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="userTelephone<?php echo $s['_id']; ?>9" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userTelephone');" class="text-overflow"><?php echo $s['userTelephone']; ?></a>
+                                                    <a href="#" id="1userTelephone<?php echo $s['_id']; ?>9" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userTelephone');" class="text-overflow"><?php echo $s['userTelephone']; ?></a>
                                                     <button type="button" id="userTelephone<?php echo $s['_id']; ?>" onclick="updateUser('userTelephone',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="userExt<?php echo $s['_id']; ?>10" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userExt');" class="text-overflow"><?php echo $s['userExt']; ?></a>
+                                                    <a href="#" id="1userExt<?php echo $s['_id']; ?>10" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userExt');" class="text-overflow"><?php echo $s['userExt']; ?></a>
                                                     <button type="button" id="userExt<?php echo $s['_id']; ?>" onclick="updateUser('userExt',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="TollFree<?php echo $s['_id']; ?>11" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'TollFree');" class="text-overflow"><?php echo $s['TollFree']; ?></a>
+                                                    <a href="#" id="1TollFree<?php echo $s['_id']; ?>11" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'TollFree');" class="text-overflow"><?php echo $s['TollFree']; ?></a>
                                                     <button type="button" id="TollFree<?php echo $s['_id']; ?>" onclick="updateUser('TollFree',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="userFax<?php echo $s['_id']; ?>12" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userFax');" class="text-overflow"><?php echo $s['userFax']; ?></a>
+                                                    <a href="#" id="1userFax<?php echo $s['_id']; ?>12" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userFax');" class="text-overflow"><?php echo $s['userFax']; ?></a>
                                                     <button type="button" id="userFax<?php echo $s['_id']; ?>" onclick="updateUser('userFax',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                                 </td>
 
@@ -113,7 +113,6 @@ require "../database/connection.php";
                                                 <td><a href="#" onclick="deleteUser(<?php echo $s['_id']; ?>)"><i
                                                                 class="mdi mdi-delete-sweep-outline"
                                                                 style="font-size: 20px; color: #FC3B3B"></i></a></td>
-
                                             </tr>
                                         <?php }
                                     }
@@ -125,7 +124,7 @@ require "../database/connection.php";
                                     <th>No</th>
                                     <th>Email</th>
                                     <th>Username</th>
-                                    <th>Password</th>
+<!--                                    <th>Password</th>-->
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Address</th>
@@ -285,7 +284,7 @@ require "../database/connection.php";
                     <div class="form-group col-md-2">
                         <label>Location </label>
                         <div>
-                            <input class="form-control" onclick="getLocation(this.id)" id="userLocation" placeholder="Location" type="text"
+                            <input class="form-control" onkeyup="getLocation('userLocation')" id="userLocation" placeholder="Location" type="text"
                             >
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 <?php
-    session_start();
-    include '../database/connection.php';
+session_start();
+include '../database/connection.php';
 ?>
 
 <!-- Modal content for the above example -->
@@ -17,24 +17,32 @@
             </div>
 
             <div class="modal-body custom-modal-body" style="padding: 0.1rem">
-                <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right"type="text" id="search" placeholder="search" style="margin-left: 5px;">
+
+                <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" type="text" id="search"
+                       placeholder="search" style="margin-left: 5px;">
 
                 <div class="bank-container" style="z-index: 1400"></div>
                 <form action="" method="post" enctype="multipart/form-data">
-                    <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#" id="AddBank"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD</button>
-                    <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>
+                    <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#"
+                            id="AddBank"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD
+                    </button>
+                    <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV
+                        formate
+                    </button>
                     <div class="custom-upload-btn-wrapper float-right">
                         <button class="custom-btn">Choose file</button>
-                        <input type="file" id="file" name="myfile" />
+                        <input type="file" id="file" name="myfile"/>
                     </div>
-                    <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="import_Admin()">Upload</button>
+                    <button type="button" class="btn btn-outline-info waves-effect waves-light float-right"
+                            onclick="import_Admin()">Upload
+                    </button>
                 </form>
 
                 <div class="table-rep-plugin">
                     <div class="table-responsive b-0" data-pattern="priority-columns">
                         <br>
                         <div id="table-scroll" class="table-scroll">
-                            <table id="bank_table" class="scroll" >
+                            <table id="bank_table" class="scroll">
                                 <thead>
                                 <tr>
                                     <th scope="col" col width="160">No</th>
@@ -55,7 +63,7 @@
                                 $i = 1;
                                 ?>
 
-                                <tbody>
+                                <tbody id="bankBody">
                                 <?php foreach ($g_data as $data) {
                                     $bank_admin = $data['admin_bank'];
 
@@ -68,12 +76,26 @@
                                             <tr>
                                                 <th><?php echo $i++ ?></th>
                                                 <td>
-                                                    <a href="#" id="bankName<?php echo $admin['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'bankName');" class="text-overflow"><?php echo $admin['bankName']; ?></a>
-                                                    <button type="button" id="bankName<?php echo $admin['_id']; ?>" onclick="updateBank('bankName',<?php echo $admin['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    <a href="#" id="1bankName<?php echo $admin['_id']; ?>"
+                                                       data-type="textarea"
+                                                       ondblclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'bankName');"
+                                                       class="text-overflow"><?php echo $admin['bankName']; ?></a>
+                                                    <button type="button" id="bankName<?php echo $admin['_id']; ?>"
+                                                            onclick="updateBank('bankName',<?php echo $admin['_id']; ?>)"
+                                                            style="display:none; margin-left:6px;"
+                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
+                                                        <i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="bankAddresss<?php echo $admin['_id']; ?>2" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'bankAddresss');" class="text-overflow"><?php echo $admin['bankAddresss']; ?></a>
-                                                    <button type="button" id="bankAddresss<?php echo $admin['_id']; ?>" onclick="updateBank('bankAddresss',<?php echo $admin['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    <a href="#" id="1bankAddresss<?php echo $admin['_id']; ?>"
+                                                       data-type="textarea"
+                                                       ondblclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'bankAddresss');"
+                                                       class="text-overflow"><?php echo $admin['bankAddresss']; ?></a>
+                                                    <button type="button" id="bankAddresss<?php echo $admin['_id']; ?>"
+                                                            onclick="updateBank('bankAddresss',<?php echo $admin['_id']; ?>)"
+                                                            style="display:none; margin-left:6px;"
+                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
+                                                        <i class="mdi mdi-check"></i></button>
                                                 </td>
 
                                                 <td>
@@ -94,28 +116,73 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="accountNo<?php echo $admin['_id']; ?>2" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'accountNo');" class="text-overflow"><?php echo $admin['accountNo']; ?></a>
-                                                    <button type="button" id="accountNo<?php echo $admin['_id']; ?>" onclick="updateBank('accountNo',<?php echo $admin['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    <a href="#" id="1accountNo<?php echo $admin['_id']; ?>"
+                                                       data-type="textarea"
+                                                       ondblclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'accountNo');"
+                                                       class="text-overflow"><?php echo $admin['accountNo']; ?></a>
+                                                    <button type="button" id="accountNo<?php echo $admin['_id']; ?>"
+                                                            onclick="updateBank('accountNo',<?php echo $admin['_id']; ?>)"
+                                                            style="display:none; margin-left:6px;"
+                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
+                                                        <i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="routingNo<?php echo $admin['_id']; ?>2" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'routingNo');" class="text-overflow"><?php echo $admin['routingNo']; ?></a>
-                                                    <button type="button" id="routingNo<?php echo $admin['_id']; ?>" onclick="updateBank('routingNo',<?php echo $admin['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    <a href="#" id="1routingNo<?php echo $admin['_id']; ?>"
+                                                       data-type="textarea"
+                                                       ondblclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'routingNo');"
+                                                       class="text-overflow"><?php echo $admin['routingNo']; ?></a>
+                                                    <button type="button" id="routingNo<?php echo $admin['_id']; ?>"
+                                                            onclick="updateBank('routingNo',<?php echo $admin['_id']; ?>)"
+                                                            style="display:none; margin-left:6px;"
+                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
+                                                        <i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="openingBalDate<?php echo $admin['_id']; ?>2" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'openingBalDate');" class="text-overflow"><?php echo $admin['openingBalDate']; ?></a>
-                                                    <button type="button" id="openingBalDate<?php echo $admin['_id']; ?>" onclick="updateBank('openingBalDate',<?php echo $admin['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    <a href="#" id="1openingBalDate<?php echo $admin['_id']; ?>"
+                                                       data-type="textarea"
+                                                       ondblclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'openingBalDate');"
+                                                       class="text-overflow"><?php echo $admin['openingBalDate']; ?></a>
+                                                    <button type="button"
+                                                            id="openingBalDate<?php echo $admin['_id']; ?>"
+                                                            onclick="updateBank('openingBalDate',<?php echo $admin['_id']; ?>)"
+                                                            style="display:none; margin-left:6px;"
+                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
+                                                        <i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="openingBalance<?php echo $admin['_id']; ?>2" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'openingBalance');" class="text-overflow"><?php echo $admin['openingBalance']; ?></a>
-                                                    <button type="button" id="openingBalance<?php echo $admin['_id']; ?>" onclick="updateBank('openingBalance',<?php echo $admin['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    <a href="#" id="1openingBalance<?php echo $admin['_id']; ?>"
+                                                       data-type="textarea"
+                                                       ondblclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'openingBalance');"
+                                                       class="text-overflow"><?php echo $admin['openingBalance']; ?></a>
+                                                    <button type="button"
+                                                            id="openingBalance<?php echo $admin['_id']; ?>"
+                                                            onclick="updateBank('openingBalance',<?php echo $admin['_id']; ?>)"
+                                                            style="display:none; margin-left:6px;"
+                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
+                                                        <i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="transacBalance<?php echo $admin['_id']; ?>2" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'transacBalance');" class="text-overflow"><?php echo $admin['openingBalance']; ?></a>
-                                                    <button type="button" id="transacBalance<?php echo $admin['_id']; ?>" onclick="updateBank('transacBalance',<?php echo $admin['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                    <a href="#" id="1transacBalance<?php echo $admin['_id']; ?>"
+                                                       data-type="textarea"
+                                                       ondblclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'transacBalance');"
+                                                       class="text-overflow"><?php echo $admin['openingBalance']; ?></a>
+                                                    <button type="button"
+                                                            id="transacBalance<?php echo $admin['_id']; ?>"
+                                                            onclick="updateBank('transacBalance',<?php echo $admin['_id']; ?>)"
+                                                            style="display:none; margin-left:6px;"
+                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
+                                                        <i class="mdi mdi-check"></i></button>
                                                 </td>
-                                                 <td>
-                                                    <a href="#" id="currentcheqNo<?php echo $admin['_id']; ?>2" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'currentcheqNo');" class="text-overflow"><?php echo $admin['currentcheqNo']; ?></a>
-                                                    <button type="button" id="currentcheqNo<?php echo $admin['_id']; ?>" onclick="updateBank('currentcheqNo',<?php echo $admin['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                                <td>
+                                                    <a href="#" id="1currentcheqNo<?php echo $admin['_id']; ?>"
+                                                       data-type="textarea"
+                                                       ondblclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'currentcheqNo');"
+                                                       class="text-overflow"><?php echo $admin['currentcheqNo']; ?></a>
+                                                    <button type="button" id="currentcheqNo<?php echo $admin['_id']; ?>"
+                                                            onclick="updateBank('currentcheqNo',<?php echo $admin['_id']; ?>)"
+                                                            style="display:none; margin-left:6px;"
+                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
+                                                        <i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td><a href="#" onclick="deleteBank(<?php echo $admin['_id']; ?>)"><i
                                                                 class="mdi mdi-delete-sweep-outline"
@@ -149,16 +216,21 @@
                     <nav aria-label="..." class="float-right">
                         <ul class="pagination">
                             <?php
-                            for($i=1; $i<=$total_pages; $i++){
-                                if($i == 1){
+                            for ($i = 1; $i <= $total_pages; $i++) {
+                                if ($i == 1) {
                                     ?>
-                                    <li class="pageitem active" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" data-id="<?php echo $i;?>" class="page-link" ><?php echo $i;?></a></li>
+                                    <li class="pageitem active" id="<?php echo $i; ?>"><a href="JavaScript:Void(0);"
+                                                                                          data-id="<?php echo $i; ?>"
+                                                                                          class="page-link"><?php echo $i; ?></a>
+                                    </li>
 
                                     <?php
-                                }
-                                else{
+                                } else {
                                     ?>
-                                    <li class="pageitem" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" class="page-link" data-id="<?php echo $i;?>"><?php echo $i;?></a></li>
+                                    <li class="pageitem" id="<?php echo $i; ?>"><a href="JavaScript:Void(0);"
+                                                                                   class="page-link"
+                                                                                   data-id="<?php echo $i; ?>"><?php echo $i; ?></a>
+                                    </li>
                                     <?php
                                 }
                             }
@@ -169,7 +241,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" onclick="export_Admin()" class="btn btn-primary waves-effect" data-dismiss="modal">
+                <button type="button" onclick="export_Admin()" class="btn btn-primary waves-effect"
+                        data-dismiss="modal">
                     Export
                 </button>
 
@@ -185,4 +258,3 @@
 </div><!-- /.modal -->
 
 <!-------------------------------------------------------------------------------------------------------------------------------------------->
-<!-----------------------------------------------Add bank------------------------------------------------------------------------------------->

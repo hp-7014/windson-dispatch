@@ -273,6 +273,7 @@ $(document).on('click', '#AddDriver', function () {
     // });
 
     $(document).on('click', '#AddFactoring', function () {
+
         $.ajax({
             type: 'POST',
             success: function (data) {
@@ -341,9 +342,11 @@ $(document).on('click', '#recurrenceplus', function () {
             $('.owner-container').load('./admin/addRecurrence.php', function (result) {
                 $('#addRecurrence').modal({show: true});
             });
+            setTimeout(function(){  addRecurrenceFields(); }, 300);
         }
     });
 });
+
 $(document).on('click', '#recurrenceminus', function () {
     $.ajax({
         type: 'POST',
@@ -351,6 +354,7 @@ $(document).on('click', '#recurrenceminus', function () {
             $('.owner-container').load('./admin/substractRecurrence.php', function (result) {
                 $('#substractRecurrence').modal({show: true});
             });
+            setTimeout(function(){  Recurrence_Fields(); }, 300);
         }
     });
 });
@@ -400,7 +404,7 @@ $(document).on('click', '#addTrailerType', function () {
     $.ajax({
         type: 'POST',
         success: function (data) {
-            $('.trailer-container').load('./master/trailer_type_modal_sub.php', function (result) {
+            $('.trailer-container1').load('./master/trailer_type_modal_sub.php', function (result) {
                 $('#Add_Trailer_Type').modal({show: true});
             });
         }

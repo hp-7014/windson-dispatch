@@ -7,34 +7,39 @@ require "../database/connection.php";
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
+
+                <div class="trailer-container1" style="z-index: 1600"></div>
+
                 <h5 class="modal-title custom-modal-title mt-0" id="myLargeModalLabel">Add Trailer</h5>
-                <button type="button" class="close modalTrailer"  aria-label="Close">
+                <button type="button" class="close modalTrailer" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" enctype="multipart/form-data" id="trailerform" >
+            <form method="post" enctype="multipart/form-data" id="trailerform">
                 <div class="modal-body custom-modal-body">
                     <div class="row">
                         <div class="form-group col-md-2">
-                            <label>Trailer Number *</label>
+                            <label>Trailer Number <span class="mandatory">*</span></label>
                             <div>
                                 <input class="form-control" placeholder="Trailer Number *"
                                        type="text" id="trailer_number" name="trailer_number">
                             </div>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="trailertype">Trailer Type</label>
-                            <input id="trailertype" name="traileradd_type" list="trailertypes"/>
+                            <label for="trailertype">Trailer Type <span class="mandatory">*</span></label><i
+                                    class="mdi mdi-plus-circle plus" title="Add Trailer Type" id="addTrailerType"></i>
+                            <input class="form-control" id="trailertype" name="traileradd_type" list="trailertypes"
+                                   placeholder="Trailer Type"/>
                         </div>
                         <div class="form-group col-md-2">
-                            <label>License Plate</label>
+                            <label>License Plate <span class="mandatory">*</span></label>
                             <div>
                                 <input class="form-control" placeholder="License Plate"
                                        type="text" id="license_plate" name="license_plate">
                             </div>
                         </div>
                         <div class="form-group col-md-2 ">
-                            <label>Plate Expiry</label>
+                            <label>Plate Expiry <span class="mandatory">*</span></label>
                             <div>
                                 <input class="form-control" type="date" id="plate_expiry" name="plate_expiry">
                             </div>
@@ -59,7 +64,8 @@ require "../database/connection.php";
                         <div class="form-group col-md-2">
                             <label>Model</label>
                             <div>
-                                <input class="form-control" placeholder="Model" type="text" id="truckmod" name="truckmod">
+                                <input class="form-control" placeholder="Model" type="text" id="truckmod"
+                                       name="truckmod">
                             </div>
                         </div>
                         <div class="form-group col-md-1">
@@ -77,15 +83,14 @@ require "../database/connection.php";
                             </div>
                         </div>
                         <div class="form-group col-md-2">
-                            <label>
-                                Registered State *</label>
-                            <select class="form-control" id="register_state" name="register_state">
-                                <option value="LA">LA</option>
-                                <option value="NY">NY</option>
-                            </select>
+                            <p class="form-box">
+                                <label for="RegisteredState">Registered State</label>
+                                <input class="form-control" id="registered_state" name="registered_state"
+                                       list="registeredstate" placeholder="Registered State" required/>
+                            </p>
                         </div>
                         <div class="form-group col-md-2 ">
-                            <label>VIN #</label>
+                            <label>VIN <span class="mandatory">*</span></label>
                             <div>
                                 <input class="form-control" type="text" placeholder="VIN #" id="vin" name="vin">
                             </div>
@@ -105,14 +110,17 @@ require "../database/connection.php";
                         <div class="form-group col-md-4">
                             <label>Internal Notes</label>
                             <div>
-                                <textarea rows="2" cols="30" class="form-control" type="textarea" id="internal_notes" name="internal_notes"></textarea>
-                                <input type="hidden" id="companyId" name="companyId" value="<?php echo $_SESSION['companyId']; ?>">
+                                <textarea rows="2" cols="30" class="form-control" type="textarea" id="internal_notes"
+                                          name="internal_notes"></textarea>
+                                <input type="hidden" id="companyId" name="companyId"
+                                       value="<?php echo $_SESSION['companyId']; ?>">
                             </div>
                         </div>
                         <div>
                             <div class="custom-upload-btn-wrapper float-right">
-                                <button class="custom-btn" style="margin-top: 35px; margin-right: 100px">Choose file</button>
-                                <input type="file" id="files" name="files[]"  multiple accept=".png, .jpg, .jpeg, .pdf"/>
+                                <button class="custom-btn" style="margin-top: 35px; margin-right: 100px">Choose file
+                                </button>
+                                <input type="file" id="files" name="files[]" multiple accept=".png, .jpg, .jpeg, .pdf"/>
                             </div>
                         </div>
                     </div>
@@ -121,19 +129,20 @@ require "../database/connection.php";
             <datalist id="trailertypes">
                 <?php
                 $show = $db->trailer_add->find(['companyID' => $_SESSION['companyId']]);
-                foreach ($show as $row){
+                foreach ($show as $row) {
                     $show1 = $row['trailer'];
                     foreach ($show1 as $row1) {
-                        $id = $row1['_id'];
-                        $trailerType = $row1['trailerType'];
-                        ?>
-                        <option value="<?php echo $id; ?>"><?php echo $trailerType;  ?></option>
-                    <?php }
+                        $equipValue = "'".$row1['_id'].")&nbsp;".$row1['trailerType']."'";
+                        echo " <option value=$equipValue></option>";
+
+                    }
                 } ?>
             </datalist>
             <div class="modal-footer">
-                <label class="text-danger" style="padding-right: 360px"><b>Note :</b>&nbsp; The Document Upload Only One Time After Upload Document You Cannot Change. Only .jpg .jpeg .png .pdf Formate Upload.  File Size Limit 200KB.  Only 5 File Upload. </label>
-                <button type="button" class="btn btn-danger waves-effect modalTrailer" >
+                <label class="text-danger" style="padding-right: 360px"><b>Note :</b>&nbsp; The Document Upload Only One
+                    Time After Upload Document You Cannot Change. Only .jpg .jpeg .png .pdf Formate Upload. File Size
+                    Limit 200KB. Only 5 File Upload. </label>
+                <button type="button" class="btn btn-danger waves-effect modalTrailer">
                     Close
                 </button>
                 <button type="button" class="btn btn-primary waves-effect waves-light" onclick="Traileradd()">Save

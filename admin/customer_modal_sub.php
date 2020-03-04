@@ -15,6 +15,9 @@ require "../database/connection.php";
                 </button>
             </div>
             <div class="modal-body custom-modal-body">
+                <div class="currency-container" style="z-index: 1600"></div>
+                <div class="payment-container" style="z-index: 1600"></div>
+                <div class="factoring-container" style="z-index: 1600"></div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item1 show" id="home-title">
                         <a class="nav-link1 active" onclick="toggle()" id="home-tab" data-toggle="tab" href="#"
@@ -52,7 +55,7 @@ require "../database/connection.php";
                                 <label>Location <span style="color: red">*</span></label>
                                 <div>
                                     <input class="form-control"
-                                           placeholder="Location *" onclick="getLocation(this.id)" type="text"
+                                           placeholder="Location *" onkeyup="getLocation('custLocation')" type="text"
                                            id="custLocation">
                                 </div>
                             </div>
@@ -68,7 +71,7 @@ require "../database/connection.php";
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input"
                                            id="customCheck1" name="sameAsMailingAddress"
-                                           data-parsley-multiple="groups"
+                                           data-parsley-multiple="groups" onclick="setBillingDetail(this.value)"
                                            data-parsley-mincheck="2">
                                     <label class="custom-control-label" for="customCheck1">Same
                                         as Mailing Address</label>
@@ -223,6 +226,7 @@ require "../database/connection.php";
 
                         </div>
                         <hr>
+                        <label class="text-danger" style="padding-right: 70%"><b>Note :</b>&nbsp; * Fields are mandatory</label>
                         <button onclick="toggle()" class="btn btn-success float-right">Next
                         </button>
 
@@ -234,7 +238,10 @@ require "../database/connection.php";
 
                         <div class="row">
                             <div class="form-group col-md-3">
-                                <label>Currency Setting</label>
+                                <label>Currency Setting</label>&nbsp;<i title="Add Currency"
+                                                                        class="mdi mdi-plus-circle plus"
+                                                                        id="AddCurrency"></i>
+
                                 <select class="form-control" id="currencySetting">
                                     <option>---select---</option>
                                     <?php
@@ -243,27 +250,29 @@ require "../database/connection.php";
                                         $show = $cur['currency'];
                                         foreach ($show as $s) {
                                             ?>
-                                            <option value="<?php echo $s['currencyType'] ?>"><?php echo $s['currencyType'] ?></option>
+                                            <option value="<?php echo $s['_id'] ?>"><?php echo $s['_id']; ?>
+                                                )&nbsp;<?php echo $s['currencyType'] ?></option>
                                         <?php }
                                     } ?>
                                 </select>
                             </div>
                             <div class="form-group col-md-3">
-                                <label>Payment Terms</label>
-                                <select class="form-control" id="paymentTerms">
-                                    <option>---select---</option>
+                                <label>Payment Terms</label>&nbsp;<i class="mdi mdi-plus-circle plus"
+                                                                     title="Add Payment Terms"
+                                                                     id="Add_Payment_Terms"></i>
+                                <input id="paymentTerms" class="form-control" placeholder="--select--"
+                                       list="paymentlist"/>
+                                <datalist id="paymentlist">
                                     <?php
                                     $payment = $db->payment_terms->find(['companyID' => $_SESSION['companyId']]);
                                     foreach ($payment as $pay) {
                                         $show = $pay['payment'];
                                         foreach ($show as $s) {
-                                            ?>
-                                            <option value="<?php echo $s['paymentTerm'] ?>"><?php echo $s['paymentTerm'] ?></option>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
-                                </select>
+                                            $equipValue = "'" . $s['_id'] . ")&nbsp;" . $s['paymentTerm'] . "'";
+                                            echo " <option value=$equipValue></option>";
+                                     }
+                                    } ?>
+                                </datalist>
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Credit Limit $</label>
@@ -273,22 +282,47 @@ require "../database/connection.php";
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
-                                <label>Sales Rep</label>
-                                <select class="form-control" id="salesRep">
-                                    <option>---select---</option>
-                                    <option>abc</option>
-                                    <option>xyz</option>
-                                </select>
+                                <label>Sales Representative</label>
+                                <input id="salesRep" class="form-control" placeholder="--select--" list="userlist"/>
+                                <datalist id="userlist">
+                                    <?php
+                                    $show = $db->user->find(['companyID' => $_SESSION['companyId']]);
+                                    foreach ($show
+
+                                    as $row) {
+                                    $show1 = $row['user'];
+                                    foreach ($show1
+
+                                    as $row1) {
+                                    $id = $row1['_id'];
+                                    $name = $row1['userFirstName'] . "&nbsp;" . $row1['userLastName'];
+                                    $cur = "$name";
+                                    ?>
+                                    <option value="<?php echo $id . ") " . $cur; ?>">
+                                        <?php }
+                                        } ?>
+                                </datalist>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-3">
-                                <label>Factoring Company</label>
-                                <select class="form-control" id="factoringCompany">
-                                    <option>---select---</option>
-                                    <option>abc</option>
-                                    <option>xyz</option>
-                                </select>
+                                <label>Factoring Company</label>&nbsp;<i class="mdi mdi-plus-circle plus"
+                                                                         title="Add Factoring Company"
+                                                                         id="AddFactoring"></i>
+                                <input id="factoringCompany" class="form-control" placeholder="--select--"
+                                       list="factoringlist"/>
+                                <datalist id="factoringlist">
+                                    <?php
+                                    $payment = $db->factoring_company_add->find(['companyID' => $_SESSION['companyId']]);
+                                    foreach ($payment as $pay) {
+                                        $show = $pay['factoring'];
+                                        foreach ($show as $s) {
+                                            $equipValue = "'" . $s['_id'] . ")&nbsp;" . $s['factoringCompanyname'] . "'";
+                                            echo " <option value=$equipValue></option>"
+                                            ?>
+                                        <?php }
+                                    } ?>
+                                </datalist>
                             </div>
                             <div class="form-group col-md-3">
                                 <label>Federal ID</label>
@@ -346,8 +380,9 @@ require "../database/connection.php";
                             </div>
                         </div>
                         <hr>
+                        <label class="text-danger"><b>Note :</b>&nbsp; * Fields are mandatory</label>
                         <button onclick="addCustomer()" class="float-right btn btn-primary">Save</button>
-                        <button style="margin-right: 3px"  class="float-right btn btn-danger modalCustomer">
+                        <button style="margin-right: 3px" class="float-right btn btn-danger modalCustomer">
                             Close
                         </button>
                         <button onclick="toggle()" style="margin-right: 3px" class="float-right btn btn-secondary">

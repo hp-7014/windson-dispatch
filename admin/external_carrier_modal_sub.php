@@ -19,6 +19,8 @@ require "../database/connection.php";
                 </button>
             </div>
             <div class="modal-body custom-modal-body">
+                <div class="payment-container" style="z-index: 1600"></div>
+                <div class="factoring-container" style="z-index: 1600"></div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item1 show" id="home-title">
                         <a class="nav-link1 active" id="home-tab" data-toggle="tab"
@@ -50,7 +52,7 @@ require "../database/connection.php";
                         <br>
                         <div class="row">
                             <div class="form-group col-md-3">
-                                <label>Name *</label>
+                                <label>Name <span style="color: red">*</span></label>
                                 <div>
                                     <input class="form-control" placeholder="Name" id="carrierName" name="carrierName"
                                            type="text">
@@ -58,7 +60,7 @@ require "../database/connection.php";
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
-                                <label>Address *</label>
+                                <label>Address <span style="color: red">*</span></label>
                                 <div>
                                     <input class="form-control" placeholder="Address *" id="carrierAddress"
                                            name="carrierAddress"
@@ -66,7 +68,7 @@ require "../database/connection.php";
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>Location *</label>
+                                <label>Location <span style="color: red">*</span></label>
                                 <div>
                                     <input class="form-control" placeholder="Enter a location"
                                            onkeydown="getLocation('carrierLocation')" type="text" id="carrierLocation"
@@ -74,7 +76,7 @@ require "../database/connection.php";
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>Zip *</label>
+                                <label>Zip <span style="color: red">*</span></label>
                                 <div>
                                     <input class="form-control" placeholder="Zip Code"
                                            type="text" id="carrierZip" name="carrierZip">
@@ -88,17 +90,17 @@ require "../database/connection.php";
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
-                                <label>Email *</label>
+                                <label>Email <span style="color: red">*</span></label>
                                 <div>
                                     <input class="form-control" type="email"
-                                           value="" id="carrierEmail" name="carrierEmail">
+                                           value="" id="carrierEmail" placeholder="Email" name="carrierEmail">
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>Telephone *</label>
+                                <label>Telephone <span style="color: red">*</span></label>
                                 <div>
                                     <input class="form-control" type="text" id="carrierTelephone"
-                                           name="carrierTelephone"
+                                           name="carrierTelephone" placeholder="Telephone"
                                     >
                                 </div>
                             </div>
@@ -124,7 +126,8 @@ require "../database/connection.php";
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>Payment Terms</label>
+                                <label>Payment Terms</label> <i class="mdi mdi-plus-circle plus"
+                                                                title="Add Payment Terms" id="Add_Payment_Terms"></i>
 
                                 <input list="browsers" class="form-control" id="carrierPayTerms" name="carrierPayTerms">
                                 <datalist id="browsers">
@@ -143,28 +146,29 @@ require "../database/connection.php";
 
                             </div>
                             <div class="form-group col-md-2">
-                                <label>Tax ID *</label>
+                                <label>Tax ID <span style="color: red">*</span></label>
                                 <div>
                                     <input class="form-control" placeholder="Tax ID *"
                                            type="text" id="carrierTaxID" name="carrierTaxID">
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>M.C. #: *</label>
+                                <label>M.C. #: <span style="color: red">*</span></label>
                                 <div>
                                     <input class="form-control" placeholder="M.C. #: *"
                                            type="text" id="carrierMC" name="carrierMC">
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>D.O.T. *</label>
+                                <label>D.O.T. <span style="color: red">*</span></label>
                                 <div>
                                     <input class="form-control" placeholder="D.O.T. *"
                                            type="text" id="carrierDOT" name="carrierDOT">
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
-                                <label>Factoring Company</label>
+                                <label>Factoring Company</label> <i class="mdi mdi-plus-circle plus"
+                                                                    title="Add Factoring Company" id="AddFactoring"></i>
 
                                 <input list="browsers1" class="form-control" id="carrierFactoring"
                                        name="carrierFactoring">
@@ -290,7 +294,6 @@ require "../database/connection.php";
                                                 ></textarea>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

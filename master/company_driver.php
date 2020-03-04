@@ -19,7 +19,7 @@ if ($_GET['type'] == 'add_company') {
     $Company->setUsDotNo($_POST['usDotNo']);
     $Company->setMailingAddress($_POST['mailingAddress']);
     $Company->setFactoringCompany($_POST['factoringCompany']);
-    $Company->setFactoringCompanyAddress($_POST['factoringCompanyAddress']);
+//    $Company->setFactoringCompanyAddress($_POST['factoringCompanyAddress']);
     $Company->insert($Company,$db,$helper);
     echo 'Data Added Successfully';
 }

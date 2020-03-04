@@ -34,7 +34,7 @@ require "../database/connection.php";
                     <div class="form-group col-md-2">
                         <label>Location <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control" onclick="getLocation(this.id)" placeholder="Location *"
+                            <input class="form-control" onkeyup="getLocation('consigneeLocation')" placeholder="Location *"
                                    type="text" id="consigneeLocation">
                         </div>
                     </div>

@@ -5,6 +5,8 @@ include '../database/connection.php';
 <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" id="add_bank"
      aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
+        <div class="company-container" style="z-index: 1600"></div>
+        <div class="factoring-container" style="z-index: 1600"></div>
         <div class="modal-content">
             <div class="modal-header" style="background-color: #2A3988;">
                 <h5 class="modal-title mt-0" style="color: white;">Add bank</h5>
@@ -32,19 +34,18 @@ include '../database/connection.php';
 
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label>Account Holder Name <span style="color: red">*</span></label>
+                        <label>Account Holder Name <span class="mandatory">*</span></label> <i class="mdi mdi-plus-circle plus" title="Add Company" id="AddCompany"></i>
                         <div>
                             <select class="form-control " name="accountHolder" id="accountHolder" >
                                 <option value="">Select Account Holder <span style="color: red">*</span></option>
                                 <?php
-
                                 $show_data = $db->company->find(['companyID' => $_SESSION['companyId']]);
 
                                 foreach ($show_data as $show) {
                                     $show = $show['company'];
                                     foreach ($show as $s) {
                                         ?>
-                                        <option value="<?php echo $s['companyName']; ?>"><?php echo $s['companyName']; ?></option>
+                                        <option value="<?php echo $s['_id']; ?>"><?php echo $s['companyName']; ?></option>
                                     <?php }
                                 }?>
                             </select>
@@ -89,6 +90,7 @@ include '../database/connection.php';
                 </div>
 
                 <div class="modal-footer">
+                    <label class="text-danger" style="padding-right: 120px"><b>Note :</b>&nbsp; * Fields are mandatory</label>
                     <button type="button" class="btn btn-danger waves-effect modalBank">Close</button>
                     <button type="button" onclick="AddBankAdmin()" class="btn btn-primary waves-effect waves-light" >Save</button>
                 </div>

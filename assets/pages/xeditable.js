@@ -13,17 +13,10 @@ function showTextarea(columnID,type,id,columnName){
             inputclass: 'form-control col-sm-8',
             row: 3,
         });
-    } else if(type == "date") {
-        $('#' + columnID).editable({
-            showbuttons: 'bottom',
-            mode: 'inline',
-            inputclass: 'form-control col-sm-6 ',
-            row: 3,
-        });
     }
-    console.log(columnID);
-    console.log(columnName);
+
     if (columnName) {
+        console.log(columnName+id);
         document.getElementById(columnName+id).style.display = "block";
     }
 

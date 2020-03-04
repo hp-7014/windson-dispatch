@@ -15,7 +15,7 @@ require "../database/connection.php";
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <label>Name *</label>
+                        <label style="color: #354558">Name *</label>
                         <div>
                             <input class="form-control" placeholder="Name *" type="text"
                                    id="truck_add_type">

@@ -1,107 +1,131 @@
 <?php
 session_start();
 $helper = "helper";
-$no = 0;
-$type = 'text';
-$factoringCol = 'factoringCompanyname';
 require "../../database/connection.php";
 $show = $db->factoring_company_add->find(['companyID' => $_SESSION['companyId']]);
-foreach ($show as $row){
+$no = 0;
+$table = "";
+$list = "<option value='0'>--Select--</option>";
+$list1 = "<option value='0'>--Select--</option>";
+foreach ($show as $row) {
     $show1 = $row['factoring'];
     foreach ($show1 as $row1) {
         $id = $row1['_id'];
-        $factoringCompany = $row1['factoringCompanyname'];
+        $factoringCompanyname = $row1['factoringCompanyname'];
         $address = $row1['address'];
         $location = $row1['location'];
         $zip = $row1['zip'];
-        $primarycontact = $row1['primaryContact'];
-        $factoringtelephone = $row1['telephone'];
-        $factoringext = $row1['extFactoring'];
+        $primaryContact = $row1['primaryContact'];
+        $telephone = $row1['telephone'];
+        $extFactoring = $row1['extFactoring'];
         $fax = $row1['fax'];
         $tollFree = $row1['tollFree'];
         $email = $row1['email'];
-        $secondarycontact = $row1['secondaryContact'];
-        $telephone = $row1['telephone'];
+        $secondaryContact = $row1['secondaryContact'];
+        $factoringtelephone = $row1['factoringtelephone'];
         $ext = $row1['ext'];
-        $currency = $row1['currencySetting'];
-        $payment = $row1['paymentTerms'];
-        $taxtid = $row1['taxID'];
-        $finternalNotes = $row1['internalNote'];
-        $no++;
+        $currencySetting = $row1['currencySetting'];
+        $paymentTerms = $row1['paymentTerms'];
+        $taxID = $row1['taxID'];
+        $internalNote = $row1['internalNote'];
 
-        echo "<tr>
-        <th>$no</th>
-        <td>
-            <a href='#' id='truckNumber".$id."1' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$factoringCompany</a>
-            <button type='button' id='truckNumber'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."2' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$address</a>
-            <button type='button' id='truckType'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."3' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$location</a>
-            <button type='button' id='licensePlate'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."4' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$zip</a>
-            <button type='button' id='plateExpiry'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."5' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$primarycontact</a>
-            <button type='button' id='inspectionExpiry'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."6' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$factoringext</a>
-            <button type='button' id='status'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."7' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$fax</a>
-            <button type='button' id='ownership'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."8' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$tollFree</a>
-            <button type='button' id='mileage'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."9' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$email</a>
-            <button type='button' id='axies'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."10' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$secondarycontact</a>
-            <button type='button' id='year'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."11' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$telephone</a>
-            <button type='button' id='fuelType'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."12' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$ext</a>
-            <button type='button' id='startDate'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."13' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$currency</a>
-            <button type='button' id='deactivationDate'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."14' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$payment</a>
-            <button type='button' id='ifta'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."15' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$taxtid</a>
-            <button type='button' id='registeredState'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        <td>
-            <a href='#' id='truckNumber".$id."16' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,shipperName)' class='text-overflow'>$finternalNotes</a>
-            <button type='button' id='insurancePolicy'.$id.'1' onclick='updateTruckAdd($factoringCol,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi-check'></i></button>
-        </td>
-        
-        <td>
-            <a href='#' onclick='deletefactoring($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>
-        </td>
-    </tr>
-";
+        $factoringCompanynamecolumn = '"factoringCompanyname"';
+        $addresscolumn = '"address"';
+        $locationcolumn = '"location"';
+        $zipcolumn = '"zip"';
+        $primaryContactcolumn = '"primaryContact"';
+        $telephonecolumn = '"telephone"';
+        $extFactoringcolumn = '"extFactoring"';
+        $faxcolumn = '"fax"';
+        $tollFreecolumn = '"tollFree"';
+        $emailcolumn = '"email"';
+        $secondaryContactcolumn = '"secondaryContact"';
+        $factoringtelephonecolumn = '"factoringtelephone"';
+        $extcolumn = '"ext"';
+        $currencySettingcolumn = '"currencySetting"';
+        $paymentTermscolumn = '"paymentTerms"';
+        $taxIDcolumn = '"taxID"';
+        $internalNotecolumn = '"internalNote"';
+        $type = '"text"';
+        $no += 1;
+        $table .= "<tr>
+             <td> $no</td>
+             
+             <td>
+                 <div id='1factoringCompanyname$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$factoringCompanynamecolumn)' class='text-overflow'>$factoringCompanyname</div>
+                 <button type='button' id='factoringCompanyname$id' onclick='updateFactoring($factoringCompanynamecolumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1address$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$addresscolumn)' class='text-overflow'>$address</div>
+                 <button type='button' id='address$id' onclick='updateFactoring($addresscolumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1location$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$locationcolumn)' class='text-overflow'>$location</div>
+                 <button type='button' id='location$id' onclick='updateFactoring($locationcolumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1zip$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$zipcolumn)' class='text-overflow'>$zip</div>
+                 <button type='button' id='zip$id' onclick='updateFactoring($zipcolumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1primaryContact$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$primaryContactcolumn)' class='text-overflow'>$primaryContact</div>
+                 <button type='button' id='primaryContact$id' onclick='updateFactoring($primaryContactcolumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1telephone$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$telephonecolumn)' class='text-overflow'>$telephone</div>
+                 <button type='button' id='telephone$id' onclick='updateFactoring($telephonecolumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1extFactoring$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$extFactoringcolumn)' class='text-overflow'>$extFactoring</div>
+                 <button type='button' id='extFactoring$id' onclick='updateFactoring($extFactoringcolumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1fax$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$faxcolumn)' class='text-overflow'>$fax</div>
+                 <button type='button' id='fax$id' onclick='updateFactoring($faxcolumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1tollFree$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$tollFree)' class='text-overflow'>$tollFree</div>
+                 <button type='button' id='tollFree$id' onclick='updateFactoring($tollFree,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1email$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$email)' class='text-overflow'>$email</div>
+                 <button type='button' id='email$id' onclick='updateFactoring($email,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1secondaryContact$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$secondaryContactcolumn)' class='text-overflow'>$secondaryContact</div>
+                 <button type='button' id='secondaryContact$id' onclick='updateFactoring($secondaryContactcolumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1factoringtelephone$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$factoringtelephonecolumn)' class='text-overflow'>$factoringtelephone</div>
+                 <button type='button' id='factoringtelephone$id' onclick='updateFactoring($factoringtelephonecolumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1ext$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$email)' class='text-overflow'>$ext</div>
+                 <button type='button' id='ext$id' onclick='updateFactoring($email,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1currencySetting$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$currencySettingcolumn)' class='text-overflow'>$currencySetting</div>
+                 <button type='button' id='currencySetting$id' onclick='updateFactoring($currencySettingcolumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1paymentTerms$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$paymentTermscolumn)' class='text-overflow'>$paymentTerms</div>
+                 <button type='button' id='paymentTerms$id' onclick='updateFactoring($paymentTermscolumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1taxID$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$taxIDcolumn)' class='text-overflow'>$taxID</div>
+                 <button type='button' id='taxID$id' onclick='updateFactoring($taxIDcolumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
+             <td>
+                 <div id='1internalNote$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$internalNotecolumn)' class='text-overflow'>$internalNote</div>
+                 <button type='button' id='internalNote$id' onclick='updateFactoring($internalNotecolumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
+             </td>
 
-
+             <td><a href='#' onclick='deletefactoring($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></a></i>
+             </td>
+         </tr>";
+        $list .= "<option value=$id)$factoringCompanyname></option>";
+        $value = "'".$id.")&nbsp;".$factoringCompanyname."'";
+        $list1 .= "<option value=$value></option>";
     }
 }
+echo $table."^".$list."^".$list1;

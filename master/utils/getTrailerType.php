@@ -4,6 +4,8 @@ $helper = "helper";
 require "../../database/connection.php";
  $show = $db->trailer_add->find(['companyID' => $_SESSION['companyId']]);
  $no = 0;
+ $table = "";
+ $list = "<option>--select--</option>";
  foreach ($show as $row) {
      $show1 = $row['trailer'];
      foreach ($show1 as $row1) {
@@ -11,7 +13,7 @@ require "../../database/connection.php";
          $trailerType = $row1['trailerType'];
          $column = 'trailerType';
          $no += 1;
-         echo "<tr>
+         $table .= "<tr>
              <td> $no</td>
              <td>
                  <div contenteditable='true'
@@ -23,5 +25,8 @@ require "../../database/connection.php";
                              style='font-size: 20px; color: #FC3B3B'></a></i>
              </td>
          </tr>";
+         $value = "'".$id.")&nbsp;".$trailerType."'";
+         $list .= "<option value=$value></option>";
       }
  }
+echo $table."^".$list;
