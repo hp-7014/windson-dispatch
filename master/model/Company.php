@@ -233,7 +233,7 @@ class Company implements IteratorAggregate
                     'usDotNo' => $this->usDotNo,
                     'mailingAddress' => $this->mailingAddress,
                     'factoringCompany' => $this->factoringCompany,
-                    'factoringCompanyAddress' => $this->factoringCompanyAddress
+//                    'factoringCompanyAddress' => $this->factoringCompanyAddress
                 ])
             )
         );
@@ -257,7 +257,7 @@ class Company implements IteratorAggregate
                 'usDotNo' => $this->usDotNo,
                 'mailingAddress' => $this->mailingAddress,
                 'factoringCompany' => $this->factoringCompany,
-                'factoringCompanyAddress' => $this->factoringCompanyAddress
+//                'factoringCompanyAddress' => $this->factoringCompanyAddress
             ]]]);
         } else {
             $company = iterator_to_array($Company);
@@ -338,9 +338,9 @@ class Company implements IteratorAggregate
                 if (isset($Row[7])) {
                     $this->factoringCompany = $Row[7];
                 }
-                if (isset($Row[8])) {
-                    $this->factoringCompanyAddress = $Row[8];
-                }
+//                if (isset($Row[8])) {
+//                    $this->factoringCompanyAddress = $Row[8];
+//                }
 
                 $this->insert($this, $db,$helper);
             }

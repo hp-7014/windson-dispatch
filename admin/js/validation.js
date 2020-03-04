@@ -30,6 +30,9 @@ function val_consigneePostal(val) {
     if (val == '') {
         swal('Please Write an Postal / Zip');
         return false;
+    } else if (val.length < 4) {
+        swal('Please Write an Valid Postal / Zip Code');
+        return false;
     } else {
         return true;
     }
@@ -44,18 +47,32 @@ function val_consigneeContact(val) {
 }
 
 function val_consigneeEmail(val) {
-    if (val != '') {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (val == '') {
         return true;
     } else {
-        return true;
+        if (val.match(mailformat)) {
+            return true;
+        } else {
+            swal('Please Enter Valid Email');
+            return false;
+        }
     }
 }
 
 function val_consigneeTelephone(val) {
-    if (val != '') {
+    if (val == '') {
         return true;
     } else {
-        return true;
+        if (isNaN(val)) {
+            swal('Please Enter Only Numeric Telephone Number');
+            return false;
+        } else if (val.length != 10) {
+            swal('Please Enter valid Telephone Number');
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
@@ -68,18 +85,34 @@ function val_consigneeExt(val) {
 }
 
 function val_consigneeTollFree(val) {
-    if (val != '') {
+    if (val == '') {
         return true;
     } else {
-        return true;
+        if (isNaN(val)) {
+            swal('Please Enter Only Numeric Toll Free');
+            return false;
+        } else if (val.length != 10) {
+            swal('Please Enter valid Toll Free');
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
 function val_consigneeFax(val) {
-    if (val != '') {
+    if (val == '') {
         return true;
     } else {
-        return true;
+        if (isNaN(val)) {
+            swal('Please Enter Only Numeric Fax Number');
+            return false;
+        } else if (val.length != 10) {
+            swal('Please Enter valid Fax Number');
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
@@ -178,10 +211,9 @@ function val_shipperEmail(val) {
     if (val == '') {
         return true;
     } else {
-        if(val.match(mailformat)){
+        if (val.match(mailformat)) {
             return true;
-        }
-        else{
+        } else {
             swal('Please Enter Valid Email');
             return false;
         }
@@ -196,8 +228,8 @@ function val_shipperTelephone(val) {
             swal('Please Enter Only Numeric Telephone Number');
             return false;
         } else if (val.length != 10) {
-                swal('Please Enter valid Telephone Number');
-                return false;
+            swal('Please Enter valid Telephone Number');
+            return false;
         } else {
             return true;
         }
@@ -316,10 +348,15 @@ function val_custLocation(val) {
 
 function val_custZip(val) {
     if (val == '') {
-        alert("Please Write an Customer Zip Code");
+        swal("Please Write an Customer Zip Code");
         return false;
     } else {
-        return true;
+        if (val.length < 4) {
+            swal("Please Write an Valid Customer Zip Code");
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
@@ -341,7 +378,12 @@ function val_billingLocation(val) {
 
 function val_billingZip(val) {
     if (val != '') {
-        return true;
+        if (val.length < 4) {
+            swal("Please Write an Valid Billing Zip Code");
+            return false;
+        } else {
+            return true;
+        }
     } else {
         return true;
     }
@@ -357,7 +399,15 @@ function val_primaryContact(val) {
 
 function val_custTelephone(val) {
     if (val != '') {
-        return true;
+        if (isNaN(val)) {
+            swal('Please Enter Only Numeric Customer Telephone Number');
+            return false;
+        } else if (val.length != 10) {
+            swal('Please Enter valid Customer Telephone Number');
+            return false;
+        } else {
+            return true;
+        }
     } else {
         return true;
     }
@@ -372,8 +422,14 @@ function val_custExt(val) {
 }
 
 function val_custEmail(val) {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (val != '') {
-        return true;
+        if (val.match(mailformat)) {
+            return true;
+        } else {
+            swal('Please Write an Valid Customer Email');
+            return false;
+        }
     } else {
         return true;
     }
@@ -381,7 +437,15 @@ function val_custEmail(val) {
 
 function val_custFax(val) {
     if (val != '') {
-        return true;
+        if (isNaN(val)) {
+            swal('Please Enter Only Numeric Customer Fax Number');
+            return false;
+        } else if (val.length != 10) {
+            swal('Please Enter valid Customer Fax Number');
+            return false;
+        } else {
+            return true;
+        }
     } else {
         return true;
     }
@@ -396,8 +460,14 @@ function val_billingContact(val) {
 }
 
 function val_billingEmail(val) {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (val != '') {
-        return true;
+        if (val.match(mailformat)) {
+            return true;
+        } else {
+            swal('Please Enter Valid Billing Email');
+            return false;
+        }
     } else {
         return true;
     }
@@ -405,7 +475,15 @@ function val_billingEmail(val) {
 
 function val_billingTelephone(val) {
     if (val != '') {
-        return true;
+        if (isNaN(val)) {
+            swal('Please Enter Only Numeric Billing Telephone Number');
+            return false;
+        } else if (val.length != 10) {
+            swal('Please Enter valid Billing Telephone Number');
+            return false;
+        } else {
+            return true;
+        }
     } else {
         return true;
     }
@@ -445,7 +523,12 @@ function val_paymentTerms(val) {
 
 function val_creditLimit(val) {
     if (val != '') {
-        return true;
+        if (isNaN(val)) {
+            swal('Please Enter Only Numeric Credit Limit');
+            return false;
+        } else {
+            return true;
+        }
     } else {
         return true;
     }
@@ -485,7 +568,13 @@ function val_workerComp(val) {
 
 function val_websiteURL(val) {
     if (val != '') {
-        return true;
+        var reg = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+        if (val.match(reg)) {
+            return true;
+        } else {
+            swal('Please Write an Valid URL');
+            return false;
+        }
     } else {
         return true;
     }
@@ -503,11 +592,17 @@ function val_internalNotes(val) {
 
 //---------------User Start------------
 function val_userEmail(val) {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (val == '') {
-        swal("Please Write an User Email");
+        swal('Please Write an User Email');
         return false;
     } else {
-        return true;
+        if (val.match(mailformat)) {
+            return true;
+        } else {
+            swal('Please Write an Valid Email');
+            return false;
+        }
     }
 }
 
@@ -530,20 +625,32 @@ function val_userPass(val) {
 }
 
 function val_userFirstName(val) {
+    var reg = /^[A-Za-z]+$/;
     if (val == '') {
         swal("Please Write an User First Name");
         return false;
     } else {
-        return true;
+        if (val.match(reg)) {
+            return true;
+        } else {
+            swal("Please Write Alphabet Characters Only");
+            return false;
+        }
     }
 }
 
 function val_userLastName(val) {
+    var reg = /^[A-Za-z]+$/;
     if (val == '') {
         swal("Please Write an User Last Name");
         return false;
     } else {
-        return true;
+        if (val.match(reg)) {
+            return true;
+        } else {
+            swal("Please Write Alphabet Characters Only");
+            return false;
+        }
     }
 }
 
@@ -566,7 +673,12 @@ function val_userLocation(val) {
 
 function val_userZip(val) {
     if (val != '') {
-        return true;
+        if (val.length < 4) {
+            swal('Please Write an Valid Zip Code');
+            return false;
+        } else {
+            return true;
+        }
     } else {
         return true;
     }
@@ -574,7 +686,15 @@ function val_userZip(val) {
 
 function val_userTelephone(val) {
     if (val != '') {
-        return true;
+        if (isNaN(val)) {
+            swal('Please Write Only Numeric Telephone Number');
+            return false;
+        } else if (val.length != 10) {
+            swal('Please Write valid Telephone Number');
+            return false;
+        } else {
+            return true;
+        }
     } else {
         return true;
     }
@@ -590,7 +710,15 @@ function val_userExt(val) {
 
 function val_uerTollFree(val) {
     if (val != '') {
-        return true;
+        if (isNaN(val)) {
+            swal('Please Write Only Numeric Toll Number');
+            return false;
+        } else if (val.length != 10) {
+            swal('Please Write valid Toll Number');
+            return false;
+        } else {
+            return true;
+        }
     } else {
         return true;
     }
@@ -598,7 +726,15 @@ function val_uerTollFree(val) {
 
 function val_userFax(val) {
     if (val != '') {
-        return true;
+        if (isNaN(val)) {
+            swal('Please Write Only Numeric Fax Number');
+            return false;
+        } else if (val.length != 10) {
+            swal('Please Write valid Fax Number');
+            return false;
+        } else {
+            return true;
+        }
     } else {
         return true;
     }
@@ -627,7 +763,10 @@ function val_accountHolder(val) {
 
 function val_accountNo(val) {
     if (val == '') {
-        swal('Please Enter Bank Account No.');
+        swal('Please Enter Bank Account Number');
+        return false;
+    } else if (isNaN(val)) {
+        swal('Please Enter Only Numeric Bank Account Number');
         return false;
     } else {
         return true;
@@ -636,11 +775,18 @@ function val_accountNo(val) {
 
 function val_routingNo(val) {
     if (val == '') {
-        swal('Please Enter Bank Routing No.');
+        swal('Please Enter Bank Routing Number');
+        return false;
+    } else if (isNaN(val)) {
+        swal('Please Enter Only Numeric Bank Routing Number');
+        return false;
+    } else if (val.length != 9) {
+        swal('Please Enter valid Bank Routing Number');
         return false;
     } else {
         return true;
     }
+
 }
 
 function val_openingBalDate(val) {
@@ -784,11 +930,18 @@ function val_driverPassword(val) {
 }
 
 function val_driverTelephone(val) {
-    if (val == '') {
-        swal('Please write an Telephone Number');
-        return false;
+    if (val != '') {
+        if (isNaN(val)) {
+            swal('Please Enter Only Numeric Telephone Number');
+            return false;
+        } else if (val.length != 10) {
+            swal('Please Enter valid Telephone Number');
+            return false;
+        } else {
+            return true;
+        }
     } else {
-        return true;
+        return false;
     }
 }
 
@@ -801,10 +954,16 @@ function val_driverAlt(val) {
 }
 
 function val_driverEmail(val) {
-    if (val != '') {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (val == '') {
         return true;
     } else {
-        return true;
+        if (val.match(mailformat)) {
+            return true;
+        } else {
+            swal('Please Enter Valid Email');
+            return false;
+        }
     }
 }
 
@@ -828,7 +987,10 @@ function val_driverLocation(val) {
 
 function val_driverZip(val) {
     if (val == '') {
-        alert('Please write an Zip Code');
+        swal('Please Write an Zip');
+        return false;
+    } else if (val.length < 4) {
+        swal('Please Write an Valid Zip Code');
         return false;
     } else {
         return true;
@@ -1005,6 +1167,7 @@ function val_InternalNote(val) {
         return true;
     }
 }
+
 /*----------------Driver End-----------------*/
 
 
@@ -1018,6 +1181,7 @@ function val_truck_number(val) {
         return true;
     }
 }
+
 //Truck Type
 function val_trucktype(val) {
     if (val == '') {
@@ -1027,6 +1191,7 @@ function val_trucktype(val) {
         return true;
     }
 }
+
 //License Plate
 function val_license_plate(val) {
     if (val == '') {
@@ -1036,6 +1201,7 @@ function val_license_plate(val) {
         return true;
     }
 }
+
 //Plate Expiry
 function val_plate_expiry(val) {
     if (val == '') {
@@ -1070,6 +1236,7 @@ function val_trailer_number(val) {
         return true;
     }
 }
+
 //Trailer Type
 function val_trailer_type(val) {
     if (val == '') {
@@ -1079,6 +1246,7 @@ function val_trailer_type(val) {
         return true;
     }
 }
+
 //License Plate
 function val_license_plate_trailer(val) {
     if (val == '') {
@@ -1088,6 +1256,7 @@ function val_license_plate_trailer(val) {
         return true;
     }
 }
+
 //Plate Expiry
 function val_plate_expiry_trailer(val) {
     if (val == '') {
@@ -1097,6 +1266,7 @@ function val_plate_expiry_trailer(val) {
         return true;
     }
 }
+
 //vin
 function val_vin_trailer(val) {
     if (val == '') {
@@ -1121,6 +1291,7 @@ function val_factoring_company(val) {
         return true;
     }
 }
+
 //Factoring Address
 function val_faddress(val) {
     if (val == '') {
@@ -1130,6 +1301,7 @@ function val_faddress(val) {
         return true;
     }
 }
+
 //Factoring Location
 function val_flocation(val) {
     if (val == '') {
@@ -1139,6 +1311,7 @@ function val_flocation(val) {
         return true;
     }
 }
+
 //Factoring ZIP
 function val_fzip(val) {
     if (val == '') {
@@ -1148,6 +1321,7 @@ function val_fzip(val) {
         return true;
     }
 }
+
 //Factoring Tax
 function val_ftaxid(val) {
     if (val == '') {
@@ -1159,64 +1333,6 @@ function val_ftaxid(val) {
 }
 
 //--------Factoring Add End--------------
-
-/*--------------- Add Bank Admin START -------------*/
-function val_bankName(val) {
-    if (val == '') {
-        swal('Please Enter Bank Name.');
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function val_accountHolder(val) {
-    if (val == '') {
-        swal('Please Select Account Holder Name');
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function val_accountNo(val) {
-    if (val == '') {
-        swal('Please Enter Bank Account No.');
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function val_routingNo(val) {
-    if (val == '') {
-        swal('Please Enter Bank Routing No.');
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function val_openingBalDate(val) {
-    if (val == '') {
-        swal('Please Enter Opening Balance Date.');
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function val_openingBalance(val) {
-    if (val == '') {
-        swal('Please Enter Opening Balance.');
-        return false;
-    } else {
-        return true;
-    }
-}
-
-/*--------------- Add Bank Admin END ---------------*/
-
 
 /*--------------- Credit Card Admin START ---------------*/
 function val_Name(val) {
@@ -1310,94 +1426,87 @@ function val_telephone(val) {
 }
 
 /*--------------- Customs Broker END ---------------*/
+
 //--------Factoring Add End--------------//
 function val_carrName(val) {
-    if(val == '') {
+    if (val == '') {
         swal('Please Enter Carrier name');
         return false;
-    }
-    else {
+    } else {
         return true;
     }
 }
+
 //--------Carrier Add Starts--------------//
-function val_carrAddress(val){
-    if(val == ''){
+function val_carrAddress(val) {
+    if (val == '') {
         swal('Please Enter Carrier Address');
         return false;
-    }
-    else{
+    } else {
         return true;
     }
 }
 
-function val_carrLocation(val){
-    if(val == ''){
+function val_carrLocation(val) {
+    if (val == '') {
         swal('Please Enter Carrier Location');
         return false;
-    }
-    else{
+    } else {
         return true;
     }
 }
 
-function val_carrZip(val){
-    if(val == ''){
+function val_carrZip(val) {
+    if (val == '') {
         swal('Please Enter Zip Code');
         return false;
-    }
-    else{
+    } else {
         return true;
     }
 }
 
-function val_carrEmail(val){
+function val_carrEmail(val) {
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if(val.match(mailformat)){
+    if (val.match(mailformat)) {
         return true;
-    }
-    else{
+    } else {
         swal('Please Enter Valid Email');
         return false;
     }
 }
 
-function val_carrTelephone(val){
-    if(val.length != 10){
+function val_carrTelephone(val) {
+    if (val.length != 10) {
         swal('Please Enter valid Phone Number');
         return false;
-    }
-    else{
+    } else {
         return true;
     }
 }
 
-function val_carrTaxID(val){
-    if(val == ''){
+function val_carrTaxID(val) {
+    if (val == '') {
         swal('Please Enter Valid Tax ID');
         return false;
-    }
-    else{
+    } else {
         return true;
     }
 }
 
-function val_carrMC(val){
-    if(val == ''){
+function val_carrMC(val) {
+    if (val == '') {
         swal('Please Enter Valid MC No');
         return false;
-    }
-    else{
+    } else {
         return true;
     }
 }
 
-function val_carrDOT(val){
-    if(val == ''){
+function val_carrDOT(val) {
+    if (val == '') {
         swal('Please Enter valid DOT No');
         return false;
-    }
-    else{
+    } else {
         return true;
     }
 }

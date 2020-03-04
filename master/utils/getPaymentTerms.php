@@ -4,6 +4,8 @@ $helper = "helper";
 require "../../database/connection.php";
  $payment_data = $db->payment_terms->find(['companyID' => $_SESSION['companyId']]);
  $no = 0;
+$list = "<option value='0'>--Select--</option>";
+$table = "";
  foreach ($payment_data as $row) {
      $show1 = $row['payment'];
      foreach ($show1 as $row1) {
@@ -11,7 +13,7 @@ require "../../database/connection.php";
          $paymentTerm = $row1['paymentTerm'];
          $column = 'paymentTerm';
          $no += 1;
-         echo "<tr>
+         $table .= "<tr>
              <td> $no</td>
              <td>
                  <div contenteditable='true'
@@ -23,5 +25,9 @@ require "../../database/connection.php";
                              style='font-size: 20px; color: #FC3B3B'></a></i>
              </td>
          </tr>";
+//         $list .= "<option value=$id)$paymentTerm></option>";
+         $value = "'".$id.")&nbsp;".$paymentTerm."'";
+         $list .= "<option value=$value></option>";
       }
  }
+ echo $table."^".$list;

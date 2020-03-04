@@ -1,5 +1,5 @@
 //--------payment terms start-------
-function  val_payment_term(val) {
+function val_payment_term(val) {
     if (val == '') {
         alert('Please Write an Name');
         return false;
@@ -7,10 +7,11 @@ function  val_payment_term(val) {
         return true;
     }
 }
+
 //--------payment terms end---------
 
 //---------office start---------
-function val_officeName (val) {
+function val_officeName(val) {
     if (val == '') {
         alert('Please Write an Office Name');
         return false;
@@ -19,7 +20,7 @@ function val_officeName (val) {
     }
 }
 
-function val_officeLocation (val) {
+function val_officeLocation(val) {
     if (val == '') {
         alert('Please Write an Office Location');
         return false;
@@ -27,33 +28,61 @@ function val_officeLocation (val) {
         return true;
     }
 }
+
 //---------office start---------
 
 //---------company start-------
 function val_companyName(val) {
     if (val == '') {
-        alert('Please Write an Company Name');
+        swal('Please Write an Company Name');
         return false;
     } else {
         return true;
     }
 }
+
 function val_telephoneNo(val) {
     if (val == '') {
-        alert('Please Write an Telephone Number');
+        swal('Please Write an Telephone Number');
         return false;
     } else {
-        return true;
+        if (isNaN(val)) {
+            swal('Please Enter Only Numeric Telephone Number');
+            return false;
+        } else if (val.length != 10) {
+            swal('Please Enter valid Telephone Number');
+            return false;
+        } else {
+            return true;
+        }
     }
 }
+
 function val_mailingAddress(val) {
     if (val == '') {
-        alert('Please Write an Mailing Address');
+        swal('Please Write an Mailing Address');
         return false;
     } else {
         return true;
     }
 }
+
+function val_faxNo(val) {
+    if (val == '') {
+        return true;
+    } else {
+        if (isNaN(val)) {
+            swal('Please Enter Only Numeric Fax Number');
+            return false;
+        } else if (val.length != 10) {
+            swal('Please Enter valid Fax Number');
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
 //------company end--------------
 
 //---------load Type start----------
@@ -65,6 +94,7 @@ function val_loadName(val) {
         return true;
     }
 }
+
 function val_loadType(val) {
     if (val == '') {
         alert('Please Select an Load Type');
@@ -73,11 +103,11 @@ function val_loadType(val) {
         return true;
     }
 }
+
 //---------load Type end----------
 
 //Validation For Add Currency
-function val_currencyType(val)
-{
+function val_currencyType(val) {
     if (val == '') {
         alert('Please Enter Currency Type');
         return false;
@@ -87,8 +117,7 @@ function val_currencyType(val)
 }
 
 //Validation For Equipment Type
-function val_equipmentType(val)
-{
+function val_equipmentType(val) {
     if (val == '') {
         alert('Please Enter Equipment Type');
         return false;
@@ -98,8 +127,7 @@ function val_equipmentType(val)
 }
 
 //Validation For Truck Type
-function val_truckType(val)
-{
+function val_truckType(val) {
     if (val == '') {
         alert('Please Enter Truck Type');
         return false;
@@ -109,8 +137,7 @@ function val_truckType(val)
 }
 
 //Validation For Trailer Type
-function val_trailerType(val)
-{
+function val_trailerType(val) {
     if (val == '') {
         alert('Please Enter Trailer Type');
         return false;
@@ -120,8 +147,7 @@ function val_trailerType(val)
 }
 
 //Validation For Fix Pay
-function val_fixpay(val)
-{
+function val_fixpay(val) {
     if (val == '') {
         alert('Please Enter Fix Pay Category');
         return false;
@@ -131,8 +157,7 @@ function val_fixpay(val)
 }
 
 //Validation For Fix Pay
-function val_loadType(val)
-{
+function val_loadType(val) {
     if (val == '') {
         alert('Please Enter Load Type');
         return false;
@@ -142,8 +167,7 @@ function val_loadType(val)
 }
 
 //Validation For Fix Pay
-function val_unit(val)
-{
+function val_unit(val) {
     if (val == '') {
         alert('Please Enter Unit');
         return false;
@@ -154,8 +178,7 @@ function val_unit(val)
 
 // BANK START
 function val_DebitValidate(val) {
-    if(val == '')
-    {
+    if (val == '') {
         alert('Please Enter Debit Bank Name.');
         return false;
     } else {
@@ -164,8 +187,7 @@ function val_DebitValidate(val) {
 }
 
 function val_CreditValidate(val) {
-    if(val == '')
-    {
+    if (val == '') {
         alert('Please Enter Credit Bank Name.');
         return false;
     } else {
@@ -174,20 +196,19 @@ function val_CreditValidate(val) {
 }
 
 function val_CardValidate(val) {
-    if(val == '')
-    {
+    if (val == '') {
         alert('Please Enter Credit Card Name.');
         return false;
     } else {
         return true;
     }
 }
+
 // BANK ENDS
 
 // STATUS TYPE START
 function val_statusValidate(val) {
-    if(val == '')
-    {
+    if (val == '') {
         alert('Please Enter Status Name.');
         return false;
     } else {
@@ -199,8 +220,7 @@ function val_statusValidate(val) {
 
 // IFTA CARD CATEGORY START
 function val_cardHolderName(val) {
-    if (val == '')
-    {
+    if (val == '') {
         swal('Please Select Card Holder Name.');
         return false;
     } else {
@@ -209,8 +229,7 @@ function val_cardHolderName(val) {
 }
 
 function val_iftaCardNo(val) {
-    if (val == '')
-    {
+    if (val == '') {
         swal('Please Enter IFTA Card NO.');
         return false;
     } else {
@@ -219,12 +238,24 @@ function val_iftaCardNo(val) {
 }
 
 function val_CardType(val) {
-    if (val == '')
-    {
+    if (val == '') {
         swal('Please Enter Card Type (Capital Letter).');
         return false;
     } else {
         return true;
     }
 }
+function val_cardNo(val) {
+    if (val == '') {
+        return true;
+    } else {
+        if (isNaN(val)) {
+            swal('Please Write Only Numeric Value');
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
 // IFTA CARD CATEGORY ENDS

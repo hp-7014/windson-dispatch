@@ -6,6 +6,8 @@ require "../../database/connection.php";
  $no = 0;
  $table = "";
  $list = "<option value='0'>--Select--</option>";
+ $list1 = "<option value='0'>--Select--</option>";
+ $list2 = "<option value='0'>--Select--</option>";
  foreach ($show as $row) {
      $show1 = $row['currency'];
      foreach ($show1 as $row1) {
@@ -26,7 +28,9 @@ require "../../database/connection.php";
              </td>
          </tr>";
          $list .= "<option value=".$id.">".$currencyType."</option>";
+         $list1 .= "<option value=$id)$currencyType></option>";
+         $list2 .= "<option value=$id>$currencyType</option>";
       }
  }
 
- echo $table."^".$list;
+ echo $table."^".$list."^".$list1."^".$list2;

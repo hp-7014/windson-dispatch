@@ -15,7 +15,7 @@ require "../database/connection.php";
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <label>Name *</label>
+                        <label style="color: #354558">Name *</label>
                         <div>
                             <input class="form-control" placeholder="Name *" type="text"
                                    id="trailer_add_type">
@@ -25,7 +25,7 @@ require "../database/connection.php";
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger waves-effect modalTrailerType"
-                            >Close
+                    >Close
                     </button>
                     <button type="button" onclick="addTrailer()" id="" class="btn btn-primary waves-effect waves-light">
                         Save

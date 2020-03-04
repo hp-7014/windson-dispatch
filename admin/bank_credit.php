@@ -17,7 +17,7 @@ if ($_GET['type'] == 'credit_card') {
     $credit_admin->setCardType($_POST['cardType']);
     $credit_admin->setCardHolderName($_POST['cardHolderName']);
     $credit_admin->setCardNo($_POST['cardNo']);
-    $credit_admin->setOpeningBalanceDt($_POST['openingBalanceDt']);
+    $credit_admin->setOpeningBalanceDt(strtotime($_POST['openingBalanceDt']));
     $credit_admin->setCardLimit($_POST['cardLimit']);
     $credit_admin->setOpeningBalance($_POST['openingBalance']);
     $credit_admin->setTransacBalance($_POST['transacBalance']);

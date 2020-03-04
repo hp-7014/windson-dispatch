@@ -39,7 +39,7 @@ require "../database/connection.php";
                     <div class="table-responsive b-0" data-pattern="priority-columns">
                         <br>
                         <div id="table-scroll" class="table-scroll">
-                            <table id="shipper_table" class="scroll">
+                            <table id="carrier_table" class="scroll">
                                 <thead>
                                 <tr>
                                     <th scope="col" col width="50">#</th>
@@ -72,94 +72,88 @@ require "../database/connection.php";
                                         <tr>
                                             <th><?php echo $no++; ?></th>
                                             <td>
-                                                <a href="#" id="shipperName<?php echo $s['_id']; ?>1"
-                                                   data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperName');"
+                                                <a href="#" id="1name<?php echo $s['_id']; ?>" data-type="textarea"
+                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'name');"
                                                    class="text-overflow"><?php echo $s['name']; ?></a>
-                                                <button type="button" id="shipperName<?php echo $s['_id']; ?>"
-                                                        onclick="updateShipper('shipperName',<?php echo $s['_id']; ?>)"
+                                                <button type="button" id="name<?php echo $s['_id']; ?>"
+                                                        onclick="updateExternal('name',<?php echo $s['_id']; ?>)"
                                                         style="display:none; margin-left:6px;"
                                                         class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="shipperAddress<?php echo $s['_id']; ?>1"
-                                                   data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperAddress');"
+                                                <a href="#" id="1address<?php echo $s['_id']; ?>" data-type="textarea"
+                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'address');"
                                                    class="text-overflow"><?php echo $s['address']; ?></a>
-                                                <button type="button" id="shipperAddress<?php echo $s['_id']; ?>"
-                                                        onclick="updateShipper('shipperAddress',<?php echo $s['_id']; ?>)"
+                                                <button type="button" id="address<?php echo $s['_id']; ?>"
+                                                        onclick="updateExternal('address',<?php echo $s['_id']; ?>)"
                                                         style="display:none; margin-left:6px;"
                                                         class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="shipperLocation<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1contactName<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperLocation');"
+                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'contactName');"
                                                    class="text-overflow"><?php echo $s['contactName']; ?></a>
-                                                <button type="button" id="shipperLocation<?php echo $s['_id']; ?>"
-                                                        onclick="updateShipper('shipperLocation',<?php echo $s['_id']; ?>)"
+                                                <button type="button" id="contactName<?php echo $s['_id']; ?>"
+                                                        onclick="updateExternal('contactName',<?php echo $s['_id']; ?>)"
                                                         style="display:none; margin-left:6px;"
                                                         class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="shipperPostal<?php echo $s['_id']; ?>1"
-                                                   data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperPostal');"
+                                                <a href="#" id="1email<?php echo $s['_id']; ?>" data-type="textarea"
+                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'email');"
                                                    class="text-overflow"><?php echo $s['email']; ?></a>
-                                                <button type="button" id="shipperPostal<?php echo $s['_id']; ?>"
-                                                        onclick="updateShipper('shipperPostal',<?php echo $s['_id']; ?>)"
+                                                <button type="button" id="email<?php echo $s['_id']; ?>"
+                                                        onclick="updateExternal('email',<?php echo $s['_id']; ?>)"
                                                         style="display:none; margin-left:6px;"
                                                         class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="shipperContact<?php echo $s['_id']; ?>1"
-                                                   data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperContact');"
+                                                <a href="#" id="1telephone<?php echo $s['_id']; ?>" data-type="textarea"
+                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'telephone');"
                                                    class="text-overflow"><?php echo $s['telephone']; ?></a>
-                                                <button type="button" id="shipperContact<?php echo $s['_id']; ?>"
-                                                        onclick="updateShipper('shipperContact',<?php echo $s['_id']; ?>)"
+                                                <button type="button" id="telephone<?php echo $s['_id']; ?>"
+                                                        onclick="updateExternal('telephone',<?php echo $s['_id']; ?>)"
                                                         style="display:none; margin-left:6px;"
                                                         class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="shipperEmail<?php echo $s['_id']; ?>1"
-                                                   data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperEmail');"
+                                                <a href="#" id="1mc<?php echo $s['_id']; ?>" data-type="textarea"
+                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'mc');"
                                                    class="text-overflow"><?php echo $s['mc']; ?></a>
-                                                <button type="button" id="shipperEmail<?php echo $s['_id']; ?>"
-                                                        onclick="updateShipper('shipperEmail',<?php echo $s['_id']; ?>)"
+                                                <button type="button" id="mc<?php echo $s['_id']; ?>"
+                                                        onclick="updateExternal('mc',<?php echo $s['_id']; ?>)"
                                                         style="display:none; margin-left:6px;"
                                                         class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="shipperTelephone<?php echo $s['_id']; ?>1"
-                                                   data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperTelephone');"
+                                                <a href="#" id="1dot<?php echo $s['_id']; ?>" data-type="textarea"
+                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'dot');"
                                                    class="text-overflow"><?php echo $s['dot']; ?></a>
-                                                <button type="button" id="shipperTelephone<?php echo $s['_id']; ?>"
-                                                        onclick="updateShipper('shipperTelephone',<?php echo $s['_id']; ?>)"
+                                                <button type="button" id="dot<?php echo $s['_id']; ?>"
+                                                        onclick="updateExternal('dot',<?php echo $s['_id']; ?>)"
                                                         style="display:none; margin-left:6px;"
                                                         class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="shipperExt<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1factoringCompany<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'shipperExt');"
+                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'factoringCompany');"
                                                    class="text-overflow"><?php echo $s['factoringCompany']; ?></a>
-                                                <button type="button" id="shipperExt<?php echo $s['_id']; ?>"
-                                                        onclick="updateShipper('shipperExt',<?php echo $s['_id']; ?>)"
+                                                <button type="button" id="factoringCompany<?php echo $s['_id']; ?>"
+                                                        onclick="updateExternal('factoringCompany',<?php echo $s['_id']; ?>)"
                                                         style="display:none; margin-left:6px;"
                                                         class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
-                                            <td><a href="#" onclick="deleteShipper(<?php echo $s['_id']; ?>)"><i
+                                            <td><a href="#" onclick="deleteExternal(<?php echo $s['_id']; ?>)"><i
                                                             class="mdi mdi-delete-sweep-outline"
                                                             style="font-size: 20px; color: #FC3B3B"></i></a></td>
                                         </tr>

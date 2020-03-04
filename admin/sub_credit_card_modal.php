@@ -55,7 +55,7 @@ include '../database/connection.php';
                                 $i = 1;
                                 ?>
 
-                                <tbody>
+                                <tbody id="SubCardBody">
                                 <?php foreach ($g_data as $data) {
                                     $sub_credit = $data['sub_credit'];
 
@@ -68,7 +68,7 @@ include '../database/connection.php';
                                             <tr>
                                                 <th><?php echo $i++ ?></th>
                                                 <td>
-                                                    <a href="#" id="displayName<?php echo $admin['_id']; ?>1"
+                                                    <a href="#" id="1displayName<?php echo $admin['_id']; ?>1"
                                                        data-type="textarea"
                                                        onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'displayName');"
                                                        class="text-overflow"><?php echo $admin['displayName']; ?></a>
@@ -79,23 +79,19 @@ include '../database/connection.php';
                                                         <i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <select class="form-control"
-                                                            onchange="updateSub_Credit(this.value,'mainCard',<?php echo $admin['_id']; ?>)">
-                                                        <?php
-                                                        $show_data = $db->credit_card_admin->find(['companyID' => $_SESSION['companyId']]);
-                                                        foreach ($show_data as $show) {
-                                                            $show = $show['admin_credit'];
-                                                            foreach ($show as $s) {
-                                                                ?>
-                                                                <option value="<?php echo $s['Name']; ?>" <?php if ($s['Name'] == $admin['mainCard']) {
-                                                                    echo 'selected=selected';
-                                                                } ?>><?php echo $s['Name']; ?></option>
-                                                            <?php }
-                                                        } ?>
-                                                    </select>
+                                                    <a href="#" id="1mainCard<?php echo $admin['_id']; ?>1"
+                                                       data-type="textarea"
+                                                       onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'mainCard');"
+                                                       class="text-overflow"><?php echo $admin['mainCard']; ?></a>
+                                                    <button type="button"
+                                                            id="mainCard<?php echo $admin['_id']; ?>"
+                                                            onclick="updateSubCredit('mainCard',<?php echo $admin['_id']; ?>)"
+                                                            style="display:none; margin-left:6px;"
+                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
+                                                        <i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="cardHolderName<?php echo $admin['_id']; ?>2"
+                                                    <a href="#" id="1cardHolderName<?php echo $admin['_id']; ?>2"
                                                        data-type="textarea"
                                                        onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'cardHolderName');"
                                                        class="text-overflow"><?php echo $admin['cardHolderName']; ?></a>
@@ -107,7 +103,7 @@ include '../database/connection.php';
                                                         <i class="mdi mdi-check"></i></button>
                                                 </td>
                                                 <td>
-                                                    <a href="#" id="cardNo<?php echo $admin['_id']; ?>3"
+                                                    <a href="#" id="1cardNo<?php echo $admin['_id']; ?>3"
                                                        data-type="textarea"
                                                        onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'cardNo');"
                                                        class="text-overflow"><?php echo $admin['cardNo']; ?></a>

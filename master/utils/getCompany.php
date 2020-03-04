@@ -5,6 +5,7 @@ require "../../database/connection.php";
  $company_data = $db->company->find(['companyID' => $_SESSION['companyId']]);
  $no = 0;
  $option = "<option value='0'>--Select--</option>";
+ $option1 = "<option value='0'>--Select--</option>";
  $table = "";
  foreach ($company_data as $s_type) {
      $show1 = $s_type['company'];
@@ -84,7 +85,8 @@ require "../../database/connection.php";
 
 
          $option .= "<option value='$companyName'>$companyName</option>";
+         $option1 .= "<option value='$id'>$companyName</option>";
       }
  }
 
- echo $table."^".$option;
+ echo $table."^".$option."^".$option1;

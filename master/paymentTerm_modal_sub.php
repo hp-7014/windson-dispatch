@@ -1,7 +1,7 @@
 <?php session_start();
 require "../database/connection.php"; ?>
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-     id="AddPayment" aria-hidden="true">
+     id="AddPayment" aria-hidden="true" style="z-index: 10000">
     <div class="load"></div>
     <div class="modal-dialog modal-sm">
         <div class="modal-content">

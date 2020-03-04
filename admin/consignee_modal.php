@@ -78,7 +78,7 @@ require "../database/connection.php";
                                         <tr>
                                             <td><?php echo $no++; ?></td>
                                             <td>
-                                                <a href="#" id="consigneeName<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeName<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeName');"
                                                    class="text-overflow"><?php echo $s['consigneeName']; ?></a>
@@ -89,7 +89,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneeAddress<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeAddress<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeAddress');"
                                                    class="text-overflow"><?php echo $s['consigneeAddress']; ?></a>
@@ -100,7 +100,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneeLocation<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeLocation<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeLocation');"
                                                    class="text-overflow"><?php echo $s['consigneeLocation']; ?></a>
@@ -111,7 +111,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneePostal<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneePostal<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneePostal');"
                                                    class="text-overflow"><?php echo $s['consigneePostal']; ?></a>
@@ -122,7 +122,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneeContact<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeContact<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeContact');"
                                                    class="text-overflow"><?php echo $s['consigneeContact']; ?></a>
@@ -133,7 +133,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneeEmail<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeEmail<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeEmail');"
                                                    class="text-overflow"><?php echo $s['consigneeEmail']; ?></a>
@@ -144,7 +144,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneeTelephone<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeTelephone<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeTelephone');"
                                                    class="text-overflow"><?php echo $s['consigneeTelephone']; ?></a>
@@ -155,7 +155,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneeExt<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeExt<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeExt');"
                                                    class="text-overflow"><?php echo $s['consigneeExt']; ?></a>
@@ -166,7 +166,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneeTollFree<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeTollFree<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeTollFree');"
                                                    class="text-overflow"><?php echo $s['consigneeTollFree']; ?></a>
@@ -177,7 +177,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneeFax<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeFax<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeFax');"
                                                    class="text-overflow"><?php echo $s['consigneeFax']; ?></a>
@@ -188,7 +188,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneeReceiving<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeReceiving<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeReceiving');"
                                                    class="text-overflow"><?php echo $s['consigneeReceiving']; ?></a>
@@ -199,7 +199,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneeAppointments<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeAppointments<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeAppointments');"
                                                    class="text-overflow"><?php echo $s['consigneeAppointments']; ?></a>
@@ -210,7 +210,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneeIntersaction<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeIntersaction<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeIntersaction');"
                                                    class="text-overflow"><?php echo $s['consigneeIntersaction']; ?></a>
@@ -221,7 +221,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneeStatus<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeStatus<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeStatus');"
                                                    class="text-overflow"><?php echo $s['consigneeStatus']; ?></a>
@@ -232,7 +232,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneeRecivingNote<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeRecivingNote<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeRecivingNote');"
                                                    class="text-overflow"><?php echo $s['consigneeRecivingNote']; ?></a>
@@ -243,7 +243,7 @@ require "../database/connection.php";
                                                     <i class="mdi mdi-check"></i></button>
                                             </td>
                                             <td>
-                                                <a href="#" id="consigneeInternalNote<?php echo $s['_id']; ?>1"
+                                                <a href="#" id="1consigneeInternalNote<?php echo $s['_id']; ?>"
                                                    data-type="textarea"
                                                    onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'consigneeInternalNote');"
                                                    class="text-overflow"><?php echo $s['consigneeInternalNote']; ?></a>
