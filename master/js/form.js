@@ -697,6 +697,7 @@ function updateCurrencyTable() {
     var currencyFactoring = document.getElementById('currencyset');
     var currencySetting = document.getElementById('currencySetting');
     var currencyList1 = document.getElementById('driverCurrency');
+
     $.ajax({
         url: 'master/utils/getCurrency.php',
         type: 'POST',
@@ -715,6 +716,9 @@ function updateCurrencyTable() {
             }
             if (currencySetting != null) {
                 currencySetting.innerHTML = res[3];
+            }
+            if (currencyList1 != null) {
+                currencyList1.innerHTML = res[2];
             }
         },
     });

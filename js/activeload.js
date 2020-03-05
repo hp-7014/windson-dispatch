@@ -893,7 +893,6 @@ function getTrailer(value){
         method: "POST",
         dataType: 'html',
         success: function (data) {
-            
             if(data != ""){
                 swal({
                     title: 'Are you sure? You Want to Continue!',
