@@ -17,7 +17,7 @@ require "../database/connection.php";
                     <table class=" table-responsive other-table" id="otherTable">
                         <thead>
                         <tr>
-                            <td>Category</td>
+                            <td>Fix Pay Category</td>
                             <td>Installment Type</td>
                             <td>Amount</td>
                             <td>Installment</td>
@@ -30,7 +30,6 @@ require "../database/connection.php";
                         <tbody id="TextBoxContainer2">
                         <td width="150">
                                     <input class="form-control" id="installmentCategory" name="installmentCategory" list="fixpaycat"/>
-
                                 </td>
                                 <td width="150">
                                     <select name="installmentType" id="installmentType" class="form-control">
@@ -82,6 +81,18 @@ require "../database/connection.php";
                 <button type="button" class="btn btn-primary waves-effect waves-light" onclick="getrecurrence()">Save
                 </button>
             </div>
+            <datalist id="fixpaycat">
+                <?php
+                $show = $db->fixpay_add->find(['companyID' => $_SESSION['companyId']]);
+                foreach ($show as $row) {
+                    $show1 = $row['fixPay'];
+                    foreach ($show1 as $row1) {
+                        $fix_pay = "'".$row1['fixPayType']."'";
+                        echo " <option value=$fix_pay></option>";
+
+                    }
+                } ?>
+            </datalist>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
