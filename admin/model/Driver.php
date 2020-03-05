@@ -45,6 +45,9 @@ class Driver implements IteratorAggregate
     private $dropAfter;
     private $tarp;
 
+    private $recurrenceAdd;
+    private $recurrenceSubtract;
+
     private $terminationDate;
     private $InternalNote;
 
@@ -55,6 +58,43 @@ class Driver implements IteratorAggregate
     private $deleteStatus;
     private $deleteUserID;
     private $ownerOperatorStatus;
+
+    /**
+     * @return mixed
+     */
+    public function getRecurrenceAdd()
+    {
+        return $this->recurrenceAdd;
+    }
+
+    /**
+     * @param mixed $recurrenceAdd
+     */
+    public function setRecurrenceAdd($installmentCategoryStore): void
+    {
+        $this->recurrenceAdd = array();
+        for ($i = 0; $i < count($installmentCategoryStore); $i++) {
+            $this->recurrenceAdd[] = array(
+                "installmentCategoryStore" => $installmentCategoryStore[$i],
+            );
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRecurrenceSubtract()
+    {
+        return $this->recurrenceSubtract;
+    }
+
+    /**
+     * @param mixed $recurrenceSubtract
+     */
+    public function setRecurrenceSubtract($recurrenceSubtract): void
+    {
+        $this->recurrenceSubtract = $recurrenceSubtract;
+    }
 
     /**
      * @return mixed
@@ -788,6 +828,7 @@ class Driver implements IteratorAggregate
                     'insertedUserId' => $_SESSION['companyName'],
                     'deleteStatus' => 0,
                     'ownerOperatorStatus' => 0,
+                    'recurrenceAdd' => $this->recurrenceAdd,
                 ])
             )
         );
@@ -842,6 +883,7 @@ class Driver implements IteratorAggregate
                 'insertedUserId' => $_SESSION['companyName'],
                 'deleteStatus' => 0,
                 'ownerOperatorStatus' => 0,
+                'recurrenceAdd' => $this->recurrenceAdd,
             ]]]);
         } else {
             $ship = iterator_to_array($driver);

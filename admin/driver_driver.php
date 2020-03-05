@@ -45,6 +45,7 @@ if ($_GET['type'] == 'addDriver') {
     $driver->settarp($_POST['tarp']);
     $driver->setTerminationDate(strtotime($_POST['terminationDate']));
     $driver->setInternalNote($_POST['InternalNote']);
+    $driver->setRecurrenceAdd($_POST['installmentCategoryStore']);
     $driver->insert($driver,$db,$helper);
     echo "Data Added Successfully";
 }
