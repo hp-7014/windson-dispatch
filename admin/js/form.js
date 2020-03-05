@@ -3629,7 +3629,20 @@ var startDate = [];
 var internalNote = [];
 
 function getrecurrence(){
-    alert("inside");
+    var recurrence_id = document.getElementById('getnewaa').value;
+    if (recurrence_id == 2){
+        for(var i = 0; i < document.getElementsByName('installmentCategory').length-1; i++){
+            installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
+            installmentType[i] = document.getElementsByName('installmentType')[i].value;
+            amount[i] = document.getElementsByName('amount')[i].value;
+            installment[i] = document.getElementsByName('installment')[i].value;
+            startNo[i] = document.getElementsByName('startNo')[i].value;
+            startDate[i] = document.getElementsByName('startDate')[i].value;
+            internalNote[i] = document.getElementsByName('internalNote')[i].value;
+            alert(document.getElementsByName('installmentCategory').length-1);
+        }
+        $('#addRecurrence').modal('hide');
+    } else {
     for(var i = 0; i < document.getElementsByName('installmentCategory').length; i++){
         installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
         installmentType[i] = document.getElementsByName('installmentType')[i].value;
@@ -3641,13 +3654,13 @@ function getrecurrence(){
     }
     $('#addRecurrence').modal('hide');
 }
+}
 
 function addRecurrenceFields(){
-    alert(inside);
     if(installmentCategory.length > 0){
         var innerData = "";
-        for(var i = 0 ; i < installmentCategory.length-1; i++){
-            innerData +='<tr id="recurrenceadd'+i+'">'
+        for(var i = 0; i < installmentCategory.length; i++){
+            innerData +='<tr id="recurrence_add'+i+'">'
             +'<td width="150">'
             +'<input value = "' + installmentCategory[i] + '" class="form-control" name="installmentCategory" list="fixpaycat"/></td>'
             +'<td width="150">'
@@ -3700,23 +3713,37 @@ var start_Date = [];
 var internal_Note = [];
 
 function recurrencesubstract(){
-    for(var i = 0; i < document.getElementsByName('installment_Category').length; i++){
-        installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
-        installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
-        amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
-        installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
-        start_No[i] = document.getElementsByName('start_No')[i].value;
-        start_Date[i] = document.getElementsByName('start_Date')[i].value;
-        internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
+    var recurrencesubstract_id = document.getElementById('getnewaa').value;
+    if (recurrencesubstract_id == 2) {
+        for(var i = 0; i < document.getElementsByName('installment_Category').length-1; i++){
+            installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
+            installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
+            amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
+            installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
+            start_No[i] = document.getElementsByName('start_No')[i].value;
+            start_Date[i] = document.getElementsByName('start_Date')[i].value;
+            internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
+        }
+        $('#substractRecurrence').modal('hide');
+    } else {
+        for(var i = 0; i < document.getElementsByName('installment_Category').length; i++){
+            installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
+            installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
+            amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
+            installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
+            start_No[i] = document.getElementsByName('start_No')[i].value;
+            start_Date[i] = document.getElementsByName('start_Date')[i].value;
+            internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
+        }
+        $('#substractRecurrence').modal('hide');
     }
-    $('#substractRecurrence').modal('hide');
 }
 
 function Recurrence_Fields(){
     if(installment_Category.length > 0){
         var innerData = "";
-        for(var i = 0 ; i < installment_Category.length-1; i++){
-            innerData +='<tr id="recurrencesubstractadd'+i+'">'
+        for(var i = 0 ; i < installment_Category.length; i++){
+            innerData +='<tr id="recurrencesubstract_add'+i+'">'
             +'<td width="150">'
             +'<input value = "' + installment_Category[i] + '" class="form-control" name="installment_Category" list="fixpaycat"/></td>'
             +'<td width="150">'
