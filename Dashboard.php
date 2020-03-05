@@ -553,7 +553,7 @@ require "database/connection.php";
                                                         <label>Name*</label>
                                                         <input list="shipper" class="form-control"
                                                             placeholder="--Select--" id="shipperlist"
-                                                            name="shipperlist">
+                                                            name="shipperlist" onchange="getShipper(this.value);>
                                                         <datalist id="shipper">
                                                             <?php
                                                                 $show_shipper = $db->shipper->find(['companyID' => $_SESSION['companyId']]);

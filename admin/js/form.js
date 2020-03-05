@@ -3745,7 +3745,7 @@ function Recurrence_Fields(){
         for(var i = 0 ; i < installment_Category.length; i++){
             innerData +='<tr id="recurrencesubstract_add'+i+'">'
             +'<td width="150">'
-            +'<input value = "' + installment_Category[i] + '" class="form-control" name="installment_Category" list="fixpaycat"/></td>'
+            +'<input value = "' + installment_Category[i] + '" class="form-control" name="installment_Category" list="fixpay_cat"/></td>'
             +'<td width="150">'
             +'<select name="installment_Type" id="installment_Type'+i+'" value = "' + installment_Type[i] + '" class="form-control">'
             +'<option value="" > Select Type</option>'

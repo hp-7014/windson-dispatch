@@ -127,7 +127,7 @@ require "../database/connection.php";
 
     function GetDynamicRecurrencesubstract(value) {
         return '<td width="150">'
-            +'<input value = "' + value + '" class="form-control" name="installment_Category" list="fixpaycat"/></td>'
+            +'<input class="form-control" value = "' + value + '" id="installment_Category" name="installment_Category" list="fixpay_cat"/></td>'
             +'<td width="150">'
             +'<select name="installment_Type" value = "' + value + '" class="form-control"><option value=""> Select Type</option><option value="Weekly"> Weekly</option><option value="Monthly"> Monthly</option><option value="Yearly"> Yearly</option><option value="Quartely"> Quartely</option></select></td>'
             +'<td width="100">'
