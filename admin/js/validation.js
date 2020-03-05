@@ -1041,7 +1041,7 @@ function val_driverLicenseNo(val) {
 
 function val_driverLicenseIssue(val) {
     if (val == '') {
-        swal('<h5>Please Wirte License Issue Date !!!</h5>','','question');
+        swal('<h5>Please Write License Issue Date !!!</h5>','','question');
         return false;
     } else {
         return true;
@@ -1050,8 +1050,7 @@ function val_driverLicenseIssue(val) {
 
 function val_driverLicenseExp(val) {
     if (val == '') {
-        swal("");
-        swal('<h5>Please Write Expiry Date !!!</h5>','','question');
+        swal('<h5>Please Write License Expiry Date !!!</h5>','','question');
         return false;
     } else {
         return true;
@@ -1149,7 +1148,7 @@ function val_loadedMile(val){
 
 function val_emptyMile(val){
     if (val == '') {
-        swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+        swal('<h5>Please Write Empty Mile Only !!!</h5>','','question');
         return false;
     } else {
         if (isNaN(val)) {
@@ -1162,8 +1161,8 @@ function val_emptyMile(val){
 }
 
 function val_pickupRate(val){
-    if (val != '') {
-        return true
+    if (val == '') {
+        return true;
     } else {
         if (isNaN(val)) {
             swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
@@ -1175,7 +1174,7 @@ function val_pickupRate(val){
 }
 
 function val_pickupAfter(val){
-    if (val != '') {
+    if (val == '') {
         return true;
     } else {
         if (isNaN(val)) {
@@ -1189,9 +1188,7 @@ function val_pickupAfter(val){
 
 function val_dropRate(val){
     if (val == '') {
-        swal('Please Write an Empty Mile');
-        swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
-        return false;
+        return true;
     } else {
         if (isNaN(val)) {
             swal('Please Write an Numeric Value Only');
@@ -1205,9 +1202,7 @@ function val_dropRate(val){
 
 function val_tarp(val){
     if (val == '') {
-        swal('Please Write an Empty Mile');
-        swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
-        return false;
+        return true;
     } else {
         if (isNaN(val)) {
             swal('Please Write an Numeric Value Only');
@@ -1221,12 +1216,9 @@ function val_tarp(val){
 
 function val_dropAfter(val){
     if (val == '') {
-        swal('Please Write an Empty Mile');
-        swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
-        return false;
+        return true;
     } else {
         if (isNaN(val)) {
-            swal('Please Write an Numeric Value Only');
             swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
             return false;
         } else {

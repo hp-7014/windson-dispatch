@@ -104,7 +104,7 @@ require "../database/connection.php";
         if(index == 0){
             return;
         }
-            document.getElementById("recurrencesubstractadd"+index).remove();
+            document.getElementById("recurrencesubstract_add"+index).remove();
             installment_Category.splice(index,1);
             installment_Type.splice(index,1);
             amount_recurrence.splice(index,1);

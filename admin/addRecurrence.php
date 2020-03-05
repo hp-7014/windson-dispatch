@@ -103,7 +103,8 @@ require "../database/connection.php";
         if(index == 0){
             return;
         }
-      document.getElementById("recurrenceadd"+index).remove();
+
+      document.getElementById("recurrence_add"+index).remove();
       installmentCategory.splice(index,1);
       installmentType.splice(index,1);
       amount.splice(index,1);
