@@ -2752,18 +2752,33 @@ var internalNote = [];
 function getrecurrence() {
     var recurrence_id = document.getElementById('getnewaa').value;
     if (recurrence_id == 2) {
-    for (var i = 0; i < document.getElementsByName('installmentCategory').length - 1; i++) {
-        installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
-        installmentType[i] = document.getElementsByName('installmentType')[i].value;
-        amount[i] = document.getElementsByName('amount')[i].value;
-        installment[i] = document.getElementsByName('installment')[i].value;
-        startNo[i] = document.getElementsByName('startNo')[i].value;
-        startDate[i] = document.getElementsByName('startDate')[i].value;
-        internalNote[i] = document.getElementsByName('internalNote')[i].value;
-    }
-    $('#addRecurrence').modal('hide');
-    }
-    else {
+
+        for (var i = 0; i < document.getElementsByName('installmentCategory').length - 1; i++) {
+            installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
+            installmentType[i] = document.getElementsByName('installmentType')[i].value;
+            amount[i] = document.getElementsByName('amount')[i].value;
+            installment[i] = document.getElementsByName('installment')[i].value;
+            startNo[i] = document.getElementsByName('startNo')[i].value;
+            startDate[i] = document.getElementsByName('startDate')[i].value;
+            internalNote[i] = document.getElementsByName('internalNote')[i].value;
+        }
+
+        if (val_installmentCategory(installmentCategory)) {
+            if (val_installmentType(installmentType)) {
+                if (val_amount1(amount)) {
+                    if (val_installment(installment)) {
+                        if (val_startNo(startNo)) {
+                            if (val_startDate(startDate)) {
+                                if (val_internalNote(internalNote)) {
+                                    $('#addRecurrence').modal('hide');
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    } else {
         for (var i = 0; i < document.getElementsByName('installmentCategory').length - 1; i++) {
             installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
             installmentType[i] = document.getElementsByName('installmentType')[i].value;
@@ -2814,10 +2829,8 @@ function addRecurrenceFields() {
             } else if (installmentType[i] == "Quarterly") {
                 document.getElementById(id).selectedIndex = "4";
             }
-
         }
     }
-
 }
 
 //Driver Recurrence -
@@ -2833,18 +2846,17 @@ function recurrencesubstract() {
 
     var recurrencesubstract_id = document.getElementById('getnewaa').value;
     if (recurrencesubstract_id == 2) {
-    for (var i = 0; i < document.getElementsByName('installment_Category').length - 1; i++) {
-        installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
-        installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
-        amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
-        installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
-        start_No[i] = document.getElementsByName('start_No')[i].value;
-        start_Date[i] = document.getElementsByName('start_Date')[i].value;
-        internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
-    }
-    $('#substractRecurrence').modal('hide');
-    }
-    else {
+        for (var i = 0; i < document.getElementsByName('installment_Category').length - 1; i++) {
+            installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
+            installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
+            amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
+            installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
+            start_No[i] = document.getElementsByName('start_No')[i].value;
+            start_Date[i] = document.getElementsByName('start_Date')[i].value;
+            internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
+        }
+        $('#substractRecurrence').modal('hide');
+    } else {
         for (var i = 0; i < document.getElementsByName('installment_Category').length - 1; i++) {
             installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
             installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
@@ -2897,11 +2909,9 @@ function Recurrence_Fields() {
             }
         }
     }
-
 }
 
 //-------Recurence Code END----------
-
 function addDriver() {
     var companyId = document.getElementById('companyId').value;
     var driverName = document.getElementById('driverName').value;
@@ -2961,8 +2971,6 @@ function addDriver() {
     var startDate_Store = [];
     var internalNote_Store = [];
 
-    console.log("hello");
-    console.log(installment_Category);
     for (var i = 0; i < document.getElementsByName('installmentCategory').length - 1; i++) {
         installmentCategoryStore[i] = document.getElementsByName('installmentCategory')[i].value;
         console.log(installmentCategoryStore);
