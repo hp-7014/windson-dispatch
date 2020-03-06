@@ -393,13 +393,15 @@ require "database/connection.php";
                                                 id="emptymile">
                                         </div>
                                     </div>
+
+                                
                                     
                                     <div class="form-group col-md-1 driver">
                                         <label>Other</label><i class="mdi mdi-plus-circle plus"
                                             id="add_Driver_Other"></i>
                                         <div>
                                             <input class="form-control" placeholder="Other " type="text"
-                                                id="example-text-input">
+                                                id="driverothercharges" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-1 driver">
@@ -413,21 +415,21 @@ require "database/connection.php";
                                         <label>Flat </label>
                                         <div>
                                             <input class="form-control" placeholder="Flat " type="text"
-                                                id="example-text-input">
+                                                id="driverflat" onkeyup="changeDriverTotal()">
                                         </div>
                                     </div>
                                     <div class="form-group col-md-1 driver">
                                         <label>$ Total </label>
                                         <div>
                                             <input class="form-control" placeholder="$ Total" type="text"
-                                                id="example-text-input">
+                                                id="driverTotal">
                                         </div>
                                     </div>
                                     <div class="form-group col-md-2 owner">
-                                        <label>Select Owner Operator</label><i class="mdi mdi-plus-circle plus"
+                                        <label>Owner Operator</label><i class="mdi mdi-plus-circle plus"
                                             id="add_Owner_Operator"></i>
                                         <input list="browsersowner" class="form-control" placeholder="--Select--"
-                                            id="ownerlist" name="ownerlist">
+                                            id="ownerlist" name="ownerlist" onchange="getOwner(this.value); ">
                                         <datalist id="browsersowner">
                                             <?php 
                                             $collection = $db->owner_operator_driver;
@@ -437,8 +439,8 @@ require "database/connection.php";
                                                 'localField' => 'companyID',
                                                 'foreignField' => 'companyID',
                                                 'as' => 'owner'
-                                            ]
-                                            ]]);
+                                            ]],['$match'=>['companyID'=>$_SESSION['companyId']]]
+                                            ]);
 
                                                 foreach ($show1 as $row) {
                                                     $ownerOperator = $row['ownerOperator'];
@@ -469,19 +471,12 @@ require "database/connection.php";
                                         <input class="form-control" placeholder="Pay %" type="text" id="demo1">
                                     </div>
                                     
-                                    <div class="form-group col-md-2 driver owner">
-                                        <label>Other</label><i class="mdi mdi-plus-circle plus"
-                                            id="add_Owner_Other"></i>
-                                        <div>
-                                            <input class="form-control" placeholder="Other " type="text"
-                                                id="example-text-input">
-                                        </div>
-                                    </div>
+                                    
                                     <div class="form-group col-md-1 owner">
                                         <label>
                                             Truck</label><i class="mdi mdi-plus-circle plus" id="add_Truck_Modal1"></i>
                                         <input list="browsers1truck" class="form-control" placeholder="--Select--"
-                                            id="truck1list" name="truck1list">
+                                            id="truck1list" name="truck1list" onchange="getTruck(this.value); ">
                                         <datalist id="browsers1truck">
                                             <?php
                                                 $show_truck = $db->truckadd->find(['companyID' => $_SESSION['companyId']]);
@@ -500,7 +495,7 @@ require "database/connection.php";
                                             Trailer</label><i class="mdi mdi-plus-circle plus"
                                             id="add_Trailer_Modal1"></i>
                                         <input list="browserstrailer1" class="form-control" id="trailer1list"
-                                            placeholder="--Select--" name="trailer1list">
+                                            placeholder="--Select--" name="trailer1list" onchange="getTrailer(this.value); ">
                                         <datalist id="browserstrailer1">
                                             <?php
                                                 $show_trailer = $db->trailer_admin_add->find(['companyID' => $_SESSION['companyId']]);
@@ -515,10 +510,18 @@ require "database/connection.php";
                                         </datalist>
                                     </div>
                                     <div class="form-group col-md-2 driver owner">
+                                        <label>Other</label><i class="mdi mdi-plus-circle plus"
+                                            id="add_Owner_Other"></i>
+                                        <div>
+                                            <input class="form-control" placeholder="Other " type="text"
+                                                id="ownerothercharges" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-2 driver owner">
                                         <label>$ Total </label>
                                         <div>
                                             <input class="form-control" placeholder="$ Total" type="text"
-                                                id="example-text-input">
+                                                id="ownerTotal">
                                         </div>
                                     </div>
 
@@ -552,7 +555,7 @@ require "database/connection.php";
                                                         <label>Name*</label>
                                                         <input list="shipper" class="form-control"
                                                             placeholder="--Select--" id="shipperlist"
-                                                            name="shipperlist">
+                                                            name="shipperlist" onchange="getShipper(this.value); ">
                                                         <datalist id="shipper">
                                                             <?php
                                                                 $show_shipper = $db->shipper->find(['companyID' => $_SESSION['companyId']]);
@@ -560,6 +563,7 @@ require "database/connection.php";
                                                                 foreach ($show_shipper as $showshipper) {
                                                                     $shipper = $showshipper['shipper'];
                                                                     foreach ($shipper as $sshi) {
+                                                                    
                                                                          $shipperValue = "'".$sshi['_id'].")&nbsp;".$sshi['shipperName']."'";
                                                                          echo "<option value=$shipperValue></option>";
                                                                      } }?>
@@ -569,7 +573,7 @@ require "database/connection.php";
                                                         <label>Address*</label>
                                                         <div>
                                                             <input class="form-control" placeholder="Address *"
-                                                                type="text">
+                                                                type="text" id="shipperaddress">
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-2">
@@ -583,13 +587,13 @@ require "database/connection.php";
                                                     <div class="form-group col-md-2">
                                                         <label>Pickup Date</label>
                                                         <div>
-                                                            <input class="form-control" type="date">
+                                                            <input class="form-control" type="date" id="shipperdate">
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label>Pickup Time</label>
                                                         <div>
-                                                            <input class="form-control" type="time">
+                                                            <input class="form-control" type="time" id="shippertime">
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-1">
@@ -618,13 +622,13 @@ require "database/connection.php";
                                                         <label>Commodity</label>
                                                         <div>
                                                             <input class="form-control" type="text"
-                                                                placeholder="Commodity">
+                                                                placeholder="Commodity" id="shippercommodity">
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-1 ">
                                                         <label>Qty</label>
                                                         <div>
-                                                            <input class="form-control" placeholder="Qty" type="text">
+                                                            <input class="form-control" placeholder="Qty" id="shipperqty" type="text">
                                                         </div>
                                                     </div>
 
@@ -632,21 +636,21 @@ require "database/connection.php";
                                                         <label>Weight</label>
                                                         <div>
                                                             <input class="form-control" type="text"
-                                                                placeholder="Weight">
+                                                                placeholder="Weight" id="shipperweight">
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label>Pickup #</label>
                                                         <div>
                                                             <input class="form-control" placeholder="Pickup #"
-                                                                type="text">
+                                                                type="text" id="shipperpickup">
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-md-5">
                                                         <label>Pickup Notes</label>
                                                         <div>
                                                             <textarea rows="1" cols="30" class="form-control"
-                                                                type="textarea"></textarea>
+                                                                type="textarea" id="shippernotes"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>

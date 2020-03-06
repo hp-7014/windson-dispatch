@@ -185,3 +185,65 @@ if($_POST['type'] == 'trailer'){
  
 }
 
+
+if($_POST['type'] == 'owner'){
+   $id = (int)$_POST['value'];
+   $collection = $db->owner_operator_driver;
+   $show1 = $collection->aggregate([
+   ['$lookup' => [
+      'from' => 'driver',
+      'localField' => 'companyID',
+      'foreignField' => 'companyID',
+      'as' => 'owner'
+   ]],['$match'=>['companyID'=>$_SESSION['companyId']]]
+   ,['$unwind'=>'$ownerOperator'],
+   ['$match'=>['ownerOperator._id'=>$id]]
+   ]);
+
+       foreach ($show1 as $row) {
+           $ownerOperator = $row['ownerOperator'];
+           $owner = $row['owner'];
+           $drivername = array();
+           foreach ($owner as $row2) {
+                       $owner1 = $row2['driver'];
+                       $k = 0;
+                       foreach ($owner1 as $row3) {
+                           $id = $row3['_id'];
+                           $drivername[$k] = $row3['driverName'];
+                           $k++;
+                       }    
+               }
+
+           $j = 0;
+                   foreach ($ownerOperator as $row1) {
+                       $drivername1 = $drivername[$row1['driverId']];
+                       $j++;
+                   $list .= "<option value=$drivername1></option>";
+
+                   }
+               } 
+            
+ 
+}
+if($_POST['type'] == 'shipper'){
+   $id = (int)$_POST['value'];
+   $collection = $db->shipper;
+   $show1 = $collection->aggregate([
+           ['$match'=>['companyID'=>$_SESSION['companyId']]],
+           ['$unwind'=>'$shipper'],
+           ['$match'=>['shipper._id'=>$id,'shipper.shipperStatus'=>"Active"]]
+   ]);
+   
+   foreach ($show1 as $row) {
+     
+   $shipper = array();
+   $k = 0;
+   $shipper[$k] = $row['shipper'];
+   $k++;
+   foreach ($shipper as $row) {
+         echo $row['shipperName']."<br>";
+
+      }
+   }
+}
+

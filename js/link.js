@@ -531,6 +531,12 @@ $(document).on('click', '.modalSubCredit', function () {
     $(document).on('click', '.modalupdatetable', function () {
         $('#updateTable').modal('hide');
     });
+    $(document).on('click', '.modalOtherDriver', function () {
+        $('#driverOtherCharges').modal('hide');
+    });
+    $(document).on('click', '.modalOtherOwner', function () {
+        $('#ownerOtherCharges').modal('hide');
+    });
 
 $(document).on('click', '.modalCustomer', function () {
     $('#add_customer').modal('hide');

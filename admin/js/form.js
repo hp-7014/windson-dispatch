@@ -3629,7 +3629,6 @@ var startDate = [];
 var internalNote = [];
 
 function getrecurrence(){
-    alert("inside");
     for(var i = 0; i < document.getElementsByName('installmentCategory').length; i++){
         installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
         installmentType[i] = document.getElementsByName('installmentType')[i].value;
@@ -3643,7 +3642,6 @@ function getrecurrence(){
 }
 
 function addRecurrenceFields(){
-    alert(inside);
     if(installmentCategory.length > 0){
         var innerData = "";
         for(var i = 0 ; i < installmentCategory.length-1; i++){

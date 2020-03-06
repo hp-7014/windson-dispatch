@@ -5,6 +5,10 @@ var otherCharges = [];
 var carrierotherDescription = [];
 var carrierotherCharges = [];
 var carrierotherAdvances = [];
+var driverotherDescription = [];
+var driverotherCharges = [];
+var ownerotherDescription = [];
+var ownerotherCharges = [];
 
 function add_fields() {
     room++;
@@ -460,9 +464,10 @@ $(document).on("click", "#add_Owner_Other", function () {
     $.ajax({
         type: 'POST',
         success: function (data) {
-            $('.activeload-container').load('admin/other_charges_modal.php', function (result) {
-                $('#otherCharges').modal({show: true});
+            $('.activeload-container').load('admin/owner_other_charges_modal.php', function (result) {
+                $('#ownerOtherCharges').modal({show: true});
             });
+            setTimeout(function(){  addOwnerFields(); }, 300);
         }
     });
 });
@@ -471,9 +476,10 @@ $(document).on("click", "#add_Driver_Other", function () {
     $.ajax({
         type: 'POST',
         success: function (data) {
-            $('.activeload-container').load('admin/other_charges_modal.php', function (result) {
-                $('#otherCharges').modal({show: true});
+            $('.activeload-container').load('admin/driver_other_charges_modal.php', function (result) {
+                $('#driverOtherCharges').modal({show: true});
             });
+            setTimeout(function(){  addDriverFields(); }, 300);
         }
     });
 });
@@ -910,4 +916,195 @@ function getTrailer(value){
             }
         }
     });
+}
+
+function getOwner(value){
+    var values = value.split(')');
+    var val = values[0];
+    $.ajax({
+        url: 'admin/utils/helpers.php',
+        data: {value: val,
+               type: 'owner',
+            },
+        method: "POST",
+        dataType: 'html',
+        success: function (data) {
+            
+            if(data != ""){
+                swal({
+                    title: 'Are you sure? You Want to Continue!',
+                    type: 'warning',
+                    type: 'info',
+                    html: data,
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Continue!',
+                    cancelButtonText: 'No, cancel!',
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger ml-2',
+                    buttonsStyling: false
+                });
+            }
+        }
+    });
+}
+
+function getShipper(value){
+    var values = value.split(')');
+    var val = values[0];
+    $.ajax({
+        url: 'admin/utils/helpers.php',
+        data: {value: val,
+               type: 'shipper',
+            },
+        method: "POST",
+        dataType: 'html',
+        success: function (data) {
+            
+            if(data != ""){
+                swal({
+                    title: 'Are you sure? You Want to Continue!',
+                    type: 'warning',
+                    type: 'info',
+                    html: data,
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Continue!',
+                    cancelButtonText: 'No, cancel!',
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger ml-2',
+                    buttonsStyling: false
+                });
+            }
+        }
+    });
+}
+
+function getOwner(value){
+    var values = value.split(')');
+    var val = values[0];
+    $.ajax({
+        url: 'admin/utils/helpers.php',
+        data: {value: val,
+               type: 'owner',
+            },
+        method: "POST",
+        dataType: 'html',
+        success: function (data) {
+            
+            if(data != ""){
+                swal({
+                    title: 'Are you sure? You Want to Continue!',
+                    type: 'warning',
+                    type: 'info',
+                    html: data,
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Continue!',
+                    cancelButtonText: 'No, cancel!',
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger ml-2',
+                    buttonsStyling: false
+                });
+            }
+        }
+    });
+}
+
+
+
+function getdriverOtherCharges(){
+    var oth_chg = document.getElementById('driverothercharges');
+    var driver_other_total = 0;
+    for(var i = 0; i < document.getElementsByName('driverotherDescription').length; i++){
+        
+        driverotherDescription[i] = document.getElementsByName('driverotherDescription')[i].value;
+        driverotherCharges[i] = document.getElementsByName('Driver_other_charges')[i].value;
+        driver_other_total += parseFloat(document.getElementsByName('Driver_other_charges')[i].value);
+        
+        
+        
+    }
+    oth_chg.value = driver_other_total;
+    getDriverTotal();
+    $('#driverOtherCharges').modal('hide');
+    
+}
+
+function addDriverFields(){
+    if(driverotherDescription.length > 0){
+        var innerData = "";
+        for(var i = 0 ; i < driverotherDescription.length; i++){
+            innerData += '<tr id="driverotherRow'+i+'"><td width="200"><input name = "driverotherDescription" type="text" value = "' + driverotherDescription[i] + '" class="form-control" /></td>' + '<td width="150"><input name = "Driver_other_charges" type="text" value = "' + driverotherCharges[i] + '"class="form-control" /></td>' + '<td><button type="button" class="btn btn-danger" onclick="driverRemoveRow('+i+')"><span aria-hidden="true">&times;</span></button></td></tr>';
+        }
+        document.getElementById('DriverTextBoxContainer1').innerHTML = innerData;
+    }
+    
+}
+
+function getDriverTotal(){
+    var driver_other_charges = document.getElementById('driverothercharges');
+    var driver_total = document.getElementById('driverTotal');
+    if(driver_other_charges.value != ""){
+        
+        driver_total.value = parseFloat(driver_other_charges.value).toFixed(2);
+    }
+    
+}
+
+function changeDriverTotal(){
+    var driverflat= document.getElementById('driverflat');
+    var driver_other_charges = document.getElementById('driverothercharges');
+    var driver_total = document.getElementById('driverTotal'); 
+    
+    if(driver_other_charges.value != ""){
+        driver_total.value = parseFloat(parseFloat(driverflat.value) + parseFloat(driver_other_charges.value)).toFixed(2);
+    }
+    else{
+        driver_total.value = parseFloat(driverflat.value).toFixed(2);
+    }
+    if(driverflat.value == ""){
+        driver_total.value = 0;
+    }
+
+}
+function getownerOtherCharges(){
+    var oth_chg = document.getElementById('ownerothercharges');
+    var owner_other_total = 0;
+    for(var i = 0; i < document.getElementsByName('ownerotherDescription').length; i++){
+        
+        ownerotherDescription[i] = document.getElementsByName('ownerotherDescription')[i].value;
+        ownerotherCharges[i] = document.getElementsByName('Owner_other_charges')[i].value;
+        owner_other_total += parseFloat(document.getElementsByName('Owner_other_charges')[i].value);
+        
+        
+        
+    }
+    oth_chg.value = owner_other_total;
+    getOwnerTotal();
+    $('#ownerOtherCharges').modal('hide');
+    
+}
+
+function addOwnerFields(){
+    if(ownerotherDescription.length > 0){
+        var innerData = "";
+        for(var i = 0 ; i < ownerotherDescription.length; i++){
+            innerData += '<tr id="ownerotherRow'+i+'"><td width="200"><input name = "ownerotherDescription" type="text" value = "' + ownerotherDescription[i] + '" class="form-control" /></td>' + '<td width="150"><input name = "Owner_other_charges" type="text" value = "' + ownerotherCharges[i] + '"class="form-control" /></td>' + '<td><button type="button" class="btn btn-danger" onclick="ownerRemoveRow('+i+')"><span aria-hidden="true">&times;</span></button></td></tr>';
+        }
+        document.getElementById('OwnerTextBoxContainer1').innerHTML = innerData;
+    }
+    
+}
+
+function getOwnerTotal(){
+    var owner_other_charges = document.getElementById('ownerothercharges');
+    var owner_total = document.getElementById('ownerTotal');
+    if(owner_other_charges.value != ""){
+        
+        owner_total.value = parseFloat(owner_other_charges.value).toFixed(2);
+    }
+    
+}
+
+function changeOwnerTotal(){
+    
+
 }
