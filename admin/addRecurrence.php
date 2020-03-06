@@ -127,7 +127,7 @@ require "../database/connection.php";
 
     function GetDynamicRecurrence(value) {
         return '<td width="150">'
-            +'<input id="installmentCategory" value = "' + value + '" class="form-control" name="installmentCategory" list="fixpaycat"/></td>'
+            +'<input class="form-control" value = "' + value + '" id="installmentCategory" name="installmentCategory" list="fixpaycat"/></td>'
             +'<td width="150">'
             +'<select name="installmentType" id="installmentType" value = "' + value + '" class="form-control"><option value=""> Select Type</option><option value="Weekly"> Weekly</option><option value="Monthly"> Monthly</option><option value="Yearly"> Yearly</option><option value="Quartely"> Quartely</option></select></td>'
             +'<td width="100">'

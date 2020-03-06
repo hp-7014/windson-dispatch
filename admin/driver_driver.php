@@ -6,7 +6,7 @@ require '../database/connection.php';   // connection
 
 $helper = new Helper();
 
-// insert consignee
+// insert driver
 if ($_GET['type'] == 'addDriver') {
     $driver = new Driver();
     $driver->setId($helper->getNextSequence("driver",$db));
@@ -45,7 +45,8 @@ if ($_GET['type'] == 'addDriver') {
     $driver->settarp($_POST['tarp']);
     $driver->setTerminationDate(strtotime($_POST['terminationDate']));
     $driver->setInternalNote($_POST['InternalNote']);
-    $driver->setRecurrenceAdd($_POST['installmentCategoryStore']);
+    $driver->setRecurrenceAdd($_POST['installmentCategoryStore'],$_POST['installmentTypeStore'],$_POST['amountStore'],$_POST['installmentStore'],$_POST['startNoStore'],$_POST['startDateStore'],$_POST['internalNoteStore']);
+    $driver->setRecurrenceSubtract($_POST['installmentCategory_Store'],$_POST['installmentType_Store'],$_POST['amount_Store'],$_POST['installment_Store'],$_POST['startNo_Store'],$_POST['startDate_Store'],$_POST['internalNote_Store']);
     $driver->insert($driver,$db,$helper);
     echo "Data Added Successfully";
 }

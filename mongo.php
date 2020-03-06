@@ -5,7 +5,11 @@ session_start();
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
 
-// $collection = $db->active_load;
+// $collection = $db->driver;
+
+    $db->driver->updateOne(['companyID' => 1, 'driver._id' => 1],
+        ['$set' => ['driver.$.deleteStatus' => 1,'driver.$.insertedUserId' => 1]]
+    );
 
 // $data = $collection->find(['companyID' => 1]);
 // $count = 0;
@@ -234,37 +238,43 @@ $db = $connection->WindsonDispatch;
     
 //     ]]);
 
-// $collection = $db->owner_operator_driver;
-// $show1 = $collection->aggregate([
-//     ['$lookup' => [
-//         'from' => 'driver',
-//         'localField' => 'companyID',
-//         'foreignField' => 'companyID',
-//         'as' => 'owner'
-//     ]
-//     ]]);
+$collection = $db->owner_operator_driver;
+$show1 = $collection->aggregate([
+    ['$lookup' => [
+        'from' => 'driver',
+        'localField' => 'companyID',
+        'foreignField' => 'companyID',
+        'as' => 'owner'
+    ]],
+           ['$match'=>['companyID'=>1]],
+           ['$unwind'=>'$ownerOperator'],
+           ['$match'=>['ownerOperator._id'=>1]]
+    ]);
 
-// foreach ($show1 as $row) {
-//     $ownerOperator = $row['ownerOperator'];
-//     $owner = $row['owner'];
-//     $drivername = array();
-//     foreach ($owner as $row2) {
-//                 $owner1 = $row2['driver'];
-//                 $k = 0;
-//                 foreach ($owner1 as $row3) {
-//                     $id = $row3['_id'];
-//                     $drivername[$k] = $id." ".$row3['driverName'];
-//                     $k++;
-//                 }    
-//         }
+foreach ($show1 as $row) {
+    $ownerOperator = array();
+    $c = 0;
+    $ownerOperator[$c] = $row['ownerOperator'];
+    $c++;
+    $owner = $row['owner'];
+    $drivername = array();
+    foreach ($owner as $row2) {
+                $owner1 = $row2['driver'];
+                $k = 0;
+                foreach ($owner1 as $row3) {
+                    $id = $row3['_id'];
+                    $drivername[$k] = $id." ".$row3['driverName'];
+                    $k++;
+                }    
+        }
 
-//     $j = 0;
-//             foreach ($ownerOperator as $row1) {
-//                 $drivername1 = $drivername[$row1['driverId']];
-//                 $j++;
-//                 echo $drivername1."<br>";
-//             }
-//         }
+    $j = 0;
+            foreach ($ownerOperator as $row1) {
+                $drivername1 = $drivername[$row1['driverId']];
+                $j++;
+                echo $drivername1."<br>";
+            }
+        }
 // parseFloat(rateAmount) +
 // $show1 = $db->load_type->aggregate([
 //     ['$match'=>['companyID'=>$_SESSION['companyId']]],

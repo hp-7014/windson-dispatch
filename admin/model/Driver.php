@@ -70,12 +70,18 @@ class Driver implements IteratorAggregate
     /**
      * @param mixed $recurrenceAdd
      */
-    public function setRecurrenceAdd($installmentCategoryStore): void
+    public function setRecurrenceAdd($installmentCategoryStore,$installmentTypeStore,$amountStore,$installmentStore,$startNoStore,$startDateStore,$internalNoteStore): void
     {
         $this->recurrenceAdd = array();
-        for ($i = 0; $i < count($installmentCategoryStore); $i++) {
+        for ($i = 0; $i < count($installmentCategoryStore) - 1; $i++) {
             $this->recurrenceAdd[] = array(
                 "installmentCategoryStore" => $installmentCategoryStore[$i],
+                "installmentTypeStore" => $installmentTypeStore[$i],
+                "amountStore" => $amountStore[$i],
+                "installmentStore" => $installmentStore[$i],
+                "startNoStore" => $startNoStore[$i],
+                "startDateStore" => $startDateStore[$i],
+                "internalNoteStore" => $internalNoteStore[$i],
             );
         }
     }
@@ -91,9 +97,20 @@ class Driver implements IteratorAggregate
     /**
      * @param mixed $recurrenceSubtract
      */
-    public function setRecurrenceSubtract($recurrenceSubtract): void
+    public function setRecurrenceSubtract($installmentCategory_Store,$installmentType_Store,$amount_Store,$installment_Store,$startNo_Store,$startDate_Store,$internalNote_Store): void
     {
-        $this->recurrenceSubtract = $recurrenceSubtract;
+        $this->recurrenceSubtract = array();
+        for ($i = 0; $i < count($installmentCategory_Store) - 1; $i++) {
+            $this->recurrenceSubtract[] = array(
+                "installmentCategoryStore" => $installmentCategory_Store[$i],
+                "installmentTypeStore" => $installmentType_Store[$i],
+                "amountStore" => $amount_Store[$i],
+                "installmentStore" => $installment_Store[$i],
+                "startNoStore" => $startNo_Store[$i],
+                "startDateStore" => $startDate_Store[$i],
+                "internalNoteStore" => $internalNote_Store[$i],
+            );
+        }
     }
 
     /**
@@ -829,6 +846,7 @@ class Driver implements IteratorAggregate
                     'deleteStatus' => 0,
                     'ownerOperatorStatus' => 0,
                     'recurrenceAdd' => $this->recurrenceAdd,
+                    'recurrenceSubtract' => $this->recurrenceSubtract,
                 ])
             )
         );
@@ -884,6 +902,7 @@ class Driver implements IteratorAggregate
                 'deleteStatus' => 0,
                 'ownerOperatorStatus' => 0,
                 'recurrenceAdd' => $this->recurrenceAdd,
+                'recurrenceSubtract' => $this->recurrenceSubtract,
             ]]]);
         } else {
             $ship = iterator_to_array($driver);
@@ -1039,6 +1058,4 @@ class Driver implements IteratorAggregate
 
         echo json_encode($p);
     }
-
-
 }
