@@ -17,7 +17,7 @@ require "../database/connection.php";
                     <table class=" table-responsive other-table" id="otherTable">
                         <thead>
                         <tr>
-                            <td>Category</td>
+                            <td>Fix Pay Category</td>
                             <td>Installment Type</td>
                             <td>Amount</td>
                             <td>Installment</td>
@@ -30,7 +30,6 @@ require "../database/connection.php";
                         <tbody id="TextBoxContainer2">
                         <td width="150">
                                     <input class="form-control" id="installmentCategory" name="installmentCategory" list="fixpaycat"/>
-
                                 </td>
                                 <td width="150">
                                     <select name="installmentType" id="installmentType" class="form-control">
@@ -82,6 +81,18 @@ require "../database/connection.php";
                 <button type="button" class="btn btn-primary waves-effect waves-light" onclick="getrecurrence()">Save
                 </button>
             </div>
+            <datalist id="fixpaycat">
+                <?php
+                $show = $db->fixpay_add->find(['companyID' => $_SESSION['companyId']]);
+                foreach ($show as $row) {
+                    $show1 = $row['fixPay'];
+                    foreach ($show1 as $row1) {
+                        $fix_pay = "'".$row1['fixPayType']."'";
+                        echo " <option value=$fix_pay></option>";
+
+                    }
+                } ?>
+            </datalist>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -103,7 +114,8 @@ require "../database/connection.php";
         if(index == 0){
             return;
         }
-      document.getElementById("recurrenceadd"+index).remove();
+
+      document.getElementById("recurrence_add"+index).remove();
       installmentCategory.splice(index,1);
       installmentType.splice(index,1);
       amount.splice(index,1);
@@ -115,7 +127,7 @@ require "../database/connection.php";
 
     function GetDynamicRecurrence(value) {
         return '<td width="150">'
-            +'<input id="installmentCategory" value = "' + value + '" class="form-control" name="installmentCategory" list="fixpaycat"/></td>'
+            +'<input class="form-control" value = "' + value + '" id="installmentCategory" name="installmentCategory" list="fixpaycat"/></td>'
             +'<td width="150">'
             +'<select name="installmentType" id="installmentType" value = "' + value + '" class="form-control"><option value=""> Select Type</option><option value="Weekly"> Weekly</option><option value="Monthly"> Monthly</option><option value="Yearly"> Yearly</option><option value="Quartely"> Quartely</option></select></td>'
             +'<td width="100">'

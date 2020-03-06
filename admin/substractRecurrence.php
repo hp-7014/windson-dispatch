@@ -30,8 +30,7 @@ require "../database/connection.php";
                         </thead>
                         <tbody id="TextBoxContainer3">
                         <td width="150">
-                                    <input class="form-control" id="installment_Category" name="installment_Category" list="fixpaycat"/>
-
+                                    <input class="form-control" id="installment_Category" name="installment_Category" list="fixpay_cat"/>
                                 </td>
                                 <td width="150">
                                     <select name="installment_Type" id="installment_Type" class="form-control">
@@ -83,6 +82,18 @@ require "../database/connection.php";
                 <button type="button" class="btn btn-primary waves-effect waves-light" onclick="recurrencesubstract()">Save
                 </button>
             </div>
+            <datalist id="fixpay_cat">
+                <?php
+                $show = $db->fixpay_add->find(['companyID' => $_SESSION['companyId']]);
+                foreach ($show as $row) {
+                    $show1 = $row['fixPay'];
+                    foreach ($show1 as $row1) {
+                        $fix_pay = "'".$row1['fixPayType']."'";
+                        echo " <option value=$fix_pay></option>";
+
+                    }
+                } ?>
+            </datalist>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -104,7 +115,7 @@ require "../database/connection.php";
         if(index == 0){
             return;
         }
-            document.getElementById("recurrencesubstractadd"+index).remove();
+            document.getElementById("recurrencesubstract_add"+index).remove();
             installment_Category.splice(index,1);
             installment_Type.splice(index,1);
             amount_recurrence.splice(index,1);
@@ -116,7 +127,7 @@ require "../database/connection.php";
 
     function GetDynamicRecurrencesubstract(value) {
         return '<td width="150">'
-            +'<input value = "' + value + '" class="form-control" name="installment_Category" list="fixpaycat"/></td>'
+            +'<input class="form-control" value = "' + value + '" id="installment_Category" name="installment_Category" list="fixpay_cat"/></td>'
             +'<td width="150">'
             +'<select name="installment_Type" value = "' + value + '" class="form-control"><option value=""> Select Type</option><option value="Weekly"> Weekly</option><option value="Monthly"> Monthly</option><option value="Yearly"> Yearly</option><option value="Quartely"> Quartely</option></select></td>'
             +'<td width="100">'

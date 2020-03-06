@@ -6,7 +6,7 @@ require '../database/connection.php';   // connection
 
 $helper = new Helper();
 
-// insert consignee
+// insert driver
 if ($_GET['type'] == 'addDriver') {
     $driver = new Driver();
     $driver->setId($helper->getNextSequence("driver",$db));
@@ -30,16 +30,23 @@ if ($_GET['type'] == 'addDriver') {
     $driver->setDriverLastMedical(strtotime($_POST['driverLastMedical']));
     $driver->setDriverNextMedical(strtotime($_POST['driverNextMedical']));
     $driver->setDriverLastDrugTest(strtotime($_POST['driverLastDrugTest']));
+    $driver->setDriverNextDrugTest(strtotime($_POST['driverNextMedical']));
     $driver->setPassportExpiry(strtotime($_POST['passportExpiry']));
     $driver->setFastCardExpiry(strtotime($_POST['fastCardExpiry']));
     $driver->setHazmatExpiry(strtotime($_POST['hazmatExpiry']));
-    $driver->setDriverMile($_POST['driverMile']);
-    $driver->setDriverFlat($_POST['driverFlat']);
-    $driver->setDriverStop($_POST['driverStop']);
-    $driver->setDriverTrap($_POST['driverTrap']);
-    $driver->setDriverPercentage($_POST['driverPercentage']);
+    $driver->setRate($_POST['rate']);
+    $driver->setCurrency($_POST['currency']);
+    $driver->setDriverLoadedMile($_POST['driverLoadedMile']);
+    $driver->setDriverEmptyMile($_POST['driverEmptyMile']);
+    $driver->setPickupRate($_POST['pickupRate']);
+    $driver->setPickputAfter($_POST['pickupAfter']);
+    $driver->setDropRate($_POST['dropRate']);
+    $driver->setDropAfter($_POST['dropAfter']);
+    $driver->settarp($_POST['tarp']);
     $driver->setTerminationDate(strtotime($_POST['terminationDate']));
     $driver->setInternalNote($_POST['InternalNote']);
+    $driver->setRecurrenceAdd($_POST['installmentCategoryStore'],$_POST['installmentTypeStore'],$_POST['amountStore'],$_POST['installmentStore'],$_POST['startNoStore'],$_POST['startDateStore'],$_POST['internalNoteStore']);
+    $driver->setRecurrenceSubtract($_POST['installmentCategory_Store'],$_POST['installmentType_Store'],$_POST['amount_Store'],$_POST['installment_Store'],$_POST['startNo_Store'],$_POST['startDate_Store'],$_POST['internalNote_Store']);
     $driver->insert($driver,$db,$helper);
     echo "Data Added Successfully";
 }

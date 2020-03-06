@@ -22,6 +22,8 @@ require "../database/connection.php";
                 <form action="" method="post" enctype="multipart/form-data">
                     <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" type="text"
                            id="search" placeholder="search" style="margin-left: 5px;">
+                    <input type="hidden" id="getnewaa" name="getnewaa"
+                           value="2">
                     <button class="btn btn-primary float-left" type="button" data-toggle="modal"
                             data-target="#" id="AddDriver"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD
                     </button>

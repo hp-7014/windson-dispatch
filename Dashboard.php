@@ -329,7 +329,8 @@ require "database/connection.php";
 
                                     <div class="form-group col-md-2 driver">
                                         <label>Driver name</label><i class="mdi mdi-plus-circle plus"
-                                            id="add_Driver_Modal"></i>
+                                            id="add_Driver_Modal">
+                                            <input type="hidden" id="getnewaa" name="getnewaa" value="1"></i>
                                         <input list="browsersdriver" class="form-control" placeholder="--Select--"
                                             id="driverlist" name="driverlist" onchange="getDriver(this.value); ">
                                         <datalist id="browsersdriver">
