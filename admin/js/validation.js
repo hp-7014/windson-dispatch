@@ -1584,18 +1584,19 @@ function val_carrDOT(val) {
     }
 }
 
-//--- driver Installment
+// driver installation
 function val_installmentCategory(val) {
     if (val == '') {
-        swal('<h5>Please Select Installment Category !!!</h5>','','question');
+        swal('<h5>Please Select Installment Category !!!</h5>', '', 'question');
         return false;
     } else {
         return true;
     }
 }
+
 function val_installmentType(val) {
     if (val == '') {
-        swal('<h5>Please Select Installment Type !!!</h5>','','question');
+        swal('<h5>Please Select Installment Type !!!</h5>', '', 'question');
         return false;
     } else {
         return true;
@@ -1603,7 +1604,7 @@ function val_installmentType(val) {
 }
 function val_amount1(val) {
     if (val == '') {
-        swal('<h5>Please Select Installment Amount !!!</h5>','','question');
+        swal('<h5>Please Select Installment Amount !!!</h5>', '', 'question');
         return false;
     } else {
         return true;
@@ -1611,7 +1612,7 @@ function val_amount1(val) {
 }
 function val_installment(val) {
     if (val == '') {
-        swal('<h5>Please Select Installment !!!</h5>','','question');
+        swal('<h5>Please Select Installment !!!</h5>', '', 'question');
         return false;
     } else {
         return true;
@@ -1619,7 +1620,7 @@ function val_installment(val) {
 }
 function val_startNo(val) {
     if (val == '') {
-        swal('<h5>Please Select Start Number !!!</h5>','','question');
+        swal('<h5>Please Select Start Number !!!</h5>', '', 'question');
         return false;
     } else {
         return true;
@@ -1627,15 +1628,15 @@ function val_startNo(val) {
 }
 function val_startDate(val) {
     if (val == '') {
-        swal('<h5>Please Select Start Date !!!</h5>','','question');
+        swal('<h5>Please Select Start Date !!!</h5>', '', 'question');
         return false;
     } else {
         return true;
     }
 }
-function val_internalNote(val) {
+function val_internalNote1(val) {
     if (val == '') {
-        swal('<h5>Please Select Internal Note !!!</h5>','','question');
+        swal('<h5>Please Select Internal Note !!!</h5>', '', 'question');
         return false;
     } else {
         return true;

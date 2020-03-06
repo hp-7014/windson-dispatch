@@ -1310,24 +1310,23 @@ database.ref(fixpaytest).on('child_removed', function (data) {
 
 function updateFixPayTable() {
     var fixpaycat = document.getElementById('fixpaycat');
-    var fixpayBody = document.getElementById('fixpayBody');
-    var fixpay_cat = document.getElementById('fixpay_cat');
+var fixpayBody = document.getElementById('fixpayBody');
+var fixpay_cat = document.getElementById('fixpay_cat');
     $.ajax({
         url: 'master/utils/getFixPayCategory.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
             var res = response.split("^");
-            if (fixpayBody != null) {
-                fixpayBody.innerHTML = res[0];
-            }
-            if (fixpaycat != null) {
-                fixpaycat.innerHTML = res[1];
-            }
-            if (fixpay_cat != null) {
-                fixpay_cat.innerHTML = res[1];
-            }
-
+if (fixpayBody != null) {
+fixpayBody.innerHTML = res[0];
+}
+if (fixpaycat != null) {
+fixpaycat.innerHTML = res[1];
+}
+if (fixpay_cat != null) {
+fixpay_cat.innerHTML = res[1];
+}
         },
     });
 }

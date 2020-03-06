@@ -26,7 +26,7 @@ require "../../database/connection.php";
              </td>
          </tr>";
          $value = "".$fixPayType."";
-         $list .= "<option value=$value></option>";
+         $list .= "<option value='$value'></option>";
       }
  }
- echo $table."^".$list;
+echo $table."^".$list;

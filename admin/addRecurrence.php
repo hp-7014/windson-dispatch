@@ -7,9 +7,7 @@ require "../database/connection.php";
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
-
-            <div class="fixpay-container" style="z-index: 1600"></div>
-
+        <div class="fixpay-container" style="z-index: 1600"></div>
             <div class="modal-header custom-modal-header">
                 <h5 class="modal-title custom-modal-title mt-0" id="myLargeModalLabel">Add Recurrence</h5>
                 <button type="button" class="close modalrecurrenceadd" aria-label="Close">
@@ -21,9 +19,7 @@ require "../database/connection.php";
                     <table class=" table-responsive other-table" id="otherTable">
                         <thead>
                         <tr>
-                            <td>Fix Pay Category <span class="mandatory">*</span>
-                                <i class="mdi mdi-plus-circle plus" title="Add Fix Pay Category"
-                                   id="Fix_Pay_Category"></i></td>
+                            <td>Fix Pay Category <span class="mandatory">*</span><i class="mdi mdi-plus-circle plus" title="Add Fix Pay Category" id="Fix_Pay_Category"></i></td>
                             <td>Installment Type <span class="mandatory">*</span></td>
                             <td>Amount <span class="mandatory">*</span></td>
                             <td>Installment <span class="mandatory">*</span></td>
@@ -73,7 +69,7 @@ require "../database/connection.php";
                             <th colspan="12" class="tableFooter">
                                 <button id="btnAdd2" type="button" class="btn btn-primary" data-toggle="tooltip"
                                         data-original-title="Add more controls"><i
-                                            class="glyphicon glyphicon-plus-sign"></i>&nbsp; Add&nbsp;
+                                        class="glyphicon glyphicon-plus-sign"></i>&nbsp; Add&nbsp;
                                 </button>
                             </th>
                         </tr>
@@ -97,7 +93,7 @@ require "../database/connection.php";
                     $show1 = $row['fixPay'];
                     foreach ($show1 as $row1) {
                         $fix_pay = "'".$row1['fixPayType']."'";
-                        echo "<option value=$fix_pay></option>";
+                        echo " <option value=$fix_pay></option>";
                     }
                 } ?>
             </datalist>

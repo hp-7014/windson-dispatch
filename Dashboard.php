@@ -841,7 +841,7 @@ require "database/connection.php";
                                     <div class="upload-button">
                                         <label>Upload Files</label>
                                         <button class="button">Upload a file</button>
-                                        <input type="file" name="myfile" />
+                                        <input type="file" id="files" onchange = "getfiles(this.files);" name="files[]" multiple accept=".png, .jpg, .jpeg, .pdf"/>
                                     </div>
                                     <div class="form-group col-md-10">
                                         <label>Load Notes</label>

@@ -184,39 +184,3 @@ if($_POST['type'] == 'trailer'){
    }
  
 }
-
-
-if($_POST['type'] == 'activeshipper'){
-   $id = (int)$_POST['value'];
-   $collection = $db->shipper;
-   $show1 = $collection->aggregate([
-           ['$match'=>['companyID'=>$_SESSION['companyId']]],
-           ['$unwind'=>'$shipper'],
-           ['$match'=>['shipper._id'=>$id]]
-   ]);
-   
-   foreach ($show1 as $row) {
-     
-   $driver = array();
-   $k = 0;
-   $driver[$k] = $row['trailer'];
-   $k++;
-   foreach ($driver as $row) {
-         $now = strtotime("now");
-         $plateExpiry = $row['plateExpiry'];
-         $inspectionExpiry = $row['inspectionExpiration'];
-         $dotExpiry  =$row['dot'];
-         if($plateExpiry - $now <= 2592000){
-            echo "- <b style='font-weight:bold;line-height:1.5'>License plate is Expiring in less than 30 days.</b>"."<br>";
-         }
-         if(($inspectionExpiry - $now)  <= 2592000){
-            echo "- <b style='font-weight:bold;line-height:1.5'>Inspection expiry is within 30 days.</b>"."<br>";
-         }
-         if(($dotExpiry - $now)  <= 2592000){
-            echo "- <b style='font-weight:bold;line-height:1.5'>DOT is expiring in 30 days.</b>"."<br>";
-         } 
-
-      }
-   }
- 
-}
