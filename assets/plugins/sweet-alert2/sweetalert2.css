@@ -989,8 +989,8 @@ body.swal2-no-backdrop .swal2-shown {
     border-color: #9de0f6;
     color: #3fc3ee; }
   .swal2-icon.swal2-question {
-    border-color: #c9dae1;
-    color: #87adbd; }
+    border-color: #fc5454;
+    color: #fc5454; }
   .swal2-icon.swal2-success {
     border-color: #a5dc86; }
     .swal2-icon.swal2-success [class^='swal2-success-circular-line'] {

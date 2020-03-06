@@ -223,7 +223,8 @@ require "../database/connection.php";
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label>Rate</label>
+                        <label>Rate <span class="mandatory">*</span>
+                        </label>
                         <select class="form-control" id="rate">
                             <option value="0" selected disabled>Select</option>
                             <option value="mile">Per Mile</option>
@@ -232,7 +233,8 @@ require "../database/connection.php";
                         </select>
                     </div>
                     <div class="form-group col-md-2 ">
-                        <label>Currency</label><i class="mdi mdi-plus-circle plus" id="add_driver_currency_modal"></i>
+                        <label>Currency <span class="mandatory">*</span>
+                        </label><i class="mdi mdi-plus-circle plus" id="add_driver_currency_modal"></i>
                         <input list="driverCurrency" class="form-control" placeholder="--Select--"
                                id="driverCurrencyList" name="driverCurrencyList">
                         <datalist id="driverCurrency">
@@ -288,6 +290,7 @@ require "../database/connection.php";
                 </div>
             </div>
             <div class="modal-footer">
+                <label class="text-danger" style="padding-right: 520px;"><b>Note :</b>&nbsp; * Fields are mandatory</label>
                 <button type="button" class="btn btn-danger waves-effect modalDriver">
                     Close
                 </button>

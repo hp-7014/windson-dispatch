@@ -5,9 +5,9 @@ require "../../database/connection.php";
  $show = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
  $no = 0;
  $table = "";
- $list = "<option value='0'>--Select--</option>";
- $list1 = "<option value='0'>--Select--</option>";
- $list2 = "<option value='0'>--Select--</option>";
+ $list = "<option value='' selected disabled>--Select--</option>";
+ $list1 = "<option value='' selected disabled>--Select--</option>";
+ $list2 = "<option value='' selected disabled>--Select--</option>";
  foreach ($show as $row) {
      $show1 = $row['currency'];
      foreach ($show1 as $row1) {
