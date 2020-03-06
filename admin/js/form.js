@@ -2739,7 +2739,6 @@ function addPayFields() {
 }
 
 //-------Recurence Code Start----------
-
 //Driver Recurrence +
 var installmentCategory = [];
 var installmentType = [];
@@ -2751,19 +2750,9 @@ var internalNote = [];
 
 function getrecurrence() {
     var recurrence_id = document.getElementById('getnewaa').value;
+    var counter = 0;
+    var counter1 = 0;
     if (recurrence_id == 2) {
-    for (var i = 0; i < document.getElementsByName('installmentCategory').length - 1; i++) {
-        installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
-        installmentType[i] = document.getElementsByName('installmentType')[i].value;
-        amount[i] = document.getElementsByName('amount')[i].value;
-        installment[i] = document.getElementsByName('installment')[i].value;
-        startNo[i] = document.getElementsByName('startNo')[i].value;
-        startDate[i] = document.getElementsByName('startDate')[i].value;
-        internalNote[i] = document.getElementsByName('internalNote')[i].value;
-    }
-    $('#addRecurrence').modal('hide');
-    }
-    else {
         for (var i = 0; i < document.getElementsByName('installmentCategory').length - 1; i++) {
             installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
             installmentType[i] = document.getElementsByName('installmentType')[i].value;
@@ -2772,34 +2761,115 @@ function getrecurrence() {
             startNo[i] = document.getElementsByName('startNo')[i].value;
             startDate[i] = document.getElementsByName('startDate')[i].value;
             internalNote[i] = document.getElementsByName('internalNote')[i].value;
+            if (val_installmentCategory(installmentCategory[i])) {
+                if (val_installmentType(installmentType[i])) {
+                    if (val_amount1(amount[i])) {
+                        if (val_installment(installment[i])) {
+                            if (val_startNo(val_startNo[i])) {
+                                if (val_startDate(startDate[i])) {
+                                    if (val_internalNote1(internalNote[i])) {
+                                        counter++;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
         }
+
+        if (counter == document.getElementsByName('installmentCategory').length - 1) {
+            $('#addRecurrence').modal('hide');
+        } else {
+            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
+        }
+
+    } else {
+        
+        for (var i = 0; i < document.getElementsByName('installmentCategory').length; i++) {
+            installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
+            installmentType[i] = document.getElementsByName('installmentType')[i].value;
+            amount[i] = document.getElementsByName('amount')[i].value;
+            installment[i] = document.getElementsByName('installment')[i].value;
+            startNo[i] = document.getElementsByName('startNo')[i].value;
+            startDate[i] = document.getElementsByName('startDate')[i].value;
+            internalNote[i] = document.getElementsByName('internalNote')[i].value;
+            if (val_installmentCategory(installmentCategory[i])) {
+                if (val_installmentType(installmentType[i])) {
+                    if (val_amount1(amount[i])) {
+                        if (val_installment(installment[i])) {
+                            if (val_startNo(val_startNo[i])) {
+                                if (val_startDate(startDate[i])) {
+                                    if (val_internalNote1(internalNote[i])) {
+                                        counter1++;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+    }
+    if (counter1 == document.getElementsByName('installmentCategory').length) {
         $('#addRecurrence').modal('hide');
+    } else {
+        swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
     }
 }
 
 function addRecurrenceFields() {
     if (installmentCategory.length > 0) {
         var innerData = "";
-        for (var i = 0; i < installmentCategory.length - 1; i++) {
+        for (var i = 0; i < installmentCategory.length; i++) {
             innerData += '<tr id="recurrence_add' + i + '">'
                 + '<td width="150">'
-                + '<input value = "' + installmentCategory[i] + '" class="form-control" name="installmentCategory" list="fixpaycat"/></td>'
+                + '<input value = "' + installmentCategory[i] + '" id="installmentCategory" class="form-control" name="installmentCategory" list="fixpaycat"/></td>'
                 + '<td width="150">'
-                + '<select name="installmentType" id="installmentType" value = "' + installmentType[i] + '" class="form-control">'
+                + '<select name="installmentType"' + i + '" value = "' + installmentType[i] + '" class="form-control">'
                 + '<option value="" > Select Type</option>'
-                + '<option value="Weekly" > Weekly</option>'
+                + '<option value="Weekly"> Weekly</option>'
                 + '<option value="Monthly"> Monthly</option>'
                 + '<option value="Yearly"> Yearly</option>'
                 + '<option value="Quartely"> Quartely</option>'
                 + '</select></td>'
                 + '<td width="100">'
-                + '<input name="amount" type="text" value = "' + amount[i] + '" class="form-control" /></td>'
+                + '<input name="amount" id="amount" type="text" value = "' + amount[i] + '" class="form-control" /></td>'
                 + '<td width="100">'
-                + '<input name="installment" type="text" value = "' + installment[i] + '" class="form-control" /></td>'
-                + '<td width="100"><input name="startNo" type="text" value = "' + startNo[i] + '" class="form-control" /></td>'
-                + '<td width="10"><input name="startDate" type="date" value = "' + startDate[i] + '" class="form-control" /></td>'
-                + '<td width="250"><textarea rows="1" cols="30" value = "' + internalNote[i] + '" class="form-control" type="textarea" name="internalNote">' + internalNote[i] + '</textarea></td>'
+                + '<input name="installment" id="installment" type="text" value = "' + installment[i] + '" class="form-control" /></td>'
+                + '<td width="100"><input name="startNo" id="startNo" type="text" value = "' + startNo[i] + '" class="form-control" /></td>'
+                + '<td width="10"><input name="startDate" id="startDate" type="date" value = "' + startDate[i] + '" class="form-control" /></td>'
+                + '<td width="250"><textarea rows="1" id="internalNote" cols="30" value = "' + internalNote[i] + '" class="form-control" type="textarea" name="internalNote">' + internalNote[i] + '</textarea></td>'
                 + '<td><button type="button" class="btn btn-danger" onclick="removeRowRecurrence(' + i + ')"><span aria-hidden="true">&times;</span></button></td></tr>'
+
         }
 
         document.getElementById('TextBoxContainer2').innerHTML = innerData;
@@ -2807,11 +2877,14 @@ function addRecurrenceFields() {
             var id = "installmentType" + i;
             if (installmentType[i] == "Weekly") {
                 document.getElementById(id).selectedIndex = "1";
-            } else if (installmentType[i] == "Monthly") {
+            }
+            else if (installmentType[i] == "Monthly") {
                 document.getElementById(id).selectedIndex = "2";
-            } else if (installmentType[i] == "Yearly") {
+            }
+            else if (installmentType[i] == "Yearly") {
                 document.getElementById(id).selectedIndex = "3";
-            } else if (installmentType[i] == "Quarterly") {
+            }
+            else if (installmentType[i] == "Quarterly") {
                 document.getElementById(id).selectedIndex = "4";
             }
 
@@ -2828,23 +2901,11 @@ var installment_sub = [];
 var start_No = [];
 var start_Date = [];
 var internal_Note = [];
-
+var counter2 = 0;
+var counter3 = 0;
 function recurrencesubstract() {
-
     var recurrencesubstract_id = document.getElementById('getnewaa').value;
     if (recurrencesubstract_id == 2) {
-    for (var i = 0; i < document.getElementsByName('installment_Category').length - 1; i++) {
-        installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
-        installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
-        amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
-        installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
-        start_No[i] = document.getElementsByName('start_No')[i].value;
-        start_Date[i] = document.getElementsByName('start_Date')[i].value;
-        internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
-    }
-    $('#substractRecurrence').modal('hide');
-    }
-    else {
         for (var i = 0; i < document.getElementsByName('installment_Category').length - 1; i++) {
             installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
             installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
@@ -2853,20 +2914,98 @@ function recurrencesubstract() {
             start_No[i] = document.getElementsByName('start_No')[i].value;
             start_Date[i] = document.getElementsByName('start_Date')[i].value;
             internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
+            if (val_installmentCategory(installment_Category[i])) {
+                if (val_installmentType(installment_Type[i])) {
+                    if (val_amount1(amount_recurrence[i])) {
+                        if (val_installment(installment_sub[i])) {
+                            if (val_startNo(start_No[i])) {
+                                if (val_startDate(start_Date[i])) {
+                                    if (val_internalNote1(internal_Note[i])) {
+                                        counter2++;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
         }
-        $('#substractRecurrence').modal('hide');
+        
+        if (counter2 == document.getElementsByName('installment_Category').length - 1) {
+            $('#substractRecurrence').modal('hide');
+        } else {
+            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
+        }
+    } else {
+        for (var i = 0; i < document.getElementsByName('installment_Category').length; i++) {
+            installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
+            installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
+            amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
+            installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
+            start_No[i] = document.getElementsByName('start_No')[i].value;
+            start_Date[i] = document.getElementsByName('start_Date')[i].value;
+            internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
+            if (val_installmentCategory(installment_Category[i])) {
+                if (val_installmentType(installment_Type[i])) {
+                    if (val_amount1(amount_recurrence[i])) {
+                        if (val_installment(installment_sub[i])) {
+                            if (val_startNo(start_No[i])) {
+                                if (val_startDate(start_Date[i])) {
+                                    if (val_internalNote1(internal_Note[i])) {
+                                        counter2++;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        if (counter2 == document.getElementsByName('installment_Category').length) {
+            $('#substractRecurrence').modal('hide');
+        } else {
+            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
+        }
     }
 }
 
 function Recurrence_Fields() {
     if (installment_Category.length > 0) {
         var innerData = "";
-        for (var i = 0; i < installment_Category.length - 1; i++) {
+        for (var i = 0; i < installment_Category.length; i++) {
             innerData += '<tr id="recurrencesubstract_add' + i + '">'
                 + '<td width="150">'
                 + '<input value = "' + installment_Category[i] + '" class="form-control" name="installment_Category" list="fixpay_cat"/></td>'
                 + '<td width="150">'
-                + '<select name="installment_Type" id="installment_Type" value = "' + installment_Type[i] + '" class="form-control">'
+                + '<select name="installment_Type" id="installment_Type' + i + '" value = "' + installment_Type[i] + '" class="form-control">'
                 + '<option value="" > Select Type</option>'
                 + '<option value="Weekly" > Weekly</option>'
                 + '<option value="Monthly"> Monthly</option>'
@@ -2881,6 +3020,7 @@ function Recurrence_Fields() {
                 + '<td width="10"><input name="start_Date" type="date" value = "' + start_Date[i] + '" class="form-control" /></td>'
                 + '<td width="250"><textarea rows="1" cols="30" value = "' + internal_Note[i] + '" class="form-control" type="textarea" name="internal_Note">' + internal_Note[i] + '</textarea></td>'
                 + '<td><button type="button" class="btn btn-danger" onclick="recurrence_substract(' + i + ')"><span aria-hidden="true">&times;</span></button></td></tr>'
+
         }
 
         document.getElementById('TextBoxContainer3').innerHTML = innerData;
@@ -2888,18 +3028,21 @@ function Recurrence_Fields() {
             var id = "installment_Type" + i;
             if (installment_Type[i] == "Weekly") {
                 document.getElementById(id).selectedIndex = "1";
-            } else if (installment_Type[i] == "Monthly") {
+            }
+            else if (installment_Type[i] == "Monthly") {
                 document.getElementById(id).selectedIndex = "2";
-            } else if (installment_Type[i] == "Yearly") {
+            }
+            else if (installment_Type[i] == "Yearly") {
                 document.getElementById(id).selectedIndex = "3";
-            } else if (installment_Type[i] == "Quarterly") {
+            }
+            else if (installment_Type[i] == "Quarterly") {
                 document.getElementById(id).selectedIndex = "4";
             }
+
         }
     }
 
 }
-
 //-------Recurence Code END----------
 
 function addDriver() {
@@ -3845,309 +3988,4 @@ function updateCarrierTable() {
             }
         },
     });
-}
-
-//Driver Recurrence +
-var installmentCategory = [];
-var installmentType = [];
-var amount = [];
-var installment = [];
-var startNo = [];
-var startDate = [];
-var internalNote = [];
-
-function getrecurrence() {
-    var recurrence_id = document.getElementById('getnewaa').value;
-    var counter = 0;
-    var counter1 = 0;
-    if (recurrence_id == 2) {
-        for (var i = 0; i < document.getElementsByName('installmentCategory').length - 1; i++) {
-            installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
-            installmentType[i] = document.getElementsByName('installmentType')[i].value;
-            amount[i] = document.getElementsByName('amount')[i].value;
-            installment[i] = document.getElementsByName('installment')[i].value;
-            startNo[i] = document.getElementsByName('startNo')[i].value;
-            startDate[i] = document.getElementsByName('startDate')[i].value;
-            internalNote[i] = document.getElementsByName('internalNote')[i].value;
-            if (val_installmentCategory(installmentCategory[i])) {
-                if (val_installmentType(installmentType[i])) {
-                    if (val_amount1(amount[i])) {
-                        if (val_installment(installment[i])) {
-                            if (val_startNo(val_startNo[i])) {
-                                if (val_startDate(startDate[i])) {
-                                    if (val_internalNote1(internalNote[i])) {
-                                        counter++;
-                                    } else {
-                                        break;
-                                    }
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                } else {
-                    break;
-                }
-            } else {
-                break;
-            }
-        }
-
-        if (counter == document.getElementsByName('installmentCategory').length - 1) {
-            $('#addRecurrence').modal('hide');
-        } else {
-            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
-        }
-
-    } else {
-        
-        for (var i = 0; i < document.getElementsByName('installmentCategory').length; i++) {
-            installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
-            installmentType[i] = document.getElementsByName('installmentType')[i].value;
-            amount[i] = document.getElementsByName('amount')[i].value;
-            installment[i] = document.getElementsByName('installment')[i].value;
-            startNo[i] = document.getElementsByName('startNo')[i].value;
-            startDate[i] = document.getElementsByName('startDate')[i].value;
-            internalNote[i] = document.getElementsByName('internalNote')[i].value;
-            if (val_installmentCategory(installmentCategory[i])) {
-                if (val_installmentType(installmentType[i])) {
-                    if (val_amount1(amount[i])) {
-                        if (val_installment(installment[i])) {
-                            if (val_startNo(val_startNo[i])) {
-                                if (val_startDate(startDate[i])) {
-                                    if (val_internalNote1(internalNote[i])) {
-                                        counter1++;
-                                    } else {
-                                        break;
-                                    }
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                } else {
-                    break;
-                }
-            } else {
-                break;
-            }
-        }
-    }
-    if (counter1 == document.getElementsByName('installmentCategory').length) {
-        $('#addRecurrence').modal('hide');
-    } else {
-        swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
-    }
-}
-
-function addRecurrenceFields() {
-    if (installmentCategory.length > 0) {
-        var innerData = "";
-        for (var i = 0; i < installmentCategory.length; i++) {
-            innerData += '<tr id="recurrence_add' + i + '">'
-                + '<td width="150">'
-                + '<input value = "' + installmentCategory[i] + '" id="installmentCategory" class="form-control" name="installmentCategory" list="fixpaycat"/></td>'
-                + '<td width="150">'
-                + '<select name="installmentType"' + i + '" value = "' + installmentType[i] + '" class="form-control">'
-                + '<option value="" > Select Type</option>'
-                + '<option value="Weekly"> Weekly</option>'
-                + '<option value="Monthly"> Monthly</option>'
-                + '<option value="Yearly"> Yearly</option>'
-                + '<option value="Quartely"> Quartely</option>'
-                + '</select></td>'
-                + '<td width="100">'
-                + '<input name="amount" id="amount" type="text" value = "' + amount[i] + '" class="form-control" /></td>'
-                + '<td width="100">'
-                + '<input name="installment" id="installment" type="text" value = "' + installment[i] + '" class="form-control" /></td>'
-                + '<td width="100"><input name="startNo" id="startNo" type="text" value = "' + startNo[i] + '" class="form-control" /></td>'
-                + '<td width="10"><input name="startDate" id="startDate" type="date" value = "' + startDate[i] + '" class="form-control" /></td>'
-                + '<td width="250"><textarea rows="1" id="internalNote" cols="30" value = "' + internalNote[i] + '" class="form-control" type="textarea" name="internalNote">' + internalNote[i] + '</textarea></td>'
-                + '<td><button type="button" class="btn btn-danger" onclick="removeRowRecurrence(' + i + ')"><span aria-hidden="true">&times;</span></button></td></tr>'
-
-        }
-
-        document.getElementById('TextBoxContainer2').innerHTML = innerData;
-        for (var i = 0; i < installmentCategory.length - 1; i++) {
-            var id = "installmentType" + i;
-            if (installmentType[i] == "Weekly") {
-                document.getElementById(id).selectedIndex = "1";
-            }
-            else if (installmentType[i] == "Monthly") {
-                document.getElementById(id).selectedIndex = "2";
-            }
-            else if (installmentType[i] == "Yearly") {
-                document.getElementById(id).selectedIndex = "3";
-            }
-            else if (installmentType[i] == "Quarterly") {
-                document.getElementById(id).selectedIndex = "4";
-            }
-
-        }
-    }
-
-}
-
-//Driver Recurrence -
-var installment_Category = [];
-var installment_Type = [];
-var amount_recurrence = [];
-var installment_sub = [];
-var start_No = [];
-var start_Date = [];
-var internal_Note = [];
-var counter2 = 0;
-var counter3 = 0;
-function recurrencesubstract() {
-    var recurrencesubstract_id = document.getElementById('getnewaa').value;
-    if (recurrencesubstract_id == 2) {
-        for (var i = 0; i < document.getElementsByName('installment_Category').length - 1; i++) {
-            installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
-            installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
-            amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
-            installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
-            start_No[i] = document.getElementsByName('start_No')[i].value;
-            start_Date[i] = document.getElementsByName('start_Date')[i].value;
-            internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
-            if (val_installmentCategory(installment_Category[i])) {
-                if (val_installmentType(installment_Type[i])) {
-                    if (val_amount1(amount_recurrence[i])) {
-                        if (val_installment(installment_sub[i])) {
-                            if (val_startNo(start_No[i])) {
-                                if (val_startDate(start_Date[i])) {
-                                    if (val_internalNote1(internal_Note[i])) {
-                                        counter2++;
-                                    } else {
-                                        break;
-                                    }
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                } else {
-                    break;
-                }
-            } else {
-                break;
-            }
-        }
-        
-        if (counter2 == document.getElementsByName('installment_Category').length - 1) {
-            $('#substractRecurrence').modal('hide');
-        } else {
-            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
-        }
-    } else {
-        for (var i = 0; i < document.getElementsByName('installment_Category').length; i++) {
-            installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
-            installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
-            amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
-            installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
-            start_No[i] = document.getElementsByName('start_No')[i].value;
-            start_Date[i] = document.getElementsByName('start_Date')[i].value;
-            internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
-            if (val_installmentCategory(installment_Category[i])) {
-                if (val_installmentType(installment_Type[i])) {
-                    if (val_amount1(amount_recurrence[i])) {
-                        if (val_installment(installment_sub[i])) {
-                            if (val_startNo(start_No[i])) {
-                                if (val_startDate(start_Date[i])) {
-                                    if (val_internalNote1(internal_Note[i])) {
-                                        counter2++;
-                                    } else {
-                                        break;
-                                    }
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                } else {
-                    break;
-                }
-            } else {
-                break;
-            }
-        }
-        if (counter2 == document.getElementsByName('installment_Category').length) {
-            $('#substractRecurrence').modal('hide');
-        } else {
-            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
-        }
-    }
-}
-
-function Recurrence_Fields() {
-    if (installment_Category.length > 0) {
-        var innerData = "";
-        for (var i = 0; i < installment_Category.length; i++) {
-            innerData += '<tr id="recurrencesubstract_add' + i + '">'
-                + '<td width="150">'
-                + '<input value = "' + installment_Category[i] + '" class="form-control" name="installment_Category" list="fixpay_cat"/></td>'
-                + '<td width="150">'
-                + '<select name="installment_Type" id="installment_Type' + i + '" value = "' + installment_Type[i] + '" class="form-control">'
-                + '<option value="" > Select Type</option>'
-                + '<option value="Weekly" > Weekly</option>'
-                + '<option value="Monthly"> Monthly</option>'
-                + '<option value="Yearly"> Yearly</option>'
-                + '<option value="Quartely"> Quartely</option>'
-                + '</select></td>'
-                + '<td width="100">'
-                + '<input name="amount_recurrence" type="text" value = "' + amount_recurrence[i] + '" class="form-control" /></td>'
-                + '<td width="100">'
-                + '<input name="installment_sub" type="text" value = "' + installment_sub[i] + '" class="form-control" /></td>'
-                + '<td width="100"><input name="start_No" type="text" value = "' + start_No[i] + '" class="form-control" /></td>'
-                + '<td width="10"><input name="start_Date" type="date" value = "' + start_Date[i] + '" class="form-control" /></td>'
-                + '<td width="250"><textarea rows="1" cols="30" value = "' + internal_Note[i] + '" class="form-control" type="textarea" name="internal_Note">' + internal_Note[i] + '</textarea></td>'
-                + '<td><button type="button" class="btn btn-danger" onclick="recurrence_substract(' + i + ')"><span aria-hidden="true">&times;</span></button></td></tr>'
-
-        }
-
-        document.getElementById('TextBoxContainer3').innerHTML = innerData;
-        for (var i = 0; i < installment_Category.length - 1; i++) {
-            var id = "installment_Type" + i;
-            if (installment_Type[i] == "Weekly") {
-                document.getElementById(id).selectedIndex = "1";
-            }
-            else if (installment_Type[i] == "Monthly") {
-                document.getElementById(id).selectedIndex = "2";
-            }
-            else if (installment_Type[i] == "Yearly") {
-                document.getElementById(id).selectedIndex = "3";
-            }
-            else if (installment_Type[i] == "Quarterly") {
-                document.getElementById(id).selectedIndex = "4";
-            }
-
-        }
-    }
-
 }
