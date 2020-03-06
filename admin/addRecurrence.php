@@ -6,6 +6,7 @@ require "../database/connection.php";
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="addRecurrence" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
+        <div class="fixpay-container" style="z-index: 1600"></div>
             <div class="modal-header custom-modal-header">
                 <h5 class="modal-title custom-modal-title mt-0" id="myLargeModalLabel">Add Recurrence</h5>
                 <button type="button" class="close modalrecurrenceadd"  aria-label="Close">
@@ -17,13 +18,13 @@ require "../database/connection.php";
                     <table class=" table-responsive other-table" id="otherTable">
                         <thead>
                         <tr>
-                            <td>Fix Pay Category</td>
-                            <td>Installment Type</td>
-                            <td>Amount</td>
-                            <td>Installment</td>
-                            <td>start#</td>
-                            <td>start Date</td>
-                            <td>Internal Note</td>
+                            <td>Fix Pay Category <span class="mandatory">*</span><i class="mdi mdi-plus-circle plus" title="Add Fix Pay Category" id="Fix_Pay_Category"></i></td>
+                            <td>Installment Type <span class="mandatory">*</span></td>
+                            <td>Amount <span class="mandatory">*</span></td>
+                            <td>Installment <span class="mandatory">*</span></td>
+                            <td>start# <span class="mandatory">*</span></td>
+                            <td>start Date <span class="mandatory">*</span></td>
+                            <td>Internal Note <span class="mandatory">*</span></td>
                             <td>Delete</td>
                         </tr>
                         </thead>
@@ -75,6 +76,7 @@ require "../database/connection.php";
                 </div>
             </div>
             <div class="modal-footer">
+                <label class="text-danger" style="padding-right: 70%"><b>Note :</b>&nbsp; * Fields are mandatory</label>
                 <button type="button" class="btn btn-danger waves-effect modalrecurrenceadd">
                     Close
                 </button>
@@ -89,7 +91,6 @@ require "../database/connection.php";
                     foreach ($show1 as $row1) {
                         $fix_pay = "'".$row1['fixPayType']."'";
                         echo " <option value=$fix_pay></option>";
-
                     }
                 } ?>
             </datalist>

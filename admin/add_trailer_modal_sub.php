@@ -120,7 +120,7 @@ require "../database/connection.php";
                             <div class="custom-upload-btn-wrapper float-right">
                                 <button class="custom-btn" style="margin-top: 35px; margin-right: 100px">Choose file
                                 </button>
-                                <input type="file" id="files" name="files[]" multiple accept=".png, .jpg, .jpeg, .pdf"/>
+                                <input type="file" id="files" onchange = "getfiles(this.files);" name="files[]" multiple accept=".png, .jpg, .jpeg, .pdf"/>
                             </div>
                         </div>
                     </div>

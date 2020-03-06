@@ -4,6 +4,8 @@ $helper = "helper";
 require "../../database/connection.php";
  $show = $db->fixpay_add->find(['companyID' => $_SESSION['companyId']]);
  $no = 0;
+ $table = "";
+ $list = "<option value=''>--select--</option>";
  foreach ($show as $row) {
      $show1 = $row['fixPay'];
      foreach ($show1 as $row1) {
@@ -23,5 +25,8 @@ require "../../database/connection.php";
                              style='font-size: 20px; color: #FC3B3B'></a></i>
              </td>
          </tr>";
+         $value = "".$fixPayType."";
+         $list .= "<option value='$value'></option>";
       }
  }
+echo $table."^".$list;

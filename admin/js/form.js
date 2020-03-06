@@ -163,7 +163,7 @@ function exportShipper(id) {
 
     $.ajax({
         url: 'admin/shipper_driver.php?type=' + 'exportShipper',
-        data: {companyid: id},
+        data: { companyid: id },
         type: 'POST',
         success: function (data) {
 
@@ -219,7 +219,7 @@ function deleteShipper(id) {
         $.ajax({
             url: 'admin/shipper_driver.php?type=' + 'delete_shipper',
             type: 'POST',
-            data: {id: id},
+            data: { id: id },
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('shipper').child(companyid).set({
@@ -398,7 +398,7 @@ function exportConsignee(id) {
 
     $.ajax({
         url: 'admin/consignee_driver.php?type=' + 'exportConsignee',
-        data: {companyid: id},
+        data: { companyid: id },
         type: 'POST',
         success: function (data) {
 
@@ -453,7 +453,7 @@ function deleteConsignee(id) {
         $.ajax({
             url: 'admin/consignee_driver.php?type=' + 'delete_consignee',
             type: 'POST',
-            data: {id: id},
+            data: { id: id },
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('consignee').child(companyid).set({
@@ -739,7 +739,7 @@ function exportCustomer(id) {
 
     $.ajax({
         url: 'admin/customer_driver.php?type=' + 'exportCustomer',
-        data: {companyid: id},
+        data: { companyid: id },
         type: 'POST',
         success: function (data) {
 
@@ -794,7 +794,7 @@ function deleteCustomer(id) {
         $.ajax({
             url: 'admin/customer_driver.php?type=' + 'delete_customer',
             type: 'POST',
-            data: {id: id},
+            data: { id: id },
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('customer').child(companyid).set({
@@ -814,7 +814,7 @@ function deleteCustomer(id) {
 function show_privilege(id) {
     $.ajax({
         url: 'admin/show_data.php',
-        data: {id: id, type: 'pro'},
+        data: { id: id, type: 'pro' },
         method: "POST",
         dataType: 'html',
         success: function (data) {
@@ -1266,7 +1266,7 @@ function exportUser(id) {
 
     $.ajax({
         url: 'admin/user_driver.php?type=' + 'export_user',
-        data: {companyid: id},
+        data: { companyid: id },
         type: 'POST',
         success: function (data) {
 
@@ -1320,7 +1320,7 @@ function deleteUser(id) {
         $.ajax({
             url: 'admin/user_driver.php?type=' + 'delete_user',
             type: 'POST',
-            data: {id: id},
+            data: { id: id },
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('user').child(companyid).set({
@@ -1499,7 +1499,7 @@ function deleteBank(id) {
         $.ajax({
             url: 'admin/bank_admin.php?type=' + 'delete_bank',
             type: 'POST',
-            data: {id: id},
+            data: { id: id },
             success: function (data) {
                 database.ref('bank').child(companyid).set({
                     data: randomString(),
@@ -1708,7 +1708,7 @@ function deleteCredit(id) {
         $.ajax({
             url: 'admin/bank_credit.php?type=' + 'delete_credit',
             type: 'POST',
-            data: {id: id},
+            data: { id: id },
             success: function (data) {
                 database.ref('bank_credit').child(companyid).set({
                     data: randomString(),
@@ -1922,7 +1922,7 @@ function deleteSubCredit(id) {
         $.ajax({
             url: 'admin/sub_credit_card.php?type=' + 'delete_sub_credit',
             type: 'POST',
-            data: {id: id},
+            data: { id: id },
             success: function (data) {
                 swal('Delete', 'Data Removed Successfully.', 'success');
             }
@@ -2075,7 +2075,7 @@ function deleteCustom(id) {
         $.ajax({
             url: 'admin/custom_broker.php?type=' + 'delete_custom_broker',
             type: 'POST',
-            data: {id: id},
+            data: { id: id },
             success: function (data) {
                 database.ref('custom_broker').child(companyid).set({
                     data: randomString(),
@@ -2306,7 +2306,7 @@ function deleteTruckAdd(id) {
         $.ajax({
             url: 'admin/truckadd_driver.php?type=' + 'delete_truck',
             type: 'POST',
-            data: {id: id},
+            data: { id: id },
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('truck').child(companyid).set({
@@ -2448,7 +2448,7 @@ function deleteTrailerAdd(id) {
         $.ajax({
             url: 'admin/traileradd_driver.php?type=' + 'delete_trailer',
             type: 'POST',
-            data: {id: id},
+            data: { id: id },
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('trailer').child(companyid).set({
@@ -2640,7 +2640,7 @@ function deletefactoring(id) {
         $.ajax({
             url: 'admin/factoring_driver.php?type=' + 'delete_factoring',
             type: 'POST',
-            data: {id: id},
+            data: { id: id },
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('factoring').child(companyid).set({
@@ -2820,15 +2820,15 @@ function addDriver() {
                                                                                                                                                     passportExpiry: passportExpiry,
                                                                                                                                                     fastCardExpiry: fastCardExpiry,
                                                                                                                                                     hazmatExpiry: hazmatExpiry,
-                                                                                                                                                    rate:rate,
-                                                                                                                                                    currency:currency,
-                                                                                                                                                    driverLoadedMile:driverLoadedMile,
-                                                                                                                                                    driverEmptyMile:driverEmptyMile,
-                                                                                                                                                    pickupRate:pickupRate,
-                                                                                                                                                    pickupAfter:pickupAfter,
-                                                                                                                                                    dropRate:dropRate,
-                                                                                                                                                    dropAfter:dropAfter,
-                                                                                                                                                    tarp:tarp,
+                                                                                                                                                    rate: rate,
+                                                                                                                                                    currency: currency,
+                                                                                                                                                    driverLoadedMile: driverLoadedMile,
+                                                                                                                                                    driverEmptyMile: driverEmptyMile,
+                                                                                                                                                    pickupRate: pickupRate,
+                                                                                                                                                    pickupAfter: pickupAfter,
+                                                                                                                                                    dropRate: dropRate,
+                                                                                                                                                    dropAfter: dropAfter,
+                                                                                                                                                    tarp: tarp,
                                                                                                                                                     terminationDate: terminationDate,
                                                                                                                                                     InternalNote: InternalNote
                                                                                                                                                 },
@@ -2963,7 +2963,7 @@ function deleteDriver(id) {
         $.ajax({
             url: 'admin/driver_driver.php?type=' + 'delete_Driver',
             type: 'POST',
-            data: {id: id},
+            data: { id: id },
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('driver').child(companyid).set({
@@ -2980,7 +2980,7 @@ function export_Driver(id) {
 
     $.ajax({
         url: 'admin/driver_driver.php?type=' + 'export_driver',
-        data: {companyid: id},
+        data: { companyid: id },
         type: 'POST',
         success: function (data) {
 
@@ -3628,10 +3628,12 @@ var startNo = [];
 var startDate = [];
 var internalNote = [];
 
-function getrecurrence(){
+function getrecurrence() {
     var recurrence_id = document.getElementById('getnewaa').value;
-    if (recurrence_id == 2){
-        for(var i = 0; i < document.getElementsByName('installmentCategory').length-1; i++){
+    var counter = 0;
+    var counter1 = 0;
+    if (recurrence_id == 2) {
+        for (var i = 0; i < document.getElementsByName('installmentCategory').length - 1; i++) {
             installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
             installmentType[i] = document.getElementsByName('installmentType')[i].value;
             amount[i] = document.getElementsByName('amount')[i].value;
@@ -3639,62 +3641,130 @@ function getrecurrence(){
             startNo[i] = document.getElementsByName('startNo')[i].value;
             startDate[i] = document.getElementsByName('startDate')[i].value;
             internalNote[i] = document.getElementsByName('internalNote')[i].value;
-            alert(document.getElementsByName('installmentCategory').length-1);
+            if (val_installmentCategory(installmentCategory[i])) {
+                if (val_installmentType(installmentType[i])) {
+                    if (val_amount1(amount[i])) {
+                        if (val_installment(installment[i])) {
+                            if (val_startNo(val_startNo[i])) {
+                                if (val_startDate(startDate[i])) {
+                                    if (val_internalNote1(internalNote[i])) {
+                                        counter++;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
         }
+
+        if (counter == document.getElementsByName('installmentCategory').length - 1) {
+            $('#addRecurrence').modal('hide');
+        } else {
+            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
+        }
+
+    } else {
+        
+        for (var i = 0; i < document.getElementsByName('installmentCategory').length; i++) {
+            installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
+            installmentType[i] = document.getElementsByName('installmentType')[i].value;
+            amount[i] = document.getElementsByName('amount')[i].value;
+            installment[i] = document.getElementsByName('installment')[i].value;
+            startNo[i] = document.getElementsByName('startNo')[i].value;
+            startDate[i] = document.getElementsByName('startDate')[i].value;
+            internalNote[i] = document.getElementsByName('internalNote')[i].value;
+            if (val_installmentCategory(installmentCategory[i])) {
+                if (val_installmentType(installmentType[i])) {
+                    if (val_amount1(amount[i])) {
+                        if (val_installment(installment[i])) {
+                            if (val_startNo(val_startNo[i])) {
+                                if (val_startDate(startDate[i])) {
+                                    if (val_internalNote1(internalNote[i])) {
+                                        counter1++;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+    }
+    if (counter1 == document.getElementsByName('installmentCategory').length) {
         $('#addRecurrence').modal('hide');
     } else {
-    for(var i = 0; i < document.getElementsByName('installmentCategory').length; i++){
-        installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
-        installmentType[i] = document.getElementsByName('installmentType')[i].value;
-        amount[i] = document.getElementsByName('amount')[i].value;
-        installment[i] = document.getElementsByName('installment')[i].value;
-        startNo[i] = document.getElementsByName('startNo')[i].value;
-        startDate[i] = document.getElementsByName('startDate')[i].value;
-        internalNote[i] = document.getElementsByName('internalNote')[i].value;
+        swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
     }
-    $('#addRecurrence').modal('hide');
-}
 }
 
-function addRecurrenceFields(){
-    if(installmentCategory.length > 0){
+function addRecurrenceFields() {
+    if (installmentCategory.length > 0) {
         var innerData = "";
-        for(var i = 0; i < installmentCategory.length; i++){
-            innerData +='<tr id="recurrence_add'+i+'">'
-            +'<td width="150">'
-            +'<input value = "' + installmentCategory[i] + '" class="form-control" name="installmentCategory" list="fixpaycat"/></td>'
-            +'<td width="150">'
-            +'<select name="installmentType" id="installmentType'+i+'" value = "' + installmentType[i] + '" class="form-control">'
-            +'<option value="" > Select Type</option>'
-            +'<option value="Weekly" > Weekly</option>'
-            +'<option value="Monthly"> Monthly</option>'
-            +'<option value="Yearly"> Yearly</option>'
-            +'<option value="Quartely"> Quartely</option>'
-            +'</select></td>'
-            +'<td width="100">'
-            +'<input name="amount" type="text" value = "' + amount[i] + '" class="form-control" /></td>'
-            +'<td width="100">'
-            +'<input name="installment" type="text" value = "' + installment[i] + '" class="form-control" /></td>'
-            +'<td width="100"><input name="startNo" type="text" value = "' + startNo[i] + '" class="form-control" /></td>'
-            +'<td width="10"><input name="startDate" type="date" value = "' + startDate[i] + '" class="form-control" /></td>'
-            +'<td width="250"><textarea rows="1" cols="30" value = "' + internalNote[i] + '" class="form-control" type="textarea" name="internalNote">'+internalNote[i]+'</textarea></td>'
-            +'<td><button type="button" class="btn btn-danger" onclick="removeRowRecurrence('+i+')"><span aria-hidden="true">&times;</span></button></td></tr>'
+        for (var i = 0; i < installmentCategory.length; i++) {
+            innerData += '<tr id="recurrence_add' + i + '">'
+                + '<td width="150">'
+                + '<input value = "' + installmentCategory[i] + '" id="installmentCategory" class="form-control" name="installmentCategory" list="fixpaycat"/></td>'
+                + '<td width="150">'
+                + '<select name="installmentType"' + i + '" value = "' + installmentType[i] + '" class="form-control">'
+                + '<option value="" > Select Type</option>'
+                + '<option value="Weekly"> Weekly</option>'
+                + '<option value="Monthly"> Monthly</option>'
+                + '<option value="Yearly"> Yearly</option>'
+                + '<option value="Quartely"> Quartely</option>'
+                + '</select></td>'
+                + '<td width="100">'
+                + '<input name="amount" id="amount" type="text" value = "' + amount[i] + '" class="form-control" /></td>'
+                + '<td width="100">'
+                + '<input name="installment" id="installment" type="text" value = "' + installment[i] + '" class="form-control" /></td>'
+                + '<td width="100"><input name="startNo" id="startNo" type="text" value = "' + startNo[i] + '" class="form-control" /></td>'
+                + '<td width="10"><input name="startDate" id="startDate" type="date" value = "' + startDate[i] + '" class="form-control" /></td>'
+                + '<td width="250"><textarea rows="1" id="internalNote" cols="30" value = "' + internalNote[i] + '" class="form-control" type="textarea" name="internalNote">' + internalNote[i] + '</textarea></td>'
+                + '<td><button type="button" class="btn btn-danger" onclick="removeRowRecurrence(' + i + ')"><span aria-hidden="true">&times;</span></button></td></tr>'
 
         }
 
         document.getElementById('TextBoxContainer2').innerHTML = innerData;
-        for(var i = 0; i < installmentCategory.length - 1; i++){
-            var id = "installmentType"+i;
-            if(installmentType[i] == "Weekly"){
+        for (var i = 0; i < installmentCategory.length - 1; i++) {
+            var id = "installmentType" + i;
+            if (installmentType[i] == "Weekly") {
                 document.getElementById(id).selectedIndex = "1";
             }
-            else if(installmentType[i] == "Monthly"){
+            else if (installmentType[i] == "Monthly") {
                 document.getElementById(id).selectedIndex = "2";
             }
-            else if(installmentType[i] == "Yearly"){
+            else if (installmentType[i] == "Yearly") {
                 document.getElementById(id).selectedIndex = "3";
             }
-            else if(installmentType[i] == "Quarterly"){
+            else if (installmentType[i] == "Quarterly") {
                 document.getElementById(id).selectedIndex = "4";
             }
 
@@ -3711,11 +3781,12 @@ var installment_sub = [];
 var start_No = [];
 var start_Date = [];
 var internal_Note = [];
-
-function recurrencesubstract(){
+var counter2 = 0;
+var counter3 = 0;
+function recurrencesubstract() {
     var recurrencesubstract_id = document.getElementById('getnewaa').value;
     if (recurrencesubstract_id == 2) {
-        for(var i = 0; i < document.getElementsByName('installment_Category').length-1; i++){
+        for (var i = 0; i < document.getElementsByName('installment_Category').length - 1; i++) {
             installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
             installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
             amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
@@ -3723,10 +3794,44 @@ function recurrencesubstract(){
             start_No[i] = document.getElementsByName('start_No')[i].value;
             start_Date[i] = document.getElementsByName('start_Date')[i].value;
             internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
+            if (val_installmentCategory(installment_Category[i])) {
+                if (val_installmentType(installment_Type[i])) {
+                    if (val_amount1(amount_recurrence[i])) {
+                        if (val_installment(installment_sub[i])) {
+                            if (val_startNo(start_No[i])) {
+                                if (val_startDate(start_Date[i])) {
+                                    if (val_internalNote1(internal_Note[i])) {
+                                        counter2++;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
         }
-        $('#substractRecurrence').modal('hide');
+        
+        if (counter2 == document.getElementsByName('installment_Category').length - 1) {
+            $('#substractRecurrence').modal('hide');
+        } else {
+            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
+        }
     } else {
-        for(var i = 0; i < document.getElementsByName('installment_Category').length; i++){
+        for (var i = 0; i < document.getElementsByName('installment_Category').length; i++) {
             installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
             installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
             amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
@@ -3734,50 +3839,83 @@ function recurrencesubstract(){
             start_No[i] = document.getElementsByName('start_No')[i].value;
             start_Date[i] = document.getElementsByName('start_Date')[i].value;
             internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
+            if (val_installmentCategory(installment_Category[i])) {
+                if (val_installmentType(installment_Type[i])) {
+                    if (val_amount1(amount_recurrence[i])) {
+                        if (val_installment(installment_sub[i])) {
+                            if (val_startNo(start_No[i])) {
+                                if (val_startDate(start_Date[i])) {
+                                    if (val_internalNote1(internal_Note[i])) {
+                                        counter2++;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
         }
-        $('#substractRecurrence').modal('hide');
+        if (counter2 == document.getElementsByName('installment_Category').length) {
+            $('#substractRecurrence').modal('hide');
+        } else {
+            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
+        }
     }
 }
 
-function Recurrence_Fields(){
-    if(installment_Category.length > 0){
+function Recurrence_Fields() {
+    if (installment_Category.length > 0) {
         var innerData = "";
-        for(var i = 0 ; i < installment_Category.length; i++){
-            innerData +='<tr id="recurrencesubstract_add'+i+'">'
-            +'<td width="150">'
-            +'<input value = "' + installment_Category[i] + '" class="form-control" name="installment_Category" list="fixpay_cat"/></td>'
-            +'<td width="150">'
-            +'<select name="installment_Type" id="installment_Type'+i+'" value = "' + installment_Type[i] + '" class="form-control">'
-            +'<option value="" > Select Type</option>'
-            +'<option value="Weekly" > Weekly</option>'
-            +'<option value="Monthly"> Monthly</option>'
-            +'<option value="Yearly"> Yearly</option>'
-            +'<option value="Quartely"> Quartely</option>'
-            +'</select></td>'
-            +'<td width="100">'
-            +'<input name="amount_recurrence" type="text" value = "' + amount_recurrence[i] + '" class="form-control" /></td>'
-            +'<td width="100">'
-            +'<input name="installment_sub" type="text" value = "' + installment_sub[i] + '" class="form-control" /></td>'
-            +'<td width="100"><input name="start_No" type="text" value = "' + start_No[i] + '" class="form-control" /></td>'
-            +'<td width="10"><input name="start_Date" type="date" value = "' + start_Date[i] + '" class="form-control" /></td>'
-            +'<td width="250"><textarea rows="1" cols="30" value = "' + internal_Note[i] + '" class="form-control" type="textarea" name="internal_Note">'+internal_Note[i]+'</textarea></td>'
-            +'<td><button type="button" class="btn btn-danger" onclick="recurrence_substract('+i+')"><span aria-hidden="true">&times;</span></button></td></tr>'
+        for (var i = 0; i < installment_Category.length; i++) {
+            innerData += '<tr id="recurrencesubstract_add' + i + '">'
+                + '<td width="150">'
+                + '<input value = "' + installment_Category[i] + '" class="form-control" name="installment_Category" list="fixpay_cat"/></td>'
+                + '<td width="150">'
+                + '<select name="installment_Type" id="installment_Type' + i + '" value = "' + installment_Type[i] + '" class="form-control">'
+                + '<option value="" > Select Type</option>'
+                + '<option value="Weekly" > Weekly</option>'
+                + '<option value="Monthly"> Monthly</option>'
+                + '<option value="Yearly"> Yearly</option>'
+                + '<option value="Quartely"> Quartely</option>'
+                + '</select></td>'
+                + '<td width="100">'
+                + '<input name="amount_recurrence" type="text" value = "' + amount_recurrence[i] + '" class="form-control" /></td>'
+                + '<td width="100">'
+                + '<input name="installment_sub" type="text" value = "' + installment_sub[i] + '" class="form-control" /></td>'
+                + '<td width="100"><input name="start_No" type="text" value = "' + start_No[i] + '" class="form-control" /></td>'
+                + '<td width="10"><input name="start_Date" type="date" value = "' + start_Date[i] + '" class="form-control" /></td>'
+                + '<td width="250"><textarea rows="1" cols="30" value = "' + internal_Note[i] + '" class="form-control" type="textarea" name="internal_Note">' + internal_Note[i] + '</textarea></td>'
+                + '<td><button type="button" class="btn btn-danger" onclick="recurrence_substract(' + i + ')"><span aria-hidden="true">&times;</span></button></td></tr>'
 
         }
 
         document.getElementById('TextBoxContainer3').innerHTML = innerData;
-        for(var i = 0; i < installment_Category.length - 1; i++){
-            var id = "installment_Type"+i;
-            if(installment_Type[i] == "Weekly"){
+        for (var i = 0; i < installment_Category.length - 1; i++) {
+            var id = "installment_Type" + i;
+            if (installment_Type[i] == "Weekly") {
                 document.getElementById(id).selectedIndex = "1";
             }
-            else if(installment_Type[i] == "Monthly"){
+            else if (installment_Type[i] == "Monthly") {
                 document.getElementById(id).selectedIndex = "2";
             }
-            else if(installment_Type[i] == "Yearly"){
+            else if (installment_Type[i] == "Yearly") {
                 document.getElementById(id).selectedIndex = "3";
             }
-            else if(installment_Type[i] == "Quarterly"){
+            else if (installment_Type[i] == "Quarterly") {
                 document.getElementById(id).selectedIndex = "4";
             }
 
