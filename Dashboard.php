@@ -469,7 +469,7 @@ require "database/connection.php";
                                     </div>
                                     <div class="form-group col-md-2 owner">
                                         <label>Pay Percentage</label>
-                                        <input class="form-control" placeholder="Pay %" type="text" id="demo1">
+                                        <input class="form-control" placeholder="Pay %" type="text" id="ownerPercentage" readonly>
                                     </div>
                                     
                                     
@@ -533,7 +533,7 @@ require "database/connection.php";
                                 <!-- partial:index.partial.html -->
                                 <div class="ui small form segment">
                                     <h6>
-                                        <button class="btn btn-primary" onclick="add_fields();">ADD SHIPPER</button><i
+                                        <button class="btn btn-primary" onclick="add_fields();" title="Click here to add more shippers">ADD SHIPPER</button><i
                                             class="mdi mdi-plus-circle plus-xs" id="add_shipper_modal"></i>
                                     </h6>
                                     <div class="card m-b-30 shadow" id="sc-card">
@@ -559,15 +559,24 @@ require "database/connection.php";
                                                             name="shipperlist" onchange="getShipper(this.value); ">
                                                         <datalist id="shipper">
                                                             <?php
-                                                                $show_shipper = $db->shipper->find(['companyID' => $_SESSION['companyId']]);
-                                                                $no = 1;
-                                                                foreach ($show_shipper as $showshipper) {
-                                                                    $shipper = $showshipper['shipper'];
-                                                                    foreach ($shipper as $sshi) {
-                                                                    
-                                                                         $shipperValue = "'".$sshi['_id'].")&nbsp;".$sshi['shipperName']."'";
-                                                                         echo "<option value=$shipperValue></option>";
-                                                                     } }?>
+                                                               
+                                                                        $collection = $db->shipper;
+                                                                        $show1 = $collection->aggregate([
+                                                                                ['$match'=>['companyID'=>$_SESSION['companyId']]],
+                                                                                ['$unwind'=>'$shipper'],
+                                                                                ['$match'=>['shipper.shipperStatus'=>"Active"]]
+                                                                            ]);
+
+                                                                            foreach ($show1 as $row) {
+                                                                                $s = 0;
+                                                                                $shipper[$s] = $row['shipper'];
+                                                                                $s++;
+                                                                                foreach ($shipper as $row1) {
+                                                                                    $shipperValue = "'".$row1['_id'].")&nbsp;".$row1['shipperName']."'";
+                                                                                     echo "<option value=$shipperValue></option>";
+                                                                                }
+                                                                            }
+                                                                     ?>
                                                         </datalist>
                                                     </div>
                                                     <div class="form-group col-md-2">
@@ -603,19 +612,19 @@ require "database/connection.php";
                                                             <div
                                                                 class="custom-control custom-radio custom-control-inline">
                                                                 <input type="radio" class="custom-control-input"
-                                                                    id="defaultInline22"
-                                                                    name="inlineDefaultRadiosExample" checked>
+                                                                    id="tl0"
+                                                                    name="tl0" checked>
                                                                 <label class="custom-control-label"
-                                                                    for="defaultInline22">TL</label>
+                                                                    for="tl0">TL</label>
                                                             </div>
                                                             <div
                                                                 class="custom-control custom-radio custom-control-inline">
 
                                                                 <input type="radio" class="custom-control-input"
-                                                                    id="defaultInline23"
-                                                                    name="inlineDefaultRadiosExample">
+                                                                    id="ltl0"
+                                                                    name="tl0">
                                                                 <label class="custom-control-label"
-                                                                    for="defaultInline23">LTL</label>
+                                                                    for="ltl0">LTL</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -661,14 +670,15 @@ require "database/connection.php";
                                     </div>
                                     <div class="ui small form segment">
                                         <h6>
-                                            <button class="btn btn-primary" onclick="add_consignee();">ADD CONSIGNEE
+                                            <img src="/assets/images/home.png" height="50px" width="50px">
+                                            <button class="btn btn-primary" onclick="add_consignee();" title="Click here to add more consignees">ADD CONSIGNEE
                                             </button><i class="mdi mdi-plus-circle plus-xs"
                                                 id="add_consignee_modal"></i>
                                         </h6>
                                         <div class="card m-b-30 shadow" id="c-card">
                                             <div class="card-header cardbg">
                                                 <ul class="nav nav-tabs main-tabs" id="consignee" role="tablist">
-                                                    <li class="nav-item list-item" id="consig-title">
+                                                    <li class="nav-item list-item" id="consig-title" >
                                                         <a class="nav-link active consignee list-anchors-consig"
                                                             id="consig-tab0" data-toggle="tab" href="#consig0"
                                                             role="tab" aria-controls="home"
@@ -677,7 +687,9 @@ require "database/connection.php";
                                                             onclick="removeConsignee('consig-title','consig')"
                                                             aria-hidden="true"></i>
                                                     </li>
+                                                   
                                                 </ul>
+                                               
                                             </div>
 
                                             <div class="tab-content" id="consigneeContent">
@@ -688,24 +700,33 @@ require "database/connection.php";
                                                             <label>Name*</label>
                                                             <input list="consigneee" class="form-control"
                                                                 placeholder="--Select--" id="consigneelist"
-                                                                name="consigneelist">
+                                                                name="consigneelist" onchange="getConsignee(this.value)">
                                                             <datalist id="consigneee">
                                                                 <?php
-                                                                        $show_consignee = $db->consignee->find(['companyID' => $_SESSION['companyId']]);
-                                                                        $no = 1;
-                                                                        foreach ($show_consignee as $showconsignee) {
-                                                                            $consignee = $showconsignee['consignee'];
-                                                                            foreach ($consignee as $scon) {
-                                                                                $consigneeValue = "'".$scon['_id'].")&nbsp;".$scon['consigneeName']."'";
-                                                                                echo "<option value=$consigneeValue></option>";
-                                                                               } }?>
+                                                                         $collection = $db->consignee;
+                                                                         $show1 = $collection->aggregate([
+                                                                                 ['$match'=>['companyID'=>$_SESSION['companyId']]],
+                                                                                 ['$unwind'=>'$consignee'],
+                                                                                 ['$match'=>['consignee.consigneeStatus'=>"Active"]]
+                                                                             ]);
+ 
+                                                                             foreach ($show1 as $row) {
+                                                                                 $s = 0;
+                                                                                 $consignee[$s] = $row['consignee'];
+                                                                                 $s++;
+                                                                                 foreach ($consignee as $row1) {
+                                                                                     $consigneeValue = "'".$row1['_id'].")&nbsp;".$row1['consigneeName']."'";
+                                                                                      echo "<option value=$consigneeValue></option>";
+                                                                                 }
+                                                                             }
+                                                                ?>
                                                             </datalist>
                                                         </div>
                                                         <div class="form-group col-md-2">
                                                             <label>Address*</label>
                                                             <div>
                                                                 <input class="form-control" placeholder="Address *"
-                                                                    type="text">
+                                                                    type="text" id="consigneeaddress">
                                                             </div>
                                                         </div>
                                                         <div class="form-group col-md-2">
@@ -720,7 +741,7 @@ require "database/connection.php";
                                                         <div class="form-group col-md-2">
                                                             <label>Pickup Date</label>
                                                             <div>
-                                                                <input class="form-control" type="date">
+                                                                <input class="form-control" type="date" >
                                                             </div>
                                                         </div>
                                                         <div class="form-group col-md-2">
@@ -735,19 +756,19 @@ require "database/connection.php";
                                                                 <div
                                                                     class="custom-control custom-radio custom-control-inline">
                                                                     <input type="radio" class="custom-control-input"
-                                                                        id="defaultInline22"
-                                                                        name="inlineDefaultRadiosExample" checked>
+                                                                        id="ctl0"
+                                                                        name="ctl0" checked>
                                                                     <label class="custom-control-label"
-                                                                        for="defaultInline22">TL</label>
+                                                                        for="ctl0">TL</label>
                                                                 </div>
                                                                 <div
                                                                     class="custom-control custom-radio custom-control-inline">
 
                                                                     <input type="radio" class="custom-control-input"
-                                                                        id="defaultInline23"
-                                                                        name="inlineDefaultRadiosExample">
+                                                                        id="cltl0"
+                                                                        name="ctl0">
                                                                     <label class="custom-control-label"
-                                                                        for="defaultInline23">LTL</label>
+                                                                        for="cltl0">LTL</label>
                                                                 </div>
                                                             </div>
                                                         </div>

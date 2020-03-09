@@ -61,15 +61,15 @@ function add_fields() {
         '                                                <div class="row">\n' +
         '                                                    <div class="custom-control custom-radio custom-control-inline">\n' +
         '                                                        <input type="radio" class="custom-control-input"\n' +
-        '                                                               id="defaultInline22" name="inlineDefaultRadiosExample"\n' +
+        '                                                               id="tl'+room+'" name="tl'+room+'"\n' +
         '                                                               checked>\n' +
         '                                                        <label class="custom-control-label"\n' +
-        '                                                               for="defaultInline22">TL</label>\n' +
+        '                                                               for="tl'+room+'">TL</label>\n' +
         '                                                    </div>\n' +
         '                                                    <div class="custom-control custom-radio custom-control-inline">\n' +
         '                                                        <input type="radio" class="custom-control-input"\n' +
-        '                                                               id="defaultInline23" name="inlineDefaultRadiosExample">\n' +
-        '                                                        <label class="custom-control-label" for="defaultInline23">LTL</label>\n' +
+        '                                                               id="ltl'+room+'" name="tl'+room+'">\n' +
+        '                                                        <label class="custom-control-label" for="ltl'+room+'">LTL</label>\n' +
         '                                                    </div>\n' +
         '                                                </div>\n' +
         '                                            </div>\n' +
@@ -139,8 +139,7 @@ function makeActive() {
 function renameShipper() {
     var shippers = document.getElementsByClassName('shipper');
     for (var i = 0; i < document.getElementById('myTab').getElementsByTagName("li").length; i++) {
-
-        shippers[i].innerHTML = "Shipper " + (i + 1);
+            shippers[i].innerHTML = "Shipper " + (i + 1);
     }
 }
 
@@ -149,15 +148,62 @@ function removeTab(mainid, contentid) {
     var element1 = document.getElementById(mainid);
     var element2 = document.getElementById(contentid);
     if (mainid == 'home-title') {
-        alert("First Shipper can't be removed");
+        swal({
+            title: 'First Shipper Cannot be removed!!',
+            type: 'warning',
+            type: 'info',
+            html: "",
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Continue!',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger ml-2',
+            buttonsStyling: false
+        });
         return;
     }
     if (document.getElementById('myTab').getElementsByTagName("li").length > 1) {
+        // var activeID = "";
+        // for (var i = 1; i < document.getElementById('myTab').getElementsByTagName("li").length; i++) {
+        //         if(mainid == document.getElementById('myTab').getElementsByTagName("li")[i].getAttribute("id")){        
+        //             activeID = i - 1;
+        //         }
+        // }
         document.getElementById('myTab').removeChild(element1);
         document.getElementById('myTabContent').removeChild(element2);
-        renameShipper();
+        
+        // for (var i = 0; i < document.getElementById('myTab').getElementsByTagName("li").length + 1; i++) {
+        //     var component = document.getElementById('home-tab' + i);
+        //     var component1 = document.getElementById('home' + i);
+        //     if (component && component1) {
+        //         alert(document.getElementById('myTab').getElementsByTagName("li").length);
+        //         component.classList.remove("active");
+        //         component1.classList.remove("show");
+        //         component1.classList.remove("active");
+        //         component.setAttribute("aria-selected", false);
+        //     }
+        // }
+        // var newcomponent = document.getElementById('home-tab' + activeID);
+        // var newcomponent1 = document.getElementById('home' + activeID);
+        // newcomponent.classList.add("active");
+        // newcomponent1.classList.add("show");
+        // newcomponent1.classList.add("active");
+        // newcomponent.setAttribute("aria-selected", true);
+         renameShipper();
+        
     } else {
-        alert("All shippers cannot be removed.");
+        swal({
+            title: 'First Shipper Cannot be removed!!',
+            type: 'warning',
+            type: 'info',
+            html: "",
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Continue!',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger ml-2',
+            buttonsStyling: false
+        });
     }
 }
 
@@ -212,15 +258,15 @@ function add_consignee() {
         '                                                <div class="row">\n' +
         '                                                    <div class="custom-control custom-radio custom-control-inline">\n' +
         '                                                        <input type="radio" class="custom-control-input"\n' +
-        '                                                               id="defaultInline22" name="inlineDefaultRadiosExample"\n' +
+        '                                                               id="ctl'+count+'" name="ctl'+count+'"\n' +
         '                                                               checked>\n' +
         '                                                        <label class="custom-control-label"\n' +
-        '                                                               for="defaultInline22">TL</label>\n' +
+        '                                                               for="ctl'+count+'">TL</label>\n' +
         '                                                    </div>\n' +
         '                                                    <div class="custom-control custom-radio custom-control-inline">\n' +
         '                                                        <input type="radio" class="custom-control-input"\n' +
-        '                                                               id="defaultInline23" name="inlineDefaultRadiosExample">\n' +
-        '                                                        <label class="custom-control-label" for="defaultInline23">LTL</label>\n' +
+        '                                                               id="cltl'+count+'" name="ctl'+count+'">\n' +
+        '                                                        <label class="custom-control-label" for="cltl'+count+'">LTL</label>\n' +
         '                                                    </div>\n' +
         '                                                </div>\n' +
         '                                            </div>\n' +
@@ -299,7 +345,18 @@ function removeConsignee(consigid, consigcontent) {
     var element1 = document.getElementById(consigid);
     var element2 = document.getElementById(consigcontent);
     if (consigid == 'consig-title') {
-        alert("First Consignee can't be removed");
+        swal({
+            title: 'First Consignee Cannot be removed!!',
+            type: 'warning',
+            type: 'info',
+            html: "",
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Continue!',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger ml-2',
+            buttonsStyling: false
+        });
         return;
     }
     if (document.getElementById('consignee').getElementsByTagName("li").length > 1) {
@@ -924,85 +981,35 @@ function getShipper(value){
     $.ajax({
         url: 'admin/utils/helpers.php',
         data: {value: val,
-               type: 'activeshipper',
-            },
-        method: "POST",
-        dataType: 'html',
-        success: function (data) {
-            
-            if(data != ""){
-                swal({
-                    title: 'Are you sure? You Want to Continue!',
-                    type: 'warning',
-                    type: 'info',
-                    html: data,
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, Continue!',
-                    cancelButtonText: 'No, cancel!',
-                    confirmButtonClass: 'btn btn-success',
-                    cancelButtonClass: 'btn btn-danger ml-2',
-                    buttonsStyling: false
-                });
-            }
-        }
-    });
-}
-
-function getOwner(value){
-    var values = value.split(')');
-    var val = values[0];
-    $.ajax({
-        url: 'admin/utils/helpers.php',
-        data: {value: val,
-               type: 'owner',
-            },
-        method: "POST",
-        dataType: 'html',
-        success: function (data) {
-            
-            if(data != ""){
-                swal({
-                    title: 'Are you sure? You Want to Continue!',
-                    type: 'warning',
-                    type: 'info',
-                    html: data,
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, Continue!',
-                    cancelButtonText: 'No, cancel!',
-                    confirmButtonClass: 'btn btn-success',
-                    cancelButtonClass: 'btn btn-danger ml-2',
-                    buttonsStyling: false
-                });
-            }
-        }
-    });
-}
-
-function getShipper(value){
-    var values = value.split(')');
-    var val = values[0];
-    $.ajax({
-        url: 'admin/utils/helpers.php',
-        data: {value: val,
                type: 'shipper',
             },
         method: "POST",
         dataType: 'html',
         success: function (data) {
-            
-            if(data != ""){
-                swal({
-                    title: 'Are you sure? You Want to Continue!',
-                    type: 'warning',
-                    type: 'info',
-                    html: data,
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, Continue!',
-                    cancelButtonText: 'No, cancel!',
-                    confirmButtonClass: 'btn btn-success',
-                    cancelButtonClass: 'btn btn-danger ml-2',
-                    buttonsStyling: false
-                });
+            var values = data.split("^");
+            if(values[0] != "" && values[1] != ""){
+                document.getElementById("shipperaddress").value = values[0];
+                document.getElementById("activeshipper").value = values[1];
+            }
+        }
+    });
+}
+//active Consignee
+function getConsignee(value){
+    var values = value.split(')');
+    var val = values[0];
+    $.ajax({
+        url: 'admin/utils/helpers.php',
+        data: {value: val,
+               type: 'consignee',
+            },
+        method: "POST",
+        dataType: 'html',
+        success: function (data) {
+            var values = data.split("^");
+            if(values[0] != "" && values[1] != ""){
+                document.getElementById("consigneeaddress").value = values[0];
+                document.getElementById("activeconsignee").value = values[1];
             }
         }
     });
@@ -1019,13 +1026,23 @@ function getOwner(value){
         method: "POST",
         dataType: 'html',
         success: function (data) {
-            
-            if(data != ""){
+            var values = data.split('^');
+            document.getElementById('truck1list').value = values[1];
+            document.getElementById('ownerPercentage').value = values[0];
+            var otherCharges = document.getElementById('ownerothercharges');
+            if(otherCharges.value == ""){
+                document.getElementById('ownerTotal').value = parseFloat((parseFloat(document.getElementById('rateAmount').value) * parseFloat(values[0]))/100).toFixed(2);
+            }
+            else{
+                document.getElementById('ownerTotal').value = parseFloat((parseFloat(document.getElementById('rateAmount').value) * parseFloat(values[0]))/100) + parseFloat(otherCharges.value).toFixed(2); 
+            }
+
+            if(values[2] != ""){
                 swal({
                     title: 'Are you sure? You Want to Continue!',
                     type: 'warning',
                     type: 'info',
-                    html: data,
+                    html: values[2],
                     showCancelButton: true,
                     confirmButtonText: 'Yes, Continue!',
                     cancelButtonText: 'No, cancel!',
@@ -1037,6 +1054,10 @@ function getOwner(value){
         }
     });
 }
+
+
+
+
 
 
 
@@ -1126,15 +1147,30 @@ function addOwnerFields(){
 
 function getOwnerTotal(){
     var owner_other_charges = document.getElementById('ownerothercharges');
+    var owner_percentage  = document.getElementById('ownerPercentage');
     var owner_total = document.getElementById('ownerTotal');
-    if(owner_other_charges.value != ""){
-        
-        owner_total.value = parseFloat(owner_other_charges.value).toFixed(2);
+    if(owner_percentage.value != ""){
+            if(owner_other_charges.value != ""){
+                var rateamount = parseFloat(document.getElementById('rateAmount').value);
+                var peramount = parseFloat((rateamount * parseFloat(owner_percentage.value)) /100);
+                owner_total.value = peramount + parseFloat(owner_other_charges.value);
+        }
+    }else{
+        swal({
+            title: 'Are you sure? You Want to Continue!',
+            type: 'warning',
+            type: 'info',
+            html: "<b> Pay Percentage cannot be Empty. </b>",
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Continue!',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger ml-2',
+            buttonsStyling: false
+        });
     }
+
     
 }
 
-function changeOwnerTotal(){
-    
 
-}

@@ -190,39 +190,69 @@ if($_POST['type'] == 'owner'){
    $id = (int)$_POST['value'];
    $collection = $db->owner_operator_driver;
    $show1 = $collection->aggregate([
-   ['$lookup' => [
-      'from' => 'driver',
-      'localField' => 'companyID',
-      'foreignField' => 'companyID',
-      'as' => 'owner'
-   ]],['$match'=>['companyID'=>$_SESSION['companyId']]]
-   ,['$unwind'=>'$ownerOperator'],
-   ['$match'=>['ownerOperator._id'=>$id]]
-   ]);
-
+       ['$lookup' => [
+           'from' => 'driver',
+           'localField' => 'companyID',
+           'foreignField' => 'companyID',
+           'as' => 'owner'
+       ]],
+              ['$match'=>['companyID'=>$_SESSION['companyId']]],
+              ['$unwind'=>'$ownerOperator'],
+              ['$match'=>['ownerOperator._id'=>$id]],
+              ['$unwind'=>'$owner'],
+              ['$unwind'=>'$owner.driver'],
+              ['$match'=>['owner.driver._id'=>$id]]
+       ]);
+   
        foreach ($show1 as $row) {
-           $ownerOperator = $row['ownerOperator'];
-           $owner = $row['owner'];
-           $drivername = array();
-           foreach ($owner as $row2) {
-                       $owner1 = $row2['driver'];
-                       $k = 0;
-                       foreach ($owner1 as $row3) {
-                           $id = $row3['_id'];
-                           $drivername[$k] = $row3['driverName'];
-                           $k++;
-                       }    
-               }
-
-           $j = 0;
-                   foreach ($ownerOperator as $row1) {
-                       $drivername1 = $drivername[$row1['driverId']];
-                       $j++;
-                   $list .= "<option value=$drivername1></option>";
-
-                   }
-               } 
-            
+       $ownerOperator = array();
+       $owner = array();
+       $c = 0;
+       $ownerOperator[$c] = $row['ownerOperator'];
+       $c++;
+       $a = 0;
+       $owner[$a] = $row['owner'];
+       $a++;
+       foreach ($ownerOperator as $row1) {
+               $driverPercentage = $row1['percentage'];
+               $drivertruck = $row1['truckNo'];
+               echo $driverPercentage."^".$drivertruck."^";
+       }
+       foreach ($owner as $row2) {
+           $b = 0;
+           $driver[$b] = $row2['driver'];
+           $b++;
+           foreach ($driver as $row3) {
+            $now = strtotime("now");
+            $licenseExpiry = $row3['driverLicenseExp'];
+            $nextMedical = $row3['driverNextMedical'];
+            $nextDrug = $row3['driverNextDrugTest'];
+            $passportExpiry = $row3['passportExpiry'];
+            $fastcardexpiry = $row3['fastCardExpiry'];
+            $hazmatexpiry = $row3['hazmatExpiry'];
+            $loadedMile = $row3['driverLoadedMile'];
+            $emptyMile = $row3['driverEmptyMile'];
+            if($licenseExpiry - $now <= 2592000){
+               echo "- <b style='font-weight:bold;line-height:1.5'>License is Expiring in less than 30 days.</b>"."<br>";
+            }
+            if(($nextMedical - $now)  <= 2592000){
+               echo "- <b style='font-weight:bold;line-height:1.5'>Next Medical is within 30 days.</b>"."<br>";
+            }
+            if(($nextDrug - $now)  <= 2592000){
+               echo "- <b style='font-weight:bold;line-height:1.5'>Next Drugtest is within 30 days.</b>"."<br>";
+            } 
+            if(($passportExpiry - $now)  <= 2592000){
+               echo "- <b style='font-weight:bold;line-height:1.5'>Passport is expiring in 30 days.</b>"."<br>";
+            }
+            if(($fastcardexpiry - $now)  <= 2592000){
+               echo "- <b style='font-weight:bold;line-height:1.5'>Fast card is expiring in 30 days.</b>"."<br>";
+            }
+            if(($hazmatexpiry - $now)  <= 2592000){
+               echo "- <b style='font-weight:bold;line-height:1.5'>Hazmat is expiring in 30 days.</b>"."<br>";
+            } 
+           }
+       }
+       }
  
 }
 if($_POST['type'] == 'shipper'){
@@ -231,7 +261,7 @@ if($_POST['type'] == 'shipper'){
    $show1 = $collection->aggregate([
            ['$match'=>['companyID'=>$_SESSION['companyId']]],
            ['$unwind'=>'$shipper'],
-           ['$match'=>['shipper._id'=>$id,'shipper.shipperStatus'=>"Active"]]
+           ['$match'=>['shipper._id'=>$id]]
    ]);
    
    foreach ($show1 as $row) {
@@ -241,7 +271,29 @@ if($_POST['type'] == 'shipper'){
    $shipper[$k] = $row['shipper'];
    $k++;
    foreach ($shipper as $row) {
-         echo $row['shipperName']."<br>";
+         echo $row['shipperAddress']."^".$row['shipperLocation'];
+
+      }
+   }
+}
+
+if($_POST['type'] == 'consignee'){
+   $id = (int)$_POST['value'];
+   $collection = $db->consignee;
+   $show1 = $collection->aggregate([
+           ['$match'=>['companyID'=>$_SESSION['companyId']]],
+           ['$unwind'=>'$consignee'],
+           ['$match'=>['consignee._id'=>$id]]
+   ]);
+   
+   foreach ($show1 as $row) {
+     
+   $consignee = array();
+   $k = 0;
+   $consignee[$k] = $row['consignee'];
+   $k++;
+   foreach ($consignee as $row) {
+         echo $row['consigneeAddress']."^".$row['consigneeLocation'];
 
       }
    }

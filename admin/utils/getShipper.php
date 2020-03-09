@@ -118,8 +118,10 @@ foreach ($show as $row) {
                 </td>
             </tr>
         ";
-        $value = "'".$id.")&nbsp;".$shipperName."'";
-        $list .="<option value=$value></option>";
+        if($row1['shipperStatus'] == "Active"){
+            $value = "'".$id.")&nbsp;".$shipperName."'";
+            $list .="<option value=$value></option>";
+        }
     }
 }
 
