@@ -38,6 +38,9 @@ if ($_GET['type'] == 'addCustomer') {
     $customer->setWebsiteURL($_POST['websiteURL']);
     $customer->setInternalNotes($_POST['internalNotes']);
     $customer->setMC($_POST['MC']);
+    $customer->setBlacklisted($_POST['blacklisted']);
+    $customer->setNumberOninvoice($_POST['numberOninvoice']);
+    $customer->setCustomerRate($_POST['customerRate']);
     $customer->insert($customer, $db, $helper);
     echo "Data Added Successfully";
 }
@@ -80,4 +83,43 @@ else if ($_GET['type'] == 'delete_customer') {
     $customer->setId($_POST['id']);
     $customer->deleteCustomer($customer, $db);
     echo 'Data Removed Successfully';
+
+}
+// customer edit detail function here 
+else if ($_GET['type'] == 'editCustomerDetail') {
+    $customer = new Customer();
+    $customer->setId($_POST['customerUpdateID']);
+    $customer->setCustName($_POST['custName']);
+    $customer->setCustAddress($_POST['custAddress']);
+    $customer->setCustLocation($_POST['custLocation']);
+    $customer->setCustZip($_POST['custZip']);
+    $customer->setBillingAddress($_POST['billingAddress']);
+    $customer->setBillingLocation($_POST['billingLocation']);
+    $customer->setBillingZip($_POST['billingZip']);
+    $customer->setPrimaryContact($_POST['primaryContact']);
+    $customer->setCustTelephone($_POST['custTelephone']);
+    $customer->setCustExt($_POST['custExt']);
+    $customer->setCustEmail($_POST['custEmail']);
+    $customer->setCustFax($_POST['custFax']);
+    $customer->setBillingContact($_POST['billingContact']);
+    $customer->setBillingEmail($_POST['billingEmail']);
+    $customer->setBillingTelephone($_POST['billingTelephone']);
+    $customer->setBillingExt($_POST['billingExt']);
+    $customer->setURS($_POST['URS']);
+    $customer->setCurrencySetting($_POST['currencySetting']);
+    $customer->setPaymentTerms($_POST['paymentTerms']);
+    $customer->setCreditLimit($_POST['creditLimit']);
+    $customer->setSalesRep($_POST['salesRep']);
+    $customer->setFactoringCompany($_POST['factoringCompany']);
+    $customer->setFederalID($_POST['federalID']);
+    $customer->setWorkerComp($_POST['workerComp']);
+    $customer->setWebsiteURL($_POST['websiteURL']);
+    $customer->setInternalNotes($_POST['internalNotes']);
+    $customer->setMC($_POST['MC']);
+    $customer->setBlacklisted($_POST['blacklisted']);
+    $customer->setNumberOninvoice($_POST['numberOninvoice']);
+    $customer->setCustomerRate($_POST['customerRate']);
+    echo "<script>alert('Inside driver');</script>";
+    $customer->EditCustomerDetail($customer, $db, $helper);
+    echo "Data Update Successfully";
 }

@@ -30,16 +30,23 @@ if ($_GET['type'] == 'addDriver') {
     $driver->setDriverLastMedical(strtotime($_POST['driverLastMedical']));
     $driver->setDriverNextMedical(strtotime($_POST['driverNextMedical']));
     $driver->setDriverLastDrugTest(strtotime($_POST['driverLastDrugTest']));
+    $driver->setDriverNextDrugTest(strtotime($_POST['driverNextDrugTest']));
     $driver->setPassportExpiry(strtotime($_POST['passportExpiry']));
     $driver->setFastCardExpiry(strtotime($_POST['fastCardExpiry']));
     $driver->setHazmatExpiry(strtotime($_POST['hazmatExpiry']));
-    $driver->setDriverMile($_POST['driverMile']);
-    $driver->setDriverFlat($_POST['driverFlat']);
-    $driver->setDriverStop($_POST['driverStop']);
-    $driver->setDriverTrap($_POST['driverTrap']);
-    $driver->setDriverPercentage($_POST['driverPercentage']);
+    $driver->setRate($_POST['rate']);
+    $driver->setCurrency($_POST['currency']);
+    $driver->setDriverLoadedMile($_POST['driverLoadedMile']);
+    $driver->setDriverEmptyMile($_POST['driverEmptyMile']);
+    $driver->setPickupRate($_POST['pickupRate']);
+    $driver->setPickputAfter($_POST['pickupAfter']);
+    $driver->setDropRate($_POST['dropRate']);
+    $driver->setDropAfter($_POST['dropAfter']);
+    $driver->settarp($_POST['tarp']);
     $driver->setTerminationDate(strtotime($_POST['terminationDate']));
     $driver->setInternalNote($_POST['InternalNote']);
+    $driver->setRecurrenceAdd($_POST['installmentCategoryStore'],$_POST['installmentTypeStore'],$_POST['amountStore'],$_POST['installmentStore'],$_POST['startNoStore'],$_POST['startDateStore'],$_POST['internalNoteStore']);
+    $driver->setRecurrenceSubtract($_POST['installmentCategory_Store'],$_POST['installmentType_Store'],$_POST['amount_Store'],$_POST['installment_Store'],$_POST['startNo_Store'],$_POST['startDate_Store'],$_POST['internalNote_Store']);
     $driver->insert($driver,$db,$helper);
     echo "Data Added Successfully";
 }
@@ -84,6 +91,46 @@ else if ($_GET['type'] == 'export_driver') {
     $driver->exportDriver($db);
 }
 
-
-
-
+// Update Driver Id
+else if($_GET['type'] == 'driverUpdateId'){
+    print_r($_POST['installmentCategoryStore']);
+    $driver = new Driver();
+    $driver->setId($_POST['driver_id']);
+    $driver->setDriverName($_POST['driverName']);
+    $driver->setDriverUsername($_POST['driverUsername']);
+    $driver->setDriverPassword($_POST['driverPassword']);
+    $driver->setDriverTelephone($_POST['driverTelephone']);
+    $driver->setDriverAlt($_POST['driverAlt']);
+    $driver->setDriverEmail($_POST['driverEmail']);
+    $driver->setDriverAddress($_POST['driverAddress']);
+    $driver->setDriverLocation($_POST['driverLocation']);
+    $driver->setDriverZip($_POST['driverZip']);
+    $driver->setDriverStatus($_POST['driverStatus']);
+    $driver->setDriverSocial($_POST['driverSocial']);
+    $driver->setDateOfbirth(strtotime($_POST['dateOfbirth']));
+    $driver->setDateOfhire(strtotime($_POST['dateOfhire']));
+    $driver->setDriverLicenseNo($_POST['driverLicenseNo']);
+    $driver->setDriverLicenseIssue($_POST['driverLicenseIssue']);
+    $driver->setDriverLicenseExp(strtotime($_POST['driverLicenseExp']));
+    $driver->setDriverLastMedical(strtotime($_POST['driverLastMedical']));
+    $driver->setDriverNextMedical(strtotime($_POST['driverNextMedical']));
+    $driver->setDriverLastDrugTest(strtotime($_POST['driverLastDrugTest']));
+    $driver->setDriverNextDrugTest(strtotime($_POST['driverNextDrugTest']));
+    $driver->setPassportExpiry(strtotime($_POST['passportExpiry']));
+    $driver->setFastCardExpiry(strtotime($_POST['fastCardExpiry']));
+    $driver->setHazmatExpiry(strtotime($_POST['hazmatExpiry']));
+    $driver->setRate($_POST['rate']);
+    $driver->setCurrency($_POST['currency']);
+    $driver->setDriverLoadedMile($_POST['driverLoadedMile']);
+    $driver->setDriverEmptyMile($_POST['driverEmptyMile']);
+    $driver->setPickupRate($_POST['pickupRate']);
+    $driver->setPickputAfter($_POST['pickupAfter']);
+    $driver->setDropRate($_POST['dropRate']);
+    $driver->setDropAfter($_POST['dropAfter']);
+    $driver->settarp($_POST['tarp']);
+    $driver->setTerminationDate(strtotime($_POST['terminationDate']));
+    $driver->setInternalNote($_POST['InternalNote']);
+    $driver->setRecurrenceAdd($_POST['installmentCategoryStore'],$_POST['installmentTypeStore'],$_POST['amountStore'],$_POST['installmentStore'],$_POST['startNoStore'],$_POST['startDateStore'],$_POST['internalNoteStore']);
+    $driver->setRecurrenceSubtract($_POST['installmentCategory_Store'],$_POST['installmentType_Store'],$_POST['amount_Store'],$_POST['installment_Store'],$_POST['startNo_Store'],$_POST['startDate_Store'],$_POST['internalNote_Store']);
+    $driver->driverAllUpdate($driver,$db,$helper);
+}

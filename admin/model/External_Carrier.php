@@ -970,6 +970,7 @@ class External_Carrier implements IteratorAggregate
                 'counter' => 0,
                 'carrier' => array([
                     '_id' => 0,
+                    'counter' => 0,
                     'name' => $this->name,
                     'address' => $this->address,
                     'location' => $this->location,
@@ -1042,6 +1043,7 @@ class External_Carrier implements IteratorAggregate
         if (!empty($doc)) {
             $db->carrier->updateOne(['companyID' => (int)$this->companyID], ['$push' => ['carrier' => [
                 '_id' => $helper->getDocumentSequence((int)$this->companyID, $db->carrier),
+                'counter' => 0,
                 'name' => $this->name,
                 'address' => $this->address,
                 'location' => $this->location,
@@ -1108,5 +1110,68 @@ class External_Carrier implements IteratorAggregate
         $db->carrier->updateOne(['companyID' => (int)$_SESSION['companyId'], 'carrier._id' => (int)$this->getId()],
             ['$set' => ['carrier.$.' . $external->getColumn() => $external->getName()]]
         );
+    }
+
+
+    public function updateCarrierID($carrier,$db,$helper)
+    {
+            $db->carrier->updateOne(['companyID' => (int)$_SESSION['companyId'], 'carrier._id' => (int)$this->getId()],
+            ['$set' => [
+                'carrier.$.name' => $this->name,
+                'carrier.$.address' => $this->address,
+                'carrier.$.location' => $this->location,
+                'carrier.$.zip' => $this->zip,
+                'carrier.$.contactName' => $this->contactName,
+                'carrier.$.email' => $this->email,
+                'carrier.$.telephone' => $this->telephone,
+                'carrier.$.ext' => $this->ext,
+                'carrier.$.tollfree' => $this->tollfree,
+                'carrier.$.fax' => $this->fax,
+                'carrier.$.paymentTerms' => $this->paymentTerms,
+                'carrier.$.taxID' => $this->taxID,
+                'carrier.$.mc' => $this->mc,
+                'carrier.$.dot' => $this->dot,
+                'carrier.$.factoringCompany' => $this->factoringCompany,
+                'carrier.$.carrierNotes' => $this->carrierNotes,
+                'carrier.$.blacklisted' => $this->blacklisted,
+                'carrier.$.corporation' => $this->corporation,
+                'carrier.$.insuranceLiabilityCompany' => $this->insuranceLiabilityCompany,
+                'carrier.$.insurancePolicyNo' => $this->insurancePolicyNo,
+                'carrier.$.expiryDate' => $this->expiryDate,
+                'carrier.$.insuranceTelephone' => $this->insuranceTelephone,
+                'carrier.$.insuranceExt' => $this->insuranceExt,
+                'carrier.$.insuranceContactName' => $this->insuranceContactName,
+                'carrier.$.insuranceLiabilityAmount' => $this->insuranceLiabilityAmount,
+                'carrier.$.insuranceNotes' => $this->insuranceNotes,
+                'carrier.$.autoInsuranceCompany' => $this->autoInsuranceCompany,
+                'carrier.$.autoInsPolicyNo' => $this->autoInsPolicyNo,
+                'carrier.$.autoInsExpiryDate' => $this->autoInsExpiryDate,
+                'carrier.$.autoInsTelephone' => $this->autoInsTelephone,
+                'carrier.$.autoInsExt' => $this->autoInsExt,
+                'carrier.$.autoInsContactName' => $this->autoInsContactName,
+                'carrier.$.autoInsLiabilityAmount' => $this->autoInsLiabilityAmount,
+                'carrier.$.autoInsuranceNotes' => $this->autoInsuranceNotes,
+                'carrier.$.cargoCompany' => $this->cargoCompany,
+                'carrier.$.cargoPolicyNo' => $this->cargoPolicyNo,
+                'carrier.$.cargoExpiryDate' => $this->cargoExpiryDate,
+                'carrier.$.cargoTelephone' => $this->cargoTelephone,
+                'carrier.$.cargoExt' => $this->cargoExt,
+                'carrier.$.cargoContactName' => $this->cargoContactName,
+                'carrier.$.cargoInsuranceAmt' => $this->cargoInsuranceAmt,
+                'carrier.$.WSIBNo' => $this->WSIBNo,
+                'carrier.$.cargoNotes' => $this->cargoNotes,
+                'carrier.$.primaryName' => $this->primaryName,
+                'carrier.$.primaryTelephone' => $this->primaryTelephone,
+                'carrier.$.primaryEmail' => $this->primaryEmail,
+                'carrier.$.secondaryName' => $this->secondaryName,
+                'carrier.$.secondaryTelephone' => $this->secondaryTelephone,
+                'carrier.$.secondaryEmail' => $this->secondaryEmail,
+                'carrier.$.accountingNotes' => $this->accountingNotes,
+                'carrier.$.sizeOfFleet' => $this->sizeOfFleet,
+                'carrier.$.equipmentNotes' => $this->equipmentNotes,
+                'carrier.$.insertedUserId' => $_SESSION['companyName'],
+                'carrier.$.deleteStatus' => 0,
+                'carrier.$.equipment'=>$this->equipment,
+            ]]);
     }
 }

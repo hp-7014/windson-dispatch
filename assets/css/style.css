@@ -3808,7 +3808,25 @@ table {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
-
-
-
 /* End Table CSS */
+
+/* edit icon*/
+.editModal {
+  font-size: 18px;
+  color: #30419b;
+}
+
+/* delete table*/
+.deleteModal {
+  font-size: 20px;
+  color: #FC3B3B;
+}
+
+/* password icon */
+.pasword-icon-btn {
+  float: right;
+  margin-right: 7px;
+  margin-top: -23px;
+  position: relative;
+  z-index: 2;
+}

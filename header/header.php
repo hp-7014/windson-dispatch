@@ -42,14 +42,14 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         var database = firebase.database(); </script>
-
+        
     <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
     <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
     <script src="js/activeload.js"></script>
     <link href="assets/plugins/sweet-alert2/sweetalert2.css" rel="stylesheet" type="text/css">
-   <script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false&amp;libraries=places&key=AIzaSyDnID4vOGNgMgJxF3Y3AR2SwjzueSonmW0'></script>
+   <script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false&amp;libraries=places&key=AIzaSyCkuoUOXCvpihWP1G2Gjqvwhef7XtkTTJg'></script>
 </head>
 
 <body id="mainbody">

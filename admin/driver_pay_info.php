@@ -17,13 +17,13 @@ require "../database/connection.php";
                 <div class="container">
                 <div class="row col-md-12">
                     <div class="form-group col-md-6">
-                        <label>Loaded Miles</label>
+                        <label>Loaded Miles <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" id="loadedmiles" placeholder="Loaded Mi" type="text">
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Empty Miles</label>
+                        <label>Empty Miles <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" id="emptymiles" placeholder="Empty Mi" type="text">
                         </div>
@@ -68,6 +68,7 @@ require "../database/connection.php";
                 </div>
             </div>
             <div class="modal-footer">
+                <label class="text-danger" style="padding-right: 125px"><b>Note :</b>&nbsp; * Fields are mandatory</label>
                 <button type="button" class="btn btn-danger waves-effect modalDriverPay">
                     Close
                 </button>

@@ -12,7 +12,7 @@ require "../database/connection.php";
 
             </div>
             <div class="modal-body custom-modal-body">
-            <div class="currency-container" style="z-index: 1600"></div>
+                <div class="currency-container" style="z-index: 1600"></div>
                 <form method="post" enctype="multipart/form-data">
                     <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal"
                             data-target="#" id="AddCurrency">Add
@@ -48,6 +48,7 @@ require "../database/connection.php";
                         foreach ($show1 as $row1) {
                             $id = $row1['_id'];
                             $currencyType = $row1['currencyType'];
+                            $counter = $row1['counter'];
                             ?>
                             <tr>
                                 <td><?php echo $no++; ?></td>
@@ -56,9 +57,18 @@ require "../database/connection.php";
                                          onblur="updateCurrency(this,'currencyType','<?php echo $id; ?>')"
                                          onclick="activate(this)"><?php echo $currencyType; ?></div>
                                 </td>
-                                <td><a href="#" onclick="deleteCurrency(<?php echo $id; ?>)"><i
-                                                class="mdi mdi-delete-sweep-outline"
-                                                style="font-size: 20px; color: #FC3B3B"></a></i>
+                                <td>
+                                    <?php
+                                    if ($counter == 0) {
+                                        ?>
+                                        <a href="#" onclick="deleteCurrency(<?php echo $id; ?>)"><i
+                                                    class="mdi mdi-delete-sweep-outline"
+                                                    style="font-size: 20px; color: #FC3B3B"></a></i>
+                                    <?php } else { ?>
+                                        <a href="#" disabled onclick="deleteCurrencyError()"><i
+                                                    class="mdi mdi-delete-sweep-outline"
+                                                    style="font-size: 20px; color: #adb5bd"></a></i>
+                                    <?php } ?>
                                 </td>
                             </tr>
                         <?php }

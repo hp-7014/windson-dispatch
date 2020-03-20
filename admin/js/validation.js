@@ -1111,8 +1111,14 @@ function val_hazmatExpiry(val) {
         return true;
     }
 }
-
-function val_driverMile(val) {
+function val_rate(val) {
+    if (val != '') {
+        return true;
+    } else {
+        return true;
+    }
+}
+function val_currency(val) {
     if (val != '') {
         return true;
     } else {
@@ -1120,35 +1126,98 @@ function val_driverMile(val) {
     }
 }
 
-function val_driverFlat(val) {
-    if (val != '') {
-        return true;
+function val_loadedMile(val){
+    if (val == '') {
+        swal('<h5>Please Write Loaded Mile !!!</h5>','','question');
+        return false;
     } else {
-        return true;
+        if (isNaN(val)) {
+            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
-function val_driverStop(val) {
-    if (val != '') {
-        return true;
+function val_emptyMile(val){
+    if (val == '') {
+        swal('<h5>Please Write Empty Mile Only !!!</h5>','','question');
+        return false;
     } else {
-        return true;
+        if (isNaN(val)) {
+            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
-function val_driverTrap(val) {
-    if (val != '') {
+function val_pickupRate(val){
+    if (val == '') {
         return true;
     } else {
-        return true;
+        if (isNaN(val)) {
+            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
-function val_driverPercentage(val) {
-    if (val != '') {
+function val_pickupAfter(val){
+    if (val == '') {
         return true;
     } else {
+        if (isNaN(val)) {
+            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
+function val_dropRate(val){
+    if (val == '') {
         return true;
+    } else {
+        if (isNaN(val)) {
+            swal('Please Write an Numeric Value Only');
+            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
+function val_tarp(val){
+    if (val == '') {
+        return true;
+    } else {
+        if (isNaN(val)) {
+            swal('Please Write an Numeric Value Only');
+            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
+function val_dropAfter(val){
+    if (val == '') {
+        return true;
+    } else {
+        if (isNaN(val)) {
+            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
@@ -1497,6 +1566,7 @@ function val_carrMC(val) {
     if (val == '') {
         swal('Please Enter Valid MC No');
         return false;
+        return false;
     } else {
         return true;
     }
@@ -1505,6 +1575,65 @@ function val_carrMC(val) {
 function val_carrDOT(val) {
     if (val == '') {
         swal('Please Enter valid DOT No');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+// driver installation
+function val_installmentCategory(val) {
+    if (val == '') {
+        swal('<h5>Please Select Installment Category !!!</h5>', '', 'question');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_installmentType(val) {
+    if (val == '') {
+        swal('<h5>Please Select Installment Type !!!</h5>', '', 'question');
+        return false;
+    } else {
+        return true;
+    }
+}
+function val_amount1(val) {
+    if (val == '') {
+        swal('<h5>Please Select Installment Amount !!!</h5>', '', 'question');
+        return false;
+    } else {
+        return true;
+    }
+}
+function val_installment(val) {
+    if (val == '') {
+        swal('<h5>Please Select Installment !!!</h5>', '', 'question');
+        return false;
+    } else {
+        return true;
+    }
+}
+function val_startNo(val) {
+    if (val == '') {
+        swal('<h5>Please Select Start Number !!!</h5>', '', 'question');
+        return false;
+    } else {
+        return true;
+    }
+}
+function val_startDate(val) {
+    if (val == '') {
+        swal('<h5>Please Select Start Date !!!</h5>', '', 'question');
+        return false;
+    } else {
+        return true;
+    }
+}
+function val_internalNote1(val) {
+    if (val == '') {
+        swal('<h5>Please Select Internal Note !!!</h5>', '', 'question');
         return false;
     } else {
         return true;

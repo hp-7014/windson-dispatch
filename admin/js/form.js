@@ -1,3 +1,67 @@
+// //Driver Recurrence +
+// var installmentCategory = [];
+// var installmentType = [];
+// var amount = [];
+// var installment = [];
+// var startNo = [];
+// var startDate = [];
+// var internalNote = [];
+var recurrenceAddLength = '';
+var recurrenceSubLength = '';
+//
+// var installment_Category = [];
+// var installment_Type = [];
+// var amount_recurrence = [];
+// var installment_sub = [];
+// var start_No = [];
+// var start_Date = [];
+// var internal_Note = [];
+
+// driver pay variable
+var loadedmiles = '';
+var emptymiles = '';
+var pickrate = '';
+var pickstart = '';
+var droprate = '';
+var dropstart = '';
+var driverTarp = '';
+
+// recurence add
+var AddinstallmentCategoryStore = [];
+var AddinstallmentTypeStore = [];
+var AddamountStore = [];
+var AddinstallmentStore = [];
+var AddstartNoStore = [];
+var AddstartDateStore = [];
+var AddinternalNoteStore = [];
+
+// recurrence subtract
+var SubinstallmentCategory_Store = [];
+var SubinstallmentType_Store = [];
+var Subamount_Store = [];
+var Subinstallment_Store = [];
+var SubstartNo_Store = [];
+var SubstartDate_Store = [];
+var SubinternalNote_Store = [];
+
+// recurence add
+var installmentCategoryStore = [];
+var installmentTypeStore = [];
+var amountStore = [];
+var installmentStore = [];
+var startNoStore = [];
+var startDateStore = [];
+var internalNoteStore = [];
+
+// recurrence subtract
+var installmentCategory_Store = [];
+var installmentType_Store = [];
+var amount_Store = [];
+var installment_Store = [];
+var startNo_Store = [];
+var startDate_Store = [];
+var internalNote_Store = [];
+
 //----------Shipper Start-------------
 // add shipper
 function addShipper() {
@@ -6,6 +70,7 @@ function addShipper() {
     var shipperAddress = document.getElementById('shipperAddress').value;
     var shipperLocation = document.getElementById('shipperLocation').value;
     var shipperPostal = document.getElementById('shipperPostal').value;
+    var shipperContact = document.getElementById('shipperContact').value;
     var shipperContact = document.getElementById('shipperContact').value;
     var shipperEmail = document.getElementById('shipperEmail').value;
     var shipperTelephone = document.getElementById('shipperTelephone').value;
@@ -565,6 +630,247 @@ function setBillingDetail(val) {
     }
 }
 
+//--- customer edit
+// step form function
+function toggle1() {
+
+    var custName = document.getElementById('custNameEdit').value;
+    var custAddress = document.getElementById('custAddressEdit').value;
+    var custLocation = document.getElementById('custLocationEdit').value;
+    var custZip = document.getElementById('custZipEdit').value;
+
+    var billingAddress = document.getElementById('billingAddressEdit').value;
+    var billingLocation = document.getElementById('billingLocationEdit').value;
+    var billingZip = document.getElementById('billingZipEdit').value;
+    var primaryContact = document.getElementById('primaryContactEdit').value;
+    var custTelephone = document.getElementById('custTelephoneEdit').value;
+    var custExt = document.getElementById('custExtEdit').value;
+    var custEmail = document.getElementById('custEmailEdit').value;
+    var custFax = document.getElementById('custFaxEdit').value;
+    var billingContact = document.getElementById('billingContactEdit').value;
+    var billingEmail = document.getElementById('billingEmailEdit').value;
+    var billingTelephone = document.getElementById('billingTelephoneEdit').value;
+    var billingExt = document.getElementById('billingExtEdit').value;
+    var URS = document.getElementById('URSEdit').value;
+
+    if (val_custName(custName)) {
+        if (val_custAddress(custAddress)) {
+            if (val_custLocation(custLocation)) {
+                if (val_custZip(custZip)) {
+                    if (val_billingAddress(billingAddress)) {
+                        if (val_billingLocation(billingLocation)) {
+                            if (val_billingZip(billingZip)) {
+                                if (val_primaryContact(primaryContact)) {
+                                    if (val_custTelephone(custTelephone)) {
+                                        if (val_custExt(custExt)) {
+                                            if (val_custEmail(custEmail)) {
+                                                if (val_custFax(custFax)) {
+                                                    if (val_billingContact(billingContact)) {
+                                                        if (val_billingEmail(billingEmail)) {
+                                                            if (val_billingTelephone(billingTelephone)) {
+                                                                if (val_billingExt(billingExt)) {
+                                                                    if (val_URS(URS)) {
+                                                                        $("#home").toggleClass("show");
+                                                                        $("#home").toggleClass("active");
+                                                                        $("#profile").toggleClass("show");
+                                                                        $("#profile").toggleClass("active");
+                                                                        $("#home-tab").toggleClass("active");
+                                                                        $("#profile-tab").toggleClass("active");
+
+                                                                        if ($("#home-tab").attr("aria-selected") === 'true') {
+                                                                            $("#home-tab").attr("aria-selected", "false");
+                                                                        } else {
+                                                                            $("#home-tab").attr("aria-selected", "true");
+                                                                        }
+
+                                                                        if ($("#profile-tab").attr("aria-selected") === 'true') {
+                                                                            $("#profile-tab").attr("aria-selected", "false");
+                                                                        } else {
+                                                                            $("#profile-tab").attr("aria-selected", "true");
+                                                                        }
+
+                                                                        $("#home-title").toggleClass("show");
+                                                                        $("#profile-title").toggleClass("show");
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+function setBillingDetail1(val) {
+    var checkbox = document.getElementById('customCheck1');
+    if (checkbox.checked == true) {
+        document.getElementById('billingAddressEdit').value = document.getElementById('custAddressEdit').value;
+        document.getElementById('billingLocationEdit').value = document.getElementById('custLocationEdit').value;
+        document.getElementById('billingZipEdit').value = document.getElementById('custZipEdit').value;
+    } else {
+        document.getElementById('billingAddressEdit').value = document.getElementById('billingAddressEdit').value;
+        document.getElementById('billingLocationEdit').value = document.getElementById('billingLocationEdit').value;
+        document.getElementById('billingZipEdit').value = document.getElementById('billingZipEdit').value;
+    }
+}
+
+function EditCustomerDetail() {
+    var customerUpdateID = document.getElementById('customerUpdateID').value;
+    var custName = document.getElementById('custNameEdit').value;
+    var custAddress = document.getElementById('custAddressEdit').value;
+    var custLocation = document.getElementById('custLocationEdit').value;
+    var custZip = document.getElementById('custZipEdit').value;
+    var sameAsMailingAddress = document.getElementsByName('sameAsMailingAddress');
+    var billingAddress = document.getElementById('billingAddressEdit').value;
+    var billingLocation = document.getElementById('billingLocationEdit').value;
+    var billingZip = document.getElementById('billingZipEdit').value;
+    var primaryContact = document.getElementById('primaryContactEdit').value;
+    var custTelephone = document.getElementById('custTelephoneEdit').value;
+    var custExt = document.getElementById('custExtEdit').value;
+    var custEmail = document.getElementById('custEmailEdit').value;
+    var custFax = document.getElementById('custFaxEdit').value;
+    var billingContact = document.getElementById('billingContactEdit').value;
+    var billingEmail = document.getElementById('billingEmailEdit').value;
+    var billingTelephone = document.getElementById('billingTelephoneEdit').value;
+    var billingExt = document.getElementById('billingExtEdit').value;
+    var URS = document.getElementById('URSEdit').value;
+
+    var blacklisted = "on";
+    if (document.getElementById('customCheck2').checked == true) {
+        blacklisted = "on";
+    } else {
+        blacklisted = "off";
+    }
+
+    if (document.getElementById('customCheck7').checked == true) {
+        var AsShipper = 1;
+    } else {
+        var AsShipper = 0;
+    }
+
+    if (document.getElementById('customCheck8').checked == true) {
+        var AsConsignee = 1;
+    } else {
+        var AsConsignee = 0;
+    }
+
+    var MC = document.getElementById('MCEdit').value;
+
+    var currencySetting_1 = document.getElementById('currencySetting').value;
+    var currencySetting1 = currencySetting_1.split(")");
+    var currencySetting = currencySetting1[0];
+
+    var paymentTerms_1 = document.getElementById('paymentTerms').value;
+    var paymentTerms1 = paymentTerms_1.split(")");
+    var paymentTerms = paymentTerms1[0];
+
+    var creditLimit = document.getElementById('creditLimitEdit').value;
+
+    var salesRep_1 = document.getElementById('salesRep').value;
+    var salesRep1 = salesRep_1.split(")");
+    var salesRep = salesRep1[0];
+
+    var factoringCompany_1 = document.getElementById('factoringCompany').value;
+    var factoringCompany1 = factoringCompany_1.split(")");
+    var factoringCompany = factoringCompany1[0];
+
+    var federalID = document.getElementById('federalIDEdit').value;
+    var workerComp = document.getElementById('workerCompEdit').value;
+    var websiteURL = document.getElementById('websiteURLEdit').value;
+
+    var numberOninvoice = "on";
+    if (document.getElementById('customCheck5').checked == true) {
+        numberOninvoice = "on";
+    } else {
+        numberOninvoice = "off";
+    }
+
+    var customerRate = "on";
+    if (document.getElementById('customCheck6').checked == true) {
+        customerRate = "on";
+    } else {
+        customerRate = "off";
+    }
+
+    var internalNotes = document.getElementById('internalNotesEdit').value;
+
+    if (val_currencySetting(currencySetting)) {
+        if (val_paymentTerms(paymentTerms)) {
+            if (val_creditLimit(creditLimit)) {
+                if (val_salesRep(salesRep)) {
+                    if (val_factoringCompany(factoringCompany)) {
+                        if (val_federalID(federalID)) {
+                            if (val_workerComp(workerComp)) {
+                                if (val_websiteURL(websiteURL)) {
+                                    if (val_internalNotes(internalNotes)) {
+                                        $.ajax({
+                                            url: 'admin/customer_driver.php?type=editCustomerDetail',
+                                            type: 'POST',
+                                            data: {
+                                                customerUpdateID: customerUpdateID,
+                                                custName: custName,
+                                                custAddress: custAddress,
+                                                custLocation: custLocation,
+                                                custZip: custZip,
+                                                billingAddress: billingAddress,
+                                                billingLocation: billingLocation,
+                                                billingZip: billingZip,
+                                                primaryContact: primaryContact,
+                                                custTelephone: custTelephone,
+                                                custExt: custExt,
+                                                custEmail: custEmail,
+                                                custFax: custFax,
+                                                billingContact: billingContact,
+                                                billingEmail: billingEmail,
+                                                billingTelephone: billingTelephone,
+                                                billingExt: billingExt,
+                                                URS: URS,
+                                                currencySetting: currencySetting,
+                                                paymentTerms: paymentTerms,
+                                                creditLimit: creditLimit,
+                                                salesRep: salesRep,
+                                                factoringCompany: factoringCompany,
+                                                federalID: federalID,
+                                                workerComp: workerComp,
+                                                websiteURL: websiteURL,
+                                                internalNotes: internalNotes,
+                                                MC: MC,
+
+                                                blacklisted: blacklisted,
+                                                AsShipper: AsShipper,
+                                                AsConsignee: AsConsignee,
+                                                numberOninvoice: numberOninvoice,
+                                                customerRate: customerRate,
+                                            },
+                                            success: function (data) {
+                                                // var companyid = $('#companyid').val();
+                                                // database.ref('customer').child(companyid).set({
+                                                //     data: randomString(),
+                                                // });
+                                                swal('Success', data, 'success');
+                                                $('#edit_customer').modal('hide');
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 // add customer
 function addCustomer() {
     var companyId = document.getElementById('companyId').value;
@@ -586,10 +892,6 @@ function addCustomer() {
     var billingTelephone = document.getElementById('billingTelephone').value;
     var billingExt = document.getElementById('billingExt').value;
     var URS = document.getElementById('URS').value;
-
-    var blacklisted = document.getElementsByName('blacklisted');
-    var AsShipper = document.getElementsByName('AsShipper');
-    var AsConsignee = document.getElementsByName('AsConsignee');
     var MC = document.getElementById('MC').value;
 
     var currencySetting = document.getElementById('currencySetting').value;
@@ -611,9 +913,40 @@ function addCustomer() {
     var federalID = document.getElementById('federalID').value;
     var workerComp = document.getElementById('workerComp').value;
     var websiteURL = document.getElementById('websiteURL').value;
-    var numberOninvoice = document.getElementsByName('numberOninvoice');
-    var customerRate = document.getElementsByName('customerRate');
     var internalNotes = document.getElementById('internalNotes').value;
+
+    var numberOninvoice = "on";
+    if (document.getElementById('customCheck5').checked == true) {
+        numberOninvoice = "on";
+    } else {
+        numberOninvoice = "off";
+    }
+
+    var customerRate = "on";
+    if (document.getElementById('customCheck6').checked == true) {
+        customerRate = "on";
+    } else {
+        customerRate = "off";
+    }
+
+    var blacklisted = "on";
+    if (document.getElementById('customCheck2').checked == true) {
+        blacklisted = "on";
+    } else {
+        blacklisted = "off";
+    }
+
+    if (document.getElementById('customCheck7').checked == true) {
+        var AsShipper = 1;
+    } else {
+        var AsShipper = 0;
+    }
+
+    if (document.getElementById('customCheck8').checked == true) {
+        var AsConsignee = 1;
+    } else {
+        var AsConsignee = 0;
+    }
 
     if (val_currencySetting(currencySetting)) {
         if (val_paymentTerms(paymentTerms)) {
@@ -625,7 +958,7 @@ function addCustomer() {
                                 if (val_websiteURL(websiteURL)) {
                                     if (val_internalNotes(internalNotes)) {
                                         $.ajax({
-                                            url: 'admin/customer_driver.php?type=' + 'addCustomer',
+                                            url: 'admin/customer_driver.php?type=addCustomer',
                                             type: 'POST',
                                             data: {
                                                 companyId: companyId,
@@ -655,7 +988,13 @@ function addCustomer() {
                                                 workerComp: workerComp,
                                                 websiteURL: websiteURL,
                                                 internalNotes: internalNotes,
-                                                MC: MC
+                                                MC: MC,
+
+                                                blacklisted: blacklisted,
+                                                AsShipper: AsShipper,
+                                                AsConsignee: AsConsignee,
+                                                numberOninvoice: numberOninvoice,
+                                                customerRate: customerRate,
                                             },
                                             success: function (data) {
                                                 var companyid = $('#companyid').val();
@@ -818,7 +1157,6 @@ function show_privilege(id) {
         method: "POST",
         dataType: 'html',
         success: function (data) {
-            // alert(data);
             $('#final_privilege').html(data);
         }
     });
@@ -1512,11 +1850,8 @@ function deleteBank(id) {
 
 // Import Bank Admin
 function import_Admin() {
-    // var file = document.getElementById('file').value;
     var form_data = new FormData();
-
     form_data.append("file", document.getElementById('file').files[0]);
-    //alert(document.getElementById('file').files);
     $.ajax({
         url: 'admin/bank_admin.php?type=' + 'import_admin_bank',
         method: 'post',
@@ -1590,7 +1925,6 @@ function updateBankCreditTable() {
         success: function (response) {
             var res = response.split("^");
             if (CreditbankBody != null) {
-                alert(10);
                 CreditbankBody.innerHTML = res[0];
             }
             if (CreditbankList != null) {
@@ -1684,11 +2018,9 @@ function export_CreditCard() {
 
 // Import Credit Card
 function import_creditCard() {
-    // var file = document.getElementById('file').value;
     var form_data = new FormData();
 
     form_data.append("file", document.getElementById('file').files[0]);
-    //alert(document.getElementById('file').files);
     $.ajax({
         url: 'admin/bank_credit.php?type=' + 'import_bank_credit',
         method: 'post',
@@ -1852,7 +2184,6 @@ function import_Sub_credit() {
     var form_data = new FormData();
 
     form_data.append("file", document.getElementById('file').files[0]);
-    //alert(document.getElementById('file').files);
     $.ajax({
         url: 'admin/sub_credit_card.php?type=' + 'import_sub_credit',
         method: 'post',
@@ -1917,7 +2248,6 @@ function updateSub_Credit(column, id) {
 
 // Delete Sub Credit
 function deleteSubCredit(id) {
-    //alert(delete_status);
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/sub_credit_card.php?type=' + 'delete_sub_credit',
@@ -1992,7 +2322,6 @@ function UpdateCustomTable() {
         dataType: 'text',
         success: function (response) {
             if (custom_broker_body != null) {
-                alert(response);
                 custom_broker_body.innerHTML = response;
             }
         },
@@ -2010,7 +2339,6 @@ function Add_CustomBroker() {
     var tollfree = document.getElementById('tollfree').value;
     var fax = document.getElementById('fax').value;
     var Status = $("input[name='Status']:checked").val();
-    //alert(Status);
     if (val_brokerName(brokerName)) {
         if (val_Crossing(crossing)) {
             if (val_telephone(telephone)) {
@@ -2045,10 +2373,7 @@ function Add_CustomBroker() {
 
 // Edit Custom Broker
 function updateCustom(column, id, value) {
-
-    alert(column + "," + id + "," + value);
     var companyId = document.getElementById('companyId').value;
-
     $.ajax({
         url: 'admin/custom_broker.php?type=' + 'edit_custom_broker',
         type: 'POST',
@@ -2070,7 +2395,6 @@ function updateCustom(column, id, value) {
 
 // Delete Custom Broker
 function deleteCustom(id) {
-    //alert(delete_status);
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/custom_broker.php?type=' + 'delete_custom_broker',
@@ -2117,7 +2441,6 @@ function import_Custom_Broker() {
     var form_data = new FormData();
 
     form_data.append("file", document.getElementById('file').files[0]);
-    //alert(document.getElementById('file').files);
     $.ajax({
         url: 'admin/custom_broker.php?type=' + 'import_custom_broker',
         method: 'post',
@@ -2443,7 +2766,7 @@ function updateTrailerAdd(column, id) {
 
 // Delete Trailer Function
 function deleteTrailerAdd(id) {
-    alert(id);
+
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/traileradd_driver.php?type=' + 'delete_trailer',
@@ -2587,6 +2910,8 @@ function updateFactoringTable() {
     var factoringBody = document.getElementById('factoringBody');
     var factoringList = document.getElementById('searchFactoring');
     var factoringCustomer = document.getElementById('factoringlist');
+    var browsers1 = document.getElementById('browsers1');
+
     $.ajax({
         url: 'admin/utils/getFactoring.php',
         type: 'POST',
@@ -2601,6 +2926,9 @@ function updateFactoringTable() {
             }
             if (factoringCustomer != null) {
                 factoringCustomer.innerHTML = res[2];
+            }
+            if (browsers1 != null) {
+                browsers1.innerHTML = res[2];
             }
         },
     });
@@ -2686,15 +3014,6 @@ function exportFactoring() {
 
 /*------------------- Driver Start -----------------------------*/
 
-// driver pay variable
-var loadedmiles = '';
-var emptymiles = '';
-var pickrate = '';
-var pickstart = '';
-var droprate = '';
-var dropstart = '';
-var driverTarp = '';
-
 // get driver pay info
 function getDriverPayInfo() {
     loadedmiles = document.getElementById('loadedmiles').value;
@@ -2704,7 +3023,22 @@ function getDriverPayInfo() {
     droprate = document.getElementById('droprate').value;
     dropstart = document.getElementById('dropstart').value;
     driverTarp = document.getElementById('driverTarp').value;
-    $('#driverpayinfo').modal('hide');
+
+    if (val_loadedMile(loadedmiles)) {
+        if (val_emptyMile(emptymiles)) {
+            if (val_pickupRate(pickrate)) {
+                if (val_pickupAfter(pickstart)) {
+                    if (val_dropRate(droprate)) {
+                        if (val_dropAfter(dropstart)) {
+                            if (val_tarp(driverTarp)) {
+                                $('#driverpayinfo').modal('hide');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 // get add fields
@@ -2720,6 +3054,351 @@ function addPayFields() {
         document.getElementById('driverTarp').value = driverTarp;
     }
 }
+//Driver Recurrence +
+var installmentCategory = [];
+var installmentType = [];
+var amount = [];
+var installment = [];
+var startNo = [];
+var startDate = [];
+var internalNote = [];
+
+function getrecurrence() {
+    var recurrence_id = document.getElementById('getnewaa').value;
+    var counter = 0;
+    var counter1 = 0;
+    if (recurrence_id == 2) {
+        recurrenceAddLength = document.getElementsByName('installmentCategory').length - 1;
+        for (var i = 0; i < document.getElementsByName('installmentCategory').length; i++) {
+
+            installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
+            installmentType[i] = document.getElementsByName('installmentType')[i].value;
+            amount[i] = document.getElementsByName('amount')[i].value;
+            installment[i] = document.getElementsByName('installment')[i].value;
+            startNo[i] = document.getElementsByName('startNo')[i].value;
+            startDate[i] = document.getElementsByName('startDate')[i].value;
+            internalNote[i] = document.getElementsByName('internalNote')[i].value;
+            if (val_installmentCategory(installmentCategory[i])) {
+                if (val_installmentType(installmentType[i])) {
+                    if (val_amount1(amount[i])) {
+                        if (val_installment(installment[i])) {
+                            if (val_startNo(val_startNo[i])) {
+                                if (val_startDate(startDate[i])) {
+                                    if (val_internalNote1(internalNote[i])) {
+                                        counter++;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+
+        if (counter == document.getElementsByName('installmentCategory').length - 1) {
+            $('#addRecurrence').modal('hide');
+        } else {
+            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
+        }
+
+    } else {
+        for (var i = 0; i < document.getElementsByName('installmentCategory').length; i++) {
+            installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
+            installmentType[i] = document.getElementsByName('installmentType')[i].value;
+            amount[i] = document.getElementsByName('amount')[i].value;
+            installment[i] = document.getElementsByName('installment')[i].value;
+            startNo[i] = document.getElementsByName('startNo')[i].value;
+            startDate[i] = document.getElementsByName('startDate')[i].value;
+            internalNote[i] = document.getElementsByName('internalNote')[i].value;
+            if (val_installmentCategory(installmentCategory[i])) {
+                if (val_installmentType(installmentType[i])) {
+                    if (val_amount1(amount[i])) {
+                        if (val_installment(installment[i])) {
+                            if (val_startNo(val_startNo[i])) {
+                                if (val_startDate(startDate[i])) {
+                                    if (val_internalNote1(internalNote[i])) {
+                                        counter1++;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+    }
+    if (counter1 == document.getElementsByName('installmentCategory').length) {
+        $('#addRecurrence').modal('hide');
+    } else {
+        swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
+    }
+}
+
+function addRecurrenceFields() {
+    if (installmentCategory.length > 0) {
+        var innerData = "";
+        for (var i = 0; i < installmentCategory.length; i++) {
+
+            innerData += '<tr id="recurrence_add' + i + '">'
+                + '<td width="150">'
+                + '<input value = "' + installmentCategory[i] + '" id="installmentCategory" class="form-control" name="installmentCategory" list="fixpaycat"/></td>'
+                + '<td width="150">'
+                + '<input value = "' + installmentType[i] + '" id="installmentType" class="form-control" name="installmentType" list="instatype1"/></td>'
+                + '<td width="100">'
+                + '<input name="amount" id="amount" type="text" value = "' + amount[i] + '" class="form-control" /></td>'
+                + '<td width="100">'
+                + '<input name="installment" id="installment" type="text" value = "' + installment[i] + '" class="form-control" /></td>'
+                + '<td width="100"><input name="startNo" id="startNo" type="text" value = "' + startNo[i] + '" class="form-control" /></td>'
+                + '<td width="10"><input name="startDate" id="startDate" type="date" value = "' + startDate[i] + '" class="form-control" /></td>'
+                + '<td width="250"><textarea rows="1" id="internalNote" cols="30" value = "' + internalNote[i] + '" class="form-control" type="textarea" name="internalNote">' + internalNote[i] + '</textarea></td>'
+                + '<td><button type="button" class="btn btn-danger" onclick="removeRowRecurrence(' + i + ')"><span aria-hidden="true">&times;</span></button></td></tr>'
+
+        }
+        document.getElementById('TextBoxContainer2').innerHTML = innerData;
+    }
+}
+
+//Driver Recurrence -
+var installment_Category = [];
+var installment_Type = [];
+var amount_recurrence = [];
+var installment_sub = [];
+var start_No = [];
+var start_Date = [];
+var internal_Note = [];
+var counter2 = 0;
+var counter3 = 0;
+function recurrencesubstract() {
+    var recurrencesubstract_id = document.getElementById('getnewaa').value;
+    if (recurrencesubstract_id == 2) {
+        recurrenceSubLength = document.getElementsByName('installment_Category').length - 1;
+
+        for (var i = 0; i < document.getElementsByName('installment_Category').length; i++) {
+
+            installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
+            installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
+            amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
+            installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
+            start_No[i] = document.getElementsByName('start_No')[i].value;
+            start_Date[i] = document.getElementsByName('start_Date')[i].value;
+            internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
+            if (val_installmentCategory(installment_Category[i])) {
+                if (val_installmentType(installment_Type[i])) {
+                    if (val_amount1(amount_recurrence[i])) {
+                        if (val_installment(installment_sub[i])) {
+                            if (val_startNo(start_No[i])) {
+                                if (val_startDate(start_Date[i])) {
+                                    if (val_internalNote1(internal_Note[i])) {
+                                        counter2++;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        if (counter2 == document.getElementsByName('installment_Category').length - 1) {
+            $('#substractRecurrence').modal('hide');
+        } else {
+            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
+        }
+    } else {
+        for (var i = 0; i < document.getElementsByName('installment_Category').length; i++) {
+
+            installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
+            installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
+            amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
+            installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
+            start_No[i] = document.getElementsByName('start_No')[i].value;
+            start_Date[i] = document.getElementsByName('start_Date')[i].value;
+            internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
+            if (val_installmentCategory(installment_Category[i])) {
+                if (val_installmentType(installment_Type[i])) {
+                    if (val_amount1(amount_recurrence[i])) {
+                        if (val_installment(installment_sub[i])) {
+                            if (val_startNo(start_No[i])) {
+                                if (val_startDate(start_Date[i])) {
+                                    if (val_internalNote1(internal_Note[i])) {
+                                        counter3++;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        if (counter3 == document.getElementsByName('installment_Category').length) {
+            $('#substractRecurrence').modal('hide');
+        } else {
+            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
+        }
+    }
+}
+
+function Recurrence_Fields() {
+    if (installment_Category.length > 0) {
+        var innerData = "";
+        for (var i = 0; i < installment_Category.length; i++) {
+            innerData += '<tr id="recurrencesubstract_add' + i + '">'
+                + '<td width="150">'
+                + '<input value = "' + installment_Category[i] + '" class="form-control" name="installment_Category" list="fixpay_cat"/></td>'
+                + '<td width="150">'
+                + '<input value = "' + installment_Type[i] + '" class="form-control" name="installment_Type" list="instatype"/></td>'
+                + '<td width="100">'
+                + '<input name="amount_recurrence" type="text" value = "' + amount_recurrence[i] + '" class="form-control" /></td>'
+                + '<td width="100">'
+                + '<input name="installment_sub" type="text" value = "' + installment_sub[i] + '" class="form-control" /></td>'
+                + '<td width="100"><input name="start_No" type="text" value = "' + start_No[i] + '" class="form-control" /></td>'
+                + '<td width="10"><input name="start_Date" type="date" value = "' + start_Date[i] + '" class="form-control" /></td>'
+                + '<td width="250"><textarea rows="1" cols="30" value = "' + internal_Note[i] + '" class="form-control" type="textarea" name="internal_Note">' + internal_Note[i] + '</textarea></td>'
+                + '<td><button type="button" class="btn btn-danger" onclick="recurrence_substract(' + i + ')"><span aria-hidden="true">&times;</span></button></td></tr>'
+
+        }
+
+        document.getElementById('TextBoxContainer3').innerHTML = innerData;
+    }
+}
+
+// driver data fetch
+function getDriverValues(id) {
+    $.ajax({
+        url: './admin/driver_value.php?type=driverDataFetch',
+        method: 'POST',
+        data: {id: id},
+        datatype: 'json',
+        success: function (data) {
+            var j = JSON.parse(data);
+
+            $('#driverNameEdit').val(j.driverName);
+            $('#driverUsernameEdit').val(j.driverUsername);
+            $('#driverPasswordEdit').val(j.driverPassword);
+            $('#driverTelephoneEdit').val(j.driverTelephone);
+            $('#driverAltEdit').val(j.driverAlt);
+            $('#driverEmailEdit').val(j.driverEmail);
+            $('#driverAddressEdit').val(j.driverAddress);
+            $('#driverLocationEdit').val(j.driverLocation);
+            $('#driverZipEdit').val(j.driverZip);
+            $('#driverStatusEdit').val(j.driverStatus);
+            $('#driverSocialEdit').val(j.driverSocial);
+            $('#dateOfbirthEdit').val(j.dateOfbirth);
+            $('#dateOfhireEdit').val(j.dateOfhire);
+            $('#driverLicenseNoEdit').val(j.driverLicenseNo);
+            $('#driverLicenseIssueEdit').val(j.driverLicenseIssue);
+            $('#driverLicenseExpEdit').val(j.driverLicenseExp);
+            $('#driverLastMedicalEdit').val(j.driverLastMedical);
+            $('#driverNextMedicalEdit').val(j.driverNextMedical);
+            $('#driverLastDrugTestEdit').val(j.driverLastDrugTest);
+            $('#driverNextDrugTestEdit').val(j.driverNextDrugTest);
+            $('#passportExpiryEdit').val(j.passportExpiry);
+            $('#fastCardExpiryEdit').val(j.fastCardExpiry);
+            $('#hazmatExpiryEdit').val(j.hazmatExpiry);
+            $('#rateEdit').val(j.rate);
+            $('#driverCurrencyListEdit').val(j.currency);
+            $('#terminationDateEdit').val(j.terminationDate);
+            $('#driverUpdateID').val(j._id);
+            $('#InternalNoteEdit').val(j.internalNote);
+            loadedmiles = j.driverLoadedMile;
+            emptymiles = j.driverEmptyMile;
+            pickrate = j.pickupRate;
+            pickstart = j.pickupAfter;
+            droprate = j.dropRate;
+            dropstart = j.dropAfter;
+            driverTarp = j.tarp;
+
+            // recurrence + array value
+            for (let k = 0; k <= j.addRecLength - 1; k++) {
+                installmentCategory[k] = j.installmentAdd[k];
+                installmentType[k] = j.installmentTypAdd[k];
+                amount[k] = j.amountStoAdd[k];
+                installment[k] = j.installmentStoAdd[k];
+                startNo[k] = j.startNoStoAdd[k];
+                startDate[k] = j.startDateStoAdd[k];
+                internalNote[k] = j.internalNoteStoAdd[k];
+            }
+
+            // recurrence - array value
+            for (let l = 0; l <= j.subRecLength - 1; l++) {
+                installment_Category[l] = j.installmentSub[l];
+                installment_Type[l] = j.installmentTypSub[l];
+                amount_recurrence[l] = j.amountStoSub[l];
+                installment_sub[l] = j.installmentStoSub[l];
+                start_No[l] = j.startNoStoSub[l];
+                start_Date[l] = j.startDateStoSub[l];
+                internal_Note[l] = j.internalNoteStoSub[l];
+            }
+        }
+    });
+}
+
+//-------Recurence Code END----------
+
+$(".toggle-password").click(function () {
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+        input.attr("type", "text");
+    } else {
+        input.attr("type", "password");
+    }
+});
 
 function addDriver() {
     var companyId = document.getElementById('companyId').value;
@@ -2742,139 +3421,322 @@ function addDriver() {
     var driverLastMedical = document.getElementById('driverLastMedical').value;
     var driverNextMedical = document.getElementById('driverNextMedical').value;
     var driverLastDrugTest = document.getElementById('driverLastDrugTest').value;
-    var driverNestDrugTest = document.getElementById('driverNestDrugTest').value;
+    var driverNextDrugTest = document.getElementById('driverNextDrugTest').value;
     var passportExpiry = document.getElementById('passportExpiry').value;
     var fastCardExpiry = document.getElementById('fastCardExpiry').value;
     var hazmatExpiry = document.getElementById('hazmatExpiry').value;
     var rate = document.getElementById('rate').value;
-    var currency = document.getElementById('currency').value;
-    var driverLoadedMile = document.getElementById('loadedmiles').value;
-    var driverEmptyMile = document.getElementById('emptymiles').value;
-    var pickupRate = document.getElementById('pickrate').value;
-    var pickupAfter = document.getElementById('pickstart').value;
-    var dropRate = document.getElementById('droprate').value;
-    var dropAfter = document.getElementById('dropstart').value;
-    var tarp = document.getElementById('driverTarp').value;
+    var currency_1 = document.getElementById('currency').value;
+    var currency1 = currency_1.split(')');
+    var currency = currency1[0];
+
+    var driverLoadedMile = loadedmiles;
+    var driverEmptyMile = emptymiles;
+
+    if (pickrate == '') {
+        var pickupRate = 0;
+    } else {
+        var pickupRate = pickrate;
+    }
+
+    if (pickstart == '') {
+        var pickupAfter = 0;
+    } else {
+        var pickupAfter = pickstart;
+    }
+
+    if (droprate == '') {
+        var dropRate = 0;
+    } else {
+        var dropRate = droprate;
+    }
+
+    if (dropstart == '') {
+        var dropAfter = 0;
+    } else {
+        var dropAfter = dropstart;
+    }
+
+    var tarp = driverTarp;
     var terminationDate = document.getElementById('terminationDate').value;
     var InternalNote = document.getElementById('InternalNote').value;
 
-    if (val_driverName(driverName)) {
-        if (val_driverUsername(driverUsername)) {
-            if (val_driverPassword(driverPassword)) {
-                if (val_driverTelephone(driverTelephone)) {
-                    if (val_driverAlt(driverAlt)) {
-                        if (val_driverEmail(driverEmail)) {
-                            if (val_driverAddress(driverAddress)) {
-                                if (val_driverLocation(driverLocation)) {
-                                    if (val_driverZip(driverZip)) {
-                                        if (val_driverStatus(driverStatus)) {
-                                            if (val_driverSocial(driverSocial)) {
-                                                if (val_dateOfbirth(dateOfbirth)) {
-                                                    if (val_dateOfhire(dateOfhire)) {
-                                                        if (val_driverLicenseNo(driverLicenseNo)) {
-                                                            if (val_driverLicenseIssue(driverLicenseIssue)) {
-                                                                if (val_driverLicenseExp(driverLicenseExp)) {
-                                                                    if (val_driverLastMedical(driverLastMedical)) {
-                                                                        if (val_driverNextMedical(driverNextMedical)) {
-                                                                            if (val_driverLastDrugTest(driverLastDrugTest)) {
-                                                                                if (val_driverNestDrugTest(driverNestDrugTest)) {
-                                                                                    if (val_passportExpiry(passportExpiry)) {
-                                                                                        if (val_fastCardExpiry(fastCardExpiry)) {
-                                                                                            if (val_hazmatExpiry(hazmatExpiry)) {
-                                                                                                if (val_rate(rate)) {
-                                                                                                    if (val_currency(currency)) {
-                                                                                                        if (val_loadedMile(driverLoadedMile)) {
-                                                                                                            if (val_emptyMile(driverEmptyMile)) {
-                                                                                                                if (val_pickupRate(pickupRate)) {
-                                                                                                                    if (val_pickupAfter(pickupAfter)) {
-                                                                                                                        if (val_dropRate(dropRate)) {
-                                                                                                                            if (val_tarp(tarp)) {
-                                                                                                                                if (val_dropAfter(dropAfter)) {
-                                                                                                                                    if (val_terminationDate(terminationDate)) {
-                                                                                                                                        if (val_InternalNote(InternalNote)) {
-                                                                                                                                            $.ajax({
-                                                                                                                                                url: 'admin/driver_driver.php?type=' + 'addDriver',
-                                                                                                                                                method: 'POST',
-                                                                                                                                                data: {
-                                                                                                                                                    companyId: companyId,
-                                                                                                                                                    driverName: driverName,
-                                                                                                                                                    driverUsername: driverUsername,
-                                                                                                                                                    driverPassword: driverPassword,
-                                                                                                                                                    driverTelephone: driverTelephone,
-                                                                                                                                                    driverAlt: driverAlt,
-                                                                                                                                                    driverEmail: driverEmail,
-                                                                                                                                                    driverAddress: driverAddress,
-                                                                                                                                                    driverLocation: driverLocation,
-                                                                                                                                                    driverZip: driverZip,
-                                                                                                                                                    driverStatus: driverStatus,
-                                                                                                                                                    driverSocial: driverSocial,
-                                                                                                                                                    dateOfbirth: dateOfbirth,
-                                                                                                                                                    dateOfhire: dateOfhire,
-                                                                                                                                                    driverLicenseNo: driverLicenseNo,
-                                                                                                                                                    driverLicenseIssue: driverLicenseIssue,
-                                                                                                                                                    driverLicenseExp: driverLicenseExp,
-                                                                                                                                                    driverLastMedical: driverLastMedical,
-                                                                                                                                                    driverNextMedical: driverNextMedical,
-                                                                                                                                                    driverLastDrugTest: driverLastDrugTest,
-                                                                                                                                                    driverNextDrugTest: driverNestDrugTest,
-                                                                                                                                                    passportExpiry: passportExpiry,
-                                                                                                                                                    fastCardExpiry: fastCardExpiry,
-                                                                                                                                                    hazmatExpiry: hazmatExpiry,
-                                                                                                                                                    rate:rate,
-                                                                                                                                                    currency:currency,
-                                                                                                                                                    driverLoadedMile:driverLoadedMile,
-                                                                                                                                                    driverEmptyMile:driverEmptyMile,
-                                                                                                                                                    pickupRate:pickupRate,
-                                                                                                                                                    pickupAfter:pickupAfter,
-                                                                                                                                                    dropRate:dropRate,
-                                                                                                                                                    dropAfter:dropAfter,
-                                                                                                                                                    tarp:tarp,
-                                                                                                                                                    terminationDate: terminationDate,
-                                                                                                                                                    InternalNote: InternalNote
-                                                                                                                                                },
-                                                                                                                                                success: function (data) {
-                                                                                                                                                    var companyid = $('#companyid').val();
-                                                                                                                                                    database.ref('driver').child(companyid).set({
-                                                                                                                                                        data: randomString(),
-                                                                                                                                                    });
-                                                                                                                                                    swal('Success', data, 'success');
-                                                                                                                                                    $('#add_Driver').modal('hide');
-                                                                                                                                                }
-                                                                                                                                            });
-                                                                                                                                        }
-                                                                                                                                    }
-                                                                                                                                }
-                                                                                                                            }
-                                                                                                                        }
-                                                                                                                    }
-                                                                                                                }
-                                                                                                            }
-                                                                                                        }
-                                                                                                    }
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    for (var i = 0; i < recurrenceAddLength; i++) {
+        installmentCategoryStore[i] = installmentCategory[i];
+        installmentTypeStore[i] = installmentType[i];
+        amountStore[i] = amount[i];
+        installmentStore[i] = installment[i];
+        startNoStore[i] = startNo[i];
+        startDateStore[i] = startDate[i];
+        internalNoteStore[i] = internalNote[i];
     }
+
+    for (var i = 0; i < recurrenceSubLength; i++) {
+        installmentCategory_Store[i] = installment_Category[i];
+        installmentType_Store[i] = installment_Type[i];
+        amount_Store[i] = amount_recurrence[i];
+        installment_Store[i] = installment_sub[i];
+        startNo_Store[i] = start_No[i];
+        startDate_Store[i] = start_Date[i];
+        internalNote_Store[i] = internal_Note[i];
+    }
+
+
+    $.ajax({
+        url: 'admin/driver_driver.php?type=' + 'addDriver',
+        method: 'POST',
+        data: {
+            companyId: companyId,
+            driverName: driverName,
+            driverUsername: driverUsername,
+            driverPassword: driverPassword,
+            driverTelephone: driverTelephone,
+            driverAlt: driverAlt,
+            driverEmail: driverEmail,
+            driverAddress: driverAddress,
+            driverLocation: driverLocation,
+            driverZip: driverZip,
+            driverStatus: driverStatus,
+            driverSocial: driverSocial,
+            dateOfbirth: dateOfbirth,
+            dateOfhire: dateOfhire,
+            driverLicenseNo: driverLicenseNo,
+            driverLicenseIssue: driverLicenseIssue,
+            driverLicenseExp: driverLicenseExp,
+            driverLastMedical: driverLastMedical,
+            driverNextMedical: driverNextMedical,
+            driverLastDrugTest: driverLastDrugTest,
+            driverNextDrugTest: driverNextDrugTest,
+            passportExpiry: passportExpiry,
+            fastCardExpiry: fastCardExpiry,
+            hazmatExpiry: hazmatExpiry,
+
+            rate: rate,
+            currency: currency,
+            driverLoadedMile: driverLoadedMile,
+            driverEmptyMile: driverEmptyMile,
+            pickupRate: pickupRate,
+            pickupAfter: pickupAfter,
+            dropRate: dropRate,
+            dropAfter: dropAfter,
+            tarp: tarp,
+            terminationDate: terminationDate,
+            InternalNote: InternalNote,
+
+            installmentCategoryStore: installmentCategoryStore,
+            installmentTypeStore: installmentTypeStore,
+            amountStore: amountStore,
+            installmentStore: installmentStore,
+            startNoStore: startNoStore,
+            startDateStore: startDateStore,
+            internalNoteStore: internalNoteStore,
+
+            installmentCategory_Store: installmentCategory_Store,
+            installmentType_Store: installmentType_Store,
+            amount_Store: amount_Store,
+            installment_Store: installment_Store,
+            startNo_Store: startNo_Store,
+            startDate_Store: startDate_Store,
+            internalNote_Store: internalNote_Store,
+        },
+        success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('driver').child(companyid).set({
+                data: randomString(),
+            });
+
+            // recurrence + array null
+            installmentCategory = [];
+            installmentType = [];
+            amount = [];
+            installment = [];
+            startNo = [];
+            startDate = [];
+            internalNote = [];
+
+            // recurrence - array null
+            installment_Category = [];
+            installment_Type = [];
+            amount_recurrence = [];
+            installment_sub = [];
+            start_No = [];
+            start_Date = [];
+            internal_Note = [];
+
+            swal('Success', data, 'success');
+            $('#add_Driver').modal('hide');
+        }
+    });
+}
+
+function DriverUpdateDetail() {
+    var driver_id = document.getElementById('driverUpdateID').value;
+    var driverName = document.getElementById('driverNameEdit').value;
+    var driverUsername = document.getElementById('driverUsernameEdit').value;
+    var driverPassword = document.getElementById('driverPasswordEdit').value;
+    var driverTelephone = document.getElementById('driverTelephoneEdit').value;
+    var driverAlt = document.getElementById('driverAltEdit').value;
+    var driverEmail = document.getElementById('driverEmailEdit').value;
+    var driverAddress = document.getElementById('driverAddressEdit').value;
+    var driverLocation = document.getElementById('driverLocationEdit').value;
+    var driverZip = document.getElementById('driverZipEdit').value;
+    var driverStatus = document.getElementById('driverStatusEdit').value;
+    var driverSocial = document.getElementById('driverSocialEdit').value;
+    var dateOfbirth = document.getElementById('dateOfbirthEdit').value;
+    var dateOfhire = document.getElementById('dateOfhireEdit').value;
+    var driverLicenseNo = document.getElementById('driverLicenseNoEdit').value;
+    var driverLicenseIssue = document.getElementById('driverLicenseIssueEdit').value;
+    var driverLicenseExp = document.getElementById('driverLicenseExpEdit').value;
+    var driverLastMedical = document.getElementById('driverLastMedicalEdit').value;
+    var driverNextMedical = document.getElementById('driverNextMedicalEdit').value;
+    var driverLastDrugTest = document.getElementById('driverLastDrugTestEdit').value;
+    var driverNextDrugTest = document.getElementById('driverNextDrugTestEdit').value;
+    var passportExpiry = document.getElementById('passportExpiryEdit').value;
+    var fastCardExpiry = document.getElementById('fastCardExpiryEdit').value;
+    var hazmatExpiry = document.getElementById('hazmatExpiryEdit').value;
+    var rate = document.getElementById('rateEdit').value;
+
+    var currency_1 = document.getElementById('driverCurrencyListEdit').value;
+    var currency1 = currency_1.split(')');
+    var currency = currency1[0];
+
+    var terminationDate = document.getElementById('terminationDateEdit').value;
+    var InternalNote = document.getElementById('InternalNoteEdit').value;
+
+    var driverLoadedMile = loadedmiles;
+    var driverEmptyMile = emptymiles;
+
+    if (pickrate == '') {
+        var pickupRate = 0;
+    } else {
+        var pickupRate = pickrate;
+    }
+
+    if (pickstart == '') {
+        var pickupAfter = 0;
+    } else {
+        var pickupAfter = pickstart;
+    }
+
+    if (droprate == '') {
+        var dropRate = 0;
+    } else {
+        var dropRate = droprate;
+    }
+
+    if (dropstart == '') {
+        var dropAfter = 0;
+    } else {
+        var dropAfter = dropstart;
+    }
+    var tarp = driverTarp;
+
+    for (var i = 0; i <= installmentCategory.length; i++) {
+
+        AddinstallmentCategoryStore[i] = installmentCategory[i];
+        AddinstallmentTypeStore[i] = installmentType[i];
+        AddamountStore[i] = amount[i];
+        AddinstallmentStore[i] = installment[i];
+        AddstartNoStore[i] = startNo[i];
+        AddstartDateStore[i] = startDate[i];
+        AddinternalNoteStore[i] = internalNote[i];
+    }
+
+    for (var i = 0; i < installment_Category.length; i++) {
+        SubinstallmentCategory_Store[i] = installment_Category[i];
+        SubinstallmentType_Store[i] = installment_Type[i];
+        Subamount_Store[i] = amount_recurrence[i];
+        Subinstallment_Store[i] = installment_sub[i];
+        SubstartNo_Store[i] = start_No[i];
+        SubstartDate_Store[i] = start_Date[i];
+        SubinternalNote_Store[i] = internal_Note[i];
+    }
+
+    $.ajax({
+        url: 'admin/driver_driver.php?type=driverUpdateId',
+        method: 'POST',
+        data: {
+            driver_id: driver_id,
+            driverName: driverName,
+            driverUsername: driverUsername,
+            driverPassword: driverPassword,
+            driverTelephone: driverTelephone,
+            driverAlt: driverAlt,
+            driverEmail: driverEmail,
+            driverAddress: driverAddress,
+            driverLocation: driverLocation,
+            driverZip: driverZip,
+            driverStatus: driverStatus,
+            driverSocial: driverSocial,
+            dateOfbirth: dateOfbirth,
+            dateOfhire: dateOfhire,
+            driverLicenseNo: driverLicenseNo,
+            driverLicenseIssue: driverLicenseIssue,
+            driverLicenseExp: driverLicenseExp,
+            driverLastMedical: driverLastMedical,
+            driverNextMedical: driverNextMedical,
+            driverLastDrugTest: driverLastDrugTest,
+            driverNextDrugTest: driverNextDrugTest,
+            passportExpiry: passportExpiry,
+            fastCardExpiry: fastCardExpiry,
+            hazmatExpiry: hazmatExpiry,
+            rate: rate,
+            currency: currency,
+            terminationDate: terminationDate,
+            InternalNote: InternalNote,
+
+            driverLoadedMile: driverLoadedMile,
+            driverEmptyMile: driverEmptyMile,
+            pickupRate: pickupRate,
+            pickupAfter: pickupAfter,
+            dropRate: dropRate,
+            dropAfter: dropAfter,
+            tarp: tarp,
+
+            installmentCategoryStore: AddinstallmentCategoryStore,
+            installmentTypeStore: AddinstallmentTypeStore,
+            amountStore: AddamountStore,
+            installmentStore: AddinstallmentStore,
+            startNoStore: AddstartNoStore,
+            startDateStore: AddstartDateStore,
+            internalNoteStore: AddinternalNoteStore,
+
+            installmentCategory_Store: SubinstallmentCategory_Store,
+            installmentType_Store: SubinstallmentType_Store,
+            amount_Store: Subamount_Store,
+            installment_Store: Subinstallment_Store,
+            startNo_Store: SubstartNo_Store,
+            startDate_Store: SubstartDate_Store,
+            internalNote_Store: SubinternalNote_Store,
+        },
+        success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('driver').child(companyid).set({
+                data: randomString(),
+            });
+
+            // recurrence + array null
+            installmentCategory = [];
+            installmentType = [];
+            amount = [];
+            installment = [];
+            startNo = [];
+            startDate = [];
+            internalNote = [];
+
+            // recurrence - array null
+            installment_Category = [];
+            installment_Type = [];
+            amount_recurrence = [];
+            installment_sub = [];
+            start_No = [];
+            start_Date = [];
+            internal_Note = [];
+
+            swal('Success', data, 'success');
+            $('#edit_Driver').modal('hide');
+        }
+    });
 }
 
 //update driver table
@@ -3107,7 +3969,6 @@ function updateOwnerTable() {
 
 /*----------------- External Carrier Starts --------------------*/
 function toggleCarrier(val) {
-
     var name = document.getElementById('carrierName').value;
     var address = document.getElementById('carrierAddress').value;
     var location = document.getElementById('carrierLocation').value;
@@ -3433,11 +4294,19 @@ function addCarrier() {
     var carrierExt = document.getElementById('carrierExt').value;
     var carrierTollFree = document.getElementById('carrierTollFree').value;
     var carrierFax = document.getElementById('carrierFax').value;
-    var carrierPayTerms = document.getElementById('carrierPayTerms').value;
+
+    var carrierPayTerms1 = document.getElementById('carrierPayTerms').value;
+    var carrierPay_Terms = carrierPayTerms1.split(")");
+    var carrierPayTerms = carrierPay_Terms[0];
+
     var carrierTaxID = document.getElementById('carrierTaxID').value;
     var carrierMC = document.getElementById('carrierMC').value;
     var carrierDOT = document.getElementById('carrierDOT').value;
-    var carrierFactoring = document.getElementById('carrierFactoring').value;
+
+    var carrierFactoring1 = document.getElementById('carrierFactoring').value;
+    var carrier_Factoring = carrierFactoring1.split(")");
+    var carrierFactoring = carrier_Factoring[0];
+
     var carrierNotes = document.getElementById('carrierNotes').value;
     var carrierBlacklisted = "on";
     if (document.getElementById('carrierBlacklisted').checked == true) {
@@ -3619,169 +4488,471 @@ function updateCarrierTable() {
     });
 }
 
-//Driver Recurrence +
-var installmentCategory = [];
-var installmentType = [];
-var amount = [];
-var installment = [];
-var startNo = [];
-var startDate = [];
-var internalNote = [];
+// external carrier Full Update
+function toggleCarrier1(val) {
+    var name = document.getElementById('carrierNameEdit').value;
+    var address = document.getElementById('carrierAddressEdit').value;
+    var location = document.getElementById('carrierLocationEdit').value;
+    var zip = document.getElementById('carrierZipEdit').value;
+    var email = document.getElementById('carrierEmailEdit').value;
+    var telephone = document.getElementById('carrierTelephoneEdit').value;
+    var taxID = document.getElementById('carrierTaxIDEdit').value;
+    var mc = document.getElementById('carrierMCEdit').value;
+    var dot = document.getElementById('carrierDOTEdit').value;
 
-function getrecurrence(){
-    var recurrence_id = document.getElementById('getnewaa').value;
-    if (recurrence_id == 2){
-        for(var i = 0; i < document.getElementsByName('installmentCategory').length-1; i++){
-            installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
-            installmentType[i] = document.getElementsByName('installmentType')[i].value;
-            amount[i] = document.getElementsByName('amount')[i].value;
-            installment[i] = document.getElementsByName('installment')[i].value;
-            startNo[i] = document.getElementsByName('startNo')[i].value;
-            startDate[i] = document.getElementsByName('startDate')[i].value;
-            internalNote[i] = document.getElementsByName('internalNote')[i].value;
-            alert(document.getElementsByName('installmentCategory').length-1);
+    if (val == 'first') {
+        if (val_carrName(name)) {
+            if (val_carrAddress(address)) {
+                if (val_carrLocation(location)) {
+                    if (val_carrZip(zip)) {
+                        if (val_carrEmail(email)) {
+                            if (val_carrTelephone(telephone)) {
+                                if (val_carrTaxID(taxID)) {
+                                    if (val_carrMC(mc)) {
+                                        if (val_carrDOT(dot)) {
+
+                                            $("#carrier").toggleClass("show");
+                                            $("#carrier").toggleClass("active");
+                                            $("#insurance").toggleClass("show");
+                                            $("#insurance").toggleClass("active");
+                                            $("#home-tab").toggleClass("active");
+                                            $("#insurance-tab").toggleClass("active");
+                                            // $("#accounting").toggleClass("show");
+                                            // $("#accounting").toggleClass("active");
+                                            // $("#equipment").toggleClass("show");
+                                            // $("#equipment").toggleClass("active");
+
+
+                                            if ($("#home-tab").attr("aria-selected") === 'true') {
+                                                $("#home-tab").attr("aria-selected", "false");
+                                            } else {
+                                                $("#home-tab").attr("aria-selected", "true");
+                                            }
+
+                                            if ($("#insurance-tab").attr("aria-selected") === 'true') {
+                                                $("#insurance-tab").attr("aria-selected", "false");
+                                            } else {
+                                                $("#insurance-tab").attr("aria-selected", "true");
+                                            }
+
+                                            $("#home-title").toggleClass("show");
+                                            $("#insurance-title").toggleClass("show");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-        $('#addRecurrence').modal('hide');
+    } else if (val == 'second') {
+        $("#accounting").toggleClass("show");
+        $("#accounting").toggleClass("active");
+        $("#insurance").toggleClass("show");
+        $("#insurance").toggleClass("active");
+        $("#accounting-tab").toggleClass("active");
+        $("#insurance-tab").toggleClass("active");
+        if ($("#accounting-tab").attr("aria-selected") === 'true') {
+            $("#accounting-tab").attr("aria-selected", "false");
+        } else {
+            $("#accounting-tab").attr("aria-selected", "true");
+        }
+
+        if ($("#insurance-tab").attr("aria-selected") === 'true') {
+            $("#insurance-tab").attr("aria-selected", "false");
+        } else {
+            $("#insurance-tab").attr("aria-selected", "true");
+        }
+
+        $("#accounting-title").toggleClass("show");
+        $("#insurance-title").toggleClass("show");
+    } else if (val == 'third') {
+        $("#accounting").toggleClass("show");
+        $("#accounting").toggleClass("active");
+        $("#equipment").toggleClass("show");
+        $("#equipment").toggleClass("active");
+        $("#accounting-tab").toggleClass("active");
+        $("#equipment-tab").toggleClass("active");
+        if ($("#accounting-tab").attr("aria-selected") === 'true') {
+            $("#accounting-tab").attr("aria-selected", "false");
+        } else {
+            $("#accounting-tab").attr("aria-selected", "true");
+        }
+
+        if ($("#equipment-tab").attr("aria-selected") === 'true') {
+            $("#equipment-tab").attr("aria-selected", "false");
+        } else {
+            $("#equipment-tab").attr("aria-selected", "true");
+        }
+
+        $("#accounting-title").toggleClass("show");
+        $("#equipment-title").toggleClass("show");
+    } else if (val == 'fourth') {
+        $("#accounting").toggleClass("show");
+        $("#accounting").toggleClass("active");
+        $("#equipment").toggleClass("show");
+        $("#equipment").toggleClass("active");
+        $("#accounting-tab").toggleClass("active");
+        $("#equipment-tab").toggleClass("active");
+        if ($("#accounting-tab").attr("aria-selected") === 'true') {
+            $("#accounting-tab").attr("aria-selected", "false");
+        } else {
+            $("#accounting-tab").attr("aria-selected", "true");
+        }
+
+        if ($("#equipment-tab").attr("aria-selected") === 'true') {
+            $("#equipment-tab").attr("aria-selected", "false");
+        } else {
+            $("#equipment-tab").attr("aria-selected", "true");
+        }
+
+        $("#accounting-title").toggleClass("show");
+        $("#equipment-title").toggleClass("show");
+    }
+}
+
+function togglePrev1(val) {
+    if (val == 'third') {
+        $("#accounting").toggleClass("show");
+        $("#accounting").toggleClass("active");
+        $("#insurance").toggleClass("show");
+        $("#insurance").toggleClass("active");
+        $("#accounting-tab").toggleClass("active");
+        $("#insurance-tab").toggleClass("active");
+        if ($("#accounting-tab").attr("aria-selected") === 'true') {
+            $("#accounting-tab").attr("aria-selected", "false");
+        } else {
+            $("#accounting-tab").attr("aria-selected", "true");
+        }
+
+        if ($("#insurance-tab").attr("aria-selected") === 'true') {
+            $("#insurance-tab").attr("aria-selected", "false");
+        } else {
+            $("#insurance-tab").attr("aria-selected", "true");
+        }
+
+        $("#accounting-title").toggleClass("show");
+        $("#insurance-title").toggleClass("show");
+    } else if (val == 'second') {
+        $("#carrier").toggleClass("show");
+        $("#carrier").toggleClass("active");
+        $("#insurance").toggleClass("show");
+        $("#insurance").toggleClass("active");
+        $("#home-tab").toggleClass("active");
+        $("#insurance-tab").toggleClass("active");
+
+        if ($("#home-tab").attr("aria-selected") === 'true') {
+            $("#home-tab").attr("aria-selected", "false");
+        } else {
+            $("#home-tab").attr("aria-selected", "true");
+        }
+
+        if ($("#insurance-tab").attr("aria-selected") === 'true') {
+            $("#insurance-tab").attr("aria-selected", "false");
+        } else {
+            $("#insurance-tab").attr("aria-selected", "true");
+        }
+
+        $("#home-title").toggleClass("show");
+        $("#insurance-title").toggleClass("show");
+    }
+}
+
+function toggleAll1(val) {
+    if ($("#carrier").hasClass("show")) {
+        $("#carrier").toggleClass("show");
+    }
+    if ($("#carrier").hasClass("active")) {
+        $("#carrier").toggleClass("active");
+    }
+    if ($("#insurance").hasClass("show")) {
+        $("#insurance").toggleClass("show");
+    }
+    if ($("#insurance").hasClass("active")) {
+        $("#insurance").toggleClass("active");
+    }
+    if ($("#accounting").hasClass("show")) {
+        $("#accounting").toggleClass("show");
+    }
+    if ($("#accounting").hasClass("active")) {
+        $("#accounting").toggleClass("active");
+    }
+    if ($("#equipment").hasClass("show")) {
+        $("#equipment").toggleClass("show");
+    }
+    if ($("#equipment").hasClass("active")) {
+        $("#equipment").toggleClass("active");
+    }
+    if ($("#home-tab").hasClass("active")) {
+        $("#home-tab").toggleClass("active");
+    }
+    if ($("#insurance-tab").hasClass("active")) {
+        $("#insurance-tab").toggleClass("active");
+    }
+    if ($("#accounting-tab").hasClass("active")) {
+        $("#accounting-tab").toggleClass("active");
+    }
+    if ($("#equipment-tab").hasClass("active")) {
+        $("#equipment-tab").toggleClass("active");
+    }
+    if ($("#home-title").hasClass("show")) {
+        $("#home-title").toggleClass("show");
+    }
+    if ($("#insurance-title").hasClass("show")) {
+        $("#insurance-title").toggleClass("show");
+    }
+    if ($("#accounting-title").hasClass("show")) {
+        $("#accounting-title").toggleClass("show");
+    }
+    if ($("#equipment-title").hasClass("show")) {
+        $("#equipment-title").toggleClass("show");
+    }
+
+    if ($("#home-tab").attr("aria-selected") === 'true') {
+        $("#home-tab").attr("aria-selected", "false");
     } else {
-    for(var i = 0; i < document.getElementsByName('installmentCategory').length; i++){
-        installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
-        installmentType[i] = document.getElementsByName('installmentType')[i].value;
-        amount[i] = document.getElementsByName('amount')[i].value;
-        installment[i] = document.getElementsByName('installment')[i].value;
-        startNo[i] = document.getElementsByName('startNo')[i].value;
-        startDate[i] = document.getElementsByName('startDate')[i].value;
-        internalNote[i] = document.getElementsByName('internalNote')[i].value;
-    }
-    $('#addRecurrence').modal('hide');
-}
-}
-
-function addRecurrenceFields(){
-    if(installmentCategory.length > 0){
-        var innerData = "";
-        for(var i = 0; i < installmentCategory.length; i++){
-            innerData +='<tr id="recurrence_add'+i+'">'
-            +'<td width="150">'
-            +'<input value = "' + installmentCategory[i] + '" class="form-control" name="installmentCategory" list="fixpaycat"/></td>'
-            +'<td width="150">'
-            +'<select name="installmentType" id="installmentType'+i+'" value = "' + installmentType[i] + '" class="form-control">'
-            +'<option value="" > Select Type</option>'
-            +'<option value="Weekly" > Weekly</option>'
-            +'<option value="Monthly"> Monthly</option>'
-            +'<option value="Yearly"> Yearly</option>'
-            +'<option value="Quartely"> Quartely</option>'
-            +'</select></td>'
-            +'<td width="100">'
-            +'<input name="amount" type="text" value = "' + amount[i] + '" class="form-control" /></td>'
-            +'<td width="100">'
-            +'<input name="installment" type="text" value = "' + installment[i] + '" class="form-control" /></td>'
-            +'<td width="100"><input name="startNo" type="text" value = "' + startNo[i] + '" class="form-control" /></td>'
-            +'<td width="10"><input name="startDate" type="date" value = "' + startDate[i] + '" class="form-control" /></td>'
-            +'<td width="250"><textarea rows="1" cols="30" value = "' + internalNote[i] + '" class="form-control" type="textarea" name="internalNote">'+internalNote[i]+'</textarea></td>'
-            +'<td><button type="button" class="btn btn-danger" onclick="removeRowRecurrence('+i+')"><span aria-hidden="true">&times;</span></button></td></tr>'
-
-        }
-
-        document.getElementById('TextBoxContainer2').innerHTML = innerData;
-        for(var i = 0; i < installmentCategory.length - 1; i++){
-            var id = "installmentType"+i;
-            if(installmentType[i] == "Weekly"){
-                document.getElementById(id).selectedIndex = "1";
-            }
-            else if(installmentType[i] == "Monthly"){
-                document.getElementById(id).selectedIndex = "2";
-            }
-            else if(installmentType[i] == "Yearly"){
-                document.getElementById(id).selectedIndex = "3";
-            }
-            else if(installmentType[i] == "Quarterly"){
-                document.getElementById(id).selectedIndex = "4";
-            }
-
-        }
+        $("#home-tab").attr("aria-selected", "true");
     }
 
-}
-
-//Driver Recurrence -
-var installment_Category = [];
-var installment_Type = [];
-var amount_recurrence = [];
-var installment_sub = [];
-var start_No = [];
-var start_Date = [];
-var internal_Note = [];
-
-function recurrencesubstract(){
-    var recurrencesubstract_id = document.getElementById('getnewaa').value;
-    if (recurrencesubstract_id == 2) {
-        for(var i = 0; i < document.getElementsByName('installment_Category').length-1; i++){
-            installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
-            installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
-            amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
-            installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
-            start_No[i] = document.getElementsByName('start_No')[i].value;
-            start_Date[i] = document.getElementsByName('start_Date')[i].value;
-            internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
-        }
-        $('#substractRecurrence').modal('hide');
+    if ($("#insurance-tab").attr("aria-selected") === 'true') {
+        $("#insurance-tab").attr("aria-selected", "false");
     } else {
-        for(var i = 0; i < document.getElementsByName('installment_Category').length; i++){
-            installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
-            installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
-            amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
-            installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
-            start_No[i] = document.getElementsByName('start_No')[i].value;
-            start_Date[i] = document.getElementsByName('start_Date')[i].value;
-            internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
-        }
-        $('#substractRecurrence').modal('hide');
+        $("#insurance-tab").attr("aria-selected", "true");
+    }
+
+    if ($("#accounting-tab").attr("aria-selected") === 'true') {
+        $("#accounting-tab").attr("aria-selected", "false");
+    } else {
+        $("#accounting-tab").attr("aria-selected", "true");
+    }
+
+    if ($("#equipment-tab").attr("aria-selected") === 'true') {
+        $("#equipment-tab").attr("aria-selected", "false");
+    } else {
+        $("#equipment-tab").attr("aria-selected", "true");
+    }
+
+    if (val == 'first') {
+        $("#carrier").toggleClass("show");
+        $("#carrier").toggleClass("active");
+        $("#home-tab").toggleClass("active");
+        $("#home-title").toggleClass("show");
+    } else if (val == 'second') {
+        $("#insurance").toggleClass("show");
+        $("#insurance").toggleClass("active");
+        $("#insurance-tab").toggleClass("active");
+        $("#insurance-title").toggleClass("show");
+    } else if (val == 'third') {
+        $("#accounting").toggleClass("show");
+        $("#accounting").toggleClass("active");
+        $("#accounting-tab").toggleClass("active");
+        $("#accounting-title").toggleClass("show");
+    } else if (val == 'fourth') {
+        $("#equipment").toggleClass("show");
+        $("#equipment").toggleClass("active");
+        $("#equipment-tab").toggleClass("active");
+        $("#equipment-title").toggleClass("show");
+    }
+
+}
+
+function setMobileInsurer1(val) {
+    var checkBox = document.getElementById('customCheck9');
+    if (checkBox.checked == true) {
+        document.getElementById('insuranceCompanyEdit').value = document.getElementById('liabilityCompanyEdit').value;
+        document.getElementById('insurancePolicyEdit').value = document.getElementById('liabilityPolicyEdit').value;
+        document.getElementById('insuranceExpDateEdit').value = document.getElementById('liabilityExpDateEdit').value;
+        document.getElementById('insuranceTelephoneEdit').value = document.getElementById('liabilityTelephoneEdit').value;
+        document.getElementById('insuranceExtEdit').value = document.getElementById('liabilityEXTEdit').value;
+        document.getElementById('insuranceContactNameEdit').value = document.getElementById('liabilityContactEdit').value;
+        document.getElementById('insuranceAmtEdit').value = document.getElementById('liabilityAmountEdit').value;
+        document.getElementById('insuranceNotesEdit').value = document.getElementById('liabilityNotesEdit').value;
+    } else {
+        document.getElementById('insuranceCompanyEdit').value = document.getElementById('insuranceCompanyEdit').value;
+        document.getElementById('insurancePolicyEdit').value = document.getElementById('insurancePolicyEdit').value;
+        document.getElementById('insuranceExpDateEdit').value = document.getElementById('insuranceExpDateEdit').value;
+        document.getElementById('insuranceTelephoneEdit').value = document.getElementById('insuranceTelephoneEdit').value;
+        document.getElementById('insuranceExtEdit').value = document.getElementById('insuranceExtEdit').value;
+        document.getElementById('insuranceContactNameEdit').value = document.getElementById('insuranceContactNameEdit').value;
+        document.getElementById('insuranceAmtEdit').value = document.getElementById('insuranceAmtEdit').value;
+        document.getElementById('insuranceNotesEdit').value = document.getElementById('insuranceNotesEdit').value;
     }
 }
 
-function Recurrence_Fields(){
-    if(installment_Category.length > 0){
-        var innerData = "";
-        for(var i = 0 ; i < installment_Category.length; i++){
-            innerData +='<tr id="recurrencesubstract_add'+i+'">'
-            +'<td width="150">'
-            +'<input value = "' + installment_Category[i] + '" class="form-control" name="installment_Category" list="fixpay_cat"/></td>'
-            +'<td width="150">'
-            +'<select name="installment_Type" id="installment_Type'+i+'" value = "' + installment_Type[i] + '" class="form-control">'
-            +'<option value="" > Select Type</option>'
-            +'<option value="Weekly" > Weekly</option>'
-            +'<option value="Monthly"> Monthly</option>'
-            +'<option value="Yearly"> Yearly</option>'
-            +'<option value="Quartely"> Quartely</option>'
-            +'</select></td>'
-            +'<td width="100">'
-            +'<input name="amount_recurrence" type="text" value = "' + amount_recurrence[i] + '" class="form-control" /></td>'
-            +'<td width="100">'
-            +'<input name="installment_sub" type="text" value = "' + installment_sub[i] + '" class="form-control" /></td>'
-            +'<td width="100"><input name="start_No" type="text" value = "' + start_No[i] + '" class="form-control" /></td>'
-            +'<td width="10"><input name="start_Date" type="date" value = "' + start_Date[i] + '" class="form-control" /></td>'
-            +'<td width="250"><textarea rows="1" cols="30" value = "' + internal_Note[i] + '" class="form-control" type="textarea" name="internal_Note">'+internal_Note[i]+'</textarea></td>'
-            +'<td><button type="button" class="btn btn-danger" onclick="recurrence_substract('+i+')"><span aria-hidden="true">&times;</span></button></td></tr>'
+function setCargoInsurer1() {
+    var checkBox1 = document.getElementById('customCheck10');
+    if (checkBox1.checked == true) {
+        document.getElementById('cargoNameEdit').value = document.getElementById('liabilityCompanyEdit').value;
+        document.getElementById('cargoPolicyEdit').value = document.getElementById('liabilityPolicyEdit').value;
+        document.getElementById('cargoExpDateEdit').value = document.getElementById('liabilityExpDateEdit').value;
+        document.getElementById('cargoTelephoneEdit').value = document.getElementById('liabilityTelephoneEdit').value;
+        document.getElementById('cargoExtEdit').value = document.getElementById('liabilityEXTEdit').value;
+        document.getElementById('cargoContactNameEdit').value = document.getElementById('liabilityContactEdit').value;
+        document.getElementById('cargoInsuranceAmountEdit').value = document.getElementById('liabilityAmountEdit').value;
+        document.getElementById('cargoNotesEdit').value = document.getElementById('liabilityNotesEdit').value;
+    } else {
+        document.getElementById('cargoNameEdit').value = document.getElementById('cargoNameEdit').value;
+        document.getElementById('cargoPolicyEdit').value = document.getElementById('cargoPolicyEdit').value;
+        document.getElementById('cargoExpDateEdit').value = document.getElementById('cargoExpDateEdit').value;
+        document.getElementById('cargoTelephoneEdit').value = document.getElementById('cargoTelephoneEdit').value;
+        document.getElementById('cargoExtEdit').value = document.getElementById('cargoExtEdit').value;
+        document.getElementById('cargoContactNameEdit').value = document.getElementById('cargoContactNameEdit').value;
+        document.getElementById('cargoInsuranceAmountEdit').value = document.getElementById('cargoInsuranceAmountEdit').value;
+        document.getElementById('cargoNotesEdit').value = document.getElementById('cargoNotesEdit').value;
+    }
+}
 
-        }
+function editExternalCarrierID() {
+    var carrierid = document.getElementById('carrierid').value;
+    var carrierName = document.getElementById('carrierNameEdit').value;
+    var companyId = document.getElementById('companyId').value;
+    var carrierAddress = document.getElementById('carrierAddressEdit').value;
+    var carrierLocation = document.getElementById('carrierLocationEdit').value;
+    var carrierZip = document.getElementById('carrierZipEdit').value;
+    var carrierContactName = document.getElementById('carrierContactNameEdit').value;
+    var carrierEmail = document.getElementById('carrierEmailEdit').value;
+    var carrierTelephone = document.getElementById('carrierTelephoneEdit').value;
+    var carrierExt = document.getElementById('carrierExtEdit').value;
+    var carrierTollFree = document.getElementById('carrierTollFreeEdit').value;
+    var carrierFax = document.getElementById('carrierFaxEdit').value;
 
-        document.getElementById('TextBoxContainer3').innerHTML = innerData;
-        for(var i = 0; i < installment_Category.length - 1; i++){
-            var id = "installment_Type"+i;
-            if(installment_Type[i] == "Weekly"){
-                document.getElementById(id).selectedIndex = "1";
-            }
-            else if(installment_Type[i] == "Monthly"){
-                document.getElementById(id).selectedIndex = "2";
-            }
-            else if(installment_Type[i] == "Yearly"){
-                document.getElementById(id).selectedIndex = "3";
-            }
-            else if(installment_Type[i] == "Quarterly"){
-                document.getElementById(id).selectedIndex = "4";
-            }
+    var carrierPayTerms1 = document.getElementById('carrierPayTermsEdit').value;
+    var carrierPay_Terms = carrierPayTerms1.split(")");
+    var carrierPayTerms = carrierPay_Terms[0];
 
-        }
+    var carrierTaxID = document.getElementById('carrierTaxIDEdit').value;
+    var carrierMC = document.getElementById('carrierMCEdit').value;
+    var carrierDOT = document.getElementById('carrierDOTEdit').value;
+
+    var carrierFactoring1 = document.getElementById('carrierFactoringEdit').value;
+    var carrier_Factoring = carrierFactoring1.split(")");
+    var carrierFactoring = carrier_Factoring[0];
+
+    var carrierNotes = document.getElementById('carrierNotesEdit').value;
+
+    var carrierBlacklisted = "on";
+    if (document.getElementById('carrierBlacklistedEdit').checked == true) {
+
+        carrierBlacklisted = "on";
+    } else {
+        carrierBlacklisted = "off";
     }
 
+    var carrierCorporation = "on";
+    if (document.getElementById('carrierCorporationEdit').checked == true) {
+        carrierCorporation = "on";
+    } else {
+        carrierCorporation = "off";
+    }
+    var liabilityCompany = document.getElementById('liabilityCompanyEdit').value;
+    var liabilityPolicy = document.getElementById('liabilityPolicyEdit').value;
+    var liabilityExpDate = document.getElementById('liabilityExpDateEdit').value;
+    var liabilityTelephone = document.getElementById('liabilityTelephoneEdit').value;
+    var liabilityEXT = document.getElementById('liabilityEXTEdit').value;
+    var liabilityContact = document.getElementById('liabilityContactEdit').value;
+    var liabilityAmount = document.getElementById('liabilityAmountEdit').value;
+    var liabilityNotes = document.getElementById('liabilityNotesEdit').value;
+    var insuranceCompany = document.getElementById('insuranceCompanyEdit').value;
+    var insurancePolicy = document.getElementById('insurancePolicyEdit').value;
+    var insuranceExpDate = document.getElementById('insuranceExpDateEdit').value;
+    var insuranceTelephone = document.getElementById('insuranceTelephoneEdit').value;
+    var insuranceExt = document.getElementById('insuranceExtEdit').value;
+    var insuranceContactName = document.getElementById('insuranceContactNameEdit').value;
+    var insuranceAmt = document.getElementById('insuranceAmtEdit').value;
+    var insuranceNotes = document.getElementById('insuranceNotesEdit').value;
+    var cargoName = document.getElementById('cargoNameEdit').value;
+    var cargoPolicy = document.getElementById('cargoPolicyEdit').value;
+    var cargoExpDate = document.getElementById('cargoExpDateEdit').value;
+    var cargoTelephone = document.getElementById('cargoTelephoneEdit').value;
+    var cargoExt = document.getElementById('cargoExtEdit').value;
+    var cargoContactName = document.getElementById('cargoContactNameEdit').value;
+    var cargoInsuranceAmount = document.getElementById('cargoInsuranceAmountEdit').value;
+    var cargoNotes = document.getElementById('cargoNotesEdit').value;
+    var wsib = document.getElementById('wsibEdit').value;
+    var primaryName = document.getElementById('primaryNameEdit').value;
+    var primaryTelephone = document.getElementById('primaryTelephoneEdit').value;
+    var primaryEmail = document.getElementById('primaryEmailEdit').value;
+    var secondaryName = document.getElementById('secondaryNameEdit').value;
+    var secondaryTelephone = document.getElementById('secondaryTelephoneEdit').value;
+    var secondaryEmail = document.getElementById('secondaryEmailEdit').value;
+    var primaryNotes = document.getElementById('primaryNotesEdit').value;
+    var sizeOfFleet = document.getElementById('sizeOfFleetEdit').value;
+    var equipment = [];
+    for (var i = 0; i < document.getElementsByName('equipment').length; i++) {
+        equipment[i] = document.getElementsByName('equipment')[i].value;
+    }
+    var quantity = [];
+    for (var i = 0; i < document.getElementsByName('quantity').length; i++) {
+        quantity[i] = document.getElementsByName('quantity')[i].value;
+    }
+    $.ajax({
+        url: 'admin/carrier_driver.php?type=Update_carrierDetail',
+        type: 'POST',
+        data: {
+            carrierid: carrierid,
+            carrierName: carrierName,
+            companyID: companyId,
+            carrierAddress: carrierAddress,
+            carrierLocation: carrierLocation,
+            carrierZip: carrierZip,
+            carrierContactName: carrierContactName,
+            carrierEmail: carrierEmail,
+            carrierTelephone: carrierTelephone,
+            carrierExt: carrierExt,
+            carrierTollFree: carrierTollFree,
+            carrierFax: carrierFax,
+            carrierPayTerms: carrierPayTerms,
+            carrierTaxID: carrierTaxID,
+            carrierMC: carrierMC,
+            carrierDOT: carrierDOT,
+            carrierFactoring: carrierFactoring,
+            carrierNotes: carrierNotes,
+            carrierBlacklisted: carrierBlacklisted,
+            carrierCorporation: carrierCorporation,
+            liabilityCompany: liabilityCompany,
+            liabilityPolicy: liabilityPolicy,
+            liabilityExpDate: liabilityExpDate,
+            liabilityTelephone: liabilityTelephone,
+            liabilityEXT: liabilityEXT,
+            liabilityContact: liabilityContact,
+            liabilityAmount: liabilityAmount,
+            liabilityNotes: liabilityNotes,
+            insuranceCompany: insuranceCompany,
+            insurancePolicy: insurancePolicy,
+            insuranceExpDate: insuranceExpDate,
+            insuranceTelephone: insuranceTelephone,
+            insuranceExt: insuranceExt,
+            insuranceContactName: insuranceContactName,
+            insuranceAmt: insuranceAmt,
+            insuranceNotes: insuranceNotes,
+            cargoName: cargoName,
+            cargoPolicy: cargoPolicy,
+            cargoExpDate: cargoExpDate,
+            cargoTelephone: cargoTelephone,
+            cargoExt: cargoExt,
+            cargoContactName: cargoContactName,
+            cargoInsuranceAmount: cargoInsuranceAmount,
+            cargoNotes: cargoNotes,
+            wsib: wsib,
+            primaryName: primaryName,
+            primaryTelephone: primaryTelephone,
+            primaryEmail: primaryEmail,
+            secondaryName: secondaryName,
+            secondaryTelephone: secondaryTelephone,
+            secondaryEmail: secondaryEmail,
+            primaryNotes: primaryNotes,
+            sizeOfFleet: sizeOfFleet,
+            quantity: quantity,
+            equipment: equipment,
+        },
+        success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('carrier').child(companyid).set({
+                data: randomString(),
+            });
+            swal("Success", data, 'success');
+            $('#edit_External').modal('hide');
+        }
+    });
 }

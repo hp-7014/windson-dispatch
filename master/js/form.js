@@ -26,6 +26,7 @@ function updatePaymentTermTable() {
     var payment = document.getElementById('paymentterms');
     var paymentBody = document.getElementById('paymentTermsBody');
     var paymentlist = document.getElementById('paymentlist');
+    var browsers = document.getElementById('browsers');
     $.ajax({
         url: 'master/utils/getPaymentTerms.php',
         type: 'POST',
@@ -40,6 +41,9 @@ function updatePaymentTermTable() {
             }
             if (paymentlist != null) {
                 paymentlist.innerHTML = res[1];
+            }
+            if (browsers != null) {
+                browsers.innerHTML = res[1];
             }
         },
     });
@@ -716,6 +720,9 @@ function updateCurrencyTable() {
             if (currencySetting != null) {
                 currencySetting.innerHTML = res[3];
             }
+            if (currencyList1 != null) {
+                currencyList1.innerHTML = res[2];
+            }
         },
     });
 }
@@ -1305,12 +1312,24 @@ database.ref(fixpaytest).on('child_removed', function (data) {
 //update table fields
 
 function updateFixPayTable() {
+    var fixpaycat = document.getElementById('fixpaycat');
+var fixpayBody = document.getElementById('fixpayBody');
+var fixpay_cat = document.getElementById('fixpay_cat');
     $.ajax({
         url: 'master/utils/getFixPayCategory.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            document.getElementById('fixpayBody').innerHTML = response;
+            var res = response.split("^");
+if (fixpayBody != null) {
+fixpayBody.innerHTML = res[0];
+}
+if (fixpaycat != null) {
+fixpaycat.innerHTML = res[1];
+}
+if (fixpay_cat != null) {
+fixpay_cat.innerHTML = res[1];
+}
         },
     });
 }
