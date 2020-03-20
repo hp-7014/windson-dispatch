@@ -58,7 +58,6 @@ require "../database/connection.php";
                             <button type="button" class="btn btn-danger"><span aria-hidden="true">&times;</span>
                             </button>
                         </td>
-                        </tbody>
                         <tfoot>
                         <tr>
                             <th colspan="12" class="tableFooter">

@@ -21,6 +21,7 @@ require "../database/connection.php";
 
                 <div class="owner-container" style="z-index: 1600"></div>
                 <div class="row">
+
                     <div class="form-group col-md-3">
                         <label>Name <span class="mandatory">*</span></label>
                         <div>
@@ -201,7 +202,7 @@ require "../database/connection.php";
                     <div class="form-group col-md-2 ">
                         <label>Next Drug Test</label>
                         <div>
-                            <input class="form-control" id="driverNestDrugTest" type="date">
+                            <input class="form-control" id="driverNextDrugTest" type="date">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
@@ -223,8 +224,7 @@ require "../database/connection.php";
                         </div>
                     </div>
                     <div class="form-group col-md-2">
-                        <label>Rate <span class="mandatory">*</span>
-                        </label>
+                        <label>Rate <span class="mandatory">*</span></label>
                         <select class="form-control" id="rate">
                             <option value="0" selected disabled>Select</option>
                             <option value="mile">Per Mile</option>
@@ -236,7 +236,7 @@ require "../database/connection.php";
                         <label>Currency <span class="mandatory">*</span>
                         </label><i class="mdi mdi-plus-circle plus" id="add_driver_currency_modal"></i>
                         <input list="driverCurrency" class="form-control" placeholder="--Select--"
-                               id="driverCurrencyList" name="driverCurrencyList">
+                               id="currency" name="driverCurrencyList">
                         <datalist id="driverCurrency">
                             <?php
                             $show_currency = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
@@ -290,7 +290,7 @@ require "../database/connection.php";
                 </div>
             </div>
             <div class="modal-footer">
-                <label class="text-danger" style="padding-right: 520px;"><b>Note :</b>&nbsp; * Fields are mandatory</label>
+                <label class="text-danger" style="padding-right: 525px"><b>Note :</b>&nbsp; * Fields are mandatory</label>
                 <button type="button" class="btn btn-danger waves-effect modalDriver">
                     Close
                 </button>

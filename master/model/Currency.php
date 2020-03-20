@@ -99,7 +99,7 @@ class Currency implements IteratorAggregate
              '_id'=> $this->id,
             'companyID'=>(int)$this->companyID,
             'counter' => 0,
-            'currency' => array(['_id' => 0,'currencyType' => $this->currencyType,'counter'=>0])
+            'currency' => array(['_id' => 0,'currencyType' => $this->currencyType,'counter' => 0])
         )
       );
     }
@@ -115,7 +115,8 @@ class Currency implements IteratorAggregate
         if (!empty($doc)) {
             $db->currency_add->updateOne(['companyID' => (int)$this->companyID],['$push'=>['currency'=>[
                 '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->currency_add),
-                'currencyType'=>$this->currencyType,'counter'=>0
+                'currencyType'=>$this->currencyType,
+                'counter' => 0,
             ]]]);
         } else {
             $currency = iterator_to_array($currency);

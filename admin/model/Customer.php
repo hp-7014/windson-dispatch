@@ -38,11 +38,98 @@ class Customer implements IteratorAggregate
     private $websiteURL;
     private $internalNotes;
     private $MC;
+
+    private $blacklisted;
+    private $AsShipper;
+    private $AsConsignee;
+    private $numberOninvoice;
+    private $customerRate;
+
     private $insertedTime;
     private $insertedUserId;
     private $deleteStatus;
     private $deletedUserId;
     private $column;
+
+    /**
+     * @return mixed
+     */
+    public function getBlacklisted()
+    {
+        return $this->blacklisted;
+    }
+
+    /**
+     * @param mixed $blacklisted
+     */
+    public function setBlacklisted($blacklisted): void
+    {
+        $this->blacklisted = $blacklisted;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAsShipper()
+    {
+        return $this->AsShipper;
+    }
+
+    /**
+     * @param mixed $AsShipper
+     */
+    public function setAsShipper($AsShipper): void
+    {
+        $this->AsShipper = $AsShipper;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAsConsignee()
+    {
+        return $this->AsConsignee;
+    }
+
+    /**
+     * @param mixed $AsConsignee
+     */
+    public function setAsConsignee($AsConsignee): void
+    {
+        $this->AsConsignee = $AsConsignee;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumberOninvoice()
+    {
+        return $this->numberOninvoice;
+    }
+
+    /**
+     * @param mixed $numberOninvoice
+     */
+    public function setNumberOninvoice($numberOninvoice): void
+    {
+        $this->numberOninvoice = $numberOninvoice;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomerRate()
+    {
+        return $this->customerRate;
+    }
+
+    /**
+     * @param mixed $customerRate
+     */
+    public function setCustomerRate($customerRate): void
+    {
+        $this->customerRate = $customerRate;
+    }
 
     /**
      * @return mixed
@@ -625,6 +712,10 @@ class Customer implements IteratorAggregate
                     'websiteURL' => $this->websiteURL,
                     'internalNotes' => $this->internalNotes,
                     'MC' => $this->MC,
+                    'blacklisted' => $this->blacklisted,
+                    'numberOninvoice' => $this->numberOninvoice,
+                    'customerRate' => $this->customerRate,
+
                     'insertedTime' => time(),
                     'insertedUserId' => $_SESSION['companyName'],
                     'deleteStatus' => 0
@@ -671,6 +762,9 @@ class Customer implements IteratorAggregate
                 'websiteURL' => $this->websiteURL,
                 'internalNotes' => $this->internalNotes,
                 'MC' => $this->MC,
+                'blacklisted' => $this->blacklisted,
+                'numberOninvoice' => $this->numberOninvoice,
+                'customerRate' => $this->customerRate,
                 'insertedTime' => time(),
                 'insertedUserId' => $_SESSION['companyName'],
                 'deleteStatus' => 0
@@ -820,6 +914,45 @@ class Customer implements IteratorAggregate
     {
         $db->customer->updateOne(['companyID' => (int)$_SESSION['companyId'], 'customer._id' => (int)$this->getId()],
             ['$set' => ['customer.$.deleteStatus' => 1]]
+        );
+    }
+    
+    // edit customer function
+    public function EditCustomerDetail($customer, $db,$helper)
+    {
+        $db->customer->updateOne(['companyID' => (int)$_SESSION['companyId'], 'customer._id' => (int)$this->getId()],
+            ['$set' => [
+                'customer.$.custName' => $this->custName,
+                'customer.$.custAddress' => $this->custAddress,
+                'customer.$.custLocation' => $this->custLocation,
+                'customer.$.custZip' => $this->custZip,
+                'customer.$.billingAddress' => $this->billingAddress,
+                'customer.$.billingLocation' => $this->billingLocation,
+                'customer.$.billingZip' => $this->billingZip,
+                'customer.$.primaryContact' => $this->primaryContact,
+                'customer.$.custTelephone' => $this->custTelephone,
+                'customer.$.custExt' => $this->custExt,
+                'customer.$.custEmail' => $this->custEmail,
+                'customer.$.custFax' => $this->custFax,
+                'customer.$.billingContact' => $this->billingContact,
+                'customer.$.billingEmail' => $this->billingEmail,
+                'customer.$.billingTelephone' => $this->billingTelephone,
+                'customer.$.billingExt' => $this->billingExt,
+                'customer.$.URS' => $this->URS,
+                'customer.$.currencySetting' => $this->currencySetting,
+                'customer.$.paymentTerms' => $this->paymentTerms,
+                'customer.$.creditLimit' => $this->creditLimit,
+                'customer.$.salesRep' => $this->salesRep,
+                'customer.$.factoringCompany' => $this->factoringCompany,
+                'customer.$.federalID' => $this->federalID,
+                'customer.$.workerComp' => $this->workerComp,
+                'customer.$.websiteURL' => $this->websiteURL,
+                'customer.$.internalNotes' => $this->internalNotes,
+                'customer.$.MC' => $this->MC,
+                'customer.$.blacklisted' => $this->blacklisted,
+                'customer.$.numberOninvoice' => $this->numberOninvoice,
+                'customer.$.customerRate' => $this->customerRate,
+                ]]
         );
     }
 

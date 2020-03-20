@@ -45,6 +45,8 @@ require "../database/connection.php";
                                     <th scope="col" col width="50">#</th>
                                     <th scope="col" col width="160" data-priority="1">Name</th>
                                     <th scope="col" col width="160" data-priority="3">Address</th>
+                                    <th scope="col" col width="160" data-priority="3">Location</th>
+                                    <th scope="col" col width="160" data-priority="3">Zip</th>
                                     <th scope="col" col width="160" data-priority="3">Contact Name</th>
                                     <th scope="col" col width="160" data-priority="6">Contact Email</th>
                                     <th scope="col" col width="160" data-priority="6">Telephone</th>
@@ -71,91 +73,23 @@ require "../database/connection.php";
                                         ?>
                                         <tr>
                                             <th><?php echo $no++; ?></th>
-                                            <td>
-                                                <a href="#" id="1name<?php echo $s['_id']; ?>" data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'name');"
-                                                   class="text-overflow"><?php echo $s['name']; ?></a>
-                                                <button type="button" id="name<?php echo $s['_id']; ?>"
-                                                        onclick="updateExternal('name',<?php echo $s['_id']; ?>)"
-                                                        style="display:none; margin-left:6px;"
-                                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                    <i class="mdi mdi-check"></i></button>
-                                            </td>
-                                            <td>
-                                                <a href="#" id="1address<?php echo $s['_id']; ?>" data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'address');"
-                                                   class="text-overflow"><?php echo $s['address']; ?></a>
-                                                <button type="button" id="address<?php echo $s['_id']; ?>"
-                                                        onclick="updateExternal('address',<?php echo $s['_id']; ?>)"
-                                                        style="display:none; margin-left:6px;"
-                                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                    <i class="mdi mdi-check"></i></button>
-                                            </td>
-                                            <td>
-                                                <a href="#" id="1contactName<?php echo $s['_id']; ?>"
-                                                   data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'contactName');"
-                                                   class="text-overflow"><?php echo $s['contactName']; ?></a>
-                                                <button type="button" id="contactName<?php echo $s['_id']; ?>"
-                                                        onclick="updateExternal('contactName',<?php echo $s['_id']; ?>)"
-                                                        style="display:none; margin-left:6px;"
-                                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                    <i class="mdi mdi-check"></i></button>
-                                            </td>
-                                            <td>
-                                                <a href="#" id="1email<?php echo $s['_id']; ?>" data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'email');"
-                                                   class="text-overflow"><?php echo $s['email']; ?></a>
-                                                <button type="button" id="email<?php echo $s['_id']; ?>"
-                                                        onclick="updateExternal('email',<?php echo $s['_id']; ?>)"
-                                                        style="display:none; margin-left:6px;"
-                                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                    <i class="mdi mdi-check"></i></button>
-                                            </td>
-                                            <td>
-                                                <a href="#" id="1telephone<?php echo $s['_id']; ?>" data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'telephone');"
-                                                   class="text-overflow"><?php echo $s['telephone']; ?></a>
-                                                <button type="button" id="telephone<?php echo $s['_id']; ?>"
-                                                        onclick="updateExternal('telephone',<?php echo $s['_id']; ?>)"
-                                                        style="display:none; margin-left:6px;"
-                                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                    <i class="mdi mdi-check"></i></button>
-                                            </td>
-                                            <td>
-                                                <a href="#" id="1mc<?php echo $s['_id']; ?>" data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'mc');"
-                                                   class="text-overflow"><?php echo $s['mc']; ?></a>
-                                                <button type="button" id="mc<?php echo $s['_id']; ?>"
-                                                        onclick="updateExternal('mc',<?php echo $s['_id']; ?>)"
-                                                        style="display:none; margin-left:6px;"
-                                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                    <i class="mdi mdi-check"></i></button>
-                                            </td>
-                                            <td>
-                                                <a href="#" id="1dot<?php echo $s['_id']; ?>" data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'dot');"
-                                                   class="text-overflow"><?php echo $s['dot']; ?></a>
-                                                <button type="button" id="dot<?php echo $s['_id']; ?>"
-                                                        onclick="updateExternal('dot',<?php echo $s['_id']; ?>)"
-                                                        style="display:none; margin-left:6px;"
-                                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                    <i class="mdi mdi-check"></i></button>
-                                            </td>
-                                            <td>
-                                                <a href="#" id="1factoringCompany<?php echo $s['_id']; ?>"
-                                                   data-type="textarea"
-                                                   ondblclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'factoringCompany');"
-                                                   class="text-overflow"><?php echo $s['factoringCompany']; ?></a>
-                                                <button type="button" id="factoringCompany<?php echo $s['_id']; ?>"
-                                                        onclick="updateExternal('factoringCompany',<?php echo $s['_id']; ?>)"
-                                                        style="display:none; margin-left:6px;"
-                                                        class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                    <i class="mdi mdi-check"></i></button>
-                                            </td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
                                             <td><a href="#" onclick="deleteExternal(<?php echo $s['_id']; ?>)"><i
-                                                            class="mdi mdi-delete-sweep-outline"
-                                                            style="font-size: 20px; color: #FC3B3B"></i></a></td>
+                                                            class="mdi mdi-delete-sweep-outline" data-toggle="tooltip" data-placement="top" title="Delete Detail"
+                                                            style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                <a href="#" onclick="editExternalCarrier(<?php echo $s['_id']; ?>)"><i
+                                                            id="editDriverDetail" data-toggle="tooltip" data-placement="top" title="Edit Detail"
+                                                            class="mdi mdi-file-document-edit-outline editModal"></i></a>
+                                            </td>
                                         </tr>
                                     <?php }
                                 } ?>
@@ -165,6 +99,8 @@ require "../database/connection.php";
                                     <th scope="col" col width="50">#</th>
                                     <th scope="col" col width="160" data-priority="1">Name</th>
                                     <th scope="col" col width="160" data-priority="3">Address</th>
+                                    <th scope="col" col width="160" data-priority="3">Location</th>
+                                    <th scope="col" col width="160" data-priority="3">Zip</th>
                                     <th scope="col" col width="160" data-priority="3">Contact Name</th>
                                     <th scope="col" col width="160" data-priority="6">Contact Email</th>
                                     <th scope="col" col width="160" data-priority="6">Telephone</th>
