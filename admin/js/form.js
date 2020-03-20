@@ -2594,6 +2594,7 @@ function updateFactoringTable() {
         success: function (response) {
             var res = response.split("^");
             if (factoringBody != null) {
+               
                 factoringBody.innerHTML = res[0];
             }
             if (factoringList != null) {
@@ -3942,3 +3943,5 @@ function updateCarrierTable() {
         },
     });
 }
+
+

@@ -47,6 +47,8 @@ require "../database/connection.php";
                                         <th scope="col" col width="160" data-priority="3">Action</th>
                                     </tr>
                                 </thead>
+                               
+                                
                                 <tbody id="factoringBody">
                                 <?php
                                     $no = 1;

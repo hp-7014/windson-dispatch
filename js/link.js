@@ -15,6 +15,7 @@ $(document).on('click', '.addShipper', function () {
         }
     });
 });
+
 $(document).on('click', '#Add_Office', function () {
     $.ajax({
         type: 'POST',
@@ -482,6 +483,7 @@ $(document).on('click', '#creditCard', function () {
     });
 });
 
+
 $(document).on('click', '.modalCreditcard', function () {
     $('#addCreditcard').modal('hide');
 });
@@ -530,6 +532,19 @@ $(document).on('click', '.modalSubCredit', function () {
     });
     $(document).on('click', '.modalupdatetable', function () {
         $('#updateTable').modal('hide');
+    });
+    $(document).on('click', '.modalOtherDriver', function () {
+        $('#driverOtherCharges').modal('hide');
+    });
+    $(document).on('click', '.modalOtherOwner', function () {
+        $('#ownerOtherCharges').modal('hide');
+    });
+
+    $(document).on('click', '.modalStartLocation', function () {
+        $('#addstartlocation').modal('hide');
+    });
+    $(document).on('click', '.modalEndLocation', function () {
+        $('#endlocationmodal').modal('hide');
     });
 
 $(document).on('click', '.modalCustomer', function () {
