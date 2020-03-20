@@ -701,6 +701,7 @@ function updateCurrencyTable() {
     var currencyFactoring = document.getElementById('currencyset');
     var currencySetting = document.getElementById('currencySetting');
     var currencyList1 = document.getElementById('driverCurrency');
+
     $.ajax({
         url: 'master/utils/getCurrency.php',
         type: 'POST',

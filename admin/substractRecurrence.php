@@ -90,9 +90,8 @@ require "../database/connection.php";
                 foreach ($show as $row) {
                     $show1 = $row['fixPay'];
                     foreach ($show1 as $row1) {
-                        $fix_pay = "'".$row1['fixPayType']."'";
-                        echo " <option value=$fix_pay></option>";
-
+                        $equipValue = "'".$row1['_id'].")&nbsp;".$row1['fixPayType']."'";
+                        echo " <option value=$equipValue></option>";
                     }
                 } ?>
             </datalist>
