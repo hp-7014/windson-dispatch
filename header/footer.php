@@ -44,7 +44,6 @@
 <!------------------- Function to get location suggestion -------------------->
 <script src="assets/js/app.js"></script>
 <script src="assets/js/modalTab.js"></script>
-
 <script type="text/javascript">
 
     // google location suggestion
