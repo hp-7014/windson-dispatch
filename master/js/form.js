@@ -713,7 +713,7 @@ function updateCurrencyTable() {
                 currencyBody.innerHTML = res[0];
             }
             if (currencyList != null) {
-                currencyList.innerHTML = res[1];
+                currencyList.innerHTML = res[2];
             }
             if (currencyFactoring != null) {
                 currencyFactoring.innerHTML = res[2];

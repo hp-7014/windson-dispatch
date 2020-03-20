@@ -11,7 +11,6 @@ class Helper
             $id = $value['seq'];
         }
         $id += 1;
-
         $collection->counter->findOneAndUpdate(['_id'=>$name],['$set'=>['seq'=>$id]]);
         return $id;
     }

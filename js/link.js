@@ -15,6 +15,7 @@ $(document).on('click', '.addShipper', function () {
         }
     });
 });
+
 // edit driver detail
 function editDriver(id) {
     $.ajax({
@@ -592,12 +593,25 @@ $(document).on('click', '.modalCurrrency', function () {
     $('#currencysub').modal('hide');
 });
 
-$(document).on('click', '.modalCompany', function () {
-    $('#add_company').modal('hide');
-});
-$(document).on('click', '.modalupdatetable', function () {
-    $('#updateTable').modal('hide');
-});
+    $(document).on('click', '.modalCompany', function () {
+        $('#add_company').modal('hide');
+    });
+    $(document).on('click', '.modalupdatetable', function () {
+        $('#updateTable').modal('hide');
+    });
+    $(document).on('click', '.modalOtherDriver', function () {
+        $('#driverOtherCharges').modal('hide');
+    });
+    $(document).on('click', '.modalOtherOwner', function () {
+        $('#ownerOtherCharges').modal('hide');
+    });
+
+    $(document).on('click', '.modalStartLocation', function () {
+        $('#addstartlocation').modal('hide');
+    });
+    $(document).on('click', '.modalEndLocation', function () {
+        $('#endlocationmodal').modal('hide');
+    });
 
 $(document).on('click', '.modalCustomer', function () {
     $('#add_customer').modal('hide');

@@ -2,12 +2,18 @@
 session_start();
 $helper = "helper";
 require "../../database/connection.php";
-$show = $db->consignee->find(['companyID' => $_SESSION['companyId']]);
+$show = $db->consignee->aggregate([
+    ['$match'=>['companyID'=>$_SESSION['companyId']]],
+    ['$unwind'=>'$consignee'],
+    ['$match'=>['consignee.consigneeStatus'=>"Active"]]
+]);
 $no = 0;
 $table = "";
 $list  = "";
 foreach ($show as $row) {
-    $show1 = $row['consignee'];
+    $s = 0;
+    $show1[$s] = $row['consignee'];
+    $s++;
     foreach ($show1 as $row1) {
         $id = $row1['_id'];
         $consigneeName = $row1['consigneeName'];
@@ -116,8 +122,11 @@ foreach ($show as $row) {
                 </td>
             </tr>
         ";
-        $value = "'".$id.")&nbsp;".$consigneeName."'";
-        $list .="<option value=$value></option>";
+
+        if($row1['consigneeStatus'] == "Active"){
+            $value = "'".$id.")&nbsp;".$consigneeName."'";
+            $list .="<option value=$value></option>";
+        }
     }
 }
 
