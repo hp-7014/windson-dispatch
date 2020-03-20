@@ -13,7 +13,7 @@ require "../../database/connection.php";
          $fixPayType = $row1['fixPayType'];
          $column = 'fixPayType';
          $no += 1;
-         echo "<tr>
+         $table .= "<tr>
              <td> $no</td>
              <td>
                  <div contenteditable='true'

@@ -47,101 +47,141 @@ require "../database/connection.php";
                                         <th scope="col" col width="160" data-priority="3">Action</th>
                                     </tr>
                                 </thead>
-                               
+                                <tbody id="factoringBody">
                                 <?php
                                     $no = 1;
-                                    $show = $db->factoring_company_add->find(['companyID' => $_SESSION['companyId']]);
-                                    foreach ($show as $row){
-                                        $show1 = $row['factoring'];
-                                        foreach ($show1 as $row1) {
+                                    $collection = $db->factoring_company_add;
+                                    $show1 = $collection->aggregate([
+                                        ['$lookup' => [
+                                            'from' => 'currency_add',
+                                            'localField' => 'companyID', 
+                                            'foreignField' => 'companyID',
+                                            'as' => 'currency_1'
+                                        ]],
+                                        ['$lookup' => [
+                                            'from' => 'payment_terms',
+                                            'localField' => 'companyID', 
+                                            'foreignField' => 'companyID',
+                                            'as' => 'payment_1'
+                                        ]],
+                                        ['$match'=>['companyID'=>1]]
+                                     ]);
+
+                                     foreach ($show1 as $row) {
+                                        $factoring = $row['factoring'];
+                                        $currency_1 = $row['currency_1'];
+                                        $payment_1 = $row['payment_1'];
+
+                                        foreach ($currency_1 as $row2) {
+                                            $currency = $row2['currency'];
+                                            $currencyType = array();
+                                            foreach ($currency as $row3) {
+                                                $currencyid = $row3['_id'];
+                                                $currencyType[$currencyid] = $row3['currencyType'];
+                                            }
+                                        }
+
+                                        foreach ($payment_1 as $row4) {
+                                                $payment = $row4['payment'];
+                                                $paymentTerm = array();
+                                                foreach ($payment as $row5) {
+                                                  $paymentid = $row5['_id'];
+                                                  $paymentTerm[$paymentid] = $row5['paymentTerm'];  
+                                                }
+                                        }
+
+                                        foreach ($factoring as $row1) {
                                             $id = $row1['_id'];
-                                            $factoringCompany = $row1['factoringCompanyname'];
+                                            $factoringCompanyname = $row1['factoringCompanyname'];
                                             $address = $row1['address'];
                                             $location = $row1['location'];
                                             $zip = $row1['zip'];
-                                            $primarycontact = $row1['primaryContact'];
-                                            $factoringtelephone = $row1['telephone'];
-                                            $factoringext = $row1['extFactoring'];
+                                            $primaryContact = $row1['primaryContact'];
+                                            $telephone = $row1['telephone'];
+                                            $extFactoring = $row1['extFactoring'];
                                             $fax = $row1['fax'];
                                             $tollFree = $row1['tollFree'];
                                             $email = $row1['email'];
-                                            $secondarycontact = $row1['secondaryContact'];
-                                            $telephone = $row1['telephone'];
+                                            $secondaryContact = $row1['secondaryContact'];
+                                            $factoringtelephone = $row1['factoringtelephone'];
                                             $ext = $row1['ext'];
-                                            $currency = $row1['currencySetting'];
-                                            $payment = $row1['paymentTerms'];
-                                            $taxtid = $row1['taxID'];
-                                            $finternalNotes = $row1['internalNote'];
-                                            $limit = 4;
-                                            $total_records = $row1->count();
-                                            $total_pages = ceil($total_records / $limit);
+                                            $currencySetting = $currencyType[$row1['currencySetting']];
+                                            $paymentTerms = $paymentTerm[$row1['paymentTerms']];
+                                            $taxID = $row1['taxID'];
+                                            $internalNote = $row1['internalNote'];
+                                                $limit = 4;
+                                                $total_records = $row1->count();
+                                                $total_pages = ceil($total_records / $limit);
                                 ?>
-                                <tbody id="factoringBody">
                                     <tr>
                                         <th><?php echo $no++; ?></th>
                                         <td>
-                                            <a href="#" id="1factoringCompanyname<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'factoringCompanyname');" class="text-overflow"><?php echo $factoringCompany; ?></a>
-                                            <button type="button" id="factoringCompanyname<?php echo $row1['_id']; ?>" onclick="updateFactoring('factoringCompanyname',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="factoringCompanyname<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'factoringCompanyname');" class="text-overflow"><?php echo $factoringCompanyname; ?></a>
+                                            <button type="button" id="factoringCompanyname<?php echo $id; ?>" onclick="updateFactoring('factoringCompanyname',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>
                                         <td>
-                                            <a href="#" id=1"address<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'address');" class="text-overflow"><?php echo $address; ?></a>
-                                            <button type="button" id="address<?php echo $row1['_id']; ?>" onclick="updateFactoring('address',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="address<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'address');" class="text-overflow"><?php echo $address; ?></a>
+                                            <button type="button" id="address<?php echo $id; ?>" onclick="updateFactoring('address',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>
                                         <td>
-                                            <a href="#" id="1location<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'location');" class="text-overflow"><?php echo $location; ?></a>
-                                            <button type="button" id="location<?php echo $row1['_id']; ?>" onclick="updateFactoring('location',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="location<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'location');" class="text-overflow"><?php echo $location; ?></a>
+                                            <button type="button" id="location<?php echo $id; ?>" onclick="updateFactoring('location',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>    
                                         <td>
-                                            <a href="#" id="1zip<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'zip');" class="text-overflow"><?php echo $zip; ?></a>
-                                            <button type="button" id="zip<?php echo $row1['_id']; ?>" onclick="updateFactoring('zip',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="zip<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'zip');" class="text-overflow"><?php echo $zip; ?></a>
+                                            <button type="button" id="zip<?php echo $id; ?>" onclick="updateFactoring('zip',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>
                                         <td>
-                                            <a href="#" id="1primaryContact<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'primaryContact');" class="text-overflow"><?php echo $primarycontact; ?></a>
-                                            <button type="button" id="primaryContact<?php echo $row1['_id']; ?>" onclick="updateFactoring('primaryContact',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="primaryContact<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'primaryContact');" class="text-overflow"><?php echo $primaryContact; ?></a>
+                                            <button type="button" id="primaryContact<?php echo $id; ?>" onclick="updateFactoring('primaryContact',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>
                                         <td>
-                                            <a href="#" id="1extFactoring<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'extFactoring');" class="text-overflow"><?php echo $factoringext; ?></a>
-                                            <button type="button" id="extFactoring<?php echo $row1['_id']; ?>" onclick="updateFactoring('extFactoring',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="extFactoring<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'extFactoring');" class="text-overflow"><?php echo $telephone; ?></a>
+                                            <button type="button" id="extFactoring<?php echo $id; ?>" onclick="updateFactoring('extFactoring',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>
                                         <td>
-                                            <a href="#" id="1fax<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'fax');" class="text-overflow"><?php echo $fax; ?></a>
-                                            <button type="button" id="fax<?php echo $row1['_id']; ?>" onclick="updateFactoring('fax',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="fax<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'fax');" class="text-overflow"><?php echo $extFactoring; ?></a>
+                                            <button type="button" id="fax<?php echo $id; ?>" onclick="updateFactoring('fax',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>           
                                         <td>
-                                            <a href="#" id="1tollFree<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'tollFree');" class="text-overflow"><?php echo $tollFree; ?></a>
-                                            <button type="button" id="tollFree<?php echo $row1['_id']; ?>" onclick="updateFactoring('tollFree',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="tollFree<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'tollFree');" class="text-overflow"><?php echo $fax; ?></a>
+                                            <button type="button" id="tollFree<?php echo $id; ?>" onclick="updateFactoring('tollFree',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>
                                         <td>
-                                            <a href="#" id="1email<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'email');" class="text-overflow"><?php echo $email; ?></a>
-                                            <button type="button" id="email<?php echo $row1['_id']; ?>" onclick="updateFactoring('email',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                        </td>
-                                        <td>
-                                            <a href="#" id="1secondaryContact<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'secondaryContact');" class="text-overflow"><?php echo $secondarycontact; ?></a>
-                                            <button type="button" id="secondaryContact<?php echo $row1['_id']; ?>" onclick="updateFactoring('secondaryContact',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="secondaryContact<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'secondaryContact');" class="text-overflow"><?php echo $tollFree; ?></a>
+                                            <button type="button" id="secondaryContact<?php echo $id; ?>" onclick="updateFactoring('secondaryContact',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>   
                                         <td>
-                                            <a href="#" id="1factoringtelephone<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'factoringtelephone');" class="text-overflow"><?php echo $telephone; ?></a>
-                                            <button type="button" id="factoringtelephone<?php echo $row1['_id']; ?>" onclick="updateFactoring('factoringtelephone',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="factoringtelephone<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'factoringtelephone');" class="text-overflow"><?php echo $email; ?></a>
+                                            <button type="button" id="factoringtelephone<?php echo $id; ?>" onclick="updateFactoring('factoringtelephone',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>
                                         <td>
-                                            <a href="#" id="1ext<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'ext');" class="text-overflow"><?php echo $ext; ?></a>
-                                            <button type="button" id="ext<?php echo $row1['_id']; ?>" onclick="updateFactoring('ext',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="ext<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'ext');" class="text-overflow"><?php echo $secondaryContact; ?></a>
+                                            <button type="button" id="ext<?php echo $id; ?>" onclick="updateFactoring('ext',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>
                                         <td>
-                                            <a href="#" id="1currencySetting<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'currencySetting');" class="text-overflow"><?php echo $currency; ?></a>
-                                            <button type="button" id="currencySetting<?php echo $row1['_id']; ?>" onclick="updateFactoring('currencySetting',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="currencySetting<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'currencySetting');" class="text-overflow"><?php echo $factoringtelephone; ?></a>
+                                            <button type="button" id="currencySetting<?php echo $id; ?>" onclick="updateFactoring('currencySetting',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>
                                         <td>
-                                            <a href="#" id="1paymentTerms<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'paymentTerms');" class="text-overflow"><?php echo $payment; ?></a>
-                                            <button type="button" id="paymentTerms<?php echo $row1['_id']; ?>" onclick="updateFactoring('paymentTerms',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="paymentTerms<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'paymentTerms');" class="text-overflow"><?php echo $ext; ?></a>
+                                            <button type="button" id="paymentTerms<?php echo $id; ?>" onclick="updateFactoring('paymentTerms',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>
                                         <td>
-                                            <a href="#" id="1taxID<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'taxID');" class="text-overflow"><?php echo $taxtid; ?></a>
-                                            <button type="button" id="taxID<?php echo $row1['_id']; ?>" onclick="updateFactoring('taxID',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="taxID<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'taxID');" class="text-overflow"><?php echo $currencySetting; ?></a>
+                                            <button type="button" id="taxID<?php echo $id; ?>" onclick="updateFactoring('taxID',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>
                                         <td>
-                                            <a href="#" id="1internalNote<?php echo $row1['_id']; ?>" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'internalNote');" class="text-overflow"><?php echo $finternalNotes; ?></a>
-                                            <button type="button" id="internalNote<?php echo $row1['_id']; ?>" onclick="updateFactoring('internalNote',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                            <a href="#" id="internalNote<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'internalNote');" class="text-overflow"><?php echo $paymentTerms; ?></a>
+                                            <button type="button" id="internalNote<?php echo $id; ?>" onclick="updateFactoring('internalNote',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        </td>  
+                                        <td>
+                                            <a href="#" id="internalNote<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'internalNote');" class="text-overflow"><?php echo $taxID; ?></a>
+                                            <button type="button" id="internalNote<?php echo $id; ?>" onclick="updateFactoring('internalNote',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        </td>  
+                                        <td>
+                                            <a href="#" id="internalNote<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'internalNote');" class="text-overflow"><?php echo $internalNote; ?></a>
+                                            <button type="button" id="internalNote<?php echo $id; ?>" onclick="updateFactoring('internalNote',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                         </td>        
                                         <td><a href="#" onclick="deletefactoring(<?php echo $id; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></a></i>
                                         </td>

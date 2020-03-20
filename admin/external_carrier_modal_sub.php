@@ -131,15 +131,14 @@ require "../database/connection.php";
 
                                 <input list="browsers" class="form-control" id="carrierPayTerms" name="carrierPayTerms">
                                 <datalist id="browsers">
-                                    <?php
-                                    $show_data = $db->payment_terms->find(['companyID' => $_SESSION['companyId']]);
-                                    $no = 1;
-                                    foreach ($show_data as $show) {
-                                        $show = $show['payment'];
+                                <?php
+                                    $payment = $db->payment_terms->find(['companyID' => $_SESSION['companyId']]);
+                                    foreach ($payment as $pay) {
+                                        $show = $pay['payment'];
                                         foreach ($show as $s) {
-                                            ?>
-                                            <option value="<?php echo $s['paymentTerm']; ?>"></option>
-                                        <?php }
+                                            $equipValue = "'" . $s['_id'] . ")&nbsp;" . $s['paymentTerm'] . "'";
+                                            echo " <option value=$equipValue></option>";
+                                     }
                                     } ?>
                                 </datalist>
 
@@ -173,14 +172,14 @@ require "../database/connection.php";
                                 <input list="browsers1" class="form-control" id="carrierFactoring"
                                        name="carrierFactoring">
                                 <datalist id="browsers1">
-                                    <?php
-                                    $show_data = $db->factoring_company_add->find(['companyID' => $_SESSION['companyId']]);
-                                    $no = 1;
-                                    foreach ($show_data as $show) {
-                                        $show = $show['factoring'];
+                                <?php
+                                    $payment = $db->factoring_company_add->find(['companyID' => $_SESSION['companyId']]);
+                                    foreach ($payment as $pay) {
+                                        $show = $pay['factoring'];
                                         foreach ($show as $s) {
+                                            $equipValue = "'" . $s['_id'] . ")&nbsp;" . $s['factoringCompanyname'] . "'";
+                                            echo " <option value=$equipValue></option>"
                                             ?>
-                                            <option value="<?php echo $s['_id']; ?>"><?php echo $s['factoringCompanyname']; ?></option>
                                         <?php }
                                     } ?>
                                 </datalist>

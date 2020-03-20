@@ -139,7 +139,7 @@ require "../database/connection.php";
                 } ?>
             </datalist>
             <div class="modal-footer">
-                <label class="text-danger" style="padding-right: 360px"><b>Note :</b>&nbsp; The Document Upload Only One
+                <label class="text-danger"             ><b>Note :</b>&nbsp; The Document Upload Only One
                     Time After Upload Document You Cannot Change. Only .jpg .jpeg .png .pdf Formate Upload. File Size
                     Limit 200KB. Only 5 File Upload. </label>
                 <button type="button" class="btn btn-danger waves-effect modalTrailer">

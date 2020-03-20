@@ -34,13 +34,7 @@ require "../database/connection.php";
                                     <input class="form-control" id="installment_Category" name="installment_Category" list="fixpay_cat"/>
                                 </td>
                                 <td width="150">
-                                    <select name="installment_Type" id="installment_Type" class="form-control">
-                                        <option value="">Select type</option>
-                                        <option value="Weekly">Weekly</option>
-                                        <option value="Monthly">Monthly</option>
-                                        <option value="yearly">Yearly</option>
-                                        <option value="Quarterly">Quarterly</option>
-                                    </select>
+                                    <input class="form-control" id="installment_Type" name="installment_Type" list="instatype"/>
                                 </td>
                                 <td width="100">
                                     <input name="amount_recurrence" type="text" id="amount_recurrence" class="form-control"/>
@@ -90,11 +84,16 @@ require "../database/connection.php";
                 foreach ($show as $row) {
                     $show1 = $row['fixPay'];
                     foreach ($show1 as $row1) {
-                        $fix_pay = "'".$row1['fixPayType']."'";
-                        echo " <option value=$fix_pay></option>";
-
+                        $equipValue = "'".$row1['fixPayType']."'";
+                        echo " <option value=$equipValue></option>";
                     }
                 } ?>
+            </datalist>
+            <datalist id="instatype">
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly"></option>
+                    <option value="yearly"></option>
+                    <option value="Quarterly"></option>
             </datalist>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -131,7 +130,7 @@ require "../database/connection.php";
         return '<td width="150">'
             +'<input class="form-control" value = "' + value + '" id="installment_Category" name="installment_Category" list="fixpay_cat"/></td>'
             +'<td width="150">'
-            +'<select name="installment_Type" value = "' + value + '" class="form-control"><option value=""> Select Type</option><option value="Weekly"> Weekly</option><option value="Monthly"> Monthly</option><option value="Yearly"> Yearly</option><option value="Quartely"> Quartely</option></select></td>'
+            +'<input class="form-control" value = "' + value + '" id="installment_Type" name="installment_Type" list="instatype"/></td>'
             +'<td width="100">'
             +'<input name="amount_recurrence" type="text" value = "' + value + '" class="form-control" /></td>'
             +'<td width="100">'

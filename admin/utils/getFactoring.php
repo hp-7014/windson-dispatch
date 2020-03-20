@@ -2,14 +2,68 @@
 session_start();
 $helper = "helper";
 require "../../database/connection.php";
-$show = $db->factoring_company_add->find(['companyID' => $_SESSION['companyId']]);
+                                    $collection = $db->factoring_company_add;
+                                    $show1 = $collection->aggregate([
+                                        ['$lookup' => [
+                                            'from' => 'currency_add',
+                                            'localField' => 'companyID', 
+                                            'foreignField' => 'companyID',
+                                            'as' => 'currency_1'
+                                        ]],
+                                        ['$lookup' => [
+                                            'from' => 'payment_terms',
+                                            'localField' => 'companyID', 
+                                            'foreignField' => 'companyID',
+                                            'as' => 'payment_1'
+                                        ]],
+                                        ['$match'=>['companyID'=>1]]
+                                     ]);
 $no = 0;
 $table = "";
+$factoringCompanynamecolumn = '"factoringCompanyname"';
+$addresscolumn = '"address"';
+$locationcolumn = '"location"';
+$zipcolumn = '"zip"';
+$primaryContactcolumn = '"primaryContact"';
+$telephonecolumn = '"telephone"';
+$extFactoringcolumn = '"extFactoring"';
+$faxcolumn = '"fax"';
+$tollFreecolumn = '"tollFree"';
+$emailcolumn = '"email"';
+$secondaryContactcolumn = '"secondaryContact"';
+$factoringtelephonecolumn = '"factoringtelephone"';
+$extcolumn = '"ext"';
+$currencySettingcolumn = '"currencySetting"';
+$paymentTermscolumn = '"paymentTerms"';
+$taxIDcolumn = '"taxID"';
+$internalNotecolumn = '"internalNote"';
+$type = '"text"';
 $list = "<option value='0'>--Select--</option>";
 $list1 = "<option value='0'>--Select--</option>";
-foreach ($show as $row) {
-    $show1 = $row['factoring'];
-    foreach ($show1 as $row1) {
+foreach ($show1 as $row) {
+    $factoring = $row['factoring'];
+    $currency_1 = $row['currency_1'];
+    $payment_1 = $row['payment_1'];
+
+    foreach ($currency_1 as $row2) {
+        $currency = $row2['currency'];
+        $currencyType = array();
+        foreach ($currency as $row3) {
+            $currencyid = $row3['_id'];
+            $currencyType[$currencyid] = $row3['currencyType'];
+        }
+    }
+
+    foreach ($payment_1 as $row4) {
+            $payment = $row4['payment'];
+            $paymentTerm = array();
+            foreach ($payment as $row5) {
+              $paymentid = $row5['_id'];
+              $paymentTerm[$paymentid] = $row5['paymentTerm'];  
+            }
+    }
+
+    foreach ($factoring as $row1) {
         $id = $row1['_id'];
         $factoringCompanyname = $row1['factoringCompanyname'];
         $address = $row1['address'];
@@ -24,32 +78,16 @@ foreach ($show as $row) {
         $secondaryContact = $row1['secondaryContact'];
         $factoringtelephone = $row1['factoringtelephone'];
         $ext = $row1['ext'];
-        $currencySetting = $row1['currencySetting'];
-        $paymentTerms = $row1['paymentTerms'];
+        $currencySetting = $currencyType[$row1['currencySetting']];
+        $paymentTerms = $paymentTerm[$row1['paymentTerms']];
         $taxID = $row1['taxID'];
         $internalNote = $row1['internalNote'];
-
-        $factoringCompanynamecolumn = '"factoringCompanyname"';
-        $addresscolumn = '"address"';
-        $locationcolumn = '"location"';
-        $zipcolumn = '"zip"';
-        $primaryContactcolumn = '"primaryContact"';
-        $telephonecolumn = '"telephone"';
-        $extFactoringcolumn = '"extFactoring"';
-        $faxcolumn = '"fax"';
-        $tollFreecolumn = '"tollFree"';
-        $emailcolumn = '"email"';
-        $secondaryContactcolumn = '"secondaryContact"';
-        $factoringtelephonecolumn = '"factoringtelephone"';
-        $extcolumn = '"ext"';
-        $currencySettingcolumn = '"currencySetting"';
-        $paymentTermscolumn = '"paymentTerms"';
-        $taxIDcolumn = '"taxID"';
-        $internalNotecolumn = '"internalNote"';
-        $type = '"text"';
-        $no += 1;
+            $limit = 4;
+            $total_records = $row1->count();
+            $total_pages = ceil($total_records / $limit);
+                    $no++;
         $table .= "<tr>
-             <td> $no</td>
+        <th>$no</th>
              
              <td>
                  <div id='1factoringCompanyname$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$factoringCompanynamecolumn)' class='text-overflow'>$factoringCompanyname</div>
