@@ -59,6 +59,8 @@ if($_POST['type'] == 'carrier'){
             echo "- <b style='color:red;font-weight:bold;line-height:1.5'>This carrier is blacklisted.</b>"."<br>";
          }
 
+         echo "^".$row['email'];
+
       }
    }
  
@@ -89,6 +91,11 @@ if($_POST['type'] == 'driver'){
          $hazmatexpiry = $row['hazmatExpiry'];
          $loadedMile = $row['driverLoadedMile'];
          $emptyMile = $row['driverEmptyMile'];
+         $tarp = $row['tarp'];
+         $pickrate = $row['pickupRate'];
+         $pickafter = $row['pickupAfter'];
+         $droprate = $row['dropRate'];
+         $dropafter = $row['dropAfter']; 
          if($licenseExpiry - $now <= 2592000){
             echo "- <b style='font-weight:bold;line-height:1.5'>License is Expiring in less than 30 days.</b>"."<br>";
          }
@@ -108,7 +115,7 @@ if($_POST['type'] == 'driver'){
             echo "- <b style='font-weight:bold;line-height:1.5'>Hazmat is expiring in 30 days.</b>"."<br>";
          } 
          
-         echo "^".$loadedMile."^".$emptyMile;
+         echo "^".$loadedMile."^".$emptyMile."^".$tarp."^".$pickrate."^".$pickafter."^".$droprate."^".$dropafter;
 
       }
    }
@@ -255,6 +262,29 @@ if($_POST['type'] == 'owner'){
        }
  
 }
+
+if($_POST['type'] == 'customer'){
+   $id = (int)$_POST['value'];
+   $collection = $db->customer;
+   $show1 = $collection->aggregate([
+           ['$match'=>['companyID'=>$_SESSION['companyId']]],
+           ['$unwind'=>'$customer'],
+           ['$match'=>['customer._id'=>$id]]
+   ]);
+   
+   foreach ($show1 as $row) {
+     
+   $customer = array();
+   $k = 0;
+   $customer[$k] = $row['customer'];
+   $k++;
+   foreach ($customer as $row) {
+         echo $row['custEmail'];
+
+      }
+   }
+}
+
 if($_POST['type'] == 'shipper'){
    $id = (int)$_POST['value'];
    $collection = $db->shipper;

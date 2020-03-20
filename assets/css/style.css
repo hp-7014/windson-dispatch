@@ -3808,6 +3808,35 @@ table {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
+.mdi-plus-circle{
+  color:rgb(17, 0, 255);
+}
+
+
+
+
+.toggle-switch input[type=checkbox] {display:none}
+.toggle-switch label {cursor:pointer;}
+.toggle-switch label .toggle-track {
+  display:block;height:30px;width:60px;background:#eee;border-radius:20px;
+  position:relative;
+  margin-bottom:15px;border:1px solid #ccc;
+}
+
+.toggle-switch .toggle-track:before{
+  content:'';
+  display:inline-block;height:30px;width:30px;background:green;
+  border-radius:20px;
+  position:absolute;
+  top:0;
+  right:0;
+  transition:right .2s ease-in;
+}
+
+.toggle-switch input[type="checkbox"]:checked + label .toggle-track:before{
+  background:red;
+  right:30px;
+}
 
 
 

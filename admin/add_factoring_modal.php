@@ -48,6 +48,8 @@ require "../database/connection.php";
                                     </tr>
                                 </thead>
                                
+                                
+                                <tbody id="factoringBody">
                                 <?php
                                     $no = 1;
                                     $show = $db->factoring_company_add->find(['companyID' => $_SESSION['companyId']]);
@@ -76,7 +78,6 @@ require "../database/connection.php";
                                             $total_records = $row1->count();
                                             $total_pages = ceil($total_records / $limit);
                                 ?>
-                                <tbody id="factoringBody">
                                     <tr>
                                         <th><?php echo $no++; ?></th>
                                         <td>

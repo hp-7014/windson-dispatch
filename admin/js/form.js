@@ -2595,6 +2595,7 @@ function updateFactoringTable() {
         success: function (response) {
             var res = response.split("^");
             if (factoringBody != null) {
+               
                 factoringBody.innerHTML = res[0];
             }
             if (factoringList != null) {
@@ -2884,18 +2885,6 @@ function Recurrence_Fields() {
         }
 
         document.getElementById('TextBoxContainer3').innerHTML = innerData;
-        for (var i = 0; i < installment_Category.length - 1; i++) {
-            var id = "installment_Type" + i;
-            if (installment_Type[i] == "Weekly") {
-                document.getElementById(id).selectedIndex = "1";
-            } else if (installment_Type[i] == "Monthly") {
-                document.getElementById(id).selectedIndex = "2";
-            } else if (installment_Type[i] == "Yearly") {
-                document.getElementById(id).selectedIndex = "3";
-            } else if (installment_Type[i] == "Quarterly") {
-                document.getElementById(id).selectedIndex = "4";
-            }
-        }
     }
 
 }
@@ -3846,3 +3835,5 @@ function updateCarrierTable() {
         },
     });
 }
+
+

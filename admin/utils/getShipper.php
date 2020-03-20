@@ -2,13 +2,19 @@
 session_start();
 $helper = "helper";
 require "../../database/connection.php";
-$show = $db->shipper->find(['companyID' => $_SESSION['companyId']]);
+$show =  $db->shipper->aggregate([
+    ['$match'=>['companyID'=>$_SESSION['companyId']]],
+    ['$unwind'=>'$shipper'],
+    ['$match'=>['shipper.shipperStatus'=>"Active"]]
+]);
 $no = 0;
 $table = "";
 $list  = "";
 foreach ($show as $row) {
-    $show1 = $row['shipper'];
-    foreach ($show1 as $row1) {
+    $s = 0;
+    $shipper[$s] = $row['shipper'];
+    $s++;
+    foreach ($shipper as $row1) {
         $id = $row1['_id'];
         $shipperName = $row1['shipperName'];
         $shipperAddress = $row1['shipperAddress'];
@@ -125,5 +131,5 @@ foreach ($show as $row) {
     }
 }
 
-echo $total."^".$list;
+echo $table."^".$list;
 
