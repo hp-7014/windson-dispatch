@@ -808,9 +808,11 @@
        /**
         * @param mixed $customer_email
         */
-       public function setCustomerEmail($customer_email): void
+       public function setCustomerEmail($customer_email,$emailcustomer2,$emailcustomer3): void
        {
-           $this->customer_email = $customer_email;
+           $this->customer_email = array();
+           $this->customer_email[] = array("CustomerEmail"=>$customer_email,"emailcustomer2"=>$emailcustomer2,"emailcustomer3"=>$emailcustomer3);
+
        }
    
        /**
