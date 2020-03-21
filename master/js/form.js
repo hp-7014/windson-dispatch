@@ -26,6 +26,7 @@ function updatePaymentTermTable() {
     var payment = document.getElementById('paymentterms');
     var paymentBody = document.getElementById('paymentTermsBody');
     var paymentlist = document.getElementById('paymentlist');
+    var browsers = document.getElementById('browsers');
     $.ajax({
         url: 'master/utils/getPaymentTerms.php',
         type: 'POST',
@@ -40,6 +41,9 @@ function updatePaymentTermTable() {
             }
             if (paymentlist != null) {
                 paymentlist.innerHTML = res[1];
+            }
+            if (browsers != null) {
+                browsers.innerHTML = res[1];
             }
         },
     });

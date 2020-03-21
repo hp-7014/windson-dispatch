@@ -16,6 +16,47 @@ $(document).on('click', '.addShipper', function () {
     });
 });
 
+// edit driver detail
+function editDriver(id) {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.driverEdit-container').load('./admin/driver_edit_modal.php?id='+id, function (result) {
+                $('#edit_Driver').modal({show: true});
+            });
+
+            setTimeout(function () {
+                getDriverValues(id);
+            }, 300);
+        }
+    });
+}
+
+// edit customer detail
+function editCustomer(id) {
+    alert(id);
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.customer-container').load('./admin/customer_edit_modal.php?id='+id, function (result) {
+                $('#edit_customer').modal({show: true});
+            });
+        }
+    });
+}
+
+// edit External Carrier detail
+function editExternalCarrier(id) {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.carrier-container').load('./admin/external_edit_modal.php?id='+id, function (result) {
+                $('#edit_External').modal({show: true});
+            });
+        }
+    });
+}
+
 $(document).on('click', '#Add_Office', function () {
     $.ajax({
         type: 'POST',
@@ -75,6 +116,9 @@ $(document).on('click', '.addCustomer', function () {
         success: function (data) {
             $('.modal-container').load('./admin/customer_modal.php', function (result) {
                 $('#customer').modal({show: true});
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                });
             });
         }
     });
@@ -150,6 +194,9 @@ $(document).on('click', '.ADDcompany', function () {
         success: function (data) {
             $('.modal-container').load('./master/add_company.php', function (result) {
                 $('#company_modal').modal({show: true});
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                });
             });
         }
     });
@@ -160,13 +207,16 @@ $(document).on('click', '#AddCompany', function () {
         success: function (data) {
             $('.company-container').load('./master/add_company_sub.php', function (result) {
                 $('#add_company').modal({show: true});
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                });
             });
         }
     });
 });
 $(document).on('click', '#AddCurrency', function () {
 
-     $.ajax({
+    $.ajax({
         type: 'POST',
         success: function (data) {
 
@@ -183,6 +233,9 @@ $(document).on('click', '#AddCustomer', function () {
         success: function (data) {
             $('.customer-container').load('./admin/customer_modal_sub.php', function (result) {
                 $('#add_customer').modal({show: true});
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                });
             });
         }
     });
@@ -195,6 +248,9 @@ $(document).on('click', '#AddCarrier', function () {
         success: function (data) {
             $('.carrier-container').load('./admin/external_carrier_modal_sub.php', function (result) {
                 $('#add_External').modal({show: true});
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                });
             });
         }
     });
@@ -205,95 +261,98 @@ $(document).on('click', '#AddDriver', function () {
         success: function (data) {
             $('.driver-container').load('./admin/driver_modal_sub.php', function (result) {
                 $('#add_Driver').modal({show: true});
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                });
             });
         }
     });
 });
 
-    $(document).on('click', '#AddOwnerOperator', function () {
-        $.ajax({
-            type: 'POST',
-            success: function (data) {
-                $('.owner-container').load('./admin/owner_operator_modal_sub.php', function (result) {
-                    $('#Owner_operator').modal({show: true});
-                });
-            }
-        });
+$(document).on('click', '#AddOwnerOperator', function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.owner-container').load('./admin/owner_operator_modal_sub.php', function (result) {
+                $('#Owner_operator').modal({show: true});
+            });
+        }
     });
-    $(document).on('click', '#AddTruck', function () {
-        $.ajax({
-            type: 'POST',
-            success: function (data) {
-                $('.truck-container').load('./admin/add_truck_modal_sub.php', function (result) {
-                    $('#add_Truck').modal({show: true});
-                });
-            }
-        });
+});
+$(document).on('click', '#AddTruck', function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.truck-container').load('./admin/add_truck_modal_sub.php', function (result) {
+                $('#add_Truck').modal({show: true});
+            });
+        }
     });
-    $(document).on('click', '#AddTrailer', function () {
-        $.ajax({
-            type: 'POST',
-            success: function (data) {
-                $('.trailer-container').load('./admin/add_trailer_modal_sub.php', function (result) {
-                    $('#add_Trailer').modal({show: true});
-                });
-            }
-        });
+});
+$(document).on('click', '#AddTrailer', function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.trailer-container').load('./admin/add_trailer_modal_sub.php', function (result) {
+                $('#add_Trailer').modal({show: true});
+            });
+        }
     });
+});
 
-    $(document).on('click', '#AddConsignee', function () {
-        $.ajax({
-            type: 'POST',
-            success: function (data) {
-                $('.consignee-container').load('./admin/consignee_modal_sub.php', function (result) {
-                    $('#add_consignee').modal({show: true});
-                });
-            }
-        });
+$(document).on('click', '#AddConsignee', function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.consignee-container').load('./admin/consignee_modal_sub.php', function (result) {
+                $('#add_consignee').modal({show: true});
+            });
+        }
     });
-    // $(document).on('click', '#AddActiveLoad', function () {
-    //     $.ajax({
-    //         type: 'POST',
-    //         success: function (data) {
-    //           //$('#mainbody').toggleClass('modal-open');
-    //            //$("#mainbody").addClass("modal-open");
-    //            $('#active_new').bind('mouseenter touchstart', function(e) {
-    //                 var current = $(window).scrollTop();
-    //                 $(window).scroll(function(event) {
-    //                     $(window).scrollTop(current);
-    //                 });
-    //             });
-    //             $('#active_new').bind('mouseleave touchend', function(e) {
-    //                 $(window).off('scroll');
-    //             });
-    //             $('.activeload-container').load('active_load.php', function (result) {
-    //                 $('#active_new').modal({show: true});
-    //             });
-    //         }
-    //     });
-    // });
+});
+// $(document).on('click', '#AddActiveLoad', function () {
+//     $.ajax({
+//         type: 'POST',
+//         success: function (data) {
+//           //$('#mainbody').toggleClass('modal-open');
+//            //$("#mainbody").addClass("modal-open");
+//            $('#active_new').bind('mouseenter touchstart', function(e) {
+//                 var current = $(window).scrollTop();
+//                 $(window).scroll(function(event) {
+//                     $(window).scrollTop(current);
+//                 });
+//             });
+//             $('#active_new').bind('mouseleave touchend', function(e) {
+//                 $(window).off('scroll');
+//             });
+//             $('.activeload-container').load('active_load.php', function (result) {
+//                 $('#active_new').modal({show: true});
+//             });
+//         }
+//     });
+// });
 
-    $(document).on('click', '#AddFactoring', function () {
+$(document).on('click', '#AddFactoring', function () {
 
-        $.ajax({
-            type: 'POST',
-            success: function (data) {
-                $('.factoring-container').load('./admin/add_factoring_modal_sub.php', function (result) {
-                    $('#add_factoring').modal({show: true});
-                });
-            }
-        });
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.factoring-container').load('./admin/add_factoring_modal_sub.php', function (result) {
+                $('#add_factoring').modal({show: true});
+            });
+        }
     });
-    $(document).on('click', '#AddCustomBroker', function () {
-        $.ajax({
-            type: 'POST',
-            success: function (data) {
-                $('.custombroker-container').load('./admin/add_custom_broker_sub.php', function (result) {
-                    $('#Add_Customs_Broker').modal({show: true});
-                });
-            }
-        });
+});
+$(document).on('click', '#AddCustomBroker', function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.custombroker-container').load('./admin/add_custom_broker_sub.php', function (result) {
+                $('#Add_Customs_Broker').modal({show: true});
+            });
+        }
     });
+});
 $(document).on('click', '#AddOwnerOperator', function () {
     $.ajax({
         type: 'POST',
@@ -331,20 +390,23 @@ $(document).on('click', '#driverpaybutton', function () {
             $('.owner-container').load('./admin/driver_pay_info.php', function (result) {
                 $('#driverpayinfo').modal({show: true});
             });
-            setTimeout(function(){  addPayFields(); }, 300);
+            setTimeout(function () {
+                addPayFields();
+            }, 300);
         }
     });
 });
 
 $(document).on('click', '#recurrenceplus', function () {
-
     $.ajax({
         type: 'POST',
         success: function (data) {
             $('.owner-container').load('./admin/addRecurrence.php', function (result) {
                 $('#addRecurrence').modal({show: true});
             });
-            setTimeout(function(){  addRecurrenceFields(); }, 300);
+            setTimeout(function () {
+                addRecurrenceFields();
+            }, 300);
         }
     });
 });
@@ -356,7 +418,9 @@ $(document).on('click', '#recurrenceminus', function () {
             $('.owner-container').load('./admin/substractRecurrence.php', function (result) {
                 $('#substractRecurrence').modal({show: true});
             });
-            setTimeout(function(){  Recurrence_Fields(); }, 300);
+            setTimeout(function () {
+                Recurrence_Fields();
+            }, 300);
         }
     });
 });
@@ -483,7 +547,9 @@ $(document).on('click', '#creditCard', function () {
     });
 });
 
-
+$(document).on('click', '.modaldriverEdit', function () {
+    $('#edit_Driver').modal('hide');
+});
 $(document).on('click', '.modalCreditcard', function () {
     $('#addCreditcard').modal('hide');
 });
@@ -523,9 +589,9 @@ $(document).on('click', '.modalTruckType', function () {
 $(document).on('click', '.modalSubCredit', function () {
     $('#add_sub_credit').modal('hide');
 });
-    $(document).on('click', '.modalCurrrency', function () {
-        $('#currencysub').modal('hide');
-    });
+$(document).on('click', '.modalCurrrency', function () {
+    $('#currencysub').modal('hide');
+});
 
     $(document).on('click', '.modalCompany', function () {
         $('#add_company').modal('hide');
@@ -555,52 +621,51 @@ $(document).on('click', '.modalCarrier', function () {
     $('#add_External').modal('hide');
 });
 
-    $(document).on('click', '.modalDriver', function () {
-        $('#add_Driver').modal('hide');
-    });
-    $(document).on('click', '.modalOwner', function () {
-        $('#Owner_operator').modal('hide');
-    });
-    $(document).on('click', '.modalTruck', function () {
-        $('#add_Truck').modal('hide');
-    });
-    $(document).on('click', '.modalTrailer', function () {
-        $('#add_Trailer').modal('hide');
-    });
-    $(document).on('click', '.modalShipper', function () {
-        $('#add_shipper').modal('hide');
-    });
-    $(document).on('click', '.modalConsignee', function () {
-        $('#add_consignee').modal('hide');
-    });
-    $(document).on('click', '.modalOther', function () {
-        $('#otherCharges').modal('hide');
-    });
-    $(document).on('click', '.modalFactoring', function () {
-        $('#add_factoring').modal('hide');
-    });
-    $(document).on('click', '.modalBroker', function () {
-        $('#Add_Customs_Broker').modal('hide');
-    });
+$(document).on('click', '.modalDriver', function () {
+    $('#add_Driver').modal('hide');
+});
+$(document).on('click', '.modalOwner', function () {
+    $('#Owner_operator').modal('hide');
+});
+$(document).on('click', '.modalTruck', function () {
+    $('#add_Truck').modal('hide');
+});
+$(document).on('click', '.modalTrailer', function () {
+    $('#add_Trailer').modal('hide');
+});
+$(document).on('click', '.modalShipper', function () {
+    $('#add_shipper').modal('hide');
+});
+$(document).on('click', '.modalConsignee', function () {
+    $('#add_consignee').modal('hide');
+});
+$(document).on('click', '.modalOther', function () {
+    $('#otherCharges').modal('hide');
+});
+$(document).on('click', '.modalFactoring', function () {
+    $('#add_factoring').modal('hide');
+});
+$(document).on('click', '.modalBroker', function () {
+    $('#Add_Customs_Broker').modal('hide');
+});
 
-    $(document).on('click', '.modalCurrency', function () {
-        $('#currency').modal('hide');
-    });
+$(document).on('click', '.modalCurrency', function () {
+    $('#currency').modal('hide');
+});
 
-    $(document).on('click', '.modalOtherCarrier', function () {
-        $('#carrierOtherCharges').modal('hide');
-    });
+$(document).on('click', '.modalOtherCarrier', function () {
+    $('#carrierOtherCharges').modal('hide');
+});
 
-    $(document).on('click', '.modalDriverPay', function () {
-        $('#driverpayinfo').modal('hide');
-    });
-    $(document).on('click', '.modalrecurrenceadd', function () {
-        $('#addRecurrence').modal('hide');
-    });
-    $(document).on('click', '.modalrecurrencesubstarct', function () {
-        $('#substractRecurrence').modal('hide');
-    });
-
+$(document).on('click', '.modalDriverPay', function () {
+    $('#driverpayinfo').modal('hide');
+});
+$(document).on('click', '.modalrecurrenceadd', function () {
+    $('#addRecurrence').modal('hide');
+});
+$(document).on('click', '.modalrecurrencesubstarct', function () {
+    $('#substractRecurrence').modal('hide');
+});
 
 
 $(document).on('click', '.modalDriver', function () {
@@ -629,6 +694,11 @@ $(document).on('click', '.modalBank', function () {
 });
 $(document).on('click', '.modalCreditCard', function () {
     $('#Add_CreditCard').modal('hide');
+});
+
+// edit modal close
+$(document).on('click', '.modalCustomerEdit', function () {
+    $('#edit_customer').modal('hide');
 });
 
 $(document).on('click', '.add_loadType', function () {

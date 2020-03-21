@@ -420,7 +420,6 @@ class TrailerAdd implements IteratorAggregate
 
 
     //Insert Trailer Function
-
     public function insert($trailer,$db,$helper)
        {
            $collection = $db->trailer_admin_add;

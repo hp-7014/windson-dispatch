@@ -1,15 +1,48 @@
 <?php // Code to create connection and select database & collection
 
 require 'vendor/autoload.php';
-session_start();
+// session_start();
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
+
+//db.mycollection.update(
+//    {'_id': ObjectId("576b63d49d20504c1360f688")},
+//    { $pull: { "books" : { "title": "abc" } } },
+//false,
+//true
+//);
+
+//$collection = $db->consignee;
+//$db->consignee->updateOne(['companyID' => (int)$_SESSION['compnayId']],
+//    ['$pull' => ['consignee' => ['_id' => (int)getId()]]]
+//);
+
+//$show1 = $collection->aggregate([
+//    ['$lookup' => [
+//        'from' => 'currency_add',
+//        'localField' => 'companyID',
+//        'foreignField' => 'companyID',
+//        'as' => 'DriverDetail'
+//    ]],
+//    ['$match' => ['companyID' => 1]],
+//    ['$unwind' => '$driver'],
+//    ['$match' => ['driver._id' => 0]],
+//]);
+//foreach ($show1 as $row) {
+//    $id = $row['_id'];
+//    $driver[$id] = $row['driver'];
+//    $currency = $row['currency'];
+//    foreach ($driver as $row2) {
+//
+//    }
+//}
+
 // $collection = $db->customs_broker;
 // $show1 = $collection->aggregate([
 //    ['$match'=>['companyID'=>1]],
+//    ['$project'=>['companyID'=>1,'custom_b'=>['$slice'=>[['$custom_b'],0,3]]]],
 //    ['$unwind'=>'$custom_b'],
-//    ['$match'=>['custom_b.delete_status'=>"0"]],
-//    ['$project'=>['companyID'=>1,'custom_b'=>['$slice'=>[['$custom_b'],3,3]]]]
+//    ['$match'=>['custom_b.delete_status'=>"0"]]
 // ]);
 // foreach ($show1 as $row) {
 // $trailer1 = $row['custom_b'];
@@ -140,8 +173,6 @@ $db = $connection->WindsonDispatch;
 // }
 
 
-
-
 //$data = $collection->aggregate([
 //    ['$lookup' => [
 //        'from' => 'consignee',
@@ -240,7 +271,7 @@ $db = $connection->WindsonDispatch;
 //$collection->updateOne(['_id'=>2,'details._id'=>'4'],['$set'=>['details.$.thali_type'=>'fixed']]);
 // $start = (int)$_REQUEST['start'];
 // $end = (int)$_REQUEST['limit'];
- 
+
 // $cursor = $db->customs_broker->find(array('companyID'=>$_SESSION['companyId']),array('projection'=>array('custom_b'=>array('$slice'=>[$start,$end]))));
 
 
@@ -250,7 +281,7 @@ $db = $connection->WindsonDispatch;
 //             echo $value1['brokerName'];
 //             echo "<br>";
 //         }
-        
+
 //     }
 
 // $cursor = $db->owner_operator_driver->aggregate([
@@ -261,7 +292,7 @@ $db = $connection->WindsonDispatch;
 //             'foreignField'=> "companyID",
 //             'as' => "owner"        
 //      ]
-    
+
 //     ]]);
 // db.owner_operator_driver.aggregate([
 //    {
@@ -281,45 +312,45 @@ $db = $connection->WindsonDispatch;
 // ])
 
 
-$collection = $db->owner_operator_driver;
-$show1 = $collection->aggregate([
-    ['$lookup' => [
-        'from' => 'driver',
-        'localField' => 'companyID',
-        'foreignField' => 'companyID',
-        'as' => 'owner'
-    ]],
-           ['$match'=>['companyID'=>1]],
-           ['$unwind'=>'$ownerOperator'],
-           ['$match'=>['ownerOperator._id'=>1]],
-           ['$unwind'=>'$owner'],
-           ['$unwind'=>'$owner.driver'],
-           ['$match'=>['owner.driver._id'=>1]]
-    ]);
+// $collection = $db->owner_operator_driver;
+// $show1 = $collection->aggregate([
+//     ['$lookup' => [
+//         'from' => 'driver',
+//         'localField' => 'companyID',
+//         'foreignField' => 'companyID',
+//         'as' => 'owner'
+//     ]],
+//            ['$match'=>['companyID'=>1]],
+//            ['$unwind'=>'$ownerOperator'],
+//            ['$match'=>['ownerOperator._id'=>1]],
+//            ['$unwind'=>'$owner'],
+//            ['$unwind'=>'$owner.driver'],
+//            ['$match'=>['owner.driver._id'=>1]]
+//     ]);
 
-    foreach ($show1 as $row) {
-    $ownerOperator = array();
-    $owner = array();
-    $c = 0;
-    $ownerOperator[$c] = $row['ownerOperator'];
-    $c++;
-    $a = 0;
-    $owner[$a] = $row['owner'];
-    $a++;
-    foreach ($ownerOperator as $row1) {
-            $driverId = $row1['driverId'];
-            echo $driverId."<br>";
-    }
-    foreach ($owner as $row2) {
-        $b = 0;
-        $driver[$b] = $row2['driver'];
-        $b++;
-        foreach ($driver as $row3) {
-            $driverName = $row3['_id'];
-            echo $driverName; 
-        }
-    }
-    }
+//     foreach ($show1 as $row) {
+//     $ownerOperator = array();
+//     $owner = array();
+//     $c = 0;
+//     $ownerOperator[$c] = $row['ownerOperator'];
+//     $c++;
+//     $a = 0;
+//     $owner[$a] = $row['owner'];
+//     $a++;
+//     foreach ($ownerOperator as $row1) {
+//             $driverId = $row1['driverId'];
+//             echo $driverId."<br>";
+//     }
+//     foreach ($owner as $row2) {
+//         $b = 0;
+//         $driver[$b] = $row2['driver'];
+//         $b++;
+//         foreach ($driver as $row3) {
+//             $driverName = $row3['_id'];
+//             echo $driverName; 
+//         }
+//     }
+//     }
 
 // $collection = $db->shipper;
 // $show1 = $collection->aggregate([
@@ -373,6 +404,17 @@ $show1 = $collection->aggregate([
 //            echo $sl['loadType'];
 //         }
 //      } 
+
+// $n = 5;
+// for ($i= 1; $i<=$n; $i++) {
+//     for ($j=$n-$i; $j>=1; $j--) {
+//         echo " ";
+//     }
+//     for ($k=1; $k<=2*$i-1; $k++) {
+//         echo "<br>";
+//     }
+// }
+
 
 // $broker = $db->carrier->find(array('companyID'=>$_SESSION['companyId']),array('projection'=>array('carrier'=>array('$match'=>['_id'=>0]))));
 // $show1 = $db->carrier->aggregate([

@@ -1112,12 +1112,8 @@ function val_hazmatExpiry(val) {
         return true;
     }
 }
-
-function val_rate(val){
-    if (val == '0') {
-        swal('<h5>Please Write Driver Rate !!!</h5>','','question');
-        return false;
-    } else {
+function val_rate(val) {
+    if (val != '') {
         return true;
     }
 }
@@ -1129,6 +1125,19 @@ function val_currency(val){
         return false;
     } else {
         return true;
+    }
+}
+
+function val_driverFlat(val) {
+    if (val != '') {
+        return true;
+    } else {
+        if (isNaN(val)) {
+            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
@@ -1177,12 +1186,7 @@ function val_pickupAfter(val){
     if (val == '') {
         return true;
     } else {
-        if (isNaN(val)) {
-            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
-            return false;
-        } else {
-            return true;
-        }
+        return true;
     }
 }
 
@@ -1569,6 +1573,7 @@ function val_carrTaxID(val) {
 function val_carrMC(val) {
     if (val == '') {
         swal('Please Enter Valid MC No');
+        return false;
         return false;
     } else {
         return true;

@@ -173,6 +173,7 @@ class Trailer implements IteratorAggregate
             ['$pull' => ['trailer' => ['_id' => (int)$trailer->getId()]]]
         );
     }
+    
 
     //Export
     public function exportTrailer($db){

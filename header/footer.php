@@ -56,6 +56,12 @@
 
     }
 
+    // if counter != 0 than call  this
+    function deleteCurrencyError(){
+        swal('<h5> Unable to delete as this entry has been used somewhere else !!!</h5>','','warning');
+        return false;
+    }
+
     // random string function for live data
     function randomString() {
         var result = '';

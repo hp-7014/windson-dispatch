@@ -56,83 +56,74 @@ require "../database/connection.php";
                                     $no = 1;
                                     $collection = $db->truckadd;
                                     $show1 = $collection->aggregate([
-                                        ['$match'=>['companyID'=>$_SESSION['companyId']]],
                                         ['$lookup' => [
                                             'from' => 'truck_add',
                                             'localField' => 'companyID',
                                             'foreignField' => 'companyID',
                                             'as' => 'truckdetails'
-                                        ]
-                                       
-                                     ]
+                                        ]],
+                                        ['$match'=>['companyID'=>1]]
                                      ]);
-                                     
                                      foreach ($show1 as $row) {
-                                         $companyID = $row['companyID'];
-                                         $truckNumber = $row['truck'];
+                                         $truck = $row['truck'];
                                          $truckdetails = $row['truckdetails'];
-                                         $truckTypes = array();
-                                         foreach ($truckdetails as $row2) {
-                                                     $truckdetails = $row2['truck'];
-                                                     $k = 0;
-                                                     foreach ($truckdetails as $row3) {
-                                                         $id = $row3['_id'];
-                                                         $truckTypes[$k] = $row3['truckType'];
-                                                         $k++;
-                                                     }    
-                                             }
-                                     
-                                         $j = 0;
-                                                 foreach ($truckNumber as $row1) {
-                                                     $truckNumber = $row1['truckNumber'];
-                                                     $truckType = $truckTypes[$row1['truckType']];
-                                                     $j++;
-                                                     $licensePlate = $row1['licensePlate'];
-                                                     if(empty($row1['plateExpiry'])) {
-                                                         $plateExpiry = "";
-                                                     } else {
-                                                         $plateExpiry = date('d/m/Y',$row1['plateExpiry']);
-                                                     }
-                                                     if(empty($row1['inspectionExpiry'])) {
-                                                         $inspectionExpiry = "";
-                                                     } else {
-                                                         $inspectionExpiry = date('d/m/Y',$row1['inspectionExpiry']);
-                                                     }
-                                                     $status = $row1['status'];
-                                                     $ownership = $row1['ownership'];
-                                                     $mileage = $row1['mileage'];
-                                                     $axies = $row1['axies'];
-                                                     $year = $row1['year'];
-                                                     $fuelType = $row1['fuelType'];
-                                                     if(empty($row1['startDate'])) {
-                                                         $startDate = "";
-                                                     } else {
-                                                         $startDate = date('d/m/Y',$row1['startDate']);
-                                                     }
-                                                     if(empty($row1['deactivationDate'])){
-                                                         $deactivationDate = "";
-                                                     }else {
-                                                         $deactivationDate = date('d/m/Y',$row1['deactivationDate']);
-                                                     }
-                                                     $ifta = $row1['ifta'];
-                                                     $registeredState = $row1['registeredState'];
-                                                     $insurancePolicy = $row1['insurancePolicy'];
-                                                     $grossWeight = $row1['grossWeight'];
-                                                     $vin = $row1['vin'];
-                                                     if(empty($row1['dotexpiryDate'])){
-                                                         $dotexpiryDate = "";
-                                                     }else {
-                                                         $dotexpiryDate = date($row1['dotexpiryDate']);
-                                                     }
-                                                     $transponder = $row1['transponder'];
-                                                     $internalNotes = $row1['internalNotes'];
+                                         foreach ($truckdetails as $row3) {
+                                                $truckmaster = $row3['truck'];
+                                                $truck_Type = array();
+                                                foreach ($truckmaster as $row4) {
+                                                    $trucktypeid = $row4['_id'];
+                                                    $truck_Type[$trucktypeid] = $row4['truckType'];
+                                                }
+                                         }
+                                         foreach ($truck as $row1) {
+                                               $id = $row1['_id'];
+                                               $truckNumber = $row1['truckNumber'];
+                                               $truckType = $truck_Type[$row1['truckType']]."<br>";
+                                               $licensePlate = $row1['licensePlate'];
+                                               if(empty($row1['plateExpiry'])) {
+                                                $plateExpiry = "";
+                                                } else {
+                                                    $plateExpiry = date('d/m/Y',$row1['plateExpiry']);
+                                                }
+                                                if(empty($row1['inspectionExpiry'])) {
+                                                 $inspectionExpiry = "";
+                                                  } else {
+                                                    $inspectionExpiry = date('d/m/Y',$row1['inspectionExpiry']);
+                                                }
+                                               $status = $row1['status'];
+                                               $ownership = $row1['ownership'];
+                                               $mileage = $row1['mileage'];
+                                               $axies = $row1['axies'];
+                                               $year = $row1['year'];
+                                               $fuelType = $row1['fuelType'];
+                                               if(empty($row1['startDate'])) {
+                                                $startDate = "";
+                                                } else {
+                                                    $startDate = date('d/m/Y',$row1['startDate']);
+                                                }
+                                                if(empty($row1['deactivationDate'])){
+                                                    $deactivationDate = "";
+                                                }else {
+                                                    $deactivationDate = date('d/m/Y',$row1['deactivationDate']);
+                                                }
+                                               $ifta = $row1['ifta'];
+                                               $registeredState = $row1['registeredState'];
+                                               $insurancePolicy = $row1['insurancePolicy'];
+                                               $grossWeight = $row1['grossWeight'];
+                                               $vin = $row1['vin'];
+                                               if(empty($row1['dotexpiryDate'])){
+                                                $dotexpiryDate = "";
+                                                }else {
+                                                    $dotexpiryDate = date('d/m/Y',$row1['dotexpiryDate']);
+                                                }
+                                               $transponder = $row1['transponder'];
+                                               $internalNotes = $row1['internalNotes'];
                                             $limit = 4;
                                             $total_records = $row1->count();
                                             $total_pages = ceil($total_records / $limit);
-                                            
                                             ?>
                                             <tr>
-                                                <th><?php echo $no++; ?></th>
+                                            <th><?php echo $no++; ?></th>
                                                 <td>
                                                     <a href="#" id="truckNumber<?php echo $row1['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'truckNumber');" class="text-overflow"><?php echo $truckNumber; ?></a>
                                                     <button type="button" id="truckNumber<?php echo $row1['_id']; ?>" onclick="updateTruckAdd('truckNumber',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>

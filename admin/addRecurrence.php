@@ -35,13 +35,8 @@ require "../database/connection.php";
                                    list="fixpaycat"/>
                         </td>
                         <td width="150">
-                            <select name="installmentType" id="installmentType" class="form-control">
-                                <option value="">Select type</option>
-                                <option value="Weekly">Weekly</option>
-                                <option value="Monthly">Monthly</option>
-                                <option value="yearly">Yearly</option>
-                                <option value="Quarterly">Quarterly</option>
-                            </select>
+                            <input class="form-control" id="installmentType" name="installmentType"
+                                   list="instatype1"/>
                         </td>
                         <td width="100">
                             <input name="amount" type="text" id="amount" class="form-control"/>
@@ -63,7 +58,6 @@ require "../database/connection.php";
                             <button type="button" class="btn btn-danger"><span aria-hidden="true">&times;</span>
                             </button>
                         </td>
-                        </tbody>
                         <tfoot>
                         <tr>
                             <th colspan="12" class="tableFooter">
@@ -97,6 +91,12 @@ require "../database/connection.php";
                     }
                 } ?>
             </datalist>
+            <datalist id="instatype1">
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly"></option>
+                    <option value="yearly"></option>
+                    <option value="Quarterly"></option>
+            </datalist>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -128,12 +128,12 @@ require "../database/connection.php";
         startDate.splice(index, 1);
         internalNote.splice(index, 1);
     }
-
+    
     function GetDynamicRecurrence(value) {
         return '<td width="150">'
             + '<input class="form-control" value = "' + value + '" id="installmentCategory" name="installmentCategory" list="fixpaycat"/></td>'
             + '<td width="150">'
-            + '<select name="installmentType" id="installmentType" value = "' + value + '" class="form-control"><option value=""> Select Type</option><option value="Weekly"> Weekly</option><option value="Monthly"> Monthly</option><option value="Yearly"> Yearly</option><option value="Quartely"> Quartely</option></select></td>'
+            + '<input class="form-control" value = "' + value + '" id="installmentType" name="installmentType" list="instatype1"/></td>'
             + '<td width="100">'
             + '<input name="amount" id="amount" type="text" value = "' + value + '" class="form-control" /></td>'
             + '<td width="100">'

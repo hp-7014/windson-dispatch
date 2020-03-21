@@ -983,8 +983,8 @@ body.swal2-no-backdrop .swal2-shown {
         -webkit-transform: rotate(-45deg);
                 transform: rotate(-45deg); }
   .swal2-icon.swal2-warning {
-    border-color: #facea8;
-    color: #f8bb86; }
+    border-color: #fcbe2d;
+    color: #fcbe2d; }
   .swal2-icon.swal2-info {
     border-color: #9de0f6;
     color: #3fc3ee; }

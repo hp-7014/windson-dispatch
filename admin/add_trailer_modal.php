@@ -51,121 +51,121 @@ require "../database/connection.php";
                                 <?php
                                 $i = 1;
                                 $collection = $db->trailer_admin_add;
-                                $show1 = $collection->aggregate([
-                                    ['$match'=>['companyID'=>$_SESSION['companyId']]],
-                                    ['$lookup' => [
-                                        'from' => 'trailer_add',
-                                        'localField' => 'companyID',
-                                        'foreignField' => 'companyID',
-                                        'as' => 'trailerdetails'
-                                    ]
-                                ]]);
-                                
-                                foreach ($show1 as $row) {
-                                    $trailerNumber1 = $row['trailer'];
-                                    $trailerdetails = $row['trailerdetails'];
-                                    $trailerType = array();
-                                    foreach ($trailerdetails as $row2) {
-                                                $trailerdetails1 = $row2['trailer'];
-                                                $k = 0;
-                                                foreach ($trailerdetails1 as $row3) {
-                                                    $id = $row3['_id'];
-                                                    $trailerType[$k] = $row3['trailerType'];
-                                                    $k++;
-                                                }    
-                                        }
-                                
-                                    $j = 0;
-                                            foreach ($trailerNumber1 as $row1) {
-                                                $trailerNumber = $row1['trailerNumber'];
-                                                $trailerType1 = $trailerType[$row1['trailerType']];
-                                                $j++;
-                                                $licenseType = $row1['licenseType'];
-                                                if(empty($row1['plateExpiry'])) {
-                                                    $plateExpiry = "";
-                                                } else {
-                                                    $plateExpiry = date('d/m/Y',$row1['plateExpiry']);
+                                    $show1 = $collection->aggregate([
+                                        ['$lookup' => [
+                                            'from' => 'trailer_add',
+                                            'localField' => 'companyID', 
+                                            'foreignField' => 'companyID',
+                                            'as' => 'trailerdetails'
+                                        ]],
+                                        ['$match'=>['companyID'=>1]]
+                                     ]);
+                                    
+                                     foreach ($show1 as $row) {
+                                            $trailer = $row['trailer'];
+                                            $trailerdetails = $row['trailerdetails'];
+                                            foreach ($trailerdetails as $row2) {
+                                                $trailermaster = $row2['trailer'];
+                                                $trailer_type = array();
+                                                foreach ($trailermaster as $row3) {
+                                                    $trailerid = $row3['_id'];
+                                                    $trailer_type[$trailerid] = $row3['trailerType'];
                                                 }
-                                                if(empty($row1['inspectionExpiration'])) {
-                                                    $inspectionExpiration = "";
-                                                } else {
-                                                    $inspectionExpiration = date('d/m/Y',$row1['inspectionExpiration']);
-                                                }
-                                                $status = $row1['status'];
-                                                $model = $row1['model'];
-                                                $year = $row1['year'];
-                                                $axies = $row1['axies'];
-                                                $registeredState = $row1['registeredState'];
-                                                $vin = $row1['vin'];
-                                                $dot = $row1['dot'];
-                                                if(empty($row1['activationDate'])) {
-                                                    $activationDate = "";
-                                                } else {
-                                                    $activationDate = date('d/m/Y',$row1['activationDate']);
-                                                }
-                                                $internalNotes = $row1['internalNotes'];
-                                                $limit = 4;
-                                                $total_records = $row1->count();
-                                                $total_pages = ceil($total_records / $limit);
-                                ?>
+                                            }
+                                            foreach ($trailer as $row4) {
+                                                    $id = $row4['_id'];
+                                                    $trailerNumber = $row4['trailerNumber'];
+                                                    $trailerType = $trailer_type[$row4['trailerType']];
+                                                    $licenseType = $row4['licenseType'];
+                                                    if(empty($row4['plateExpiry'])) {
+                                                        $plateExpiry = "";
+                                                    } else {
+                                                        $plateExpiry = date('d/m/Y',$row4['plateExpiry']);
+                                                    }
+                                                    if(empty($row4['inspectionExpiration'])) {
+                                                        $inspectionExpiration = "";
+                                                    } else {
+                                                        $inspectionExpiration = date('d/m/Y',$row4['inspectionExpiration']);
+                                                    }
+                                                    $status = $row4['status'];
+                                                    $model = $row4['model'];
+                                                    $year = $row4['year'];
+                                                    $axies = $row4['axies'];
+                                                    $registeredState = $row4['registeredState'];
+                                                    $vin = $row4['vin'];
+                                                    if(empty($row4['dot'])) {
+                                                        $dot = "";
+                                                    } else {
+                                                        $dot = date('d/m/Y',$row4['dot']);
+                                                    }
+                                                    if(empty($row4['activationDate'])) {
+                                                        $activationDate = "";
+                                                    } else {
+                                                        $activationDate = date('d/m/Y',$row4['activationDate']);
+                                                    }
+                                                    $internalNotes = $row4['internalNotes'];
+                                                    $limit = 4;
+                                                    $total_records = $row4->count();
+                                                    $total_pages = ceil($total_records / $limit);
+                                        ?>
 
                                 <tr>
-                                    <th><?php echo $i++ ?></th>
+                                <th><?php echo $i++ ?></th>
                                     <td>
-                                        <a href="#" id="1trailerNumber<?php echo $row1['_id']; ?>" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'trailerNumber');" class="text-overflow"><?php echo  $trailerNumber; ?></a>
-                                        <button type="button" id="trailerNumber<?php echo $row1['_id']; ?>" onclick="updateTrailerAdd('trailerNumber',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <a href="#" id="trailerNumber<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'trailerNumber');" class="text-overflow"><?php echo  $trailerNumber; ?></a>
+                                        <button type="button" id="trailerNumber<?php echo $id; ?>" onclick="updateTrailerAdd('trailerNumber',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                     </td>
                                     <td>
-                                        <a href="#" id="1trailerType<?php echo $row1['_id']; ?>" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'trailerType');" class="text-overflow"><?php echo  $trailerType1; ?></a>
-                                        <button type="button" id="trailerType<?php echo $row1['_id']; ?>" onclick="updateTrailerAdd('trailerType',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <a href="#" id="trailerType<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'trailerType');" class="text-overflow"><?php echo  $trailerType; ?></a>
+                                        <button type="button" id="trailerType<?php echo $id; ?>" onclick="updateTrailerAdd('trailerType',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                     </td>
                                     <td>
-                                        <a href="#" id="1licenseType<?php echo $row1['_id']; ?>" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'licenseType');" class="text-overflow"><?php echo  $licenseType; ?></a>
-                                        <button type="button" id="licenseType<?php echo $row1['_id']; ?>" onclick="updateTrailerAdd('licenseType',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <a href="#" id="licenseType<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'licenseType');" class="text-overflow"><?php echo  $licenseType; ?></a>
+                                        <button type="button" id="licenseType<?php echo $id; ?>" onclick="updateTrailerAdd('licenseType',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                     </td>
                                     <td>
-                                        <a href="#" id="1plateExpiry<?php echo $row1['_id']; ?>" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'plateExpiry');" class="text-overflow"><?php echo  $plateExpiry; ?></a>
-                                        <button type="button" id="plateExpiry<?php echo $row1['_id']; ?>" onclick="updateTrailerAdd('plateExpiry',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <a href="#" id="plateExpiry<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'plateExpiry');" class="text-overflow"><?php echo  $plateExpiry; ?></a>
+                                        <button type="button" id="plateExpiry<?php echo $id; ?>" onclick="updateTrailerAdd('plateExpiry',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                     </td>
                                     <td>
-                                        <a href="#" id="1inspectionExpiration<?php echo $row1['_id']; ?>" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'inspectionExpiration');" class="text-overflow"><?php echo  $inspectionExpiration; ?></a>
-                                        <button type="button" id="inspectionExpiration<?php echo $row1['_id']; ?>" onclick="updateTrailerAdd('inspectionExpiration',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <a href="#" id="inspectionExpiration<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'inspectionExpiration');" class="text-overflow"><?php echo  $inspectionExpiration; ?></a>
+                                        <button type="button" id="inspectionExpiration<?php echo $id; ?>" onclick="updateTrailerAdd('inspectionExpiration',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                     </td>
                                     <td>
-                                        <a href="#" id="1status<?php echo $row1['_id']; ?>" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'status');" class="text-overflow"><?php echo  $status; ?></a>
-                                        <button type="button" id="status<?php echo $row1['_id']; ?>" onclick="updateTrailerAdd('status',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <a href="#" id="status<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'status');" class="text-overflow"><?php echo  $status; ?></a>
+                                        <button type="button" id="status<?php echo $id; ?>" onclick="updateTrailerAdd('status',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                     </td>
                                     <td>
-                                        <a href="#" id="1model<?php echo $row1['_id']; ?>" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'model');" class="text-overflow"><?php echo  $model; ?></a>
-                                        <button type="button" id="model<?php echo $row1['_id']; ?>" onclick="updateTrailerAdd('model',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <a href="#" id="model<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'model');" class="text-overflow"><?php echo  $model; ?></a>
+                                        <button type="button" id="model<?php echo $id; ?>" onclick="updateTrailerAdd('model',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                     </td>
                                     <td>
-                                        <a href="#" id="1year<?php echo $row1['_id']; ?>" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'year');" class="text-overflow"><?php echo  $year; ?></a>
-                                        <button type="button" id="year<?php echo $row1['_id']; ?>" onclick="updateTrailerAdd('year',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <a href="#" id="year<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'year');" class="text-overflow"><?php echo  $year; ?></a>
+                                        <button type="button" id="year<?php echo $id; ?>" onclick="updateTrailerAdd('year',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                     </td>
                                     <td>
-                                        <a href="#" id="1axies<?php echo $row1['_id']; ?>" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'axies');" class="text-overflow"><?php echo  $axies; ?></a>
-                                        <button type="button" id="axies<?php echo $row1['_id']; ?>" onclick="updateTrailerAdd('axies',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <a href="#" id="axies<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'axies');" class="text-overflow"><?php echo  $axies; ?></a>
+                                        <button type="button" id="axies<?php echo $id; ?>" onclick="updateTrailerAdd('axies',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                     </td>
                                     <td>
-                                        <a href="#" id="1registeredState<?php echo $row1['_id']; ?>" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'registeredState');" class="text-overflow"><?php echo  $registeredState; ?></a>
-                                        <button type="button" id="registeredState<?php echo $row1['_id']; ?>" onclick="updateTrailerAdd('registeredState',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <a href="#" id="registeredState<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'registeredState');" class="text-overflow"><?php echo  $registeredState; ?></a>
+                                        <button type="button" id="registeredState<?php echo $id; ?>" onclick="updateTrailerAdd('registeredState',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                     </td>
                                     <td>
-                                        <a href="#" id="1vin<?php echo $row1['_id']; ?>" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'vin');" class="text-overflow"><?php echo  $vin; ?></a>
-                                        <button type="button" id="vin<?php echo $row1['_id']; ?>" onclick="updateTrailerAdd('vin',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <a href="#" id="vin<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'vin');" class="text-overflow"><?php echo  $vin; ?></a>
+                                        <button type="button" id="vin<?php echo $id; ?>" onclick="updateTrailerAdd('vin',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                     </td>
                                     <td>
-                                        <a href="#" id="1dot<?php echo $row1['_id']; ?>" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'dot');" class="text-overflow"><?php echo  $dot; ?></a>
-                                        <button type="button" id="dot<?php echo $row1['_id']; ?>" onclick="updateTrailerAdd('dot',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <a href="#" id="dot<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'dot');" class="text-overflow"><?php echo  $dot; ?></a>
+                                        <button type="button" id="dot<?php echo $id; ?>" onclick="updateTrailerAdd('dot',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                     </td>
                                     <td>
-                                        <a href="#" id="1activationDate<?php echo $row1['_id']; ?>" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'activationDate');" class="text-overflow"><?php echo  $activationDate; ?></a>
-                                        <button type="button" id="activationDate<?php echo $row1['_id']; ?>" onclick="updateTrailerAdd('activationDate',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <a href="#" id="activationDate<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'activationDate');" class="text-overflow"><?php echo  $activationDate; ?></a>
+                                        <button type="button" id="activationDate<?php echo $id; ?>" onclick="updateTrailerAdd('activationDate',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                     </td>
                                     <td>
-                                        <a href="#" id="1internalNotes<?php echo $row1['_id']; ?>" data-type="textarea" ondblclick="showTextarea(this.id,'text',<?php echo $row1['_id']; ?>,'internalNotes');" class="text-overflow"><?php echo  $internalNotes; ?></a>
-                                        <button type="button" id="internalNotes<?php echo $row1['_id']; ?>" onclick="updateTrailerAdd('internalNotes',<?php echo $row1['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <a href="#" id="internalNotes<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'internalNotes');" class="text-overflow"><?php echo  $internalNotes; ?></a>
+                                        <button type="button" id="internalNotes<?php echo $id; ?>" onclick="updateTrailerAdd('internalNotes',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
                                     </td>
                                     <td><a href="#" onclick="deleteTrailerAdd(<?php echo $id; ?>)"><i
                                                     class="mdi mdi-delete-sweep-outline"
