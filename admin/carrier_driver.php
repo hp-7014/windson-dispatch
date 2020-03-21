@@ -64,13 +64,6 @@ if($_GET['type'] == 'add_carrier'){
     $carrier->insert($carrier,$db,$helper);
 }
 // edit external carrier
-else if ($_GET['type'] == 'edit_external') {
-    $carrier = new External_Carrier();
-    $carrier->setId($_POST['id']);
-    $carrier->setName($_POST['value']);
-    $carrier->setColumn($_POST['column']);
-    $carrier->updateExternal($carrier,$db);
-}
 
 // Update External Carrier
 else if($_GET['type'] == 'Update_carrierDetail'){
