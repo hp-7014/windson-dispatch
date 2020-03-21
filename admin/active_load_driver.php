@@ -58,7 +58,7 @@ if($_GET['type'] == "add_new_load"){
     // $activeload->setFile($_POST['file']);
     $activeload->setLoadNotes($_POST['load_notes']);
     $activeload->setCarrierEmail($_POST['carrier_email'],$_POST['email2'],$_POST['email3']);
-    $activeload->setCustomerEmail($_POST['customer_email']);
+    $activeload->setCustomerEmail($_POST['customer_email'],$_POST['emailcustomer2'],$_POST['emailcustomer3']);
     // $activeload->insert($activeload,$db,$helper);
 
     
