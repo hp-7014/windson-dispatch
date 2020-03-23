@@ -3416,7 +3416,7 @@ function getrecurrence() {
     var counter = 0;
     var counter1 = 0;
     if (recurrence_id == 2) {
-        for (var i = 0; i < document.getElementsByName('installmentCategory').length - 1; i++) {
+        for (var i = 0; i < document.getElementsByName('installmentCategory').length; i++) {
             installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
             installmentType[i] = document.getElementsByName('installmentType')[i].value;
             amount[i] = document.getElementsByName('amount')[i].value;
@@ -3567,7 +3567,7 @@ var counter3 = 0;
 function recurrencesubstract() {
     var recurrencesubstract_id = document.getElementById('getnewaa').value;
     if (recurrencesubstract_id == 2) {
-        for (var i = 0; i < document.getElementsByName('installment_Category').length - 1; i++) {
+        for (var i = 0; i < document.getElementsByName('installment_Category').length; i++) {
             installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
             installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
             amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
