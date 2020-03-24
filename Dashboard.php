@@ -122,16 +122,17 @@ require "database/connection.php";
                                     <label>Status</label>
                                     <select class="form-control" id="status">
                                         <option value="0">--Select--</option>
-                                        <?php
-                                            $show_status = $db->status_type->find(['companyID' => $_SESSION['companyId']]);
-                                            $no = 1;
-                                            foreach ($show_status as $showstatus) {
-                                                $status = $showstatus['status'];
-                                                foreach ($status as $ss) {
-                                                    ?>
-                                        <option value="<?php echo $ss['_id'];?>"><?php echo $ss['status_name'];?>
-                                        </option>
-                                        <?php } }?>
+                                        <option value="Break Down">Break Down</option>
+                                        <option value="Loaded">Loaded</option>
+                                        <option value="Arrived Consignee">Arrived Consignee</option>
+                                        <option value="Arrived Shipper">Arrived Shipper</option>
+                                        <option value="Paid">Paid</option>
+                                        <option value="Open">Open</option>
+                                        <option value="On Route">On Route</option>
+                                        <option value="Dispatched">Dispatched</option>
+                                        <option value="Delivered">Delivered</option>
+                                        <option value="Completed">Completed</option>
+                                        <option value="Invoiced">Invoiced</option>
                                     </select>
                                 </div>
                             </div>

@@ -1534,7 +1534,6 @@ function deleteBankDebit(id) {
 function updateBankDebit(element, column, id) {
     var companyId = document.getElementById('companyId').value;
     var value = element.innerText;
-    //alert(companyId);
     $.ajax({
         url: 'master/bank_debit_category.php?type=' + 'edit_bank_term',
         type: 'POST',

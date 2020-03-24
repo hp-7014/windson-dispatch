@@ -4,8 +4,20 @@ $(document).ready(function () {
     $(".owner").css("display", "none");
 
 });
+//--------------- accounting start --------------
+$(document).on('click', '#accountingModal', function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.account-container').load('./account/accounting_manager_modal.php', function (result) {
+                $('#accounting_modal').modal({show: true});
+            });
+        }
+    });
+});
+//--------------- accounting end --------------
+//--------------- admin -------------------
 $(document).on('click', '.addShipper', function () {
-
     $.ajax({
         type: 'POST',
         success: function (data) {
