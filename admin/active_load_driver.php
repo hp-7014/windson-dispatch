@@ -61,10 +61,7 @@ if($_GET['type'] == "add_new_load"){
     $activeload->setCustomerEmail($_POST['customer_email']);
     // $activeload->insert($activeload,$db,$helper);
 
-    
     $activeload->insert($activeload,$db,$helper);
-    
-   
 }
 
 if ($_GET['type'] == "fileupload") {

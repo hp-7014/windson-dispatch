@@ -1041,15 +1041,10 @@
                      'created_user'=>$_SESSION['companyName'],
                      'created_at'=>time(),
                      'updated_at'=>time(),
-
               ])
-
             )
             );
-       
-
        }
-
 
        public function insert($activeload,$db,$helper)
        {
@@ -1119,11 +1114,9 @@
                      'created_at'=>time(),
                      'updated_at'=>time(),
                    ]]]);
-                   echo $id;
         } else {
             $cons = iterator_to_array($activeload);
             $db->active_load->insertOne($cons);
-            echo 0;
         }
     }
 

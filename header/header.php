@@ -42,7 +42,7 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         var database = firebase.database(); </script>
-        
+
     <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
@@ -50,7 +50,6 @@
     <script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false&amp;libraries=places&key=AIzaSyCkuoUOXCvpihWP1G2Gjqvwhef7XtkTTJg'></script>
     <script src="js/activeload.js"></script>
     <link href="assets/plugins/sweet-alert2/sweetalert2.css" rel="stylesheet" type="text/css">
-   <script src='http://maps.googleapis.com/maps/api/js?v=3&sensor=false&amp;libraries=places&key=AIzaSyCkuoUOXCvpihWP1G2Gjqvwhef7XtkTTJg'></script>
 </head>
 
 <body id="mainbody">
@@ -259,7 +258,7 @@
                                 <li>
                                     <a href="#" id="add_ifta_card">IFTA Card Category</a>
                                 </li>
-                                
+
                             </ul>
                         </li>
 
@@ -329,37 +328,12 @@
 
                         <li class="has-submenu">
 
-                            <a href="#"><i class="icon-pencil-ruler"></i> UI Elements <i
+                            <a href="#"><i class="fas fa-calculator"></i> Account <i
                                         class="mdi mdi-chevron-down mdi-drop"></i></a>
                             <ul class="submenu megamenu">
                                 <li>
                                     <ul>
-                                        <li><a href="ui-alerts.html">Alerts</a></li>
-                                        <li><a href="ui-badge.html">Badge</a></li>
-                                        <li><a href="ui-buttons.html">Buttons</a></li>
-                                        <li><a href="ui-cards.html">Cards</a></li>
-                                        <li><a href="ui-dropdowns.html">Dropdowns</a></li>
-                                        <li><a href="ui-navs.html">Navs</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <ul>
-                                        <li><a href="ui-tabs-accordions.html">Tabs &amp; Accordions</a></li>
-                                        <li><a href="ui-modals.html">Modals</a></li>
-                                        <li><a href="ui-images.html">Images</a></li>
-                                        <li><a href="ui-progressbars.html">Progress Bars</a></li>
-                                        <li><a href="ui-pagination.html">Pagination</a></li>
-                                        <li><a href="ui-popover-tooltips.html">Popover & Tooltips</a></li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <ul>
-                                        <li><a href="ui-spinner.html">Spinner</a></li>
-                                        <li><a href="ui-carousel.html">Carousel</a></li>
-                                        <li><a href="ui-video.html">Video</a></li>
-                                        <li><a href="ui-typography.html">Typography</a></li>
-                                        <li><a href="ui-grid.html">Grid</a></li>
+                                        <li><a href="#" id="accountingModal">Accounting Manager</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -428,4 +402,4 @@
     <!-- End Navigation Bar-->
     <div class="modal-container"></div>
     <div class="driver-container"></div>
-    <!--    <div class="add_shipper_modal"></div>-->
+    <div class="account-container"></div>
