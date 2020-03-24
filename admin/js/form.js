@@ -194,6 +194,7 @@ function updateShipperTable() {
             var res = response.split('^');
             if (shipperBody != null) {
                 shipperBody.innerHTML = res[0];
+                alert(res[0]);
             }
 
             if (shipperList != null) {
