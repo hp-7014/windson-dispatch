@@ -336,6 +336,11 @@
                                         <li><a href="#" id="accountingModal">Accounting Manager</a></li>
                                     </ul>
                                 </li>
+                                <li>
+                                    <ul>
+                                        <li><a href="#" id="Payment_Reg">Payment Registration</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
 
