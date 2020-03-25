@@ -696,6 +696,7 @@ $(document).on("click", "#add_currency_modal", function () {
 });
 
 $(document).on('click', '#carrierratecon', function () {
+    alert("inside");
     $.ajax({
         type: 'POST',
         success: function (data) {

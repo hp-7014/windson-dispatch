@@ -875,55 +875,6 @@ $(document).on('click', '#active_load_button', function () {
     });
 });
 
-
-//--------------------IFTA Start----------------------//
-// Add Verify Treep Function
-$(document).on("click", "#verify_treep", function () {
-    $.ajax({
-        type: 'POST',
-        success: function (data) {
-            $('.modal-container').load('./ifta/verify_treep_model.php', function (result) {
-                $('#verified').modal({show: true});
-            });
-        },
-    });
-});
-// Add Fuel Receipts IFTA
-$(document).on("click", "#fuel_receipts", function () {
-    $.ajax({
-        type: 'POST',
-        success: function (data) {
-            // alert("test");
-            $('.modal-container').load('./ifta/fuel_receipts_modal.php', function (result) {
-                $('#Fuel_Receipt').modal({show: true});
-            });
-        },
-    });
-});
-
-$(document).on("click", "#add_ifta_card", function () {
-    $.ajax({
-        type: 'POST',
-        success: function (data) {
-            $('.modal-container').load('./master/ifta_card_category_modal.php', function (result) {
-                $('#Ifta_Card_Category').modal({show: true});
-            });
-        },
-    });
-});
-
-$(document).on("click", "#add_toll", function () {
-    $.ajax({
-        type: 'POST',
-        success: function (data) {
-            $('.modal-container').load('./ifta/add_toll_modal.php', function (result) {
-                $('#Add_Toll').modal({show: true});
-            });
-        },
-    });
-});
-
-
 //--------------------IFTA Start----------------------//
 // Add Fuel Receipts IFTA
 $(document).on("click", "#fuel_receipts", function () {
@@ -960,8 +911,7 @@ $(document).on("click", "#add_toll", function () {
     });
 });
 
-$(document).on('click', '#verify_trip', function () {
-    alert("inside");
+$(document).on("click", "#verify_trip", function () {
     $.ajax({
         type: 'POST',
         success: function (data) {
