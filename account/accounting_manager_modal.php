@@ -39,7 +39,9 @@ include '../database/connection.php';
                         <!--- table one here --->
                         <div class="table-rep-plugin">
                             <div class="table-responsive b-0" data-pattern="priority-columns">
-
+                                <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" type="text"
+                                       id="search" onkeyup="search_trailer(this)" placeholder="search"
+                                       style="margin-left: 5px;">
                                 <div id="table-scroll" class="table-scroll">
                                     <table id="carrier_table" class="scroll">
                                         <thead>
@@ -79,7 +81,9 @@ include '../database/connection.php';
                                                         <td><?php echo $customer; ?></td>
                                                         <td><?php echo $driverName; ?></td>
                                                         <td>
-                                                            <select class="form-control" onchange="updateLoadStatus(<?php echo $invoiceID; ?>)" id="loadStatus"
+                                                            <select class="form-control"
+                                                                    onchange="updateLoadStatus(<?php echo $invoiceID; ?>)"
+                                                                    id="loadStatus"
                                                                     style="width: 170px">
                                                                 <option value="0">--Select--</option>
                                                                 <option <?php if ($status == "Break Down") {
@@ -92,11 +96,13 @@ include '../database/connection.php';
                                                                 </option>
                                                                 <option <?php if ($status == "Arrived Consignee") {
                                                                     echo "selected";
-                                                                } ?> value="Arrived Consignee)status_ArrivedConsignee_time">Arrived Consignee
+                                                                } ?> value="Arrived Consignee)status_ArrivedConsignee_time">
+                                                                    Arrived Consignee
                                                                 </option>
                                                                 <option <?php if ($status == "Arrived Shipper") {
                                                                     echo "selected";
-                                                                } ?> value="Arrived Shipper)status_ArrivedShipper_time">Arrived Shipper
+                                                                } ?> value="Arrived Shipper)status_ArrivedShipper_time">
+                                                                    Arrived Shipper
                                                                 </option>
                                                                 <option <?php if ($status == "Paid") {
                                                                     echo "selected";
@@ -112,7 +118,8 @@ include '../database/connection.php';
                                                                 </option>
                                                                 <option <?php if ($status == "Dispatched") {
                                                                     echo "selected";
-                                                                } ?> value="Dispatched)status_Dispatched_time">Dispatched
+                                                                } ?> value="Dispatched)status_Dispatched_time">
+                                                                    Dispatched
                                                                 </option>
                                                                 <option <?php if ($status == "Delivered") {
                                                                     echo "selected";
@@ -150,12 +157,15 @@ include '../database/connection.php';
                         </button>
                     </div>
 
-<!--                    // invoice area-->
+                    <!--                    // invoice area-->
                     <div class="tab-pane fade" id="insurance" role="tabpanel"
                          aria-labelledby="profile-tab">
                         <div class="table-rep-plugin">
                             <div class="table-responsive b-0" data-pattern="priority-columns">
                                 <br>
+                                <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" type="text"
+                                       id="search" onkeyup="search_Invoice1(this)" placeholder="search"
+                                       style="margin-left: 5px;">
                                 <div id="table-scroll" class="table-scroll">
                                     <table id="carrier_table" class="scroll">
                                         <thead>
@@ -170,16 +180,17 @@ include '../database/connection.php';
                                         </thead>
                                         <tbody id="accountInvoiceBody">
                                         <?php
-                                        $show1 = $db->active_load->find(['companyID' => (int)$_SESSION['companyId']]);
+                                        $limit = 5;
+                                        $show1 = $db->active_load->find(['companyID' => (int)$_SESSION['companyId']], ['activeload' => ['$slice' => ['$activeload', 0, $limit]]]);
                                         foreach ($show1 as $arrData1) {
                                             $arrData1 = $arrData1['activeload'];
+                                            $total_records = sizeof($arrData1['activeload']);
+                                            $total_pages = ceil($total_records / $limit);
                                             foreach ($arrData1 as $row1) {
                                                 if ($row1['status'] == "Invoiced") {
                                                     $invoiceID1 = $row1['_id'];
                                                     $loadNO1 = 1;
-                                                    foreach ($row1['shipper'] as $shipperData1) {
-                                                        $shipDate1 = $shipperData1['shipper_pickup'];
-                                                    }
+                                                    $shipDate1 = date("d/m/Y", $row1['created_at']);
                                                     $customer1 = $row1['customer'];
                                                     $driverName1 = $row1['driver_name'];
                                                     $activeLoadId1 = $row1['_id'];
@@ -192,7 +203,9 @@ include '../database/connection.php';
                                                         <td><?php echo $customer1; ?></td>
                                                         <td><?php echo $driverName1; ?></td>
                                                         <td>
-                                                            <select class="form-control" onchange="updateLoadStatus1(<?php echo $invoiceID1; ?>)" id="loadStatus1"
+                                                            <select class="form-control"
+                                                                    onchange="updateLoadStatus1(<?php echo $invoiceID1; ?>)"
+                                                                    id="loadStatus1"
                                                                     style="width: 170px">
                                                                 <option value="0">--Select--</option>
                                                                 <option <?php if ($status1 == "Break Down") {
@@ -205,11 +218,13 @@ include '../database/connection.php';
                                                                 </option>
                                                                 <option <?php if ($status1 == "Arrived Consignee") {
                                                                     echo "selected";
-                                                                } ?> value="Arrived Consignee)status_ArrivedConsignee_time">Arrived Consignee
+                                                                } ?> value="Arrived Consignee)status_ArrivedConsignee_time">
+                                                                    Arrived Consignee
                                                                 </option>
                                                                 <option <?php if ($status1 == "Arrived Shipper") {
                                                                     echo "selected";
-                                                                } ?> value="Arrived Shipper)status_ArrivedShipper_time">Arrived Shipper
+                                                                } ?> value="Arrived Shipper)status_ArrivedShipper_time">
+                                                                    Arrived Shipper
                                                                 </option>
                                                                 <option <?php if ($status1 == "Paid") {
                                                                     echo "selected";
@@ -225,7 +240,8 @@ include '../database/connection.php';
                                                                 </option>
                                                                 <option <?php if ($status1 == "Dispatched") {
                                                                     echo "selected";
-                                                                } ?> value="Dispatched)status_Dispatched_time">Dispatched
+                                                                } ?> value="Dispatched)status_Dispatched_time">
+                                                                    Dispatched
                                                                 </option>
                                                                 <option <?php if ($status1 == "Delivered") {
                                                                     echo "selected";
@@ -257,6 +273,33 @@ include '../database/connection.php';
                                     </table>
                                 </div>
                             </div>
+                            <br>
+                            <nav aria-label="..." class="float-right">
+                                <ul class="pagination">
+                                    <?php
+                                    $j = 1;
+                                    for ($i = 0; $i < $total_pages; $i++) {
+                                        if ($i == 0) {
+                                            ?>
+                                            <li class="pageitem active"
+                                                onclick="paginate_trailer(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
+                                                id="<?php echo $i; ?>"><a data-id="<?php echo $i; ?>"
+                                                                          class="page-link"><?php echo $j; ?></a></li>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <li class="pageitem"
+                                                onclick="paginate_trailer(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
+                                                id="<?php echo $i; ?>"><a class="page-link"
+                                                                          data-id="<?php echo $i; ?>"><?php echo $j; ?></a>
+                                            </li>
+                                            <?php
+                                        }
+                                        $j++;
+                                    }
+                                    ?>
+                                </ul>
+                            </nav>
                         </div>
                         <button style="margin-right: 3px"
                                 class="float-right btn btn-secondary">Close

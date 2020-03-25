@@ -51,6 +51,7 @@ function toggleAccount(val) {
         $("#insurance-title").toggleClass("show");
     }
 }
+
 // accouunt deliver start
 function updateLoadStatus(id) {
     var value1 = document.getElementById('loadStatus').value;
@@ -62,22 +63,22 @@ function updateLoadStatus(id) {
     alert(id);
     var companyid = $('#companyid').val();
     $.ajax({
-       url:'account/accountStatus_driver.php?type=UpdateStatus',
-       method:'POST',
-       data:{
-            id:id,
-            value:value,
-            statusTimeColumn:statusTimeColumn
-       },
-       success: function (data) {
-           database.ref('accountDeliver').child(companyid).set({
-               data: randomString(),
-           });
-           database.ref('accountInvoice').child(companyid).set({
-               data: randomString(),
-           });
-           swal(data);
-       }
+        url: 'account/accountStatus_driver.php?type=UpdateStatus',
+        method: 'POST',
+        data: {
+            id: id,
+            value: value,
+            statusTimeColumn: statusTimeColumn
+        },
+        success: function (data) {
+            database.ref('accountDeliver').child(companyid).set({
+                data: randomString(),
+            });
+            database.ref('accountInvoice').child(companyid).set({
+                data: randomString(),
+            });
+            swal(data);
+        }
     });
 }
 
@@ -105,7 +106,7 @@ function updateAccountDeliverTable() {
     var accountDeliverBody = document.getElementById('accountDeliverBody');
 
     $.ajax({
-        url: 'account/utils/getAccountDeliver.php',
+        url: 'account/utils/getAccountDeliver.php?type=showDeliverData',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
@@ -116,28 +117,23 @@ function updateAccountDeliverTable() {
         },
     });
 }
+
 // account deliver end
 
 // account invoice start
 function updateLoadStatus1(id) {
-    // var value1 = document.getElementById('loadStatus1').value;
-    var e = document.getElementById('loadStatus1');
-    var value1 = e.options[e.selectedIndex].value;
-    alert(id);
-    alert(value1);
+    var value1 = document.getElementById('loadStatus1').value;
     var value_1 = value1.split(")");
     var value = value_1[0];
     var statusTimeColumn = value_1[1];
-    alert(value);
-    alert(statusTimeColumn);
     var companyid = $('#companyid').val();
     $.ajax({
-        url:'account/accountStatus_driver.php?type=UpdateStatus',
-        method:'POST',
-        data:{
-            id:id,
-            value:value,
-            statusTimeColumn:statusTimeColumn
+        url: 'account/accountStatus_driver.php?type=UpdateStatus',
+        method: 'POST',
+        data: {
+            id: id,
+            value: value,
+            statusTimeColumn: statusTimeColumn
         },
         success: function (data) {
             database.ref('accountInvoice').child(companyid).set({
@@ -175,10 +171,10 @@ function updateAccountInvoiceTable() {
     var accountInvoiceBody = document.getElementById('accountInvoiceBody');
 
     $.ajax({
-        url: 'account/utils/getAccountInvoice.php',
+        url: 'account/utils/getAccountInvoice.php?type=showAccountInvoice',
         method: 'POST',
         dataType: 'text',
-        type:'html',
+        type: 'html',
         success: function (response) {
             if (accountInvoiceBody != null) {
                 accountInvoiceBody.innerHTML = response;
@@ -186,4 +182,59 @@ function updateAccountInvoiceTable() {
         },
     });
 }
+
 // account invoice end
+
+// Search Trailer
+function search_trailer(x) {
+    var n = x.value;
+    var companyId = $('#companyid').val();
+
+    $.ajax({
+        type: 'POST',
+        url: 'account/utils/getAccountDeliver.php?type=search_text',
+        data: {
+            getoption: n,
+            companyId: companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('accountDeliverBody').innerHTML = j;
+        }
+    });
+}
+
+function search_Invoice1(x) {
+    var n = x.value;
+    var companyId = $('#companyid').val();
+
+    $.ajax({
+        type: 'POST',
+        url: 'account/utils/getAccountInvoice.php?type=search_text1',
+        data: {
+            getoption: n,
+            companyId: companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('accountInvoiceBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate Trailer
+function paginate_trailer(start, limit) {
+
+    $.ajax({
+        url: 'admin/utils/getTrailer.php?types=paginate_trailer_admin',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('trailerBody').innerHTML = response;
+        },
+    });
+}
