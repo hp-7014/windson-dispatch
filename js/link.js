@@ -151,7 +151,6 @@ $(document).on("click", "#currency_setting", function () {
 
 
 $(document).on("click", "#truck_type", function () {
-
     $.ajax({
         type: 'POST',
         success: function (data) {
@@ -962,6 +961,7 @@ $(document).on("click", "#add_toll", function () {
 });
 
 $(document).on('click', '#verify_trip', function () {
+    alert("inside");
     $.ajax({
         type: 'POST',
         success: function (data) {
@@ -969,5 +969,17 @@ $(document).on('click', '#verify_trip', function () {
                 $('#verifyTrip').modal({show: true});
             });
         }
+    });
+});
+
+// Payment Registration bank
+$(document).on("click", "#Payment_Reg", function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.modal-container').load('./account/Payment.php', function (result) {
+                $('#Payment_Registration').modal({show: true});
+            });
+        },
     });
 });

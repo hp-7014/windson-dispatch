@@ -181,7 +181,7 @@ include '../database/connection.php';
                                         <tbody id="accountInvoiceBody">
                                         <?php
                                         $limit = 5;
-                                        $show1 = $db->active_load->find(['companyID' => (int)$_SESSION['companyId']], ['activeload' => ['$slice' => ['$activeload', 0, $limit]]]);
+                                        $show1 = $db->active_load->find(['companyID' => (int)$_SESSION['companyId']]);
                                         foreach ($show1 as $arrData1) {
                                             $arrData1 = $arrData1['activeload'];
                                             $total_records = sizeof($arrData1['activeload']);
