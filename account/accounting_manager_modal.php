@@ -82,7 +82,7 @@ include '../database/connection.php';
                                                         <td><?php echo $driverName; ?></td>
                                                         <td>
                                                             <select class="form-control"
-                                                                    onchange="updateLoadStatus(<?php echo $invoiceID; ?>)"
+                                                                    onchange="updateLoadStatus(<?php echo $invoiceID; ?>,this.value)"
                                                                     id="loadStatus"
                                                                     style="width: 170px">
                                                                 <option value="0">--Select--</option>
@@ -181,15 +181,16 @@ include '../database/connection.php';
                                         <tbody id="accountInvoiceBody">
                                         <?php
                                         $limit = 5;
-                                        $show1 = $db->active_load->find(['companyID' => (int)$_SESSION['companyId']]);
+
+                                        $show1 = $db->active_load->find(array('companyID' => (int)$_SESSION['companyId']), array('projection' => array('activeload' => array('$slice' => [0, $limit]))));
                                         foreach ($show1 as $arrData1) {
-                                            $arrData1 = $arrData1['activeload'];
+                                            $arrData2 = $arrData1['activeload'];
                                             $total_records = sizeof($arrData1['activeload']);
                                             $total_pages = ceil($total_records / $limit);
-                                            foreach ($arrData1 as $row1) {
+                                            foreach ($arrData2 as $row1) {
                                                 if ($row1['status'] == "Invoiced") {
                                                     $invoiceID1 = $row1['_id'];
-                                                    $loadNO1 = 1;
+                                                    $loadNO1 = date("d/m/Y",$row1['created_at']);
                                                     $shipDate1 = date("d/m/Y", $row1['created_at']);
                                                     $customer1 = $row1['customer'];
                                                     $driverName1 = $row1['driver_name'];
@@ -204,7 +205,7 @@ include '../database/connection.php';
                                                         <td><?php echo $driverName1; ?></td>
                                                         <td>
                                                             <select class="form-control"
-                                                                    onchange="updateLoadStatus1(<?php echo $invoiceID1; ?>)"
+                                                                    onchange="updateLoadStatus1(<?php echo $invoiceID1; ?>,this.value)"
                                                                     id="loadStatus1"
                                                                     style="width: 170px">
                                                                 <option value="0">--Select--</option>

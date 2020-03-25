@@ -1,19 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<?php include 'header/header.php' ?>
-<br>
-<br>
-<br>
-<br>
-<div class="row">
-    <div class="col-sm-6 col-md-3 m-t-30">
-        <div class="text-center">
-            <p class="text-muted">Admin</p>
-            <!-- Large modal -->
-            <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal"
-                data-target="#Payment_Registration">Payment Registration
-            </button>
-        </div>
+<?php 
+    session_start();
+    require "../database/connection.php"; 
+?>
         <!--  Modal content for the above example -->
         <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="Payment_Registration"
             aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -121,25 +109,37 @@
                                 </div>
                                 <div class="form-group col-md-2 cn" style="display:none">
                                     <label>Company Name *</label>
-                                    <select class="form-control">
-                                        <option>OSTT INC</option>
-                                        <option>ONE STOP</option>
-                                        <option>OSTT BROKERAGE LLC</option>
-                                        <option>RIYA TRUCKING LLC</option>
-                                        <option>ALL POINT HAULAGE</option>
-                                        <option>NEEL TRUCKING LLC</option>
-                                        <option>WINDSON STAFFING SERVICES LLC</option>
-                                        <option>PB TRUCKING LNC</option>
-                                        <option>I-94 AUTO RECYCLERS</option>
-                                    </select>
+                                    <input list="companyname" placeholder="--Select--" class="form-control"
+                                        id="Companyselect" name="Companyselect">
+                                    <datalist id="companyname">
+                                        <?php
+                                                $show_company = $db->company->find(['companyID' => $_SESSION['companyId']]);
+                                                $no = 1;
+                                                foreach ($show_company as $showcompany) {
+                                                    $company = $showcompany['company'];
+                                                    foreach ($company as $sc) {
+                                                        $value = "'".$sc['_id'].')'.$sc['companyName']."'";
+                                                        
+                                                        echo "<option value=$value></option>";
+                                                     } }?>
+                                    </datalist>
                                 </div>
                                 <div class="form-group col-md-2 bank" style="display:none;">
                                     <label>Bank Name*</label>
-                                    <select class="form-control">
-                                        <option>JP MORGAN CHASE BANK</option>
-                                        <option>FIFTH THIRD BANCORP</option>
-                                        <option>MIDLAND STATE BANK</option>
-                                    </select>
+                                    <input list="bankname" placeholder="--Select--" class="form-control"
+                                        id="selectbank" name="selectbank">
+                                    <datalist id="bankname">
+                                        <?php
+                                                $show_bank = $db->bank_admin->find(['companyID' => $_SESSION['companyId']]);
+                                                $no = 1;
+                                                foreach ($show_bank as $showbank) {
+                                                    $bank = $showbank['admin_bank'];
+                                                    foreach ($bank as $sb) {
+                                                        $value = "'".$sb['_id'].')'.$sb['bankName']."'";
+                                                        
+                                                        echo "<option value=$value></option>";
+                                                     } }?>
+                                    </datalist>
                                 </div>
                                 <div class="form-group col-md-2 Credit" style="display:none;">
                                     <label>Main Card</label>
@@ -254,98 +254,78 @@
                                 </div>
                                 <div class="form-group col-md-2 driver" style="display:none;">
                                     <label>Driver Name</label>
-                                    <div>
-                                        <input class="form-control" placeholder="Driver Name" type="text">
-                                    </div>
+                                    <input list="driverlist" placeholder="--Select--" class="form-control"
+                                        id="drivername" name="drivername">
+                                    <datalist id="driverlist">
+                                        <?php
+                                                $showdriver = $db->driver->find(['companyID' => $_SESSION['companyId']]);
+                                                $no = 1;
+                                                foreach ($showdriver as $drivername) {
+                                                    $driver = $drivername['driver'];
+                                                    foreach ($driver as $sd) {
+                                                        $value = "'".$sd['_id'].')'.$sd['driverName']."'";
+                                                        
+                                                        echo "<option value=$value></option>";
+                                                     } }?>
+                                    </datalist>
                                 </div>
                                 <div class="form-group col-md-2 driver" style="display:none;">
                                     <label>Debit Category</label>
-                                    <select class="form-control">
-                                        <option>xyz</option>
-                                        <option>abc</option>
-                                    </select>
+                                    <input list="debitcat" placeholder="--Select--" class="form-control"
+                                        id="selectdebite" name="selectdebite">
+                                    <datalist id="debitcat">
+                                        <?php
+                                                $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
+                                                $no = 1;
+                                                foreach ($showdebit as $showbankdebit) {
+                                                    $bankdebit = $showbankdebit['bank_debit'];
+                                                    foreach ($bankdebit as $sb) {
+                                                        $value = "'".$sb['_id'].')'.$sb['bankName']."'";
+                                                        
+                                                        echo "<option value=$value></option>";
+                                                     } }?>
+                                    </datalist>
                                 </div>
                                 <div class="form-group col-md-2 driver" style="display:none;">
-                                    <label>Invoice</label>
-                                    <br>
-                                    <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light"
-                                        type="button" data-toggle="dropdown">
-                                        Invoice<i class="mdi mdi-menu-down-outline"
-                                            style="padding-left:15px;padding-right:50px"></i>
-                                    </button>
-
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <input type="checkbox" onclick='selectAll()'
-                                                style="margin-left:20px;margin-top:10px"
-                                                value="Select All" />&nbsp;Select all
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" onclick='UnSelectAll()'
-                                                style="margin-left:20px;margin-top:10px"
-                                                value="Select All" />&nbsp;Unselect all
-                                        </li>
-                                        <li class="space">
-                                            <a href="#" class="small" data-value="option1" tabIndex="-1">
-                                                <input type="checkbox" name="acs" />&nbsp;3543534
-                                            </a>
-                                        </li>
-                                        <li class="space">
-                                            <a href="#" class="small" data-value="option2" tabIndex="-1">
-                                                <input type="checkbox" name="acs" />&nbsp;24543434
-                                            </a>
-                                        </li>
-                                        <li class="space">
-                                            <a href="#" class="small" data-value="option3" tabIndex="-1">
-                                                <input type="checkbox" name="acs" />&nbsp;4533332
-                                            </a>
-                                        </li>
-                                        <li class="space">
-                                            <a href="#" class="small" data-value="option4" tabIndex="-1">
-                                                <input type="checkbox" name="acs">&nbsp;32432432
-                                            </a>
-                                        </li>
-                                        <li class="space">
-                                            <a href="#" class="small" data-value="option5" tabIndex="-1">
-                                                <input type="checkbox" name="acs" />&nbsp;43898239
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    <label>Invoice #</label>
+                                    <div>
+                                        <input class="form-control" id="invoice" name="invoice" placeholder="Invoice *" type="text">
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-2 driver" style="display:none;">
                                     <label>Amount *</label>
                                     <div>
-                                        <input class="form-control" placeholder="Amount *" type="text">
+                                        <input class="form-control" id="amount" name="amount" placeholder="Amount *" type="text">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2 driver" style="display:none;">
                                     <label>Advance *</label>
                                     <div>
-                                        <input class="form-control" placeholder="Advance *" type="text">
+                                        <input class="form-control" id="advance" name="advance" placeholder="Advance *" type="text">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2 driver" style="display:none;">
                                     <label>Final Amount *</label>
                                     <div>
-                                        <input class="form-control" placeholder="Final Amount *" type="text">
+                                        <input class="form-control" id="finalamount" name="finalamount" placeholder="Final Amount *" type="text">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2 driver" style="display:none;">
                                     <label>Check/ACH Date *</label>
                                     <div>
-                                        <input class="form-control" placeholder="Check Date *" type="date">
+                                        <input class="form-control" id="checkdate" name="checkdate" placeholder="Check Date *" type="date">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2 driver" style="display:none;">
                                     <label>Cheque #*</label>
                                     <div>
-                                        <input class="form-control" placeholder="Cheque #*" type="text">
+                                        <input class="form-control" id="cheque" name="cheque" placeholder="Cheque #*" type="text">
                                     </div>
                                 </div>
                                 <div class="form-group col-md-2 driver" style="display:none;">
                                     <label>ACH #*</label>
                                     <div>
-                                        <input class="form-control" placeholder="ACH #*" type="text">
+                                        <input class="form-control" id="ach" name="ach" placeholder="ACH #*" type="text">
                                     </div>
                                 </div>
                                 <!--Carrier #  -->
@@ -363,7 +343,39 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2 carrier" style="display:none;">
-                                    <label>Invoice</label>
+                                    <label>Invoice #</label>
+                                    <div class="dropdown">
+                                        <button class="form-control dropdown-toggle" type="button"
+                                            data-toggle="dropdown" style="padding-left:30px;padding-right:30px;">Invoice
+                                            #&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span class=" caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <div>
+                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="customCheck1" data-parsley-multiple="groups"
+                                                        data-parsley-mincheck="2">
+                                                    <label class="custom-control-label"
+                                                        for="customCheck1">46445454</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="customCheck2" data-parsley-multiple="groups"
+                                                        data-parsley-mincheck="2">
+                                                    <label class="custom-control-label"
+                                                        for="customCheck2">3343645</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="customCheck3" data-parsley-multiple="groups"
+                                                        data-parsley-mincheck="2">
+                                                    <label class="custom-control-label"
+                                                        for="customCheck3">343454</label>
+                                                </div>
+                                            </div>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-2 carrier" style="display:none;">
                                     <label>Amount *</label>
@@ -405,6 +417,38 @@
                                 </div>
                                 <div class="form-group col-md-2 factoring" style="display:none;">
                                     <label>Invoice #</label>
+                                    <div class="dropdown">
+                                        <button class="form-control dropdown-toggle" type="button"
+                                            data-toggle="dropdown" style="padding-left:30px;padding-right:30px;">Invoice
+                                            #&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span class=" caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <div>
+                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="customCheck1" data-parsley-multiple="groups"
+                                                        data-parsley-mincheck="2">
+                                                    <label class="custom-control-label"
+                                                        for="customCheck1">46445454</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="customCheck2" data-parsley-multiple="groups"
+                                                        data-parsley-mincheck="2">
+                                                    <label class="custom-control-label"
+                                                        for="customCheck2">3343645</label>
+                                                </div>
+                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        id="customCheck3" data-parsley-multiple="groups"
+                                                        data-parsley-mincheck="2">
+                                                    <label class="custom-control-label"
+                                                        for="customCheck3">343454</label>
+                                                </div>
+                                            </div>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-2 factoring" style="display:none;">
                                     <label>Amount *</label>
@@ -602,19 +646,19 @@
                                     <div class="upload-button">
                                         <label>Upload Files</label>
                                         <button class="button">Upload a file</button>
-                                        <input type="file" name="myfile" />
+                                        <input type="file" id="files" onchange = "getfiles(this.files);" name="files[]" multiple accept=".png, .jpg, .jpeg, .pdf"/>
                                     </div>
                                     <div class="form-group col-md-10">
                                         <label>Memo *</label>
                                         <div>
-                                            <textarea class="form-control" rows="1" placeholder="Memo *"></textarea>
+                                            <textarea class="form-control" rows="1" id="memo" name="memo" placeholder="Memo *"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary waves-effect waves-light">ADD
+                            <button type="button" class="btn btn-primary waves-effect waves-light" onclick="Paymentadd()">ADD
                             </button>
                             <button type="button" class="btn btn-success waves-effect waves-light">ADD & PRINT
                             </button>
@@ -692,11 +736,5 @@
         margin-left: 4px;
         margin-right: 4px;
     }
-
-    .space {
-        margin: 20px;
-    }
     </style>
-    <?php include '../header/footer.php' ?>
-
-</html>
+    <script src="account/js/form.js"></script>
