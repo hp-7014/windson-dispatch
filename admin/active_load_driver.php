@@ -61,6 +61,18 @@ if($_GET['type'] == "add_new_load"){
     $activeload->setCustomerEmail($_POST['customer_email'],$_POST['emailcustomer2'],$_POST['emailcustomer3']);
     // $activeload->insert($activeload,$db,$helper);
 
+    if ($_POST['status'] == "Break Down") { $activeload->setStatusBreakDownTime(time()); } else { $activeload->setStatusBreakDownTime(0); }
+    if ($_POST['status'] == "Loaded") { $activeload->setStatusLoadedTime(time()); } else { $activeload->setStatusLoadedTime(0); }
+    if ($_POST['status'] == "Arrived Consignee") { $activeload->setStatusArrivedConsigneeTime(time()); } else { $activeload->setStatusArrivedConsigneeTime(0); }
+    if ($_POST['status'] == "Arrived Shipper") { $activeload->setStatusArrivedShipperTime(time()); } else { $activeload->setStatusArrivedShipperTime(0); }
+    if ($_POST['status'] == "Paid") { $activeload->setStatusPaidTime(time()); } else { $activeload->setStatusPaidTime(0); }
+    if ($_POST['status'] == "Open") { $activeload->setStatusOpenTime(time()); } else { $activeload->setStatusOpenTime(0); }
+    if ($_POST['status'] == "On Route") { $activeload->setStatusOnRouteTime(time()); } else { $activeload->setStatusOnRouteTime(0); }
+    if ($_POST['status'] == "Dispatched") { $activeload->setStatusDispatchedTime(time()); } else { $activeload->setStatusDispatchedTime(0); }
+    if ($_POST['status'] == "Delivered") { $activeload->setStatusDeliveredTime(time()); } else { $activeload->setStatusDeliveredTime(0); }
+    if ($_POST['status'] == "Completed") { $activeload->setStatusCompletedTime(time()); } else { $activeload->setStatusCompletedTime(0); }
+    if ($_POST['status'] == "Invoiced") { $activeload->setStatusInvoicedTime(time()); } else { $activeload->setStatusInvoicedTime(0); }
+
     $activeload->insert($activeload,$db,$helper);
 }
 

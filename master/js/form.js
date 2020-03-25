@@ -2,7 +2,6 @@ var companyid = $('#companyid').val();
 //-----------------Payment Terms start-------------------------------------
 
 //update Payment Terms table
-
 var paymentpath = "payment_terms/";
 var paymentpath1 = $('#companyid').val();
 var paymentdata = paymentpath1.toString();
