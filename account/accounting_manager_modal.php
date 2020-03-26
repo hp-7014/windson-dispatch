@@ -17,8 +17,6 @@ include '../database/connection.php';
                 </button>
             </div>
             <div class="modal-body custom-modal-body">
-                <div class="payment-container" style="z-index: 1600"></div>
-                <div class="factoring-container" style="z-index: 1600"></div>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item1 show" id="home-title">
                         <a class="nav-link1 active" id="home-tab" data-toggle="tab"
@@ -56,11 +54,9 @@ include '../database/connection.php';
                                         </thead>
                                         <tbody id="accountDeliverBody">
                                         <?php
-                                        $show = $db->active_load->find(['companyID' => (int)$_SESSION['companyId']], [
-                                            'active_load' => ['$elemMatch' => ['status' => "Delivered"]]
-                                        ]);
+                                        $show = $db->active_load->find(['companyID' => (int)$_SESSION['companyId']]);
                                         foreach ($show as $arrData) {
-                                            $arrData = $arrData['activeload'];
+                                            $arrData = $arrData['Delivered'];
                                             foreach ($arrData as $row) {
                                                 if ($row['status'] == "Delivered") {
                                                     $invoiceID = $row['_id'];
@@ -82,7 +78,7 @@ include '../database/connection.php';
                                                         <td><?php echo $driverName; ?></td>
                                                         <td>
                                                             <select class="form-control"
-                                                                    onchange="updateLoadStatus(<?php echo $invoiceID; ?>,this.value)"
+                                                                    onchange="changeStatus(<?php echo $invoiceID; ?>,'<?php echo $row["status"]; ?>',this.value)"
                                                                     id="loadStatus"
                                                                     style="width: 170px">
                                                                 <option value="0">--Select--</option>
@@ -275,7 +271,7 @@ include '../database/connection.php';
                                 </div>
                             </div>
                             <br>
-                            <nav aria-label="..." class="float-right">
+                            <!---<nav aria-label="..." class="float-right">
                                 <ul class="pagination">
                                     <?php
                                     $j = 1;
@@ -300,7 +296,7 @@ include '../database/connection.php';
                                     }
                                     ?>
                                 </ul>
-                            </nav>
+                            </nav>---->
                         </div>
                         <button style="margin-right: 3px"
                                 class="float-right btn btn-secondary">Close

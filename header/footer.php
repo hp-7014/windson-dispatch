@@ -58,8 +58,8 @@
     }
 
     // if counter != 0 than call  this
-    function deleteCurrencyError(){
-        swal('<h5> Unable to delete as this entry has been used somewhere else !!!</h5>','','warning');
+    function deleteCurrencyError() {
+        swal('<h5> Unable to delete as this entry has been used somewhere else !!!</h5>', '', 'warning');
         return false;
     }
 
@@ -83,18 +83,18 @@
 <script src="assets/plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js"></script>
 <script src="js/link.js"></script>
 <script>
-        function getfiles(files) {
-            for (var i = 0; i < files.length; i++) {
-                    var filesize1 = files[i].size;
-                    if (filesize1 < 200000) {
-                    } else {
-                        swal("Oops...", "File size is to large! Please Select a file less than 200KB", "error");
-                        this.value = "";
-                    }
-                }
+    function getfiles(files) {
+        for (var i = 0; i < files.length; i++) {
+            var filesize1 = files[i].size;
+            if (filesize1 < 200000) {
+            } else {
+                swal("Oops...", "File size is to large! Please Select a file less than 200KB", "error");
+                this.value = "";
+            }
         }
+    }
 </script>
 <!-- Sweet-Alert  -->
 <script src="assets/plugins/sweet-alert2/sweetalert2.min.js"></script>
-    <script src="assets/pages/sweet-alert.init.js"></script> 
+<script src="assets/pages/sweet-alert.init.js"></script>
 </body>

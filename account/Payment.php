@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<?php include 'header/header.php' ?>
-<br>
-<br>
-<br>
-<br>
-<div class="row">
-    <div class="col-sm-6 col-md-3 m-t-30">
-        <div class="text-center">
-            <p class="text-muted">Admin</p>
-            <!-- Large modal -->
-            <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal"
-                data-target="#Payment_Registration">Payment Registration
-            </button>
-        </div>
+
         <!--  Modal content for the above example -->
         <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="Payment_Registration"
             aria-labelledby="myLargeModalLabel" aria-hidden="true">
