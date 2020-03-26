@@ -1,5 +1,247 @@
-$(document).ready(function() {
-    $('#type').on('change', function() {
+// account step form
+function toggleAccount(val) {
+    if ($("#carrier").hasClass("show")) {
+        $("#carrier").toggleClass("show");
+    }
+    if ($("#carrier").hasClass("active")) {
+        $("#carrier").toggleClass("active");
+    }
+    if ($("#insurance").hasClass("show")) {
+        $("#insurance").toggleClass("show");
+    }
+    if ($("#insurance").hasClass("active")) {
+        $("#insurance").toggleClass("active");
+    }
+
+    if ($("#home-tab").hasClass("active")) {
+        $("#home-tab").toggleClass("active");
+    }
+    if ($("#insurance-tab").hasClass("active")) {
+        $("#insurance-tab").toggleClass("active");
+    }
+
+    if ($("#home-title").hasClass("show")) {
+        $("#home-title").toggleClass("show");
+    }
+    if ($("#insurance-title").hasClass("show")) {
+        $("#insurance-title").toggleClass("show");
+    }
+
+    if ($("#home-tab").attr("aria-selected") === 'true') {
+        $("#home-tab").attr("aria-selected", "false");
+    } else {
+        $("#home-tab").attr("aria-selected", "true");
+    }
+
+    if ($("#insurance-tab").attr("aria-selected") === 'true') {
+        $("#insurance-tab").attr("aria-selected", "false");
+    } else {
+        $("#insurance-tab").attr("aria-selected", "true");
+    }
+
+    if (val == 'first') {
+        $("#carrier").toggleClass("show");
+        $("#carrier").toggleClass("active");
+        $("#home-tab").toggleClass("active");
+        $("#home-title").toggleClass("show");
+    } else if (val == 'second') {
+        $("#insurance").toggleClass("show");
+        $("#insurance").toggleClass("active");
+        $("#insurance-tab").toggleClass("active");
+        $("#insurance-title").toggleClass("show");
+    }
+}
+
+// accouunt deliver start
+function updateLoadStatus(id) {
+    var value1 = document.getElementById('loadStatus').value;
+    var value_1 = value1.split(")");
+    var value = value_1[0];
+    var statusTimeColumn = value_1[1];
+    var companyid = $('#companyid').val();
+    $.ajax({
+        url: 'account/accountStatus_driver.php?type=UpdateStatus',
+        method: 'POST',
+        data: {
+            id: id,
+            value: value,
+            statusTimeColumn: statusTimeColumn
+        },
+        success: function (data) {
+            database.ref('accountDeliver').child(companyid).set({
+                data: randomString(),
+            });
+            database.ref('accountInvoice').child(companyid).set({
+                data: randomString(),
+            });
+            swal(data);
+        }
+    });
+}
+
+//update Payment Terms table
+var accountDeliverPath = "accountDeliver/";
+var accountDeliverPath1 = $('#companyid').val();
+var accountDeliverData = accountDeliverPath1.toString();
+var accountDeliverTest = accountDeliverPath + accountDeliverData;
+
+database.ref(accountDeliverTest).on('child_added', function (data) {
+    updateAccountDeliverTable();
+});
+
+database.ref(accountDeliverTest).on('child_changed', function (data) {
+    updateAccountDeliverTable();
+});
+
+database.ref(accountDeliverTest).on('child_removed', function (data) {
+    updateAccountDeliverTable();
+});
+
+//update table fields
+
+function updateAccountDeliverTable() {
+    var accountDeliverBody = document.getElementById('accountDeliverBody');
+
+    $.ajax({
+        url: 'account/utils/getAccountDeliver.php?type=showDeliverData',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            // var res = response.split('^');
+            if (accountDeliverBody != null) {
+                accountDeliverBody.innerHTML = response;
+            }
+        },
+    });
+}
+
+// account deliver end
+
+// account invoice start
+function updateLoadStatus1(id, value1) {
+    alert(value1);
+    // var value1 = document.getElementById('loadStatus1').value;
+    var value_1 = value1.split(")");
+    var value = value_1[0];
+    alert(value);
+    var statusTimeColumn = value_1[1];
+    alert(statusTimeColumn);
+    var companyid = $('#companyid').val();
+    $.ajax({
+        url: 'account/accountStatus_driver.php?type=UpdateStatus',
+        method: 'POST',
+        data: {
+            id: id,
+            value: value,
+            statusTimeColumn: statusTimeColumn
+        },
+        success: function (data) {
+            database.ref('accountInvoice').child(companyid).set({
+                data: randomString(),
+            });
+            database.ref('accountDeliver').child(companyid).set({
+                data: randomString(),
+            });
+            swal(data);
+        }
+    });
+}
+
+//update Payment Terms table
+var accountinvoicePath = "accountInvoice/";
+var accountinvoicePath1 = $('#companyid').val();
+var accountinvoiceData = accountinvoicePath1.toString();
+var accountinvoiceTest = accountinvoicePath + accountinvoiceData;
+
+database.ref(accountinvoiceTest).on('child_added', function (data) {
+    updateAccountInvoiceTable();
+});
+
+database.ref(accountinvoiceTest).on('child_changed', function (data) {
+    updateAccountInvoiceTable();
+});
+
+database.ref(accountinvoiceTest).on('child_removed', function (data) {
+    updateAccountInvoiceTable();
+});
+
+//update table fields
+
+function updateAccountInvoiceTable() {
+    var accountInvoiceBody = document.getElementById('accountInvoiceBody');
+
+    $.ajax({
+        url: 'account/utils/getAccountInvoice.php?type=showAccountInvoice',
+        method: 'POST',
+        dataType: 'text',
+        type: 'html',
+        success: function (response) {
+            if (accountInvoiceBody != null) {
+                accountInvoiceBody.innerHTML = response;
+            }
+        },
+    });
+}
+
+// account invoice end
+
+// Search Trailer
+function search_trailer(x) {
+    var n = x.value;
+    var companyId = $('#companyid').val();
+
+    $.ajax({
+        type: 'POST',
+        url: 'account/utils/getAccountDeliver.php?type=search_text',
+        data: {
+            getoption: n,
+            companyId: companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('accountDeliverBody').innerHTML = j;
+        }
+    });
+}
+
+function search_Invoice1(x) {
+    var n = x.value;
+    var companyId = $('#companyid').val();
+
+    $.ajax({
+        type: 'POST',
+        url: 'account/utils/getAccountInvoice.php?type=search_text1',
+        data: {
+            getoption: n,
+            companyId: companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('accountInvoiceBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate Trailer
+function paginate_trailer(start, limit) {
+
+    $.ajax({
+        url: 'admin/utils/getTrailer.php?types=paginate_trailer_admin',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('trailerBody').innerHTML = response;
+        },
+    });
+}
+
+// --------- bank code ---------------
+$(document).ready(function () {
+    $('#type').on('change', function () {
         if (this.value == '1') {
             $(".bank").css("display", "block");
             $(".cn").css("display", "block");
@@ -28,7 +270,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#purpose').on('change', function() {
+    $('#purpose').on('change', function () {
         if (this.value == '1') {
             $(".driver").css("display", "block");
         } else {
@@ -84,14 +326,14 @@ $(document).ready(function() {
         }
     });
 
-    $('#Advance').on('change', function() {
+    $('#Advance').on('change', function () {
         if (this.value == '2') {
             $(".adv").css("display", "block");
         } else {
             $(".adv").css("display", "none");
         }
     });
-    $('#card').on('change', function() {
+    $('#card').on('change', function () {
         if (this.value == '2') {
             $(".sub").css("display", "block");
         } else {
@@ -105,7 +347,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#receipt').on('change', function() {
+    $('#receipt').on('change', function () {
         if (this.value == '1') {
             $(".receipt").css("display", "block");
         } else {
@@ -129,10 +371,11 @@ function Showach() {
     $(".ach").css("display", "block");
     $(".cheque").css("display", "none");
 }
-$('#type').change(function() {
+
+$('#type').change(function () {
     $('#Advance').prop('selectedIndex', 0);
 });
-$('#type').change(function() {
+$('#type').change(function () {
     $("#purpose").prop("disabled", false);
     $(".cn").css("display", "none");
     $(".driver").css("display", "none");
@@ -145,8 +388,8 @@ $('#type').change(function() {
     $(".other").css("display", "none");
     $(".adv").css("display", "none");
 });
-$(document).ready(function() {
-    $("#type").change(function() {
+$(document).ready(function () {
+    $("#type").change(function () {
         if (this.value == '1') {
             $("#purpose").html(
                 '<option value="0" selected="true" disabled="disabled">--select--</option><option value="1">Driver</option><option value="2">Carrier</option><option value="3">Factoring</option><option value="4">Expense</option><option value="5">Maintenance</option><option value="6">Insurance</option><option value="7">Credit Card</option><option value="8">Fuel Card</option><option value="9">Other</option>'
@@ -171,13 +414,13 @@ $(document).ready(function() {
     });
 });
 
-$(function() {
-    $("#btnAddadv").bind("click", function() {
+$(function () {
+    $("#btnAddadv").bind("click", function () {
         var div = $("<tr />");
         div.html(GetDynamicTextBox(""));
         $("#TextBoxContainer1").append(div);
     });
-    $("body").on("click", ".remove", function() {
+    $("body").on("click", ".remove", function () {
         $(this).closest("tr").remove();
     });
 });
@@ -205,10 +448,10 @@ function UnSelectAll() {
             items[i].checked = false;
     }
 }
-var options = [];
-$('')
 
-$('.dropdown-menu a').on('click', function(event) {
+var options = [];
+
+$('.dropdown-menu a').on('click', function (event) {
 
     var $target = $(event.currentTarget),
         val = $target.attr('data-value'),
@@ -217,12 +460,12 @@ $('.dropdown-menu a').on('click', function(event) {
 
     if ((idx = options.indexOf(val)) > -1) {
         options.splice(idx, 1);
-        setTimeout(function() {
+        setTimeout(function () {
             $inp.prop('checked', false)
         }, 0);
     } else {
         options.push(val);
-        setTimeout(function() {
+        setTimeout(function () {
             $inp.prop('checked', true)
         }, 0);
     }
@@ -259,101 +502,3 @@ function Paymentadd() {
    alert(memo);
 }
 
-//account step form
-function toggleAccount(val) {
-    if ($("#carrier").hasClass("show")) {
-        $("#carrier").toggleClass("show");
-    }
-    if ($("#carrier").hasClass("active")) {
-        $("#carrier").toggleClass("active");
-    }
-    if ($("#insurance").hasClass("show")) {
-        $("#insurance").toggleClass("show");
-    }
-    if ($("#insurance").hasClass("active")) {
-        $("#insurance").toggleClass("active");
-    }
-    if ($("#accounting").hasClass("show")) {
-        $("#accounting").toggleClass("show");
-    }
-    if ($("#accounting").hasClass("active")) {
-        $("#accounting").toggleClass("active");
-    }
-    if ($("#equipment").hasClass("show")) {
-        $("#equipment").toggleClass("show");
-    }
-    if ($("#equipment").hasClass("active")) {
-        $("#equipment").toggleClass("active");
-    }
-    if ($("#home-tab").hasClass("active")) {
-        $("#home-tab").toggleClass("active");
-    }
-    if ($("#insurance-tab").hasClass("active")) {
-        $("#insurance-tab").toggleClass("active");
-    }
-    if ($("#accounting-tab").hasClass("active")) {
-        $("#accounting-tab").toggleClass("active");
-    }
-    if ($("#equipment-tab").hasClass("active")) {
-        $("#equipment-tab").toggleClass("active");
-    }
-    if ($("#home-title").hasClass("show")) {
-        $("#home-title").toggleClass("show");
-    }
-    if ($("#insurance-title").hasClass("show")) {
-        $("#insurance-title").toggleClass("show");
-    }
-    if ($("#accounting-title").hasClass("show")) {
-        $("#accounting-title").toggleClass("show");
-    }
-    if ($("#equipment-title").hasClass("show")) {
-        $("#equipment-title").toggleClass("show");
-    }
-
-    if ($("#home-tab").attr("aria-selected") === 'true') {
-        $("#home-tab").attr("aria-selected", "false");
-    } else {
-        $("#home-tab").attr("aria-selected", "true");
-    }
-
-    if ($("#insurance-tab").attr("aria-selected") === 'true') {
-        $("#insurance-tab").attr("aria-selected", "false");
-    } else {
-        $("#insurance-tab").attr("aria-selected", "true");
-    }
-
-    if ($("#accounting-tab").attr("aria-selected") === 'true') {
-        $("#accounting-tab").attr("aria-selected", "false");
-    } else {
-        $("#accounting-tab").attr("aria-selected", "true");
-    }
-
-    if ($("#equipment-tab").attr("aria-selected") === 'true') {
-        $("#equipment-tab").attr("aria-selected", "false");
-    } else {
-        $("#equipment-tab").attr("aria-selected", "true");
-    }
-
-    if (val == 'first') {
-        $("#carrier").toggleClass("show");
-        $("#carrier").toggleClass("active");
-        $("#home-tab").toggleClass("active");
-        $("#home-title").toggleClass("show");
-    } else if (val == 'second') {
-        $("#insurance").toggleClass("show");
-        $("#insurance").toggleClass("active");
-        $("#insurance-tab").toggleClass("active");
-        $("#insurance-title").toggleClass("show");
-    } else if (val == 'third') {
-        $("#accounting").toggleClass("show");
-        $("#accounting").toggleClass("active");
-        $("#accounting-tab").toggleClass("active");
-        $("#accounting-title").toggleClass("show");
-    } else if (val == 'fourth') {
-        $("#equipment").toggleClass("show");
-        $("#equipment").toggleClass("active");
-        $("#equipment-tab").toggleClass("active");
-        $("#equipment-title").toggleClass("show");
-    }
-
-}

@@ -5,6 +5,14 @@ require 'vendor/autoload.php';
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
 
+//$show1 = $db->active_load->find(['companyID' => 1],['activeload' => ['$slice' => 5]]);
+$show1 = $db->active_load->find(array('companyID' => 1), array('projection' => array('activeload' => array('$slice' => [0,5]))));
+foreach ($show1 as $show) {
+    foreach ($show['activeload'] as $s){
+        print_r($s);
+    }
+}
+
 //db.mycollection.update(
 //    {'_id': ObjectId("576b63d49d20504c1360f688")},
 //    { $pull: { "books" : { "title": "abc" } } },

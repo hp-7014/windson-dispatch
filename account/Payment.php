@@ -179,30 +179,49 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2 adv" style="display:none;">
-                                    <label>Invoice #</label>
-                                    <div class="dropdown">
-                                        <button class="form-control dropdown-toggle" type="button"
-                                            data-toggle="dropdown" style="padding-left:30px;padding-right:30px;">Invoice
-                                            #&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span class=" caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <div>
-                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
-                                                    <input type="checkbox" class="custom-control-input" id="1">
-                                                    <label class="custom-control-label" for="1">46445454</label>
-                                                </div>
-                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
-                                                    <input type="checkbox" class="custom-control-input" id="2">
-                                                    <label class="custom-control-label" for="2">3343645</label>
-                                                </div>
-                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
-                                                    <input type="checkbox" class="custom-control-input" id="3">
-                                                    <label class="custom-control-label" for="3">343454</label>
-                                                </div>
-                                            </div>
-                                        </ul>
-                                    </div>
+                                <label>Invoice</label>
+                                    <br>
+                                    <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light"
+                                        type="button" data-toggle="dropdown">
+                                        Invoice<i class="mdi mdi-menu-down-outline"
+                                            style="padding-left:15px;padding-right:50px"></i>
+                                    </button>                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <input type="checkbox" onclick='selectAll()'
+                                                style="margin-left:20px;margin-top:10px"
+                                                value="Select All" />&nbsp;Select all
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" onclick='UnSelectAll()'
+                                                style="margin-left:20px;margin-top:10px"
+                                                value="Select All" />&nbsp;Unselect all
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option1" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;3543534
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option2" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;24543434
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option3" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;4533332
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option4" tabIndex="-1">
+                                                <input type="checkbox" name="acs">&nbsp;32432432
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option5" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;43898239
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                                 <div class="form-group col-md-2 adv" style="display:none;">
                                     <label>Driver</label>
@@ -287,10 +306,49 @@
                                     </datalist>
                                 </div>
                                 <div class="form-group col-md-2 driver" style="display:none;">
-                                    <label>Invoice #</label>
-                                    <div>
-                                        <input class="form-control" id="invoice" name="invoice" placeholder="Invoice *" type="text">
-                                    </div>
+                                <label>Invoice</label>
+                                    <br>
+                                    <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light"
+                                        type="button" data-toggle="dropdown">
+                                        Invoice<i class="mdi mdi-menu-down-outline"
+                                            style="padding-left:15px;padding-right:50px"></i>
+                                    </button>                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <input type="checkbox" onclick='selectAll()'
+                                                style="margin-left:20px;margin-top:10px"
+                                                value="Select All" />&nbsp;Select all
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" onclick='UnSelectAll()'
+                                                style="margin-left:20px;margin-top:10px"
+                                                value="Select All" />&nbsp;Unselect all
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option1" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;3543534
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option2" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;24543434
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option3" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;4533332
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option4" tabIndex="-1">
+                                                <input type="checkbox" name="acs">&nbsp;32432432
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option5" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;43898239
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                                 <div class="form-group col-md-2 driver" style="display:none;">
                                     <label>Amount *</label>
@@ -343,39 +401,49 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2 carrier" style="display:none;">
-                                    <label>Invoice #</label>
-                                    <div class="dropdown">
-                                        <button class="form-control dropdown-toggle" type="button"
-                                            data-toggle="dropdown" style="padding-left:30px;padding-right:30px;">Invoice
-                                            #&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span class=" caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <div>
-                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="customCheck1" data-parsley-multiple="groups"
-                                                        data-parsley-mincheck="2">
-                                                    <label class="custom-control-label"
-                                                        for="customCheck1">46445454</label>
-                                                </div>
-                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="customCheck2" data-parsley-multiple="groups"
-                                                        data-parsley-mincheck="2">
-                                                    <label class="custom-control-label"
-                                                        for="customCheck2">3343645</label>
-                                                </div>
-                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="customCheck3" data-parsley-multiple="groups"
-                                                        data-parsley-mincheck="2">
-                                                    <label class="custom-control-label"
-                                                        for="customCheck3">343454</label>
-                                                </div>
-                                            </div>
-                                        </ul>
-                                    </div>
+                                <label>Invoice</label>
+                                    <br>
+                                    <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light"
+                                        type="button" data-toggle="dropdown">
+                                        Invoice<i class="mdi mdi-menu-down-outline"
+                                            style="padding-left:15px;padding-right:50px"></i>
+                                    </button>                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <input type="checkbox" onclick='selectAll()'
+                                                style="margin-left:20px;margin-top:10px"
+                                                value="Select All" />&nbsp;Select all
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" onclick='UnSelectAll()'
+                                                style="margin-left:20px;margin-top:10px"
+                                                value="Select All" />&nbsp;Unselect all
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option1" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;3543534
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option2" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;24543434
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option3" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;4533332
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option4" tabIndex="-1">
+                                                <input type="checkbox" name="acs">&nbsp;32432432
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option5" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;43898239
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                                 <div class="form-group col-md-2 carrier" style="display:none;">
                                     <label>Amount *</label>
@@ -416,39 +484,49 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2 factoring" style="display:none;">
-                                    <label>Invoice #</label>
-                                    <div class="dropdown">
-                                        <button class="form-control dropdown-toggle" type="button"
-                                            data-toggle="dropdown" style="padding-left:30px;padding-right:30px;">Invoice
-                                            #&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span class=" caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <div>
-                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="customCheck1" data-parsley-multiple="groups"
-                                                        data-parsley-mincheck="2">
-                                                    <label class="custom-control-label"
-                                                        for="customCheck1">46445454</label>
-                                                </div>
-                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="customCheck2" data-parsley-multiple="groups"
-                                                        data-parsley-mincheck="2">
-                                                    <label class="custom-control-label"
-                                                        for="customCheck2">3343645</label>
-                                                </div>
-                                                <div class="custom-control custom-checkbox" style="margin-left: 1em;">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="customCheck3" data-parsley-multiple="groups"
-                                                        data-parsley-mincheck="2">
-                                                    <label class="custom-control-label"
-                                                        for="customCheck3">343454</label>
-                                                </div>
-                                            </div>
-                                        </ul>
-                                    </div>
+                                <label>Invoice</label>
+                                    <br>
+                                    <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light"
+                                        type="button" data-toggle="dropdown">
+                                        Invoice<i class="mdi mdi-menu-down-outline"
+                                            style="padding-left:15px;padding-right:50px"></i>
+                                    </button>                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <input type="checkbox" onclick='selectAll()'
+                                                style="margin-left:20px;margin-top:10px"
+                                                value="Select All" />&nbsp;Select all
+                                        </li>
+                                        <li>
+                                            <input type="checkbox" onclick='UnSelectAll()'
+                                                style="margin-left:20px;margin-top:10px"
+                                                value="Select All" />&nbsp;Unselect all
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option1" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;3543534
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option2" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;24543434
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option3" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;4533332
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option4" tabIndex="-1">
+                                                <input type="checkbox" name="acs">&nbsp;32432432
+                                            </a>
+                                        </li>
+                                        <li class="space">
+                                            <a href="#" class="small" data-value="option5" tabIndex="-1">
+                                                <input type="checkbox" name="acs" />&nbsp;43898239
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                                 <div class="form-group col-md-2 factoring" style="display:none;">
                                     <label>Amount *</label>

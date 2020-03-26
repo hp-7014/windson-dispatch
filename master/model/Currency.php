@@ -126,11 +126,10 @@ class Currency implements IteratorAggregate
 
 
     //import Excel
-    public function importExcel($targetPath, $helper) {
+    public function importExcel($targetPath, $helper, $db) {
 
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 

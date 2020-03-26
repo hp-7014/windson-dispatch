@@ -813,8 +813,6 @@ $(document).on('click', '#custom_broker', function () {
     });
 });
 
-//admin chetan
-
 // Add Truck Function
 $(document).on("click", "#truck_add", function () {
     $.ajax({

@@ -13,7 +13,7 @@
 <script src="master/js/validation.js"></script>
 <script src="admin/js/validation.js"></script>
 <script src="ifta/js/validation.js"></script>
-<!-- <script src="account/js/form.js"></script> -->
+<script src="account/js/form.js"></script>
 
 <!--Morris Chart-->
 <script src="./assets/plugins/morris/morris.min.js"></script>
