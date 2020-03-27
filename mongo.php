@@ -5,13 +5,41 @@ require 'vendor/autoload.php';
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
 
+
+                                    $collection = $db->bank_admin;
+                                    $show1 = $collection->aggregate([
+                                        ['$lookup' => [
+                                            'from' => 'company',
+                                            'localField' => 'companyID', 
+                                            'foreignField' => 'companyID',
+                                            'as' => 'company'
+                                        ]],
+                                        ['$match'=>['companyID'=>1]]
+                                     ]);
+
+                                     foreach ($show1 as $row) {
+                                         $admin_bank = $row['admin_bank'];
+                                         $company = $row['company'];
+                                         $companyName = array();
+                                         foreach ($company as $row1) {
+                                            $company1 = $row1['company'];
+                                            foreach ($company1 as $row2) {
+                                                $companyid = $row2['_id'];
+                                                $companyName[$companyid] = $row2['companyName'];
+                                            }
+                                         }
+                                         foreach ($admin_bank as $row3) {
+                                            $accountHolder = $companyName[$row3['accountHolder']];
+                                            echo $accountHolder;
+                                         }
+                                     }
 //$show1 = $db->active_load->find(['companyID' => 1],['activeload' => ['$slice' => 5]]);
-$show1 = $db->active_load->find(array('companyID' => 1), array('projection' => array('activeload' => array('$slice' => [0,5]))));
-foreach ($show1 as $show) {
-    foreach ($show['activeload'] as $s){
-        print_r($s);
-    }
-}
+// $show1 = $db->active_load->find(array('companyID' => 1), array('projection' => array('activeload' => array('$slice' => [0,5]))));
+// foreach ($show1 as $show) {
+//     foreach ($show['activeload'] as $s){
+//         print_r($s);
+//     }
+// }
 
 //db.mycollection.update(
 //    {'_id': ObjectId("576b63d49d20504c1360f688")},
