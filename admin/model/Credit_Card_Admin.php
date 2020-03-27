@@ -218,6 +218,7 @@
                     'counter' => 0,
                     'admin_credit' => array([
                         '_id' => 0,
+                        'counter' => 0,
                         'Name'=>$this->Name,
                         'displayName'=>$this->displayName,
                         'cardType'=>$this->cardType,
@@ -228,7 +229,7 @@
                         'openingBalance'=>$this->openingBalance,
                         'transacBalance'=>$this->transacBalance,
                         'delete_status'=>'0',
-                        'insertedUser' => $_SESSION['companyName'],
+                        'insertedUser' => $_SESSION['companyName']
                     ])
                 )
             );
@@ -244,6 +245,7 @@
             if ($count > 0) {
                 $db->credit_card_admin->updateOne(['companyID' => (int) $this->companyID],['$push'=>['admin_credit'=>[
                     '_id'=>$helper->getDocumentSequence((int) $this->companyID,$db->credit_card_admin),
+                    'counter' => 0,
                     'Name'=>$this->Name,
                     'displayName'=>$this->displayName,
                     'cardType'=>$this->cardType,
@@ -254,11 +256,19 @@
                     'openingBalance'=>$this->openingBalance,
                     'transacBalance'=>$this->transacBalance,
                     'delete_status'=>'0',
-                    'insertedUser' => $_SESSION['companyName'],
+                    'insertedUser' => $_SESSION['companyName']
                 ]]]);
+
+                $db->bank_admin->updateOne(['companyID' => (int)$_SESSION['companyId'], 'admin_bank._id' => (int)$this->Name],
+                ['$set' => ['admin_bank.$.counter' => $helper->getDocumentSequenceId((int)$this->Name,$db->bank_admin,"admin_bank",(int)$_SESSION['companyId'])]]);
+       
             } else {
                 $b_admin = iterator_to_array($category);
                 $db->credit_card_admin->insertOne($b_admin);
+
+                $db->bank_admin->updateOne(['companyID' => (int)$_SESSION['companyId'], 'admin_bank._id' => (int)$this->Name],
+                ['$set' => ['admin_bank.$.counter' => $helper->getDocumentSequenceId((int)$this->Name,$db->bank_admin,"admin_bank",(int)$_SESSION['companyId'])]]);
+       
             }
 
             echo "Data Insert Successfully";
@@ -285,11 +295,10 @@
             echo json_encode($p);
         }
 
-        public function import_Bank_Credit($targetPath, $helper)
+        public function import_Bank_Credit($targetPath, $helper, $db)
         {
             require_once('../excel/excel_reader2.php');
             require_once('../excel/SpreadsheetReader.php');
-            include '../database/connection.php';   // connection
 
             $Reader = new SpreadsheetReader($targetPath);
 
@@ -332,14 +341,14 @@
             }
         }
 
-        public function delete_Credits($b_credit,$db) {
-            $db->credit_card_admin->updateOne(['companyID' => (int)$_SESSION['companyId'], 'admin_credit._id' => (int)$this->getId()],
-                ['$set' => ['admin_credit.$.delete_status' => "1"]]
+        public function delete_Credits($b_credit,$db,$helper) {
+            $db->credit_card_admin->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+                    '$pull' => ['admin_credit' => ['_id' => (int)$b_credit->getId()]]]
             );
 
-            /*$db->credit_card_admin->updateOne(['companyID' => (int)$_SESSION['companyId']], [
-                    '$pull' => ['admin_credit' => ['_id' => (int)$b_credit->getId()]]]
-            );*/
+            $db->bank_admin->updateOne(['companyID' => (int)$_SESSION['companyId'], 'admin_bank._id' => (int)$this->Name],
+                ['$set' => ['admin_bank.$.counter' => $helper->getDocumentDecrementId((int)$this->Name,$db->bank_admin,"admin_bank",(int)$_SESSION['companyId'])]]);
+       
         }
 
         public function update_Credit($b_credit,$db){

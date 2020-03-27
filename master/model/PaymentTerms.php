@@ -102,7 +102,7 @@ class PaymentTerms implements IteratorAggregate
                 '_id' => $this->id,
                 'companyID' => (int)$this->companyID,
                 'counter' => 0,
-                'payment' => array(['_id' => 0, 'paymentTerm' => $this->payment_term])
+                'payment' => array(['_id' => 0, 'paymentTerm' => $this->payment_term,'counter' => 0])
             )
         );
     }
@@ -117,20 +117,20 @@ class PaymentTerms implements IteratorAggregate
         if ($count > 0) {
             $db->payment_terms->updateOne(['companyID' => (int)$this->companyID], ['$push' => ['payment' => [
                 '_id' => $helper->getDocumentSequence((int)$this->companyID, $db->payment_terms),
-                'paymentTerm' => $this->payment_term
+                'paymentTerm' => $this->payment_term,
+                'counter' => 0,
             ]]]);
+
         } else {
             $payment = iterator_to_array($payment_term);
             $db->payment_terms->insertOne($payment);
         }
     }
 
-    public function importExcel($targetPath, $helper)
+    public function importExcel($targetPath, $helper, $db)
     {
-
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 

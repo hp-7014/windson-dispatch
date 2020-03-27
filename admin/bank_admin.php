@@ -59,7 +59,8 @@ else if ($_GET['type'] == 'edit_date') {
 else if ($_GET['type'] == 'delete_bank') {
     $b_admin = new Bank_Admin();
     $b_admin->setId($_POST['id']);
-    $b_admin->delete_Banks($b_admin,$db);
+    $b_admin->setAccountHolder($_POST['accountHolder']);
+    $b_admin->delete_Banks($b_admin,$db,$helper);
 }
 
 // Import Excel Here
@@ -73,7 +74,7 @@ else if ($_GET['type'] == 'import_admin_bank') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $b_admin = new Bank_Admin();
-        $b_admin->import_Bank_Admin($targetPath,$helper);
+        $b_admin->import_Bank_Admin($targetPath,$helper,$db);
     }
 }
 

@@ -47,7 +47,7 @@ else if ($_GET['type'] == 'importCredit') {
         move_uploaded_file($_FILES['file1']['tmp_name'], $targetPath);
 
         $credit = new BankCreditCategory();
-        $credit->importCredit($targetPath,$helper);
+        $credit->importCredit($targetPath,$helper,$db);
     }
 }
 

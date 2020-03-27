@@ -496,15 +496,14 @@ class TruckAdd implements IteratorAggregate
 
     }
 
-
     public function getIterator()
     {
         // TODO: Implement getIterator() method.
                 return new ArrayIterator(
                     array(
                     '_id' => $this->id,
-                    'companyID' => (int) $this->companyID,
                     'counter' => 0,
+                    'companyID' => (int) $this->companyID,
                     'truck' => array(['_id' => 0, 
                     'truckNumber' => $this->truckNumber,
                     'truckType' => $this->truckType,
@@ -530,58 +529,66 @@ class TruckAdd implements IteratorAggregate
                     'trucDoc' => $this->uploadDocument,
                     'insertedTime' => time(),
                     'insertedUserId' => $_SESSION['companyName'],
-                    'deleteStatus' => 0]
+                    'deleteStatus' => 0
+                    ]
                 )
             )
         );
     }
 
-
     //Insert Truck Function
 
     public function insert($truck,$db,$helper)
-            {
-                $collection = $db->truckadd;
-                $criteria = array(
-                    'companyID' => (int)$truck->getCompanyID(),
-                );
-                $doc = $collection->findOne($criteria);
+    {
+        $collection = $db->truckadd;
+        $criteria = array(
+            'companyID' => (int)$truck->getCompanyID(),
+        );
+        $doc = $collection->findOne($criteria);
 
-            if (!empty($doc)) {
+        if (!empty($doc)) {
             $db->truckadd->updateOne(['companyID' => (int)$this->companyID],['$push'=>['truck'=>[
                 '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->truckadd),
-                    'truckNumber' => $this->truckNumber,
-                    'truckType' => $this->truckType,
-                    'licensePlate' => $this->licensePlate,
-                    'plateExpiry' => $this->plateExpiry,        
-                    'inspectionExpiry' => $this->inspectionExpiry,
-                    'status' => $this->status,    
-                    'ownership' => $this->ownership,        
-                    'mileage' => $this->mileage,
-                    'axies' => $this->axies,
-                    'year' => $this->year,
-                    'fuelType' => $this->fuelType,        
-                    'startDate' => $this->startDate,
-                    'deactivationDate' => $this->deactivationDate,    
-                    'ifta' => $this->ifta,          
-                    'registeredState' => $this->registeredState,
-                    'insurancePolicy' => $this->insurancePolicy,
-                    'grossWeight' => $this->grossWeight,
-                    'vin' => $this->vin,        
-                    'dotexpiryDate' => $this->dotexpiryDate,
-                    'transponder' => $this->transponder,    
-                    'internalNotes' => $this->internalNotes,
-                    'trucDoc' => $this->uploadDocument,
-                    'insertedTime' => time(),
-                    'insertedUserId' => $_SESSION['companyName'],
-                    'deleteStatus' => 0
+                'counter' => 0,
+                'truckNumber' => $this->truckNumber,
+                'truckType' => $this->truckType,
+                'licensePlate' => $this->licensePlate,
+                'plateExpiry' => $this->plateExpiry,        
+                'inspectionExpiry' => $this->inspectionExpiry,
+                'status' => $this->status,    
+                'ownership' => $this->ownership,        
+                'mileage' => $this->mileage,
+                'axies' => $this->axies,
+                'year' => $this->year,
+                'fuelType' => $this->fuelType,        
+                'startDate' => $this->startDate,
+                'deactivationDate' => $this->deactivationDate,    
+                'ifta' => $this->ifta,          
+                'registeredState' => $this->registeredState,
+                'insurancePolicy' => $this->insurancePolicy,
+                'grossWeight' => $this->grossWeight,
+                'vin' => $this->vin,        
+                'dotexpiryDate' => $this->dotexpiryDate,
+                'transponder' => $this->transponder,    
+                'internalNotes' => $this->internalNotes,
+                'trucDoc' => $this->uploadDocument,
+                'insertedTime' => time(),
+                'insertedUserId' => $_SESSION['companyName'],
+                'deleteStatus' => 0
             ]]]);
+
+            $db->truck_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'truck._id' => (int)$this->truckType],
+            ['$set' => ['truck.$.counter' => $helper->getDocumentSequenceId((int)$this->truckType,$db->truck_add,"truck",(int)$_SESSION['companyId'])]]);
+        
         } else {
             $truck = iterator_to_array($truck);
             $db->truckadd->insertOne($truck);
+            
+            $db->truck_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'truck._id' => (int)$this->truckType],
+            ['$set' => ['truck.$.counter' => $helper->getDocumentSequenceId((int)$this->truckType,$db->truck_add,"truck",(int)$_SESSION['companyId'])]]);
+        
         }
     }
-
 
     //update
     public function updateTruckAdd($truck,$db){
@@ -591,14 +598,19 @@ class TruckAdd implements IteratorAggregate
             ]);
     }
 
-
     //Delete
-    public function deleteTruckAdd($truck,$db){
-            $db->truckadd->updateOne(['companyID' => (int)$_SESSION['companyId'], 'truck._id' => (int)$this->getId()],
-                ['$set' => ['truck.$.deleteStatus' => 1]]
-            );
-    }
+    public function deleteTruckAdd($truck,$db,$helper){
+        // $db->truckadd->updateOne(['companyID' => (int)$_SESSION['companyId'], 'truck._id' => (int)$this->getId()],
+        //     ['$set' => ['truck.$.deleteStatus' => 1]]
+        // );
+        $db->truckadd->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+            '$pull' => ['truck' => ['_id' => (int)$truck->getId()]]]
+        );
 
+        $db->truck_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'truck._id' => (int)$this->truckType],
+            ['$set' => ['truck.$.counter' => $helper->getDocumentDecrementId((int)$this->truckType,$db->truck_add,"truck",(int)$_SESSION['companyId'])]]);
+        
+    }
 
     //Export
     public function exportTruck($db)

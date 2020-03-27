@@ -64,7 +64,7 @@ else if ($_GET['type'] == 'import_Excel') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $debit = new BankDebitCategory();
-        $debit->import_Debit($targetPath,$helper);
+        $debit->import_Debit($targetPath,$helper,$db);
     }
 }
 

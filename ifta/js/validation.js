@@ -2,7 +2,7 @@
 
 function val_unitNumber(val) {
     if (val == '') {
-        alert('Please Enter Unit Number.');
+        swal('Please Enter Unit Number.');
         return false;
     } else {
         return true;
@@ -11,7 +11,7 @@ function val_unitNumber(val) {
 
 function val_fuelDate(val) {
     if (val == '') {
-        alert('Please Select Fuel Date');
+        swal('Please Select Fuel Date');
         return false;
     } else {
         return true;
@@ -20,7 +20,7 @@ function val_fuelDate(val) {
 
 function val_transacTime(val) {
     if (val == '') {
-        alert('Please Enter Transaction Time');
+        swal('Please Enter Transaction Time');
         return false;
     } else {
         return true;
@@ -29,7 +29,7 @@ function val_transacTime(val) {
 
 function val_merchantName(val) {
     if (val == '') {
-        alert('Please Enter Merchant Name');
+        swal('Please Enter Merchant Name');
         return false;
     } else {
         return true;
@@ -38,7 +38,7 @@ function val_merchantName(val) {
 
 function val_statePurch(val) {
     if (val == '') {
-        alert('Please Select State Purch');
+        swal('Please Select State Purch');
         return false;
     } else {
         return true;
@@ -47,7 +47,7 @@ function val_statePurch(val) {
 
 function val_dGallons(val) {
     if (val == '') {
-        alert('Please Enter Diesel Gallons');
+        swal('Please Enter Diesel Gallons');
         return false;
     } else {
         return true;
@@ -56,7 +56,7 @@ function val_dGallons(val) {
 
 function val_dGrossCost(val) {
     if (val == '') {
-        alert('Please Enter Diesel Gross Cost');
+        swal('Please Enter Diesel Gross Cost');
         return false;
     } else {
         return true;
@@ -65,7 +65,7 @@ function val_dGrossCost(val) {
 
 function val_invoiceNo(val) {
     if (val == '') {
-        alert('Please Select Invoice No.');
+        swal('Please Select Invoice No.');
         return false;
     } else {
         return true;
@@ -78,7 +78,7 @@ function val_invoiceNo(val) {
 
 function val_invoiceNumber(val) {
     if (val == '') {
-        alert('Please Select Invoice Number.');
+        swal('Please Select Invoice Number.');
         return false;
     } else {
         return true;
@@ -87,7 +87,7 @@ function val_invoiceNumber(val) {
 
 function val_tollDate(val) {
     if (val == '') {
-        alert('Please Select Toll Date.');
+        swal('Please Select Toll Date.');
         return false;
     } else {
         return true;
@@ -96,7 +96,7 @@ function val_tollDate(val) {
 
 function val_transType(val) {
     if (val == '') {
-        alert('Please Enter Transaction Type.');
+        swal('Please Enter Transaction Type.');
         return false;
     } else {
         return true;
@@ -105,7 +105,7 @@ function val_transType(val) {
 
 function val_location(val) {
     if (val == '') {
-        alert('Please Enter Toll Location');
+        swal('Please Enter Toll Location');
         return false;
     } else {
         return true;
@@ -114,7 +114,7 @@ function val_location(val) {
 
 function val_amount(val) {
     if (val == '') {
-        alert('Please Enter Amount');
+        swal('Please Enter Amount');
         return false;
     } else {
         return true;
@@ -123,7 +123,7 @@ function val_amount(val) {
 
 function val_licensePlate(val) {
     if (val == '') {
-        alert('Please Enter License Plate');
+        swal('Please Enter License Plate');
         return false;
     } else {
         return true;
@@ -132,7 +132,7 @@ function val_licensePlate(val) {
 
 function val_truckNo(val) {
     if (val == '') {
-        alert('Please Select Truck Number');
+        swal('Please Select Truck Number');
         return false;
     } else {
         return true;

@@ -17,7 +17,7 @@ if ($_GET['type'] == 'importExcel') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $payment_term = new PaymentTerms();
-        $payment_term->importExcel($targetPath, $helper);
+        $payment_term->importExcel($targetPath, $helper, $db);
         echo 'File Upload Successfully';
     }
 }

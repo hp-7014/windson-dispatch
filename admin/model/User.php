@@ -700,6 +700,7 @@ class User implements IteratorAggregate
                 'counter' => 0,
                 'user' => array([
                     '_id' => 0,
+                    'counter' => 0,
                     'userEmail' => $this->userEmail,
                     'userName' => $this->userName,
                     'userPass' => $this->userPass,
@@ -751,6 +752,7 @@ class User implements IteratorAggregate
         if ($count > 0) {
             $db->user->updateOne(['companyID' => (int)$this->companyID], ['$push' => ['user' => [
                 '_id' => $helper->getDocumentSequence((int)$this->companyID, $db->user),
+                'counter' => 0,
                 'userEmail' => $this->userEmail,
                 'userName' => $this->userName,
                 'userPass' => $this->userPass,
@@ -795,11 +797,10 @@ class User implements IteratorAggregate
     }
 
     // import user
-    public function importExcel($targetPath, $helper)
+    public function importExcel($targetPath, $helper, $db)
     {
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 
@@ -879,10 +880,10 @@ class User implements IteratorAggregate
     }
 
     // delete fucntion
-    public function deleteUser($user, $db)
+    public function deleteUser($users, $db)
     {
-        $db->user->updateOne(['companyID' => (int)$_SESSION['companyId'], 'user._id' => (int)$this->getId()],
-            ['$set' => ['user.$.deleteStatus' => 1]]
+        $db->user->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+            '$pull' => ['user' => ['_id' => (int)$users->getId()]]]
         );
     }
 

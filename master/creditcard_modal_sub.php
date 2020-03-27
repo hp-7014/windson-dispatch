@@ -9,18 +9,19 @@
             </div>
             <div class="modal-body">
                 <div class="form-group col-md-12">
-                    <label>Name <span style="color: red">*</span></label>
+                    <label>Name <span class="mandatory">*</span></label>
                     <div>
                         <input class="form-control" placeholder="Name" name="credit_card_name" type="text" id="credit_card_name">
                         <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger waves-effect modalCreditcard">
-                    Close
-                </button>
-                <button type="submit" id="submit" onclick="addCreditCard()" class="btn btn-primary waves-effect waves-light">Save</button>
+                <span class="mandatory">Note: * Fields are Mandatory</span>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect modalCreditcard">
+                        Close
+                    </button>
+                    <button type="submit" id="submit" onclick="addCreditCard()" class="btn btn-primary waves-effect waves-light">Save</button>
+                </div>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

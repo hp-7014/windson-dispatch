@@ -124,20 +124,18 @@ class Currency implements IteratorAggregate
         }
     }
 
-
     //import Excel
-    public function importExcel($targetPath, $helper, $db) {
+    public function importExcel_Currency($targetPath, $helper, $db) {
 
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-
+        
         $Reader = new SpreadsheetReader($targetPath);
 
         $sheetCount = count($Reader->sheets());
-
+    
         for ($i = 0; $i < $sheetCount; $i++ )
         {
-
             $Reader->ChangeSheet($i);
 
             foreach ($Reader as $Row)
@@ -161,16 +159,16 @@ class Currency implements IteratorAggregate
 //            ['$set' => ['currency.$.currencyType'=>'testchetan']
 //            ]);
         
-              $db->currency_add->updateOne(
-              ['companyID' => (int)$_SESSION['companyId'],'currency._id' => (int)$this->getId()],
-              ['$set' => ['currency.$.'.$currency->getColumn() => $currency->getCurrencyType()]
-              ]);
+        $db->currency_add->updateOne(
+            ['companyID' => (int)$_SESSION['companyId'],'currency._id' => (int)$this->getId()],
+            ['$set' => ['currency.$.'.$currency->getColumn() => $currency->getCurrencyType()]
+        ]);
     }
 
     //Delete
     public function deleteCurrency($currency,$db){
 //        $db->currency_add->deleteOne(['_id' => (int)$currency->getId()]);
-          $db->currency_add->updateOne(['companyID' => (int)$_SESSION['companyId']], 
+        $db->currency_add->updateOne(['companyID' => (int)$_SESSION['companyId']],
           ['$pull' => ['currency' => ['_id' => (int)$currency->getId()]]]
         );
     }

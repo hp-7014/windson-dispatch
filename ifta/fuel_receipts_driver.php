@@ -16,7 +16,7 @@ if ($_GET['type'] == 'driver_detail') {
     foreach ($show_data as $drive) {
         $d = $drive['ifta_card'];
         foreach ($d as $t) {
-            if ($_POST['getoption'] == $t['cardHolderName']) {
+            if ($_POST['getoption'] == $t['_id']) {
                 echo json_encode($t);
                 break;
             }
@@ -63,7 +63,9 @@ else if ($_GET['type'] == 'edit_fuel') {
 else if ($_GET['type'] == 'delete_fuel') {
     $f_receipt = new Fuel_Receipts();
     $f_receipt->setId($_POST['id']);
-    $f_receipt->delete_FuelReceipts($f_receipt,$db);
+    $f_receipt->setCardHolderName($_POST['cardName']);
+    
+    $f_receipt->delete_FuelReceipts($f_receipt,$db,$helper);
 }
 
 // Export Fuel Receipts

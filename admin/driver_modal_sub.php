@@ -289,6 +289,7 @@ require "../database/connection.php";
                     </div>
                 </div>
             </div>
+            
             <div class="modal-footer">
                 <label class="text-danger" style="padding-right: 525px"><b>Note :</b>&nbsp; * Fields are mandatory</label>
                 <button type="button" class="btn btn-danger waves-effect modalDriver">

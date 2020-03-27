@@ -28,7 +28,8 @@ if ($_GET['type'] == 'add_company') {
 else if ($_GET['type'] == 'delete_company') {
     $Company = new Company();
     $Company->setId($_POST['id']);
-    $Company->delete($Company,$db);
+    $Company->setFactoringCompany($_POST['factoringid']);
+    $Company->delete($Company,$db,$helper);
     echo 'Data Removed Successfully';
 }
 
@@ -60,6 +61,6 @@ else if ($_GET['type'] == 'importCompany') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Company = new Company();
-        $Company->importExcel($targetPath,$helper);
+        $Company->importExcel($targetPath,$helper,$db);
     }
 }

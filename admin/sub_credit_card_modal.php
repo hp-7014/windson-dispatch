@@ -1,10 +1,11 @@
 <?php
-session_start();
-include '../database/connection.php';
+    session_start();
+    include '../database/connection.php';
 ?>
 
 <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="Credit_Card"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-xxl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
@@ -17,7 +18,7 @@ include '../database/connection.php';
 
             <div class="modal-body custom-modal-body" style="padding: 0.1rem">
                 <div class="subcreditcard-container" style="z-index: 1800"></div>
-                <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" type="text" id="search"
+                <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" type="text" id="search" onkeyup="searchTextSub_Credit(this)"
                        placeholder="search" style="margin-left: 5px;">
                 <form method="post" enctype="multipart/form-data">
                     <button class="btn btn-primary float-left" type="button" data-toggle="modal"
@@ -42,7 +43,7 @@ include '../database/connection.php';
                             <table id="sub_credit_table" class="scroll">
                                 <thead>
                                 <tr>
-                                    <th scope="col" col width="160">No</th>
+                                    <th scope="col" col width="50">No</th>
                                     <th scope="col" col width="160" data-priority="1">Display Name</th>
                                     <th scope="col" col width="160" data-priority="3">Main Card</th>
                                     <th scope="col" col width="160" data-priority="1">Card Holder Name</th>
@@ -50,75 +51,78 @@ include '../database/connection.php';
                                     <th scope="col" col width="160" data-priority="3">Action</th>
                                 </tr>
                                 </thead>
-                                <?php
-                                $g_data = $db->sub_credit_card->find(['companyID' => $_SESSION['companyId']]);
-                                $i = 1;
-                                ?>
 
                                 <tbody id="SubCardBody">
-                                <?php foreach ($g_data as $data) {
-                                    $sub_credit = $data['sub_credit'];
-
-                                    foreach ($sub_credit as $admin) {
-                                        $limit = 4;
-                                        $total_records = $admin->count();
+                                <?php
+                                    $limit = 100;
+                                    $cursor = $db->sub_credit_card->find(array('companyID' => $_SESSION['companyId']));
+                                    
+                                    foreach ($cursor as $value) {
+                                        $total_records = sizeof($value['sub_credit']);
                                         $total_pages = ceil($total_records / $limit);
-                                        if ($admin['delete_status'] == '0') {
-                                            ?>
+                                    }
+
+                                    $g_data = $db->sub_credit_card->find(array('companyID' => $_SESSION['companyId']), array('projection' => array('sub_credit' => array('$slice' => [0, $limit]))));                              
+                                    
+                                    $i = 1;
+                                    
+                                    foreach ($g_data as $data) {
+                                        $sub_credit = $data['sub_credit'];
+
+                                        foreach ($sub_credit as $admin) {
+                                            $counter = $admin['counter'];
+                                            $mCard = $admin['mainCard'];
+                                            $displayName = "'".$admin['displayName']."'";
+                                            $mainCard = "'".$admin['mainCard']."'";
+                                            $cardHolderName = "'".$admin['cardHolderName']."'";
+                                            $cardNo = "'".$admin['cardNo']."'";
+                                            $pencilid1 = "'"."displayNamePencil$i"."'";
+                                            $pencilid2 = "'"."mainCardPencil$i"."'";
+                                            $pencilid3 = "'"."cardHolderNamePencil$i"."'";
+                                            $pencilid4 = "'"."cardNoPencil$i"."'";
+
+                                    ?>
                                             <tr>
-                                                <th><?php echo $i++ ?></th>
-                                                <td>
-                                                    <a href="#" id="1displayName<?php echo $admin['_id']; ?>1"
-                                                       data-type="textarea"
-                                                       onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'displayName');"
-                                                       class="text-overflow"><?php echo $admin['displayName']; ?></a>
-                                                    <button type="button" id="displayName<?php echo $admin['_id']; ?>"
-                                                            onclick="updateSubCredit('displayName',<?php echo $admin['_id']; ?>)"
-                                                            style="display:none; margin-left:6px;"
-                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                        <i class="mdi mdi-check"></i></button>
+                                                <td><?php echo $i++ ?></td>
+                                                <td class="custom-text" id="<?php echo "displayName".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('displayNamePencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('displayNamePencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "displayNamePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $displayName; ?>,'updateSubCredit','text',<?php echo $admin['_id']; ?>,'displayName','Name of Display',<?php echo $pencilid1; ?>)"
+                                                    ></i>
+                                                    <?php echo $admin['displayName']; ?>
                                                 </td>
-                                                <td>
-                                                    <a href="#" id="1mainCard<?php echo $admin['_id']; ?>1"
-                                                       data-type="textarea"
-                                                       onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'mainCard');"
-                                                       class="text-overflow"><?php echo $admin['mainCard']; ?></a>
-                                                    <button type="button"
-                                                            id="mainCard<?php echo $admin['_id']; ?>"
-                                                            onclick="updateSubCredit('mainCard',<?php echo $admin['_id']; ?>)"
-                                                            style="display:none; margin-left:6px;"
-                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                        <i class="mdi mdi-check"></i></button>
+                                                <td class="custom-text">
+                                                    <?php echo $admin['mainCard']; ?>
                                                 </td>
-                                                <td>
-                                                    <a href="#" id="1cardHolderName<?php echo $admin['_id']; ?>2"
-                                                       data-type="textarea"
-                                                       onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'cardHolderName');"
-                                                       class="text-overflow"><?php echo $admin['cardHolderName']; ?></a>
-                                                    <button type="button"
-                                                            id="cardHolderName<?php echo $admin['_id']; ?>"
-                                                            onclick="updateSubCredit('cardHolderName',<?php echo $admin['_id']; ?>)"
-                                                            style="display:none; margin-left:6px;"
-                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                        <i class="mdi mdi-check"></i></button>
+                                                <td class="custom-text" id="<?php echo "cardHolderName".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('cardHolderNamePencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('cardHolderNamePencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "cardHolderNamePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $cardHolderName; ?>,'updateSubCredit','text',<?php echo $admin['_id']; ?>,'cardHolderName','Card Holder Name',<?php echo $pencilid3; ?>)"
+                                                    ></i>
+                                                    <?php echo $admin['cardHolderName']; ?>
                                                 </td>
-                                                <td>
-                                                    <a href="#" id="1cardNo<?php echo $admin['_id']; ?>3"
-                                                       data-type="textarea"
-                                                       onclick="showTextarea(this.id,'text',<?php echo $admin['_id']; ?>,'cardNo');"
-                                                       class="text-overflow"><?php echo $admin['cardNo']; ?></a>
-                                                    <button type="button" id="cardNo<?php echo $admin['_id']; ?>"
-                                                            onclick="updateSubCredit('cardNo',<?php echo $admin['_id']; ?>)"
-                                                            style="display:none; margin-left:6px;"
-                                                            class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                        <i class="mdi mdi-check"></i></button>
+                                                <td class="custom-text" id="<?php echo "cardNo".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('cardNoPencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('cardNoPencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "cardNoPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $cardNo; ?>,'updateSubCredit','text',<?php echo $admin['_id']; ?>,'cardNo','Card No',<?php echo $pencilid4; ?>)"
+                                                    ></i>
+                                                    <?php echo $admin['cardNo']; ?>
                                                 </td>
-                                                <td><a href="#" onclick="deleteSubCredit(<?php echo $admin['_id']; ?>)"><i
-                                                                class="mdi mdi-delete-sweep-outline"
-                                                                style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                <td >
+                                                    <?php if ($counter == 0) { ?>
+                                                        <a href="#" onclick="deleteSubCredit(<?php echo $admin['_id']; ?>,<?php echo $mCard; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                    <?php } else { ?>
+                                                        <a href="#" disabled onclick="deleteCurrencyError()"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #adb5bd"></i></a>
+                                                    <?php } ?>
                                                 </td>
                                             </tr>
-                                        <?php }
+                                        <?php 
                                     }
                                 }
                                 ?>
@@ -140,23 +144,24 @@ include '../database/connection.php';
                     <nav aria-label="..." class="float-right">
                         <ul class="pagination">
                             <?php
-                            for ($i = 1; $i <= $total_pages; $i++) {
-                                if ($i == 1) {
+                            $j = 1;
+                            for ($i = 0; $i < $total_pages; $i++) {
+                                if ($i == 0) {
                                     ?>
-                                    <li class="pageitem active" id="<?php echo $i; ?>"><a href="JavaScript:Void(0);"
-                                                                                          data-id="<?php echo $i; ?>"
-                                                                                          class="page-link"><?php echo $i; ?></a>
-                                    </li>
-
-                                    <?php
+                                    <li class="pageitem active"
+                                        onclick="paginate_subc_card(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
+                                        id="<?php echo $i; ?>"><a data-id="<?php echo $i; ?>"
+                                            class="page-link"><?php echo $j; ?></a></li>
+                            <?php
                                 } else {
                                     ?>
-                                    <li class="pageitem" id="<?php echo $i; ?>"><a href="JavaScript:Void(0);"
-                                                                                   class="page-link"
-                                                                                   data-id="<?php echo $i; ?>"><?php echo $i; ?></a>
-                                    </li>
-                                    <?php
+                                    <li class="pageitem"
+                                        onclick="paginate_subc_card(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
+                                        id="<?php echo $i; ?>"><a class="page-link"
+                                            data-id="<?php echo $i; ?>"><?php echo $j; ?></a></li>
+                            <?php
                                 }
+                                $j++;
                             }
                             ?>
                         </ul>

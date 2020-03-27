@@ -40,7 +40,8 @@ else if ($_GET['type'] == 'edit_toll') {
 else if ($_GET['type'] == 'delete_toll') {
     $a_toll = new Add_Toll();
     $a_toll->setId($_POST['id']);
-    $a_toll->delete_Tolls($a_toll,$db);
+    $a_toll->setTruckNo($_POST['truckid']);
+    $a_toll->delete_Tolls($a_toll,$db,$helper);
 }
 
 // Export Toll
@@ -59,7 +60,7 @@ else if ($_GET['type'] == 'import_toll') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $a_toll = new Add_Toll();
-        $a_toll->import_Tolls($targetPath,$helper);
+        $a_toll->import_Tolls($targetPath,$helper,$db);
     }
 }
 

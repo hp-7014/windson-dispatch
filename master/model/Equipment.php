@@ -100,7 +100,7 @@ class Equipment implements IteratorAggregate
                 '_id'=> $this->id,
                 'companyID'=>(int)$this->companyID,
                 'counter' => 0,
-                'equipment' => array(['_id' => 0,'equipmentType' => $this->equipment])
+                'equipment' => array(['_id' => 0,'equipmentType' => $this->equipment,'counter' => 0])
             )
         );
     }
@@ -116,7 +116,8 @@ class Equipment implements IteratorAggregate
         if ($count > 0) {
             $db->equipment_add->updateOne(['companyID' => (int)$this->companyID],['$push'=>['equipment'=>[
                 '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->equipment_add),
-                'equipmentType'=>$this->equipment
+                'equipmentType' => $this->equipment,
+                'counter' => 0
             ]]]);
         } else {
             $equipment = iterator_to_array($equipment);
@@ -125,11 +126,10 @@ class Equipment implements IteratorAggregate
     }
 
     //import Excel
-    public function importExcel($targetPath, $helper) {
+    public function importExcel($targetPath, $helper, $db) {
 
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 

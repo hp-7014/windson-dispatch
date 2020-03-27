@@ -48,7 +48,7 @@ else if ($_GET['type'] == 'importCard') {
         move_uploaded_file($_FILES['file_test']['tmp_name'], $targetPath);
 
         $card = new CreditCardCategory();
-        $card->import_Card($targetPath,$helper);
+        $card->import_Card($targetPath,$helper,$db);
     }
 }
 

@@ -15,7 +15,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <label>Name *</label>
+                        <label>Name <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Name *" type="text"
                                    id="currency_add_type" name="currency_add_type">
@@ -23,7 +23,9 @@
                         </div>
                     </div>
                 </div>
+                <span  class="mandatory">Note: * Fields are Mandatory</span>
                 <div class="modal-footer">
+                    
                     <button type="button" class="btn btn-danger waves-effect modalCurrrency"
                             >Close
                     </button>

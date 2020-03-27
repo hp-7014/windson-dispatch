@@ -55,7 +55,7 @@ else if ($_GET['type'] == 'importCustomer') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $customer = new Customer();
-        $customer->importExcel($targetPath, $helper);
+        $customer->importExcel($targetPath, $helper, $db);
         echo 'File Upload Successfully';
     }
 }
@@ -81,7 +81,10 @@ else if ($_GET['type'] == 'edit_customer') {
 else if ($_GET['type'] == 'delete_customer') {
     $customer = new Customer();
     $customer->setId($_POST['id']);
-    $customer->deleteCustomer($customer, $db);
+    $customer->setCurrencySetting($_POST['currencySetting']);
+    $customer->setPaymentTerms($_POST['paymentTerms']);
+    $customer->setFactoringCompany($_POST['factoringCompanyname']);
+    $customer->deleteCustomer($customer, $db, $helper);
     echo 'Data Removed Successfully';
 
 }

@@ -12,69 +12,88 @@ require "../database/connection.php"; ?>
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body custom-modal-body">
-                <div class="payment-container" style="z-index: 1800"></div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card m-b-30">
-                            <div class="card-body">
 
-                                <form method="post" enctype="multipart/form-data">
-                                    <button type="button" class="btn btn-primary waves-effect waves-light"
-                                            data-toggle="modal"
-                                            data-target="#" id="Add_Payment_Terms">Add
-                                    </button>
-                                    <input type="submit" name="submit" onclick="importExcel()"
-                                           class="btn btn-outline-info waves-effect waves-light float-right"
-                                           value="Upload"/>
-                                    <div class="custom-upload-btn-wrapper float-right">
-                                        <button class="custom-btn">Choose file</button>
-                                        <input type="file" name="file" id="file" accept=".csv"/>
-                                    </div>
-                                    <a class="btn btn-outline-success waves-effect waves-light"
-                                       href="download.php?file=Payment_Terms.csv" style="margin-bottom: 2px;">CSV
-                                        formate
-                                    </a>
-                                </form>
-                                <br>
-                                <table id="mainTable"
-                                       class="table table-striped mb-0">
-                                    <thead>
+            <div class="modal-body custom-modal-body" style="padding: 0.1rem">
+                <div class="payment-container" style="z-index: 1800"></div>
+                <form method="post" enctype="multipart/form-data">
+                    <button class="btn btn-primary float-left" type="button" data-toggle="modal"
+                            data-target="#" id="Add_Payment_Terms"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD
+                    </button>
+                    <input type="submit" name="submit" onclick="importExcel()" class="btn btn-outline-info waves-effect waves-light float-right" value="Upload"/>
+                    <div class="custom-upload-btn-wrapper float-right">
+                        <button class="custom-btn">Choose file</button>
+                        <input type="file" name="file" id="file" accept=".csv"/>
+                    </div>
+                    <a class="btn btn-outline-success waves-effect waves-light float-right"
+                        href="download.php?file=Payment_Terms.csv" style="margin-bottom: 2px;">CSV
+                        formate
+                    </a>
+                </form>
+
+                <div class="table-rep-plugin">
+                    <div class="table-responsive b-0" data-pattern="priority-columns">
+                        <br>
+                        <div id="table-scroll-s" class="table-scroll-s">
+                            <table id="paymentTerms_table" class="scroll">
+                                <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Name</th>
-                                        <th>Delete</th>
+                                        <th scope="col" col width="2">No</th>
+                                        <th scope="col" col width="10" data-priority="1">Name</th>
+                                        <th scope="col" col width="10" data-priority="3">Delete</th>
                                     </tr>
-                                    </thead>
-                                    <tbody id="paymentTermsBody">
+                                </thead>
+
+                                <tbody id="paymentTermsBody">
                                     <?php
                                     require 'model/PaymentTerms.php';
 
                                     $payment = new PaymentTerms();
                                     $show_data = $db->payment_terms->find(['companyID' => $_SESSION['companyId']]);
-                                    $no = 1;
+                                    $i = 0;
                                     foreach ($show_data as $show) {
                                         $show = $show['payment'];
                                         foreach ($show as $s) {
-                                            ?>
+                                            $paymentTerm = "'".$s['paymentTerm']."'";
+                                            $counter = $s['counter'];
+                                            $i++;
+                                            $pencilid = "'"."paymentTermPencil$i"."'";
+                                        ?>
                                             <tr>
-                                                <td><a href="#" id="stdid"><?php echo $no++; ?></a></td>
-                                                <td contenteditable="true"
-                                                    onblur="updatePayment(this,'paymentTerm',<?php echo $s['_id']; ?>)"><?php echo $s['paymentTerm']; ?></td>
-                                                <td><a href="#" onclick="deletePayment(<?php echo $s['_id']; ?>)"><i
-                                                                class="mdi mdi-delete-sweep-outline"
-                                                                style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                <td><?php echo $i ?></td>  
+                                                <td class="custom-text" id="<?php echo "paymentTerm".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('paymentTermPencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('paymentTermPencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "paymentTermPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $paymentTerm; ?>,'updatePayment','text',<?php echo $s['_id']; ?>,'paymentTerm','Name',<?php echo $pencilid; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['paymentTerm']; ?>
+                                                </td>                                                                                          
+                                                <td>
+                                                    <?php if($counter == 0) { ?>
+                                                        <a href="#" onclick="deletePayment(<?php echo $s['_id']; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                    <?php } else { ?> 
+                                                        <a href="#" disabled onclick="deleteCurrencyError()"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #adb5bd"></i></a>
+                                                    <?php } ?>   
                                                 </td>
                                             </tr>
                                         <?php }
-                                    } ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                    }
+                                ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </div>
-                    </div> <!-- end col -->
-                </div> <!-- end row -->
+                    </div>
+                </div>
             </div>
+
             <div class="modal-footer">
                 <button type="button" onclick="exportExcel(<?php echo $_SESSION['companyId']; ?>)"
                         class="btn btn-primary waves-effect waves-light">Export

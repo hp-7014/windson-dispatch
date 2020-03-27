@@ -233,6 +233,7 @@ class Company implements IteratorAggregate
                     'usDotNo' => $this->usDotNo,
                     'mailingAddress' => $this->mailingAddress,
                     'factoringCompany' => $this->factoringCompany,
+                    'counter' => 0
 //                    'factoringCompanyAddress' => $this->factoringCompanyAddress
                 ])
             )
@@ -257,20 +258,33 @@ class Company implements IteratorAggregate
                 'usDotNo' => $this->usDotNo,
                 'mailingAddress' => $this->mailingAddress,
                 'factoringCompany' => $this->factoringCompany,
+                'counter' => 0
 //                'factoringCompanyAddress' => $this->factoringCompanyAddress
             ]]]);
+
+            $db->factoring_company_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'factoring._id' => (int)$this->factoringCompany],
+            ['$set' => ['factoring.$.counter' => $helper->getDocumentSequenceId($this->factoringCompany,$db->factoring_company_add,"factoring",(int)$_SESSION['companyId'])]]);
+
         } else {
             $company = iterator_to_array($Company);
             $db->company->insertOne($company);
+
+            $db->factoring_company_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'factoring._id' => (int)$this->factoringCompany],
+            ['$set' => ['factoring.$.counter' => $helper->getDocumentSequenceId($this->factoringCompany,$db->factoring_company_add,"factoring",(int)$_SESSION['companyId'])]]);
+
         }
     }
 
-    public function delete($Company, $db)
+    public function delete($Company, $db, $helper)
     {
 //        $db->company->deleteOne(['_id' => (int)$Company->getId()]);
         $db->company->updateOne(['companyID' => (int)$_SESSION['companyId']], [
                 '$pull' => ['company' => ['_id' => (int)$Company->getId()]]]
         );
+
+        $db->factoring_company_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'factoring._id' => (int)$this->factoringCompany],
+            ['$set' => ['factoring.$.counter' => $helper->getDocumentDecrementId((int)$this->factoringCompany,$db->factoring_company_add,"factoring",(int)$_SESSION['companyId'])]]);
+    
     }
 
     public function update($Company, $db)
@@ -290,18 +304,16 @@ class Company implements IteratorAggregate
         foreach ($company as $s) {
             $show = $s['company'];
             foreach ($show as $c) {
-                $p[] = array($c['companyName'], $c['shippingAddress'], $c['telephoneNo'], $c['faxNo'], $c['mcNo'], $c['usDotNo'], $c['mailingAddress'], $c['factoringCompany'], $c['factoringCompanyAddress']);
+                $p[] = array($c['companyName'], $c['shippingAddress'], $c['telephoneNo'], $c['faxNo'], $c['mcNo'], $c['usDotNo'], $c['mailingAddress'], $c['factoringCompany']);
             }
         }
         echo json_encode($p);
     }
 
-    public function importExcel($targetPath, $helper)
+    public function importExcel($targetPath, $helper, $db)
     {
-
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 

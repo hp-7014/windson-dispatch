@@ -7,24 +7,8 @@ require '../database/connection.php';
 
 $helper = new Helper();
 
-// import excel here
-if ($_GET['type'] == 'importExcel') {
-
-    $allowedFileType = ['application/vnd.ms-excel','text/xls','text/xlsx','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
-
-    if(in_array($_FILES["file"]["type"],$allowedFileType)){
-
-        $targetPath = 'upload/'.$_FILES['file']['name'];
-        move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
-
-        $currency = new Currency();
-        $currency->importExcel($targetPath,$helper,$db);
-    }
-
-}
-
 // Insert Currency Function Here
-else if ($_GET['type'] == 'currencyadd') {
+if ($_GET['type'] == 'currencyadd') {
     $currency = new Currency();
     $currency->setId($helper->getNextSequence("currencycount",$db));
     $currency->setCompanyID($_SESSION['companyId']);
@@ -50,6 +34,22 @@ else if ($_GET['type'] == 'delete_currency'){
     $currency->setId($_POST['id']);
     $currency->deleteCurrency($currency,$db);
     echo "Data Removed Successful";
+}
+
+// import excel here
+else if ($_GET['type'] == 'importExcel_cur') {
+
+    $allowedFileType = ['application/vnd.ms-excel','text/xls','text/xlsx','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+
+    if(in_array($_FILES["file"]["type"],$allowedFileType)){
+
+        $targetPath = 'upload/'.$_FILES['file']['name'];
+        move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
+
+        $currency = new Currency();
+        $currency->importExcel_Currency($targetPath,$helper,$db);
+    }
+
 }
 
 // Export Excel Function Here

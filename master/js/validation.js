@@ -1,7 +1,7 @@
 //--------payment terms start-------
 function val_payment_term(val) {
     if (val == '') {
-        alert('Please Write an Name');
+        swal('Please Write an Name');
         return false;
     } else {
         return true;
@@ -13,7 +13,7 @@ function val_payment_term(val) {
 //---------office start---------
 function val_officeName(val) {
     if (val == '') {
-        alert('Please Write an Office Name');
+        swal('Please Write an Office Name');
         return false;
     } else {
         return true;
@@ -22,7 +22,7 @@ function val_officeName(val) {
 
 function val_officeLocation(val) {
     if (val == '') {
-        alert('Please Write an Office Location');
+        swal('Please Write an Office Location');
         return false;
     } else {
         return true;
@@ -43,8 +43,7 @@ function val_companyName(val) {
 
 function val_telephoneNo(val) {
     if (val == '') {
-        swal('Please Write an Telephone Number');
-        return false;
+        swal("Please Enter Telephone Number");
     } else {
         if (isNaN(val)) {
             swal('Please Enter Only Numeric Telephone Number');
@@ -59,11 +58,17 @@ function val_telephoneNo(val) {
 }
 
 function val_mailingAddress(val) {
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (val == '') {
-        swal('Please Write an Mailing Address');
-        return false;
+        swal("Please Enter Email Address");
     } else {
-        return true;
+        if(val.match(mailformat)){
+            return true;
+        }
+        else{
+            swal('Please Enter Valid Email');
+            return false;
+        }
     }
 }
 
@@ -88,7 +93,7 @@ function val_faxNo(val) {
 //---------load Type start----------
 function val_loadName(val) {
     if (val == '') {
-        alert('Please Write an Load Name');
+        swal('Please Write an Load Name');
         return false;
     } else {
         return true;
@@ -97,7 +102,7 @@ function val_loadName(val) {
 
 function val_loadType(val) {
     if (val == '') {
-        alert('Please Select an Load Type');
+        swal('Please Select an Load Type');
         return false;
     } else {
         return true;
@@ -109,7 +114,7 @@ function val_loadType(val) {
 //Validation For Add Currency
 function val_currencyType(val) {
     if (val == '') {
-        alert('Please Enter Currency Type');
+        swal('Please Enter Currency Type');
         return false;
     } else {
         return true;
@@ -119,7 +124,7 @@ function val_currencyType(val) {
 //Validation For Equipment Type
 function val_equipmentType(val) {
     if (val == '') {
-        alert('Please Enter Equipment Type');
+        swal('Please Enter Equipment Type');
         return false;
     } else {
         return true;
@@ -129,7 +134,7 @@ function val_equipmentType(val) {
 //Validation For Truck Type
 function val_truckType(val) {
     if (val == '') {
-        alert('Please Enter Truck Type');
+        swal('Please Enter Truck Type');
         return false;
     } else {
         return true;
@@ -139,7 +144,7 @@ function val_truckType(val) {
 //Validation For Trailer Type
 function val_trailerType(val) {
     if (val == '') {
-        alert('Please Enter Trailer Type');
+        swal('Please Enter Trailer Type');
         return false;
     } else {
         return true;
@@ -149,7 +154,7 @@ function val_trailerType(val) {
 //Validation For Fix Pay
 function val_fixpay(val) {
     if (val == '') {
-        alert('Please Enter Fix Pay Category');
+        swal('Please Enter Fix Pay Category');
         return false;
     } else {
         return true;
@@ -159,7 +164,7 @@ function val_fixpay(val) {
 //Validation For Fix Pay
 function val_loadType(val) {
     if (val == '') {
-        alert('Please Enter Load Type');
+        swal('Please Enter Load Type');
         return false;
     } else {
         return true;
@@ -169,7 +174,7 @@ function val_loadType(val) {
 //Validation For Fix Pay
 function val_unit(val) {
     if (val == '') {
-        alert('Please Enter Unit');
+        swal('Please Enter Unit');
         return false;
     } else {
         return true;
@@ -178,8 +183,9 @@ function val_unit(val) {
 
 // BANK START
 function val_DebitValidate(val) {
-    if (val == '') {
-        alert('Please Enter Debit Bank Name.');
+    if(val == '')
+    {
+        swal('Please Enter Debit Bank Name.');
         return false;
     } else {
         return true;
@@ -187,8 +193,9 @@ function val_DebitValidate(val) {
 }
 
 function val_CreditValidate(val) {
-    if (val == '') {
-        alert('Please Enter Credit Bank Name.');
+    if(val == '')
+    {
+        swal('Please Enter Credit Bank Name.');
         return false;
     } else {
         return true;
@@ -196,8 +203,9 @@ function val_CreditValidate(val) {
 }
 
 function val_CardValidate(val) {
-    if (val == '') {
-        alert('Please Enter Credit Card Name.');
+    if(val == '')
+    {
+        swal('Please Enter Credit Card Name.');
         return false;
     } else {
         return true;
@@ -208,8 +216,9 @@ function val_CardValidate(val) {
 
 // STATUS TYPE START
 function val_statusValidate(val) {
-    if (val == '') {
-        alert('Please Enter Status Name.');
+    if(val == '')
+    {
+        swal('Please Enter Status Name.');
         return false;
     } else {
         return true;

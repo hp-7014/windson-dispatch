@@ -49,7 +49,7 @@ else if ($_GET['type'] == 'importLoadType') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $load_type = new LoadType();
-        $load_type->importExcel($targetPath, $helper);
+        $load_type->importExcel($targetPath, $helper, $db);
 //        echo 'File Upload Successfully';
     }
 }

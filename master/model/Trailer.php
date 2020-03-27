@@ -19,7 +19,7 @@ class Trailer implements IteratorAggregate
      * @param $id
      * @param $companyID
      * @param $trailerType
-//     */
+     *      */
 //    public function __construct($id, $companyID, $trailerType)
 //    {
 //        $this->id = $id;
@@ -101,14 +101,13 @@ class Trailer implements IteratorAggregate
                 '_id'=> $this->id,
                 'companyID'=>(int)$this->companyID,
                 'counter' => 0,
-                'trailer' => array(['_id' => 0,'trailerType' => $this->trailerType])
+                'trailer' => array(['_id' => 0,'trailerType' => $this->trailerType,'counter' => 0])
             )
         );
     }
 
     public function insert($trailer,$db,$helper)
     {
-
         $c_id = $db->trailer_add->find(['companyID' =>(int)$trailer->getCompanyID()]);
         $count = 0;
         foreach ($c_id as $c) {
@@ -117,7 +116,8 @@ class Trailer implements IteratorAggregate
         if ($count > 0) {
             $db->trailer_add->updateOne(['companyID' => (int)$this->companyID],['$push'=>['trailer'=>[
                 '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->trailer_add),
-                'trailerType'=>$this->trailerType
+                'trailerType' => $this->trailerType,
+                'counter' => 0
             ]]]);
         } else {
             $trailer = iterator_to_array($trailer);
@@ -125,12 +125,10 @@ class Trailer implements IteratorAggregate
         }
     }
 
-
     //import Excel
-    public function importExcel($targetPath, $helper) {
+    public function importExcel($targetPath, $helper, $db) {
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 
@@ -163,7 +161,7 @@ class Trailer implements IteratorAggregate
         $db->trailer_add->updateOne(
             ['companyID' => (int)$_SESSION['companyId'],'trailer._id' => (int)$this->getId()],
             ['$set' => ['trailer.$.'.$trailer->getColumn() => $trailer->getTrailerType()]
-            ]);
+        ]);
     }
 
     //Delete

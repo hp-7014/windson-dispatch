@@ -67,7 +67,7 @@ else if ($_GET['type'] == 'importShipper') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $shipper = new Shipper();
-        $shipper->importExcel($targetPath, $helper);
+        $shipper->importExcel($targetPath, $helper, $db);
         echo 'File Upload Successfully';
     }
 }

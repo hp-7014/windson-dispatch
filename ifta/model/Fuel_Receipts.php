@@ -336,6 +336,7 @@ class Fuel_Receipts implements IteratorAggregate
                 'counter' => 0,
                 'fuel_receipt' => array([
                     '_id' => 0,
+                    'counter' => 0,
                     'cardHolderName'=>$this->cardHolderName,
                     'employeeNo'=>$this->employeeNo,
                     'cardNo'=>$this->cardNo,
@@ -369,6 +370,7 @@ class Fuel_Receipts implements IteratorAggregate
         if ($count > 0) {
             $db->ifta_fuel_receipts->updateOne(['companyID' => (int) $this->companyID],['$push'=>['fuel_receipt'=>[
                 '_id'=>$helper->getDocumentSequence((int) $this->companyID,$db->ifta_fuel_receipts),
+                'counter'=>0,
                 'cardHolderName'=>$this->cardHolderName,
                 'employeeNo'=>$this->employeeNo,
                 'cardNo'=>$this->cardNo,
@@ -388,9 +390,17 @@ class Fuel_Receipts implements IteratorAggregate
                 'delete_status'=>'0',
                 'insertedUser' => $_SESSION['companyName'],
             ]]]);
+
+            $db->ifta_card_category->updateOne(['companyID' => (int)$_SESSION['companyId'], 'ifta_card._id' => (int)$this->cardHolderName],
+                ['$set' => ['ifta_card.$.counter' => $helper->getDocumentSequenceId((int)$this->cardHolderName,$db->ifta_card_category,"ifta_card",(int)$_SESSION['companyId'])]]);
+       
         } else {
             $fuel_R = iterator_to_array($category);
             $db->ifta_fuel_receipts->insertOne($fuel_R);
+
+            $db->ifta_card_category->updateOne(['companyID' => (int)$_SESSION['companyId'], 'ifta_card._id' => (int)$this->cardHolderName],
+                ['$set' => ['ifta_card.$.counter' => $helper->getDocumentSequenceId((int)$this->cardHolderName,$db->ifta_card_category,"ifta_card",(int)$_SESSION['companyId'])]]);
+       
         }
 
         echo "Data Insert Successfully";
@@ -404,10 +414,14 @@ class Fuel_Receipts implements IteratorAggregate
         echo "Data Update Successfully.";
     }
 
-    public function delete_FuelReceipts($acc,$db) {
-        $db->ifta_fuel_receipts->updateOne(['companyID' => (int)$_SESSION['companyId'], 'fuel_receipt._id' => (int)$this->getId()],
-            ['$set' => ['fuel_receipt.$.delete_status' => "1"]]
+    public function delete_FuelReceipts($acc,$db,$helper) {
+        $db->ifta_fuel_receipts->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+            '$pull' => ['fuel_receipt' => ['_id' => (int)$acc->getId()]]]
         );
+
+        $db->ifta_card_category->updateOne(['companyID' => (int)$_SESSION['companyId'], 'ifta_card._id' => (int)$this->cardHolderName],
+            ['$set' => ['ifta_card.$.counter' => $helper->getDocumentDecrementId((int)$this->cardHolderName,$db->ifta_card_category,"ifta_card",(int)$_SESSION['companyId'])]]);
+       
     }
 
     public function export_FuelReceipts($db){

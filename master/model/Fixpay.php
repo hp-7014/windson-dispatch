@@ -87,14 +87,13 @@ class Fixpay implements IteratorAggregate
                 '_id'=> $this->id,
                 'companyID'=>(int)$this->companyID,
                 'counter' => 0,
-                'fixPay' => array(['_id' => 0,'fixPayType' => $this->fixpay])
+                'fixPay' => array(['_id' => 0,'fixPayType' => $this->fixpay, 'counter' => 0])
             )
         );
     }
 
     public function insert($fixpay,$db,$helper)
     {
-
         $c_id = $db->fixpay_add->find(['companyID' =>(int)$fixpay->getCompanyID()]);
         $count = 0;
         foreach ($c_id as $c) {
@@ -103,7 +102,8 @@ class Fixpay implements IteratorAggregate
         if ($count > 0) {
             $db->fixpay_add->updateOne(['companyID' => (int)$this->companyID],['$push'=>['fixPay'=>[
                 '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->fixpay_add),
-                'fixPayType'=>$this->fixpay
+                'fixPayType' => $this->fixpay,
+                'counter' => 0
             ]]]);
         } else {
             $fixpay = iterator_to_array($fixpay);
@@ -112,11 +112,10 @@ class Fixpay implements IteratorAggregate
     }
 
     //import Excel
-    public function importExcel($targetPath, $helper) {
+    public function importExcel($targetPath, $helper, $db) {
 
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 

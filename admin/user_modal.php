@@ -4,6 +4,8 @@ require "../database/connection.php";
 <!-- Modal content for the above example -->
 <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="user"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
+     <div class="user-container" style="z-index: 1400"></div>
+     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-xxl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
@@ -13,8 +15,10 @@ require "../database/connection.php";
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body custom-modal-body" style="padding: 0.1rem">
-                <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right"type="text" id="search" placeholder="search" style="margin-left: 5px;">
+            <div class="modal-body custom-modal-body" style="padding: 0.1rem"> 
+                <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" type="text" id="search" onkeyup="search_user(this)"
+                       placeholder="search" style="margin-left: 5px;">          
+                
                 <button class="btn btn-primary float-left" type="button" data-toggle="modal" data-target="#add_user"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD</button>
 
                 <div class="table-rep-plugin">
@@ -24,7 +28,7 @@ require "../database/connection.php";
                             <table id="user_table" class="scroll" >
                                 <thead>
                                 <tr>
-                                    <th scope="col" col width="160">No</th>
+                                    <th scope="col" col width="50">No</th>
                                     <th scope="col" col width="160" data-priority="1">Email</th>
                                     <th scope="col" col width="160" data-priority="3">Username</th>
 <!--                                    <th scope="col" col width="160" data-priority="1">Password</th>-->
@@ -42,101 +46,184 @@ require "../database/connection.php";
                                 </tr>
                                 </thead>
                                 <?php
-                                require 'model/User.php';
+                                    require 'model/User.php';
 
-                                $User = new User();
-                                $show_data = $db->user->find(['companyID' => $_SESSION['companyId']]);
-                                $i = 1;
+                                    $limit = 100;
+                                    $cursor = $db->user->find(array('companyID' => $_SESSION['companyId']));
+                                    
+                                    foreach ($cursor as $value) {
+                                        $total_records = sizeof($value['user']);
+                                        $total_pages = ceil($total_records / $limit);
+                                    }
+
+                                    $show_data = $db->user->find(array('companyID' => $_SESSION['companyId']), array('projection' => array('user' => array('$slice' => [0, $limit]))));                              
+
+                                    $i = 1;
                                 ?>
 
                                 <tbody id="UserBody">
                                 <?php foreach ($show_data as $show) {
                                     $show = $show['user'];
                                     foreach ($show as $s) {
-                                        $limit = 4;
-                                        $total_records = $s->count();
-                                        $total_pages = ceil($total_records / $limit);
-                                        if ($s['deleteStatus'] == '0') {
-                                            ?>
-                                            <tr>
-                                                <th><?php echo $i++ ?></th>
-                                                <td>
-                                                    <a href="#" id="1userEmail<?php echo $s['_id']; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userEmail');" class="text-overflow"><?php echo $s['userEmail']; ?></a>
-                                                    <button type="button" id="userEmail<?php echo $s['_id']; ?>" onclick="updateUser('userEmail',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                                </td>
-                                                <td>
-                                                    <a href="#" id="1userName<?php echo $s['_id']; ?>2" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userName');" class="text-overflow"><?php echo $s['userName']; ?></a>
-                                                    <button type="button" id="userName<?php echo $s['_id']; ?>" onclick="updateUser('userName',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                                </td>
-                                                <!---<td>
-                                                    <a href="#" id="1userPass<?php echo $s['_id']; ?>3" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>//,'userPass');" class="text-overflow"><?php echo $s['userPass']; ?></a>
-                                                    <button type="button" id="userPass<?php echo $s['_id']; ?>" onclick="updateUser('userPass',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                             </td>--->
-                                                <td>
-                                                    <a href="#" id="1userFirstName<?php echo $s['_id']; ?>4" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userFirstName');" class="text-overflow"><?php echo $s['userFirstName']; ?></a>
-                                                    <button type="button" id="userFirstName<?php echo $s['_id']; ?>" onclick="updateUser('userFirstName',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                                </td>
-                                                <td>
-                                                    <a href="#" id="1userLastName<?php echo $s['_id']; ?>5" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userLastName');" class="text-overflow"><?php echo $s['userLastName']; ?></a>
-                                                    <button type="button" id="userLastName<?php echo $s['_id']; ?>" onclick="updateUser('userLastName',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                                </td>
-                                                <td>
-                                                    <a href="#" id="1userAddress<?php echo $s['_id']; ?>6" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userAddress');" class="text-overflow"><?php echo $s['userAddress']; ?></a>
-                                                    <button type="button" id="userAddress<?php echo $s['_id']; ?>" onclick="updateUser('userAddress',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                                </td>
-                                                <td>
-                                                    <a href="#" id="1userLocation<?php echo $s['_id']; ?>7" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userLocation');" class="text-overflow"><?php echo $s['userLocation']; ?></a>
-                                                    <button type="button" id="userLocation<?php echo $s['_id']; ?>" onclick="updateUser('userLocation',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                                </td>
-                                                <td>
-                                                    <a href="#" id="1userZip<?php echo $s['_id']; ?>8" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userZip');" class="text-overflow"><?php echo $s['userZip']; ?></a>
-                                                    <button type="button" id="userZip<?php echo $s['_id']; ?>" onclick="updateUser('userZip',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                                </td>
-                                                <td>
-                                                    <a href="#" id="1userTelephone<?php echo $s['_id']; ?>9" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userTelephone');" class="text-overflow"><?php echo $s['userTelephone']; ?></a>
-                                                    <button type="button" id="userTelephone<?php echo $s['_id']; ?>" onclick="updateUser('userTelephone',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                                </td>
-                                                <td>
-                                                    <a href="#" id="1userExt<?php echo $s['_id']; ?>10" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userExt');" class="text-overflow"><?php echo $s['userExt']; ?></a>
-                                                    <button type="button" id="userExt<?php echo $s['_id']; ?>" onclick="updateUser('userExt',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                                </td>
-                                                <td>
-                                                    <a href="#" id="1TollFree<?php echo $s['_id']; ?>11" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'TollFree');" class="text-overflow"><?php echo $s['TollFree']; ?></a>
-                                                    <button type="button" id="TollFree<?php echo $s['_id']; ?>" onclick="updateUser('TollFree',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                                </td>
-                                                <td>
-                                                    <a href="#" id="1userFax<?php echo $s['_id']; ?>12" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $s['_id']; ?>,'userFax');" class="text-overflow"><?php echo $s['userFax']; ?></a>
-                                                    <button type="button" id="userFax<?php echo $s['_id']; ?>" onclick="updateUser('userFax',<?php echo $s['_id']; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                                </td>
+                                        $counter = $s['counter'];
+                                        $userEmail = "'".$s['userEmail']."'";
+                                        $userName = "'".$s['userName']."'";
+                                        $userFirstName = "'".$s['userFirstName']."'";
+                                        $userLastName = "'".$s['userLastName']."'";
+                                        $userAddress = "'".$s['userAddress']."'";
+                                        $userLocation = "'".$s['userLocation']."'";
+                                        $userZip = "'".$s['userZip']."'";
+                                        $userTelephone = "'".$s['userTelephone']."'";
+                                        $userExt = "'".$s['userExt']."'";
+                                        $TollFree = "'".$s['TollFree']."'";
+                                        $userFax = "'".$s['userFax']."'";
 
+                                        $pencilid1 = "'"."userEmailPencil$i"."'";
+                                        $pencilid2 = "'"."userNamePencil$i"."'";
+                                        $pencilid3 = "'"."userFirstNamePencil$i"."'";
+                                        $pencilid4 = "'"."userLastNamePencil$i"."'";
+                                        $pencilid5 = "'"."userAddressPencil$i"."'";
+                                        $pencilid6 = "'"."userLocationPencil$i"."'";
+                                        $pencilid7 = "'"."userZipPencil$i"."'";
+                                        $pencilid8 = "'"."userTelephonePencil$i"."'";
+                                        $pencilid9 = "'"."userExtPencil$i"."'";
+                                        $pencilid10 = "'"."TollFreePencil$i"."'";
+                                        $pencilid11 = "'"."userFaxPencil$i"."'";
+
+                                    ?>
+                                            <tr>
+                                                <td><?php echo $i++ ?></td>
+                                                <td class="custom-text" id="<?php echo "userEmail".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('userEmailPencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('userEmailPencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "userEmailPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $userEmail; ?>,'updateUser','text',<?php echo $s['_id']; ?>,'userEmail','Email',<?php echo $pencilid1; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['userEmail']; ?>
+                                                </td>
+                                                <td class="custom-text" id="<?php echo "userName".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('userNamePencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('userNamePencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "userNamePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $userName; ?>,'updateUser','text',<?php echo $s['_id']; ?>,'userName','User Name',<?php echo $pencilid2; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['userName']; ?>
+                                                </td>
+                                                <td class="custom-text" id="<?php echo "userFirstName".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('userFirstNamePencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('userFirstNamePencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "userFirstNamePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $userFirstName; ?>,'updateUser','text',<?php echo $s['_id']; ?>,'userFirstName','First Name',<?php echo $pencilid3; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['userFirstName']; ?>
+                                                </td>
+                                                <td class="custom-text" id="<?php echo "userLastName".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('userLastNamePencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('userLastNamePencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "userLastNamePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $userLastName; ?>,'updateUser','text',<?php echo $s['_id']; ?>,'userLastName','Last Name',<?php echo $pencilid4; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['userLastName']; ?>
+                                                </td>
+                                                <td class="custom-text" id="<?php echo "userAddress".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('userAddressPencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('userAddressPencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "userAddressPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $userAddress; ?>,'updateUser','text',<?php echo $s['_id']; ?>,'userAddress','Address',<?php echo $pencilid5; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['userAddress']; ?>
+                                                </td>
+                                                <td class="custom-text" id="<?php echo "userLocation".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('userLocationPencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('userLocationPencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "userLocationPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $userLocation; ?>,'updateUser','text',<?php echo $s['_id']; ?>,'userLocation','Location',<?php echo $pencilid6; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['userLocation']; ?>
+                                                </td>
+                                                <td class="custom-text" id="<?php echo "userZip".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('userZipPencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('userZipPencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "userZipPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $userZip; ?>,'updateUser','text',<?php echo $s['_id']; ?>,'userZip','Zip',<?php echo $pencilid7; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['userZip']; ?>
+                                                </td>
+                                                <td class="custom-text" id="<?php echo "userTelephone".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('userTelephonePencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('userTelephonePencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "userTelephonePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $userTelephone; ?>,'updateUser','text',<?php echo $s['_id']; ?>,'userTelephone','Telephone',<?php echo $pencilid8; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['userTelephone']; ?>
+                                                </td>
+                                                <td class="custom-text" id="<?php echo "userExt".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('userExtPencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('userExtPencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "userExtPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $userExt; ?>,'updateUser','text',<?php echo $s['_id']; ?>,'userExt','Ext',<?php echo $pencilid9; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['userExt']; ?>
+                                                </td>
+                                                <td class="custom-text" id="<?php echo "TollFree".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('TollFreePencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('TollFreePencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "TollFreePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $TollFree; ?>,'updateUser','text',<?php echo $s['_id']; ?>,'TollFree','TollFree',<?php echo $pencilid10; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['TollFree']; ?>
+                                                </td>
+                                                <td class="custom-text" id="<?php echo "userFax".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('userFaxPencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('userFaxPencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "userFaxPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $userFax; ?>,'updateUser','text',<?php echo $s['_id']; ?>,'userFax','Fax',<?php echo $pencilid11; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['userFax']; ?>
+                                                </td>
                                                 <td><a href="#" onclick="show_privilege(<?php echo $s['_id']; ?>)" data-toggle="modal" data-target="#show_privilege" class="btn btn-warning">Privilege</a></td>
-                                                <td><a href="#" onclick="deleteUser(<?php echo $s['_id']; ?>)"><i
-                                                                class="mdi mdi-delete-sweep-outline"
-                                                                style="font-size: 20px; color: #FC3B3B"></i></a></td>
+                                                <td>
+                                                    <?php if ($counter == 0) { ?>
+                                                        <a href="#" onclick="deleteUser(<?php echo $s['_id']; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                    <?php } else { ?>
+                                                        <a href="#" disabled onclick="deleteCurrencyError()"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #adb5bd"></i></a>
+                                                    <?php } ?>
+                                                </td>
                                             </tr>
-                                        <?php }
+                                        <?php 
                                     }
                                 }
                                 ?>
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Email</th>
-                                    <th>Username</th>
-<!--                                    <th>Password</th>-->
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Address</th>
-                                    <th>Location</th>
-                                    <th>Zip</th>
-                                    <th>Telephone</th>
-                                    <th>Ext</th>
-                                    <th>Toll Free</th>
-                                    <th>Fax</th>
-                                    <th>Privilege</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Email</th>
+                                        <th>Username</th>
+    <!--                                    <th>Password</th>-->
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Address</th>
+                                        <th>Location</th>
+                                        <th>Zip</th>
+                                        <th>Telephone</th>
+                                        <th>Ext</th>
+                                        <th>Toll Free</th>
+                                        <th>Fax</th>
+                                        <th>Privilege</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -145,18 +232,24 @@ require "../database/connection.php";
                     <nav aria-label="..." class="float-right">
                         <ul class="pagination">
                             <?php
-                            for($i=1; $i<=$total_pages; $i++){
-                                if($i == 1){
+                            $j = 1;
+                            for ($i = 0; $i < $total_pages; $i++) {
+                                if ($i == 0) {
                                     ?>
-                                    <li class="pageitem active" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" data-id="<?php echo $i;?>" class="page-link" ><?php echo $i;?></a></li>
-
-                                    <?php
-                                }
-                                else{
+                                    <li class="pageitem active"
+                                        onclick="paginate_user(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
+                                        id="<?php echo $i; ?>"><a data-id="<?php echo $i; ?>"
+                                            class="page-link"><?php echo $j; ?></a></li>
+                            <?php
+                                } else {
                                     ?>
-                                    <li class="pageitem" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" class="page-link" data-id="<?php echo $i;?>"><?php echo $i;?></a></li>
-                                    <?php
+                                    <li class="pageitem"
+                                        onclick="paginate_user(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
+                                        id="<?php echo $i; ?>"><a class="page-link"
+                                            data-id="<?php echo $i; ?>"><?php echo $j; ?></a></li>
+                            <?php
                                 }
+                                $j++;
                             }
                             ?>
                         </ul>

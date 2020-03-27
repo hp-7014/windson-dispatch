@@ -1,5 +1,78 @@
 
 //-----------------Fuel Receipts Add START---------------------------------
+//update Ifta Toll table
+
+var fuelpath = "ifta_fuel_receipts/";
+var fuelpath1 = $('#companyid').val();
+var fueldata = fuelpath1.toString();
+var fuel_test = fuelpath + fueldata;
+
+database.ref(fuel_test).on('child_added', function (data) {
+    updateFuelTable();
+});
+
+database.ref(fuel_test).on('child_changed', function (data) {
+    updateFuelTable();
+});
+
+database.ref(fuel_test).on('child_removed', function (data) {
+    updateFuelTable();
+});
+
+//update table fields
+
+function updateFuelTable(){
+    var fuelBody = document.getElementById("fuelBody");
+   
+    $.ajax({
+        url: 'ifta/utils/getFuelReceipt.php?types=live_fuel_table',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            if(fuelBody != null) 
+            {
+                fuelBody.innerHTML = response;
+            }
+      
+        },
+    });
+}
+
+// Search Fuel Table
+function searchText_Fuel(x) {
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'ifta/utils/getFuelReceipt.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+
+            var j = response.trim();
+            document.getElementById('fuelBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate Fuel Table
+function paginate_ifta_fuel(start, limit) {
+    $.ajax({
+        url: 'ifta/utils/getFuelReceipt.php?types=paginate_ifta_fuel',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('fuelBody').innerHTML = response;
+        },
+    });
+}
 
 // Add Fuel
 function Add_FuelReceipts() {
@@ -53,6 +126,10 @@ function Add_FuelReceipts() {
                                         },
                                         dataType: "text",
                                         success: function (data) {
+                                            var companyid = $('#companyid').val();
+                                            database.ref('ifta_fuel_receipts').child(companyid).set({
+                                                data: randomString(),
+                                            });
                                             swal("Success", data, "success");
                                             $('#add_fuel_receipts').modal('hide');
                                         },
@@ -68,8 +145,7 @@ function Add_FuelReceipts() {
 }
 
 // Edit Fuel
-function updateFuel(column, id) {
-    var data = $('#fuel_receipt_table').find('input[type="text"],textarea').val();
+function updateFuel(column, id, value) {
 
     var companyId = document.getElementById('companyId').value;
 
@@ -80,23 +156,32 @@ function updateFuel(column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: data,
+            value: value,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('ifta_fuel_receipts').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
-            document.getElementById(column+id).style.display = "none";
+            $('#updateTable').modal('hide');
+            $('#search').val("");
         }
     });
 }
 
 // Delete Fuel
-function deleteFuel(id) {
+function deleteFuel(id,cardName) {
     if (confirm('Are you sure ???')) {
         $.ajax({
             url: 'ifta/fuel_receipts_driver.php?type='+'delete_fuel',
             type: 'POST',
-            data: {id: id},
+            data: {id: id,cardName: cardName},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                database.ref('ifta_fuel_receipts').child(companyid).set({
+                    data: randomString(),
+                });
                 swal("Success",data,"success");
             }
         });
@@ -153,6 +238,81 @@ function import_FuelReceipt() {
 
 //-----------------Add Toll START-----------------------------------------
 
+//update Ifta Toll table
+
+var tollpath = "ifta_toll/";
+var tollpath1 = $('#companyid').val();
+var tolldata = tollpath1.toString();
+var toll_test = tollpath + tolldata;
+
+database.ref(toll_test).on('child_added', function (data) {
+    updateTollTable();
+});
+
+database.ref(toll_test).on('child_changed', function (data) {
+    updateTollTable();
+});
+
+database.ref(toll_test).on('child_removed', function (data) {
+    updateTollTable();
+});
+
+//update table fields
+
+function updateTollTable(){
+    var tollBody = document.getElementById("tollBody");
+   
+    $.ajax({
+        url: 'ifta/utils/getIftaToll.php?types=live_toll_table',
+        type: 'POST',
+        dataType: 'text',
+        success: function (response) {
+            if(tollBody != null) 
+            {
+                tollBody.innerHTML = response;
+            }
+            //document.getElementById('paymentTermsBody').innerHTML = response;   
+        },
+    });
+}
+
+// Search Toll Table
+function searchText_Toll(x) {
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'ifta/utils/getIftaToll.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+
+            var j = response.trim();
+            document.getElementById('tollBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate Toll Table
+function paginate_ifta_toll(start, limit) {
+    $.ajax({
+        url: 'ifta/utils/getIftaToll.php?types=paginate_ifta_toll',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('tollBody').innerHTML = response;
+        },
+
+    });
+}
+
 // Add Toll
 function Add_TollData() {
     var companyId = document.getElementById('companyId').value;
@@ -188,8 +348,13 @@ function Add_TollData() {
                                     },
                                     dataType: "text",
                                     success: function (data) {
+                                        var companyid = $('#companyid').val();
+                                        database.ref('ifta_toll').child(companyid).set({
+                                            data: randomString(),
+                                        });
+                                       
                                         swal("Success", data, "success");
-                                        $('#add_tolls').modal('hide');
+                                        $('#add_toll_s').modal('hide');
                                     },
                                 });
                             }
@@ -202,9 +367,7 @@ function Add_TollData() {
 }
 
 // Edit Toll
-function updateTolls(element,column,id) {
-    var value = element.innerText;
-
+function updateTolls(column,id,value) {
     var companyId = document.getElementById('companyId').value;
     $.ajax({
         url: 'ifta/add_toll_driver.php?type=' + 'edit_toll',
@@ -216,19 +379,31 @@ function updateTolls(element,column,id) {
             value: value,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('ifta_toll').child(companyid).set({
+                data: randomString(),
+            });
+            
             swal("Success",data,"success");
+            $('#updateTable').modal('hide');
+            $('#search').val("");
         }
     });
 }
 
 // Delete Toll
-function deleteTolls(id) {
+function deleteTolls(id,truckid) {
     if (confirm('Are you sure ???')) {
         $.ajax({
             url: 'ifta/add_toll_driver.php?type='+'delete_toll',
             type: 'POST',
-            data: {id: id},
+            data: {id: id,truckid:truckid},
             success: function (data) {
+                var companyid = $('#companyid').val();
+                database.ref('ifta_toll').child(companyid).set({
+                    data: randomString(),
+                });
+
                 swal("Success",data,"success");
             }
         });
@@ -276,16 +451,13 @@ function importTolls() {
         cache: false,
         processData: false,
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('ifta_toll').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success",data,"success");
         }
     });
 }
 
 //-----------------Add Toll ENDS------------------------------------------
-
-//----------------- IftaVerify START ----------------------------------
-/*function addNew_Loc() {
-
-}*/
-//----------------- IftaVerify ENDS ----------------------------------
-

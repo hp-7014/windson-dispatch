@@ -6,6 +6,7 @@ include '../database/connection.php';
 <!-- Modal content for the above example -->
 <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="Custom_Broker"
     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-xxl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
@@ -34,7 +35,7 @@ include '../database/connection.php';
                         onclick="import_Custom_Broker()">Upload
                     </button>
                 </form>
-                <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" type="text" id="search"
+                <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" type="text" id="search" onkeyup="search_custom_b(this)"
                     placeholder="search" style="margin-left: 5px;">
                 <br>
 
@@ -45,7 +46,7 @@ include '../database/connection.php';
                             <table id="custom_broker_table" class="scroll">
                                 <thead>
                                     <tr>
-                                        <th scope="col" col width="160">No</th>
+                                        <th scope="col" col width="50">No</th>
                                         <th scope="col" col width="160" data-priority="1">Name</th>
                                         <th scope="col" col width="160" data-priority="3">Crossing</th>
                                         <th scope="col" col width="160" data-priority="1">Telephone</th>
@@ -58,11 +59,15 @@ include '../database/connection.php';
                                 </thead>
                                 <?php
                                 $limit = 100;
+                                // $collection = $db->customs_broker;
+                                // $cursor = $collection->find();
                                 $cursor = $db->customs_broker->find(array('companyID' => $_SESSION['companyId']));
+                                
                                 foreach ($cursor as $value) {
                                     $total_records = sizeof($value['custom_b']);
                                     $total_pages = ceil($total_records / $limit);
                                 }
+                                
                                 $broker = $db->customs_broker->find(array('companyID' => $_SESSION['companyId']), array('projection' => array('custom_b' => array('$slice' => [0, $limit]))));
                                 $i = 0;
                                 ?>
@@ -72,91 +77,96 @@ include '../database/connection.php';
                                     $c_broker = $brok['custom_b'];
 
                                     foreach ($c_broker as $custom) {
+                                        $i++;
+                                        $pencilid1 = "'"."brokerPencil$i"."'";
+                                        $pencilid2 = "'"."crossingPencil$i"."'";
+                                        $pencilid3 = "'"."telephonePencil$i"."'";
+                                        $pencilid4 = "'"."extPencil$i"."'";
+                                        $pencilid5 = "'"."tollfreePencil$i"."'";
+                                        $pencilid6 = "'"."faxPencil$i"."'";
+                                        $pencilid7 = "'"."StatusPencil$i"."'";
 
+                                        $name = "'".$custom['brokerName']."'";
+                                        $crossing = "'".$custom['crossing']."'";
+                                        $telephone = "'".$custom['telephone']."'";
+                                        $ext = "'".$custom['ext']."'";
+                                        $tollfree = "'".$custom['tollfree']."'";
+                                        $fax = "'".$custom['fax']."'";
+                                        $Status = "'".$custom['Status']."'";
 
-                                        if ($custom['delete_status'] == '0') {
-                                            $i++;
-                                            $pencilid = "'"."brokerPencil$i"."'";
-                                            $name = "'".$custom['brokerName']."'";
-                                            ?>
+                                        ?>
                                     <tr>
-                                        <th><?php echo $i ?></th>
-                                        <td class="text-overflow" id="<?php echo "brokerName".$i; ?>"
+                                        <td><?php echo $i ?></td>
+                                        <td class="custom-text" id="<?php echo "brokerName".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('brokerPencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('brokerPencil$i'); "?>"
                                             >
                                             <i id="<?php echo "brokerPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $name; ?>,'updateCustom','text',<?php echo $custom['_id']; ?>,'brokerName','Broker Name',<?php echo $pencilid; ?>)"
+                                                onclick="updateTableColumn(<?php echo $name; ?>,'updateCustom','text',<?php echo $custom['_id']; ?>,'brokerName','Broker Name',<?php echo $pencilid1; ?>)"
                                             ></i>
                                             <?php echo $custom['brokerName']; ?>
                                         </td>
-                                        <td>
-                                            <a href="#" id="crossing<?php echo $custom['_id']; ?>1" data-type="textarea"
-                                                onclick="showTextarea(this.id,'text',<?php echo $custom['_id']; ?>,'crossing');"
-                                                class="text-overflow"><?php echo $custom['crossing']; ?></a>
-                                            <button type="button" id="crossing<?php echo $custom['_id']; ?>"
-                                                onclick="updateCustom('crossing',<?php echo $custom['_id']; ?>)"
-                                                style="display:none; margin-left:6px;"
-                                                class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                <i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text" id="<?php echo "crossing".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('crossingPencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('crossingPencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "crossingPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $crossing; ?>,'updateCustom','text',<?php echo $custom['_id']; ?>,'crossing','Crossing',<?php echo $pencilid2; ?>)"
+                                            ></i>
+                                            <?php echo $custom['crossing']; ?>
                                         </td>
-                                        <td>
-                                            <a href="#" id="telephone<?php echo $custom['_id']; ?>1"
-                                                data-type="textarea"
-                                                onclick="showTextarea(this.id,'text',<?php echo $custom['_id']; ?>,'telephone');"
-                                                class="text-overflow"><?php echo $custom['telephone']; ?></a>
-                                            <button type="button" id="telephone<?php echo $custom['_id']; ?>"
-                                                onclick="updateCustom('telephone',<?php echo $custom['_id']; ?>)"
-                                                style="display:none; margin-left:6px;"
-                                                class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                <i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text" id="<?php echo "telephone".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('telephonePencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('telephonePencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "telephonePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $telephone; ?>,'updateCustom','text',<?php echo $custom['_id']; ?>,'telephone','Telephone',<?php echo $pencilid3; ?>)"
+                                            ></i>
+                                            <?php echo $custom['telephone']; ?>
                                         </td>
-                                        <td>
-                                            <a href="#" id="ext<?php echo $custom['_id']; ?>1" data-type="textarea"
-                                                onclick="showTextarea(this.id,'text',<?php echo $custom['_id']; ?>,'ext');"
-                                                class="text-overflow"><?php echo $custom['ext']; ?></a>
-                                            <button type="button" id="ext<?php echo $custom['_id']; ?>"
-                                                onclick="updateCustom('ext',<?php echo $custom['_id']; ?>)"
-                                                style="display:none; margin-left:6px;"
-                                                class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                <i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text" id="<?php echo "ext".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('extPencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('extPencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "extPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $ext; ?>,'updateCustom','text',<?php echo $custom['_id']; ?>,'ext','Ext',<?php echo $pencilid4; ?>)"
+                                            ></i>
+                                            <?php echo $custom['ext']; ?>
                                         </td>
-                                        <td>
-                                            <a href="#" id="tollfree<?php echo $custom['_id']; ?>1" data-type="textarea"
-                                                onclick="showTextarea(this.id,'text',<?php echo $custom['_id']; ?>,'tollfree');"
-                                                class="text-overflow"><?php echo $custom['tollfree']; ?></a>
-                                            <button type="button" id="tollfree<?php echo $custom['_id']; ?>"
-                                                onclick="updateCustom('tollfree',<?php echo $custom['_id']; ?>)"
-                                                style="display:none; margin-left:6px;"
-                                                class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                <i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text" id="<?php echo "tollfree".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('tollfreePencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('tollfreePencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "tollfreePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $tollfree; ?>,'updateCustom','text',<?php echo $custom['_id']; ?>,'tollfree','Toll Free',<?php echo $pencilid5; ?>)"
+                                            ></i>
+                                            <?php echo $custom['tollfree']; ?>
+                                        </td>   
+                                        <td class="custom-text" id="<?php echo "fax".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('faxPencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('faxPencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "faxPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $fax; ?>,'updateCustom','text',<?php echo $custom['_id']; ?>,'fax','Fax',<?php echo $pencilid6; ?>)"
+                                            ></i>
+                                            <?php echo $custom['fax']; ?>
+                                        </td> 
+                                        <td class="custom-text" id="<?php echo "Status".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('StatusPencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('StatusPencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "StatusPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $Status; ?>,'updateCustom','text',<?php echo $custom['_id']; ?>,'Status','Status',<?php echo $pencilid7; ?>)"
+                                            ></i>
+                                            <?php echo $custom['Status']; ?>
                                         </td>
-                                        <td>
-                                            <a href="#" id="fax<?php echo $custom['_id']; ?>1" data-type="textarea"
-                                                onclick="showTextarea(this.id,'text',<?php echo $custom['_id']; ?>,'fax');"
-                                                class="text-overflow"><?php echo $custom['fax']; ?></a>
-                                            <button type="button" id="fax<?php echo $custom['_id']; ?>"
-                                                onclick="updateCustom('fax',<?php echo $custom['_id']; ?>)"
-                                                style="display:none; margin-left:6px;"
-                                                class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                <i class="mdi mdi-check"></i></button>
-                                        </td>
-                                        <td>
-                                            <a href="#" id="Status<?php echo $custom['_id']; ?>1" data-type="textarea"
-                                                onclick="showTextarea(this.id,'text',<?php echo $custom['_id']; ?>,'Status');"
-                                                class="text-overflow"><?php echo $custom['Status']; ?></a>
-                                            <button type="button" id="Status<?php echo $custom['_id']; ?>"
-                                                onclick="updateCustom('Status',<?php echo $custom['_id']; ?>)"
-                                                style="display:none; margin-left:6px;"
-                                                class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center">
-                                                <i class="mdi mdi-check"></i></button>
-                                        </td>
+                            
                                         <td><a href="#" onclick="deleteCustom(<?php echo $custom['_id']; ?>)"><i
-                                                    class="mdi mdi-delete-sweep-outline"
-                                                    style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                class="mdi mdi-delete-sweep-outline"
+                                                style="font-size: 20px; color: #FC3B3B"></i></a>
                                         </td>
                                     </tr>
-                                    <?php }
+                                    <?php 
                                     }
                                 }
                                 ?>
@@ -185,18 +195,18 @@ include '../database/connection.php';
                             for ($i = 0; $i < $total_pages; $i++) {
                                 if ($i == 0) {
                                     ?>
-                            <li class="pageitem active"
-                                onclick="paginate_custom_broker(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
-                                id="<?php echo $i; ?>"><a href="JavaScript:Void(0);" data-id="<?php echo $i; ?>"
-                                    class="page-link"><?php echo $j; ?></a></li>
+                                    <li class="pageitem active"
+                                        onclick="paginate_custom_broker(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
+                                        id="<?php echo $i; ?>"><a href="JavaScript:Void(0);" data-id="<?php echo $i; ?>"
+                                            class="page-link"><?php echo $j; ?></a></li>
 
                             <?php
                                 } else {
                                     ?>
-                            <li class="pageitem"
-                                onclick="paginate_custom_broker(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
-                                id="<?php echo $i; ?>"><a href="JavaScript:Void(0);" class="page-link"
-                                    data-id="<?php echo $i; ?>"><?php echo $j; ?></a></li>
+                                    <li class="pageitem"
+                                        onclick="paginate_custom_broker(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
+                                        id="<?php echo $i; ?>"><a href="JavaScript:Void(0);" class="page-link"
+                                            data-id="<?php echo $i; ?>"><?php echo $j; ?></a></li>
                             <?php
                                 }
                                 $j++;

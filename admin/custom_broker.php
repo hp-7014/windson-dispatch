@@ -60,7 +60,7 @@ else if ($_GET['type'] == 'import_custom_broker') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $c_broker = new CustomsBroker();
-        $c_broker->import_Custom_Broker($targetPath,$helper);
+        $c_broker->import_Custom_Broker($targetPath,$helper,$db);
     }
 }
 

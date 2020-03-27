@@ -60,7 +60,7 @@ else if ($_GET['type'] == 'import_user') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $user = new User();
-        $user->importExcel($targetPath, $helper);
+        $user->importExcel($targetPath, $helper, $db);
         echo 'File Upload Successfully';
     }
 }

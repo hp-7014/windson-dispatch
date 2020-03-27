@@ -48,7 +48,9 @@ else if ($_GET['type'] == 'edit_factoring'){
 else if ($_GET['type'] == 'delete_factoring'){
     $factoring = new Factoring();
     $factoring->setId($_POST['id']);
-    $factoring->deleteFactoring($factoring,$db);
+    $factoring->setCurrencySetting($_POST['currencySetting']);
+    $factoring->setPaymentTerms($_POST['paymentid']);
+    $factoring->deleteFactoring($factoring,$db,$helper);
     echo "Data Removed Successful";
 }
 

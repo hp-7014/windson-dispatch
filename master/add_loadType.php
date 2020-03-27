@@ -11,69 +11,100 @@ require "../database/connection.php";?>
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body custom-modal-body">
+
+            <div class="modal-body custom-modal-body" style="padding: 0.1rem">
                 <div class="loadtype-container" style="z-index: 1800"></div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card m-b-30">
-                            <div class="card-body">
-                                <form action="" method="post" enctype="multipart/form-data">
-                                    <button type="button" class="btn btn-primary waves-effect waves-light"
-                                            data-toggle="modal"
-                                            data-target="#" id="Active_Load_Type">Add
-                                    </button>
-                                    <input type="submit" name="submit" onclick="importLoadType()"
+                <form method="post" enctype="multipart/form-data">
+                    <button class="btn btn-primary float-left" type="button" data-toggle="modal"
+                            data-target="#" id="Active_Load_Type"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD
+                    </button>
+                    <input type="submit" name="submit" onclick="importLoadType()"
                                            class="btn btn-outline-info waves-effect waves-light float-right"
                                            value="Upload"/>
-                                    <div class="custom-upload-btn-wrapper float-right">
-                                        <button class="custom-btn">Choose file</button>
-                                        <input type="file" name="file" id="file" accept=".csv"/>
-                                    </div>
-                                    <a class="btn btn-outline-success waves-effect waves-light" href="download.php?file=Active_Load_Type.csv" style="margin-bottom: 2px;">CSV formate
-                                    </a>
-                                </form>
-                                <br>
-                                <br>
-                                <table id="mainTable"
-                                       class="table table-striped mb-0">
-                                    <thead>
+                    <div class="custom-upload-btn-wrapper float-right">
+                        <button class="custom-btn">Choose file</button>
+                        <input type="file" name="file" id="file" accept=".csv"/>
+                    </div>
+                    <a class="btn btn-outline-success waves-effect waves-light float-right" href="download.php?file=Active_Load_Type.csv" style="margin-bottom: 2px;">CSV formate
+                    </a>
+                </form>
+
+                <div class="table-rep-plugin">
+                    <div class="table-responsive b-0" data-pattern="priority-columns">
+                        <br>
+                        <div id="table-scroll-s" class="table-scroll-s">
+                            <table id="loadType_table" class="scroll">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" col width="2">No</th>
+                                        <th scope="col" col width="10" data-priority="1">Name</th>
+                                        <th scope="col" col width="10" data-priority="3">Unit</th>
+                                        <th scope="col" col width="10" data-priority="1">Delete</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="loadTypeBody">
+                                    <?php
+                                        require 'model/LoadType.php';
+
+                                        $load_type = new LoadType();
+                                        $show_data = $db->load_type->find(['companyID' => $_SESSION['companyId']]);
+                                        $i = 0;
+                                        foreach ($show_data as $show) {
+                                            $show = $show['loadType'];
+                                            foreach ($show as $s) {
+                                                $counter = $s['counter'];
+                                                $loadName = "'".$s['loadName']."'";
+                                                $loadType = "'".$s['loadType']."'";
+                                                $i++;
+                                                $pencilid = "'"."loadPencil$i"."'";
+                                                $pencilid1 = "'"."loadTypepencil$i"."'";
+                                     ?>
+                                            <tr>
+                                                <td><?php echo $i ?></td> 
+                                                <td class="custom-text" id="<?php echo "loadName".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('loadPencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('loadPencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "loadPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $loadName; ?>,'updateloadType','text',<?php echo $s['_id']; ?>,'loadName','Load Name',<?php echo $pencilid; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['loadName']; ?>
+                                                </td> 
+                                                <td class="custom-text" id="<?php echo "loadType".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('loadTypepencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('loadTypepencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "loadTypepencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $loadType; ?>,'updateloadType','text',<?php echo $s['_id']; ?>,'loadType','Load Type',<?php echo $pencilid1; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['loadType']; ?>
+                                                </td>                                                                                             
+                                                
+                                                <td>
+                                                    <?php if ($counter == 0) { ?>
+                                                        <a href="#" onclick="deleteloadType(<?php echo $s['_id']; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                    <?php } else { ?>
+                                                        <a href="#" disabled onclick="deleteCurrencyError()"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #adb5bd"></i></a>
+                                                    <?php } ?>
+                                                </td>
+                                            </tr>
+                                        <?php }
+                                    }
+                                ?>
+                                </tbody>
+                                <tfoot>
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
                                         <th>Unit</th>
                                         <th>Delete</th>
                                     </tr>
-                                    </thead>
-                                    <tbody id="loadTypeBody">
-                                    <?php
-                                    require 'model/LoadType.php';
-
-                                    $load_type = new LoadType();
-                                    $show_data = $db->load_type->find(['companyID' => $_SESSION['companyId']]);
-                                    $no = 1;
-                                    foreach ($show_data as $show) {
-                                        $show = $show['loadType'];
-                                        foreach ($show as $s) {
-                                            ?>
-                                            <tr>
-                                                <td><a href="#" id="stdid"><?php echo $no++; ?></a></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateloadType(this,'loadName',<?php echo $s['_id']; ?>)"><?php echo $s['loadName']; ?></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateloadType(this,'loadType',<?php echo $s['_id']; ?>)"><?php echo $s['loadType']; ?></td>
-                                                <td><a href="#" onclick="deleteloadType(<?php echo $s['_id']; ?>)"><i
-                                                                class="mdi mdi-delete-sweep-outline"
-                                                                style="font-size: 20px; color: #FC3B3B"></i></a>
-                                                </td>
-                                            </tr>
-                                        <?php }
-                                    } ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tfoot>
+                            </table>
                         </div>
-                    </div> <!-- end col -->
-                </div> <!-- end row -->
+                    </div>
+                </div>
             </div>
 
             <div class="modal-footer">

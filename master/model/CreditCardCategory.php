@@ -85,7 +85,7 @@
                 array('_id'=> $this->id,
                     'companyID'=>(int) $this->companyID,
                     'counter' => 0,
-                    'credit_card' => array(['_id' => 0,'cardName'=>$this->cardName])
+                    'credit_card' => array(['_id' => 0,'cardName'=>$this->cardName,'counter'=>0])
                 )
             );
 		}
@@ -99,7 +99,8 @@
             if ($count > 0) {
                 $db->credit_card_category->updateOne(['companyID' => (int)$this->companyID],['$push'=>['credit_card'=>[
                     '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->credit_card_category),
-                    'cardName'=>$this->cardName
+                    'cardName' => $this->cardName,
+                    'counter' => 0
                 ]]]);
             } else {
                 $card = iterator_to_array($category);
@@ -121,10 +122,9 @@
             );
         }
 
-        public function import_Card($targetPath, $helper) {
+        public function import_Card($targetPath, $helper, $db) {
             require_once('../excel/excel_reader2.php');
             require_once('../excel/SpreadsheetReader.php');
-            include '../database/connection.php';   // connection
 
             $Reader = new SpreadsheetReader($targetPath);
 

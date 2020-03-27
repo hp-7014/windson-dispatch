@@ -12,12 +12,12 @@ require "../database/connection.php";?>
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body custom-modal-body">
+
+            <div class="modal-body custom-modal-body" style="padding: 0.1rem">
                 <div class="equipment-container" style="z-index: 1800"></div>
                 <form method="post" enctype="multipart/form-data">
-                    <button type="button" class="btn btn-primary waves-effect waves-light"
-                            data-toggle="modal"
-                            data-target="#" id="addEquipmentType">Add
+                    <button class="btn btn-primary float-left" type="button" data-toggle="modal"
+                            data-target="#" id="addEquipmentType"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD
                     </button>
                     <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="importEquipment()">Upload
                     </button>
@@ -25,41 +25,73 @@ require "../database/connection.php";?>
                         <button class="custom-btn">Choose file</button>
                         <input type="file" id="file" name="myfile" />
                     </div>
-                    <a class="btn btn-outline-success waves-effect waves-light" href="download.php?file=Equipment_Type.csv" style="margin-bottom: 2px;">CSV formate
+                    <a class="btn btn-outline-success waves-effect waves-light float-right" href="download.php?file=Equipment_Type.csv" style="margin-bottom: 2px;">CSV formate
                     </a>
                 </form>
-                <br>
-                <table id="mainTable"
-                       class="table table-striped mb-0 table-editable">
-                    <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Name</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody id="equipmentBody">
-                    <?php
-                    $show = $db->equipment_add->find(['companyID' => $_SESSION['companyId']]);
-                    $no = 1;
-                    foreach ($show as $row){
-                        $show1 = $row['equipment'];
-                            foreach ($show1 as $row1) {
-                                $id = $row1['_id'];
-                                $equipmentType = $row1['equipmentType'];
-                     
-                        ?>
-                        <tr>
-                            <td><?php echo $no++; ?></td>
-                            <td><div contenteditable="true" onblur="updateEquipment(this,'equipmentType','<?php echo $id; ?>')" onclick="activate(this)"><?php echo $equipmentType; ?></div></td>
-                            <td><a href="#" onclick="deleteEquipment(<?php echo $id; ?>)"><i class="mdi mdi-delete-sweep-outline"  style="font-size: 20px; color: #FC3B3B"></a></i>
-                            </td>
-                        </tr>
-                    <?php } 
-                    }?>
-                    </tbody>
-                </table>
+
+                <div class="table-rep-plugin">
+                    <div class="table-responsive b-0" data-pattern="priority-columns">
+                        <br>
+                        <div id="table-scroll-s" class="table-scroll-s">
+                            <table id="equipment_table" class="scroll">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" col width="2">No</th>
+                                        <th scope="col" col width="10" data-priority="1">Name</th>
+                                        <th scope="col" col width="10" data-priority="3">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="equipmentBody">
+                                <?php
+                                    $show = $db->equipment_add->find(['companyID' => $_SESSION['companyId']]);
+                                    $i = 0;
+                                    foreach ($show as $row){
+                                        $show1 = $row['equipment'];
+                                            foreach ($show1 as $row1) {
+                                                $id = $row1['_id'];
+                                                $counter = $row1['counter'];
+                                                $equipmentType = "'".$row1['equipmentType']."'";
+                                                $i++;
+                                                $pencilid = "'"."equipmentPencil$i"."'";
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $i ?></td> 
+                                                <td class="custom-text" id="<?php echo "equipmentType".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('equipmentPencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('equipmentPencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "equipmentPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $equipmentType; ?>,'updateEquipment','text',<?php echo $row1['_id']; ?>,'equipmentType','Equipment Type',<?php echo $pencilid; ?>)"
+                                                    ></i>
+                                                    <?php echo $row1['equipmentType']; ?>
+                                                </td>
+                                                                                                                                           
+                                                <td>
+                                                    <?php if ($counter == 0) { ?>
+                                                        <a href="#" onclick="deleteEquipment(<?php echo $id; ?>)"><i class="mdi mdi-delete-sweep-outline"  style="font-size: 20px; color: #FC3B3B"></a></i>
+                                                    <?php } else { ?>
+                                                        <a href="#" disabled onclick="deleteCurrencyError()"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #adb5bd"></i></a>
+                                                    <?php } ?>
+                                                </td> 
+                                            </tr>
+                                        <?php }
+                                    }
+                                ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <div class="modal-footer">
                 <button type="button" onclick="exportEquipment()" class="btn btn-primary waves-effect waves-light">Export
                 </button>

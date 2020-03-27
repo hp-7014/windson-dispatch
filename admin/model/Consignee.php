@@ -411,6 +411,7 @@ class Consignee implements IteratorAggregate
                 'counter' => 0,
                 'consignee' => array([
                     '_id' => 0,
+                    'counter' => 0,
                     'consigneeName' => $this->consigneeName,
                     'consigneeAddress' => $this->consigneeAddress,
                     'consigneeLocation' => $this->consigneeLocation,
@@ -444,6 +445,7 @@ class Consignee implements IteratorAggregate
         if ($count > 0) {
             $db->consignee->updateOne(['companyID' => (int)$this->companyID], ['$push' => ['consignee' => [
                 '_id' => $helper->getDocumentSequence((int)$this->companyID, $db->consignee),
+                'counter' => 0,
                 'consigneeName' => $this->consigneeName,
                 'consigneeAddress' => $this->consigneeAddress,
                 'consigneeLocation' => $this->consigneeLocation,
@@ -470,11 +472,10 @@ class Consignee implements IteratorAggregate
         }
     }
 
-    public function importExcel($targetPath, $helper)
+    public function importExcel_Consignee($targetPath, $helper, $db)
     {
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 
@@ -568,9 +569,13 @@ class Consignee implements IteratorAggregate
     // delete fucntion
     public function deleteConsignee($consignee, $db)
     {
-        $db->consignee->updateOne(['companyID' => (int)$_SESSION['companyId'], 'consignee._id' => (int)$this->getId()],
-            ['$set' => ['consignee.$.deleteStatus' => 1]]
+        $db->consignee->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+            '$pull' => ['consignee' => ['_id' => (int)$consignee->getId()]]]
         );
+
+        // $db->consignee->updateOne(['companyID' => (int)$_SESSION['companyId'], 'consignee._id' => (int)$this->getId()],
+        //     ['$set' => ['consignee.$.deleteStatus' => 1]]
+        // );
     }
 
 }

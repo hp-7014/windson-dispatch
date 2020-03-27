@@ -86,7 +86,7 @@
                 array('_id'=> $this->id,
                     'companyID'=>(int) $this->companyID,
                     'counter' => 0,
-                    'bank_credit' => array(['_id' => 0,'bankName'=>$this->bankName])
+                    'bank_credit' => array(['_id' => 0,'bankName'=>$this->bankName,'counter'=>0])
                 )
             );
 		}
@@ -101,7 +101,8 @@
             if ($count > 0) {
                 $db->bank_credit_category->updateOne(['companyID' => (int)$this->companyID],['$push'=>['bank_credit'=>[
                     '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->bank_credit_category),
-                    'bankName'=>$this->bankName
+                    'bankName'=>$this->bankName,
+                    'counter'=>0
                 ]]]);
             } else {
                 $credit = iterator_to_array($category);
@@ -123,10 +124,9 @@
             );
         }
 
-        public function importCredit($targetPath, $helper) {
+        public function importCredit($targetPath, $helper, $db) {
             require_once('../excel/excel_reader2.php');
             require_once('../excel/SpreadsheetReader.php');
-            include '../database/connection.php';   // connection
 
             $Reader = new SpreadsheetReader($targetPath);
 

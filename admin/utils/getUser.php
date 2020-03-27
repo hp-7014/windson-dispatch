@@ -2,110 +2,781 @@
 session_start();
 $helper = "helper";
 require "../../database/connection.php";
-$show = $db->user->find(['companyID' => $_SESSION['companyId']]);
-$no = 0;
-$table = "";
 
-foreach ($show as $row) {
-    $show1 = $row['user'];
-    foreach ($show1 as $row1) {
-        $id = $row1['_id'];
-        $userEmail = $row1['userEmail'];
-        $userName = $row1['userName'];
-        $userFirstName = $row1['userFirstName'];
-        $userLastName = $row1['userLastName'];
-        $userAddress = $row1['userAddress'];
-        $userLocation = $row1['userLocation'];
-        $userZip = $row1['userZip'];
-        $userTelephone = $row1['userTelephone'];
-        $userExt = $row1['userExt'];
-        $TollFree = $row1['TollFree'];
-        $userFax = $row1['userFax'];
+if($_GET['types'] == 'live_user_table') {
+    $limit = 100;
+    $cursor = $db->user->find(array('companyID' => $_SESSION['companyId']));
+    
+    foreach ($cursor as $value) {
+        $total_records = sizeof($value['user']);
+        $total_pages = ceil($total_records / $limit);
+    }
 
-        $type = '"text"';
+    $show = $db->user->find(array('companyID' => $_SESSION['companyId']), array('projection' => array('user' => array('$slice' => [0, $limit]))));                              
 
-        $userEmailColumn = '"userEmail"';
-        $userNameColumn = '"userName"';
-        $userFirstNameColumn = '"userFirstName"';
-        $userLastNameColumn = '"userLastName"';
-        $userAddressColumn = '"userAddress"';
-        $userLocationColumn = '"userLocation"';
-        $userZipColumn = '"userZip"';
-        $userTelephoneColumn = '"userTelephone"';
-        $userExtColumn = '"userExt"';
-        $TollFreeColumn = '"TollFree"';
-        $userFaxColumn = '"userFax"';
+    $i = 0;
+    $table = "";
 
-        $no += 1;
-        $table .= "<tr>
-             <td> $no</td>
-             <td>
-                 <div id='1userEmail$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$userEmailColumn)' class='text-overflow'>$userEmail</div>
-                 <button type='button' id='userEmail$id' onclick='updateUser($userEmailColumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
-             </td>
-             <td>
-                 
-                 <div id='1userName$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$userNameColumn)' class='text-overflow'>$userName</div>
-                 <button type='button' id='userName$id' onclick='updateUser($userNameColumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
-             </td>
-             <td>
-                 
-                 <div id='1userFirstName$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$userFirstNameColumn)' class='text-overflow'>$userFirstName</div>
-                 <button type='button' id='userFirstName$id' onclick='updateUser($userFirstNameColumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
-             </td>
-             <td>
-                 
-                 <div id='1userLastName$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$userLastNameColumn)' class='text-overflow'>$userLastName</div>
-                 <button type='button' id='userLastName$id' onclick='updateUser($userLastNameColumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
-             </td>
-             <td>
-                 
-                 <div id='1userAddress$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$userAddressColumn)' class='text-overflow'>$userAddress</div>
-                 <button type='button' id='userAddress$id' onclick='updateUser($userAddressColumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
-             </td>
-             <td>
-                 
-                 <div id='1userLocation$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$userLocationColumn)' class='text-overflow'>$userLocation</div>
-                 <button type='button' id='userLocation$id' onclick='updateUser($userLocationColumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
-             </td>
-             <td>
-                 
-                 <div id='1userZip$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$userZipColumn)' class='text-overflow'>$userZip</div>
-                 <button type='button' id='userZip$id' onclick='updateUser($userZipColumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
-             </td>
-             <td>
-                 
-                 <div id='1userTelephone$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$userTelephoneColumn)' class='text-overflow'>$userTelephone</div>
-                 <button type='button' id='userTelephone$id' onclick='updateUser($userTelephoneColumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
-             </td>
-             <td>
-                 
-                 <div id='1userExt$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$userExtColumn)' class='text-overflow'>$userExt</div>
-                 <button type='button' id='userExt$id' onclick='updateUser($userExtColumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
-             </td>
-             <td>
-                 
-                 <div id='1TollFree$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$TollFreeColumn)' class='text-overflow'>$TollFree</div>
-                 <button type='button' id='TollFree$id' onclick='updateUser($TollFreeColumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
-             </td>
-             <td>
-                 
-                 <div id='1userFax$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$userFaxColumn)' class='text-overflow'>$userFax</div>
-                 <button type='button' id='userFax$id' onclick='updateUser($userFaxColumn,$id)' style='display:none; margin-left:6px;' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center now'><i class='mdi mdi-check'></i></button>
-             </td>
-             <td><a href='#' onclick='show_privilege($id)' data-toggle='modal' data-target='#show_privilege' class='btn btn-warning'>Privilege</a></td>
-             <td><a href='#' onclick='deleteUser($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></a></i>
-             </td>
-         </tr>";
+    foreach ($show as $row) {
+        $show1 = $row['user'];
+        foreach ($show1 as $row1) {
+            $counter = $row1['counter'];
+            $id = $row1['_id'];
+            $userEmail = $row1['userEmail'];
+            $userName = $row1['userName'];
+            $userFirstName = $row1['userFirstName'];
+            $userLastName = $row1['userLastName'];
+            $userAddress = $row1['userAddress'];
+            $userLocation = $row1['userLocation'];
+            $userZip = $row1['userZip'];
+            $userTelephone = $row1['userTelephone'];
+            $userExt = $row1['userExt'];
+            $TollFree = $row1['TollFree'];
+            $userFax = $row1['userFax'];
+
+            $type = '"text"';
+
+            $userEmailColumn = '"userEmail"';
+            $userNameColumn = '"userName"';
+            $userFirstNameColumn = '"userFirstName"';
+            $userLastNameColumn = '"userLastName"';
+            $userAddressColumn = '"userAddress"';
+            $userLocationColumn = '"userLocation"';
+            $userZipColumn = '"userZip"';
+            $userTelephoneColumn = '"userTelephone"';
+            $userExtColumn = '"userExt"';
+            $TollFreeColumn = '"TollFree"';
+            $userFaxColumn = '"userFax"';
+            $i++;
+            $updateUser = '"updateUser"';
+
+            $c_type1 = '"'.$userEmail.'"';
+            $c_type2 = '"'.$userName.'"';
+            $c_type3 = '"'.$userFirstName.'"';
+            $c_type4 = '"'.$userLastName.'"';
+            $c_type5 = '"'.$userAddress.'"';
+            $c_type6 = '"'.$userLocation.'"';
+            $c_type7 = '"'.$userZip.'"';
+            $c_type8 = '"'.$userTelephone.'"';
+            $c_type9 = '"'.$userExt.'"';
+            $c_type10 = '"'.$TollFree.'"';
+            $c_type11 = '"'.$userFax.'"';
+
+            $title1 = '"Email"';
+            $title2 = '"User Name"';
+            $title3 = '"First Name"';
+            $title4 = '"Last Name"';
+            $title5 = '"Address"';
+            $title6 = '"Location"';
+            $title7 = '"Zip"';
+            $title8 = '"Telephone"';
+            $title9 = '"Ext"';
+            $title10 = '"Toll Free"';
+            $title11 = '"Fax"';
+
+            $pencilid1 = '"userEmailPencil'.$i.'"';
+            $pencilid2 = '"userNamePencil'.$i.'"';
+            $pencilid3 = '"userFirstNamePencil'.$i.'"';
+            $pencilid4 = '"userLastNamePencil'.$i.'"';
+            $pencilid5 = '"userAddressPencil'.$i.'"';
+            $pencilid6 = '"userLocationPencil'.$i.'"';
+            $pencilid7 = '"userZipPencil'.$i.'"';
+            $pencilid8 = '"userTelephonePencil'.$i.'"';
+            $pencilid9 = '"userExtPencil'.$i.'"';
+            $pencilid10 = '"TollFreePencil'.$i.'"';
+            $pencilid11 = '"userFaxPencil'.$i.'"';
+
+            echo "<tr>
+                <td> $i</td>
+                <td class='custom-text' id='userEmail$i'
+                    onmouseover='showPencil_s($pencilid1)'
+                    onmouseout='hidePencil_s($pencilid1)'
+                    >
+                    <i id='userEmailPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type1,$updateUser,$type,$id,$userEmailColumn,$title1,$pencilid1)'
+                    ></i>
+                    $userEmail
+                </td>
+                <td class='custom-text' id='userName$i'
+                    onmouseover='showPencil_s($pencilid2)'
+                    onmouseout='hidePencil_s($pencilid2)'
+                    >
+                    <i id='userNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type2,$updateUser,$type,$id,$userNameColumn,$title2,$pencilid2)'
+                    ></i>
+                    $userName
+                </td>
+                <td class='custom-text' id='userFirstName$i'
+                    onmouseover='showPencil_s($pencilid3)'
+                    onmouseout='hidePencil_s($pencilid3)'
+                    >
+                    <i id='userFirstNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type3,$updateUser,$type,$id,$userFirstNameColumn,$title3,$pencilid3)'
+                    ></i>
+                    $userFirstName
+                </td>
+                <td class='custom-text' id='userLastName$i'
+                    onmouseover='showPencil_s($pencilid4)'
+                    onmouseout='hidePencil_s($pencilid4)'
+                    >
+                    <i id='userLastNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type4,$updateUser,$type,$id,$userLastNameColumn,$title4,$pencilid4)'
+                    ></i>
+                    $userLastName
+                </td>
+                <td class='custom-text 'id='userAddress$i'
+                    onmouseover='showPencil_s($pencilid5)'
+                    onmouseout='hidePencil_s($pencilid5)'
+                    >
+                    <i id='userAddressPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type5,$updateUser,$type,$id,$userAddressColumn,$title5,$pencilid5)'
+                    ></i>
+                    $userAddress
+                </td>
+                <td class='custom-text' id='userLocation$i'
+                    onmouseover='showPencil_s($pencilid6)'
+                    onmouseout='hidePencil_s($pencilid6)'
+                    >
+                    <i id='userLocationPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type6,$updateUser,$type,$id,$userLocationColumn,$title6,$pencilid6)'
+                    ></i>
+                    $userLocation
+                </td>
+                <td class='custom-text' id='userZip$i'
+                    onmouseover='showPencil_s($pencilid7)'
+                    onmouseout='hidePencil_s($pencilid7)'
+                    >
+                    <i id='userZipPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type7,$updateUser,$type,$id,$userZipColumn,$title7,$pencilid7)'
+                    ></i>
+                    $userZip
+                </td>
+                <td class='custom-text' id='userTelephone$i'
+                    onmouseover='showPencil_s($pencilid8)'
+                    onmouseout='hidePencil_s($pencilid8)'
+                    >
+                    <i id='userTelephonePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type8,$updateUser,$type,$id,$userTelephoneColumn,$title8,$pencilid8)'
+                    ></i>
+                    $userTelephone
+                </td>
+                <td class='custom-text' id='userExt$i'
+                    onmouseover='showPencil_s($pencilid9)'
+                    onmouseout='hidePencil_s($pencilid9)'
+                    >
+                    <i id='userExtPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type9,$updateUser,$type,$id,$userExtColumn,$title9,$pencilid9)'
+                    ></i>
+                    $userExt
+                </td>
+                <td class='custom-text' id='TollFree$i'
+                    onmouseover='showPencil_s($pencilid10)'
+                    onmouseout='hidePencil_s($pencilid10)'
+                    >
+                    <i id='TollFreePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type10,$updateUser,$type,$id,$TollFreeColumn,$title10,$pencilid10)'
+                    ></i>
+                    $TollFree
+                </td>
+                <td class='custom-text' id='userFax$i'
+                    onmouseover='showPencil_s($pencilid11)'
+                    onmouseout='hidePencil_s($pencilid11)'
+                    >
+                    <i id='userFaxPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type11,$updateUser,$type,$id,$userFaxColumn,$title11,$pencilid11)'
+                    ></i>
+                    $userFax
+                </td>
+                <td><a href='#' onclick='show_privilege($id)' data-toggle='modal' data-target='#show_privilege' class='btn btn-warning'>Privilege</a></td>";
+
+            if ($counter == 0) {
+                echo "<td><a href='#' onclick='deleteUser($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+            } else {
+                echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+            }
+        }
+        //echo $table;
     }
 }
 
-echo $table;
+if ($_GET['types'] == 'search_text') {
+    $show = $db->user->find(['companyID' => $_SESSION['companyId']]);
+    $i = 0;
+    $table = "";
 
-?>
-<script>
-    function getParentId(e) {
-        alert(10);
-        console.log(e.target.parentNode.id);
+    foreach ($show as $row) {
+        $show1 = $row['user'];
+        foreach ($show1 as $row1) {
+            if ($_POST['getoption'] == $row1['userEmail'] || $_POST['getoption'] == $row1['userName'] || $_POST['getoption'] == $row1['userFirstName'] || $_POST['getoption'] == $row1['userLastName'] || $_POST['getoption'] == $row1['userAddress'] || $_POST['getoption'] == $row1['userLocation'] || $_POST['getoption'] == $row1['userZip'] || $_POST['getoption'] == $row1['userTelephone'] || $_POST['getoption'] == $row1['userExt'] || $_POST['getoption'] == $row1['TollFree'] || $_POST['getoption'] == $row1['userFax']) {
+                $counter = $row1['counter'];
+                $id = $row1['_id'];
+                $userEmail = $row1['userEmail'];
+                $userName = $row1['userName'];
+                $userFirstName = $row1['userFirstName'];
+                $userLastName = $row1['userLastName'];
+                $userAddress = $row1['userAddress'];
+                $userLocation = $row1['userLocation'];
+                $userZip = $row1['userZip'];
+                $userTelephone = $row1['userTelephone'];
+                $userExt = $row1['userExt'];
+                $TollFree = $row1['TollFree'];
+                $userFax = $row1['userFax'];
+
+                $type = '"text"';
+
+                $userEmailColumn = '"userEmail"';
+                $userNameColumn = '"userName"';
+                $userFirstNameColumn = '"userFirstName"';
+                $userLastNameColumn = '"userLastName"';
+                $userAddressColumn = '"userAddress"';
+                $userLocationColumn = '"userLocation"';
+                $userZipColumn = '"userZip"';
+                $userTelephoneColumn = '"userTelephone"';
+                $userExtColumn = '"userExt"';
+                $TollFreeColumn = '"TollFree"';
+                $userFaxColumn = '"userFax"';
+                $i++;
+                $updateUser = '"updateUser"';
+
+                $c_type1 = '"'.$userEmail.'"';
+                $c_type2 = '"'.$userName.'"';
+                $c_type3 = '"'.$userFirstName.'"';
+                $c_type4 = '"'.$userLastName.'"';
+                $c_type5 = '"'.$userAddress.'"';
+                $c_type6 = '"'.$userLocation.'"';
+                $c_type7 = '"'.$userZip.'"';
+                $c_type8 = '"'.$userTelephone.'"';
+                $c_type9 = '"'.$userExt.'"';
+                $c_type10 = '"'.$TollFree.'"';
+                $c_type11 = '"'.$userFax.'"';
+
+                $title1 = '"Email"';
+                $title2 = '"User Name"';
+                $title3 = '"First Name"';
+                $title4 = '"Last Name"';
+                $title5 = '"Address"';
+                $title6 = '"Location"';
+                $title7 = '"Zip"';
+                $title8 = '"Telephone"';
+                $title9 = '"Ext"';
+                $title10 = '"Toll Free"';
+                $title11 = '"Fax"';
+
+                $pencilid1 = '"userEmailPencil'.$i.'"';
+                $pencilid2 = '"userNamePencil'.$i.'"';
+                $pencilid3 = '"userFirstNamePencil'.$i.'"';
+                $pencilid4 = '"userLastNamePencil'.$i.'"';
+                $pencilid5 = '"userAddressPencil'.$i.'"';
+                $pencilid6 = '"userLocationPencil'.$i.'"';
+                $pencilid7 = '"userZipPencil'.$i.'"';
+                $pencilid8 = '"userTelephonePencil'.$i.'"';
+                $pencilid9 = '"userExtPencil'.$i.'"';
+                $pencilid10 = '"TollFreePencil'.$i.'"';
+                $pencilid11 = '"userFaxPencil'.$i.'"';
+
+                echo "<tr>
+                    <td> $i</td>
+                    <td class='custom-text' id='userEmail$i'
+                        onmouseover='showPencil_s($pencilid1)'
+                        onmouseout='hidePencil_s($pencilid1)'
+                        >
+                        <i id='userEmailPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                            onclick='updateTableColumn($c_type1,$updateUser,$type,$id,$userEmailColumn,$title1,$pencilid1)'
+                        ></i>
+                        $userEmail
+                    </td>
+                    <td class='custom-text' id='userName$i'
+                        onmouseover='showPencil_s($pencilid2)'
+                        onmouseout='hidePencil_s($pencilid2)'
+                        >
+                        <i id='userNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                            onclick='updateTableColumn($c_type2,$updateUser,$type,$id,$userNameColumn,$title2,$pencilid2)'
+                        ></i>
+                        $userName
+                    </td>
+                    <td class='custom-text' id='userFirstName$i'
+                        onmouseover='showPencil_s($pencilid3)'
+                        onmouseout='hidePencil_s($pencilid3)'
+                        >
+                        <i id='userFirstNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                            onclick='updateTableColumn($c_type3,$updateUser,$type,$id,$userFirstNameColumn,$title3,$pencilid3)'
+                        ></i>
+                        $userFirstName
+                    </td>
+                    <td class='custom-text' id='userLastName$i'
+                        onmouseover='showPencil_s($pencilid4)'
+                        onmouseout='hidePencil_s($pencilid4)'
+                        >
+                        <i id='userLastNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                            onclick='updateTableColumn($c_type4,$updateUser,$type,$id,$userLastNameColumn,$title4,$pencilid4)'
+                        ></i>
+                        $userLastName
+                    </td>
+                    <td class='custom-text' id='userAddress$i'
+                        onmouseover='showPencil_s($pencilid5)'
+                        onmouseout='hidePencil_s($pencilid5)'
+                        >
+                        <i id='userAddressPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                            onclick='updateTableColumn($c_type5,$updateUser,$type,$id,$userAddressColumn,$title5,$pencilid5)'
+                        ></i>
+                        $userAddress
+                    </td>
+                    <td class='custom-text' id='userLocation$i'
+                        onmouseover='showPencil_s($pencilid6)'
+                        onmouseout='hidePencil_s($pencilid6)'
+                        >
+                        <i id='userLocationPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                            onclick='updateTableColumn($c_type6,$updateUser,$type,$id,$userLocationColumn,$title6,$pencilid6)'
+                        ></i>
+                        $userLocation
+                    </td>
+                    <td class='custom-text' id='userZip$i'
+                        onmouseover='showPencil_s($pencilid7)'
+                        onmouseout='hidePencil_s($pencilid7)'
+                        >
+                        <i id='userZipPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                            onclick='updateTableColumn($c_type7,$updateUser,$type,$id,$userZipColumn,$title7,$pencilid7)'
+                        ></i>
+                        $userZip
+                    </td>
+                    <td class='custom-text' id='userTelephone$i'
+                        onmouseover='showPencil_s($pencilid8)'
+                        onmouseout='hidePencil_s($pencilid8)'
+                        >
+                        <i id='userTelephonePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                            onclick='updateTableColumn($c_type8,$updateUser,$type,$id,$userTelephoneColumn,$title8,$pencilid8)'
+                        ></i>
+                        $userTelephone
+                    </td>
+                    <td class='custom-text' id='userExt$i'
+                        onmouseover='showPencil_s($pencilid9)'
+                        onmouseout='hidePencil_s($pencilid9)'
+                        >
+                        <i id='userExtPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                            onclick='updateTableColumn($c_type9,$updateUser,$type,$id,$userExtColumn,$title9,$pencilid9)'
+                        ></i>
+                        $userExt
+                    </td>
+                    <td class='custom-text' id='TollFree$i'
+                        onmouseover='showPencil_s($pencilid10)'
+                        onmouseout='hidePencil_s($pencilid10)'
+                        >
+                        <i id='TollFreePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                            onclick='updateTableColumn($c_type10,$updateUser,$type,$id,$TollFreeColumn,$title10,$pencilid10)'
+                        ></i>
+                        $TollFree
+                    </td>
+                    <td class='custom-text' id='userFax$i'
+                        onmouseover='showPencil_s($pencilid11)'
+                        onmouseout='hidePencil_s($pencilid11)'
+                        >
+                        <i id='userFaxPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                            onclick='updateTableColumn($c_type11,$updateUser,$type,$id,$userFaxColumn,$title11,$pencilid11)'
+                        ></i>
+                        $userFax
+                    </td>
+                    <td><a href='#' onclick='show_privilege($id)' data-toggle='modal' data-target='#show_privilege' class='btn btn-warning'>Privilege</a></td>";
+
+                if ($counter == 0) {
+                    echo "<td><a href='#' onclick='deleteUser($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                } else {
+                    echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                }
+            }
+        }
+
+        if ($_POST['getoption'] == "") {
+            $limit = 100;
+            $cursor = $db->user->find(array('companyID' => $_SESSION['companyId']));
+            
+            foreach ($cursor as $value) {
+                $total_records = sizeof($value['user']);
+                $total_pages = ceil($total_records / $limit);
+            }
+
+            $show = $db->user->find(array('companyID' => $_SESSION['companyId']), array('projection' => array('user' => array('$slice' => [0, $limit]))));
+            
+            $i = 0;
+            $table = "";
+
+            foreach ($show as $row) {
+                $show1 = $row['user'];
+                foreach ($show1 as $row1) {
+                    $counter = $row1['counter'];
+                    $id = $row1['_id'];
+                    $userEmail = $row1['userEmail'];
+                    $userName = $row1['userName'];
+                    $userFirstName = $row1['userFirstName'];
+                    $userLastName = $row1['userLastName'];
+                    $userAddress = $row1['userAddress'];
+                    $userLocation = $row1['userLocation'];
+                    $userZip = $row1['userZip'];
+                    $userTelephone = $row1['userTelephone'];
+                    $userExt = $row1['userExt'];
+                    $TollFree = $row1['TollFree'];
+                    $userFax = $row1['userFax'];
+
+                    $type = '"text"';
+
+                    $userEmailColumn = '"userEmail"';
+                    $userNameColumn = '"userName"';
+                    $userFirstNameColumn = '"userFirstName"';
+                    $userLastNameColumn = '"userLastName"';
+                    $userAddressColumn = '"userAddress"';
+                    $userLocationColumn = '"userLocation"';
+                    $userZipColumn = '"userZip"';
+                    $userTelephoneColumn = '"userTelephone"';
+                    $userExtColumn = '"userExt"';
+                    $TollFreeColumn = '"TollFree"';
+                    $userFaxColumn = '"userFax"';
+                    $i++;
+                    $updateUser = '"updateUser"';
+
+                    $c_type1 = '"'.$userEmail.'"';
+                    $c_type2 = '"'.$userName.'"';
+                    $c_type3 = '"'.$userFirstName.'"';
+                    $c_type4 = '"'.$userLastName.'"';
+                    $c_type5 = '"'.$userAddress.'"';
+                    $c_type6 = '"'.$userLocation.'"';
+                    $c_type7 = '"'.$userZip.'"';
+                    $c_type8 = '"'.$userTelephone.'"';
+                    $c_type9 = '"'.$userExt.'"';
+                    $c_type10 = '"'.$TollFree.'"';
+                    $c_type11 = '"'.$userFax.'"';
+
+                    $title1 = '"Email"';
+                    $title2 = '"User Name"';
+                    $title3 = '"First Name"';
+                    $title4 = '"Last Name"';
+                    $title5 = '"Address"';
+                    $title6 = '"Location"';
+                    $title7 = '"Zip"';
+                    $title8 = '"Telephone"';
+                    $title9 = '"Ext"';
+                    $title10 = '"Toll Free"';
+                    $title11 = '"Fax"';
+
+                    $pencilid1 = '"userEmailPencil'.$i.'"';
+                    $pencilid2 = '"userNamePencil'.$i.'"';
+                    $pencilid3 = '"userFirstNamePencil'.$i.'"';
+                    $pencilid4 = '"userLastNamePencil'.$i.'"';
+                    $pencilid5 = '"userAddressPencil'.$i.'"';
+                    $pencilid6 = '"userLocationPencil'.$i.'"';
+                    $pencilid7 = '"userZipPencil'.$i.'"';
+                    $pencilid8 = '"userTelephonePencil'.$i.'"';
+                    $pencilid9 = '"userExtPencil'.$i.'"';
+                    $pencilid10 = '"TollFreePencil'.$i.'"';
+                    $pencilid11 = '"userFaxPencil'.$i.'"';
+
+                    echo "<tr>
+                        <td> $i</td>
+                        <td class='custom-text' id='userEmail$i'
+                            onmouseover='showPencil_s($pencilid1)'
+                            onmouseout='hidePencil_s($pencilid1)'
+                            >
+                            <i id='userEmailPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                                onclick='updateTableColumn($c_type1,$updateUser,$type,$id,$userEmailColumn,$title1,$pencilid1)'
+                            ></i>
+                            $userEmail
+                        </td>
+                        <td class='custom-text' id='userName$i'
+                            onmouseover='showPencil_s($pencilid2)'
+                            onmouseout='hidePencil_s($pencilid2)'
+                            >
+                            <i id='userNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                                onclick='updateTableColumn($c_type2,$updateUser,$type,$id,$userNameColumn,$title2,$pencilid2)'
+                            ></i>
+                            $userName
+                        </td>
+                        <td class='custom-text' id='userFirstName$i'
+                            onmouseover='showPencil_s($pencilid3)'
+                            onmouseout='hidePencil_s($pencilid3)'
+                            >
+                            <i id='userFirstNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                                onclick='updateTableColumn($c_type3,$updateUser,$type,$id,$userFirstNameColumn,$title3,$pencilid3)'
+                            ></i>
+                            $userFirstName
+                        </td>
+                        <td class='custom-text' id='userLastName$i'
+                            onmouseover='showPencil_s($pencilid4)'
+                            onmouseout='hidePencil_s($pencilid4)'
+                            >
+                            <i id='userLastNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                                onclick='updateTableColumn($c_type4,$updateUser,$type,$id,$userLastNameColumn,$title4,$pencilid4)'
+                            ></i>
+                            $userLastName
+                        </td>
+                        <td class='custom-text' id='userAddress$i'
+                            onmouseover='showPencil_s($pencilid5)'
+                            onmouseout='hidePencil_s($pencilid5)'
+                            >
+                            <i id='userAddressPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                                onclick='updateTableColumn($c_type5,$updateUser,$type,$id,$userAddressColumn,$title5,$pencilid5)'
+                            ></i>
+                            $userAddress
+                        </td>
+                        <td class='custom-text' id='userLocation$i'
+                            onmouseover='showPencil_s($pencilid6)'
+                            onmouseout='hidePencil_s($pencilid6)'
+                            >
+                            <i id='userLocationPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                                onclick='updateTableColumn($c_type6,$updateUser,$type,$id,$userLocationColumn,$title6,$pencilid6)'
+                            ></i>
+                            $userLocation
+                        </td>
+                        <td class='custom-text' id='userZip$i'
+                            onmouseover='showPencil_s($pencilid7)'
+                            onmouseout='hidePencil_s($pencilid7)'
+                            >
+                            <i id='userZipPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                                onclick='updateTableColumn($c_type7,$updateUser,$type,$id,$userZipColumn,$title7,$pencilid7)'
+                            ></i>
+                            $userZip
+                        </td>
+                        <td class='custom-text' id='userTelephone$i'
+                            onmouseover='showPencil_s($pencilid8)'
+                            onmouseout='hidePencil_s($pencilid8)'
+                            >
+                            <i id='userTelephonePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                                onclick='updateTableColumn($c_type8,$updateUser,$type,$id,$userTelephoneColumn,$title8,$pencilid8)'
+                            ></i>
+                            $userTelephone
+                        </td>
+                        <td class='custom-text' id='userExt$i'
+                            onmouseover='showPencil_s($pencilid9)'
+                            onmouseout='hidePencil_s($pencilid9)'
+                            >
+                            <i id='userExtPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                                onclick='updateTableColumn($c_type9,$updateUser,$type,$id,$userExtColumn,$title9,$pencilid9)'
+                            ></i>
+                            $userExt
+                        </td>
+                        <td class='custom-text' id='TollFree$i'
+                            onmouseover='showPencil_s($pencilid10)'
+                            onmouseout='hidePencil_s($pencilid10)'
+                            >
+                            <i id='TollFreePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                                onclick='updateTableColumn($c_type10,$updateUser,$type,$id,$TollFreeColumn,$title10,$pencilid10)'
+                            ></i>
+                            $TollFree
+                        </td>
+                        <td class='custom-text' id='userFax$i'
+                            onmouseover='showPencil_s($pencilid11)'
+                            onmouseout='hidePencil_s($pencilid11)'
+                            >
+                            <i id='userFaxPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                                onclick='updateTableColumn($c_type11,$updateUser,$type,$id,$userFaxColumn,$title11,$pencilid11)'
+                            ></i>
+                            $userFax
+                        </td>
+                        <td><a href='#' onclick='show_privilege($id)' data-toggle='modal' data-target='#show_privilege' class='btn btn-warning'>Privilege</a></td>";
+
+                    if ($counter == 0) {
+                        echo "<td><a href='#' onclick='deleteUser($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                    } else {
+                        echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                    }
+                }
+            }
+        }
     }
-</script>
+}
+
+if ($_GET['types'] == 'paginate_us') {
+    $start = (int)$_POST['start'];
+    $limit = (int)$_POST['limit'];
+
+    $cursor = $db->user->find(array('companyID' => $_SESSION['companyId']));
+    
+    foreach ($cursor as $value) {
+        $total_records = sizeof($value['user']);
+        $total_pages = ceil($total_records / $limit);
+    }
+
+    $show = $db->user->find(array('companyID' => $_SESSION['companyId']), array('projection' => array('user' => array('$slice' => [$start, $limit]))));
+    
+    $i = 0;
+    $table = "";
+
+    foreach ($show as $row) {
+        $show1 = $row['user'];
+        foreach ($show1 as $row1) {
+            $counter = $row1['counter'];
+            $id = $row1['_id'];
+            $userEmail = $row1['userEmail'];
+            $userName = $row1['userName'];
+            $userFirstName = $row1['userFirstName'];
+            $userLastName = $row1['userLastName'];
+            $userAddress = $row1['userAddress'];
+            $userLocation = $row1['userLocation'];
+            $userZip = $row1['userZip'];
+            $userTelephone = $row1['userTelephone'];
+            $userExt = $row1['userExt'];
+            $TollFree = $row1['TollFree'];
+            $userFax = $row1['userFax'];
+
+            $type = '"text"';
+
+            $userEmailColumn = '"userEmail"';
+            $userNameColumn = '"userName"';
+            $userFirstNameColumn = '"userFirstName"';
+            $userLastNameColumn = '"userLastName"';
+            $userAddressColumn = '"userAddress"';
+            $userLocationColumn = '"userLocation"';
+            $userZipColumn = '"userZip"';
+            $userTelephoneColumn = '"userTelephone"';
+            $userExtColumn = '"userExt"';
+            $TollFreeColumn = '"TollFree"';
+            $userFaxColumn = '"userFax"';
+            $i++;
+            $start += 1;
+            
+            $updateUser = '"updateUser"';
+
+            $c_type1 = '"'.$userEmail.'"';
+            $c_type2 = '"'.$userName.'"';
+            $c_type3 = '"'.$userFirstName.'"';
+            $c_type4 = '"'.$userLastName.'"';
+            $c_type5 = '"'.$userAddress.'"';
+            $c_type6 = '"'.$userLocation.'"';
+            $c_type7 = '"'.$userZip.'"';
+            $c_type8 = '"'.$userTelephone.'"';
+            $c_type9 = '"'.$userExt.'"';
+            $c_type10 = '"'.$TollFree.'"';
+            $c_type11 = '"'.$userFax.'"';
+
+            $title1 = '"Email"';
+            $title2 = '"User Name"';
+            $title3 = '"First Name"';
+            $title4 = '"Last Name"';
+            $title5 = '"Address"';
+            $title6 = '"Location"';
+            $title7 = '"Zip"';
+            $title8 = '"Telephone"';
+            $title9 = '"Ext"';
+            $title10 = '"Toll Free"';
+            $title11 = '"Fax"';
+
+            $pencilid1 = '"userEmailPencil'.$i.'"';
+            $pencilid2 = '"userNamePencil'.$i.'"';
+            $pencilid3 = '"userFirstNamePencil'.$i.'"';
+            $pencilid4 = '"userLastNamePencil'.$i.'"';
+            $pencilid5 = '"userAddressPencil'.$i.'"';
+            $pencilid6 = '"userLocationPencil'.$i.'"';
+            $pencilid7 = '"userZipPencil'.$i.'"';
+            $pencilid8 = '"userTelephonePencil'.$i.'"';
+            $pencilid9 = '"userExtPencil'.$i.'"';
+            $pencilid10 = '"TollFreePencil'.$i.'"';
+            $pencilid11 = '"userFaxPencil'.$i.'"';
+
+            echo "<tr>
+                <td> $start</td>
+                <td class='custom-text' id='userEmail$i'
+                    onmouseover='showPencil_s($pencilid1)'
+                    onmouseout='hidePencil_s($pencilid1)'
+                    >
+                    <i id='userEmailPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type1,$updateUser,$type,$id,$userEmailColumn,$title1,$pencilid1)'
+                    ></i>
+                    $userEmail
+                </td>
+                <td class='custom-text' id='userName$i'
+                    onmouseover='showPencil_s($pencilid2)'
+                    onmouseout='hidePencil_s($pencilid2)'
+                    >
+                    <i id='userNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type2,$updateUser,$type,$id,$userNameColumn,$title2,$pencilid2)'
+                    ></i>
+                    $userName
+                </td>
+                <td class='custom-text' id='userFirstName$i'
+                    onmouseover='showPencil_s($pencilid3)'
+                    onmouseout='hidePencil_s($pencilid3)'
+                    >
+                    <i id='userFirstNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type3,$updateUser,$type,$id,$userFirstNameColumn,$title3,$pencilid3)'
+                    ></i>
+                    $userFirstName
+                </td>
+                <td class='custom-text' id='userLastName$i'
+                    onmouseover='showPencil_s($pencilid4)'
+                    onmouseout='hidePencil_s($pencilid4)'
+                    >
+                    <i id='userLastNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type4,$updateUser,$type,$id,$userLastNameColumn,$title4,$pencilid4)'
+                    ></i>
+                    $userLastName
+                </td>
+                <td class='custom-text' id='userAddress$i'
+                    onmouseover='showPencil_s($pencilid5)'
+                    onmouseout='hidePencil_s($pencilid5)'
+                    >
+                    <i id='userAddressPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type5,$updateUser,$type,$id,$userAddressColumn,$title5,$pencilid5)'
+                    ></i>
+                    $userAddress
+                </td>
+                <td class='custom-text' id='userLocation$i'
+                    onmouseover='showPencil_s($pencilid6)'
+                    onmouseout='hidePencil_s($pencilid6)'
+                    >
+                    <i id='userLocationPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type6,$updateUser,$type,$id,$userLocationColumn,$title6,$pencilid6)'
+                    ></i>
+                    $userLocation
+                </td>
+                <td class='custom-text' id='userZip$i'
+                    onmouseover='showPencil_s($pencilid7)'
+                    onmouseout='hidePencil_s($pencilid7)'
+                    >
+                    <i id='userZipPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type7,$updateUser,$type,$id,$userZipColumn,$title7,$pencilid7)'
+                    ></i>
+                    $userZip
+                </td>
+                <td class='custom-text' id='userTelephone$i'
+                    onmouseover='showPencil_s($pencilid8)'
+                    onmouseout='hidePencil_s($pencilid8)'
+                    >
+                    <i id='userTelephonePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type8,$updateUser,$type,$id,$userTelephoneColumn,$title8,$pencilid8)'
+                    ></i>
+                    $userTelephone
+                </td>
+                <td class='custom-text' id='userExt$i'
+                    onmouseover='showPencil_s($pencilid9)'
+                    onmouseout='hidePencil_s($pencilid9)'
+                    >
+                    <i id='userExtPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type9,$updateUser,$type,$id,$userExtColumn,$title9,$pencilid9)'
+                    ></i>
+                    $userExt
+                </td>
+                <td class='custom-text' id='TollFree$i'
+                    onmouseover='showPencil_s($pencilid10)'
+                    onmouseout='hidePencil_s($pencilid10)'
+                    >
+                    <i id='TollFreePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type10,$updateUser,$type,$id,$TollFreeColumn,$title10,$pencilid10)'
+                    ></i>
+                    $TollFree
+                </td>
+                <td class='custom-text' id='userFax$i'
+                    onmouseover='showPencil_s($pencilid11)'
+                    onmouseout='hidePencil_s($pencilid11)'
+                    >
+                    <i id='userFaxPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type11,$updateUser,$type,$id,$userFaxColumn,$title11,$pencilid11)'
+                    ></i>
+                    $userFax
+                </td>
+                <td><a href='#' onclick='show_privilege($id)' data-toggle='modal' data-target='#show_privilege' class='btn btn-warning'>Privilege</a></td>";
+
+            if ($counter == 0) {
+                echo "<td><a href='#' onclick='deleteUser($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+            } else {
+                echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+            }
+        }
+    }
+}

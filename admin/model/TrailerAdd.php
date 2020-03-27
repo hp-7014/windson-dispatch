@@ -394,7 +394,9 @@ class TrailerAdd implements IteratorAggregate
                 '_id' => $this->id,
                 'companyID' => (int) $this->companyID,
                 'counter' => 0,
-                'trailer' => array(['_id' => 0,
+                'trailer' => array([
+                    '_id' => 0,
+                    'counter' => 0,
                     'trailerNumber' => $this->trailerNumber,
                     'trailerType' => $this->trailerType,
                     'licenseType' => $this->licenseType,
@@ -412,7 +414,8 @@ class TrailerAdd implements IteratorAggregate
                     'trailerDoc' => $this->uploadDocument,
                     'insertedTime' => time(),
                     'insertedUserId' => $_SESSION['companyName'],
-                    'deleteStatus' => 0]
+                    'deleteStatus' => 0,
+                    ]
                 )
             )
         );
@@ -431,6 +434,7 @@ class TrailerAdd implements IteratorAggregate
             if (!empty($doc)) {
             $db->trailer_admin_add->updateOne(['companyID' => (int)$this->companyID],['$push'=>['trailer'=>[
                 '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->trailer_admin_add),
+                'counter' => 0,
                 'trailerNumber' => $this->trailerNumber,
                 'trailerType' => $this->trailerType,
                 'licenseType' => $this->licenseType,
@@ -450,12 +454,19 @@ class TrailerAdd implements IteratorAggregate
                 'insertedUserId' => $_SESSION['companyName'],
                 'deleteStatus' => 0
             ]]]);
+
+            $db->trailer_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'trailer._id' => (int)$this->trailerType],
+            ['$set' => ['trailer.$.counter' => $helper->getDocumentSequenceId((int)$this->trailerType,$db->trailer_add,"trailer",(int)$_SESSION['companyId'])]]);
+    
         } else {
             $trailer = iterator_to_array($trailer);
             $db->trailer_admin_add->insertOne($trailer);
+
+            $db->trailer_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'trailer._id' => (int)$this->trailerType],
+            ['$set' => ['trailer.$.counter' => $helper->getDocumentSequenceId((int)$this->trailerType,$db->trailer_add,"trailer",(int)$_SESSION['companyId'])]]);
+        
         }
     }
-
 
     //update
     public function updateTrailer($trailer,$db){
@@ -465,14 +476,16 @@ class TrailerAdd implements IteratorAggregate
             ]);
     }
 
-
     //Delete
-    public function deleteTrailer($trailer,$db){
-        $db->trailer_admin_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'trailer._id' => (int)$this->getId()],
-            ['$set' => ['trailer.$.deleteStatus' => 1]]
+    public function deleteTrailer($trailer,$db,$helper){
+        $db->trailer_admin_add->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+            '$pull' => ['trailer' => ['_id' => (int)$trailer->getId()]]]
         );
-    }
 
+        $db->trailer_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'trailer._id' => (int)$this->trailerType],
+        ['$set' => ['trailer.$.counter' => $helper->getDocumentDecrementId((int)$this->trailerType,$db->trailer_add,"trailer",(int)$_SESSION['companyId'])]]);
+
+    }
 
     //Export
     public function exportTrailer($db)

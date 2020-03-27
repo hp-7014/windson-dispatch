@@ -3862,3 +3862,74 @@ table {
   position: relative;
   z-index: 2;
 }
+/* Custom table SCC MASTER */
+
+.table-scroll-s {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  margin: auto;
+  overflow: auto;
+  height: 320px;
+}
+
+.table-scroll-s table {
+  width: 100%;
+  min-width: 468px;
+  margin: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table-scroll-s th,
+.table-scroll-s td {
+  /*padding: 5px 10px;*/
+  border-bottom: 0.5px solid grey;
+  background: #fff;
+  vertical-align: bottom;
+  text-align: center;
+}
+
+.table-scroll-s thead th {
+  background: #30419B;
+  color: #fff;
+  padding: 3px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+/* safari and ios need the tfoot itself to be position:sticky also */
+.table-scroll-s tfoot,
+.table-scroll-s tfoot th,
+.table-scroll-s tfoot td {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  background: #666;
+  color: #fff;
+  z-index: 4;
+}
+
+.table-scroll-s::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track */
+
+.table-scroll-s::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+
+.table-scroll-s::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgb(48, 65, 155);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+/* End Table CSS MASTER*/
