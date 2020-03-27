@@ -4,6 +4,10 @@ require 'vendor/autoload.php';
 // session_start();
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
+$collection = $db->carrier;
+//$collection->updateOne(['companyID' => 1], [
+//        '$pull' => ['Delivered' => ['_id' => 3]]]
+//);
 
 
                                     $collection = $db->bank_admin;
@@ -40,6 +44,79 @@ $db = $connection->WindsonDispatch;
 //         print_r($s);
 //     }
 // }
+
+//$old_value = "Delivered";
+//$new_value = "Loaded";
+//$id = 0;
+//$idname = "._id";
+//
+//$cursor = $collection->find(["companyID" => 1],["Delivered" => ['$elemMatch' => ['_id' => 6]]]);
+//$array = iterator_to_array($cursor);
+//foreach ($array as $value){
+//    $counterID = $value['Delivered'];
+//    foreach ($counterID as $row) {
+//        if(6 == $row['_id']){
+//            $id = $row['_id'];
+//        }
+//    }
+//}
+//
+//$collection->updateOne(['companyID' => 1], ['$push' => ["Loaded" => [
+//    '_id' => $id,
+//]]]);
+
+//$collection->update(['companyID' => 1],['$pop' => ['Delivered' => ['Delivered.$._id' => 5]]]);
+
+
+//db.mycollection.update(
+//    {'_id': ObjectId("576b63d49d20504c1360f688")},
+//    { $pull: { "books" : { "title": "abc" } } },
+//false,
+//true
+//);
+
+//function getDocumentSequenceId($type,$collection1,$arrayName,$companyid) {
+//    $cursor = $collection1->find(['companyID' => $companyid],[
+//        $arrayName => ['$elemMatch' => ['_id' => (int)$type]]
+//    ]);
+//    $array = iterator_to_array($cursor);
+//    $id = 0;
+//    foreach ($array as $value){
+//        $counterID = $value[$arrayName];
+//        foreach ($counterID as $row) {
+//            if((int)$type == $row['_id']){
+//                $id = $row['counter'];
+//            }
+//        }
+//    }
+//    $id += 1;
+//    $collection1->updateOne(['companyID'=>$companyid,$arrayName.'_id' => (int)$type],['$set'=>[$arrayName.'$.counter'=>$id]]);
+//    return $id;
+//}
+
+//$db->active_load->updateOne(['companyID' => (int)$_SESSION['companyId'], 'activeload._id' => (int)$id],
+//    ['$set' => ['activeload.$.file' => $this->getFile()]]
+//);
+
+//$collection->updateOne(['companyID' => 1,$old_value.'._id' => (int)$id],
+//    ['$set' => [$new_value]]
+//);
+
+//var doc = db.col.findOne({_id: "foo"});
+//var arrayDocToMove = doc.arrayField[0];
+//db.col.update({_id: "foo", arrayField: { $elemMatch: arrayDocToMove} }, { $pull: { arrayField: arrayDocToMove }, $addToSet: { someOtherArrayField: arrayDocToMove } })
+
+//$collection->update(["companyID" => 1, "Delivered" => ["$elemMatch" => "Loaded"]],["$pull" => ["Delivered" => "Loaded"]]);
+
+//db.foo.update({"_id": param._id}, {"$move": [{"array": {id: 0}}, {"zeroes": 1}]}
+
+//$show1 = $db->active_load->find(['companyID' => 1],['activeload' => ['$slice' => 5]]);
+//$show1 = $db->active_load->find(array('companyID' => 1), array('projection' => array('activeload' => array('$slice' => [0,5]))));
+//foreach ($show1 as $show) {
+//    foreach ($show['activeload'] as $s){
+//        print_r($s);
+//    }
+//}
 
 //db.mycollection.update(
 //    {'_id': ObjectId("576b63d49d20504c1360f688")},
