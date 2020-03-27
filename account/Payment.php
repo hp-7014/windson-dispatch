@@ -453,10 +453,10 @@ require "../database/connection.php";
                                            style="margin-left:20px;margin-top:10px"
                                            value="Select All"/>&nbsp;Unselect all
                                 </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option1" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;3543534
-                                    </a>
+                                <li class="space" id="invoiceID">
+<!--                                    <a href="#" class="small" data-value="option1" tabIndex="-1">-->
+<!--                                        <input type="checkbox" name="acs"/>&nbsp;3543534-->
+<!--                                    </a>-->
                                 </li>
                             </ul>
                         </div>

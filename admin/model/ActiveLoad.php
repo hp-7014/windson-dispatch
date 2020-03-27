@@ -1286,7 +1286,6 @@ class ActiveLoad implements IteratorAggregate
         $collection = $db->active_load;
         $criteria = array(
             'companyID' => (int)$activeload->getCompanyID(),
-
         );
         $doc = $collection->findOne($criteria);
 
@@ -1360,17 +1359,19 @@ class ActiveLoad implements IteratorAggregate
                 'status_Completed_time' => $this->status_Completed_time,
                 'status_Invoiced_time' => $this->status_Invoiced_time,
             ]]]);
+            echo $id;
         } else {
             $cons = iterator_to_array($activeload);
             $db->active_load->insertOne($cons);
+            echo 0;
         }
     }
 
     //updatefile
     public function updatefile($activeload, $db, $id)
     {
-        $db->active_load->updateOne(['companyID' => (int)$_SESSION['companyId'], 'activeload._id' => (int)$id],
-            ['$set' => ['activeload.$.file' => $this->getFile()]]
+        $db->active_load->updateOne(['companyID' => (int)$_SESSION['companyId'], $this->status.'._id' => (int)$id],
+            ['$set' => [$this->status.'.$.file' => $this->getFile()]]
         );
     }
 

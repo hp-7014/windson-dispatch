@@ -53,7 +53,7 @@ function toggleAccount(val) {
 }
 
 // accouunt deliver start
-function updateLoadStatus(id,old_value,new_value) {
+function updateLoadStatus(id, old_value, new_value) {
     alert(old_value);
     alert(new_value);
     alert(id);
@@ -484,42 +484,51 @@ $('.dropdown-menu a').on('click', function (event) {
 });
 
 function Paymentadd() {
-   var paymentfrom = document.getElementById("type").value
-   var Companyselect1 = document.getElementById("Companyselect").value
-   var Company_select = Companyselect1.split(")");
-   var Companyselect = Company_select[0];
-   var Bankname1 = document.getElementById("selectbank").value
-   var Bank_name = Bankname1.split(")");
-   var Bankname = Bank_name[0];
-   var payto = document.getElementById("purpose").value
-   var drivername1 = document.getElementById("drivername").value
-   var driver_name = drivername1.split(")");
-   var drivername = driver_name[0];
-   var selectdebite1 = document.getElementById("selectdebite").value
-   var select_debite = selectdebite1.split(")");
-   var selectdebite = select_debite[0];
-   var invoice = document.getElementById("invoice").value
-   var amount = document.getElementById("amount").value
-   var advance = document.getElementById("advance").value
-   var finalamount = document.getElementById("finalamount").value
-   var checkdate = document.getElementById("checkdate").value
-   var cheque = document.getElementById("cheque").value
-   var ach = document.getElementById("ach").value
-   var memo = document.getElementById("memo").value
-   alert(memo);
+    var paymentfrom = document.getElementById("type").value
+    var Companyselect1 = document.getElementById("Companyselect").value
+    var Company_select = Companyselect1.split(")");
+    var Companyselect = Company_select[0];
+    var Bankname1 = document.getElementById("selectbank").value
+    var Bank_name = Bankname1.split(")");
+    var Bankname = Bank_name[0];
+    var payto = document.getElementById("purpose").value
+    var drivername1 = document.getElementById("drivername").value
+    var driver_name = drivername1.split(")");
+    var drivername = driver_name[0];
+    var selectdebite1 = document.getElementById("selectdebite").value
+    var select_debite = selectdebite1.split(")");
+    var selectdebite = select_debite[0];
+    var invoice = document.getElementById("invoice").value
+    var amount = document.getElementById("amount").value
+    var advance = document.getElementById("advance").value
+    var finalamount = document.getElementById("finalamount").value
+    var checkdate = document.getElementById("checkdate").value
+    var cheque = document.getElementById("cheque").value
+    var ach = document.getElementById("ach").value
+    var memo = document.getElementById("memo").value
+    alert(memo);
 }
 
 // update carrier invoice
-function updateCarrierInvoice(value){
+function updateCarrierInvoice(value) {
     var value_1 = value.split(")");
     var carrierName = value_1[0];
 
     $.ajax({
-       url:'account/payment_driver.php?type=updateCarrierInvoice',
-        method:'POST',
-        data:{carrierName:carrierName},
-        success:function (data) {
+        url: 'account/payment_driver.php?type=updateCarrierInvoice',
+        method: 'POST',
+        data: {carrierName: carrierName},
+        success: function (data) {
             var j = JSON.parse(data);
+            alert(j.arrayLength);
+            var o = '';
+            for (let l = 0; l < j.arrayLength; l++) {
+                o += '<a href="#" class="small" data-value="option1" tabIndex="-1">' +
+                    '                                        <input type="checkbox" name="acs"/>&nbsp;' + j.invoiceId[l] +
+                    '                                  </a><br/>';
+            }
+            $('#invoiceID').html(o);
+
         }
     });
 }

@@ -116,7 +116,6 @@ if ($_GET['type'] == "add_new_load") {
     } else {
         $activeload->setStatusInvoicedTime(0);
     }
-
     $activeload->insert($activeload, $db, $helper);
 } else if ($_GET['type'] == "fileupload") {
     $activeload = new ActiveLoad();
@@ -139,6 +138,7 @@ if ($_GET['type'] == "add_new_load") {
             if (in_array($fileType, $allowTypes)) {
                 if ($fileSize < 200000) {
                     $docs[] = $fileName;
+                    $activeload->setStatus($_POST['status']);
                     $activeload->setFile($fileName, $originalname, $fileSize, $targetFilePath, $i);
 
                 } else {

@@ -49,12 +49,16 @@ class Payment
             }
             foreach ($show1['company'] as $s) {
                 foreach ($s['Invoiced'] as $a) {
-                    $a['_id'][] = $a['_id'];
-                    $a['carrier_total'][] = $a['carrier_total'];
-                    $i++;
+                    if ($a['carrier_name'] == $carrierID) {
+                        $r['invoiceId'][] = $a['_id'];
+                        $r['carrierAmount'][] = $a['carrier_total'];
+                        $i++;
+                    }
                 }
+                $r['arrayLength'] = $i;
+                $output = $r;
             }
         }
-        echo json_encode($invoice);
+        echo json_encode($output);
     }
 }
