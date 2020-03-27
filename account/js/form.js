@@ -542,8 +542,7 @@ function getCarrierTotalAmount(invoiceID) {
     var Amount = data[1];
     var seqid = data[2];
     var totalAmount = document.getElementById('finalAmount').value;
-    alert(id);
-    alert(Amount);
+
     var invoID = document.getElementById('invoice' + seqid);
     if (invoID.checked == true) {
         let final = eval(totalAmount) + eval(Amount);

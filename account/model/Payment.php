@@ -36,7 +36,7 @@ class Payment
                 'foreignField' => 'companyID',
                 'as' => 'company'
             ]],
-            ['$match' => ['companyID' => 1]]
+            ['$match' => ['companyID' => (int)$_SESSION['companyId']]]
         ]);
         $cid = $this->carrierName;
         $i = 0;
