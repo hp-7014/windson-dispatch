@@ -463,7 +463,7 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" value="0" id="finalAmount" name="finalAmount" type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 carrier" style="display:none;">

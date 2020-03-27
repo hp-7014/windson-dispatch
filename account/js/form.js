@@ -509,6 +509,9 @@ function Paymentadd() {
 }
 
 // update carrier invoice
+var invoiceID = 0;
+var invoiceAmount = 0;
+
 function updateCarrierInvoice(value) {
     var value_1 = value.split(")");
     var carrierName = value_1[0];
@@ -519,15 +522,32 @@ function updateCarrierInvoice(value) {
         data: {carrierName: carrierName},
         success: function (data) {
             var j = JSON.parse(data);
-            alert(j.arrayLength);
             var o = '';
             for (let l = 0; l < j.arrayLength; l++) {
+                invoiceID = j.invoiceId[l];
+                invoiceAmount = j.carrierAmount[l];
                 o += '<a href="#" class="small" data-value="option1" tabIndex="-1">' +
-                    '                                        <input type="checkbox" name="acs"/>&nbsp;' + j.invoiceId[l] +
+                    '                                        <input type="checkbox" id="invoice' + l + '" onchange="getCarrierTotalAmount(this.value)" value=' + invoiceID + ',' + invoiceAmount + ',' + l + ' name="acs"/>&nbsp;' + j.invoiceId[l] +
                     '                                  </a><br/>';
             }
             $('#invoiceID').html(o);
-
         }
     });
+}
+
+function getCarrierTotalAmount(invoiceID) {
+    var data = invoiceID.split(",");
+    var id = data[0];
+    var Amount = data[1];
+    var seqid = data[2];
+    var totalAmount = document.getElementById('finalAmount').value;
+
+    var invoID = document.getElementById('invoice' + seqid);
+    if (invoID.checked == true) {
+        let final = eval(totalAmount) + eval(Amount);
+        document.getElementById('finalAmount').value = final;
+    } else {
+        totalAmount = totalAmount - Amount;
+        document.getElementById('finalAmount').value = totalAmount;
+    }
 }
