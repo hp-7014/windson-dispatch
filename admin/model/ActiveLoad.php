@@ -1287,7 +1287,6 @@ class ActiveLoad implements IteratorAggregate
         $collection = $db->active_load;
         $criteria = array(
             'companyID' => (int)$activeload->getCompanyID(),
-
         );
         $doc = $collection->findOne($criteria);
 
@@ -1372,8 +1371,8 @@ class ActiveLoad implements IteratorAggregate
     //updatefile
     public function updatefile($activeload, $db, $id)
     {
-        $db->active_load->updateOne(['companyID' => (int)$_SESSION['companyId'], 'activeload._id' => (int)$id],
-            ['$set' => ['activeload.$.file' => $this->getFile()]]
+        $db->active_load->updateOne(['companyID' => (int)$_SESSION['companyId'], $this->status.'._id' => (int)$id],
+            ['$set' => [$this->status.'.$.file' => $this->getFile()]]
         );
     }
 

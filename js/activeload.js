@@ -1843,8 +1843,7 @@ $(document).on("click", "#addactiveload", function () {
                 emailcustomer3: emailcustomer3
             },
             success: function (data) {
-                alert(data);
-                var flags = uploadfiles(data);
+                var flags = uploadfiles(data,status);
                 if (flags == "no") {
                     document.getElementById('addactiveload').style.display = "block";
                 }
@@ -1858,9 +1857,10 @@ $(document).on("click", "#addactiveload", function () {
 
 });
 
-function uploadfiles(id) {
+function uploadfiles(id,status) {
     var form_data = new FormData();
     form_data.append("id", id);
+    form_data.append("status", status);
     var ins = document.getElementById('files').files.length;
     if (ins > 0) {
         for (var x = 0; x < ins; x++) {
