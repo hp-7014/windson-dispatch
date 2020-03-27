@@ -4,33 +4,77 @@ require 'vendor/autoload.php';
 // session_start();
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
-$collection = $db->active_load;
-$collection->updateOne(['companyID' => 1], [
-        '$pull' => ['Delivered' => ['_id' => 3]]]
-);
-exit();
+$collection = $db->carrier;
+//$collection->updateOne(['companyID' => 1], [
+//        '$pull' => ['Delivered' => ['_id' => 3]]]
+//);
 
-$old_value = "Delivered";
-$new_value = "Loaded";
-$id = 0;
-$idname = "._id";
+//db.bank_admin.aggregate([
+// {
+//     $lookup:{
+//    from: "company",
+//         localField: "companyID",
+//         foreignField: "companyID",
+//         as: "company"
+//     }
+// },
+// {$match:{companyID:1}}
+//])
 
-$cursor = $collection->find(["companyID" => 1],["Delivered" => ['$elemMatch' => ['_id' => 6]]]);
-$array = iterator_to_array($cursor);
-foreach ($array as $value){
-    $counterID = $value['Delivered'];
-    foreach ($counterID as $row) {
-        if(6 == $row['_id']){
-            $id = $row['_id'];
+$show = $collection->aggregate([
+   ['$lookup' => [
+       'from' => 'active_load',
+       'localField' => 'companyID',
+       'foreignField' => 'companyID',
+       'as' => 'company'
+   ]],
+   ['$match' => ['companyID' => 1]]
+]);
+$cid = 1;
+$count = 0;
+$count1 = 0;
+foreach ($show as $show1){
+    foreach ($show1['carrier'] as $car){
+        $count++;
+        if ($cid == $car['_id']) {
+            $carrierID = $car['_id'];
+
+            break;
         }
     }
+    foreach ($show1['company'] as $s){
+        foreach($s['Invoiced'] as $a){
+            $count1++;
+            if ($a['carrier_name'] == $carrierID){
+                echo $a['_id']." ".$a['carrier_total']."\n";
+            }
+        }
+    }
+//    echo $count1;
+//    echo $count;
 }
 
-$collection->updateOne(['companyID' => 1], ['$push' => ["Loaded" => [
-    '_id' => $id,
-]]]);
+//$old_value = "Delivered";
+//$new_value = "Loaded";
+//$id = 0;
+//$idname = "._id";
+//
+//$cursor = $collection->find(["companyID" => 1],["Delivered" => ['$elemMatch' => ['_id' => 6]]]);
+//$array = iterator_to_array($cursor);
+//foreach ($array as $value){
+//    $counterID = $value['Delivered'];
+//    foreach ($counterID as $row) {
+//        if(6 == $row['_id']){
+//            $id = $row['_id'];
+//        }
+//    }
+//}
+//
+//$collection->updateOne(['companyID' => 1], ['$push' => ["Loaded" => [
+//    '_id' => $id,
+//]]]);
 
-$collection->update(['companyID' => 1],['$pop' => ['Delivered' => ['Delivered.$._id' => 5]]]);
+//$collection->update(['companyID' => 1],['$pop' => ['Delivered' => ['Delivered.$._id' => 5]]]);
 
 
 //db.mycollection.update(

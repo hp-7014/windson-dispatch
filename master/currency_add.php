@@ -18,7 +18,7 @@ if ($_GET['type'] == 'importExcel') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $currency = new Currency();
-        $currency->importExcel($targetPath,$helper);
+        $currency->importExcel($targetPath,$helper,$db);
     }
 
 }
