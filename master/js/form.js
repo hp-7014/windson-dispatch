@@ -2,6 +2,7 @@ var companyid = $('#companyid').val();
 //-----------------Payment Terms start-------------------------------------
 
 //update Payment Terms table
+
 var paymentpath = "payment_terms/";
 var paymentpath1 = $('#companyid').val();
 var paymentdata = paymentpath1.toString();
@@ -21,29 +22,19 @@ database.ref(payment_test).on('child_removed', function (data) {
 
 //update table fields
 
-function updatePaymentTermTable() {
-    var payment = document.getElementById('paymentterms');
-    var paymentBody = document.getElementById('paymentTermsBody');
-    var paymentlist = document.getElementById('paymentlist');
-    var browsers = document.getElementById('browsers');
+function updatePaymentTermTable(){
+    var paymentTermsBody = document.getElementById("paymentTermsBody");
+
     $.ajax({
         url: 'master/utils/getPaymentTerms.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            var res = response.split('^');
-            if (payment != null) {
-                payment.innerHTML = res[1];
+            if(paymentTermsBody != null)
+            {
+                paymentTermsBody.innerHTML = response;
             }
-            if (paymentBody != null) {
-                paymentBody.innerHTML = res[0];
-            }
-            if (paymentlist != null) {
-                paymentlist.innerHTML = res[1];
-            }
-            if (browsers != null) {
-                browsers.innerHTML = res[1];
-            }
+            //document.getElementById('paymentTermsBody').innerHTML = response;
         },
     });
 }
@@ -92,14 +83,18 @@ function importExcel() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('payment_terms').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, 'success');
         }
     });
 }
 
 //edit function for updating Payment Terms
-function updatePayment(element, column, id) {
-    var value = element.innerText;
+function updatePayment(column, id, value) {
+
+    //var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
     $.ajax({
         url: 'master/payment_terms.php?type=' + 'edit_payment_term',
@@ -115,7 +110,7 @@ function updatePayment(element, column, id) {
                 data: randomString(),
             });
             swal("Success", data, 'success');
-            // $('#Payment_Terms').modal('hide');
+            $('#updateTable').modal('hide');
         }
     });
 }
@@ -172,7 +167,7 @@ function exportExcel(id) {
 
 //-----------------Office Terms start-------------------------------------
 
-//update Debit Bank table
+//update Office table
 
 var officepath = "office/";
 var officepath1 = $('#companyid').val();
@@ -194,12 +189,18 @@ database.ref(officetest).on('child_removed', function (data) {
 //update table fields
 
 function updateOfficeTable() {
+    var officeBody = document.getElementById("officeBody");
+
     $.ajax({
         url: 'master/utils/getOffice.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            document.getElementById('officeBody').innerHTML = response;
+            if(officeBody != null)
+            {
+                officeBody.innerHTML = response;
+            }
+            //document.getElementById('officeBody').innerHTML = response;
         },
     });
 }
@@ -233,8 +234,9 @@ function addOffice() {
 }
 
 // update function
-function updateOffice(element, column, id) {
-    var value = element.innerText;
+function updateOffice(column, id, value) {
+
+    //var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
     $.ajax({
         url: 'master/office_driver.php?type=' + 'edit_office',
@@ -250,7 +252,7 @@ function updateOffice(element, column, id) {
                 data: randomString(),
             });
             swal("Success", data, 'success');
-            // $('#Add_Office').modal('hide');
+            $('#updateTable').modal('hide');
         }
     });
 }
@@ -284,6 +286,9 @@ function importOffice() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('office').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, 'success');
         }
     });
@@ -414,12 +419,12 @@ function addCompany() {
 }
 
 // delete company
-function deleteCompany(id) {
+function deleteCompany(id, factoringid) {
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'master/company_driver.php?type=' + 'delete_company',
             type: 'POST',
-            data: {id: id},
+            data: {id: id,factoringid : factoringid},
             success: function (data) {
                 database.ref('company').child(companyid).set({
                     data: randomString(),
@@ -431,9 +436,10 @@ function deleteCompany(id) {
 }
 
 // update function
-function updateCompany(element, column, id) {
+function updateCompany(column, id, value) {
+
     var companyId = document.getElementById('companyId').value;
-    var value = element.innerText;
+
     $.ajax({
         url: 'master/company_driver.php?type=' + 'edit_company',
         type: 'POST',
@@ -448,7 +454,7 @@ function updateCompany(element, column, id) {
                 data: randomString(),
             });
             swal("Success", data, 'success');
-            // $('#add_company').modal('hide');
+            $('#updateTable').modal('hide');
         }
     });
 }
@@ -491,6 +497,9 @@ function importCompany() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('company').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, 'success');
         }
     });
@@ -566,9 +575,10 @@ function addLoadType() {
 }
 
 // update function
-function updateloadType(element, column, id) {
+function updateloadType(column, id, value) {
+
     var companyId = document.getElementById('companyId').value;
-    var value = element.innerText;
+    //var value = element.innerText;
     $.ajax({
         url: 'master/loadType_driver.php?type=' + 'edit_loadType',
         type: 'POST',
@@ -583,6 +593,7 @@ function updateloadType(element, column, id) {
                 data: randomString(),
             });
             swal("Success", data, 'success');
+            $("#updateTable").modal('hide');
         }
     });
 }
@@ -621,7 +632,7 @@ function exportLoadType() {
 
             var encodedUri = encodeURI(csvContent);
             var link = document.createElement("a");
-            alert(link);
+            //alert(link);
             link.setAttribute("href", encodedUri);
             link.setAttribute("download", "my_data.csv");
             document.body.appendChild(link); // Required for FF
@@ -643,6 +654,9 @@ function importLoadType() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('load_type').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, 'success');
         }
     });
@@ -681,7 +695,6 @@ var path1 = $('#companyid').val();
 var data = path1.toString();
 var test = path + data;
 
-
 database.ref(test).on('child_added', function (data) {
     updateCurrencyTable();
 });
@@ -712,7 +725,7 @@ function updateCurrencyTable() {
                 currencyBody.innerHTML = res[0];
             }
             if (currencyList != null) {
-                currencyList.innerHTML = res[2];
+                currencyList.innerHTML = res[1];
             }
             if (currencyFactoring != null) {
                 currencyFactoring.innerHTML = res[2];
@@ -720,16 +733,14 @@ function updateCurrencyTable() {
             if (currencySetting != null) {
                 currencySetting.innerHTML = res[3];
             }
-            if (currencyList1 != null) {
-                currencyList1.innerHTML = res[2];
-            }
         },
     });
 }
 
 //update currency Function
-function updateCurrency(element, column, id) {
-    var value = element.innerText;
+function updateCurrency(column, id, value) {
+    // var value = element.innerText;
+    //var data = $('#currency_table').find('input[type="text"],textarea').val();
     var companyId = document.getElementById('companyId').value;
     $.ajax({
         url: 'master/currency_add.php?type=' + 'edit_currency',
@@ -746,7 +757,7 @@ function updateCurrency(element, column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-            $("#currencysub").modal('hide');
+            $("#updateTable").modal('hide');
         }
     });
 }
@@ -759,13 +770,17 @@ function importCurrency() {
     form_data.append("file", document.getElementById('file').files[0]);
 
     $.ajax({
-        url: 'master/currency_add.php?type=' + 'importExcel',
+        url: 'master/currency_add.php?type=' + 'importExcel_cur',
         method: 'post',
         data: form_data,
         contentType: false,
         cache: false,
         processData: false,
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('currency_settings').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
         }
     });
@@ -843,20 +858,16 @@ database.ref(equipmenttest).on('child_removed', function (data) {
 
 function updateEquipmentTypeTable() {
     var equipmentBody = document.getElementById('equipmentBody');
-    var equipmentList = document.getElementById('browsersequipment');
+    //var equipmentList = document.getElementById('browsersequipment');
     $.ajax({
         url: 'master/utils/getEquipmentType.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            var res = response.split('^');
-            if (equipmentBody != null) {
-                equipmentBody.innerHTML = res[0];
+            //var res = response.split('^');
+            if(equipmentBody != null){
+                equipmentBody.innerHTML = response;
             }
-            if (equipmentList != null) {
-                equipmentList.innerHTML = res[1];
-            }
-
         },
 
     });
@@ -888,9 +899,9 @@ function addEquipment() {
 }
 
 //update Equipment Function
-function updateEquipment(element, column, id) {
-    var value = element.innerText;
+function updateEquipment(column, id, value) {
     var companyId = document.getElementById('companyId').value;
+
     $.ajax({
         url: 'master/equipment_add.php?type=' + 'edit_equipment',
         type: 'POST',
@@ -905,7 +916,7 @@ function updateEquipment(element, column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-            //$('#currency').modal('hide');
+            $('#updateTable').modal('hide');
         }
     });
 }
@@ -943,6 +954,9 @@ function importEquipment() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('equipment_add').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
         }
     });
@@ -998,19 +1012,46 @@ database.ref(trucktypetest).on('child_removed', function (data) {
 
 //update table fields
 
-function updateTruckTypeTable() {
-    var truckList = document.getElementById('trucktypes');
+function updateTruckTypeTable(){
+    var truckBody = document.getElementById('truckBody');
+
     $.ajax({
         url: 'master/utils/getTruckType.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            var res = response.split('^');
-            if (truckList != null) {
-                truckList.innerHTML = res[1];
+            //alert(response);
+            if(truckBody != null){
+                truckBody.innerHTML = response;
             }
+            //document.getElementById('truckBody').innerHTML = response;
         },
     });
+}
+
+// Search Text Here..
+function serachTruckType(x)
+{
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    //alert(companyId);
+    //alert(n);
+    $.ajax({
+        type: 'POST',
+        url: 'master/utils/truck_type_search.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            //var value = j.toLowerCase().trim();
+            //var i = j.toLowerCase().trim();
+            //alert(j);
+            document.getElementById('truckBody').innerHTML = j;
+        }
+    });
+
 }
 
 function addTruck() {
@@ -1038,8 +1079,8 @@ function addTruck() {
 }
 
 //Update Truck Type
-function updateTruck(element, column, id) {
-    var value = element.innerText;
+function updateTruck(column, id, value) {
+
     var companyId = document.getElementById('companyId').value;
 
     $.ajax({
@@ -1056,7 +1097,7 @@ function updateTruck(element, column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-            //$('#currency').modal('hide');
+            $("#updateTable").modal('hide');
         }
     });
 }
@@ -1094,6 +1135,9 @@ function importTruck() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('truck_add').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
         }
     });
@@ -1151,24 +1195,17 @@ database.ref(trailertypetest).on('child_removed', function (data) {
 
 //update table fields
 
-function updateTrailerTypeTable() {
-    var trailertypes = document.getElementById('trailertypes');
-    var trailerBody = document.getElementById('trailerTBody');
-
+function updateTrailerTypeTable(){
+    var trailerTBody = document.getElementById("trailerTBody");
     $.ajax({
         url: 'master/utils/getTrailerType.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            var res = response.split("^");
-
-            if (trailertypes != null) {
-
-                trailertypes.innerHTML = res[1];
+            if(trailerTBody != null){
+                trailerTBody.innerHTML = response;
             }
-            if (trailerBody != null) {
-                trailerBody.innerHTML = res[0];
-            }
+            //document.getElementById('trailerTBody').innerHTML = response;
         },
     });
 }
@@ -1198,8 +1235,8 @@ function addTrailer() {
 }
 
 //update Trailer Function
-function updateTrailer(element, column, id) {
-    var value = element.innerText;
+function updateTrailer(column, id, value) {
+
     var companyId = document.getElementById('companyId').value;
     $.ajax({
         url: 'master/trailer_add.php?type=' + 'edit_trailer',
@@ -1215,7 +1252,7 @@ function updateTrailer(element, column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-            //$('#currency').modal('hide');
+            $('#updateTable').modal('hide');
         }
     });
 }
@@ -1253,6 +1290,9 @@ function importTrailer() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('trailer_type_add').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
         }
     });
@@ -1311,25 +1351,17 @@ database.ref(fixpaytest).on('child_removed', function (data) {
 
 //update table fields
 
-function updateFixPayTable() {
-    var fixpaycat = document.getElementById('fixpaycat');
-var fixpayBody = document.getElementById('fixpayBody');
-var fixpay_cat = document.getElementById('fixpay_cat');
+function updateFixPayTable(){
+    var fixpayBody = document.getElementById("fixpayBody");
     $.ajax({
         url: 'master/utils/getFixPayCategory.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            var res = response.split("^");
-if (fixpayBody != null) {
-fixpayBody.innerHTML = res[0];
-}
-if (fixpaycat != null) {
-fixpaycat.innerHTML = res[1];
-}
-if (fixpay_cat != null) {
-fixpay_cat.innerHTML = res[1];
-}
+            if(fixpayBody != null){
+                fixpayBody.innerHTML = response;
+            }
+            //document.getElementById('fixpayBody').innerHTML = response;
         },
     });
 }
@@ -1359,8 +1391,8 @@ function addFixpay() {
 }
 
 //update fixPay Function
-function updatefixPay(element, column, id) {
-    var value = element.innerText;
+function updatefixPay(column, id, value) {
+
     var companyId = document.getElementById('companyId').value;
 
     $.ajax({
@@ -1377,7 +1409,7 @@ function updatefixPay(element, column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-            //$('#currency').modal('hide');
+            $('#updateTable').modal('hide');
         }
     });
 }
@@ -1444,6 +1476,9 @@ function importfixpay() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('fixpay_add').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, "success");
         }
     });
@@ -1473,13 +1508,17 @@ database.ref(debittest).on('child_removed', function (data) {
 
 //update table fields
 
-function updateDebitTable() {
+function updateDebitTable(){
+    var bankDebitID = document.getElementById("bankDebitID");
     $.ajax({
         url: 'master/utils/getBankDebit.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            document.getElementById('bankDebitID').innerHTML = response;
+            if(bankDebitID != null){
+                bankDebitID.innerHTML = response;
+            }
+            //document.getElementById('bankDebitID').innerHTML = response;
         },
     });
 }
@@ -1530,9 +1569,11 @@ function deleteBankDebit(id) {
 }
 
 // Update Debit
-function updateBankDebit(element, column, id) {
+function updateBankDebit(column, id, value) {
+
     var companyId = document.getElementById('companyId').value;
-    var value = element.innerText;
+
+    //alert(companyId);
     $.ajax({
         url: 'master/bank_debit_category.php?type=' + 'edit_bank_term',
         type: 'POST',
@@ -1547,7 +1588,7 @@ function updateBankDebit(element, column, id) {
                 data: randomString(),
             });
             swal('Update', data, 'success');
-            //$('#Add_Bank_Debit_Category').modal('hide');
+            $('#updateTable').modal('hide');
         }
     });
 }
@@ -1567,6 +1608,9 @@ function importDebit() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('bank_debit_category').child(companyid).set({
+                data: randomString(),
+            });
             swal('Success', data, 'success');
         }
     });
@@ -1625,13 +1669,17 @@ database.ref(credittest).on('child_removed', function (data) {
 
 //update table fields
 
-function updateCreditTable() {
+function updateCreditTable(){
+    var creditBody = document.getElementById("creditBody");
     $.ajax({
         url: 'master/utils/getCreditCategory.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            document.getElementById('creditBody').innerHTML = response;
+            if(creditBody != null){
+                creditBody.innerHTML = response;
+            }
+            //document.getElementById('creditBody').innerHTML = response;
         },
     });
 }
@@ -1664,9 +1712,9 @@ function addCreditCategory() {
 }
 
 // Update Credit
-function updateBankCredit(element, column, id) {
-    var value = element.innerText;
-    var companyId = document.getElementById('companyid').value;
+function updateBankCredit(column, id, value) {
+
+    var companyId = document.getElementById('companyId').value;
 
     $.ajax({
         url: 'master/bank_credit_category.php?type=' + 'edit_bank_credit',
@@ -1682,7 +1730,7 @@ function updateBankCredit(element, column, id) {
                 data: randomString(),
             });
             swal('Update', "Data Update Successfully.", 'success');
-            //$('#Credit_Category').modal('hide');
+            $('#updateTable').modal('hide');
         }
     });
 }
@@ -1718,6 +1766,9 @@ function importCredit() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('bank_credit_category').child(companyid).set({
+                data: randomString(),
+            });
             swal('Success', data, 'success');
         }
     });
@@ -1776,13 +1827,18 @@ database.ref(cardtest).on('child_removed', function (data) {
 
 //update table fields
 
-function updateCardTable() {
+function updateCardTable(){
+    var cardBody = document.getElementById("cardBody");
     $.ajax({
         url: 'master/utils/getCreditCard.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            document.getElementById('cardBody').innerHTML = response;
+            if(cardBody != null)
+            {
+                cardBody.innerHTML = response;
+            }
+            //document.getElementById('cardBody').innerHTML = response;
         },
     });
 }
@@ -1816,8 +1872,8 @@ function addCreditCard() {
 }
 
 // Update Card
-function updateBankCard(element, column, id) {
-    var value = element.innerText;
+function updateBankCard(column, id, value) {
+
     var companyId = document.getElementById('companyId').value;
 
     $.ajax({
@@ -1834,6 +1890,7 @@ function updateBankCard(element, column, id) {
                 data: randomString(),
             });
             swal('Success', "Data Update Successfully.", 'success');
+            $('#updateTable').modal('hide');
         }
     });
 }
@@ -1870,6 +1927,9 @@ function importCard() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('credit_card_category').child(companyid).set({
+                data: randomString(),
+            });
             swal('Success', data, 'success');
         }
     });
@@ -1911,8 +1971,7 @@ var statustypepath1 = $('#companyid').val();
 var statustypedata = statustypepath1.toString();
 var statustypetest = statustypepath + statustypedata;
 
-
-database.ref(statustypetest).on('child_added', function (data) {
+database.ref(statustypetest).on('child_added', function(data) {
     updateStatusTypeTable();
 });
 
@@ -1926,13 +1985,18 @@ database.ref(statustypetest).on('child_removed', function (data) {
 
 //update table fields
 
-function updateStatusTypeTable() {
+function updateStatusTypeTable(){
+    var statusBody = document.getElementById("statusBody");
     $.ajax({
         url: 'master/utils/getStatus.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            document.getElementById('statusBody').innerHTML = response;
+            if(statusBody != null)
+            {
+                statusBody.innerHTML = response;
+            }
+            //document.getElementById('statusBody').innerHTML = response;
         },
     });
 }
@@ -1953,6 +2017,9 @@ function addStatusType() {
             },
             dataType: 'text',
             success: function (data) {
+                database.ref('status_type').child(companyid).set({
+                    data:randomString(),
+                });
                 swal('Success', data, 'success');
                 $("#Add_Status_Type").modal("hide");
             },
@@ -1963,8 +2030,8 @@ function addStatusType() {
 }
 
 // Update Status
-function updateStatus(element, column, id) {
-    var value = element.innerText;
+function updateStatus(column, id, value) {
+
     //var statuscolor = document.getElementById('statuscolor').value;
     var companyId = document.getElementById('companyId').value;
     $.ajax({
@@ -1977,15 +2044,18 @@ function updateStatus(element, column, id) {
             value: value,
         },
         success: function (data) {
+            database.ref('status_type').child(companyid).set({
+                data:randomString(),
+            });
             swal('Success', "Data Update Success.", 'success');
-            $('#Add_Status_Type').modal('hide');
+            $('#updateTable').modal('hide');
         }
     });
 }
 
 function update_Status(element, column, id) {
-
     var companyId = document.getElementById('companyId').value;
+
     $.ajax({
         url: 'master/status_types.php?type=' + 'edit_color',
         type: 'POST',
@@ -1996,6 +2066,9 @@ function update_Status(element, column, id) {
             statuscolor: element,
         },
         success: function (data) {
+            database.ref('status_type').child(companyid).set({
+                data:randomString(),
+            });
             swal('Success', "Data Update Success.", 'success');
             $('#Add_Status_Type').modal('hide');
         }
@@ -2016,6 +2089,9 @@ function importStatus() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('status_type').child(companyid).set({
+                data:randomString(),
+            });
             swal('Success', data, 'success');
         }
     });
@@ -2029,6 +2105,9 @@ function deleteStatus(id) {
             type: 'POST',
             data: {id: id},
             success: function (data) {
+                database.ref('status_type').child(companyid).set({
+                    data:randomString(),
+                });
                 swal('Success', 'Data Delete Success.', 'success');
             }
         });
@@ -2044,8 +2123,7 @@ var iftacardpath1 = $('#companyid').val();
 var iftacarddata = iftacardpath1.toString();
 var iftacardtest = iftacardpath + iftacarddata;
 
-
-database.ref(iftacardtest).on('child_added', function (data) {
+database.ref(iftacardtest).on('child_added', function(data) {
     updateIftaCardTable();
 });
 
@@ -2059,13 +2137,19 @@ database.ref(iftacardtest).on('child_removed', function (data) {
 
 //update table fields
 
+
 function updateIftaCardTable() {
+    var iftacardBody = document.getElementById("IftacardBody");
     $.ajax({
         url: 'master/utils/getIftaCardCategory.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            document.getElementById('iftacardBody').innerHTML = response;
+            if(iftacardBody != null) 
+            {
+                iftacardBody.innerHTML = response;
+            }
+            //document.getElementById('iftacardBody').innerHTML = response;
         },
     });
 }
@@ -2108,9 +2192,7 @@ function add_CardCategory() {
 }
 
 // Update IFTA Card
-function updateCardCat(element, column, id) {
-    var value = element.innerText;
-
+function updateCardCat(column, id, value) {
     var companyId = document.getElementById('companyId').value;
     $.ajax({
         url: 'master/ifta_card_category.php?type=' + 'edit_ifta',
@@ -2122,11 +2204,12 @@ function updateCardCat(element, column, id) {
             value: value,
         },
         success: function (data) {
+            var companyid = $('#companyid').val();
             database.ref('ifta_card_category').child(companyid).set({
                 data: randomString(),
             });
             swal('Success', "Data Update Success.", 'success');
-
+            $("#updateTable").modal('hide');
         }
     });
 }
@@ -2162,6 +2245,9 @@ function importCard_Cat() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('ifta_card_category').child(companyid).set({
+                data: randomString(),
+            });
             swal('Success', data, 'success');
         }
     });
@@ -2194,25 +2280,113 @@ function exportifta() {
 }
 
 /*---------------------- IFTA Card Category END ------------------------*/
+
 /*---------------------- Update Table Scripts -----------------------*/
+// function updateTableColumn_s(columnvalue,functionname,type,id,column,title,pencilid) {
 
-
+// }
 function updateTableColumn(columnvalue,functionname,type,id,column,title,pencilid){
-
+    //alert(columnvalue+" "+functionname+" "+type+" "+id+" "+column+" "+title+" "+pencilid);
     $.ajax({
         type: 'POST',
         success: function (data) {
+            // Master Table START
+            $('.currency-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.trucktype-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.equipment-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.trailer-container1').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.fixpay-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.status-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.office-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.payment-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.loadtype-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.masterbank-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.company-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.iftacard-category-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            // Master Table ENDS
+
+            // Admin Table START
             $('.custombroker-container').load('./admin/update_modal.php', function (result) {
                 $('#updateTable').modal({show: true});
             });
+            $('.bank-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.creditcard-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.subcreditcard-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.shipper-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.consigne-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.user-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.truck-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.trailer-container-admin').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.factoring-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.customer-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.carrier-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+
+            $('.toll-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+            $('.fuel-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+
+            $('.driver-container').load('./admin/update_modal.php', function (result) {
+                $('#updateTable').modal({show: true});
+            });
+
+            // Admin Table ENDS
 
             setTimeout(function(){
-                 document.getElementById('modal-title').innerHTML = "Update "+title;
-                 document.getElementById('fieldLabel').innerHTML = title;
-                 document.getElementById('field-value').value = columnvalue;
-                 document.getElementById('fieldid').value = id;
-                 document.getElementById('fieldname').value = column;
-                 document.getElementById('functionname').value = functionname;
+                document.getElementById('modal-title').innerHTML = "Update "+title;
+                document.getElementById('fieldLabel').innerHTML = title;
+                document.getElementById('field-value').value = columnvalue;
+                document.getElementById('fieldid').value = id;
+                document.getElementById('fieldname').value = column;
+                document.getElementById('functionname').value = functionname;
             },300);
         }
     });
@@ -2225,14 +2399,82 @@ function updateTableField(){
     var functionname = document.getElementById('functionname').value;
     if(functionname == "updateCustom"){
         updateCustom(name,id,value);
+    } else if(functionname == 'updateCurrency') {
+        updateCurrency(name,id,value);
+    } else if(functionname == 'updateTruck') {
+        updateTruck(name,id,value);
+    } else if(functionname == 'updateEquipment') {
+        updateEquipment(name,id,value);
+    } else if(functionname == 'updateTrailer') {
+        updateTrailer(name,id,value);
+    } else if(functionname == 'updatefixPay') {
+        updatefixPay(name,id,value);
+    } else if(functionname == 'updateStatus') {
+        updateStatus(name,id,value);
+    } else if(functionname == 'updateOffice') {
+        updateOffice(name,id,value);
+    } else if(functionname == 'updatePayment') {
+        updatePayment(name,id,value);
+    } else if(functionname == 'updateloadType') {
+        updateloadType(name,id,value);
+    } else if(functionname == 'updateBankDebit') {
+        updateBankDebit(name,id,value);
+    } else if(functionname == 'updateBankCredit') {
+        updateBankCredit(name,id,value);
+    } else if(functionname == 'updateBankCard') {
+        updateBankCard(name,id,value);
+    } else if(functionname == "updateCompany") {
+        updateCompany(name,id,value);
+    } else if(functionname == 'updateBank') {
+        updateBank(name,id,value);
+    } else if(functionname == 'updateCredit') {
+        updateCredit(name,id,value);
+    } else if(functionname == 'updateSubCredit') {
+        updateSubCredit(name,id,value);
+    } else if(functionname == 'updateShipper') {
+        updateShipper(name,id,value);
+    } else if(functionname == 'updateDriver') {
+        updateDriver(name,id,value);
+    } else if(functionname == 'updateConsignee') {
+        updateConsignee(name,id,value);
+    } else if(functionname == 'updateUser') {
+        updateUser(name,id,value);
+    } else if(functionname == 'updateTruckAdd') {
+        updateTruckAdd(name,id,value);
+    } else if(functionname == 'updateTrailerAdd') {
+        updateTrailerAdd(name,id,value);
+    } else if(functionname == 'updateFactoring') {
+        updateFactoring(name,id,value);
+    } else if(functionname == 'updateCustomer') {
+        updateCustomer(name,id,value);
+    } else if(functionname == 'updateExternal') {
+        updateExternal(name,id,value); 
+    } else if(functionname == 'updateTolls') {
+        updateTolls(name,id,value);
+    } else if(functionname == 'updateCardCat') {
+        updateCardCat(name,id,value);
+    } else if(functionname == 'updateFuel') {
+        updateFuel(name,id,value);
     }
 
 }
+
 function showPencil(id){
-    document.getElementById(id).style.display = "inline-block";
-    document.getElementById(id).style.float = "left";
-    document.getElementById(id).style.marginRight = "5px";
+    document.getElementById(id).style.display = 'inline-block';
+    document.getElementById(id).style.float = 'left';
+    document.getElementById(id).style.marginRight = '5px';
 }
+
 function hidePencil(id){
-    document.getElementById(id).style.display = "none";
+    document.getElementById(id).style.display = 'none';
+}
+
+function showPencil_s(id){
+    document.getElementById(id).style.display = 'inline-block';
+    document.getElementById(id).style.float = 'left';
+    document.getElementById(id).style.marginRight = '5px';
+}
+
+function hidePencil_s(id){
+    document.getElementById(id).style.display = 'none';
 }

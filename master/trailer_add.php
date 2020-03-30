@@ -16,7 +16,7 @@ if ($_GET['type'] == 'importExcel') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $trailer = new Trailer();
-        $trailer->importExcel($targetPath,$helper);
+        $trailer->importExcel($targetPath,$helper,$db);
     }
 
 }

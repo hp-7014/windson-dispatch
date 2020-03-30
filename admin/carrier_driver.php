@@ -63,7 +63,15 @@ if($_GET['type'] == 'add_carrier'){
     $carrier->setEquipment($_POST['equipment'],$_POST['quantity']);
     $carrier->insert($carrier,$db,$helper);
 }
+
 // edit external carrier
+else if ($_GET['type'] == 'edit_external') {
+    $carrier = new External_Carrier();
+    $carrier->setId($_POST['id']);
+    $carrier->setName($_POST['value']);
+    $carrier->setColumn($_POST['column']);
+    $carrier->updateExternal($carrier,$db);
+}
 
 // Update External Carrier
 else if($_GET['type'] == 'Update_carrierDetail'){
@@ -123,4 +131,14 @@ else if($_GET['type'] == 'Update_carrierDetail'){
     $carrier->setSizeOfFleet($_POST['sizeOfFleet']);
     $carrier->setEquipment($_POST['equipment'],$_POST['quantity']);
     $carrier->updateCarrierID($carrier,$db,$helper);
+}
+
+// Delete Credit Here
+else if ($_GET['type'] == 'delete_carrier') {
+    $carrier = new External_Carrier();
+    $carrier->setId($_POST['id']);
+    $carrier->setPaymentTerms($_POST['paymentTerm']);
+    $carrier->setFactoringCompany($_POST['factoringCompany']);
+
+    $carrier->delete_ExtCar($carrier,$db,$helper);
 }

@@ -29,23 +29,44 @@ class Helper
         return $id;
     }
 
-    function getDocumentSequenceId($type,$collection1,$arrayName,$companyid) {
-        $cursor = $collection1->find(['companyID' => $companyid],[
-            $arrayName => ['$elemMatch' => ['_id' => (int)$type]]
-        ]);
-        $array = iterator_to_array($cursor);
-        $id = 0;
-        foreach ($array as $value){
-            $counterID = $value[$arrayName];
-            foreach ($counterID as $row) {
-                if((int)$type == $row['_id']){
-                    $id = $row['counter'];
-                }
-            }
-        }
-        $id += 1;
-        $collection1->updateOne(['companyID'=>1,$arrayName.'_id' => (int)$type],['$set'=>[$arrayName.'$.counter'=>$id]]);
-        return $id;
+// particular object counter Increment
+function getDocumentSequenceId($type,$collection1,$arrayName,$companyid) {
+    $cursor = $collection1->find(['companyID' => $companyid],[
+    $arrayName => ['$elemMatch' => ['_id' => (int)$type]]
+    ]);
+    $array = iterator_to_array($cursor);
+    $id = 0;
+    foreach ($array as $value){
+    $counterID = $value[$arrayName];
+    foreach ($counterID as $row) {
+    if((int)$type == $row['_id']){
+    $id = $row['counter'];
+    }
+    }
+    }
+    $id += 1;
+    $collection1->updateOne(['companyID'=>$companyid,$arrayName.'_id' => (int)$type],['$set'=>[$arrayName.'$.counter'=>$id]]);
+    return $id;
     }
 
+    // particular object counter Decrement
+    function getDocumentDecrementId($type,$collection2,$arrayName,$companyid) {
+    $cursor = $collection2->find(['companyID' => $companyid],[
+    $arrayName => ['$elemMatch' => ['_id' => (int)$type]]
+    ]);
+    $array = iterator_to_array($cursor);
+    $id = 0;
+    foreach ($array as $value){
+    $counterID = $value[$arrayName];
+    foreach ($counterID as $row) {
+    if((int)$type == $row['_id']){
+    $id = $row['counter'];
+    }
+    }
+    }
+    $id -= 1;
+    $collection2->updateOne(['companyID'=>1,$arrayName.'_id' => (int)$type],['$set'=>[$arrayName.'$.counter'=>$id]]);
+    return $id;
+    }
 }
+

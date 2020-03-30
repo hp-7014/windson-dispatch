@@ -233,12 +233,12 @@
         }
 
         public function delete_Custom_Broker($c_broker,$db) {
-            $db->customs_broker->updateOne(['companyID' => (int)$_SESSION['companyId'], 'custom_b._id' => (int)$this->getId()],
-                ['$set' => ['custom_b.$.delete_status' => "1"]]
-            );
-            /*$db->customs_broker->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+            // $db->customs_broker->updateOne(['companyID' => (int)$_SESSION['companyId'], 'custom_b._id' => (int)$this->getId()],
+            //     ['$set' => ['custom_b.$.delete_status' => "1"]]
+            // );
+            $db->customs_broker->updateOne(['companyID' => (int)$_SESSION['companyId']], [
                 '$pull' => ['custom_b' => ['_id' => (int)$c_broker->getId()]]]
-            );*/
+            );
         }
 
         public function export_Custom_Broker($db) {
@@ -260,10 +260,9 @@
             echo json_encode($p);
         }
 
-        public function import_Custom_Broker($targetPath,$helper) {
+        public function import_Custom_Broker($targetPath,$helper,$db) {
             require_once('../excel/excel_reader2.php');
             require_once('../excel/SpreadsheetReader.php');
-            include '../database/connection.php'; // connection
 
             $Reader = new SpreadsheetReader($targetPath);
 

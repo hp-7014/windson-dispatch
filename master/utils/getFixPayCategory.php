@@ -3,30 +3,38 @@ session_start();
 $helper = "helper";
 require "../../database/connection.php";
  $show = $db->fixpay_add->find(['companyID' => $_SESSION['companyId']]);
- $no = 0;
+ $i = 0;
  $table = "";
- $list = "<option value=''>--select--</option>";
+ $type = '"text"';
  foreach ($show as $row) {
      $show1 = $row['fixPay'];
      foreach ($show1 as $row1) {
          $id = $row1['_id'];    
          $fixPayType = $row1['fixPayType'];
-         $column = 'fixPayType';
-         $no += 1;
+         $i++;
+         $pencilid = '"fixPayPencil'.$i.'"';
+         $updatefixPay = '"updatefixPay"';
+         $column = '"fixPayType"';
+         $title = '"Fix Pay Type"';
+         $c_type = '"'.$fixPayType.'"';
+
          $table .= "<tr>
-             <td> $no</td>
-             <td>
-                 <div contenteditable='true'
-                      onblur='updatefixPay(this,$column, $id)'
-                      onclick='activate(this)'>$fixPayType</div>
+             <td>$i</td>
+             <td class='custom-text' id='fixPayType$i'
+                onmouseover='showPencil_s($pencilid)'
+                onmouseout='hidePencil_s($pencilid)'
+                >
+                <i id='fixPayPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                    onclick='updateTableColumn($c_type,$updatefixPay,$type,$id,$column,$title,$pencilid)'
+                ></i>
+                $fixPayType
              </td>
              <td><a href='#' onclick='deletefixpay( $id)'><i
                              class='mdi mdi-delete-sweep-outline'
                              style='font-size: 20px; color: #FC3B3B'></a></i>
              </td>
          </tr>";
-         $value = "".$fixPayType."";
-         $list .= "<option value='$value'></option>";
       }
  }
-echo $table."^".$list;
+
+ echo $table;

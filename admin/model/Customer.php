@@ -685,6 +685,7 @@ class Customer implements IteratorAggregate
                 'counter' => 0,
                 'customer' => array([
                     '_id' => 0,
+                    'counter' => 0,
                     'custName' => $this->custName,
                     'custAddress' => $this->custAddress,
                     'custLocation' => $this->custLocation,
@@ -735,6 +736,7 @@ class Customer implements IteratorAggregate
         if ($count > 0) {
             $db->customer->updateOne(['companyID' => (int)$this->companyId], ['$push' => ['customer' => [
                 '_id' => $helper->getDocumentSequence((int)$this->companyId, $db->customer),
+                'counter' => 0,
                 'custName' => $this->custName,
                 'custAddress' => $this->custAddress,
                 'custLocation' => $this->custLocation,
@@ -769,18 +771,37 @@ class Customer implements IteratorAggregate
                 'insertedUserId' => $_SESSION['companyName'],
                 'deleteStatus' => 0
             ]]]);
+
+            $db->currency_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'currency._id' => (int)$this->currencySetting],
+                ['$set' => ['currency.$.counter' => $helper->getDocumentSequenceId((int)$this->currencySetting,$db->currency_add,"currency",(int)$_SESSION['companyId'])]]);
+            
+            $db->factoring_company_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'factoring._id' => (int)$this->factoringCompany],
+                ['$set' => ['factoring.$.counter' => $helper->getDocumentSequenceId((int)$this->factoringCompany,$db->factoring_company_add,"factoring",(int)$_SESSION['companyId'])]]);
+       
+            $db->payment_terms->updateOne(['companyID' => (int)$_SESSION['companyId'], 'payment._id' => (int)$this->paymentTerms],
+                ['$set' => ['payment.$.counter' => $helper->getDocumentSequenceId((int)$this->paymentTerms,$db->payment_terms,"payment",(int)$_SESSION['companyId'])]]);
+       
         } else {
             $cust = iterator_to_array($customer);
             $db->customer->insertOne($cust);
+
+            $db->currency_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'currency._id' => (int)$this->currencySetting],
+                ['$set' => ['currency.$.counter' => $helper->getDocumentSequenceId((int)$this->currencySetting,$db->currency_add,"currency",(int)$_SESSION['companyId'])]]);
+
+            $db->factoring_company_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'factoring._id' => (int)$this->factoringCompany],
+                ['$set' => ['factoring.$.counter' => $helper->getDocumentSequenceId((int)$this->factoringCompany,$db->factoring_company_add,"factoring",(int)$_SESSION['companyId'])]]);
+       
+            $db->payment_terms->updateOne(['companyID' => (int)$_SESSION['companyId'], 'payment._id' => (int)$this->paymentTerms],
+                ['$set' => ['payment.$.counter' => $helper->getDocumentSequenceId((int)$this->paymentTerms,$db->payment_terms,"payment",(int)$_SESSION['companyId'])]]);
+       
         }
     }
 
     // import Excel
-    public function importExcel($targetPath, $helper)
+    public function importExcel($targetPath, $helper, $db)
     {
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 
@@ -910,11 +931,21 @@ class Customer implements IteratorAggregate
     }
 
     // delete fucntion
-    public function deleteCustomer($customer, $db)
+    public function deleteCustomer($customer, $db, $helper)
     {
-        $db->customer->updateOne(['companyID' => (int)$_SESSION['companyId'], 'customer._id' => (int)$this->getId()],
-            ['$set' => ['customer.$.deleteStatus' => 1]]
+        $db->customer->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+            '$pull' => ['customer' => ['_id' => (int)$customer->getId()]]]
         );
+
+        $db->currency_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'currency._id' => (int)$this->currencySetting],
+                ['$set' => ['currency.$.counter' => $helper->getDocumentDecrementId((int)$this->currencySetting,$db->currency_add,"currency",(int)$_SESSION['companyId'])]]);
+
+        $db->factoring_company_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'factoring._id' => (int)$this->factoringCompany],
+            ['$set' => ['factoring.$.counter' => $helper->getDocumentDecrementId((int)$this->factoringCompany,$db->factoring_company_add,"factoring",(int)$_SESSION['companyId'])]]);
+    
+        $db->payment_terms->updateOne(['companyID' => (int)$_SESSION['companyId'], 'payment._id' => (int)$this->paymentTerms],
+            ['$set' => ['payment.$.counter' => $helper->getDocumentDecrementId((int)$this->paymentTerms,$db->payment_terms,"payment",(int)$_SESSION['companyId'])]]);
+    
     }
     
     // edit customer function

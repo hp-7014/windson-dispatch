@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <label>Name <span style="color: red;">*</span></label>
+                        <label>Name <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Name *" type="text"
                                    id="loadName">
@@ -20,14 +20,16 @@
                         </div>
                     </div>
                     <div class="form-group col-md-12">
-                        <label>
-                            Unit # <span style="color: red;">*</span></label>
+                        <label>Unit # <span class="mandatory">*</span></label>
                         <select class="form-control" id="loadType">
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
                     </div>
                 </div>
+                
+                <span class="mandatory">Note: * Fields are Mandatory</span>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger waves-effect modalLoadType"
                             >Close

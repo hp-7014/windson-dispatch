@@ -4,6 +4,7 @@ require "../database/connection.php";
 <!-- Modal content for the above example -->
 <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="factoring"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
+     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-xxl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
@@ -16,7 +17,7 @@ require "../database/connection.php";
             <div class="modal-body custom-modal-body" style="padding: 0.1rem">
                 <div class="factoring-container" style="z-index: 1600"></div>
 
-                <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right"type="text" id="search" placeholder="search" style="margin-left: 5px;">
+                <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right"type="text" id="search" onkeyup="search_factoring(this)" placeholder="search" style="margin-left: 5px;">
                 <button class="btn btn-primary float-left" type="button" id="AddFactoring"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD</button>
 
                 <div class="table-rep-plugin">
@@ -26,8 +27,8 @@ require "../database/connection.php";
                             <table id="factoring_table" class="scroll" >
                                 <thead>
                                     <tr>
-                                        <th scope="col" col width="160">No</th>
-                                        <th scope="col" col width="160" data-priority="1">Factoring Company Name</th>
+                                        <th scope="col" col width="50">No</th>
+                                        <th scope="col" col width="160" data-priority="1"><marquee width="140px" direction="left" height="17px" scrollamount="1">Factoring Company Name</marquee></th>
                                         <th scope="col" col width="160" data-priority="3">Address</th>
                                         <th scope="col" col width="160" data-priority="1">Location</th>
                                         <th scope="col" col width="160" data-priority="3">Postal/Zip</th>
@@ -47,11 +48,18 @@ require "../database/connection.php";
                                         <th scope="col" col width="160" data-priority="3">Action</th>
                                     </tr>
                                 </thead>
-                               
-                                
+
                                 <tbody id="factoringBody">
                                 <?php
-                                    $no = 1;
+                                    $limit = 100;
+                                    $cursor = $db->factoring_company_add->find(array('companyID' => $_SESSION['companyId']));
+                                    
+                                    foreach ($cursor as $value) {
+                                        $total_records = sizeof($value['factoring']);
+                                        $total_pages = ceil($total_records / $limit);
+                                    }
+
+                                    $i = 1;
                                     $collection = $db->factoring_company_add;
                                     $show1 = $collection->aggregate([
                                         ['$lookup' => [
@@ -66,10 +74,11 @@ require "../database/connection.php";
                                             'foreignField' => 'companyID',
                                             'as' => 'payment_1'
                                         ]],
-                                        ['$match'=>['companyID'=>1]]
-                                     ]);
-
-                                     foreach ($show1 as $row) {
+                                        ['$match'=>['companyID' => $_SESSION['companyId']]],
+                                        ['$project'=>['companyID'=>$_SESSION['companyId'],'factoring'=>['$slice'=>['$factoring',0,$limit]],'payment_1'=>1,'currency_1'=>1]]
+                                    ]);
+                                    
+                                    foreach ($show1 as $row) {
                                         $factoring = $row['factoring'];
                                         $currency_1 = $row['currency_1'];
                                         $payment_1 = $row['payment_1'];
@@ -84,118 +93,213 @@ require "../database/connection.php";
                                         }
 
                                         foreach ($payment_1 as $row4) {
-                                                $payment = $row4['payment'];
-                                                $paymentTerm = array();
-                                                foreach ($payment as $row5) {
-                                                  $paymentid = $row5['_id'];
-                                                  $paymentTerm[$paymentid] = $row5['paymentTerm'];  
-                                                }
+                                            $payment = $row4['payment'];
+                                            $paymentTerm = array();
+                                            foreach ($payment as $row5) {
+                                                $paymentid = $row5['_id'];
+                                                $paymentTerm[$paymentid] = $row5['paymentTerm'];  
+                                            }
                                         }
-
-                                        foreach ($factoring as $row1) {
-                                            $id = $row1['_id'];
-                                            $factoringCompanyname = $row1['factoringCompanyname'];
-                                            $address = $row1['address'];
-                                            $location = $row1['location'];
-                                            $zip = $row1['zip'];
-                                            $primaryContact = $row1['primaryContact'];
-                                            $telephone = $row1['telephone'];
-                                            $extFactoring = $row1['extFactoring'];
-                                            $fax = $row1['fax'];
-                                            $tollFree = $row1['tollFree'];
-                                            $email = $row1['email'];
-                                            $secondaryContact = $row1['secondaryContact'];
-                                            $factoringtelephone = $row1['factoringtelephone'];
-                                            $ext = $row1['ext'];
-                                            $currencySetting = $currencyType[$row1['currencySetting']];
-                                            $paymentTerms = $paymentTerm[$row1['paymentTerms']];
-                                            $taxID = $row1['taxID'];
-                                            $internalNote = $row1['internalNote'];
-                                                $limit = 4;
-                                                $total_records = $row1->count();
-                                                $total_pages = ceil($total_records / $limit);
+                                    
+                                        foreach ($factoring as $row5) {
+                                            $id  = $row5['_id'];
+                                            $counter = $row5['counter'];
+                                            $factoringCompanyname = "'".$row5['factoringCompanyname']."'";
+                                            $address = "'".$row5['address']."'";
+                                            $location = "'".$row5['location']."'";
+                                            $zip = "'".$row5['zip']."'";
+                                            $primaryContact = "'".$row5['primaryContact']."'";
+                                            $telephone = "'".$row5['telephone']."'";
+                                            $extFactoring = "'".$row5['extFactoring']."'";
+                                            $fax = "'".$row5['fax']."'";
+                                            $tollFree = "'".$row5['tollFree']."'";
+                                            $email = "'".$row5['email']."'";
+                                            $secondaryContact = "'".$row5['secondaryContact']."'";
+                                            $factoringtelephone = "'".$row5['factoringtelephone']."'";
+                                            $ext = "'".$row5['ext']."'";
+                                            $currencySetting = $currencyType[$row5['currencySetting']];
+                                            $currencyid = $row5['currencySetting'];
+                                            $paymentTerms = $paymentTerm[$row5['paymentTerms']];
+                                            $paymentid = $row5['paymentTerms'];
+                                            $taxID = "'".$row5['taxID']."'";
+                                            $internalNote = "'".$row5['internalNote']."'";
+                                            
+                                            $pencilid1 = "'"."factoringCompanynamePencil$i"."'"; 
+                                            $pencilid2 = "'"."addressPencil$i"."'";
+                                            $pencilid3 = "'"."locationPencil$i"."'";
+                                            $pencilid4 = "'"."zipPencil$i"."'";
+                                            $pencilid5 = "'"."primaryContactPencil$i"."'";
+                                            $pencilid6 = "'"."telephonePencil$i"."'";
+                                            $pencilid7 = "'"."extFactoringPencil$i"."'";
+                                            $pencilid8 = "'"."faxPencil$i"."'";
+                                            $pencilid9 = "'"."tollFreePencil$i"."'";
+                                            $pencilid10 = "'"."emailPencil$i"."'";
+                                            $pencilid11 = "'"."secondaryContactPencil$i"."'";
+                                            $pencilid12 = "'"."factoringtelephonePencil$i"."'";
+                                            $pencilid13 = "'"."extPencil$i"."'";
+                                            $pencilid14 = "'"."taxIDPencil$i"."'";
+                                            $pencilid15 = "'"."internalNotePencil$i"."'";
                                 ?>
                                     <tr>
-                                        <th><?php echo $no++; ?></th>
-                                        <td>
-                                            <a href="#" id="factoringCompanyname<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'factoringCompanyname');" class="text-overflow"><?php echo $factoringCompanyname; ?></a>
-                                            <button type="button" id="factoringCompanyname<?php echo $id; ?>" onclick="updateFactoring('factoringCompanyname',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <td><?php echo $i++; ?></td>
+                                        <td class="custom-text" id="<?php echo "factoringCompanyname".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('factoringCompanynamePencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('factoringCompanynamePencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "factoringCompanynamePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $factoringCompanyname; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'factoringCompanyname','Factoring Company',<?php echo $pencilid1; ?>)"
+                                            ></i>
+                                            <?php echo $row5['factoringCompanyname']; ?>
                                         </td>
-                                        <td>
-                                            <a href="#" id="address<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'address');" class="text-overflow"><?php echo $address; ?></a>
-                                            <button type="button" id="address<?php echo $id; ?>" onclick="updateFactoring('address',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text" id="<?php echo "address".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('addressPencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('addressPencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "addressPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $address; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'address','Address',<?php echo $pencilid2; ?>)"
+                                            ></i>
+                                            <?php echo $row5['address']; ?>
                                         </td>
-                                        <td>
-                                            <a href="#" id="location<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'location');" class="text-overflow"><?php echo $location; ?></a>
-                                            <button type="button" id="location<?php echo $id; ?>" onclick="updateFactoring('location',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                        </td>    
-                                        <td>
-                                            <a href="#" id="zip<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'zip');" class="text-overflow"><?php echo $zip; ?></a>
-                                            <button type="button" id="zip<?php echo $id; ?>" onclick="updateFactoring('zip',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text" id="<?php echo "location".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('locationPencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('locationPencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "locationPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $location; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'location','Location',<?php echo $pencilid3; ?>)"
+                                            ></i>
+                                            <?php echo $row5['location']; ?>
                                         </td>
-                                        <td>
-                                            <a href="#" id="primaryContact<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'primaryContact');" class="text-overflow"><?php echo $primaryContact; ?></a>
-                                            <button type="button" id="primaryContact<?php echo $id; ?>" onclick="updateFactoring('primaryContact',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text" id="<?php echo "zip".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('zipPencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('zipPencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "zipPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $zip; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'zip','Postal / Zip',<?php echo $pencilid4; ?>)"
+                                            ></i>
+                                            <?php echo $row5['zip']; ?>
                                         </td>
-                                        <td>
-                                            <a href="#" id="extFactoring<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'extFactoring');" class="text-overflow"><?php echo $telephone; ?></a>
-                                            <button type="button" id="extFactoring<?php echo $id; ?>" onclick="updateFactoring('extFactoring',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text" id="<?php echo "primaryContact".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('primaryContactPencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('primaryContactPencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "primaryContactPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $primaryContact; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'primaryContact','Priamry Contact',<?php echo $pencilid5; ?>)"
+                                            ></i>
+                                            <?php echo $row5['primaryContact']; ?>
                                         </td>
-                                        <td>
-                                            <a href="#" id="fax<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'fax');" class="text-overflow"><?php echo $extFactoring; ?></a>
-                                            <button type="button" id="fax<?php echo $id; ?>" onclick="updateFactoring('fax',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                        </td>           
-                                        <td>
-                                            <a href="#" id="tollFree<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'tollFree');" class="text-overflow"><?php echo $fax; ?></a>
-                                            <button type="button" id="tollFree<?php echo $id; ?>" onclick="updateFactoring('tollFree',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text" id="<?php echo "telephone".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('telephonePencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('telephonePencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "telephonePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $telephone; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'telephone','Telephone',<?php echo $pencilid6; ?>)"
+                                            ></i>
+                                            <?php echo $row5['telephone']; ?>
                                         </td>
-                                        <td>
-                                            <a href="#" id="secondaryContact<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'secondaryContact');" class="text-overflow"><?php echo $tollFree; ?></a>
-                                            <button type="button" id="secondaryContact<?php echo $id; ?>" onclick="updateFactoring('secondaryContact',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text" id="<?php echo "extFactoring".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('extFactoringPencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('extFactoringPencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "extFactoringPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $extFactoring; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'extFactoring','Ext Factoring',<?php echo $pencilid7; ?>)"
+                                            ></i>
+                                            <?php echo $row5['extFactoring']; ?>
+                                        </td>
+                                        <td class="custom-text" id="<?php echo "fax".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('faxPencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('faxPencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "faxPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $fax; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'fax','Fax',<?php echo $pencilid8; ?>)"
+                                            ></i>
+                                            <?php echo $row5['fax']; ?>
+                                        </td>      
+                                        <td class="custom-text" id="<?php echo "tollFree".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('tollFreePencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('tollFreePencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "tollFreePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $tollFree; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'tollFree','Toll Free',<?php echo $pencilid9; ?>)"
+                                            ></i>
+                                            <?php echo $row5['tollFree']; ?>
+                                        </td>     
+                                        <td class="custom-text" id="<?php echo "email".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('emailPencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('emailPencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "emailPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $email; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'email','Contact Email',<?php echo $pencilid10; ?>)"
+                                            ></i>
+                                            <?php echo $row5['email']; ?>
+                                        </td> 
+                                        <td class="custom-text" id="<?php echo "secondaryContact".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('secondaryContactPencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('secondaryContactPencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "secondaryContactPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $secondaryContact; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'secondaryContact','secondary Contact',<?php echo $pencilid11; ?>)"
+                                            ></i>
+                                            <?php echo $row5['secondaryContact']; ?>
                                         </td>   
-                                        <td>
-                                            <a href="#" id="factoringtelephone<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'factoringtelephone');" class="text-overflow"><?php echo $email; ?></a>
-                                            <button type="button" id="factoringtelephone<?php echo $id; ?>" onclick="updateFactoring('factoringtelephone',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text" id="<?php echo "factoringtelephone".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('factoringtelephonePencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('factoringtelephonePencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "factoringtelephonePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $factoringtelephone; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'factoringtelephone','Fac Telephone',<?php echo $pencilid12; ?>)"
+                                            ></i>
+                                            <?php echo $row5['factoringtelephone']; ?>
+                                        </td> 
+                                        <td class="custom-text" id="<?php echo "ext".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('extPencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('extPencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "extPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $ext; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'ext','Ext',<?php echo $pencilid13; ?>)"
+                                            ></i>
+                                            <?php echo $row5['ext']; ?>
                                         </td>
-                                        <td>
-                                            <a href="#" id="ext<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'ext');" class="text-overflow"><?php echo $secondaryContact; ?></a>
-                                            <button type="button" id="ext<?php echo $id; ?>" onclick="updateFactoring('ext',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text">
+                                            <?php echo $currencySetting; ?>
                                         </td>
-                                        <td>
-                                            <a href="#" id="currencySetting<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'currencySetting');" class="text-overflow"><?php echo $factoringtelephone; ?></a>
-                                            <button type="button" id="currencySetting<?php echo $id; ?>" onclick="updateFactoring('currencySetting',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text">
+                                            <?php echo $paymentTerms; ?>
                                         </td>
-                                        <td>
-                                            <a href="#" id="paymentTerms<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'paymentTerms');" class="text-overflow"><?php echo $ext; ?></a>
-                                            <button type="button" id="paymentTerms<?php echo $id; ?>" onclick="updateFactoring('paymentTerms',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                        </td>
-                                        <td>
-                                            <a href="#" id="taxID<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'taxID');" class="text-overflow"><?php echo $currencySetting; ?></a>
-                                            <button type="button" id="taxID<?php echo $id; ?>" onclick="updateFactoring('taxID',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                        </td>
-                                        <td>
-                                            <a href="#" id="internalNote<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'internalNote');" class="text-overflow"><?php echo $paymentTerms; ?></a>
-                                            <button type="button" id="internalNote<?php echo $id; ?>" onclick="updateFactoring('internalNote',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text" id="<?php echo "taxID".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('taxIDPencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('taxIDPencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "taxIDPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $taxID; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'taxID','Tax ID',<?php echo $pencilid14; ?>)"
+                                            ></i>
+                                            <?php echo $row5['taxID']; ?>
                                         </td>  
-                                        <td>
-                                            <a href="#" id="internalNote<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'internalNote');" class="text-overflow"><?php echo $taxID; ?></a>
-                                            <button type="button" id="internalNote<?php echo $id; ?>" onclick="updateFactoring('internalNote',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
-                                        </td>  
-                                        <td>
-                                            <a href="#" id="internalNote<?php echo $id; ?>1" data-type="textarea" onclick="showTextarea(this.id,'text',<?php echo $id; ?>,'internalNote');" class="text-overflow"><?php echo $internalNote; ?></a>
-                                            <button type="button" id="internalNote<?php echo $id; ?>" onclick="updateFactoring('internalNote',<?php echo $id; ?>)" style="display:none; margin-left:6px;" class="btn btn-success editable-submit btn-sm waves-effect waves-light text-center"><i class="mdi mdi-check"></i></button>
+                                        <td class="custom-text" id="<?php echo "internalNote".$i; ?>"
+                                            onmouseout="<?php echo "hidePencil('internalNotePencil$i'); "?>"
+                                            onmouseover="<?php echo "showPencil('internalNotePencil$i'); "?>"
+                                            >
+                                            <i id="<?php echo "internalNotePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                onclick="updateTableColumn(<?php echo $internalNote; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'internalNote','Internal Notes',<?php echo $pencilid15; ?>)"
+                                            ></i>
+                                            <?php echo $row5['internalNote']; ?>
                                         </td>        
-                                        <td><a href="#" onclick="deletefactoring(<?php echo $id; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></a></i>
+                                        <td>
+                                            <?php if($counter == 0) { ?>
+                                                <a href="#" onclick="deletefactoring(<?php echo $id; ?>,<?php echo $currencyid; ?>,<?php echo $paymentid; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></a></i>
+                                            <?php } else { ?>
+                                                <a href="#" disabled onclick="deleteCurrencyError()"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #adb5bd"></i></a>
+                                            <?php } ?>
                                         </td>
                                     </tr>
-                                    <?php }
+                                    <?php 
+                                        }
                                     } ?>
                                 </tbody>
 
                                 <tfoot>
                                     <tr>
                                         <th>No</th>
-                                        <th>Factoring Company Name</th>
+                                        <th><marquee width="140px" direction="left" height="17px" scrollamount="1">Factoring Company Name</marquee></th>
                                         <th>Address</th>
                                         <th>Location</th>
                                         <th>Postal/Zip</th>
@@ -217,23 +321,29 @@ require "../database/connection.php";
                                 </tfoot>
                             </table>
                         </div>
-                    </div>
+                    </div> 
                     <br>
                     <nav aria-label="..." class="float-right">
                         <ul class="pagination">
                             <?php
-                            for($i=1; $i<=$total_pages; $i++){
-                                if($i == 1){
+                            $j = 1;
+                            for ($i = 0; $i < $total_pages; $i++) {
+                                if ($i == 0) {
                                     ?>
-                                    <li class="pageitem active" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" data-id="<?php echo $i;?>" class="page-link" ><?php echo $i;?></a></li>
-
-                                    <?php
-                                }
-                                else{
+                                    <li class="pageitem active"
+                                        onclick="paginate_factoring(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
+                                        id="<?php echo $i; ?>"><a data-id="<?php echo $i; ?>"
+                                            class="page-link"><?php echo $j; ?></a></li>
+                            <?php
+                                } else {
                                     ?>
-                                    <li class="pageitem" id="<?php echo $i;?>"><a href="JavaScript:Void(0);" class="page-link" data-id="<?php echo $i;?>"><?php echo $i;?></a></li>
-                                    <?php
+                                    <li class="pageitem"
+                                        onclick="paginate_factoring(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
+                                        id="<?php echo $i; ?>"><a class="page-link"
+                                            data-id="<?php echo $i; ?>"><?php echo $j; ?></a></li>
+                            <?php
                                 }
+                                $j++;
                             }
                             ?>
                         </ul>

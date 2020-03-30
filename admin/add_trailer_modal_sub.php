@@ -4,12 +4,10 @@ require "../database/connection.php";
 <!--  Modal content for the above example -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="add_Trailer"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
+     <div class="trailer-container1" style="z-index: 1600"></div>
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
-
-                <div class="trailer-container1" style="z-index: 1600"></div>
-
                 <h5 class="modal-title custom-modal-title mt-0" id="myLargeModalLabel">Add Trailer</h5>
                 <button type="button" class="close modalTrailer" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

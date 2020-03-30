@@ -66,7 +66,7 @@ else if ($_GET['type'] == 'import_Ifta') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $i_card = new Ifta_Card_Category();
-        $i_card->importIftaCard($targetPath,$helper);
+        $i_card->importIftaCard($targetPath,$helper,$db);
     }
 }
 

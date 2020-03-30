@@ -96,7 +96,8 @@ else if ($_GET['type'] == 'edit_trailer'){
 else if ($_GET['type'] == 'delete_trailer'){
     $trailer = new TrailerAdd();
     $trailer->setId($_POST['id']);
-    $trailer->deleteTrailer($trailer,$db);
+    $trailer->setTrailerType($_POST['trailerType']);
+    $trailer->deleteTrailer($trailer,$db,$helper);
     echo "Data Removed Successful";
 }
 

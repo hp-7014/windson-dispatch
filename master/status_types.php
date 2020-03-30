@@ -52,7 +52,7 @@ else if ($_GET['type'] == 'importStatus') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $status = new StatusType();
-        $status->importStatus($targetPath,$helper);
+        $status->importStatus($targetPath,$helper,$db);
     }
 }
 

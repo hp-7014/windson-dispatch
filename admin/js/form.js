@@ -1,4 +1,5 @@
-// //Driver Recurrence +
+var companyid = $('#companyid').val();
+//Driver Recurrence +
 // var installmentCategory = [];
 // var installmentType = [];
 // var amount = [];
@@ -194,7 +195,6 @@ function updateShipperTable() {
             var res = response.split('^');
             if (shipperBody != null) {
                 shipperBody.innerHTML = res[0];
-                alert(res[0]);
             }
 
             if (shipperList != null) {
@@ -205,6 +205,43 @@ function updateShipperTable() {
     });
 }
 
+// Search Shipper
+function search_shipper(x)
+{
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'admin/utils/getShipper.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('shipperBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate Shipper
+function paginate_shipper(start, limit) {
+    
+    $.ajax({
+        url: 'admin/utils/getShipper.php?types=paginate_ship',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('shipperBody').innerHTML = response;
+        },
+
+    });
+}
 //Import shipper
 function importShipper() {
     // var file = document.getElementById('file').value;
@@ -220,6 +257,10 @@ function importShipper() {
         cache: false,
         processData: false,
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('shipper').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, 'success');
         }
     });
@@ -255,9 +296,7 @@ function exportShipper(id) {
 }
 
 //edit function
-function updateShipper(column, id) {
-    var data = $('#shipper_table').find('input[type="text"],textarea').val();
-
+function updateShipper(column, id, value) {
     var companyId = document.getElementById('companyid').value;
 
     $.ajax({
@@ -267,7 +306,7 @@ function updateShipper(column, id) {
             companyid: companyId,
             column: column,
             id: id,
-            value: data,
+            value: value,
         },
         success: function (data) {
             var companyid = $('#companyid').val();
@@ -275,7 +314,8 @@ function updateShipper(column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-            document.getElementById(column + id).style.display = "none";
+            $("#userTable").modal('hide');
+            $("#search").val("");
         }
     });
 }
@@ -424,7 +464,7 @@ function updateConsigneeTable() {
     var consigneeBody = document.getElementById('consigneeBody');
     var consigneeList = document.getElementById('consigneee');
     $.ajax({
-        url: 'admin/utils/getConsignee.php',
+        url: 'admin/utils/getConsignee.php?types=live_consignee_table',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
@@ -438,6 +478,43 @@ function updateConsigneeTable() {
             }
 
         },
+    });
+}
+// Search Consignee
+function search_consignee(x)
+{
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'admin/utils/getConsignee.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('consigneeBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate Consignee
+function paginate_consignee(start, limit) {
+    
+    $.ajax({
+        url: 'admin/utils/getConsignee.php?types=paginate_consi',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('consigneeBody').innerHTML = response;
+        },
+
     });
 }
 
@@ -456,6 +533,9 @@ function importConsignee() {
         processData: false,
         success: function (data) {
             swal("Success", data, 'success');
+            database.ref('consignee').child(companyid).set({
+                data: randomString(),
+            });
         }
     });
 }
@@ -490,10 +570,9 @@ function exportConsignee(id) {
 }
 
 //edit function
-function updateConsignee(column, id) {
-    var data = $('#consignee_table').find('input[type="text"],textarea').val();
-
+function updateConsignee(column, id, value) {
     var companyId = $('#companyid').val();
+    
     $.ajax({
         url: 'admin/consignee_driver.php?type=' + 'edit_consignee',
         type: 'POST',
@@ -501,7 +580,7 @@ function updateConsignee(column, id) {
             companyid: companyId,
             column: column,
             id: id,
-            value: data,
+            value: value,
         },
         success: function (data) {
             var companyid = $('#companyid').val();
@@ -509,7 +588,8 @@ function updateConsignee(column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-            document.getElementById(column + id).style.display = "none";
+            $("#updateTable").modal('hide');
+            $("#search").val("");
         }
     });
 }
@@ -1017,7 +1097,7 @@ function addCustomer() {
     }
 }
 
-//update currency table
+//update customer table
 var customer_path = "customer/";
 var customer_path1 = $('#companyid').val();
 var customer_data = customer_path1.toString();
@@ -1038,7 +1118,7 @@ function updateCustomerTable() {
     var customerTable = document.getElementById('customerBody');
     var customerList = document.getElementById('browserscustomer');
     $.ajax({
-        url: 'admin/utils/getCustomer.php',
+        url: 'admin/utils/getCustomer.php?types=live_customer_table',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
@@ -1052,6 +1132,43 @@ function updateCustomerTable() {
             }
 
         },
+    });
+}
+// Search Customer
+function search_customer(x)
+{
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'admin/utils/getCustomer.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('customerBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate Customer
+function paginate_customer(start, limit) {
+    
+    $.ajax({
+        url: 'admin/utils/getCustomer.php?types=paginate_cust',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('customerBody').innerHTML = response;
+        },
+
     });
 }
 
@@ -1069,6 +1186,10 @@ function importCustomer() {
         cache: false,
         processData: false,
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('customer').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, 'success');
         }
     });
@@ -1104,10 +1225,9 @@ function exportCustomer(id) {
 }
 
 //edit function
-function updateCustomer(column, id) {
-    var data = $('#customer_table').find('input[type="text"],textarea').val();
-
+function updateCustomer(column, id, value) {
     var companyId = document.getElementById('companyId').value;
+
     $.ajax({
         url: 'admin/customer_driver.php?type=' + 'edit_customer',
         type: 'POST',
@@ -1115,7 +1235,7 @@ function updateCustomer(column, id) {
             companyid: companyId,
             column: column,
             id: id,
-            value: data,
+            value: value,
         },
         success: function (data) {
             var companyid = $('#companyid').val();
@@ -1123,18 +1243,24 @@ function updateCustomer(column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-            document.getElementById(column + id).style.display = "none";
+            $("#updateTable").modal('hide');
+            $("#search").val(""); 
         }
     });
 }
 
 // delete function
-function deleteCustomer(id) {
+function deleteCustomer(id, currencyid, paymentid, factoringid) {
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/customer_driver.php?type=' + 'delete_customer',
             type: 'POST',
-            data: {id: id},
+            data: {
+                id: id,
+                currencySetting: currencyid,
+                paymentTerms: paymentid,
+                factoringCompanyname : factoringid
+            },
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('customer').child(companyid).set({
@@ -1330,7 +1456,7 @@ function updatePrivilege() {
     });
 }
 
-//update currency table
+//update user table
 var user_path = "user/";
 var user_path1 = $('#companyid').val();
 var user_data = user_path1.toString();
@@ -1351,7 +1477,7 @@ function updateUserTable() {
     var UserBody = document.getElementById('UserBody');
 
     $.ajax({
-        url: 'admin/utils/getUser.php',
+        url: 'admin/utils/getUser.php?types=live_user_table',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
@@ -1360,6 +1486,43 @@ function updateUserTable() {
                 UserBody.innerHTML = response;
             }
         },
+    });
+}
+// Search User
+function search_user(x)
+{
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'admin/utils/getUser.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('UserBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate User
+function paginate_user(start, limit) {
+    
+    $.ajax({
+        url: 'admin/utils/getUser.php?types=paginate_us',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('UserBody').innerHTML = response;
+        },
+
     });
 }
 
@@ -1595,6 +1758,10 @@ function importUser() {
         cache: false,
         processData: false,
         success: function (data) {
+            var companyid = $('#companyid').val();
+            database.ref('user').child(companyid).set({
+                data: randomString(),
+            });
             swal("Success", data, 'success');
         }
     });
@@ -1630,9 +1797,10 @@ function exportUser(id) {
 }
 
 //edit function
-function updateUser(column, id) {
-    var data = $('#user_table').find('input[type="text"],textarea').val();
+function updateUser(column, id, value) {
+    
     var companyId = document.getElementById('companyId').value;
+
     $.ajax({
         url: 'admin/user_driver.php?type=' + 'edit_user',
         type: 'POST',
@@ -1640,7 +1808,7 @@ function updateUser(column, id) {
             companyid: companyId,
             column: column,
             id: id,
-            value: data,
+            value: value,
         },
         success: function (data) {
             var companyid = $('#companyid').val();
@@ -1648,7 +1816,8 @@ function updateUser(column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-            document.getElementById(column + id).style.display = "none";
+            $("#updateTable").modal('hide');
+            $("#search").val("");
         }
     });
 }
@@ -1699,7 +1868,7 @@ function updateBankTable() {
     var bankBody = document.getElementById('bankBody');
     var bankList = document.getElementById('Name');
     $.ajax({
-        url: 'admin/utils/getBank.php',
+        url: 'admin/utils/getBank.php?types=live_bank_table',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
@@ -1712,6 +1881,44 @@ function updateBankTable() {
             }
 
         },
+    });
+}
+
+// Search Bank Admin
+function searchText_Bank(x)
+{
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'admin/utils/getBank.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+
+            var j = response.trim();
+            document.getElementById('bankBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate Bank Admin
+function paginate_bank_admin(start, limit) {
+    $.ajax({
+        url: 'admin/utils/getBank.php?types=paginate_bank_admin',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('bankBody').innerHTML = response;
+        },
+
     });
 }
 
@@ -1792,53 +1999,39 @@ function updateBank(column, id) {
     });
 }
 
-function update_Date(element, column, id) {
-    //var value = element.innerText;
-    var companyId = document.getElementById('companyId').value;
-
+//Edit Bank Admin
+function updateBank(column, id, value) {
+    
+    var companyId = $('#companyid').val();
     $.ajax({
-        url: 'admin/bank_admin.php?type=' + 'edit_date',
+        url: 'admin/bank_admin.php?type=' + 'edit_bank',
         type: 'POST',
         data: {
             companyId: companyId,
             column: column,
             id: id,
-            openingBalDate: element,
+            value: value,
         },
         success: function (data) {
-            swal("Update", data, 'success');
-        }
-    });
-}
-
-function updateAccount(element, column, id) {
-    //var value = element.innerText;
-    var companyId = document.getElementById('companyId').value;
-
-    $.ajax({
-        url: 'admin/bank_admin.php?type=' + 'edit_account',
-        type: 'POST',
-        data: {
-            companyId: companyId,
-            column: column,
-            id: id,
-            accountHolder: element,
-        },
-        success: function (data) {
-            swal("Update", data, 'success');
+            database.ref('bank').child(companyid).set({
+                data: randomString(),
+            });
+            swal("Success", data, "success");
+            $('#updateTable').modal('hide');
+            $("#search").val("");
         }
     });
 }
 
 //Delete Bank Admin
-function deleteBank(id) {
+function deleteBank(id,accountHolder) {
     //var companyId = document.getElementById('companyId').value;
 
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/bank_admin.php?type=' + 'delete_bank',
             type: 'POST',
-            data: {id: id},
+            data: {id: id,accountHolder:accountHolder},
             success: function (data) {
                 database.ref('bank').child(companyid).set({
                     data: randomString(),
@@ -1848,6 +2041,7 @@ function deleteBank(id) {
         });
     }
 }
+
 
 // Import Bank Admin
 function import_Admin() {
@@ -1861,6 +2055,9 @@ function import_Admin() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('bank').child(companyid).set({
+                data: randomString(),
+            });
             swal('Success', data, 'success');
         }
     });
@@ -1918,22 +2115,58 @@ database.ref(bankCredittest).on('child_removed', function (data) {
 
 function updateBankCreditTable() {
     var CreditbankBody = document.getElementById('CreditbankBody');
-    var CreditbankList = document.getElementById('mainCard');
+
     $.ajax({
-        url: 'admin/utils/getBankCredit.php',
+        url: 'admin/utils/getBankCredit.php?types=live_credit_table',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            var res = response.split("^");
-            if (CreditbankBody != null) {
-                CreditbankBody.innerHTML = res[0];
-            }
-            if (CreditbankList != null) {
-                CreditbankList.innerHTML = res[1];
+           // var res = response.split("^");
+            if(CreditbankBody != null) 
+            {
+                CreditbankBody.innerHTML = response;
             }
         },
     });
 }
+
+// Search Credit Bank
+function searchText_Credit(x)
+{
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'admin/utils/getBankCredit.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('CreditbankBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate Credit Card
+function paginate_credit_card(start, limit) {
+    $.ajax({
+        url: 'admin/utils/getBankCredit.php?types=paginate_creditcard',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('CreditbankBody').innerHTML = response;
+        },
+
+    });
+}
+
 
 // Add CreditCard Admin
 function Add_Credit() {
@@ -2030,18 +2263,21 @@ function import_creditCard() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('bank_credit').child(companyid).set({
+                data: randomString(),
+            });
             swal('Success', data, 'success');
         }
     });
 }
 
 // Delete Credit Card
-function deleteCredit(id) {
+function deleteCredit(id,nm) {
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/bank_credit.php?type=' + 'delete_credit',
             type: 'POST',
-            data: {id: id},
+            data: {id: id,name: nm},
             success: function (data) {
                 database.ref('bank_credit').child(companyid).set({
                     data: randomString(),
@@ -2053,8 +2289,8 @@ function deleteCredit(id) {
 }
 
 //Edit Bank Credit
-function updateCredit(column, id) {
-    var data = $('#credit_bank_table').find('input[type="text"],textarea').val();
+function updateCredit(column, id, value) {
+    
     var companyId = document.getElementById('companyid').value;
 
     $.ajax({
@@ -2064,38 +2300,15 @@ function updateCredit(column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: data,
+            value: value,
         },
         success: function (data) {
             database.ref('bank_credit').child(companyid).set({
                 data: randomString(),
             });
             swal("Success", data, "success");
-            console.log(column + id);
-            document.getElementById(column + id).style.display = "none";
-        }
-    });
-}
-
-//Edit Card type
-function update_Credit(column, id) {
-    //var value = element.innerText;
-    var companyId = document.getElementById('companyId').value;
-
-    $.ajax({
-        url: 'admin/bank_credit.php?type=' + 'card_credit',
-        type: 'POST',
-        data: {
-            companyId: companyId,
-            column: column,
-            id: id,
-            cardType: element,
-        },
-        success: function (data) {
-            database.ref('bank_credit').child(companyid).set({
-                data: randomString(),
-            });
-            swal("Update", data, 'success');
+            $("#updateTable").modal('hide');
+            $("#search").val("");
         }
     });
 }
@@ -2128,7 +2341,7 @@ function updateSubCardTable() {
     var SubCardBody = document.getElementById('SubCardBody');
 
     $.ajax({
-        url: 'admin/utils/getSub_credit_card.php',
+        url: 'admin/utils/getSub_credit_card.php?types=live_sub_credit',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
@@ -2139,7 +2352,42 @@ function updateSubCardTable() {
         },
     });
 }
+// Search Sub Credit Bank
+function searchTextSub_Credit(x)
+{
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'admin/utils/getSub_credit_card.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('SubCardBody').innerHTML = j;
+        }
+    });
+}
 
+// Paginate Sub Credit Card
+function paginate_subc_card(start, limit) {
+    $.ajax({
+        url: 'admin/utils/getSub_credit_card.php?types=paginate_subcredit',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('SubCardBody').innerHTML = response;
+        },
+
+    });
+}
 
 // Add Sub Credit
 function Add_SubCredit() {
@@ -2193,14 +2441,17 @@ function import_Sub_credit() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('sub_credit_card').child(companyid).set({
+                data: randomString(),
+            });
             swal('Success', data, 'success');
         }
     });
 }
 
 //Edit Sub Credit
-function updateSubCredit(column, id) {
-    var data = $('#sub_credit_table').find('input[type="text"],textarea').val();
+function updateSubCredit(column, id, value) {
+    
     var companyId = $('#companyid').val();
 
     $.ajax({
@@ -2210,51 +2461,30 @@ function updateSubCredit(column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: data,
+            value: value,
         },
         success: function (data) {
             database.ref('sub_credit_card').child(companyid).set({
                 data: randomString(),
             });
             swal("Success", data, "success");
-            document.getElementById(column + id).style.display = "none";
-        }
-    });
-}
-
-//Edit Sub Credit
-function updateSub_Credit(column, id) {
-    //var value = element.innerText;
-    var data = $('#sub_credit_table').find('input[type="text"],textarea').val();
-    var companyId = $('#companyid').val();
-
-    $.ajax({
-        url: 'admin/sub_credit_card.php?type=' + 'edit_card_type',
-        type: 'POST',
-        data: {
-            companyId: companyId,
-            column: column,
-            id: id,
-            mainCard: data,
-        },
-        success: function (data) {
-            database.ref('sub_credit_card').child(companyid).set({
-                data: randomString(),
-            });
-            swal("Update", data, 'success');
-            document.getElementById(column + id).style.display = "none";
+            $("#updateTable").modal('hide');
+            $("#search").val("");
         }
     });
 }
 
 // Delete Sub Credit
-function deleteSubCredit(id) {
+function deleteSubCredit(id, mCard) {
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/sub_credit_card.php?type=' + 'delete_sub_credit',
             type: 'POST',
-            data: {id: id},
+            data: {id: id,mainCard: mCard},
             success: function (data) {
+                database.ref('sub_credit_card').child(companyid).set({
+                    data: randomString(),
+                });
                 swal('Delete', 'Data Removed Successfully.', 'success');
             }
         });
@@ -2318,7 +2548,7 @@ function UpdateCustomTable() {
     var custom_broker_body = document.getElementById('custom_broker_body');
     // var bankList = document.getElementById('Name');
     $.ajax({
-        url: 'admin/utils/getCustom.php',
+        url: 'admin/utils/getCustomsBroker.php?types=live_customs',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
@@ -2329,6 +2559,44 @@ function UpdateCustomTable() {
     });
 }
 
+// Search Custom Broker
+function search_custom_b(x)
+{
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'admin/utils/getCustomsBroker.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('custom_broker_body').innerHTML = j;
+        }
+    });
+}
+
+// Paginate Custom Broker
+function paginate_custom_broker(start, limit) {
+    
+    $.ajax({
+       // url: 'admin/utils/paginateCustomBroker.php',
+        url: 'admin/utils/getCustomsBroker.php?types=paginate_customs',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('custom_broker_body').innerHTML = response;
+        },
+
+    });
+}
 
 // Add Customs Broker
 function Add_CustomBroker() {
@@ -2375,6 +2643,7 @@ function Add_CustomBroker() {
 // Edit Custom Broker
 function updateCustom(column, id, value) {
     var companyId = document.getElementById('companyId').value;
+
     $.ajax({
         url: 'admin/custom_broker.php?type=' + 'edit_custom_broker',
         type: 'POST',
@@ -2385,11 +2654,13 @@ function updateCustom(column, id, value) {
             value: value,
         },
         success: function (data) {
-            database.ref('custom_broker').child(companyid).set({
-                data: randomString(),
+            database.ref('customs_broker').child(companyid).set({
+                data:randomString(),
             });
-            swal("Success", data, "success");
 
+            swal("Success", data, "success");
+            $("#updateTable").modal('hide');
+            
         }
     });
 }
@@ -2450,32 +2721,17 @@ function import_Custom_Broker() {
         cache: false,
         processData: false,
         success: function (data) {
+            database.ref('custom_broker').child(companyid).set({
+                data: randomString(),
+            });
             swal('Success', data, 'success');
         }
     });
 }
 
-
-function paginate_custom_broker(start, limit) {
-
-    $.ajax({
-        url: 'admin/utils/paginateCustomBroker.php',
-        type: 'POST',
-        data: {
-            start: start,
-            limit: limit,
-        },
-        dataType: 'text',
-        success: function (response) {
-            document.getElementById('custom_broker_body').innerHTML = response;
-        },
-
-    });
-}
-
 /*----------------- Customs Broker END -------------------------*/
 
-//-----------------Truck Add start-------------------------------------
+//-----------------Truck Add start------------------------------//
 
 //ajax Function For insert Truck
 function TruckAdd() {
@@ -2552,7 +2808,7 @@ function updateTruckTable() {
     var truckBody = document.getElementById('truckBody');
     var truckList = document.getElementById('browserstruck');
     $.ajax({
-        url: 'admin/utils/getTruck.php',
+        url: 'admin/utils/getTruck.php?types=live_truck_table',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
@@ -2568,7 +2824,42 @@ function updateTruckTable() {
     });
 }
 
-//
+// Search Truck
+function search_truck(x)
+{
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'admin/utils/getTruck.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('truckBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate Truck
+function paginate_trucks(start, limit) {
+    
+    $.ajax({
+        url: 'admin/utils/getTruck.php?types=paginate_truck_admin',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('truckBody').innerHTML = response;
+        },
+    });
+}
 
 // Export Excel Function For Truck Add
 function exportTruckAdd() {
@@ -2600,10 +2891,9 @@ function exportTruckAdd() {
 }
 
 //update Truck Function
-function updateTruckAdd(column, id) {
-    var data = $('#truck_table').find('input[type="text"],textarea').val();
-
+function updateTruckAdd(column, id, value) {
     var companyId = $('#companyid').val();
+
     $.ajax({
         url: 'admin/truckadd_driver.php?type=' + 'edit_truck',
         type: 'POST',
@@ -2611,7 +2901,7 @@ function updateTruckAdd(column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: data,
+            value: value,
         },
         success: function (data) {
             var companyid = $('#companyid').val();
@@ -2619,18 +2909,20 @@ function updateTruckAdd(column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-            document.getElementById(column + id).style.display = "none";
+            $("#updateTable").modal('hide');
+            $("#search").val("");
+
         }
     });
 }
 
 // Delete Truck Function
-function deleteTruckAdd(id) {
+function deleteTruckAdd(id, truckid) {
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/truckadd_driver.php?type=' + 'delete_truck',
             type: 'POST',
-            data: {id: id},
+            data: { id: id,truckType: truckid },
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('truck').child(companyid).set({
@@ -2718,7 +3010,7 @@ function updateTrailerTable() {
     var trailerBody = document.getElementById('trailerBody');
     var trailerList = document.getElementById('browserstrailer');
     $.ajax({
-        url: 'admin/utils/getTrailer.php',
+        url: 'admin/utils/getTrailer.php?types=live_trailer_table',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
@@ -2735,12 +3027,46 @@ function updateTrailerTable() {
     });
 }
 
-//
+// Search Trailer
+function search_trailer(x)
+{
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'admin/utils/getTrailer.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('trailerBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate Trailer
+function paginate_trailer(start, limit) {
+    
+    $.ajax({
+        url: 'admin/utils/getTrailer.php?types=paginate_trailer_admin',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('trailerBody').innerHTML = response;
+        },
+
+    });
+}
 
 //update Trailer Function
-function updateTrailerAdd(column, id) {
-    var data = $('#trailer_table').find('input[type="text"],textarea').val();
-
+function updateTrailerAdd(column, id, value) {
     var companyId = $('#companyid').val();
 
     $.ajax({
@@ -2750,7 +3076,7 @@ function updateTrailerAdd(column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: data,
+            value: value,
         },
         success: function (data) {
             var companyid = $('#companyid').val();
@@ -2758,21 +3084,22 @@ function updateTrailerAdd(column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-
-            document.getElementById(column + id).style.display = "none";
+            $("#updateTable").modal('hide');
+            $("#search").val("");
+            
         }
     });
 }
 
 
 // Delete Trailer Function
-function deleteTrailerAdd(id) {
-
+function deleteTrailerAdd(id,trailerT) {
+    //alert(id);
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/traileradd_driver.php?type=' + 'delete_trailer',
             type: 'POST',
-            data: {id: id},
+            data: {id: id,trailerType: trailerT},
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('trailer').child(companyid).set({
@@ -2911,10 +3238,9 @@ function updateFactoringTable() {
     var factoringBody = document.getElementById('factoringBody');
     var factoringList = document.getElementById('searchFactoring');
     var factoringCustomer = document.getElementById('factoringlist');
-    var browsers1 = document.getElementById('browsers1');
 
     $.ajax({
-        url: 'admin/utils/getFactoring.php',
+        url: 'admin/utils/getFactoring.php?types=live_factoring_table',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
@@ -2929,20 +3255,52 @@ function updateFactoringTable() {
             if (factoringCustomer != null) {
                 factoringCustomer.innerHTML = res[2];
             }
-            if (browsers1 != null) {
-                browsers1.innerHTML = res[2];
-            }
         },
     });
 }
 
-//
+// Search factoring company
+function search_factoring(x)
+{
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'admin/utils/getFactoring.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('factoringBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate Factoring
+function paginate_factoring(start, limit) {
+    
+    $.ajax({
+        url: 'admin/utils/getFactoring.php?types=paginate_factoring_com',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('factoringBody').innerHTML = response;
+        },
+
+    });
+}
 
 //update Factoring Function
-function updateFactoring(column, id) {
-    var data = $('#factoring_table').find('input[type="text"],textarea').val();
-
+function updateFactoring(column, id, value) {
     var companyId = $('#companyid').val();
+    
     $.ajax({
         url: 'admin/factoring_driver.php?type=' + 'edit_factoring',
         type: 'POST',
@@ -2950,7 +3308,7 @@ function updateFactoring(column, id) {
             companyId: companyId,
             column: column,
             id: id,
-            value: data,
+            value: value,
         },
         success: function (data) {
             var companyid = $('#companyid').val();
@@ -2958,19 +3316,22 @@ function updateFactoring(column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-            console.log(column + id);
-            document.getElementById(column + id).style.display = "none";
+            $("#updateTable").modal('hide');
+            $("#search").val("");
         }
     });
 }
 
 // Delete Factoring Function
-function deletefactoring(id) {
+function deletefactoring(id,currencyid,paymentid) {
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/factoring_driver.php?type=' + 'delete_factoring',
             type: 'POST',
-            data: {id: id},
+            data: {id: id,
+                currencySetting:currencyid,
+                paymentid:paymentid
+            },
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('factoring').child(companyid).set({
@@ -4051,7 +4412,7 @@ function updateDriverTable() {
     var driverBody = document.getElementById('driverBody');
     var driverList = document.getElementById('browsersdriver');
     $.ajax({
-        url: 'admin/utils/getDriver.php',
+        url: 'admin/utils/getDriver.php?types=live_driver_table',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
@@ -4063,6 +4424,43 @@ function updateDriverTable() {
                 driverList.innerHTML = res[1];
             }
         },
+    });
+}
+// Search Driver
+function search_driver(x)
+{
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'admin/utils/getDriver.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('driverBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate Driver
+function paginate_driver(start, limit) {
+    
+    $.ajax({
+        url: 'admin/utils/getDriver.php?types=paginate_drive',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('driverBody').innerHTML = response;
+        },
+
     });
 }
 
@@ -4079,15 +4477,17 @@ function importDriver() {
         cache: false,
         processData: false,
         success: function (data) {
+            // var companyid = $('#companyid').val();
+            // database.ref('driver').child(companyid).set({
+            //     data: randomString(),
+            // });
             swal('Success', data, 'success');
         }
     });
 }
 
 // Edit function
-function updateDriver(column, id) {
-    var data = $('#driver_table').find('input[type="text"],textarea').val();
-
+function updateDriver(column, id, value) {
     var companyId = $('#companyid').val();
 
     $.ajax({
@@ -4096,7 +4496,7 @@ function updateDriver(column, id) {
         data: {
             column: column,
             id: id,
-            value: data,
+            value: value,
         },
         success: function (data) {
             var companyid = $('#companyid').val();
@@ -4104,7 +4504,8 @@ function updateDriver(column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-            document.getElementById(column + id).style.display = "none";
+            $("#updateTable").modal('hide');
+            $("#search").val("");
         }
     });
 }
@@ -4717,9 +5118,7 @@ function addCarrier() {
     });
 }
 
-function updateExternal(column, id) {
-    var data = $('#carrier_table').find('input[type="text"],textarea').val();
-
+function updateExternal(column, id, value) {
     var companyId = document.getElementById('companyid').value;
 
     $.ajax({
@@ -4729,7 +5128,7 @@ function updateExternal(column, id) {
             companyid: companyId,
             column: column,
             id: id,
-            value: data,
+            value: value,
         },
         success: function (data) {
             var companyid = $('#companyid').val();
@@ -4737,7 +5136,8 @@ function updateExternal(column, id) {
                 data: randomString(),
             });
             swal("Success", data, "success");
-            document.getElementById(column + id).style.display = "none";
+            $("#updateTable").modal('hide');
+            $("#search").val("");
         }
     });
 }
@@ -4764,7 +5164,7 @@ function updateCarrierTable() {
     var carrierBody = document.getElementById('carrierBody');
     var carrierList = document.getElementById('browserscarrier');
     $.ajax({
-        url: 'admin/utils/getCarrier.php',
+        url: 'admin/utils/getCarrier.php?types=live_carrier_table',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
@@ -4776,6 +5176,61 @@ function updateCarrierTable() {
                 carrierList.innerHTML = res[1];
             }
         },
+    });
+}
+// Delete function
+function deleteExternal(id,paymentid,factoringid) {
+    if (confirm('Are you sure to remove this record ?')) {
+        $.ajax({
+            url: 'admin/carrier_driver.php?type=' + 'delete_carrier',
+            type: 'POST',
+            data: {id: id,paymentTerm: paymentid,factoringCompany: factoringid},
+            success: function (data) {
+                var companyid = $('#companyid').val();
+                database.ref('carrier').child(companyid).set({
+                    data: randomString(),
+                });
+                swal('Delete', 'Data Removed Successfully.', 'success');
+            }
+        });
+    }
+}
+
+// Search External Carrier
+function search_carrier(x)
+{
+    var n = x.value;
+    var companyId = document.getElementById('companyId').value;
+    
+    $.ajax({
+        type: 'POST',
+        url: 'admin/utils/getCarrier.php?types=search_text',
+        data: {
+            getoption:n,
+            companyId:companyId,
+        },
+        success: function (response) {
+            var j = response.trim();
+            document.getElementById('carrierBody').innerHTML = j;
+        }
+    });
+}
+
+// Paginate External Carrier
+function paginate_carrier(start, limit) {
+    
+    $.ajax({
+        url: 'admin/utils/getCarrier.php?types=paginate_extCar',
+        type: 'POST',
+        data: {
+            start: start,
+            limit: limit,
+        },
+        dataType: 'text',
+        success: function (response) {
+            document.getElementById('carrierBody').innerHTML = response;
+        },
+
     });
 }
 

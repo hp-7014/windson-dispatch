@@ -32,7 +32,7 @@ else if ($_GET['type'] == 'import_sub_credit') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $sub_card = new SubCredit();
-        $sub_card->import_sub_Credit($targetPath,$helper);
+        $sub_card->import_sub_Credit($targetPath,$helper,$db);
     }
 }
 
@@ -61,9 +61,8 @@ else if ($_GET['type'] == 'edit_card_type') {
 else if ($_GET['type'] == 'delete_sub_credit') {
     $s_credit = new SubCredit();
     $s_credit->setId($_POST['id']);
-    $s_credit->$_POST['delete_status'];
-
-    $s_credit->delete_Sub_Credit($s_credit,$db);
+    $s_credit->setMainCard($_POST['mainCard']);
+    $s_credit->delete_Sub_Credit($s_credit,$db,$helper);
 }
 
 // Export Data Here

@@ -1100,9 +1100,22 @@ class External_Carrier implements IteratorAggregate
                 'deleteStatus' => 0,
                 'equipment'=>$this->equipment,
             ]]]);
+
+            $db->factoring_company_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'factoring._id' => (int)$this->factoringCompany],
+                ['$set' => ['factoring.$.counter' => $helper->getDocumentSequenceId((int)$this->factoringCompany,$db->factoring_company_add,"factoring",(int)$_SESSION['companyId'])]]);
+       
+            $db->payment_terms->updateOne(['companyID' => (int)$_SESSION['companyId'], 'payment._id' => (int)$this->paymentTerms],
+                ['$set' => ['payment.$.counter' => $helper->getDocumentSequenceId((int)$this->paymentTerms,$db->payment_terms,"payment",(int)$_SESSION['companyId'])]]);
+       
         } else {
             $cons = iterator_to_array($carrier);
             $db->carrier->insertOne($cons);
+
+            $db->factoring_company_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'factoring._id' => (int)$this->factoringCompany],
+                ['$set' => ['factoring.$.counter' => $helper->getDocumentSequenceId((int)$this->factoringCompany,$db->payment_terms,"factoring",(int)$_SESSION['companyId'])]]);
+            
+            $db->payment_terms->updateOne(['companyID' => (int)$_SESSION['companyId'], 'payment._id' => (int)$this->paymentTerms],
+                ['$set' => ['payment.$.counter' => $helper->getDocumentSequenceId((int)$this->paymentTerms,$db->payment_terms,"payment",(int)$_SESSION['companyId'])]]);
         }
     }
 
@@ -1110,6 +1123,18 @@ class External_Carrier implements IteratorAggregate
         $db->carrier->updateOne(['companyID' => (int)$_SESSION['companyId'], 'carrier._id' => (int)$this->getId()],
             ['$set' => ['carrier.$.' . $external->getColumn() => $external->getName()]]
         );
+    }
+
+    public function delete_ExtCar($external, $db, $helper) {
+        $db->carrier->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+            '$pull' => ['carrier' => ['_id' => (int)$external->getId()]]]
+        );
+        
+        $db->factoring_company_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'factoring._id' => (int)$this->factoringCompany],
+            ['$set' => ['factoring.$.counter' => $helper->getDocumentDecrementId((int)$this->factoringCompany,$db->payment_terms,"factoring",(int)$_SESSION['companyId'])]]);
+            
+        $db->payment_terms->updateOne(['companyID' => (int)$_SESSION['companyId'], 'payment._id' => (int)$this->paymentTerms],
+            ['$set' => ['payment.$.counter' => $helper->getDocumentDecrementId($this->paymentTerms,$db->payment_terms,"payment",(int)$_SESSION['companyId'])]]);
     }
 
 

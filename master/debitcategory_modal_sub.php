@@ -12,21 +12,22 @@ require "../database/connection.php"; ?>
             </div>
             <div class="modal-body">
                 <div class="form-group col-md-12">
-                    <label>Name <span style="color: red">*</span></label>
+                    <label>Name <span class="mandatory">*</span></label>
                     <div>
                         <input class="form-control" placeholder="Name" name="debit_category_name" type="text"
                                id="debit_category_name">
                         <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger waves-effect modalDebitCategory">
-                    Close
-                </button>
-                <button type="submit" name="submit" onclick="addDebitCategory()" id=""
+                <span class="mandatory">Note: * Fields are Mandatory</span>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect modalDebitCategory">
+                        Close
+                    </button>
+                    <button type="submit" name="submit" onclick="addDebitCategory()" id=""
                         class="btn btn-primary waves-effect waves-light">Save
-                </button>
+                    </button>
+                </div>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

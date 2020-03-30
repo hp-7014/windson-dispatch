@@ -104,6 +104,7 @@ include '../database/connection.php';
                     <!--                        </div>-->
                     <!--                    </div>-->
                 </div>
+                
                 <div class="modal-footer">
                     <label class="text-danger" style="padding-right: 120px"><b>Note :</b>&nbsp; * Fields are
                         mandatory</label>

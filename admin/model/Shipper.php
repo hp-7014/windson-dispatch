@@ -428,6 +428,7 @@ class Shipper implements IteratorAggregate
                 'counter' => 0,
                 'shipper' => array([
                     '_id' => 0,
+                    'counter' => 0,
                     'shipperName' => $this->shipperName,
                     'shipperAddress' => $this->shipperAddress,
                     'shipperLocation' => $this->shipperLocation,
@@ -447,6 +448,7 @@ class Shipper implements IteratorAggregate
                     'insertedTime' => time(),
                     'insertedUserId' => $_SESSION['companyName'],
                     'deleteStatus' => 0
+                    
                 ])
             )
         );
@@ -462,6 +464,7 @@ class Shipper implements IteratorAggregate
         if ($count > 0) {
             $db->shipper->updateOne(['companyID' => (int)$this->companyID], ['$push' => ['shipper' => [
                 '_id' => $helper->getDocumentSequence((int)$this->companyID, $db->shipper),
+                'counter' => 0,
                 'shipperName' => $this->shipperName,
                 'shipperAddress' => $this->shipperAddress,
                 'shipperLocation' => $this->shipperLocation,
@@ -488,11 +491,10 @@ class Shipper implements IteratorAggregate
         }
     }
 
-    public function importExcel($targetPath, $helper)
+    public function importExcel($targetPath, $helper, $db)
     {
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 
@@ -586,9 +588,12 @@ class Shipper implements IteratorAggregate
     // delete fucntion
     public function deleteShipper($shipper, $db)
     {
-        $db->shipper->updateOne(['companyID' => (int)$_SESSION['companyId'], 'shipper._id' => (int)$this->getId()],
-            ['$set' => ['shipper.$.deleteStatus' => 1]]
+        $db->shipper->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+            '$pull' => ['shipper' => ['_id' => (int)$shipper->getId()]]]
         );
+        // $db->shipper->updateOne(['companyID' => (int)$_SESSION['companyId'], 'shipper._id' => (int)$this->getId()],
+        //     ['$set' => ['shipper.$.deleteStatus' => 1]]
+        // );
     }
 
 }

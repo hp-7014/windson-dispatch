@@ -4,6 +4,7 @@
 ?>
 <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="Ifta_Card_Category"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
+     <div class="iftacard-category-container" style="z-index: 1800"></div>
      <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-xxl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
@@ -14,71 +15,110 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body custom-modal-body">
-                <div class="iftacard-container" style="z-index: 1800"></div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card m-b-30">
-                            <div class="card-body">
-                                <form>
-                                    <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#" id="Add_Ifta_Card">Add</button>
+        
+            <div class="modal-body custom-modal-body" style="padding: 0.1rem">
+                <form method="post" enctype="multipart/form-data">
+                    <button class="btn btn-primary waves-effect waves-light" type="button" data-toggle="modal"
+                        data-target="#" id="Add_Ifta_Card"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD
+                    </button>
 
-                                    <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="importCard_Cat()">Upload</button>
+                    <button type="button" class="btn btn-outline-info waves-effect waves-light float-right" onclick="importCard_Cat()">Upload</button>
 
-                                    <div class="custom-upload-btn-wrapper float-right">
-                                        <button class="custom-btn">Choose file</button>
-                                        <input type="file" id="file" name="cardfile"/>
-                                    </div>
+                    <div class="custom-upload-btn-wrapper float-right">
+                        <button class="custom-btn">Choose file</button>
+                        <input type="file" id="file" name="cardfile"/>
+                    </div>
 
-                                </form>
-                                <br>
-                                <table id="mainTable3" class="table table-striped mb-0 table-editable">
-                                    <thead>
+                    <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV formate</button>
+                </form>
+                <br>
+
+                <div class="table-rep-plugin">
+                    <div class="table-responsive" data-pattern="priority-columns">
+                        <br>
+                        <div id="table-scroll" class="table-scroll">
+                            <table id="tech-companies-1" class="scroll">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" col width="50">No</th>
+                                        <th scope="col" col width="160" data-priority="1">Card Holder Name</th>
+                                        <th scope="col" col width="160" data-priority="3">IFTA Card No.</th>
+                                        <th scope="col" col width="160" data-priority="1">Card Type</th>
+                                        <th scope="col" col width="160" data-priority="3">Action</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody id="IftacardBody">
+                                <?php
+                                    $g_data =  $db->ifta_card_category->find(['companyID' => $_SESSION['companyId']]);
+                                    
+                                    $i = 1;
+                                    
+                                    foreach ($g_data as $data) {
+                                    $ifta_c = $data['ifta_card'];
+                                    
+                                    foreach ($ifta_c as $ifta) {      
+                                        $counter = $ifta['counter'];                              
+                                        $cardHolderName = "'".$ifta['cardHolderName']."'";
+                                        $iftaCardNo = "'".$ifta['iftaCardNo']."'";
+                                        $cardType = "'".$ifta['cardType']."'";
+
+                                        $pencilid1 = "'"."cardHolderNamePencil$i"."'";
+                                        $pencilid2 = "'"."iftaCardNoPencil$i"."'";
+                                        $pencilid3 = "'"."cardTypePencil$i"."'";
+                                ?>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Card Holder Name</th>
-                                            <th>IFTA Card No.</th>
-                                            <th>Card Type</th>
-                                            <th>Action</th>
+                                            <td><?php echo $i++; ?></td>
+                                            <td class="custom-text" id="<?php echo "cardHolderName".$i; ?>"
+                                                onmouseout="<?php echo "hidePencil('cardHolderNamePencil$i'); "?>"
+                                                onmouseover="<?php echo "showPencil('cardHolderNamePencil$i'); "?>"
+                                                >
+                                                <i id="<?php echo "cardHolderNamePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                    onclick="updateTableColumn(<?php echo $cardHolderName; ?>,'updateCardCat','text',<?php echo $ifta['_id']; ?>,'cardHolderName','Card Holder Name',<?php echo $pencilid1; ?>)"
+                                                ></i>
+                                                <?php echo $ifta['cardHolderName']; ?>
+                                            </td>
+                                            <td class="custom-text" id="<?php echo "iftaCardNo".$i; ?>"
+                                                onmouseout="<?php echo "hidePencil('iftaCardNoPencil$i'); "?>"
+                                                onmouseover="<?php echo "showPencil('iftaCardNoPencil$i'); "?>"
+                                                >
+                                                <i id="<?php echo "iftaCardNoPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                    onclick="updateTableColumn(<?php echo $iftaCardNo; ?>,'updateCardCat','text',<?php echo $ifta['_id']; ?>,'iftaCardNo','IFTA Card No.',<?php echo $pencilid2; ?>)"
+                                                ></i>
+                                                <?php echo $ifta['iftaCardNo']; ?>
+                                            </td>
+                                            <td class="custom-text" id="<?php echo "cardType".$i; ?>"
+                                                onmouseout="<?php echo "hidePencil('cardTypePencil$i'); "?>"
+                                                onmouseover="<?php echo "showPencil('cardTypePencil$i'); "?>"
+                                                >
+                                                <i id="<?php echo "cardTypePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                    onclick="updateTableColumn(<?php echo $cardType; ?>,'updateCardCat','text',<?php echo $ifta['_id']; ?>,'cardType','Card Type',<?php echo $pencilid3; ?>)"
+                                                ></i>
+                                                <?php echo $ifta['cardType']; ?>
+                                            </td>
+                                            <td>
+                                                <?php if ($counter == 0) { ?>
+                                                    <a href="#" onclick="deleteCardCat(<?php echo $ifta['_id']; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                <?php } else { ?>
+                                                    <a href="#" disabled onclick="deleteCurrencyError()"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #adb5bd"></i></a>
+                                                <?php } ?>
+                                            </td>
                                         </tr>
-                                    </thead>
-
-                                    <?php
-                                    $card_cat = $db->ifta_card_category->find(['companyID' => $_SESSION['companyId']]);
-                                    $no = 1;
-                                    ?>
-                                    <tbody id="iftacardBody">
-                                    <?php foreach ($card_cat as $card) {
-                                        $ifta_card = $card['ifta_card'];
-
-                                        foreach ($ifta_card as $c_card) { ?>
-                                            <tr>
-                                                <td><?php echo $no++; ?></td>
-                                                <td contenteditable="true" onblur="updateCardCat(this,'cardHolderName',<?php echo $c_card['_id']; ?>)"><?php echo $c_card['cardHolderName']; ?></td>
-                                                <td contenteditable="true" onblur="updateCardCat(this,'iftaCardNo',<?php echo $c_card['_id']; ?>)"><?php echo $c_card['iftaCardNo']; ?></td>
-                                                <td contenteditable="true" onblur="updateCardCat(this,'cardType',<?php echo $c_card['_id']; ?>)"><?php echo $c_card['cardType']; ?></td>
-                                                <td><a href="#" onclick="deleteCardCat(<?php echo $c_card['_id']; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></i></a>
-                                                </td>
-                                            </tr>
-                                        <?php }
+                                <?php 
                                     }
-                                    ?>
-                                    </tbody>
-
-                                </table>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" onclick="exportifta()" class="btn btn-primary waves-effect" data-dismiss="modal">
-                                    Export
-                                </button>
-
-                                <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">
-                                    Close
-                                </button>
-                                <!--<button type="button" class="btn btn-primary waves-effect waves-light">Save
-                                </button>-->
-                            </div>
+                                }
+                                ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>    
+                                        <th>No</th>
+                                        <th>Card Holder Name</th>
+                                        <th>IFTA Card No.</th>
+                                        <th>Card Type</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </div>
                     </div>
                 </div>

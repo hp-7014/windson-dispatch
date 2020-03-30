@@ -5,91 +5,84 @@ require 'vendor/autoload.php';
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
 $collection = $db->carrier;
-
 //$collection->updateOne(['companyID' => 1], [
 //        '$pull' => ['Delivered' => ['_id' => 3]]]
 //);
-
-//db.bank_admin.aggregate([
-// {
-//     $lookup:{
-//    from: "company",
-//         localField: "companyID",
-//         foreignField: "companyID",
-//         as: "company"
+// $show = $db->active_load->find(['companyID' => 1]);
+// $i = 0;
+// foreach($show as $row) {
+//     $i++;
+//     $invoice = $row['Invoiced'];
+//     foreach ($invoice as $row1) {
+//         $i++;
+//         if ($row1['driver_name'] == "1") {
+//             $driverid = $row1['_id'];
+//             $drivertotle = $row1['driver_total'];
+//             echo $driverid.") ".$drivertotle . "<br>";
+//         }
 //     }
-// },
-// {$match:{companyID:1}}
-//])
+// }
+// echo $i;
 
-$collection = $db->carrier;
-$show = $collection->aggregate([
-    ['$lookup' => [
-        'from' => 'active_load',
-        'localField' => 'companyID',
-        'foreignField' => 'companyID',
-        'as' => 'active'
-    ]],
-    ['$match' => ['companyID' => 1]],
-    ['$unwind' => '$carrier'],
-    ['$match' => ['carrier.factoringCompany' => "5"]],
+$collection = $db->active_load;
+$show1 = $collection->aggregate([
+        ['$match'=>['companyID'=>1]],
+        ['$unwind'=>'$Invoiced'],
+        ['$match'=>['Invoiced.driver_name'=>"1"]]
 ]);
-
-foreach ($show as $row) {
-    $carrier = array();
-    $k = 0;
-    $carrier[$k] = $row['carrier'];
-    $k++;
-    $carrierid = array();
-    $active = $row['active'];
-    foreach ($carrier as $row1) {
-        $carrierid = $row1['_id'];
+$i = 0;
+foreach ($show1 as $row) {
+$i++;
+$Invoiced = array();
+$k = 0;
+$Invoiced[$k] = $row['Invoiced'];
+$k++;
+foreach ($Invoiced as $row) {
+    $i++;
+    echo $row['_id'].")".$row['driver_total']."<br>";
+    $other_charges_modal = $row['other_charges_modal'];
+    foreach ($other_charges_modal as $row2) {
+        $i++;
+        echo $row2['description']." ".$row2['amount']."<br>";
     }
-    foreach ($active as $row2) {
-        $invoice = $row2['Invoiced'];
-        foreach ($invoice as $row3) {
-            if ($carrierid == $row3['carrier_name']) {
-                $cid = $row3['_id'];
-                $carrier_name = $row3['carrier_name'];
-                echo $cid . "<br>";
-            }
-        }
-    }
+   }
 }
+echo $i;
 
-//$show = $collection->aggregate([
-//    ['$lookup' => [
-//        'from' => 'active_load',
-//        'localField' => 'companyID',
-//        'foreignField' => 'companyID',
-//        'as' => 'company'
-//    ]],
-//    ['$match' => ['companyID' => 1]]
-//]);
-//$factoringID = 5;
-//$carrierID = [];
-//$activeID = [];
-//$finalarray = [];
-//foreach ($show as $show1) {
-//
-//    // carrier id from carrirer
-//    foreach ($show1['carrier'] as $car) {
-//        if ($car['factoringCompany'] == $factoringID) {
-//            $carrierID[] = $car['_id'];
-//        }
-//    }
-//
-//    // active load carrier id
-//    foreach ($show1['company'] as $com) {
-//        foreach ($com['Invoiced'] as $a) {
-//            for ($i = 0; $i < sizeof($carrierID); $i++) {
-//                if ($carrierID[$i] == $a['carrier_name']) {
-//                    echo $a['_id']."->".$a['carrier_total']." ";
-//                }
-//            }
-//        }
-//    }
-//}
+                                    // $collection = $db->bank_admin;
+                                    // $show1 = $collection->aggregate([
+                                    //     ['$lookup' => [
+                                    //         'from' => 'company',
+                                    //         'localField' => 'companyID', 
+                                    //         'foreignField' => 'companyID',
+                                    //         'as' => 'company'
+                                    //     ]],
+                                    //     ['$match'=>['companyID'=>1]]
+                                    //  ]);
+
+                                    //  foreach ($show1 as $row) {
+                                    //      $admin_bank = $row['admin_bank'];
+                                    //      $company = $row['company'];
+                                    //      $companyName = array();
+                                    //      foreach ($company as $row1) {
+                                    //         $company1 = $row1['company'];
+                                    //         foreach ($company1 as $row2) {
+                                    //             $companyid = $row2['_id'];
+                                    //             $companyName[$companyid] = $row2['companyName'];
+                                    //         }
+                                    //      }
+                                    //      foreach ($admin_bank as $row3) {
+                                    //         $accountHolder = $companyName[$row3['accountHolder']];
+                                    //         echo $accountHolder;
+                                    //      }
+                                    //  }
+//$show1 = $db->active_load->find(['companyID' => 1],['activeload' => ['$slice' => 5]]);
+// $show1 = $db->active_load->find(array('companyID' => 1), array('projection' => array('activeload' => array('$slice' => [0,5]))));
+// foreach ($show1 as $show) {
+//     foreach ($show['activeload'] as $s){
+//         print_r($s);
+//     }
+// }
 
 //$old_value = "Delivered";
 //$new_value = "Loaded";

@@ -23,6 +23,7 @@ require "../database/connection.php";
                         </div>
                     </div>
                 </div>
+                <span class="mandatory">Note: * Fields are Mandatory</span>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger waves-effect modalTrailerType"
                     >Close

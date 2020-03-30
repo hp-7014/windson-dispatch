@@ -42,7 +42,7 @@ else if ($_GET['type'] == 'import_bank_credit') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $b_credit = new CreditCard();
-        $b_credit->import_Bank_Credit($targetPath,$helper);
+        $b_credit->import_Bank_Credit($targetPath,$helper, $db);
     }
 }
 
@@ -50,7 +50,8 @@ else if ($_GET['type'] == 'import_bank_credit') {
 else if ($_GET['type'] == 'delete_credit') {
     $b_credit = new CreditCard();
     $b_credit->setId($_POST['id']);
-    $b_credit->delete_Credits($b_credit,$db);
+    $b_credit->setName($_POST['name']);
+    $b_credit->delete_Credits($b_credit,$db,$helper);
 }
 
 // Edit Credit Here

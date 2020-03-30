@@ -154,7 +154,7 @@ include '../database/connection.php';
                 $currencyType = $row1['currencyType'];
                 $cur = "$currencyType";
                 ?>
-                <option value="<?php echo $id.")".$cur; ?>">
+                <option value="<?php echo $id .")".$cur; ?>">
                     <?php }
                     } ?>
             </datalist>

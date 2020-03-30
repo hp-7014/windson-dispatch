@@ -100,7 +100,8 @@ class LoadType implements IteratorAggregate
                 'loadType' => array([
                     '_id' => 0,
                     'loadName' => $this->LoadName,
-                    'loadType' => $this->LoadType
+                    'loadType' => $this->LoadType,
+                    'counter' => 0
                 ])
             )
         );
@@ -117,7 +118,8 @@ class LoadType implements IteratorAggregate
             $db->load_type->updateOne(['companyID' => (int)$this->companyID], ['$push' => ['loadType' => [
                 '_id' => $helper->getDocumentSequence((int)$this->companyID, $db->load_type),
                 'loadName' => $this->LoadName,
-                'loadType' => $this->LoadType
+                'loadType' => $this->LoadType,
+                'counter' => 0
             ]]]);
         } else {
             $load = iterator_to_array($load_type);
@@ -156,12 +158,11 @@ class LoadType implements IteratorAggregate
         echo json_encode($lo);
     }
 
-    public function importExcel($targetPath, $helper)
+    public function importExcel($targetPath, $helper, $db)
     {
 
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 

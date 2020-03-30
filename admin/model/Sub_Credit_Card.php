@@ -130,6 +130,7 @@
                     'counter' => 0,
                     'sub_credit' => array([
                         '_id' => 0,
+                        'counter' => 0,
                         'displayName'=>$this->displayName,
                         'mainCard'=>$this->mainCard,
                         'cardHolderName'=>$this->cardHolderName,
@@ -151,6 +152,7 @@
             if ($count > 0) {
                 $db->sub_credit_card->updateOne(['companyID' => (int) $this->companyID],['$push'=>['sub_credit'=>[
                     '_id'=>$helper->getDocumentSequence((int) $this->companyID,$db->sub_credit_card),
+                    'counter' => 0,
                     'displayName'=>$this->displayName,
                     'mainCard'=>$this->mainCard,
                     'cardHolderName'=>$this->cardHolderName,
@@ -158,19 +160,36 @@
                     'delete_status'=>'0',
                     'insertedUser' => $_SESSION['companyName'],
                 ]]]);
+
+                $db->credit_card_admin->updateOne(['companyID' => (int)$_SESSION['companyId'], 'admin_credit._id' => (int)$this->mainCard],
+                ['$set' => ['admin_credit.$.counter' => $helper->getDocumentSequenceId((int)$this->mainCard,$db->credit_card_admin,"admin_credit",(int)$_SESSION['companyId'])]]);
+       
             } else {
                 $s_credit = iterator_to_array($category);
                 $db->sub_credit_card->insertOne($s_credit);
+
+                $db->credit_card_admin->updateOne(['companyID' => (int)$_SESSION['companyId'], 'admin_credit._id' => (int)$this->mainCard],
+                ['$set' => ['admin_credit.$.counter' => $helper->getDocumentSequenceId((int)$this->mainCard,$db->credit_card_admin,"admin_credit",(int)$_SESSION['companyId'])]]);
+       
             }
 
             echo "Data Insert Successfully";
         }
 
-        public function import_sub_Credit($targetPath, $helper)
+        public function delete_Sub_Credit($s_credit,$db,$helper) {
+            $db->sub_credit_card->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+                '$pull' => ['sub_credit' => ['_id' => (int)$s_credit->getId()]]]
+            );
+
+            $db->credit_card_admin->updateOne(['companyID' => (int)$_SESSION['companyId'], 'admin_credit._id' => (int)$this->mainCard],
+                ['$set' => ['admin_credit.$.counter' => $helper->getDocumentDecrementId((int)$this->mainCard,$db->credit_card_admin,"admin_credit",(int)$_SESSION['companyId'])]]);
+       
+        }
+        
+        public function import_sub_Credit($targetPath, $helper, $db)
         {
             require_once('../excel/excel_reader2.php');
             require_once('../excel/SpreadsheetReader.php');
-            include '../database/connection.php';   // connection
 
             $Reader = new SpreadsheetReader($targetPath);
 
@@ -215,16 +234,6 @@
             );
 
             echo "Data Update Successfully.";
-        }
-
-        public function delete_Sub_Credit($s_credit,$db) {
-            $db->sub_credit_card->updateOne(['companyID' => (int)$_SESSION['companyId'], 'sub_credit._id' => (int)$this->getId()],
-                ['$set' => ['sub_credit.$.delete_status' => "1"]]
-            );
-
-           /* $db->sub_credit_card->updateOne(['companyID' => (int)$_SESSION['companyId']], [
-                '$pull' => ['sub_credit' => ['_id' => (int)$s_credit->getId()]]]
-            );*/
         }
 
         public function export_Sub_Credit($db){

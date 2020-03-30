@@ -10,69 +10,96 @@ require "../database/connection.php";?>
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body custom-modal-body">
+
+            <div class="modal-body custom-modal-body" style="padding: 0.1rem">
                 <div class="office-container" style="z-index: 1800"></div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card m-b-30">
-                            <div class="card-body">
-                                <form action="" method="post" enctype="multipart/form-data">
-                                    <button type="button" class="btn btn-primary waves-effect waves-light"
-                                            data-toggle="modal"
-                                            data-target="#" id="Add_Office">Add
-                                    </button>
-                                    <input type="submit" name="submit" onclick="importOffice()"
-                                           class="btn btn-outline-info waves-effect waves-light float-right"
-                                           value="Upload"/>
-                                    <div class="custom-upload-btn-wrapper float-right">
-                                        <button class="custom-btn">Choose file</button>
-                                        <input type="file" name="file" id="file" accept=".csv"/>
-                                    </div>
-                                    <a class="btn btn-outline-success waves-effect waves-light" href="download.php?file=Add_Office.csv" style="margin-bottom: 2px;">CSV formate
-                                    </a>
-                                </form>
-                                <br>
-                                <table id="mainTable"
-                                       class="table table-striped mb-0">
-                                    <thead>
+                <form method="post" enctype="multipart/form-data">
+                    <button class="btn btn-primary float-left" type="button" data-toggle="modal"
+                            data-target="#" id="Add_Office"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD
+                    </button>
+                    <input type="submit" name="submit" onclick="importOffice()" class="btn btn-outline-info waves-effect waves-light float-right" value="Upload"/>
+                    <div class="custom-upload-btn-wrapper float-right">
+                        <button class="custom-btn">Choose file</button>
+                        <input type="file" name="file" id="file" accept=".csv"/>
+                    </div>
+                    <a class="btn btn-outline-success waves-effect waves-light float-right" href="download.php?file=Add_Office.csv" style="margin-bottom: 2px;">CSV formate
+                    </a>
+                </form>
+
+                <div class="table-rep-plugin">
+                    <div class="table-responsive b-0" data-pattern="priority-columns">
+                        <br>
+                        <div id="table-scroll-s" class="table-scroll-s">
+                            <table id="office_table" class="scroll">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" col width="2">No</th>
+                                        <th scope="col" col width="10" data-priority="1">Name</th>
+                                        <th scope="col" col width="10" data-priority="3">Location</th>
+                                        <th scope="col" col width="10" data-priority="1">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="officeBody">
+                                <?php
+                                    $show_data = $db->office->find(['companyID' => $_SESSION['companyId']]);
+                                    $i = 0;
+                                    foreach ($show_data as $show) {
+                                        $show = $show['office'];
+                                        foreach ($show as $s) {
+                                            $counter = $s['counter'];
+                                            $officeName = "'".$s['officeName']."'";
+                                            $officeLocation = "'".$s['officeLocation']."'";
+                                            $i++;
+                                            $pencilid = "'"."officePencil$i"."'";
+                                            $pencilid1 = "'"."officeLocpencil$i"."'";
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $i; ?></td>                                                                                            
+                                                <td class="custom-text" id="<?php echo "officeName".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('officePencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('officePencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "officePencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $officeName; ?>,'updateOffice','text',<?php echo $s['_id']; ?>,'officeName','Office Name',<?php echo $pencilid; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['officeName']; ?>
+                                                </td> 
+                                                <td class="custom-text" id="<?php echo "officeLocation".$i; ?>"
+                                                    onmouseout="<?php echo "hidePencil('officeLocPencil$i'); "?>"
+                                                    onmouseover="<?php echo "showPencil('officeLocPencil$i'); "?>"
+                                                    >
+                                                    <i id="<?php echo "officeLocPencil".$i; ?>" class="mdi mdi-lead-pencil edit-pencil"
+                                                        onclick="updateTableColumn(<?php echo $officeLocation; ?>,'updateOffice','text',<?php echo $s['_id']; ?>,'officeLocation','Office Location',<?php echo $pencilid1; ?>)"
+                                                    ></i>
+                                                    <?php echo $s['officeLocation']; ?>
+                                                </td> 
+                                                <td>
+                                                    <?php if ($counter == 0) { ?>
+                                                        <a href="#" onclick="deleteOffice(<?php echo $s['_id']; ?>)"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #FC3B3B"></i></a>
+                                                    <?php } else { ?>
+                                                        <a href="#" disabled onclick="deleteCurrencyError()"><i class="mdi mdi-delete-sweep-outline" style="font-size: 20px; color: #adb5bd"></i></a>
+                                                    <?php } ?>
+                                                </td>
+                                            </tr>
+                                        <?php }
+                                    }
+                                ?>
+                                </tbody>
+                                <tfoot>
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
                                         <th>Location</th>
-                                        <th>Delete</th>
+                                        <th>Action</th>
                                     </tr>
-                                    </thead>
-                                    <tbody id="officeBody">
-                                    <?php
-                                    require 'model/PaymentTerms.php';
-
-                                    $payment = new PaymentTerms();
-                                    $show_data = $db->office->find(['companyID' => $_SESSION['companyId']]);
-                                    $no = 1;
-                                    foreach ($show_data as $show) {
-                                        $show = $show['office'];
-                                        foreach ($show as $s) {
-                                            ?>
-                                            <tr>
-                                                <td><?php echo $no++; ?></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateOffice(this,'officeName',<?php echo $s['_id']; ?>)"><?php echo $s['officeName']; ?></td>
-                                                <td contenteditable="true"
-                                                    onblur="updateOffice(this,'officeLocation',<?php echo $s['_id']; ?>)"><?php echo $s['officeLocation']; ?></td>
-                                                <td><a href="#" onclick="deleteOffice(<?php echo $s['_id']; ?>)"><i
-                                                                class="mdi mdi-delete-sweep-outline"
-                                                                style="font-size: 20px; color: #FC3B3B"></i></a>
-                                                </td>
-                                            </tr>
-                                        <?php }
-                                    } ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tfoot>
+                            </table>
                         </div>
-                    </div> <!-- end col -->
-                </div> <!-- end row -->
+                    </div>
+                </div>
             </div>
+
             <div class="modal-footer">
                 <button type="button" onclick="exportOffice()" class="btn btn-primary waves-effect waves-light">Export
                 </button>

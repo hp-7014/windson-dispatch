@@ -215,6 +215,7 @@
                     'counter' => 0,
                     'admin_bank' => array([
                         '_id' => 0,
+                        'counter' => 0,
                         'bankName'=>$this->bankName,
                         'bankAddresss'=>$this->bankAddresss,
                         'accountHolder'=>$this->accountHolder,
@@ -225,7 +226,7 @@
                         'currentcheqNo'=>$this->currentcheqNo,
                         'transacBalance'=>$this->transacBalance,
                         'delete_status'=>'0',
-                        'insertedUser' => $_SESSION['companyName'],
+                        'insertedUser' => $_SESSION['companyName']
                     ])
                 )
             );
@@ -241,6 +242,7 @@
             if ($count > 0) {
                 $db->bank_admin->updateOne(['companyID' => (int) $this->companyID],['$push'=>['admin_bank'=>[
                     '_id'=>$helper->getDocumentSequence((int) $this->companyID,$db->bank_admin),
+                    'counter' => 0,
                     'bankName'=>$this->bankName,
                     'bankAddresss'=>$this->bankAddresss,
                     'accountHolder'=>$this->accountHolder,
@@ -251,11 +253,18 @@
                     'currentcheqNo'=>$this->currentcheqNo,
                     'transacBalance'=>$this->transacBalance,
                     'delete_status'=>'0',
-                    'insertedUser' => $_SESSION['companyName'],
+                    'insertedUser' => $_SESSION['companyName']
                 ]]]);
+
+                $db->company->updateOne(['companyID' => (int)$_SESSION['companyId'], 'company._id' => (int)$this->accountHolder],
+                ['$set' => ['company.$.counter' => $helper->getDocumentSequenceId((int)$this->accountHolder,$db->company,"company",(int)$_SESSION['companyId'])]]);
+       
             } else {
                 $b_admin = iterator_to_array($category);
                 $db->bank_admin->insertOne($b_admin);
+
+                $db->company->updateOne(['companyID' => (int)$_SESSION['companyId'], 'company._id' => (int)$this->accountHolder],
+                ['$set' => ['company.$.counter' => $helper->getDocumentSequenceId((int)$this->accountHolder,$db->company,"company",(int)$_SESSION['companyId'])]]);
             }
 
             echo "Data Insert Successfully";
@@ -285,20 +294,19 @@
             echo "Data Update Successfully.";
         }
 
-        public function delete_Banks($acc,$db) {
-            $db->bank_admin->updateOne(['companyID' => (int)$_SESSION['companyId'], 'admin_bank._id' => (int)$this->getId()],
-                ['$set' => ['admin_bank.$.delete_status' => "1"]]
+        public function delete_Banks($acc,$db,$helper) {
+            $db->bank_admin->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+                '$pull' => ['admin_bank' => ['_id' => (int)$acc->getId()]]]
             );
-            /*$db->bank_admin->updateOne(['companyID' => (int)$_SESSION['companyId']], [
-                '$pull' => ['admin_bank' => ['_id' => (int)$debit->getId()]]]
-            );*/
+
+            $db->company->updateOne(['companyID' => (int)$_SESSION['companyId'], 'company._id' => (int)$this->accountHolder],
+            ['$set' => ['company.$.counter' => $helper->getDocumentDecrementId((int)$this->accountHolder,$db->company,"company",(int)$_SESSION['companyId'])]]);
         }
 
-        public function import_Bank_Admin($targetPath, $helper)
+        public function import_Bank_Admin($targetPath, $helper,$db)
         {
             require_once('../excel/excel_reader2.php');
             require_once('../excel/SpreadsheetReader.php');
-            include '../database/connection.php';   // connection
 
             $Reader = new SpreadsheetReader($targetPath);
 

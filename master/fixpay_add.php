@@ -18,7 +18,7 @@ if ($_GET['type'] == 'importExcel') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $fixpay = new Fixpay();
-        $fixpay->importExcel($targetPath,$helper);
+        $fixpay->importExcel($targetPath,$helper,$db);
     }
 
 }

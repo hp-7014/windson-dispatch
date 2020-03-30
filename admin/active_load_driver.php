@@ -117,6 +117,7 @@ if ($_GET['type'] == "add_new_load") {
         $activeload->setStatusInvoicedTime(0);
     }
     $activeload->insert($activeload, $db, $helper);
+    
 } else if ($_GET['type'] == "fileupload") {
     $activeload = new ActiveLoad();
     $id = $_POST['id'];

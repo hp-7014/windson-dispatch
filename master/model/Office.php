@@ -113,7 +113,8 @@ class Office implements IteratorAggregate
                 'office' => array([
                     '_id' => 0,
                     'officeName' => $this->officeName,
-                    'officeLocation' => $this->officeLocation
+                    'officeLocation' => $this->officeLocation,
+                    'counter' => 0
                 ])
             )
         );
@@ -131,7 +132,8 @@ class Office implements IteratorAggregate
             $db->office->updateOne(['companyID' => (int)$this->companyID], ['$push' => ['office' => [
                 '_id' => $helper->getDocumentSequence((int)$this->companyID, $db->office),
                 'officeName' => $this->officeName,
-                'officeLocation' => $this->officeLocation
+                'officeLocation' => $this->officeLocation,
+                'counter' => 0
             ]]]);
         } else {
             $office = iterator_to_array($office);
@@ -158,12 +160,10 @@ class Office implements IteratorAggregate
         );
     }
 
-    public function importExcel($targetPath, $helper)
+    public function importExcel($targetPath, $helper, $db)
     {
-
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 

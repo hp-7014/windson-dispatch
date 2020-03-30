@@ -928,11 +928,10 @@ class Driver implements IteratorAggregate
     }
 
     //import driver
-    public function importExcel($targetPath, $helper)
+    public function importExcel($targetPath, $helper, $db)
     {
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 
@@ -1053,6 +1052,13 @@ class Driver implements IteratorAggregate
         $db->driver->updateOne(['companyID' => (int)$_SESSION['companyId'], 'driver._id' => (int)$this->getId()],
             ['$set' => ['driver.$.deleteStatus' => 1,'driver.$.deletedUserId' => $_SESSION['companyName'],'driver.$.LastUpdateId' => $_SESSION['companyName']]]
         );
+
+        $db->currency_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'currency._id' => (int)$this->currencySetting],
+        ['$set' => ['currency.$.counter' => $helper->getDocumentDecrementId((int)$this->currencySetting,$db->currency_add,"currency",(int)$_SESSION['companyId'])]]);
+
+        // $db->driver->updateOne(['companyID' => (int)$_SESSION['companyId'], 'driver._id' => (int)$this->getId()],
+        //     ['$set' => ['driver.$.deleteStatus' => 1]]
+        // );
     }
 
     // export function

@@ -56,7 +56,6 @@ if ($_GET['type'] == 'truckadd') {
                 if ($fileSize < 200000) {
                     $docs[] = $fileName;
                     $truck->setUploadDocument($fileName, $i);
-
                 } else {
                     echo "File Size is To Large For " . $fileName;
                     exit();
@@ -108,7 +107,9 @@ else if ($_GET['type'] == 'edit_truck'){
 else if ($_GET['type'] == 'delete_truck'){
     $truck = new TruckAdd();
     $truck->setId($_POST['id']);
-    $truck->deleteTruckAdd($truck,$db);
+    $truck->setTruckType($_POST['truckType']);
+    
+    $truck->deleteTruckAdd($truck,$db,$helper);
     echo "Data Removed Successful";
 }
 

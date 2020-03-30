@@ -198,6 +198,7 @@ class Add_Toll implements IteratorAggregate
                 'counter' => 0,
                 'tolls' => array([
                     '_id' => 0,
+                    'counter'=>0,
                     'invoiceNumber'=>$this->invoiceNumber,
                     'tollDate'=>$this->tollDate,
                     'transType'=>$this->transType,
@@ -223,6 +224,7 @@ class Add_Toll implements IteratorAggregate
         if ($count > 0) {
             $db->ifta_toll->updateOne(['companyID' => (int) $this->companyID],['$push'=>['tolls'=>[
                 '_id'=>$helper->getDocumentSequence((int) $this->companyID,$db->ifta_toll),
+                'counter'=>0,
                 'invoiceNumber'=>$this->invoiceNumber,
                 'tollDate'=>$this->tollDate,
                 'transType'=>$this->transType,
@@ -234,9 +236,17 @@ class Add_Toll implements IteratorAggregate
                 'delete_status'=>'0',
                 'insertedUser' => $_SESSION['companyName'],
             ]]]);
+
+            $db->truckadd->updateOne(['companyID' => (int)$_SESSION['companyId'], 'truck._id' => (int)$this->truckNo],
+            ['$set' => ['truck.$.counter' => $helper->getDocumentSequenceId((int)$this->truckNo,$db->truckadd,"truck",(int)$_SESSION['companyId'])]]);
+   
         } else {
             $toll_A = iterator_to_array($category);
             $db->ifta_toll->insertOne($toll_A);
+
+            $db->truckadd->updateOne(['companyID' => (int)$_SESSION['companyId'], 'truck._id' => (int)$this->truckNo],
+            ['$set' => ['truck.$.counter' => $helper->getDocumentSequenceId((int)$this->truckNo,$db->truckadd,"truck",(int)$_SESSION['companyId'])]]);
+   
         }
 
         echo "Data Insert Successfully";
@@ -250,10 +260,16 @@ class Add_Toll implements IteratorAggregate
         echo "Data Update Successfully.";
     }
 
-    public function delete_Tolls($toll_A,$db) {
-        $db->ifta_toll->updateOne(['companyID' => (int)$_SESSION['companyId'], 'tolls._id' => (int)$this->getId()],
-            ['$set' => ['tolls.$.delete_status' => "1"]]
+    public function delete_Tolls($toll_A,$db,$helper) {
+        // $db->ifta_toll->updateOne(['companyID' => (int)$_SESSION['companyId'], 'tolls._id' => (int)$this->getId()],
+        //     ['$set' => ['tolls.$.delete_status' => "1"]]
+        // );
+        $db->ifta_toll->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+            '$pull' => ['tolls' => ['_id' => (int)$toll_A->getId()]]]
         );
+
+        $db->truckadd->updateOne(['companyID' => (int)$_SESSION['companyId'], 'truck._id' => (int)$this->truckNo],
+        ['$set' => ['truck.$.counter' => $helper->getDocumentDecrementId((int)$this->truckNo,$db->truckadd,"truck",(int)$_SESSION['companyId'])]]);        
     }
 
     public function export_Tolls($db) {
@@ -278,11 +294,10 @@ class Add_Toll implements IteratorAggregate
         echo json_encode($p);
     }
 
-    public function import_Tolls($targetPath, $helper)
+    public function import_Tolls($targetPath, $helper, $db)
     {
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 

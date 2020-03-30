@@ -17,7 +17,7 @@ if ($_GET['type'] == 'importExcel') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $truck = new Truck();
-        $truck->importExcel($targetPath,$helper);
+        $truck->importExcel($targetPath,$helper,$db);
     }
 
 }

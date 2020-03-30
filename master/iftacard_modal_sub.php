@@ -15,7 +15,7 @@ include '../database/connection.php';
             <div class="modal-body">
                 <div class="form-group col-md-12">
                     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
-                    <label>Card Holder Name <span style="color: red">*</span></label>
+                    <label>Card Holder Name <span class="mandatory">*</span></label>
                     <div>
                         <select class="form-control" name="cardHolderName" id="cardHolderName"
                                 onchange="ajaxGetid(this)">
@@ -57,6 +57,9 @@ include '../database/connection.php';
                     </div>
                 </div>
             </div>
+
+            <span class="mandatory">Note : * Field are Mandatory</span>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger waves-effect modalIftaCard">
                     Close
@@ -76,20 +79,17 @@ include '../database/connection.php';
         //alert(v);
         $.ajax({
             type: 'POST',
-            url: 'master/ifta_card_category?type=' + 'driverdetails',
+            url: 'master/ifta_card_category.php?type=' + 'driverdetails',
             data: {
                 getoption: v,
                 companyId: companyId,
             },
             success: function (response) {
                 var j = JSON.parse(response);
-                //alert(j._id);
-                $('#employeeNo').val(j._id);
+                //alert(j);
+                $("#employeeNo").val(j._id);
             }
         });
     }
 
 </script>
-
-
-

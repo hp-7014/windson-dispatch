@@ -128,7 +128,6 @@ require "../database/connection.php";
                                 <input class="form-control" id="RegisteredState" name="registered_state"
                                        list="registered_state" placeholder="Registered State" required/>
                             </p>
-
                         </div>
 
                         <div class="form-group col-md-2">

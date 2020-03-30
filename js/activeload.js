@@ -1635,7 +1635,9 @@ $(document).on("click", "#addactiveload", function () {
     var currencylist = document.getElementById('currencylist').value;
     var currency_1 = currencylist.split(")");
     var currency = currency_1[0];
-    var drivername = document.getElementById('driverlist').value;
+    var drivername1 = document.getElementById('driverlist').value;
+    var driver_name = drivername1.split(")");
+    var drivername = driver_name[0];
     var truck = document.getElementById('trucklist').value;
     var trailer = document.getElementById('trailerlist').value;
     var loadedmile = document.getElementById('loadedmile').value;

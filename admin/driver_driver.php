@@ -62,7 +62,7 @@ else if ($_GET['type'] == 'importDriver') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $driver = new Driver();
-        $driver->importExcel($targetPath, $helper);
+        $driver->importExcel($targetPath, $helper, $db);
         echo 'File Upload Successfully';
     }
 }
@@ -81,7 +81,8 @@ else if ($_GET['type'] == 'editDriver') {
 else if ($_GET['type'] == 'delete_Driver') {
     $driver = new Driver();
     $driver->setId($_POST['id']);
-    $driver->deleteDrivers($driver, $db);
+    
+    $driver->deleteDrivers($driver, $db,$helper);
     echo 'Data Removed Successfully';
 }
 

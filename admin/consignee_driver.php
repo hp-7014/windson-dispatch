@@ -66,7 +66,7 @@ else if ($_GET['type'] == 'importConsignee') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Consignee = new Consignee();
-        $Consignee->importExcel($targetPath, $helper);
+        $Consignee->importExcel_Consignee($targetPath, $helper, $db);
         echo 'File Upload Successfully';
     }
 }

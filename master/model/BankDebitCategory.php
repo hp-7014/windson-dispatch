@@ -83,7 +83,7 @@
                 array('_id'=> $this->id,
                     'companyID'=>(int) $this->companyID,
                     'counter' => 0,
-                    'bank_debit' => array(['_id' => 0,'bankName'=>$this->bankName])
+                    'bank_debit' => array(['_id' => 0,'bankName'=>$this->bankName,'counter'=>0])
                 )
             );
         }
@@ -98,7 +98,8 @@
             if ($count > 0) {
                 $db->bank_debit_category->updateOne(['companyID' => (int)$this->companyID],['$push'=>['bank_debit'=>[
                     '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->bank_debit_category),
-                    'bankName'=>$this->bankName
+                    'bankName' => $this->bankName,
+                    'counter' => 0
                 ]]]);
             } else {
                 $debit = iterator_to_array($category);
@@ -128,11 +129,10 @@
             echo "Data Update Successfully.";
         }
 
-        public function import_Debit($targetPath, $helper)
+        public function import_Debit($targetPath, $helper, $db)
         {
             require_once('../excel/excel_reader2.php');
             require_once('../excel/SpreadsheetReader.php');
-            include '../database/connection.php';   // connection
 
             $Reader = new SpreadsheetReader($targetPath);
 

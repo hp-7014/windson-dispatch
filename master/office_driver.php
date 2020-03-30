@@ -42,7 +42,7 @@ else if ($_GET['type'] == 'importOffice') {
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Office = new Office();
-        $Office->importExcel($targetPath,$helper);
+        $Office->importExcel($targetPath,$helper,$db);
     }
 }
 // export excel function here

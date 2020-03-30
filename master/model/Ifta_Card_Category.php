@@ -134,6 +134,7 @@ class Ifta_Card_Category implements IteratorAggregate
                 'counter' => 0,
                 'ifta_card' => array([
                         '_id' => 0,
+                        'counter'=> 0,
                         'cardHolderName'=>$this->cardHolderName,
                         'employeeNo'=>$this->employeeNo,
                         'iftaCardNo'=>$this->iftaCardNo,
@@ -153,6 +154,7 @@ class Ifta_Card_Category implements IteratorAggregate
         if ($count > 0) {
             $db->ifta_card_category->updateOne(['companyID' => (int)$this->companyID],['$push'=>['ifta_card'=>[
                 '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->ifta_card_category),
+                'counter'=> 0,
                 'cardHolderName'=>$this->cardHolderName,
                 'employeeNo'=>$this->employeeNo,
                 'iftaCardNo'=>$this->iftaCardNo,
@@ -180,12 +182,11 @@ class Ifta_Card_Category implements IteratorAggregate
         );
     }
 
-    public function importIftaCard($targetPath, $helper)
+    public function importIftaCard($targetPath, $helper, $db)
     {
 
         require_once('../excel/excel_reader2.php');
         require_once('../excel/SpreadsheetReader.php');
-        include '../database/connection.php';   // connection
 
         $Reader = new SpreadsheetReader($targetPath);
 
