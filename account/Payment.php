@@ -429,7 +429,19 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>Factoring Name</label>
                             <div>
-                                <input class="form-control" placeholder="Factoring Name" type="text">
+                                <input list="factoringList" placeholder="--Select--" class="form-control"
+                                       id="selectFactoring" name="selectFactoring">
+                                <datalist id="factoringList">
+                                    <?php
+                                    $factoringData = $db->factoring_company_add->find(['companyID' => $_SESSION['companyId']]);
+                                    foreach ($factoringData as $factoringArray) {
+                                        $factoringArray1 = $factoringArray['factoring'];
+                                        foreach ($factoringArray1 as $factoring) {
+                                            $value1 = "'" . $factoring['_id'] . ')' . $factoring['factoringCompanyname'] . "'";
+                                            echo "<option value=$value1></option>";
+                                        }
+                                    } ?>
+                                </datalist>
                             </div>
                         </div>
                         <div class="form-group col-md-2 factoring" style="display:none;">
