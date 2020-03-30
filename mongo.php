@@ -5,6 +5,7 @@ require 'vendor/autoload.php';
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
 $collection = $db->carrier;
+
 //$collection->updateOne(['companyID' => 1], [
 //        '$pull' => ['Delivered' => ['_id' => 3]]]
 //);
@@ -21,38 +22,74 @@ $collection = $db->carrier;
 // {$match:{companyID:1}}
 //])
 
+$collection = $db->carrier;
 $show = $collection->aggregate([
-   ['$lookup' => [
-       'from' => 'active_load',
-       'localField' => 'companyID',
-       'foreignField' => 'companyID',
-       'as' => 'company'
-   ]],
-   ['$match' => ['companyID' => 1]]
+    ['$lookup' => [
+        'from' => 'active_load',
+        'localField' => 'companyID',
+        'foreignField' => 'companyID',
+        'as' => 'active'
+    ]],
+    ['$match' => ['companyID' => 1]],
+    ['$unwind' => '$carrier'],
+    ['$match' => ['carrier.factoringCompany' => "5"]],
 ]);
-$cid = 1;
-$count = 0;
-$count1 = 0;
-foreach ($show as $show1){
-    foreach ($show1['carrier'] as $car){
-        $count++;
-        if ($cid == $car['_id']) {
-            $carrierID = $car['_id'];
 
-            break;
-        }
+foreach ($show as $row) {
+    $carrier = array();
+    $k = 0;
+    $carrier[$k] = $row['carrier'];
+    $k++;
+    $carrierid = array();
+    $active = $row['active'];
+    foreach ($carrier as $row1) {
+        $carrierid = $row1['_id'];
     }
-    foreach ($show1['company'] as $s){
-        foreach($s['Invoiced'] as $a){
-            $count1++;
-            if ($a['carrier_name'] == $carrierID){
-                echo $a['_id']." ".$a['carrier_total']."\n";
+    foreach ($active as $row2) {
+        $invoice = $row2['Invoiced'];
+        foreach ($invoice as $row3) {
+            if ($carrierid == $row3['carrier_name']) {
+                $cid = $row3['_id'];
+                $carrier_name = $row3['carrier_name'];
+                echo $cid . "<br>";
             }
         }
     }
-//    echo $count1;
-//    echo $count;
 }
+
+//$show = $collection->aggregate([
+//    ['$lookup' => [
+//        'from' => 'active_load',
+//        'localField' => 'companyID',
+//        'foreignField' => 'companyID',
+//        'as' => 'company'
+//    ]],
+//    ['$match' => ['companyID' => 1]]
+//]);
+//$factoringID = 5;
+//$carrierID = [];
+//$activeID = [];
+//$finalarray = [];
+//foreach ($show as $show1) {
+//
+//    // carrier id from carrirer
+//    foreach ($show1['carrier'] as $car) {
+//        if ($car['factoringCompany'] == $factoringID) {
+//            $carrierID[] = $car['_id'];
+//        }
+//    }
+//
+//    // active load carrier id
+//    foreach ($show1['company'] as $com) {
+//        foreach ($com['Invoiced'] as $a) {
+//            for ($i = 0; $i < sizeof($carrierID); $i++) {
+//                if ($carrierID[$i] == $a['carrier_name']) {
+//                    echo $a['_id']."->".$a['carrier_total']." ";
+//                }
+//            }
+//        }
+//    }
+//}
 
 //$old_value = "Delivered";
 //$new_value = "Loaded";
