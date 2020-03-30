@@ -180,8 +180,8 @@ include '../database/connection.php';
 
                                         $show1 = $db->active_load->find(array('companyID' => (int)$_SESSION['companyId']), array('projection' => array('activeload' => array('$slice' => [0, $limit]))));
                                         foreach ($show1 as $arrData1) {
-                                            $arrData2 = $arrData1['activeload'];
-                                            $total_records = sizeof($arrData1['activeload']);
+                                            $arrData2 = $arrData1['Invoiced'];
+                                            $total_records = sizeof($arrData1['Invoiced']);
                                             $total_pages = ceil($total_records / $limit);
                                             foreach ($arrData2 as $row1) {
                                                 if ($row1['status'] == "Invoiced") {

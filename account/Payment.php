@@ -111,7 +111,7 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 cn" style="display:none">
                             <label>Company Name *</label>
                             <input list="companyname" placeholder="--Select--" class="form-control"
-                                   id="Companyselect" name="Companyselect">
+                                   id="Companyselect" name="Companyselect" onchange="updatecompanyfield(this.value)">
                             <datalist id="companyname">
                                 <?php
                                 $show_company = $db->company->find(['companyID' => $_SESSION['companyId']]);
@@ -128,21 +128,9 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 bank" style="display:none;">
                             <label>Bank Name*</label>
-                            <input list="bankname" placeholder="--Select--" class="form-control"
-                                   id="selectbank" name="selectbank">
-                            <datalist id="bankname">
-                                <?php
-                                $show_bank = $db->bank_admin->find(['companyID' => $_SESSION['companyId']]);
-                                $no = 1;
-                                foreach ($show_bank as $showbank) {
-                                    $bank = $showbank['admin_bank'];
-                                    foreach ($bank as $sb) {
-                                        $value = "'" . $sb['_id'] . ')' . $sb['bankName'] . "'";
-
-                                        echo "<option value=$value></option>";
-                                    }
-                                } ?>
-                            </datalist>
+                            <select class="form-control" id="companyfield" placeholder="----select----">
+                                        
+                            </select>
                         </div>
                         <div class="form-group col-md-2 Credit" style="display:none;">
                             <label>Main Card</label>
@@ -182,7 +170,7 @@ require "../database/connection.php";
                             </select>
                         </div>
                         <div class="form-group col-md-2 adv" style="display:none;">
-                            <label>Invoice</label>
+                        <label>Invoice</label>
                             <br>
                             <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light"
                                     type="button" data-toggle="dropdown">
@@ -199,31 +187,6 @@ require "../database/connection.php";
                                     <input type="checkbox" onclick='UnSelectAll()'
                                            style="margin-left:20px;margin-top:10px"
                                            value="Select All"/>&nbsp;Unselect all
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option1" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;3543534
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option2" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;24543434
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option3" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;4533332
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option4" tabIndex="-1">
-                                        <input type="checkbox" name="acs">&nbsp;32432432
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option5" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;43898239
-                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -278,7 +241,7 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Driver Name</label>
                             <input list="driverlist" placeholder="--Select--" class="form-control"
-                                   id="drivername" name="drivername">
+                                   id="drivername" name="drivername" onchange="updateDriverInvoice(this.value)">
                             <datalist id="driverlist">
                                 <?php
                                 $showdriver = $db->driver->find(['companyID' => $_SESSION['companyId']]);
@@ -330,51 +293,29 @@ require "../database/connection.php";
                                            style="margin-left:20px;margin-top:10px"
                                            value="Select All"/>&nbsp;Unselect all
                                 </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option1" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;3543534
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option2" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;24543434
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option3" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;4533332
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option4" tabIndex="-1">
-                                        <input type="checkbox" name="acs">&nbsp;32432432
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option5" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;43898239
-                                    </a>
+                                <li class="space" id="driverinvoice">
+
                                 </li>
                             </ul>
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" id="amount" name="amount" placeholder="Amount *"
+                                <input class="form-control" value="0" id="driveramount" name="driveramount" placeholder="Amount *"
                                        type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Advance *</label>
                             <div>
-                                <input class="form-control" id="advance" name="advance" placeholder="Advance *"
+                                <input class="form-control" value="0" id="dradvance" name="dradvance" placeholder="Advance *"
                                        type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Final Amount *</label>
                             <div>
-                                <input class="form-control" id="finalamount" name="finalamount"
+                                <input class="form-control" value="0" id="finalamount" name="finalamount"
                                        placeholder="Final Amount *" type="text">
                             </div>
                         </div>
@@ -421,7 +362,7 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>Debit Category</label>
                             <input list="debitcat" placeholder="--Select--" class="form-control"
-                                   id="selectdebite" name="selectdebite">
+                                   id="selectdebite1" name="selectdebite1">
                             <datalist id="debitcat">
                                 <?php
                                 $showdebit1 = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);

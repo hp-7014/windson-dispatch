@@ -487,9 +487,10 @@ function Paymentadd() {
     var Companyselect1 = document.getElementById("Companyselect").value
     var Company_select = Companyselect1.split(")");
     var Companyselect = Company_select[0];
-    var Bankname1 = document.getElementById("selectbank").value
+    var Bankname1 = document.getElementById("companyfield").value
     var Bank_name = Bankname1.split(")");
     var Bankname = Bank_name[0];
+    alert(Bankname);
     var payto = document.getElementById("purpose").value
     var drivername1 = document.getElementById("drivername").value
     var driver_name = drivername1.split(")");
@@ -505,7 +506,6 @@ function Paymentadd() {
     var cheque = document.getElementById("cheque").value
     var ach = document.getElementById("ach").value
     var memo = document.getElementById("memo").value
-    alert(memo);
 }
 
 // update carrier invoice
@@ -541,7 +541,6 @@ function getCarrierTotalAmount(invoiceID) {
     var Amount = data[1];
     var seqid = data[2];
     var totalAmount = document.getElementById('finalAmount').value;
-
     var invoID = document.getElementById('invoice' + seqid);
     if (invoID.checked == true) {
         let final = eval(totalAmount) + eval(Amount);
@@ -549,5 +548,83 @@ function getCarrierTotalAmount(invoiceID) {
     } else {
         totalAmount = totalAmount - Amount;
         document.getElementById('finalAmount').value = totalAmount;
+    }
+}
+
+// update company Fields
+var company_name = "";
+var bankvalue = "";
+function updatecompanyfield(value) {
+    var value_1 = value.split(")");
+    var companyname = value_1[0];
+
+    $.ajax({
+        url: 'account/utils/helpers.php?type=updatecompanyfields',
+        method: 'POST',
+        data: {companyname: companyname},
+        success: function (data) {
+            var j = JSON.parse(data);
+            var o = '';
+            for (var l = 0; l < j.arrayLength; l++) {
+                bank_id = j.bankid[l];
+                company_name = j.bankname[l];
+                bankvalue = bank_id +') '+ company_name;
+                o += '<option value="'+bankvalue+'">'+bankvalue+'</option>';
+            }
+            $('#companyfield').html(o);
+        }
+    });
+}
+
+// update driver invoice
+var dinvoiceID = 0;
+var dinvoiceAmount = 0;
+var driveradvance = 0;
+function updateDriverInvoice(value) {
+    var value_1 = value.split(")");
+    var driverName = value_1[0];
+    $.ajax({
+        url: 'account/utils/helpers.php?type=updateDriverInvoice',
+        method: 'POST',
+        data: {driverName: driverName},
+        success: function (data) {
+            var k = JSON.parse(data);
+            var c = '';
+            for (var i = 0; i < k.arraysize; i++) {
+                dinvoiceID = k.driverid[i];
+                dinvoiceAmount = k.drivertotal[i];
+                driveradvance = k.advance[i];
+                c += '<a href="#" class="small" data-value="option1" tabIndex="-1">' +
+                '<input type="checkbox" id="dinvoice' + i + '" onchange="getDriverTotalAmount(this.value)" value=' + dinvoiceID + ',' + dinvoiceAmount + ',' + i + ','+ driveradvance +' name="acs"/>&nbsp;'+ dinvoiceID +
+                '</a><br/>';
+            }
+            $('#driverinvoice').html(c);
+        }
+    });
+}
+
+function getDriverTotalAmount(dinvoiceID) {
+    var driverinv = dinvoiceID.split(",");
+    var drid = driverinv[0];
+    var drAmount = driverinv[1];
+    var drseqid = driverinv[2];
+    var dradvance = driverinv[3];
+    var drtotalAmount = document.getElementById('driveramount').value;
+    var dradvancetotal = document.getElementById('dradvance').value;
+    var drinvoID = document.getElementById('dinvoice' + drseqid);
+    if (drinvoID.checked == true) {
+        let drfinal = eval(drtotalAmount) + eval(drAmount);
+        let drfinalad = eval(dradvancetotal) + eval(dradvance);
+        let finaldriveramount = drfinal - drfinalad;
+        document.getElementById('driveramount').value = drfinal;
+        document.getElementById('dradvance').value = drfinalad;
+        document.getElementById('finalamount').value = finaldriveramount;
+    } else {
+        drtotalAmount = drtotalAmount - drAmount;
+        dradvancetotal = dradvancetotal - dradvance;
+        let setfinalamount = drtotalAmount - dradvancetotal;
+        document.getElementById('driveramount').value = drtotalAmount;
+        document.getElementById('dradvance').value = dradvancetotal;
+        document.getElementById('finalamount').value = setfinalamount;
     }
 }

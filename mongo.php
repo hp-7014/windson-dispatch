@@ -8,35 +8,74 @@ $collection = $db->carrier;
 //$collection->updateOne(['companyID' => 1], [
 //        '$pull' => ['Delivered' => ['_id' => 3]]]
 //);
+// $show = $db->active_load->find(['companyID' => 1]);
+// $i = 0;
+// foreach($show as $row) {
+//     $i++;
+//     $invoice = $row['Invoiced'];
+//     foreach ($invoice as $row1) {
+//         $i++;
+//         if ($row1['driver_name'] == "1") {
+//             $driverid = $row1['_id'];
+//             $drivertotle = $row1['driver_total'];
+//             echo $driverid.") ".$drivertotle . "<br>";
+//         }
+//     }
+// }
+// echo $i;
 
+$collection = $db->active_load;
+$show1 = $collection->aggregate([
+        ['$match'=>['companyID'=>1]],
+        ['$unwind'=>'$Invoiced'],
+        ['$match'=>['Invoiced.driver_name'=>"1"]]
+]);
+$i = 0;
+foreach ($show1 as $row) {
+$i++;
+$Invoiced = array();
+$k = 0;
+$Invoiced[$k] = $row['Invoiced'];
+$k++;
+foreach ($Invoiced as $row) {
+    $i++;
+    echo $row['_id'].")".$row['driver_total']."<br>";
+    $other_charges_modal = $row['other_charges_modal'];
+    foreach ($other_charges_modal as $row2) {
+        $i++;
+        echo $row2['description']." ".$row2['amount']."<br>";
+    }
+   }
+}
+echo $i;
 
-                                    $collection = $db->bank_admin;
-                                    $show1 = $collection->aggregate([
-                                        ['$lookup' => [
-                                            'from' => 'company',
-                                            'localField' => 'companyID', 
-                                            'foreignField' => 'companyID',
-                                            'as' => 'company'
-                                        ]],
-                                        ['$match'=>['companyID'=>1]]
-                                     ]);
+                                    // $collection = $db->bank_admin;
+                                    // $show1 = $collection->aggregate([
+                                    //     ['$lookup' => [
+                                    //         'from' => 'company',
+                                    //         'localField' => 'companyID', 
+                                    //         'foreignField' => 'companyID',
+                                    //         'as' => 'company'
+                                    //     ]],
+                                    //     ['$match'=>['companyID'=>1]]
+                                    //  ]);
 
-                                     foreach ($show1 as $row) {
-                                         $admin_bank = $row['admin_bank'];
-                                         $company = $row['company'];
-                                         $companyName = array();
-                                         foreach ($company as $row1) {
-                                            $company1 = $row1['company'];
-                                            foreach ($company1 as $row2) {
-                                                $companyid = $row2['_id'];
-                                                $companyName[$companyid] = $row2['companyName'];
-                                            }
-                                         }
-                                         foreach ($admin_bank as $row3) {
-                                            $accountHolder = $companyName[$row3['accountHolder']];
-                                            echo $accountHolder;
-                                         }
-                                     }
+                                    //  foreach ($show1 as $row) {
+                                    //      $admin_bank = $row['admin_bank'];
+                                    //      $company = $row['company'];
+                                    //      $companyName = array();
+                                    //      foreach ($company as $row1) {
+                                    //         $company1 = $row1['company'];
+                                    //         foreach ($company1 as $row2) {
+                                    //             $companyid = $row2['_id'];
+                                    //             $companyName[$companyid] = $row2['companyName'];
+                                    //         }
+                                    //      }
+                                    //      foreach ($admin_bank as $row3) {
+                                    //         $accountHolder = $companyName[$row3['accountHolder']];
+                                    //         echo $accountHolder;
+                                    //      }
+                                    //  }
 //$show1 = $db->active_load->find(['companyID' => 1],['activeload' => ['$slice' => 5]]);
 // $show1 = $db->active_load->find(array('companyID' => 1), array('projection' => array('activeload' => array('$slice' => [0,5]))));
 // foreach ($show1 as $show) {
