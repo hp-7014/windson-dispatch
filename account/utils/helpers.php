@@ -13,16 +13,15 @@ if ($_GET['type'] == 'updatecompanyfields') {
     ]);
     $i = 0;
     foreach ($show1 as $row) {
-
-        $admin_bank = array();
-        $k = 0;
-        $admin_bank[$k] = $row['admin_bank'];
-        $k++;
-        foreach ($admin_bank as $row) {
+    $admin_bank = array();
+    $k = 0;
+    $admin_bank[$k] = $row['admin_bank'];
+    $k++;
+    foreach ($admin_bank as $row) {
             $r['bankid'][] = $row['_id'];
             $r['bankname'][] = $row['bankName'];
             $i++;
-        }
+       }
         $r['arrayLength'] = $i;
         $output = $r;
     }
