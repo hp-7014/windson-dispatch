@@ -597,7 +597,6 @@ function Paymentadd() {
     var Bank_name = Bankname1.split(")");
     var Bankname = Bank_name[0];
 
-    var payto = document.getElementById("purpose").value
     var drivername1 = document.getElementById("drivername").value
     var driver_name = drivername1.split(")");
     var drivername = driver_name[0];
