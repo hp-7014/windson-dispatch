@@ -172,7 +172,7 @@ else if ($_GET['type'] == 'changeStatus') {
                 $activeload->setCustomer($row['customer']);
                 $activeload->setDispatcher($row['dispatcher']);
                 $activeload->setCnno($row['cnno']);
-                $activeload->setStatus($row['status']);
+                $activeload->setStatus($_POST['new_array']);
                 $activeload->setActiveType($row['active_type']);
                 $activeload->setRate($row['rate']);
                 $activeload->setUnits($row['units']);
@@ -224,5 +224,6 @@ else if ($_GET['type'] == 'changeStatus') {
             }
         }
     }
+    echo "Data Update Successfully";
 }
 

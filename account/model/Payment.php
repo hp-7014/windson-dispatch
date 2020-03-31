@@ -38,7 +38,7 @@ class Payment
             ]],
             ['$match' => ['companyID' => (int)$_SESSION['companyId']]]
         ]);
-        $cid = $this->carrierName;
+        $cid = $_POST['carrierName'];
         $i = 0;
         foreach ($show as $show1) {
             foreach ($show1['carrier'] as $car) {

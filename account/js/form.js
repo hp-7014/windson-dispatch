@@ -90,36 +90,6 @@ function updateAccountDeliverTable() {
 
 // account deliver end
 
-// account invoice start
-function updateLoadStatus1(id, value1) {
-    alert(value1);
-    // var value1 = document.getElementById('loadStatus1').value;
-    var value_1 = value1.split(")");
-    var value = value_1[0];
-    alert(value);
-    var statusTimeColumn = value_1[1];
-    alert(statusTimeColumn);
-    var companyid = $('#companyid').val();
-    $.ajax({
-        url: 'account/accountStatus_driver.php?type=UpdateStatus',
-        method: 'POST',
-        data: {
-            id: id,
-            value: value,
-            statusTimeColumn: statusTimeColumn
-        },
-        success: function (data) {
-            database.ref('accountInvoice').child(companyid).set({
-                data: randomString(),
-            });
-            database.ref('accountDeliver').child(companyid).set({
-                data: randomString(),
-            });
-            swal(data);
-        }
-    });
-}
-
 //update Payment Terms table
 var accountinvoicePath = "accountInvoice/";
 var accountinvoicePath1 = $('#companyid').val();
@@ -458,11 +428,12 @@ function updateCarrierInvoice(value) {
     var carrierName = value_1[0];
 
     $.ajax({
-        url: 'account/payment_driver.php?type=updateCarrierInvoice',
+        url: 'account/utils/helpers.php?type=CarrierInvoice',
         method: 'POST',
         data: {carrierName: carrierName},
         success: function (data) {
             var j = JSON.parse(data);
+
             var o = '';
             for (let l = 0; l < j.arrayLength; l++) {
                 invoiceID = j.invoiceId[l];
@@ -495,6 +466,7 @@ function getCarrierTotalAmount(invoiceID) {
 // update company Fields
 var company_name = "";
 var bankvalue = "";
+
 function updatecompanyfield(value) {
     var value_1 = value.split(")");
     var companyname = value_1[0];
@@ -509,8 +481,8 @@ function updatecompanyfield(value) {
             for (var l = 0; l < j.arrayLength; l++) {
                 bank_id = j.bankid[l];
                 company_name = j.bankname[l];
-                bankvalue = bank_id +') '+ company_name;
-                o += '<option value="'+bankvalue+'">'+bankvalue+'</option>';
+                bankvalue = bank_id + ') ' + company_name;
+                o += '<option value="' + bankvalue + '">' + bankvalue + '</option>';
             }
             $('#companyfield').html(o);
         }
@@ -521,6 +493,7 @@ function updatecompanyfield(value) {
 var dinvoiceID = 0;
 var dinvoiceAmount = 0;
 var driveradvance = 0;
+
 function updateDriverInvoice(value) {
     var value_1 = value.split(")");
     var driverName = value_1[0];
@@ -536,8 +509,8 @@ function updateDriverInvoice(value) {
                 dinvoiceAmount = k.drivertotal[i];
                 driveradvance = k.advance[i];
                 c += '<a href="#" class="small" data-value="option1" tabIndex="-1">' +
-                '<input type="checkbox" id="dinvoice' + i + '" onchange="getDriverTotalAmount(this.value)" value=' + dinvoiceID + ',' + dinvoiceAmount + ',' + i + ','+ driveradvance +' name="acs"/>&nbsp;'+ dinvoiceID +
-                '</a><br/>';
+                    '<input type="checkbox" id="dinvoice' + i + '" onchange="getDriverTotalAmount(this.value)" value=' + dinvoiceID + ',' + dinvoiceAmount + ',' + i + ',' + driveradvance + ' name="acs"/>&nbsp;' + dinvoiceID +
+                    '</a><br/>';
             }
             $('#driverinvoice').html(c);
         }
@@ -570,6 +543,49 @@ function getDriverTotalAmount(dinvoiceID) {
     }
 }
 
+// factoring company invoice
+var factoringInvoiceID = 0;
+var factoringInvoiceAmount = 0;
+function getFactoringInvoice(value) {
+    var value_1 = value.split(")");
+    var factoringName = value_1[0];
+    alert(factoringName);
+    $.ajax({
+        url: 'account/utils/helpers.php?type=factoringInvoice',
+        method: 'POST',
+        data: {factoringName: factoringName},
+        success: function (data) {
+            var j = JSON.parse(data);
+            var o = '';
+            for (let l = 0; l < j.arrayLength; l++) {
+                factoringInvoiceID = j.factoringInvoice[l];
+                factoringInvoiceAmount = j.factoringAmount[l];
+                o += '<a href="#" class="small" data-value="option1" tabIndex="-1">' +
+                    '                                        <input type="checkbox" id="factinvoice' + l + '" onchange="getFactoringTotalAmount(this.value)" value=' + factoringInvoiceID + ',' + factoringInvoiceAmount + ',' + l + '>&nbsp;' + j.factoringInvoice[l] +
+                    '                                  </a><br/>';
+            }
+            $('#factoringINVOICE').html(o);
+        }
+    });
+}
+
+function getFactoringTotalAmount(factinvoiceID) {
+    var data = factinvoiceID.split(",");
+    var id = data[0];
+    var Amount = data[1];
+    var seqid = data[2];
+
+    var totalAmount = document.getElementById('factoringAmount').value;
+    var invoID = document.getElementById('factinvoice' + seqid);
+    if (invoID.checked == true) {
+        let final = eval(totalAmount) + eval(Amount);
+        document.getElementById('factoringAmount').value = final;
+    } else {
+        totalAmount = totalAmount - Amount;
+        document.getElementById('factoringAmount').value = totalAmount;
+    }
+}
+
 //add payment registration
 function Paymentadd() {
     var paymentfrom = document.getElementById("type").value
@@ -585,11 +601,11 @@ function Paymentadd() {
     var drivername1 = document.getElementById("drivername").value
     var driver_name = drivername1.split(")");
     var drivername = driver_name[0];
-    
+
     var selectdebite1 = document.getElementById("selectdebite").value
     var select_debite = selectdebite1.split(")");
     var selectdebite = select_debite[0];
-    
+
     var invoice = document.getElementById("driverinvoice").value
     var amount = document.getElementById("driveramount").value
     var advance = document.getElementById("dradvance").value

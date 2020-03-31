@@ -395,9 +395,6 @@ require "../database/connection.php";
                                            value="Select All"/>&nbsp;Unselect all
                                 </li>
                                 <li class="space" id="invoiceID">
-<!--                                    <a href="#" class="small" data-value="option1" tabIndex="-1">-->
-<!--                                        <input type="checkbox" name="acs"/>&nbsp;3543534-->
-<!--                                    </a>-->
                                 </li>
                             </ul>
                         </div>
@@ -430,7 +427,7 @@ require "../database/connection.php";
                             <label>Factoring Name</label>
                             <div>
                                 <input list="factoringList" placeholder="--Select--" class="form-control"
-                                       id="selectFactoring" name="selectFactoring">
+                                       id="selectFactoring" onchange="getFactoringInvoice(this.value)" name="selectFactoring">
                                 <datalist id="factoringList">
                                     <?php
                                     $factoringData = $db->factoring_company_add->find(['companyID' => $_SESSION['companyId']]);
@@ -481,37 +478,14 @@ require "../database/connection.php";
                                            style="margin-left:20px;margin-top:10px"
                                            value="Select All"/>&nbsp;Unselect all
                                 </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option1" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;3543534
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option2" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;24543434
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option3" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;4533332
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option4" tabIndex="-1">
-                                        <input type="checkbox" name="acs">&nbsp;32432432
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option5" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;43898239
-                                    </a>
+                                <li class="space" id="factoringINVOICE">
                                 </li>
                             </ul>
                         </div>
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" value="0" id="factoringAmount" name="factoringAmount" type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 factoring" style="display:none;">

@@ -1845,7 +1845,7 @@ $(document).on("click", "#addactiveload", function () {
                 emailcustomer3: emailcustomer3
             },
             success: function (data) {
-                var flags = uploadfiles(data,status);
+                var flags = uploadfiles(data, status);
                 if (flags == "no") {
                     document.getElementById('addactiveload').style.display = "block";
                 }
@@ -1859,7 +1859,7 @@ $(document).on("click", "#addactiveload", function () {
 
 });
 
-function uploadfiles(id,status) {
+function uploadfiles(id, status) {
     var form_data = new FormData();
     form_data.append("id", id);
     form_data.append("status", status);
@@ -1904,6 +1904,12 @@ function changeStatus(id, old_array, new_array) {
             new_array: new_array1,
         },
         success: function (data) {
+            database.ref('accountDeliver').child(companyid).set({
+                data: randomString(),
+            });
+            database.ref('accountInvoice').child(companyid).set({
+                data: randomString(),
+            });
             swal(data);
         }
     });
