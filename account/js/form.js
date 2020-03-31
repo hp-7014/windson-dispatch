@@ -52,39 +52,6 @@ function toggleAccount(val) {
     }
 }
 
-// accouunt deliver start
-function updateLoadStatus(id, old_value, new_value) {
-    alert(old_value);
-    alert(new_value);
-    alert(id);
-    // var value1 = document.getElementById('loadStatus').value;
-    // var value_1 = value1.split(")");
-    // var value = value_1[0];
-    // var statusTimeColumn = value_1[1];
-    // alert(value);
-    // alert(statusTimeColumn);
-    // alert(id);
-    // var companyid = $('#companyid').val();
-    // $.ajax({
-    //     url: 'account/accountStatus_driver.php?type=UpdateStatus',
-    //     method: 'POST',
-    //     data: {
-    //         id: id,
-    //         value: value,
-    //         statusTimeColumn: statusTimeColumn
-    //     },
-    //     success: function (data) {
-    //         database.ref('accountDeliver').child(companyid).set({
-    //             data: randomString(),
-    //         });
-    //         database.ref('accountInvoice').child(companyid).set({
-    //             data: randomString(),
-    //         });
-    //         swal(data);
-    //     }
-    // });
-}
-
 //update Payment Terms table
 var accountDeliverPath = "accountDeliver/";
 var accountDeliverPath1 = $('#companyid').val();
