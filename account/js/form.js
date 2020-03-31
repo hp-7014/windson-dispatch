@@ -588,56 +588,88 @@ function getFactoringTotalAmount(factinvoiceID) {
 
 //add payment registration
 function Paymentadd() {
-    var paymentfrom = document.getElementById("type").value
-    var Companyselect1 = document.getElementById("Companyselect").value
-    var Company_select = Companyselect1.split(")");
-    var Companyselect = Company_select[0];
-
-    var Bankname1 = document.getElementById("companyfield").value
-    var Bank_name = Bankname1.split(")");
-    var Bankname = Bank_name[0];
-
     var payto = document.getElementById("purpose").value
-    var drivername1 = document.getElementById("drivername").value
-    var driver_name = drivername1.split(")");
-    var drivername = driver_name[0];
+    switch (payto) {
+        case "1":
+            var paymentfrom = document.getElementById("type").value
+            var Companyselect1 = document.getElementById("Companyselect").value
+            var Company_select = Companyselect1.split(")");
+            var Companyselect = Company_select[0];
 
-    var selectdebite1 = document.getElementById("selectdebite").value
-    var select_debite = selectdebite1.split(")");
-    var selectdebite = select_debite[0];
+            var Bankname1 = document.getElementById("companyfield").value
+            var Bank_name = Bankname1.split(")");
+            var Bankname = Bank_name[0];
 
-    var invoice = document.getElementById("driverinvoice").value
-    var amount = document.getElementById("driveramount").value
-    var advance = document.getElementById("dradvance").value
-    var finalamount = document.getElementById("drfinalamount").value
-    var checkdate = document.getElementById("checkdate").value
-    var cheque = document.getElementById("cheque").value
-    var ach = document.getElementById("ach").value
-    var memo = document.getElementById("memo").value
+            var drivername1 = document.getElementById("drivername").value
+            var driver_name = drivername1.split(")");
+            var drivername = driver_name[0];
+            
+            var payto = document.getElementById("purpose").value
+            
+            var selectdebite1 = document.getElementById("selectdebite").value
+            var select_debite = selectdebite1.split(")");
+            var selectdebite = select_debite[0];
 
-    $.ajax({
-        url: 'account/payment_driver.php?type=' + 'driverpayment',
-        type: 'POST',
-        data: {
-            paymentfrom: paymentfrom,
-            Companyselect: Companyselect,
-            Bankname: Bankname,
-            payto: payto,
-            drivername: drivername,
-            selectdebite: selectdebite,
-            invoice: invoice,
-            amount: amount,
-            advance: advance,
-            finalamount: finalamount,
-            checkdate: checkdate,
-            cheque: cheque,
-            ach: ach,
-            memo: memo
-        },
-        dataType: "text",
-        success: function (data) {
-            swal("Success", data, "success");
-            $('#Payment_Registration').modal('hide');
-        },
-    });
+            var invoice = document.getElementById("driverinvoice").value
+            var amount = document.getElementById("driveramount").value
+            var advance = document.getElementById("dradvance").value
+            var finalamount = document.getElementById("drfinalamount").value
+            var checkdate = document.getElementById("checkdate").value
+            var cheque = document.getElementById("cheque").value
+            var ach = document.getElementById("ach").value
+            var memo = document.getElementById("memo").value
+            var companyId = document.getElementById('companyId').value;
+            $.ajax({
+                url: 'account/payment_driver.php?type=' + 'driverpayment',
+                type: 'POST',
+                data: {
+                    paymentfrom: paymentfrom,
+                    Companyselect: Companyselect,
+                    Bankname: Bankname,
+                    payto: payto,
+                    drivername: drivername,
+                    selectdebite: selectdebite,
+                    invoice: invoice,
+                    amount: amount,
+                    advance: advance,
+                    finalamount: finalamount,
+                    checkdate: checkdate,
+                    cheque: cheque,
+                    ach: ach,
+                    memo: memo,
+                    companyId:companyId
+                },
+                dataType: "text",
+                success: function (data) {
+                    swal("Success", data, "success");
+                    $('#Payment_Registration').modal('hide');
+                },
+            });
+          break;
+        case "2":
+          data = "0";
+          break;
+        case "3":
+          data = "0";
+          break;
+        case "4":
+          data = "0";
+          break;
+        case "5":
+          data = "0";
+          break;
+        case "6":
+          data = "0";
+          break;
+        case "7":
+          data = "0";
+          break;
+        case "8":
+          data = "0";
+          break;
+        case "9":
+          data = "0";
+          break;
+
+      }
 }

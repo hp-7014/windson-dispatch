@@ -750,6 +750,7 @@ require "../database/connection.php";
                                 <div>
                                     <textarea class="form-control" rows="1" id="memo" name="memo"
                                               placeholder="Memo *"></textarea>
+                                    <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                                 </div>
                             </div>
                         </div>
