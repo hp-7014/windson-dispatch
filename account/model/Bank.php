@@ -12,11 +12,11 @@ class Bank
     private $paymentFrom;
     private $companySelect;
 
-    // bank driver
+    // bank driver / carrier
     private $bankName;
     private $driverName;
     private $selectDebit;
-    private $invoice;
+    private $DriverInvoice;
     private $amount;
     private $advance;
     private $finalAmount;
@@ -25,6 +25,12 @@ class Bank
     private $ach;
     private $memo;
     private $payto;
+
+    // bank carrier
+    private $carrierInvoice;
+
+    //bank factoring
+    private $factoringInvoice;
 
     // security field's
     private $created_at;
@@ -36,9 +42,57 @@ class Bank
     /**
      * @return mixed
      */
+    public function getFactoringInvoice()
+    {
+        return $this->factoringInvoice;
+    }
+
+    /**
+     * @param mixed $factoringInvoice
+     */
+    public function setFactoringInvoice($factoringInvoice): void
+    {
+        $this->factoringInvoice = $factoringInvoice;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCarrierInvoice()
+    {
+        return $this->carrierInvoice;
+    }
+
+    /**
+     * @param mixed $carrierInvoice
+     */
+    public function setCarrierInvoice($carrierInvoice): void
+    {
+        $this->carrierInvoice = $carrierInvoice;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getPayto()
     {
         return $this->payto;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverInvoice()
+    {
+        return $this->DriverInvoice;
+    }
+
+    /**
+     * @param mixed $DriverInvoice
+     */
+    public function setDriverInvoice($DriverInvoice): void
+    {
+        $this->DriverInvoice = $DriverInvoice;
     }
 
     /**
