@@ -315,7 +315,7 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Final Amount *</label>
                             <div>
-                                <input class="form-control" value="0" id="finalamount" name="finalamount"
+                                <input class="form-control" value="0" id="drfinalamount" name="finalamount"
                                        placeholder="Final Amount *" type="text">
                             </div>
                         </div>

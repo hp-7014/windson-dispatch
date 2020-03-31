@@ -22,7 +22,7 @@ if($_GET['type'] == 'updatecompanyfields'){
             $r['bankname'][] = $row['bankName'];
             $i++;
        }
-        $r['arrayLength'] = $i;
+        $r['arrayLength'] = $i; 
         $output = $r;
     }
     echo json_encode($output);

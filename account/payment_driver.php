@@ -1,14 +1,14 @@
 <?php
-require 'model/Payment.php';
-//require 'utils/Helper.php';
+
+require 'model/Factoring.php';
+require 'utils/Helper.php';
 require '../vendor/autoload.php';
 require '../database/connection.php';
 
-//$helper = new Helper();
+$helper = new Helper();
 
-// Add Credit Here
-if ($_GET['type'] == 'updateCarrierInvoice') {
-    $payment = new Payment();
-    $payment->setCarrierName($_POST['carrierName']);
-    $payment->getCarrierInvoice($payment,$db);
+// Insert Driver Payment Function Here
+if ($_GET['type'] == 'driverpayment') {
+    
+    echo "Data Insert Successful";
 }
