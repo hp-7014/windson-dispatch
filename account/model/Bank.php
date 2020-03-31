@@ -6,9 +6,9 @@
  * Time: 2:18 PM
  */
 
-class Bank
-{
-    private $id;
+class Bank implements IteratorAggregate{
+    private $Id;
+    private $companyID;
     private $paymentFrom;
     private $companySelect;
 
@@ -36,6 +36,38 @@ class Bank
     /**
      * @return mixed
      */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getCompanyID()
+    {
+        return $this->companyID;
+    }
+
+    /**
+     * @param mixed $companyID
+     */
+    public function setCompanyID($companyID)
+    {
+        $this->companyID = $companyID;
+    }
+    
+    /**
+     * @return mixed
+     */
     public function getPayto()
     {
         return $this->payto;
@@ -47,22 +79,6 @@ class Bank
     public function setPayto($payto): void
     {
         $this->payto = $payto;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
     }
 
     /**
@@ -352,4 +368,67 @@ class Bank
     {
         $this->deleted_at = $deleted_at;
     }
+
+    function getIterator() {
+        return new ArrayIterator(
+            array(
+                '_id' => $this->id,
+                'companyID' => (int) $this->companyID,
+                'counter' => 0,
+                'bankpayment' => array([
+                    '_id' => 0,
+                    'counter' => 0,
+                    'paymentfrom' => $this->paymentFrom,
+                    'companyselect' => $this->companySelect,
+                    'bankname' => $this->bankName,
+                    'payto' => $this->payto,
+                    'drivername' => $this->driverName,
+                    'selectdebite' => $this->selectDebit,
+                    'invoice' => $this->invoice,
+                    'amount' => $this->amount,
+                    'advance' => $this->advance,
+                    'finalamount' => $this->finalAmount,
+                    'checkdate' => $this->checkDate,
+                    'cheque' => $this->cheque,
+                    'ach' => $this->ach,
+                    'memo' => $this->memo
+                    ])));
+    } 
+
+    //Insert Factoring Function
+    public function insert($bank,$db,$helper)
+    {
+        $collection = $db->payment_bank;
+            $criteria = array(
+                'companyID' => (int)$bank->getCompanyID(),
+        );
+        $doc = $collection->findOne($criteria);
+
+        if (!empty($doc)) {
+            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID],['$push'=>['bankpayment'=>[
+                '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->payment_bank),
+                'counter' => 0,
+                'counter' => 0,
+                    'paymentfrom' => $this->paymentFrom,
+                    'companyselect' => $this->companySelect,
+                    'bankname' => $this->bankName,
+                    'payto' => $this->payto,
+                    'drivername' => $this->driverName,
+                    'selectdebite' => $this->selectDebit,
+                    'invoice' => $this->invoice,
+                    'amount' => $this->amount,
+                    'advance' => $this->advance,
+                    'finalamount' => $this->finalAmount,
+                    'checkdate' => $this->checkDate,
+                    'cheque' => $this->cheque,
+                    'ach' => $this->ach,
+                    'memo' => $this->memo
+            ]]]);
+
+        } else {
+            $bank = iterator_to_array($bank);
+            $db->payment_bank->insertOne($bank);
+        }
+    }
+
 }
