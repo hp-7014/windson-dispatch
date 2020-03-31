@@ -572,7 +572,6 @@ function getDriverTotalAmount(dinvoiceID) {
 // factoring company invoice
 var factoringInvoiceID = 0;
 var factoringInvoiceAmount = 0;
-
 function getFactoringInvoice(value) {
     var value_1 = value.split(")");
     var factoringName = value_1[0];
