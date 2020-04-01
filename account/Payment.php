@@ -407,19 +407,19 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>Check/ACH Date *</label>
                             <div>
-                                <input class="form-control" placeholder="Check Date *" type="date">
+                                <input class="form-control" placeholder="Check Date *" type="date" id="carcheckdate">
                             </div>
                         </div>
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>Cheque #*</label>
                             <div>
-                                <input class="form-control" placeholder="Cheque #*" type="text">
+                                <input class="form-control" placeholder="Cheque #*" type="text" id="carcheque">
                             </div>
                         </div>
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>ACH #*</label>
                             <div>
-                                <input class="form-control" placeholder="ACH #*" type="text">
+                                <input class="form-control" placeholder="ACH #*" type="text" id="carach">
                             </div>
                         </div>
                         <!--factoring -->
@@ -491,19 +491,19 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>Check/ACH Date *</label>
                             <div>
-                                <input class="form-control" placeholder="Check Date *" type="date">
+                                <input class="form-control" placeholder="Check Date *" type="date" id="faccheck">
                             </div>
                         </div>
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>Cheque #*</label>
                             <div>
-                                <input class="form-control" placeholder="Cheque #*" type="text">
+                                <input class="form-control" placeholder="Cheque #*" type="text" id="faccheque">
                             </div>
                         </div>
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>ACH #*</label>
                             <div>
-                                <input class="form-control" placeholder="ACH #*" type="text">
+                                <input class="form-control" placeholder="ACH #*" type="text" id="facach">
                             </div>
                         </div>
                         <!-- Expenses -->

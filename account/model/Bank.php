@@ -11,10 +11,10 @@ class Bank implements IteratorAggregate{
     private $companyID;
     private $paymentFrom;
     private $companySelect;
-
+    private $category;
     // bank driver / carrier
     private $bankName;
-    private $driverName;
+    private $fieldName;
     private $selectDebit;
     private $invoice;
     private $amount;
@@ -138,6 +138,22 @@ class Bank implements IteratorAggregate{
     /**
      * @return mixed
      */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getBankName()
     {
         return $this->bankName;
@@ -154,17 +170,17 @@ class Bank implements IteratorAggregate{
     /**
      * @return mixed
      */
-    public function getDriverName()
+    public function getFieldName()
     {
-        return $this->driverName;
+        return $this->fieldName;
     }
 
     /**
-     * @param mixed $driverName
+     * @param mixed $fieldName
      */
-    public function setDriverName($driverName): void
+    public function setFieldName($fieldName): void
     {
-        $this->driverName = $driverName;
+        $this->fieldName = $fieldName;
     }
 
     /**
@@ -404,7 +420,7 @@ class Bank implements IteratorAggregate{
                     'companyselect' => $this->companySelect,
                     'bankname' => $this->bankName,
                     'payto' => $this->payto,
-                    'drivername' => $this->driverName,
+                     $this->category => $this->fieldName,
                     'selectdebite' => $this->selectDebit,
                     'invoice' => $this->invoice,
                     'amount' => $this->amount,
@@ -435,7 +451,7 @@ class Bank implements IteratorAggregate{
                     'companyselect' => $this->companySelect,
                     'bankname' => $this->bankName,
                     'payto' => $this->payto,
-                    'drivername' => $this->driverName,
+                     $this->category => $this->fieldName,
                     'selectdebite' => $this->selectDebit,
                     'invoice' => $this->invoice,
                     'amount' => $this->amount,

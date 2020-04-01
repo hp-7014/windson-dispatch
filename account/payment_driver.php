@@ -10,12 +10,13 @@ $helper = new Helper();
 // Insert Driver Payment Function Here
 if ($_GET['type'] == 'driverpayment') {
     $bank = new Bank();
-    $bank->setId($helper->getNextSequence("paymentbankcount",$db)); // <--- auto increment function called here
+    $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
     $bank->setCompanyID($_POST['companyId']);
     $bank->setPaymentFrom($_POST['paymentfrom']);
     $bank->setCompanySelect($_POST['Companyselect']);
     $bank->setBankName($_POST['Bankname']);
-    $bank->setDriverName($_POST['drivername']);
+    $bank->setFieldName($_POST['drivername']);
+    $bank->setCategory($_POST['category']);
     $bank->setPayto($_POST['payto']);
     $bank->setSelectDebit($_POST['selectdebite']);
     $bank->setInvoice($_POST['invoice']);
@@ -25,42 +26,48 @@ if ($_GET['type'] == 'driverpayment') {
     $bank->setCheckDate($_POST['checkdate']);
     $bank->setCheque($_POST['cheque']);
     $bank->setAch($_POST['ach']);
-    $bank->setMemo($_POST['companyId']);
+    $bank->setMemo($_POST['memo']);
     $bank->insert($bank,$db,$helper);
 }
 
 // bank carrier
-else if ($_GET['type'] == 'bankCarrier') {
+else if ($_GET['type'] == 'carrierpayment') {
     $bank = new Bank();
-    $bank->setId(); // <--- auto increment function called here
-    $bank->setPaymentFrom();
-    $bank->setCompanySelect();
-    $bank->setBankName();
-    $bank->setDriverName(); // as carrier name
-    $bank->setPayto();
-    $bank->setSelectDebit();
-    $bank->setCarrierInvoice();
-    $bank->setAmount();
-    $bank->setCheckDate();
-    $bank->setCheque();
-    $bank->setAch();
-    $bank->setMemo();
+    $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
+    $bank->setCompanyID($_POST['companyId']);
+    $bank->setPaymentFrom($_POST['paymentfrom']);
+    $bank->setCompanySelect($_POST['Companyselect']);
+    $bank->setBankName($_POST['Bankname']);
+    $bank->setFieldName($_POST['carriername']);
+    $bank->setCategory($_POST['category']); 
+    $bank->setPayto($_POST['payto']);
+    $bank->setSelectDebit($_POST['selectdebite']);
+    $bank->setInvoice($_POST['invoice']);
+    $bank->setAmount($_POST['amount']);
+    $bank->setCheckDate($_POST['checkdate']);
+    $bank->setCheque($_POST['cheque']);
+    $bank->setAch($_POST['ach']);
+    $bank->setMemo($_POST['memo']);
+    $bank->insert($bank,$db,$helper);
 }
 
 // bank factoring
 else if($_GET['type'] == 'bankFactoring'){
     $bank = new Bank();
-    $bank->setId(); // <--- auto increment function called here
-    $bank->setPaymentFrom();
-    $bank->setCompanySelect();
-    $bank->setBankName();
-    $bank->setDriverName(); // as factoring name
-    $bank->setPayto();
-    $bank->setSelectDebit();
-    $bank->setFactoringInvoice();
-    $bank->setAmount();
-    $bank->setCheckDate();
-    $bank->setCheque();
-    $bank->setAch();
-    $bank->setMemo();
+    $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
+    $bank->setCompanyID($_POST['companyId']);
+    $bank->setPaymentFrom($_POST['paymentfrom']);
+    $bank->setCompanySelect($_POST['Companyselect']);
+    $bank->setBankName($_POST['Bankname']);
+    $bank->setFieldName($_POST['selectFactoring']); 
+    $bank->setCategory($_POST['category']);
+    $bank->setPayto($_POST['payto']);
+    $bank->setSelectDebit($_POST['selectdebite']);
+    $bank->setInvoice($_POST['invoice']);
+    $bank->setAmount($_POST['amount']);
+    $bank->setCheckDate($_POST['checkdate']);
+    $bank->setCheque($_POST['cheque']);
+    $bank->setAch($_POST['ach']);
+    $bank->setMemo($_POST['memo']);
+    $bank->insert($bank,$db,$helper);
 }
