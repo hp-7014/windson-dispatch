@@ -11,10 +11,12 @@ class Bank implements IteratorAggregate{
     private $companyID;
     private $paymentFrom;
     private $companySelect;
-
+    private $category;
+    private $year;
+    private $month;
     // bank driver / carrier
     private $bankName;
-    private $driverName;
+    private $fieldName;
     private $selectDebit;
     private $invoice;
     private $amount;
@@ -53,6 +55,38 @@ class Bank implements IteratorAggregate{
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * @param mixed $year
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMonth()
+    {
+        return $this->month;
+    }
+
+    /**
+     * @param mixed $month
+     */
+    public function setMonth($month)
+    {
+        $this->month = $month;
     }
 
     /**
@@ -138,6 +172,22 @@ class Bank implements IteratorAggregate{
     /**
      * @return mixed
      */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getBankName()
     {
         return $this->bankName;
@@ -154,17 +204,17 @@ class Bank implements IteratorAggregate{
     /**
      * @return mixed
      */
-    public function getDriverName()
+    public function getFieldName()
     {
-        return $this->driverName;
+        return $this->fieldName;
     }
 
     /**
-     * @param mixed $driverName
+     * @param mixed $fieldName
      */
-    public function setDriverName($driverName): void
+    public function setFieldName($fieldName): void
     {
-        $this->driverName = $driverName;
+        $this->fieldName = $fieldName;
     }
 
     /**
@@ -394,17 +444,23 @@ class Bank implements IteratorAggregate{
     function getIterator() {
         return new ArrayIterator(
             array(
-                '_id' => $this->id,
+                '_id' => 2,
                 'companyID' => (int) $this->companyID,
+                'bankID' => (int) $this->bankName,
                 'counter' => 0,
-                'bankpayment' => array([
+                $this->year => array([
+                        'year' => $this->year,
+                        'month' => $this->month,
+                        'balance' => 1000
+                    ]),
+                    $this->month => array([
                     '_id' => 0,
                     'counter' => 0,
                     'paymentfrom' => $this->paymentFrom,
                     'companyselect' => $this->companySelect,
                     'bankname' => $this->bankName,
                     'payto' => $this->payto,
-                    'drivername' => $this->driverName,
+                     $this->category => $this->fieldName,
                     'selectdebite' => $this->selectDebit,
                     'invoice' => $this->invoice,
                     'amount' => $this->amount,
@@ -414,7 +470,8 @@ class Bank implements IteratorAggregate{
                     'cheque' => $this->cheque,
                     'ach' => $this->ach,
                     'memo' => $this->memo
-                    ])));
+                    ])
+                ));
     }
 
     //Insert Factoring Function
@@ -422,30 +479,33 @@ class Bank implements IteratorAggregate{
     {
         $collection = $db->payment_bank;
             $criteria = array(
-                'companyID' => (int)$bank->getCompanyID(),
+                'bankID' => (int)$bank->getBankName(),
         );
         $doc = $collection->findOne($criteria);
-
         if (!empty($doc)) {
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID],['$push'=>['bankpayment'=>[
-                '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->payment_bank),
-                'counter' => 0,
-                'counter' => 0,
-                    'paymentfrom' => $this->paymentFrom,
-                    'companyselect' => $this->companySelect,
-                    'bankname' => $this->bankName,
-                    'payto' => $this->payto,
-                    'drivername' => $this->driverName,
-                    'selectdebite' => $this->selectDebit,
-                    'invoice' => $this->invoice,
-                    'amount' => $this->amount,
-                    'advance' => $this->advance,
-                    'finalamount' => $this->finalAmount,
-                    'checkdate' => $this->checkDate,
-                    'cheque' => $this->cheque,
-                    'ach' => $this->ach,
-                    'memo' => $this->memo
-            ]]]);
+            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID],
+            ['$push'=>[$this->year=>[
+            'year' => $this->year,
+            'month' => $this->month,
+            'balance' => 4000],
+
+            $this->month=>['_id' => 2,
+            'counter' => 0,
+            'paymentfrom' => $this->paymentFrom,
+            'companyselect' => $this->companySelect,
+            'bankname' => $this->bankName,
+            'payto' => $this->payto,
+             $this->category => $this->fieldName,
+            'selectdebite' => $this->selectDebit,
+            'invoice' => $this->invoice,
+            'amount' => $this->amount,
+            'advance' => $this->advance,
+            'finalamount' => $this->finalAmount,
+            'checkdate' => $this->checkDate,
+            'cheque' => $this->cheque,
+            'ach' => $this->ach,
+            'memo' => $this->memo]]]
+        );
 
         } else {
             $bank = iterator_to_array($bank);

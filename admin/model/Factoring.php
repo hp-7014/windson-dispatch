@@ -470,7 +470,8 @@ class Factoring implements IteratorAggregate {
         $doc = $collection->findOne($criteria);
 
         if (!empty($doc)) {
-            $db->factoring_company_add->updateOne(['companyID' => (int)$this->companyID],['$push'=>['factoring'=>[
+            $db->factoring_company_add->updateOne(['companyID' => (int)$this->companyID],
+            ['$push'=>['factoring'=>[
                 '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->factoring_company_add),
                 'counter' => 0,
                 'factoringCompanyname' => $this->factoringCompanyname,

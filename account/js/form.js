@@ -591,6 +591,7 @@ function Paymentadd() {
     var payto = document.getElementById("purpose").value
     switch (payto) {
         case "1":
+            var category = "drivername";
             var paymentfrom = document.getElementById("type").value
             var Companyselect1 = document.getElementById("Companyselect").value
             var Company_select = Companyselect1.split(")");
@@ -628,6 +629,7 @@ function Paymentadd() {
                     Bankname: Bankname,
                     payto: payto,
                     drivername: drivername,
+                    category:category,
                     selectdebite: selectdebite,
                     invoice: invoice,
                     amount: amount,
@@ -647,10 +649,116 @@ function Paymentadd() {
             });
           break;
         case "2":
-          data = "0";
+            var category = "carriername";
+            var paymentfrom = document.getElementById("type").value
+            var Companyselect1 = document.getElementById("Companyselect").value
+            var Company_select = Companyselect1.split(")");
+            var Companyselect = Company_select[0];
+
+            var Bankname1 = document.getElementById("companyfield").value
+            var Bank_name = Bankname1.split(")");
+            var Bankname = Bank_name[0];
+
+            var carriername1 = document.getElementById("carriername").value
+            var carrier_name = carriername1.split(")");
+            var carriername = carrier_name[0];
+            
+            var payto = document.getElementById("purpose").value
+            
+            var selectdebite1 = document.getElementById("selectdebite1").value
+            var select_debite = selectdebite1.split(")");
+            var selectdebite = select_debite[0];
+
+            var invoice = document.getElementById("invoiceID").value
+            var amount = document.getElementById("finalAmount").value
+            var checkdate = document.getElementById("carcheckdate").value
+            var cheque = document.getElementById("carcheque").value
+            var ach = document.getElementById("carach").value
+            var memo = document.getElementById("memo").value
+            var companyId = document.getElementById('companyId').value;
+            $.ajax({
+                url: 'account/payment_driver.php?type=' + 'carrierpayment',
+                type: 'POST',
+                data: {
+                    paymentfrom: paymentfrom,
+                    Companyselect: Companyselect,
+                    Bankname: Bankname,
+                    payto: payto,
+                    carriername: carriername,
+                    category:category,
+                    selectdebite: selectdebite,
+                    invoice: invoice,
+                    amount: amount,
+                    advance: advance,
+                    finalamount: finalamount,
+                    checkdate: checkdate,
+                    cheque: cheque,
+                    ach: ach,
+                    memo: memo,
+                    companyId:companyId
+                },
+                dataType: "text",
+                success: function (data) {
+                    swal("Success", data, "success");
+                    $('#Payment_Registration').modal('hide');
+                },
+            });
           break;
         case "3":
-          data = "0";
+            var category = "factoringcompany";
+            var paymentfrom = document.getElementById("type").value
+            var Companyselect1 = document.getElementById("Companyselect").value
+            var Company_select = Companyselect1.split(")");
+            var Companyselect = Company_select[0];
+
+            var Bankname1 = document.getElementById("companyfield").value
+            var Bank_name = Bankname1.split(")");
+            var Bankname = Bank_name[0];
+
+            var selectFactoring1 = document.getElementById("selectFactoring").value
+            var select_Factoring = selectFactoring1.split(")");
+            var selectFactoring = select_Factoring[0];
+            
+            var payto = document.getElementById("purpose").value
+            
+            var selectdebite1 = document.getElementById("debitecat").value
+            var select_debite = selectdebite1.split(")");
+            var selectdebite = select_debite[0];
+
+            var invoice = document.getElementById("factoringINVOICE").value
+            var amount = document.getElementById("factoringAmount").value
+            var checkdate = document.getElementById("faccheck").value
+            var cheque = document.getElementById("faccheque").value
+            var ach = document.getElementById("facach").value
+            var memo = document.getElementById("memo").value
+            var companyId = document.getElementById('companyId').value;
+            $.ajax({
+                url: 'account/payment_driver.php?type=' + 'bankFactoring',
+                type: 'POST',
+                data: {
+                    paymentfrom: paymentfrom,
+                    Companyselect: Companyselect,
+                    Bankname: Bankname,
+                    payto: payto,
+                    selectFactoring: selectFactoring,
+                    category:category,
+                    selectdebite: selectdebite,
+                    invoice: invoice,
+                    amount: amount,
+                    advance: advance,
+                    finalamount: finalamount,
+                    checkdate: checkdate,
+                    cheque: cheque,
+                    ach: ach,
+                    memo: memo,
+                    companyId:companyId
+                },
+                dataType: "text",
+                success: function (data) {
+                    swal("Success", data, "success");
+                    $('#Payment_Registration').modal('hide');
+                },
+            });
           break;
         case "4":
           data = "0";
