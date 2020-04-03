@@ -444,9 +444,10 @@ class Bank implements IteratorAggregate{
     function getIterator() {
         return new ArrayIterator(
             array(
-                '_id' => 2,
+                '_id' => $this->id,
                 'companyID' => (int) $this->companyID,
                 'bankID' => (int) $this->bankName,
+                'year' => $this->year,
                 'counter' => 0,
                 $this->year => array([
                         'year' => $this->year,
@@ -477,19 +478,47 @@ class Bank implements IteratorAggregate{
     //Insert Factoring Function
     public function insert($bank,$db,$helper)
     {
-        $collection = $db->payment_bank;
-            $criteria = array(
-                'bankID' => (int)$bank->getBankName(),
-        );
-        $doc = $collection->findOne($criteria);
-        if (!empty($doc)) {
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID],
+$show = $db->payment_bank->find(['companyID'=>(int)$this->companyID, 'bankID' => $this->bankName,'year' => $this->year]);
+
+$counter = [];
+$id = [];
+$bankid = [];
+$yearID = [];
+
+$mainID = null;
+$incrementNumber = null;
+$bankn = null;
+$years = null;
+$companyID = null;
+
+$i = 0;
+foreach ($show as $s) {
+    $id[] = $s['_id'];
+    $counter[] = $s['counter'];
+    $bankid[] = $s['bankID'];
+    $yearID[] = $s['year'];
+    $companyID = $s['companyID'];
+
+    if ($counter[$i] < 5 && $bankid[$i] == $this->bankName && $yearID[$i] == $this->year) {
+        print_r($yearID[$i]);
+        exit();
+        $mainID = $id[$i];
+        $incrementNumber = $counter[$i];
+        $bankn = $bankid[$i];
+        $years = $this->year;
+    }
+    $i++;
+}
+
+if (!empty($mainID)) {
+    echo "second entry";
+    $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],['$set' => ['counter' => $incrementNumber + 1]],
             ['$push'=>[$this->year=>[
             'year' => $this->year,
             'month' => $this->month,
             'balance' => 4000],
 
-            $this->month=>['_id' => 2,
+            $this->month=>[
             'counter' => 0,
             'paymentfrom' => $this->paymentFrom,
             'companyselect' => $this->companySelect,
@@ -506,11 +535,10 @@ class Bank implements IteratorAggregate{
             'ach' => $this->ach,
             'memo' => $this->memo]]]
         );
-
-        } else {
-            $bank = iterator_to_array($bank);
-            $db->payment_bank->insertOne($bank);
-        }
+} else {
+    echo "first entry'";
+    $bank = iterator_to_array($bank);
+    $db->payment_bank->insertOne($bank);
+}
     }
-
 }
