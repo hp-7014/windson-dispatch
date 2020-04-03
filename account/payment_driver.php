@@ -12,6 +12,8 @@ if ($_GET['type'] == 'driverpayment') {
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
     $bank->setCompanyID($_POST['companyId']);
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
     $bank->setPaymentFrom($_POST['paymentfrom']);
     $bank->setCompanySelect($_POST['Companyselect']);
     $bank->setBankName($_POST['Bankname']);
@@ -35,6 +37,8 @@ else if ($_GET['type'] == 'carrierpayment') {
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
     $bank->setCompanyID($_POST['companyId']);
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
     $bank->setPaymentFrom($_POST['paymentfrom']);
     $bank->setCompanySelect($_POST['Companyselect']);
     $bank->setBankName($_POST['Bankname']);
@@ -56,6 +60,8 @@ else if($_GET['type'] == 'bankFactoring'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
     $bank->setCompanyID($_POST['companyId']);
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
     $bank->setPaymentFrom($_POST['paymentfrom']);
     $bank->setCompanySelect($_POST['Companyselect']);
     $bank->setBankName($_POST['Bankname']);
