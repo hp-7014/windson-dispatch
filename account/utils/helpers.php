@@ -20,6 +20,7 @@ if ($_GET['type'] == 'updatecompanyfields') {
     foreach ($admin_bank as $row) {
             $r['bankid'][] = $row['_id'];
             $r['bankname'][] = $row['bankName'];
+            $r['openingBalance'] = $row['openingBalance'];
             $i++;
        }
         $r['arrayLength'] = $i;
@@ -134,4 +135,29 @@ if ($_GET['type'] == 'factoringInvoice') {
         }
     }
     echo json_encode($p);
+}
+
+//base Amount
+if ($_GET['type'] == 'basebalance') {
+    $id = (int)$_POST['bankname'];
+    $collection = $db->bank_admin;
+    $show1 = $collection->aggregate([
+        ['$match' => ['companyID' => $_SESSION['companyId']]],
+        ['$unwind' => '$admin_bank'],
+        ['$match' => ['admin_bank._id' => $id]]
+    ]);
+    $i = 0;
+    foreach ($show1 as $row) {
+    $admin_bank = array();
+    $k = 0;
+    $admin_bank[$k] = $row['admin_bank'];
+    $k++;
+    foreach ($admin_bank as $row) {
+            $r['bankid'][] = $row['_id'];
+            $r['openingBalance'] = $row['openingBalance'];
+            $i++;
+       }
+        $output = $r;
+    }
+    echo json_encode($output);
 }

@@ -14,6 +14,7 @@ class Bank implements IteratorAggregate{
     private $category;
     private $year;
     private $month;
+    private $baseamount;
     // bank driver / carrier
     private $bankName;
     private $fieldName;
@@ -33,6 +34,23 @@ class Bank implements IteratorAggregate{
 
     //bank factoring
     private $factoringInvoice;
+    //bank expense
+    private $expensesbill;
+    private $expensesname;
+    //bank Maintenance
+    private $truckno;
+    private $trailerno;
+    //bank insurance
+    private $insurancecom;
+    //bank credit card
+    private $card;
+    private $cardcategory;
+    private $subcard;
+    //bank fuel card
+    private $fuellist;
+    //bank other
+    private $pobox;
+    private $other;
 
     // security field's
     private $created_at;
@@ -55,6 +73,197 @@ class Bank implements IteratorAggregate{
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBaseamount()
+    {
+        return $this->baseamount;
+    }
+
+    /**
+     * @param mixed $baseamount
+     */
+    public function setBaseamount($baseamount)
+    {
+        $this->baseamount = $baseamount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOther()
+    {
+        return $this->other;
+    }
+
+    /**
+     * @param mixed $other
+     */
+    public function setOther($other)
+    {
+        $this->other = $other;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPobox()
+    {
+        return $this->pobox;
+    }
+
+    /**
+     * @param mixed $pobox
+     */
+    public function setPobox($pobox)
+    {
+        $this->pobox = $pobox;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getFuellist()
+    {
+        return $this->fuellist;
+    }
+    /**
+     * @param mixed $fuellist
+     */
+    public function setFuellist($fuellist)
+    {
+        $this->fuellist = $fuellist;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubcard()
+    {
+        return $this->subcard;
+    }
+
+    /**
+     * @param mixed $subcard
+     */
+    public function setSubcard($subcard)
+    {
+        $this->subcard = $subcard;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardcategory()
+    {
+        return $this->cardcategory;
+    }
+
+    /**
+     * @param mixed $cardcategory
+     */
+    public function setCardcategory($cardcategory)
+    {
+        $this->cardcategory = $cardcategory;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCard()
+    {
+        return $this->card;
+    }
+
+    /**
+     * @param mixed $card
+     */
+    public function setCard($card)
+    {
+        $this->card = $card;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInsurancecom()
+    {
+        return $this->insurancecom;
+    }
+
+    /**
+     * @param mixed $insurancecom
+     */
+    public function setInsurancecom($insurancecom)
+    {
+        $this->insurancecom = $insurancecom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTruckno()
+    {
+        return $this->truckno;
+    }
+
+    /**
+     * @param mixed $truckno
+     */
+    public function setTruckno($truckno)
+    {
+        $this->truckno = $truckno;
+    }
+
+        /**
+     * @return mixed
+     */
+    public function getTrailerno()
+    {
+        return $this->trailerno;
+    }
+
+    /**
+     * @param mixed $trailerno
+     */
+    public function setTrailerno($trailerno)
+    {
+        $this->trailerno = $trailerno;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExpensesname()
+    {
+        return $this->expensesname;
+    }
+
+    /**
+     * @param mixed $expensesname
+     */
+    public function setExpensesname($expensesname)
+    {
+        $this->expensesname = $expensesname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExpensesbill()
+    {
+        return $this->expensesbill;
+    }
+
+    /**
+     * @param mixed $expensesbill
+     */
+    public function setExpensesbill($expensesbill)
+    {
+        $this->expensesbill = $expensesbill;
     }
 
     /**
@@ -442,43 +651,278 @@ class Bank implements IteratorAggregate{
     }
 
     function getIterator() {
-        return new ArrayIterator(
-            array(
-                '_id' => $this->id,
-                'companyID' => (int) $this->companyID,
-                'bankID' => (int) $this->bankName,
-                'year' => $this->year,
-                'counter' => 0,
-                $this->year => array([
+        $favcolor = $this->category;
+        switch ($favcolor) {
+            case "driver":
+                return new ArrayIterator(
+                    array(
+                        '_id' => $this->id,
+                        'companyID' => (int) $this->companyID,
+                        'bankID' => (int) $this->bankName,
                         'year' => $this->year,
-                        'month' => $this->month,
-                        'balance' => 1000
-                    ]),
-                    $this->month => array([
-                    '_id' => 0,
+                        'counter' => 0,
+                        $this->year => array([
+                                'year' => $this->year,
+                                'month' => $this->month,
+                                'balance' => $this->baseamount
+                            ]),
+                            $this->month => array([
+                            '_id' => 0,
+                            'counter' => 0,
+                            'paymentfrom' => $this->paymentFrom,
+                            'companyselect' => $this->companySelect,
+                            'bankname' => $this->bankName,
+                            'payto' => $this->payto,
+                             $this->category => $this->fieldName,
+                            'debitcategory' => $this->selectDebit,
+                            'invoice' => $this->invoice,
+                            'amount' => $this->amount,
+                            'advance' => $this->advance,
+                            'finalamount' => $this->finalAmount,
+                            'checkdate' => $this->checkDate,
+                            'cheque' => $this->cheque,
+                            'ach' => $this->ach,
+                            'memo' => $this->memo,
+                            'transactiondate' => strtotime(date("d-m-yy"))
+                            ])
+                        ));
+                break;
+            case "carrier":
+                return new ArrayIterator(
+                    array(
+                        '_id' => $this->id,
+                        'companyID' => (int) $this->companyID,
+                        'bankID' => (int) $this->bankName,
+                        'year' => $this->year,
+                        'counter' => 0,
+                        $this->year => array([
+                                'year' => $this->year,
+                                'month' => $this->month,
+                                'balance' => $this->baseamount
+                            ]),
+                            $this->month => array([
+                            '_id' => 0,
+                            'counter' => 0,
+                            'paymentfrom' => $this->paymentFrom,
+                            'companyselect' => $this->companySelect,
+                            'bankname' => $this->bankName,
+                            'payto' => $this->payto,
+                             $this->category => $this->fieldName,
+                            'debitcategory' => $this->selectDebit,
+                            'invoice' => $this->invoice,
+                            'amount' => $this->amount,
+                            'checkdate' => $this->checkDate,
+                            'cheque' => $this->cheque,
+                            'ach' => $this->ach,
+                            'memo' => $this->memo
+                            ])
+                        ));
+                break;
+            case "factoringcompany":
+                return new ArrayIterator(
+                    array(
+                        '_id' => $this->id,
+                        'companyID' => (int) $this->companyID,
+                        'bankID' => (int) $this->bankName,
+                        'year' => $this->year,
+                        'counter' => 0,
+                        $this->year => array([
+                                'year' => $this->year,
+                                'month' => $this->month,
+                                'balance' => $this->baseamount
+                            ]),
+                            $this->month => array([
+                            '_id' => 0,
+                            'counter' => 0,
+                            'paymentfrom' => $this->paymentFrom,
+                            'companyselect' => $this->companySelect,
+                            'bankname' => $this->bankName,
+                            'payto' => $this->payto,
+                             $this->category => $this->fieldName,
+                            'debitcategory' => $this->selectDebit,
+                            'invoice' => $this->invoice,
+                            'amount' => $this->amount,
+                            'checkdate' => $this->checkDate,
+                            'cheque' => $this->cheque,
+                            'ach' => $this->ach,
+                            'memo' => $this->memo
+                            ])
+                        ));
+                break;
+            case "Expense":
+                return new ArrayIterator(
+                    array(
+                        '_id' => $this->id,
+                        'companyID' => (int) $this->companyID,
+                        'bankID' => (int) $this->bankName,
+                        'year' => $this->year,
+                        'counter' => 0,
+                        $this->year => array([
+                                'year' => $this->year,
+                                'month' => $this->month,
+                                'balance' => $this->baseamount
+                            ]),
+                            $this->month => array([
+                            '_id' => 0,
+                            'counter' => 0,
+                            'paymentfrom' => $this->paymentFrom,
+                            'companyselect' => $this->companySelect,
+                            'bankname' => $this->bankName,
+                            'payto' => $this->payto,
+                            'billno' => $this->expensesbill,
+                            'expensesname' => $this->expensesname,
+                            'debitcategory' => $this->selectDebit,
+                            'amount' => $this->amount,
+                            'memo' => $this->memo
+                            ])
+                        ));
+                break; 
+            case "Maintenance":
+                return new ArrayIterator(
+                    array(
+                        '_id' => $this->id,
+                        'companyID' => (int) $this->companyID,
+                        'bankID' => (int) $this->bankName,
+                        'year' => $this->year,
+                        'counter' => 0,
+                        $this->year => array([
+                                'year' => $this->year,
+                                'month' => $this->month,
+                                'balance' => $this->baseamount
+                            ]),
+                            $this->month => array([
+                            '_id' => 0,
+                            'counter' => 0,
+                            'paymentfrom' => $this->paymentFrom,
+                            'companyselect' => $this->companySelect,
+                            'bankname' => $this->bankName,
+                            'payto' => $this->payto,
+                            'debitcategory' => $this->selectDebit,
+                            'amount' => $this->amount,
+                            'ach' => $this->ach,
+                            'truckno' => $this->truckno,
+                            'trailerno' => $this->trailerno,
+                            'memo' => $this->memo
+                            ])
+                        ));
+                break;
+            case "Insurance":
+                return new ArrayIterator(
+                    array(
+                        '_id' => $this->id,
+                        'companyID' => (int) $this->companyID,
+                        'bankID' => (int) $this->bankName,
+                        'year' => $this->year,
+                        'counter' => 0,
+                        $this->year => array([
+                                'year' => $this->year,
+                                'month' => $this->month,
+                                'balance' => $this->baseamount
+                            ]),
+                            $this->month => array([
+                            '_id' => 0,
+                            'counter' => 0,
+                            'paymentfrom' => $this->paymentFrom,
+                            'companyselect' => $this->companySelect,
+                            'bankname' => $this->bankName,
+                            'payto' => $this->payto,
+                            'insurancecompany' => $this->insurancecom,
+                            'debitcategory' => $this->selectDebit,
+                            'amount' => $this->amount,
+                            'memo' => $this->memo
+                            ])
+                        ));
+                break;
+            case "creditcard":
+                return new ArrayIterator(
+                    array(
+                        '_id' => $this->id,
+                        'companyID' => (int) $this->companyID,
+                        'bankID' => (int) $this->bankName,
+                        'year' => $this->year,
+                        'counter' => 0,
+                        $this->year => array([
+                                'year' => $this->year,
+                                'month' => $this->month,
+                                'balance' => $this->baseamount
+                            ]),
+                            $this->month => array([
+                            '_id' => 0,
+                            'counter' => 0,
+                            'paymentfrom' => $this->paymentFrom,
+                            'companyselect' => $this->companySelect,
+                            'bankname' => $this->bankName,
+                            'payto' => $this->payto,
+                            'card' => $this->card,
+                            $this->card => $this->cardcategory,
+                            'amount' => $this->amount,
+                            'memo' => $this->memo
+                            ])
+                        ));
+                break;
+            case "fuelcard":
+                return new ArrayIterator(
+                    array(
+                        '_id' => $this->id,
+                        'companyID' => (int) $this->companyID,
+                        'bankID' => (int) $this->bankName,
+                        'year' => $this->year,
+                        'counter' => 0,
+                        $this->year => array([
+                                'year' => $this->year,
+                                'month' => $this->month,
+                                'balance' => $this->baseamount
+                            ]),
+                            $this->month => array([
+                            '_id' => 0,
+                            'counter' => 0,
+                            'paymentfrom' => $this->paymentFrom,
+                            'companyselect' => $this->companySelect,
+                            'bankname' => $this->bankName,
+                            'payto' => $this->payto,
+                            'fuellist' => $this->fuellist,
+                            'amount' => $this->amount,
+                            'memo' => $this->memo
+                            ])
+                        ));
+                break;
+            default:
+            return new ArrayIterator(
+                array(
+                    '_id' => $this->id,
+                    'companyID' => (int) $this->companyID,
+                    'bankID' => (int) $this->bankName,
+                    'year' => $this->year,
                     'counter' => 0,
-                    'paymentfrom' => $this->paymentFrom,
-                    'companyselect' => $this->companySelect,
-                    'bankname' => $this->bankName,
-                    'payto' => $this->payto,
-                     $this->category => $this->fieldName,
-                    'selectdebite' => $this->selectDebit,
-                    'invoice' => $this->invoice,
-                    'amount' => $this->amount,
-                    'advance' => $this->advance,
-                    'finalamount' => $this->finalAmount,
-                    'checkdate' => $this->checkDate,
-                    'cheque' => $this->cheque,
-                    'ach' => $this->ach,
-                    'memo' => $this->memo
-                    ])
-                ));
+                    (int)$this->year => array([
+                            'year' => $this->year,
+                            'month' => $this->month,
+                            'balance' => $this->baseamount
+                        ]),
+                        $this->month => array([
+                        '_id' => 0,
+                        'counter' => 0,
+                        'paymentfrom' => $this->paymentFrom,
+                        'companyselect' => $this->companySelect,
+                        'bankname' => $this->bankName,
+                        'payto' => $this->payto,
+                        'other' => $this->other,
+                        'debitcategory' => $this->selectDebit,
+                        'pobox' => $this->pobox,
+                        'amount' => $this->amount,
+                        'checkdate' => $this->checkDate,
+                        'cheque' => $this->cheque,
+                        'ach' => $this->ach,
+                        'memo' => $this->memo
+                        ])
+                    ));
+        }
     }
 
     //Insert Factoring Function
     public function insert($bank,$db,$helper)
     {
-$show = $db->payment_bank->find(['companyID'=>(int)$this->companyID, 'bankID' => $this->bankName,'year' => $this->year]);
+        $show = $db->payment_bank->find(['companyID' => (int)$this->companyID, 'bankID' => (int)$this->bankName, 'year' => (int)$this->year]);
 
 $counter = [];
 $id = [];
@@ -490,7 +934,7 @@ $incrementNumber = null;
 $bankn = null;
 $years = null;
 $companyID = null;
-
+print_r($show);
 $i = 0;
 foreach ($show as $s) {
     $id[] = $s['_id'];
@@ -498,10 +942,11 @@ foreach ($show as $s) {
     $bankid[] = $s['bankID'];
     $yearID[] = $s['year'];
     $companyID = $s['companyID'];
-
+    print_r($id);
+    print_r($counter);
+    print_r($bankid);
+    print_r($yearID);
     if ($counter[$i] < 5 && $bankid[$i] == $this->bankName && $yearID[$i] == $this->year) {
-        print_r($yearID[$i]);
-        exit();
         $mainID = $id[$i];
         $incrementNumber = $counter[$i];
         $bankn = $bankid[$i];
