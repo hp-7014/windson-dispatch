@@ -129,7 +129,7 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 bank" style="display:none;">
                             <label>Bank Name*</label>
                             <select class="form-control" id="companyfield" onchange="baseamount(this.value)">
-                                        
+                            
                             </select>
                         </div>
                         <input type="hidden" id="baseamount" name="baseamount" value="">

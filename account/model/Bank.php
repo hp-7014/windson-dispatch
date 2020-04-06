@@ -659,10 +659,10 @@ class Bank implements IteratorAggregate{
                         '_id' => $this->id,
                         'companyID' => (int) $this->companyID,
                         'bankID' => (int) $this->bankName,
-                        'year' => $this->year,
+                        'year' => (int)$this->year,
                         'counter' => 0,
-                        $this->year => array([
-                                'year' => $this->year,
+                        (int)$this->year => array([
+                                'year' => (int)$this->year,
                                 'month' => $this->month,
                                 'balance' => $this->baseamount
                             ]),
@@ -923,7 +923,6 @@ class Bank implements IteratorAggregate{
     public function insert($bank,$db,$helper)
     {
         $show = $db->payment_bank->find(['companyID' => (int)$this->companyID, 'bankID' => (int)$this->bankName, 'year' => (int)$this->year]);
-
 $counter = [];
 $id = [];
 $bankid = [];
@@ -942,10 +941,6 @@ foreach ($show as $s) {
     $bankid[] = $s['bankID'];
     $yearID[] = $s['year'];
     $companyID = $s['companyID'];
-    print_r($id);
-    print_r($counter);
-    print_r($bankid);
-    print_r($yearID);
     if ($counter[$i] < 5 && $bankid[$i] == $this->bankName && $yearID[$i] == $this->year) {
         $mainID = $id[$i];
         $incrementNumber = $counter[$i];
@@ -958,8 +953,8 @@ foreach ($show as $s) {
 if (!empty($mainID)) {
     echo "second entry";
     $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],['$set' => ['counter' => $incrementNumber + 1]],
-            ['$push'=>[$this->year=>[
-            'year' => $this->year,
+            ['$push'=>[(int)$this->year=>[
+            'year' => (int)$this->year,
             'month' => $this->month,
             'balance' => 4000],
 
