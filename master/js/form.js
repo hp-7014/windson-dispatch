@@ -383,7 +383,7 @@ function addCompany() {
     var factoringCompany_1 = factoringCompany1.split(")");
     var factoringCompany = factoringCompany_1[0];
     // var factoringCompanyAddress = document.getElementById('factoringCompanyAddress').value;
-    var companyId = document.getElementById('companyId').value;
+    var companyId = $('#compnayid').val();
 
     if (val_companyName(companyName)) {
         if (val_telephoneNo(telephoneNo)) {
