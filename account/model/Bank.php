@@ -16,6 +16,7 @@ class Bank implements IteratorAggregate
     private $category;
     private $year;
     private $month;
+    private $baseamount;
     // bank driver / carrier
     private $bankName;
     private $fieldName;
@@ -35,6 +36,23 @@ class Bank implements IteratorAggregate
 
     //bank factoring
     private $factoringInvoice;
+    //bank expense
+    private $expensesbill;
+    private $expensesname;
+    //bank Maintenance
+    private $truckno;
+    private $trailerno;
+    //bank insurance
+    private $insurancecom;
+    //bank credit card
+    private $card;
+    private $cardcategory;
+    private $subcard;
+    //bank fuel card
+    private $fuellist;
+    //bank other
+    private $pobox;
+    private $other;
 
     // security field's
     private $created_at;
@@ -57,6 +75,197 @@ class Bank implements IteratorAggregate
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBaseamount()
+    {
+        return $this->baseamount;
+    }
+
+    /**
+     * @param mixed $baseamount
+     */
+    public function setBaseamount($baseamount)
+    {
+        $this->baseamount = $baseamount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOther()
+    {
+        return $this->other;
+    }
+
+    /**
+     * @param mixed $other
+     */
+    public function setOther($other)
+    {
+        $this->other = $other;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPobox()
+    {
+        return $this->pobox;
+    }
+
+    /**
+     * @param mixed $pobox
+     */
+    public function setPobox($pobox)
+    {
+        $this->pobox = $pobox;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFuellist()
+    {
+        return $this->fuellist;
+    }
+    /**
+     * @param mixed $fuellist
+     */
+    public function setFuellist($fuellist)
+    {
+        $this->fuellist = $fuellist;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubcard()
+    {
+        return $this->subcard;
+    }
+
+    /**
+     * @param mixed $subcard
+     */
+    public function setSubcard($subcard)
+    {
+        $this->subcard = $subcard;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardcategory()
+    {
+        return $this->cardcategory;
+    }
+
+    /**
+     * @param mixed $cardcategory
+     */
+    public function setCardcategory($cardcategory)
+    {
+        $this->cardcategory = $cardcategory;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCard()
+    {
+        return $this->card;
+    }
+
+    /**
+     * @param mixed $card
+     */
+    public function setCard($card)
+    {
+        $this->card = $card;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInsurancecom()
+    {
+        return $this->insurancecom;
+    }
+
+    /**
+     * @param mixed $insurancecom
+     */
+    public function setInsurancecom($insurancecom)
+    {
+        $this->insurancecom = $insurancecom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTruckno()
+    {
+        return $this->truckno;
+    }
+
+    /**
+     * @param mixed $truckno
+     */
+    public function setTruckno($truckno)
+    {
+        $this->truckno = $truckno;
+    }
+
+        /**
+     * @return mixed
+     */
+    public function getTrailerno()
+    {
+        return $this->trailerno;
+    }
+
+    /**
+     * @param mixed $trailerno
+     */
+    public function setTrailerno($trailerno)
+    {
+        $this->trailerno = $trailerno;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExpensesname()
+    {
+        return $this->expensesname;
+    }
+
+    /**
+     * @param mixed $expensesname
+     */
+    public function setExpensesname($expensesname)
+    {
+        $this->expensesname = $expensesname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExpensesbill()
+    {
+        return $this->expensesbill;
+    }
+
+    /**
+     * @param mixed $expensesbill
+     */
+    public function setExpensesbill($expensesbill)
+    {
+        $this->expensesbill = $expensesbill;
     }
 
     /**
@@ -481,11 +690,8 @@ class Bank implements IteratorAggregate
     //Insert Factoring Function
     public function insert($bank, $db, $helper)
     {
-        print_r($this->bankName);
-        print_r($this->year);
-//        $show = $db->payment_bank->find(['companyID' => (int)$this->companyID, 'bankID' => $this->bankName, 'year' => $this->year]);
         $show = $db->payment_bank->find(['companyID' => (int)$_SESSION['companyId'], 'bankID' => (int)$this->bankName, 'year' => (int)$this->year]);
-        print_r($show);
+
         $counter = [];
         $id = [];
         $bankid = [];
@@ -504,12 +710,8 @@ class Bank implements IteratorAggregate
             $bankid[] = $s['bankID'];
             $yearID[] = $s['year'];
             $companyID = $s['companyID'];
-            print_r($id);
-            print_r($counter);
-            print_r($bankid);
-            print_r($yearID);
 
-            if ($counter[$i] < 5 && $bankid[$i] == $this->bankName && $yearID[$i] == $this->year) {
+            if ($counter[$i] < 5 && $bankid[$i] == (int)$this->bankName && $yearID[$i] == (int)$this->year) {
                 $mainID = $id[$i];
                 $incrementNumber = $counter[$i];
                 $bankn = $bankid[$i];

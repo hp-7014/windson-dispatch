@@ -128,10 +128,11 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 bank" style="display:none;">
                             <label>Bank Name*</label>
-                            <select class="form-control" id="companyfield" placeholder="----select----">
+                            <select class="form-control" id="companyfield" onchange="baseamount(this.value)">
                                         
                             </select>
                         </div>
+                        <input type="hidden" id="baseamount" name="baseamount" value="">
                         <div class="form-group col-md-2 Credit" style="display:none;">
                             <label>Main Card</label>
                             <select class="form-control">
@@ -510,19 +511,19 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 Expenses" style="display:none;">
                             <label>Bill No *</label>
                             <div>
-                                <input class="form-control" placeholder="Bill No *" type="text">
+                                <input class="form-control" placeholder="Bill No *" type="text" id="expensesbill">
                             </div>
                         </div>
                         <div class="form-group col-md-2 Expenses" style="display:none;">
                             <label>Name *</label>
                             <div>
-                                <input class="form-control" placeholder="Name *" type="text">
+                                <input class="form-control" placeholder="Name *" type="text" id="expensesname">
                             </div>
                         </div>
                         <div class="form-group col-md-2 Expenses" style="display:none;">
                             <label>Debit Category</label>
                             <input list="debitexpence" placeholder="--Select--" class="form-control"
-                                   id="debitexp" name="debitexp">
+                                   id="expensesdebit" name="expensesdebit">
                             <datalist id="debitexpence">
                                 <?php
                                 $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
@@ -540,7 +541,7 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 Expenses" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" type="text" id="expensesamount">
                             </div>
                         </div>
                         <!--Maintenance-->
@@ -565,13 +566,13 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 Maintenance" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" type="text" id="maintenanceamount">
                             </div>
                         </div>
                         <div class="form-group col-md-3 Maintenance" style="display:none;">
                             <label>Payment ACH NO/REF NO</label>
                             <div>
-                                <input class="form-control" placeholder="Payment ACH NO/REF NO" type="text">
+                                <input class="form-control" placeholder="Payment ACH NO/REF NO" type="text" id="maintenanceach">
                             </div>
                         </div>
                         <div class="form-group col-md-2 Maintenance" style="display:none;">
@@ -612,7 +613,7 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 Insurance" style="display:none;">
                             <label>Insurance Company *</label>
                             <div>
-                                <input class="form-control" placeholder="Insurance Company *" type="text">
+                                <input class="form-control" placeholder="Insurance Company *" type="text" id="insurancecompany">
                             </div>
                         </div>
                         <div class="form-group col-md-2 Insurance" style="display:none;">
@@ -636,7 +637,7 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 Insurance" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" type="text" id="insuranceamount">
                             </div>
                         </div>
                         <!--Credit Card -->
@@ -650,49 +651,82 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 main" style="display:none;">
                             <label>Main Card</label>
-                            <select class="form-control">
-                                <option>xyz</option>
-                                <option>abc</option>
-                            </select>
+                            <input list="creditcard" placeholder="--Select--" class="form-control"
+                                   id="maincard" name="maincard">
+                            <datalist id="creditcard">
+                                <?php
+                                $show = $db->credit_card_admin->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($show as $credit) {
+                                    $bankcreadit = $credit['admin_credit'];
+                                    foreach ($bankcreadit as $sc) {
+                                        $value = "'" . $sc['_id'] . ')' . $sc['displayName'] . "'";
+
+                                        echo "<option value=$value></option>";
+                                    }
+                                } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 sub" style="display:none;">
                             <label>Sub Card</label>
-                            <select class="form-control">
-                                <option>xyz</option>
-                                <option>abc</option>
-                            </select>
+                            <input list="subcreditcard" placeholder="--Select--" class="form-control"
+                                   id="subcard" name="subcard">
+                            <datalist id="subcreditcard">
+                                <?php
+                                $showsub = $db->sub_credit_card->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($showsub as $subcredit) {
+                                    $banksubcreadit = $subcredit['sub_credit'];
+                                    foreach ($banksubcreadit as $scard) {
+                                        $value = "'" . $scard['_id'] . ')' . $scard['displayName'] . "'";
+
+                                        echo "<option value=$value></option>";
+                                    }
+                                } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 Credit_Card" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" type="text" id="cardamount">
                             </div>
                         </div>
                         <!--Fuel Card -->
                         <div class="form-group col-md-2 Fuel_Card" style="display:none;">
                             <label>Fuel list</label>
-                            <select class="form-control">
-                                <option>xyz</option>
-                                <option>abc</option>
-                            </select>
+                            <input list="fuelcard1" placeholder="--Select--" class="form-control"
+                                   id="fuelcard" name="fuelcard">
+                            <datalist id="fuelcard1">
+                                <?php
+                                $showsub = $db->sub_credit_card->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($showsub as $subcredit) {
+                                    $banksubcreadit = $subcredit['sub_credit'];
+                                    foreach ($banksubcreadit as $scard) {
+                                        $value = "'" . $scard['_id'] . ')' . $scard['displayName'] . "'";
+
+                                        echo "<option value=$value></option>";
+                                    }
+                                } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 Fuel_Card" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" type="text" id="fuelamount">
                             </div>
                         </div>
                         <!--other -->
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>Other</label>
                             <div>
-                                <input class="form-control" placeholder="Other" type="text">
+                                <input class="form-control" placeholder="Other" type="text" id="otherpay">
                             </div>
                         </div>
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>Debit Category</label>
                             <input list="other" placeholder="--Select--" class="form-control"
-                                   id="otherInsurance" name="otherInsurance">
+                                   id="otherdebit" name="otherdebit">
                             <datalist id="other">
                                 <?php
                                 $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
@@ -710,32 +744,32 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>PO BOX# *</label>
                             <div>
-                                <input class="form-control" placeholder="PO BOX# *" type="text">
+                                <input class="form-control" placeholder="PO BOX# *" type="text" id="pobox">
                             </div>
                         </div>
 
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" type="text" id="otheramount">
                             </div>
                         </div>
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>Check/ACH Date *</label>
                             <div>
-                                <input class="form-control" placeholder="Check Date *" type="date">
+                                <input class="form-control" placeholder="Check Date *" type="date" id="checkachdate">
                             </div>
                         </div>
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>Cheque #*</label>
                             <div>
-                                <input class="form-control" placeholder="Cheque #*" type="text">
+                                <input class="form-control" placeholder="Cheque #*" type="text" id="otherchequ">
                             </div>
                         </div>
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>ACH #*</label>
                             <div>
-                                <input class="form-control" placeholder="ACH #*" type="text">
+                                <input class="form-control" placeholder="ACH #*" type="text" id="otherach">
                             </div>
                         </div>
                         <div class="row col-md-12">
