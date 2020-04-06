@@ -179,7 +179,7 @@ require "../database/connection.php";
                                 <label>Location <span style="color: red">*</span></label>
                                 <div>
                                     <input class="form-control" placeholder="Enter a location"
-                                           onkeydown="getLocation('carrierLocation')" type="text"
+                                           onkeyup="getLocation('carrierLocation')" type="text"
                                            value="<?php echo $location; ?>" id="carrierLocationEdit"
                                            name="carrierLocation">
                                 </div>
@@ -284,7 +284,7 @@ require "../database/connection.php";
                             <div class="form-group col-md-3">
                                 <label>Factoring Company</label> <i class="mdi mdi-plus-circle plus"
                                                                     title="Add Factoring Company" id="AddFactoring"></i>
-                                <input list="browsers1" class="form-control" value="<?php echo $$factoringCompany; ?>"
+                                <input list="browsers1" class="form-control" value="<?php echo $factoringCompany; ?>"
                                        id="carrierFactoringEdit"
                                        name="carrierFactoring">
                                 <datalist id="browsers1">

@@ -424,12 +424,42 @@ $(document).on('click', '#recurrenceplus', function () {
     });
 });
 
+// recurrence minus
+$(document).on('click', '#recurrenceplusEdit', function () {
+    alert(1);
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.owner-container1').load('./admin/addReccurenceEdit.php', function (result) {
+                $('#addRecurrenceEdit').modal({show: true});
+            });
+            setTimeout(function () {
+                addRecurrenceFields();
+            }, 300);
+        }
+    });
+});
+
 $(document).on('click', '#recurrenceminus', function () {
     $.ajax({
         type: 'POST',
         success: function (data) {
             $('.owner-container').load('./admin/substractRecurrence.php', function (result) {
                 $('#substractRecurrence').modal({show: true});
+            });
+            setTimeout(function () {
+                Recurrence_Fields();
+            }, 300);
+        }
+    });
+});
+
+$(document).on('click', '#recurrenceminusEdit', function () {
+    $.ajax({
+        type: 'POST',
+        success: function (data) {
+            $('.owner-container1').load('./admin/substractRecurrenceEdit.php', function (result) {
+                $('#substractRecurrenceEdit').modal({show: true});
             });
             setTimeout(function () {
                 Recurrence_Fields();
@@ -562,6 +592,25 @@ $(document).on('click', '#creditCard', function () {
 });
 
 $(document).on('click', '.modaldriverEdit', function () {
+
+    // recurrence + array null
+    installmentCategory = [];
+    installmentType = [];
+    amount = [];
+    installment = [];
+    startNo = [];
+    startDate = [];
+    internalNote = [];
+
+    // recurrence - array null
+    installment_Category = [];
+    installment_Type = [];
+    amount_recurrence = [];
+    installment_sub = [];
+    start_No = [];
+    start_Date = [];
+    internal_Note = [];
+
     $('#edit_Driver').modal('hide');
 });
 $(document).on('click', '.modalCreditcard', function () {
@@ -636,6 +685,23 @@ $(document).on('click', '.modalCarrier', function () {
 });
 
 $(document).on('click', '.modalDriver', function () {
+    // recurrence + array null
+    installmentCategory = [];
+    installmentType = [];
+    amount = [];
+    installment = [];
+    startNo = [];
+    startDate = [];
+    internalNote = [];
+
+    // recurrence - array null
+    installment_Category = [];
+    installment_Type = [];
+    amount_recurrence = [];
+    installment_sub = [];
+    start_No = [];
+    start_Date = [];
+    internal_Note = [];
     $('#add_Driver').modal('hide');
 });
 $(document).on('click', '.modalOwner', function () {
@@ -679,6 +745,13 @@ $(document).on('click', '.modalrecurrenceadd', function () {
 });
 $(document).on('click', '.modalrecurrencesubstarct', function () {
     $('#substractRecurrence').modal('hide');
+});
+
+$(document).on('click', '.modalrecurrenceaddEdit', function () {
+    $('#addRecurrenceEdit').modal('hide');
+});
+$(document).on('click', '.modalrecurrencesubstarctEdit', function () {
+    $('#substractRecurrenceEdit').modal('hide');
 });
 
 

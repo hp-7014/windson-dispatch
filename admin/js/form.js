@@ -206,17 +206,16 @@ function updateShipperTable() {
 }
 
 // Search Shipper
-function search_shipper(x)
-{
+function search_shipper(x) {
     var n = x.value;
     var companyId = document.getElementById('companyId').value;
-    
+
     $.ajax({
         type: 'POST',
         url: 'admin/utils/getShipper.php?types=search_text',
         data: {
-            getoption:n,
-            companyId:companyId,
+            getoption: n,
+            companyId: companyId,
         },
         success: function (response) {
             var j = response.trim();
@@ -227,7 +226,7 @@ function search_shipper(x)
 
 // Paginate Shipper
 function paginate_shipper(start, limit) {
-    
+
     $.ajax({
         url: 'admin/utils/getShipper.php?types=paginate_ship',
         type: 'POST',
@@ -242,6 +241,7 @@ function paginate_shipper(start, limit) {
 
     });
 }
+
 //Import shipper
 function importShipper() {
     // var file = document.getElementById('file').value;
@@ -480,18 +480,18 @@ function updateConsigneeTable() {
         },
     });
 }
+
 // Search Consignee
-function search_consignee(x)
-{
+function search_consignee(x) {
     var n = x.value;
     var companyId = document.getElementById('companyId').value;
-    
+
     $.ajax({
         type: 'POST',
         url: 'admin/utils/getConsignee.php?types=search_text',
         data: {
-            getoption:n,
-            companyId:companyId,
+            getoption: n,
+            companyId: companyId,
         },
         success: function (response) {
             var j = response.trim();
@@ -502,7 +502,7 @@ function search_consignee(x)
 
 // Paginate Consignee
 function paginate_consignee(start, limit) {
-    
+
     $.ajax({
         url: 'admin/utils/getConsignee.php?types=paginate_consi',
         type: 'POST',
@@ -572,7 +572,7 @@ function exportConsignee(id) {
 //edit function
 function updateConsignee(column, id, value) {
     var companyId = $('#companyid').val();
-    
+
     $.ajax({
         url: 'admin/consignee_driver.php?type=' + 'edit_consignee',
         type: 'POST',
@@ -1134,18 +1134,18 @@ function updateCustomerTable() {
         },
     });
 }
+
 // Search Customer
-function search_customer(x)
-{
+function search_customer(x) {
     var n = x.value;
     var companyId = document.getElementById('companyId').value;
-    
+
     $.ajax({
         type: 'POST',
         url: 'admin/utils/getCustomer.php?types=search_text',
         data: {
-            getoption:n,
-            companyId:companyId,
+            getoption: n,
+            companyId: companyId,
         },
         success: function (response) {
             var j = response.trim();
@@ -1156,7 +1156,7 @@ function search_customer(x)
 
 // Paginate Customer
 function paginate_customer(start, limit) {
-    
+
     $.ajax({
         url: 'admin/utils/getCustomer.php?types=paginate_cust',
         type: 'POST',
@@ -1244,7 +1244,7 @@ function updateCustomer(column, id, value) {
             });
             swal("Success", data, "success");
             $("#updateTable").modal('hide');
-            $("#search").val(""); 
+            $("#search").val("");
         }
     });
 }
@@ -1259,7 +1259,7 @@ function deleteCustomer(id, currencyid, paymentid, factoringid) {
                 id: id,
                 currencySetting: currencyid,
                 paymentTerms: paymentid,
-                factoringCompanyname : factoringid
+                factoringCompanyname: factoringid
             },
             success: function (data) {
                 var companyid = $('#companyid').val();
@@ -1488,18 +1488,18 @@ function updateUserTable() {
         },
     });
 }
+
 // Search User
-function search_user(x)
-{
+function search_user(x) {
     var n = x.value;
     var companyId = document.getElementById('companyId').value;
-    
+
     $.ajax({
         type: 'POST',
         url: 'admin/utils/getUser.php?types=search_text',
         data: {
-            getoption:n,
-            companyId:companyId,
+            getoption: n,
+            companyId: companyId,
         },
         success: function (response) {
             var j = response.trim();
@@ -1510,7 +1510,7 @@ function search_user(x)
 
 // Paginate User
 function paginate_user(start, limit) {
-    
+
     $.ajax({
         url: 'admin/utils/getUser.php?types=paginate_us',
         type: 'POST',
@@ -1798,7 +1798,7 @@ function exportUser(id) {
 
 //edit function
 function updateUser(column, id, value) {
-    
+
     var companyId = document.getElementById('companyId').value;
 
     $.ajax({
@@ -1885,17 +1885,16 @@ function updateBankTable() {
 }
 
 // Search Bank Admin
-function searchText_Bank(x)
-{
+function searchText_Bank(x) {
     var n = x.value;
     var companyId = document.getElementById('companyId').value;
-    
+
     $.ajax({
         type: 'POST',
         url: 'admin/utils/getBank.php?types=search_text',
         data: {
-            getoption:n,
-            companyId:companyId,
+            getoption: n,
+            companyId: companyId,
         },
         success: function (response) {
 
@@ -2001,7 +2000,7 @@ function updateBank(column, id) {
 
 //Edit Bank Admin
 function updateBank(column, id, value) {
-    
+
     var companyId = $('#companyid').val();
     $.ajax({
         url: 'admin/bank_admin.php?type=' + 'edit_bank',
@@ -2024,14 +2023,14 @@ function updateBank(column, id, value) {
 }
 
 //Delete Bank Admin
-function deleteBank(id,accountHolder) {
+function deleteBank(id, accountHolder) {
     //var companyId = document.getElementById('companyId').value;
 
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/bank_admin.php?type=' + 'delete_bank',
             type: 'POST',
-            data: {id: id,accountHolder:accountHolder},
+            data: {id: id, accountHolder: accountHolder},
             success: function (data) {
                 database.ref('bank').child(companyid).set({
                     data: randomString(),
@@ -2121,9 +2120,8 @@ function updateBankCreditTable() {
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-           // var res = response.split("^");
-            if(CreditbankBody != null) 
-            {
+            // var res = response.split("^");
+            if (CreditbankBody != null) {
                 CreditbankBody.innerHTML = response;
             }
         },
@@ -2131,17 +2129,16 @@ function updateBankCreditTable() {
 }
 
 // Search Credit Bank
-function searchText_Credit(x)
-{
+function searchText_Credit(x) {
     var n = x.value;
     var companyId = document.getElementById('companyId').value;
-    
+
     $.ajax({
         type: 'POST',
         url: 'admin/utils/getBankCredit.php?types=search_text',
         data: {
-            getoption:n,
-            companyId:companyId,
+            getoption: n,
+            companyId: companyId,
         },
         success: function (response) {
             var j = response.trim();
@@ -2272,12 +2269,12 @@ function import_creditCard() {
 }
 
 // Delete Credit Card
-function deleteCredit(id,nm) {
+function deleteCredit(id, nm) {
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/bank_credit.php?type=' + 'delete_credit',
             type: 'POST',
-            data: {id: id,name: nm},
+            data: {id: id, name: nm},
             success: function (data) {
                 database.ref('bank_credit').child(companyid).set({
                     data: randomString(),
@@ -2290,7 +2287,7 @@ function deleteCredit(id,nm) {
 
 //Edit Bank Credit
 function updateCredit(column, id, value) {
-    
+
     var companyId = document.getElementById('companyid').value;
 
     $.ajax({
@@ -2352,18 +2349,18 @@ function updateSubCardTable() {
         },
     });
 }
+
 // Search Sub Credit Bank
-function searchTextSub_Credit(x)
-{
+function searchTextSub_Credit(x) {
     var n = x.value;
     var companyId = document.getElementById('companyId').value;
-    
+
     $.ajax({
         type: 'POST',
         url: 'admin/utils/getSub_credit_card.php?types=search_text',
         data: {
-            getoption:n,
-            companyId:companyId,
+            getoption: n,
+            companyId: companyId,
         },
         success: function (response) {
             var j = response.trim();
@@ -2451,7 +2448,7 @@ function import_Sub_credit() {
 
 //Edit Sub Credit
 function updateSubCredit(column, id, value) {
-    
+
     var companyId = $('#companyid').val();
 
     $.ajax({
@@ -2480,7 +2477,7 @@ function deleteSubCredit(id, mCard) {
         $.ajax({
             url: 'admin/sub_credit_card.php?type=' + 'delete_sub_credit',
             type: 'POST',
-            data: {id: id,mainCard: mCard},
+            data: {id: id, mainCard: mCard},
             success: function (data) {
                 database.ref('sub_credit_card').child(companyid).set({
                     data: randomString(),
@@ -2560,17 +2557,16 @@ function UpdateCustomTable() {
 }
 
 // Search Custom Broker
-function search_custom_b(x)
-{
+function search_custom_b(x) {
     var n = x.value;
     var companyId = document.getElementById('companyId').value;
-    
+
     $.ajax({
         type: 'POST',
         url: 'admin/utils/getCustomsBroker.php?types=search_text',
         data: {
-            getoption:n,
-            companyId:companyId,
+            getoption: n,
+            companyId: companyId,
         },
         success: function (response) {
             var j = response.trim();
@@ -2581,9 +2577,9 @@ function search_custom_b(x)
 
 // Paginate Custom Broker
 function paginate_custom_broker(start, limit) {
-    
+
     $.ajax({
-       // url: 'admin/utils/paginateCustomBroker.php',
+        // url: 'admin/utils/paginateCustomBroker.php',
         url: 'admin/utils/getCustomsBroker.php?types=paginate_customs',
         type: 'POST',
         data: {
@@ -2655,12 +2651,12 @@ function updateCustom(column, id, value) {
         },
         success: function (data) {
             database.ref('customs_broker').child(companyid).set({
-                data:randomString(),
+                data: randomString(),
             });
 
             swal("Success", data, "success");
             $("#updateTable").modal('hide');
-            
+
         }
     });
 }
@@ -2825,17 +2821,16 @@ function updateTruckTable() {
 }
 
 // Search Truck
-function search_truck(x)
-{
+function search_truck(x) {
     var n = x.value;
     var companyId = document.getElementById('companyId').value;
-    
+
     $.ajax({
         type: 'POST',
         url: 'admin/utils/getTruck.php?types=search_text',
         data: {
-            getoption:n,
-            companyId:companyId,
+            getoption: n,
+            companyId: companyId,
         },
         success: function (response) {
             var j = response.trim();
@@ -2846,7 +2841,7 @@ function search_truck(x)
 
 // Paginate Truck
 function paginate_trucks(start, limit) {
-    
+
     $.ajax({
         url: 'admin/utils/getTruck.php?types=paginate_truck_admin',
         type: 'POST',
@@ -2922,7 +2917,7 @@ function deleteTruckAdd(id, truckid) {
         $.ajax({
             url: 'admin/truckadd_driver.php?type=' + 'delete_truck',
             type: 'POST',
-            data: { id: id,truckType: truckid },
+            data: {id: id, truckType: truckid},
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('truck').child(companyid).set({
@@ -3028,17 +3023,16 @@ function updateTrailerTable() {
 }
 
 // Search Trailer
-function search_trailer(x)
-{
+function search_trailer(x) {
     var n = x.value;
     var companyId = document.getElementById('companyId').value;
-    
+
     $.ajax({
         type: 'POST',
         url: 'admin/utils/getTrailer.php?types=search_text',
         data: {
-            getoption:n,
-            companyId:companyId,
+            getoption: n,
+            companyId: companyId,
         },
         success: function (response) {
             var j = response.trim();
@@ -3049,7 +3043,7 @@ function search_trailer(x)
 
 // Paginate Trailer
 function paginate_trailer(start, limit) {
-    
+
     $.ajax({
         url: 'admin/utils/getTrailer.php?types=paginate_trailer_admin',
         type: 'POST',
@@ -3086,20 +3080,20 @@ function updateTrailerAdd(column, id, value) {
             swal("Success", data, "success");
             $("#updateTable").modal('hide');
             $("#search").val("");
-            
+
         }
     });
 }
 
 
 // Delete Trailer Function
-function deleteTrailerAdd(id,trailerT) {
+function deleteTrailerAdd(id, trailerT) {
     //alert(id);
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/traileradd_driver.php?type=' + 'delete_trailer',
             type: 'POST',
-            data: {id: id,trailerType: trailerT},
+            data: {id: id, trailerType: trailerT},
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('trailer').child(companyid).set({
@@ -3260,17 +3254,16 @@ function updateFactoringTable() {
 }
 
 // Search factoring company
-function search_factoring(x)
-{
+function search_factoring(x) {
     var n = x.value;
     var companyId = document.getElementById('companyId').value;
-    
+
     $.ajax({
         type: 'POST',
         url: 'admin/utils/getFactoring.php?types=search_text',
         data: {
-            getoption:n,
-            companyId:companyId,
+            getoption: n,
+            companyId: companyId,
         },
         success: function (response) {
             var j = response.trim();
@@ -3281,7 +3274,7 @@ function search_factoring(x)
 
 // Paginate Factoring
 function paginate_factoring(start, limit) {
-    
+
     $.ajax({
         url: 'admin/utils/getFactoring.php?types=paginate_factoring_com',
         type: 'POST',
@@ -3300,7 +3293,7 @@ function paginate_factoring(start, limit) {
 //update Factoring Function
 function updateFactoring(column, id, value) {
     var companyId = $('#companyid').val();
-    
+
     $.ajax({
         url: 'admin/factoring_driver.php?type=' + 'edit_factoring',
         type: 'POST',
@@ -3323,14 +3316,15 @@ function updateFactoring(column, id, value) {
 }
 
 // Delete Factoring Function
-function deletefactoring(id,currencyid,paymentid) {
+function deletefactoring(id, currencyid, paymentid) {
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/factoring_driver.php?type=' + 'delete_factoring',
             type: 'POST',
-            data: {id: id,
-                currencySetting:currencyid,
-                paymentid:paymentid
+            data: {
+                id: id,
+                currencySetting: currencyid,
+                paymentid: paymentid
             },
             success: function (data) {
                 var companyid = $('#companyid').val();
@@ -3417,6 +3411,7 @@ function addPayFields() {
         document.getElementById('driverTarp').value = driverTarp;
     }
 }
+
 //Driver Recurrence +
 var installmentCategory = [];
 var installmentType = [];
@@ -3432,8 +3427,9 @@ function getrecurrence() {
     var counter1 = 0;
     if (recurrence_id == 2) {
         recurrenceAddLength = document.getElementsByName('installmentCategory').length - 1;
-        for (var i = 0; i < document.getElementsByName('installmentCategory').length; i++) {
+        for (var i = 0; i < document.getElementsByName('installmentCategory').length - 1; i++) {
 
+            alert("inside recuurence + loop");
             installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
             installmentType[i] = document.getElementsByName('installmentType')[i].value;
             amount[i] = document.getElementsByName('amount')[i].value;
@@ -3441,6 +3437,7 @@ function getrecurrence() {
             startNo[i] = document.getElementsByName('startNo')[i].value;
             startDate[i] = document.getElementsByName('startDate')[i].value;
             internalNote[i] = document.getElementsByName('internalNote')[i].value;
+            alert(installmentCategory[i]);
             if (val_installmentCategory(installmentCategory[i])) {
                 if (val_installmentType(installmentType[i])) {
                     if (val_amount1(amount[i])) {
@@ -3470,6 +3467,7 @@ function getrecurrence() {
             } else {
                 break;
             }
+
         }
 
         if (counter == document.getElementsByName('installmentCategory').length - 1) {
@@ -3479,7 +3477,8 @@ function getrecurrence() {
         }
 
     } else {
-        for (var i = 0; i < document.getElementsByName('installmentCategory').length; i++) {
+        for (var i = 0; i <= document.getElementsByName('installmentCategory').length; i++) {
+            alert('else rec plus');
             installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
             installmentType[i] = document.getElementsByName('installmentType')[i].value;
             amount[i] = document.getElementsByName('amount')[i].value;
@@ -3517,11 +3516,68 @@ function getrecurrence() {
                 break;
             }
         }
+        if (counter1 == document.getElementsByName('installmentCategory').length) {
+            $('#addRecurrence').modal('hide');
+        } else {
+            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
+        }
     }
-    if (counter1 == document.getElementsByName('installmentCategory').length) {
-        $('#addRecurrence').modal('hide');
-    } else {
-        swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
+}
+
+// driver recurrence edit
+function getrecurrenceEdit() {
+    var recurrence_id = document.getElementById('getnewaa').value;
+    var counter = 0;
+    var counter1 = 0;
+    if (recurrence_id == 2) {
+        recurrenceAddLength = document.getElementsByName('installmentCategory').length - 1;
+        for (var i = 0; i < document.getElementsByName('installmentCategory').length; i++) {
+            alert("inside recuurence + loop edit");
+            installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
+            installmentType[i] = document.getElementsByName('installmentType')[i].value;
+            amount[i] = document.getElementsByName('amount')[i].value;
+            installment[i] = document.getElementsByName('installment')[i].value;
+            startNo[i] = document.getElementsByName('startNo')[i].value;
+            startDate[i] = document.getElementsByName('startDate')[i].value;
+            internalNote[i] = document.getElementsByName('internalNote')[i].value;
+            alert(installmentCategory[i]);
+            if (val_installmentCategory(installmentCategory[i])) {
+                if (val_installmentType(installmentType[i])) {
+                    if (val_amount1(amount[i])) {
+                        if (val_installment(installment[i])) {
+                            if (val_startNo(val_startNo[i])) {
+                                if (val_startDate(startDate[i])) {
+                                    if (val_internalNote1(internalNote[i])) {
+                                        counter++;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+
+        }
+
+        if (counter == document.getElementsByName('installmentCategory').length) {
+            $('#addRecurrenceEdit').modal('hide');
+        } else {
+            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
+        }
     }
 }
 
@@ -3529,7 +3585,6 @@ function addRecurrenceFields() {
     if (installmentCategory.length > 0) {
         var innerData = "";
         for (var i = 0; i < installmentCategory.length; i++) {
-
             innerData += '<tr id="recurrence_add' + i + '">'
                 + '<td width="150">'
                 + '<input value = "' + installmentCategory[i] + '" id="installmentCategory" class="form-control" name="installmentCategory" list="fixpaycat"/></td>'
@@ -3543,7 +3598,7 @@ function addRecurrenceFields() {
                 + '<td width="10"><input name="startDate" id="startDate" type="date" value = "' + startDate[i] + '" class="form-control" /></td>'
                 + '<td width="250"><textarea rows="1" id="internalNote" cols="30" value = "' + internalNote[i] + '" class="form-control" type="textarea" name="internalNote">' + internalNote[i] + '</textarea></td>'
                 + '<td><button type="button" class="btn btn-danger" onclick="removeRowRecurrence(' + i + ')"><span aria-hidden="true">&times;</span></button></td></tr>'
-               
+
         }
         document.getElementById('TextBoxContainer2').innerHTML = innerData;
     }
@@ -3557,14 +3612,14 @@ var installment_sub = [];
 var start_No = [];
 var start_Date = [];
 var internal_Note = [];
-var counter2 = 0;
-var counter3 = 0;
 function recurrencesubstract() {
+    var counter2 = 0;
+    var counter3 = 0;
     var recurrencesubstract_id = document.getElementById('getnewaa').value;
     if (recurrencesubstract_id == 2) {
         recurrenceSubLength = document.getElementsByName('installment_Category').length - 1;
-
-        for (var i = 0; i < document.getElementsByName('installment_Category').length; i++) {
+        alert("recurrence - array");
+        for (var i = 0; i < document.getElementsByName('installment_Category').length - 1; i++) {
 
             installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
             installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
@@ -3573,6 +3628,7 @@ function recurrencesubstract() {
             start_No[i] = document.getElementsByName('start_No')[i].value;
             start_Date[i] = document.getElementsByName('start_Date')[i].value;
             internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
+            alert(installment_Category[i]);
             if (val_installmentCategory(installment_Category[i])) {
                 if (val_installmentType(installment_Type[i])) {
                     if (val_amount1(amount_recurrence[i])) {
@@ -3603,6 +3659,7 @@ function recurrencesubstract() {
                 break;
             }
         }
+
         if (counter2 == document.getElementsByName('installment_Category').length - 1) {
             $('#substractRecurrence').modal('hide');
         } else {
@@ -3650,6 +3707,61 @@ function recurrencesubstract() {
         }
         if (counter3 == document.getElementsByName('installment_Category').length) {
             $('#substractRecurrence').modal('hide');
+        } else {
+            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
+        }
+    }
+}
+
+// driver subtract edit
+function recurrencesubstractEdit() {
+    var counter2 = 0;
+    var recurrencesubstract_id = document.getElementById('getnewaa').value;
+    if (recurrencesubstract_id == 2) {
+        recurrenceSubLength = document.getElementsByName('installment_Category').length - 1;
+        alert("recurrence - array");
+        for (var i = 0; i < document.getElementsByName('installment_Category').length; i++) {
+
+            installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
+            installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
+            amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
+            installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
+            start_No[i] = document.getElementsByName('start_No')[i].value;
+            start_Date[i] = document.getElementsByName('start_Date')[i].value;
+            internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
+            alert(installment_Category[i]);
+            if (val_installmentCategory(installment_Category[i])) {
+                if (val_installmentType(installment_Type[i])) {
+                    if (val_amount1(amount_recurrence[i])) {
+                        if (val_installment(installment_sub[i])) {
+                            if (val_startNo(start_No[i])) {
+                                if (val_startDate(start_Date[i])) {
+                                    if (val_internalNote1(internal_Note[i])) {
+                                        counter2++;
+                                    } else {
+                                        break;
+                                    }
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        if (counter2 == document.getElementsByName('installment_Category').length) {
+            $('#substractRecurrenceEdit').modal('hide');
         } else {
             swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
         }
@@ -3762,294 +3874,6 @@ $(".toggle-password").click(function () {
         input.attr("type", "password");
     }
 });
-
-//-------Recurence Code Start----------
-//Driver Recurrence +
-var installmentCategory = [];
-var installmentType = [];
-var amount = [];
-var installment = [];
-var startNo = [];
-var startDate = [];
-var internalNote = [];
-
-function getrecurrence() {
-    var recurrence_id = document.getElementById('getnewaa').value;
-    var counter = 0;
-    var counter1 = 0;
-    if (recurrence_id == 2) {
-        for (var i = 0; i < document.getElementsByName('installmentCategory').length; i++) {
-            installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
-            installmentType[i] = document.getElementsByName('installmentType')[i].value;
-            amount[i] = document.getElementsByName('amount')[i].value;
-            installment[i] = document.getElementsByName('installment')[i].value;
-            startNo[i] = document.getElementsByName('startNo')[i].value;
-            startDate[i] = document.getElementsByName('startDate')[i].value;
-            internalNote[i] = document.getElementsByName('internalNote')[i].value;
-            if (val_installmentCategory(installmentCategory[i])) {
-                if (val_installmentType(installmentType[i])) {
-                    if (val_amount1(amount[i])) {
-                        if (val_installment(installment[i])) {
-                            if (val_startNo(val_startNo[i])) {
-                                if (val_startDate(startDate[i])) {
-                                    if (val_internalNote1(internalNote[i])) {
-                                        counter++;
-                                    } else {
-                                        break;
-                                    }
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                } else {
-                    break;
-                }
-            } else {
-                break;
-            }
-        }
-
-        if (counter == document.getElementsByName('installmentCategory').length - 1) {
-            $('#addRecurrence').modal('hide');
-        } else {
-            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
-        }
-
-    } else {
-
-        for (var i = 0; i < document.getElementsByName('installmentCategory').length; i++) {
-            installmentCategory[i] = document.getElementsByName('installmentCategory')[i].value;
-            installmentType[i] = document.getElementsByName('installmentType')[i].value;
-            amount[i] = document.getElementsByName('amount')[i].value;
-            installment[i] = document.getElementsByName('installment')[i].value;
-            startNo[i] = document.getElementsByName('startNo')[i].value;
-            startDate[i] = document.getElementsByName('startDate')[i].value;
-            internalNote[i] = document.getElementsByName('internalNote')[i].value;
-            if (val_installmentCategory(installmentCategory[i])) {
-                if (val_installmentType(installmentType[i])) {
-                    if (val_amount1(amount[i])) {
-                        if (val_installment(installment[i])) {
-                            if (val_startNo(val_startNo[i])) {
-                                if (val_startDate(startDate[i])) {
-                                    if (val_internalNote1(internalNote[i])) {
-                                        counter1++;
-                                    } else {
-                                        break;
-                                    }
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                } else {
-                    break;
-                }
-            } else {
-                break;
-            }
-        }
-    }
-    if (counter1 == document.getElementsByName('installmentCategory').length) {
-        $('#addRecurrence').modal('hide');
-    } else {
-        swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
-    }
-}
-
-function addRecurrenceFields() {
-    if (installmentCategory.length > 0) {
-        var innerData = "";
-        for (var i = 0; i < installmentCategory.length; i++) {
-            innerData += '<tr id="recurrence_add' + i + '">'
-                + '<td width="150">'
-                + '<input value = "' + installmentCategory[i] + '" id="installmentCategory" class="form-control" name="installmentCategory" list="fixpaycat"/></td>'
-                + '<td width="150">'
-                + '<select name="installmentType"' + i + '" value = "' + installmentType[i] + '" class="form-control">'
-                + '<option value="" > Select Type</option>'
-                + '<option value="Weekly"> Weekly</option>'
-                + '<option value="Monthly"> Monthly</option>'
-                + '<option value="Yearly"> Yearly</option>'
-                + '<option value="Quartely"> Quartely</option>'
-                + '</select></td>'
-                + '<td width="100">'
-                + '<input name="amount" id="amount" type="text" value = "' + amount[i] + '" class="form-control" /></td>'
-                + '<td width="100">'
-                + '<input name="installment" id="installment" type="text" value = "' + installment[i] + '" class="form-control" /></td>'
-                + '<td width="100"><input name="startNo" id="startNo" type="text" value = "' + startNo[i] + '" class="form-control" /></td>'
-                + '<td width="10"><input name="startDate" id="startDate" type="date" value = "' + startDate[i] + '" class="form-control" /></td>'
-                + '<td width="250"><textarea rows="1" id="internalNote" cols="30" value = "' + internalNote[i] + '" class="form-control" type="textarea" name="internalNote">' + internalNote[i] + '</textarea></td>'
-                + '<td><button type="button" class="btn btn-danger" onclick="removeRowRecurrence(' + i + ')"><span aria-hidden="true">&times;</span></button></td></tr>'
-
-        }
-
-        document.getElementById('TextBoxContainer2').innerHTML = innerData;
-        for (var i = 0; i < installmentCategory.length - 1; i++) {
-            var id = "installmentType" + i;
-            if (installmentType[i] == "Weekly") {
-                document.getElementById(id).selectedIndex = "1";
-            } else if (installmentType[i] == "Monthly") {
-                document.getElementById(id).selectedIndex = "2";
-            } else if (installmentType[i] == "Yearly") {
-                document.getElementById(id).selectedIndex = "3";
-            } else if (installmentType[i] == "Quarterly") {
-                document.getElementById(id).selectedIndex = "4";
-            }
-
-        }
-    }
-
-}
-
-//Driver Recurrence -
-var installment_Category = [];
-var installment_Type = [];
-var amount_recurrence = [];
-var installment_sub = [];
-var start_No = [];
-var start_Date = [];
-var internal_Note = [];
-var counter2 = 0;
-var counter3 = 0;
-
-function recurrencesubstract() {
-    var recurrencesubstract_id = document.getElementById('getnewaa').value;
-    if (recurrencesubstract_id == 2) {
-        for (var i = 0; i < document.getElementsByName('installment_Category').length; i++) {
-            installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
-            installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
-            amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
-            installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
-            start_No[i] = document.getElementsByName('start_No')[i].value;
-            start_Date[i] = document.getElementsByName('start_Date')[i].value;
-            internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
-            if (val_installmentCategory(installment_Category[i])) {
-                if (val_installmentType(installment_Type[i])) {
-                    if (val_amount1(amount_recurrence[i])) {
-                        if (val_installment(installment_sub[i])) {
-                            if (val_startNo(start_No[i])) {
-                                if (val_startDate(start_Date[i])) {
-                                    if (val_internalNote1(internal_Note[i])) {
-                                        counter2++;
-                                    } else {
-                                        break;
-                                    }
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                } else {
-                    break;
-                }
-            } else {
-                break;
-            }
-        }
-
-        if (counter2 == document.getElementsByName('installment_Category').length - 1) {
-            $('#substractRecurrence').modal('hide');
-        } else {
-            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
-        }
-    } else {
-        for (var i = 0; i < document.getElementsByName('installment_Category').length; i++) {
-            installment_Category[i] = document.getElementsByName('installment_Category')[i].value;
-            installment_Type[i] = document.getElementsByName('installment_Type')[i].value;
-            amount_recurrence[i] = document.getElementsByName('amount_recurrence')[i].value;
-            installment_sub[i] = document.getElementsByName('installment_sub')[i].value;
-            start_No[i] = document.getElementsByName('start_No')[i].value;
-            start_Date[i] = document.getElementsByName('start_Date')[i].value;
-            internal_Note[i] = document.getElementsByName('internal_Note')[i].value;
-            if (val_installmentCategory(installment_Category[i])) {
-                if (val_installmentType(installment_Type[i])) {
-                    if (val_amount1(amount_recurrence[i])) {
-                        if (val_installment(installment_sub[i])) {
-                            if (val_startNo(start_No[i])) {
-                                if (val_startDate(start_Date[i])) {
-                                    if (val_internalNote1(internal_Note[i])) {
-                                        counter2++;
-                                    } else {
-                                        break;
-                                    }
-                                } else {
-                                    break;
-                                }
-                            } else {
-                                break;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                } else {
-                    break;
-                }
-            } else {
-                break;
-            }
-        }
-        if (counter2 == document.getElementsByName('installment_Category').length) {
-            $('#substractRecurrence').modal('hide');
-        } else {
-            swal('<h5>Please Fill all Fields !!!</h5>', '', 'question');
-        }
-    }
-}
-
-function Recurrence_Fields() {
-    if (installment_Category.length > 0) {
-        var innerData = "";
-        for (var i = 0; i < installment_Category.length; i++) {
-            innerData += '<tr id="recurrencesubstract_add' + i + '">'
-                + '<td width="150">'
-                + '<input value = "' + installment_Category[i] + '" class="form-control" name="installment_Category" list="fixpay_cat"/></td>'
-                + '<td width="150">'
-                + '<select name="installment_Type" id="installment_Type' + i + '" value = "' + installment_Type[i] + '" class="form-control">'
-                + '<option value="" > Select Type</option>'
-                + '<option value="Weekly" > Weekly</option>'
-                + '<option value="Monthly"> Monthly</option>'
-                + '<option value="Yearly"> Yearly</option>'
-                + '<option value="Quartely"> Quartely</option>'
-                + '</select></td>'
-                + '<td width="100">'
-                + '<input name="amount_recurrence" type="text" value = "' + amount_recurrence[i] + '" class="form-control" /></td>'
-                + '<td width="100">'
-                + '<input name="installment_sub" type="text" value = "' + installment_sub[i] + '" class="form-control" /></td>'
-                + '<td width="100"><input name="start_No" type="text" value = "' + start_No[i] + '" class="form-control" /></td>'
-                + '<td width="10"><input name="start_Date" type="date" value = "' + start_Date[i] + '" class="form-control" /></td>'
-                + '<td width="250"><textarea rows="1" cols="30" value = "' + internal_Note[i] + '" class="form-control" type="textarea" name="internal_Note">' + internal_Note[i] + '</textarea></td>'
-                + '<td><button type="button" class="btn btn-danger" onclick="recurrence_substract(' + i + ')"><span aria-hidden="true">&times;</span></button></td></tr>'
-
-        }
-
-        document.getElementById('TextBoxContainer3').innerHTML = innerData;
-    }
-}
-//-------Recurence Code END----------
 
 function addDriver() {
     var companyId = document.getElementById('companyId').value;
@@ -4426,18 +4250,18 @@ function updateDriverTable() {
         },
     });
 }
+
 // Search Driver
-function search_driver(x)
-{
+function search_driver(x) {
     var n = x.value;
     var companyId = document.getElementById('companyId').value;
-    
+
     $.ajax({
         type: 'POST',
         url: 'admin/utils/getDriver.php?types=search_text',
         data: {
-            getoption:n,
-            companyId:companyId,
+            getoption: n,
+            companyId: companyId,
         },
         success: function (response) {
             var j = response.trim();
@@ -4448,7 +4272,7 @@ function search_driver(x)
 
 // Paginate Driver
 function paginate_driver(start, limit) {
-    
+
     $.ajax({
         url: 'admin/utils/getDriver.php?types=paginate_drive',
         type: 'POST',
@@ -5178,13 +5002,14 @@ function updateCarrierTable() {
         },
     });
 }
+
 // Delete function
-function deleteExternal(id,paymentid,factoringid) {
+function deleteExternal(id, paymentid, factoringid) {
     if (confirm('Are you sure to remove this record ?')) {
         $.ajax({
             url: 'admin/carrier_driver.php?type=' + 'delete_carrier',
             type: 'POST',
-            data: {id: id,paymentTerm: paymentid,factoringCompany: factoringid},
+            data: {id: id, paymentTerm: paymentid, factoringCompany: factoringid},
             success: function (data) {
                 var companyid = $('#companyid').val();
                 database.ref('carrier').child(companyid).set({
@@ -5197,17 +5022,16 @@ function deleteExternal(id,paymentid,factoringid) {
 }
 
 // Search External Carrier
-function search_carrier(x)
-{
+function search_carrier(x) {
     var n = x.value;
     var companyId = document.getElementById('companyId').value;
-    
+
     $.ajax({
         type: 'POST',
         url: 'admin/utils/getCarrier.php?types=search_text',
         data: {
-            getoption:n,
-            companyId:companyId,
+            getoption: n,
+            companyId: companyId,
         },
         success: function (response) {
             var j = response.trim();
@@ -5218,7 +5042,7 @@ function search_carrier(x)
 
 // Paginate External Carrier
 function paginate_carrier(start, limit) {
-    
+
     $.ajax({
         url: 'admin/utils/getCarrier.php?types=paginate_extCar',
         type: 'POST',

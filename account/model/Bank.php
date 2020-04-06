@@ -651,8 +651,8 @@ class Bank implements IteratorAggregate{
     }
 
     function getIterator() {
-        $favcolor = $this->category;
-        switch ($favcolor) {
+        $bankcategory = $this->category;
+        switch ($bankcategory) {
             case "driver":
                 return new ArrayIterator(
                     array(
@@ -693,10 +693,10 @@ class Bank implements IteratorAggregate{
                         '_id' => $this->id,
                         'companyID' => (int) $this->companyID,
                         'bankID' => (int) $this->bankName,
-                        'year' => $this->year,
+                        'year' => (int)$this->year,
                         'counter' => 0,
-                        $this->year => array([
-                                'year' => $this->year,
+                        (int)$this->year => array([
+                                'year' => (int)$this->year,
                                 'month' => $this->month,
                                 'balance' => $this->baseamount
                             ]),
@@ -726,8 +726,8 @@ class Bank implements IteratorAggregate{
                         'bankID' => (int) $this->bankName,
                         'year' => $this->year,
                         'counter' => 0,
-                        $this->year => array([
-                                'year' => $this->year,
+                        (int)$this->year => array([
+                                'year' => (int)$this->year,
                                 'month' => $this->month,
                                 'balance' => $this->baseamount
                             ]),
@@ -755,10 +755,10 @@ class Bank implements IteratorAggregate{
                         '_id' => $this->id,
                         'companyID' => (int) $this->companyID,
                         'bankID' => (int) $this->bankName,
-                        'year' => $this->year,
+                        'year' => (int)$this->year,
                         'counter' => 0,
-                        $this->year => array([
-                                'year' => $this->year,
+                        (int)$this->year => array([
+                                'year' => (int)$this->year,
                                 'month' => $this->month,
                                 'balance' => $this->baseamount
                             ]),
@@ -783,10 +783,10 @@ class Bank implements IteratorAggregate{
                         '_id' => $this->id,
                         'companyID' => (int) $this->companyID,
                         'bankID' => (int) $this->bankName,
-                        'year' => $this->year,
+                        'year' => (int)$this->year,
                         'counter' => 0,
-                        $this->year => array([
-                                'year' => $this->year,
+                        (int)$this->year => array([
+                                'year' => (int)$this->year,
                                 'month' => $this->month,
                                 'balance' => $this->baseamount
                             ]),
@@ -812,10 +812,10 @@ class Bank implements IteratorAggregate{
                         '_id' => $this->id,
                         'companyID' => (int) $this->companyID,
                         'bankID' => (int) $this->bankName,
-                        'year' => $this->year,
+                        'year' => (int)$this->year,
                         'counter' => 0,
-                        $this->year => array([
-                                'year' => $this->year,
+                        (int)$this->year => array([
+                                'year' => (int)$this->year,
                                 'month' => $this->month,
                                 'balance' => $this->baseamount
                             ]),
@@ -839,10 +839,10 @@ class Bank implements IteratorAggregate{
                         '_id' => $this->id,
                         'companyID' => (int) $this->companyID,
                         'bankID' => (int) $this->bankName,
-                        'year' => $this->year,
+                        'year' => (int)$this->year,
                         'counter' => 0,
-                        $this->year => array([
-                                'year' => $this->year,
+                        (int)$this->year => array([
+                                'year' => (int)$this->year,
                                 'month' => $this->month,
                                 'balance' => $this->baseamount
                             ]),
@@ -866,10 +866,10 @@ class Bank implements IteratorAggregate{
                         '_id' => $this->id,
                         'companyID' => (int) $this->companyID,
                         'bankID' => (int) $this->bankName,
-                        'year' => $this->year,
+                        'year' => (int)$this->year,
                         'counter' => 0,
-                        $this->year => array([
-                                'year' => $this->year,
+                        (int)$this->year => array([
+                                'year' => (int)$this->year,
                                 'month' => $this->month,
                                 'balance' => $this->baseamount
                             ]),
@@ -892,10 +892,10 @@ class Bank implements IteratorAggregate{
                     '_id' => $this->id,
                     'companyID' => (int) $this->companyID,
                     'bankID' => (int) $this->bankName,
-                    'year' => $this->year,
+                    'year' => (int)$this->year,
                     'counter' => 0,
                     (int)$this->year => array([
-                            'year' => $this->year,
+                            'year' => (int)$this->year,
                             'month' => $this->month,
                             'balance' => $this->baseamount
                         ]),
