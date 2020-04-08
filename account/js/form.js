@@ -52,39 +52,6 @@ function toggleAccount(val) {
     }
 }
 
-// accouunt deliver start
-function updateLoadStatus(id, old_value, new_value) {
-    alert(old_value);
-    alert(new_value);
-    alert(id);
-    // var value1 = document.getElementById('loadStatus').value;
-    // var value_1 = value1.split(")");
-    // var value = value_1[0];
-    // var statusTimeColumn = value_1[1];
-    // alert(value);
-    // alert(statusTimeColumn);
-    // alert(id);
-    // var companyid = $('#companyid').val();
-    // $.ajax({
-    //     url: 'account/accountStatus_driver.php?type=UpdateStatus',
-    //     method: 'POST',
-    //     data: {
-    //         id: id,
-    //         value: value,
-    //         statusTimeColumn: statusTimeColumn
-    //     },
-    //     success: function (data) {
-    //         database.ref('accountDeliver').child(companyid).set({
-    //             data: randomString(),
-    //         });
-    //         database.ref('accountInvoice').child(companyid).set({
-    //             data: randomString(),
-    //         });
-    //         swal(data);
-    //     }
-    // });
-}
-
 //update Payment Terms table
 var accountDeliverPath = "accountDeliver/";
 var accountDeliverPath1 = $('#companyid').val();
@@ -122,36 +89,6 @@ function updateAccountDeliverTable() {
 }
 
 // account deliver end
-
-// account invoice start
-function updateLoadStatus1(id, value1) {
-    alert(value1);
-    // var value1 = document.getElementById('loadStatus1').value;
-    var value_1 = value1.split(")");
-    var value = value_1[0];
-    alert(value);
-    var statusTimeColumn = value_1[1];
-    alert(statusTimeColumn);
-    var companyid = $('#companyid').val();
-    $.ajax({
-        url: 'account/accountStatus_driver.php?type=UpdateStatus',
-        method: 'POST',
-        data: {
-            id: id,
-            value: value,
-            statusTimeColumn: statusTimeColumn
-        },
-        success: function (data) {
-            database.ref('accountInvoice').child(companyid).set({
-                data: randomString(),
-            });
-            database.ref('accountDeliver').child(companyid).set({
-                data: randomString(),
-            });
-            swal(data);
-        }
-    });
-}
 
 //update Payment Terms table
 var accountinvoicePath = "accountInvoice/";
@@ -482,32 +419,6 @@ $('.dropdown-menu a').on('click', function (event) {
     return false;
 });
 
-function Paymentadd() {
-    var paymentfrom = document.getElementById("type").value
-    var Companyselect1 = document.getElementById("Companyselect").value
-    var Company_select = Companyselect1.split(")");
-    var Companyselect = Company_select[0];
-    var Bankname1 = document.getElementById("companyfield").value
-    var Bank_name = Bankname1.split(")");
-    var Bankname = Bank_name[0];
-    alert(Bankname);
-    var payto = document.getElementById("purpose").value
-    var drivername1 = document.getElementById("drivername").value
-    var driver_name = drivername1.split(")");
-    var drivername = driver_name[0];
-    var selectdebite1 = document.getElementById("selectdebite").value
-    var select_debite = selectdebite1.split(")");
-    var selectdebite = select_debite[0];
-    var invoice = document.getElementById("invoice").value
-    var amount = document.getElementById("amount").value
-    var advance = document.getElementById("advance").value
-    var finalamount = document.getElementById("finalamount").value
-    var checkdate = document.getElementById("checkdate").value
-    var cheque = document.getElementById("cheque").value
-    var ach = document.getElementById("ach").value
-    var memo = document.getElementById("memo").value
-}
-
 // update carrier invoice
 var invoiceID = 0;
 var invoiceAmount = 0;
@@ -517,11 +428,12 @@ function updateCarrierInvoice(value) {
     var carrierName = value_1[0];
 
     $.ajax({
-        url: 'account/payment_driver.php?type=updateCarrierInvoice',
+        url: 'account/utils/helpers.php?type=CarrierInvoice',
         method: 'POST',
         data: {carrierName: carrierName},
         success: function (data) {
             var j = JSON.parse(data);
+
             var o = '';
             for (let l = 0; l < j.arrayLength; l++) {
                 invoiceID = j.invoiceId[l];
@@ -554,6 +466,7 @@ function getCarrierTotalAmount(invoiceID) {
 // update company Fields
 var company_name = "";
 var bankvalue = "";
+
 function updatecompanyfield(value) {
     var value_1 = value.split(")");
     var companyname = value_1[0];
@@ -568,8 +481,8 @@ function updatecompanyfield(value) {
             for (var l = 0; l < j.arrayLength; l++) {
                 bank_id = j.bankid[l];
                 company_name = j.bankname[l];
-                bankvalue = bank_id +') '+ company_name;
-                o += '<option value="'+bankvalue+'">'+bankvalue+'</option>';
+                bankvalue = bank_id + ') ' + company_name;
+                o += '<option value="' + bankvalue + '">' + bankvalue + '</option>';
             }
             $('#companyfield').html(o);
         }
@@ -580,6 +493,7 @@ function updatecompanyfield(value) {
 var dinvoiceID = 0;
 var dinvoiceAmount = 0;
 var driveradvance = 0;
+
 function updateDriverInvoice(value) {
     var value_1 = value.split(")");
     var driverName = value_1[0];
@@ -595,8 +509,8 @@ function updateDriverInvoice(value) {
                 dinvoiceAmount = k.drivertotal[i];
                 driveradvance = k.advance[i];
                 c += '<a href="#" class="small" data-value="option1" tabIndex="-1">' +
-                '<input type="checkbox" id="dinvoice' + i + '" onchange="getDriverTotalAmount(this.value)" value=' + dinvoiceID + ',' + dinvoiceAmount + ',' + i + ','+ driveradvance +' name="acs"/>&nbsp;'+ dinvoiceID +
-                '</a><br/>';
+                    '<input type="checkbox" id="dinvoice' + i + '" onchange="getDriverTotalAmount(this.value)" value=' + dinvoiceID + ',' + dinvoiceAmount + ',' + i + ',' + driveradvance + ' name="acs"/>&nbsp;' + dinvoiceID +
+                    '</a><br/>';
             }
             $('#driverinvoice').html(c);
         }
@@ -618,13 +532,554 @@ function getDriverTotalAmount(dinvoiceID) {
         let finaldriveramount = drfinal - drfinalad;
         document.getElementById('driveramount').value = drfinal;
         document.getElementById('dradvance').value = drfinalad;
-        document.getElementById('finalamount').value = finaldriveramount;
+        document.getElementById('drfinalamount').value = finaldriveramount;
     } else {
         drtotalAmount = drtotalAmount - drAmount;
         dradvancetotal = dradvancetotal - dradvance;
         let setfinalamount = drtotalAmount - dradvancetotal;
         document.getElementById('driveramount').value = drtotalAmount;
         document.getElementById('dradvance').value = dradvancetotal;
-        document.getElementById('finalamount').value = setfinalamount;
+        document.getElementById('drfinalamount').value = setfinalamount;
     }
+}
+
+function baseamount(bankid) {
+    var bank1 = bankid.split(")");
+    var bankname = bank1[0];
+    $.ajax({
+        url: 'account/utils/helpers.php?type=basebalance',
+        method: 'POST',
+        data: {bankname: bankname},
+        success: function (data) {
+            var j = JSON.parse(data);
+            var bamoount = j.openingBalance;
+            document.getElementById('baseamount').value = bamoount;
+        }
+    });
+}
+
+// factoring company invoice
+var factoringInvoiceID = 0;
+var factoringInvoiceAmount = 0;
+function getFactoringInvoice(value) {
+    var value_1 = value.split(")");
+    var factoringName = value_1[0];
+    alert(factoringName);
+    $.ajax({
+        url: 'account/utils/helpers.php?type=factoringInvoice',
+        method: 'POST',
+        data: {factoringName: factoringName},
+        success: function (data) {
+            var j = JSON.parse(data);
+            var o = '';
+            for (let l = 0; l < j.arrayLength; l++) {
+                factoringInvoiceID = j.factoringInvoice[l];
+                factoringInvoiceAmount = j.factoringAmount[l];
+                o += '<a href="#" class="small" data-value="option1" tabIndex="-1">' +
+                    '                                        <input type="checkbox" id="factinvoice' + l + '" onchange="getFactoringTotalAmount(this.value)" value=' + factoringInvoiceID + ',' + factoringInvoiceAmount + ',' + l + '>&nbsp;' + j.factoringInvoice[l] +
+                    '                                  </a><br/>';
+            }
+            $('#factoringINVOICE').html(o);
+        }
+    });
+}
+
+function getFactoringTotalAmount(factinvoiceID) {
+    var data = factinvoiceID.split(",");
+    var id = data[0];
+    var Amount = data[1];
+    var seqid = data[2];
+
+    var totalAmount = document.getElementById('factoringAmount').value;
+    var invoID = document.getElementById('factinvoice' + seqid);
+    if (invoID.checked == true) {
+        let final = eval(totalAmount) + eval(Amount);
+        document.getElementById('factoringAmount').value = final;
+    } else {
+        totalAmount = totalAmount - Amount;
+        document.getElementById('factoringAmount').value = totalAmount;
+    }
+}
+
+
+//add payment registration
+function Paymentadd() {
+    var payto = document.getElementById("purpose").value
+    var baseamount = document.getElementById("baseamount").value
+    var payfrom = document.getElementById("type").value
+        if (payfrom == "1") {
+            var paymentfrom = "bank";
+        } else if (payfrom == "2") {
+            var paymentfrom = "creditcard";
+        } else if (payfrom == "3") {
+            var paymentfrom = "fuelcard";
+        } else if (payfrom == "4") {
+            var paymentfrom = "Other";
+        }
+    switch (payto) {
+        case "1":
+            var category = "driver";
+            var Companyselect1 = document.getElementById("Companyselect").value
+            var Company_select = Companyselect1.split(")");
+            var Companyselect = Company_select[0];
+
+            var Bankname1 = document.getElementById("companyfield").value
+            var Bank_name = Bankname1.split(")");
+            var Bankname = Bank_name[0];
+
+            var drivername1 = document.getElementById("drivername").value
+            var driver_name = drivername1.split(")");
+            var drivername = driver_name[0];
+            
+            var payto = document.getElementById("purpose").value
+            
+            var selectdebite1 = document.getElementById("selectdebite").value
+            var select_debite = selectdebite1.split(")");
+            var selectdebite = select_debite[0];
+
+            var invoice = document.getElementById("driverinvoice").value
+            var amount = document.getElementById("driveramount").value
+            var advance = document.getElementById("dradvance").value
+            var finalamount = document.getElementById("drfinalamount").value
+            var checkdate = document.getElementById("checkdate").value
+            var cheque = document.getElementById("cheque").value
+            var ach = document.getElementById("ach").value
+            var memo = document.getElementById("memo").value
+            var companyId = document.getElementById('companyId').value;
+            $.ajax({
+                url: 'account/payment_driver.php?type=' + 'driverpayment',
+                type: 'POST',
+                data: {
+                    paymentfrom: paymentfrom,
+                    Companyselect: Companyselect,
+                    Bankname: Bankname,
+                    payto: payto,
+                    drivername: drivername,
+                    category:category,
+                    selectdebite: selectdebite,
+                    invoice: invoice,
+                    amount: amount,
+                    advance: advance,
+                    finalamount: finalamount,
+                    checkdate: checkdate,
+                    cheque: cheque,
+                    ach: ach,
+                    memo: memo,
+                    baseamount:baseamount,
+                    companyId:companyId
+                },
+                dataType: "text",
+                success: function (data) {
+                    swal("Success", data, "success");
+                    $('#Payment_Registration').modal('hide');
+                },
+            });
+          break;
+        case "2":
+            var category = "carrier";
+            var Companyselect1 = document.getElementById("Companyselect").value
+            var Company_select = Companyselect1.split(")");
+            var Companyselect = Company_select[0];
+
+            var Bankname1 = document.getElementById("companyfield").value
+            var Bank_name = Bankname1.split(")");
+            var Bankname = Bank_name[0];
+
+            var carriername1 = document.getElementById("carriername").value
+            var carrier_name = carriername1.split(")");
+            var carriername = carrier_name[0];
+            
+            var payto = document.getElementById("purpose").value
+            
+            var selectdebite1 = document.getElementById("selectdebite1").value
+            var select_debite = selectdebite1.split(")");
+            var selectdebite = select_debite[0];
+
+            var invoice = document.getElementById("invoiceID").value
+            var amount = document.getElementById("finalAmount").value
+            var checkdate = document.getElementById("carcheckdate").value
+            var cheque = document.getElementById("carcheque").value
+            var ach = document.getElementById("carach").value
+            var memo = document.getElementById("memo").value
+            var companyId = document.getElementById('companyId').value;
+            $.ajax({
+                url: 'account/payment_driver.php?type=' + 'carrierpayment',
+                type: 'POST',
+                data: {
+                    paymentfrom: paymentfrom,
+                    Companyselect: Companyselect,
+                    Bankname: Bankname,
+                    payto: payto,
+                    carriername: carriername,
+                    category:category,
+                    selectdebite: selectdebite,
+                    invoice: invoice,
+                    amount: amount,
+                    advance: advance,
+                    finalamount: finalamount,
+                    checkdate: checkdate,
+                    cheque: cheque,
+                    ach: ach,
+                    memo: memo,
+                    baseamount:baseamount,
+                    companyId:companyId
+                },
+                dataType: "text",
+                success: function (data) {
+                    swal("Success", data, "success");
+                    $('#Payment_Registration').modal('hide');
+                },
+            });
+          break;
+        case "3":
+            var category = "factoringcompany";
+            var Companyselect1 = document.getElementById("Companyselect").value
+            var Company_select = Companyselect1.split(")");
+            var Companyselect = Company_select[0];
+
+            var Bankname1 = document.getElementById("companyfield").value
+            var Bank_name = Bankname1.split(")");
+            var Bankname = Bank_name[0];
+
+            var selectFactoring1 = document.getElementById("selectFactoring").value
+            var select_Factoring = selectFactoring1.split(")");
+            var selectFactoring = select_Factoring[0];
+            
+            var payto = document.getElementById("purpose").value
+            
+            var selectdebite1 = document.getElementById("debitecat").value
+            var select_debite = selectdebite1.split(")");
+            var selectdebite = select_debite[0];
+
+            var invoice = document.getElementById("factoringINVOICE").value
+            var amount = document.getElementById("factoringAmount").value
+            var checkdate = document.getElementById("faccheck").value
+            var cheque = document.getElementById("faccheque").value
+            var ach = document.getElementById("facach").value
+            var memo = document.getElementById("memo").value
+            var companyId = document.getElementById('companyId').value;
+            $.ajax({
+                url: 'account/payment_driver.php?type=' + 'bankFactoring',
+                type: 'POST',
+                data: {
+                    paymentfrom: paymentfrom,
+                    Companyselect: Companyselect,
+                    Bankname: Bankname,
+                    payto: payto,
+                    selectFactoring: selectFactoring,
+                    category:category,
+                    selectdebite: selectdebite,
+                    invoice: invoice,
+                    amount: amount,
+                    advance: advance,
+                    finalamount: finalamount,
+                    checkdate: checkdate,
+                    cheque: cheque,
+                    ach: ach,
+                    memo: memo,
+                    baseamount:baseamount,
+                    companyId:companyId
+                },
+                dataType: "text",
+                success: function (data) {
+                    swal("Success", data, "success");
+                    $('#Payment_Registration').modal('hide');
+                },
+            });
+          break;
+        case "4":
+            var category = "Expense";
+            var Companyselect1 = document.getElementById("Companyselect").value
+            var Company_select = Companyselect1.split(")");
+            var Companyselect = Company_select[0];
+
+            var Bankname1 = document.getElementById("companyfield").value
+            var Bank_name = Bankname1.split(")");
+            var Bankname = Bank_name[0];
+
+            var expensesbill = document.getElementById("expensesbill").value
+
+            var payto = document.getElementById("purpose").value
+
+            var selectdebite1 = document.getElementById("expensesdebit").value
+            var select_debite = selectdebite1.split(")");
+            var selectdebite = select_debite[0];
+
+            var expensesname = document.getElementById("expensesname").value
+            var amount = document.getElementById("expensesamount").value
+            var memo = document.getElementById("memo").value
+            var companyId = document.getElementById('companyId').value;
+            $.ajax({
+                url: 'account/payment_driver.php?type=' + 'paymentexpense',
+                type: 'POST',
+                data: {
+                    paymentfrom: paymentfrom,
+                    Companyselect: Companyselect,
+                    Bankname: Bankname,
+                    payto: payto,
+                    expensesbill: expensesbill,
+                    category:category,
+                    selectdebite: selectdebite,
+                    expensesname: expensesname,
+                    amount: amount,
+                    memo: memo,
+                    baseamount:baseamount,
+                    companyId:companyId
+                },
+                dataType: "text",
+                success: function (data) {
+                    swal("Success", data, "success");
+                    $('#Payment_Registration').modal('hide');
+                },
+            });
+          break;
+        case "5":
+          var category = "Maintenance";
+            var Companyselect1 = document.getElementById("Companyselect").value
+            var Company_select = Companyselect1.split(")");
+            var Companyselect = Company_select[0];
+
+            var Bankname1 = document.getElementById("companyfield").value
+            var Bank_name = Bankname1.split(")");
+            var Bankname = Bank_name[0];
+
+            var payto = document.getElementById("purpose").value
+
+            var selectdebite1 = document.getElementById("debitmaintenance").value
+            var select_debite = selectdebite1.split(")");
+            var selectdebite = select_debite[0];
+
+            var amount = document.getElementById("maintenanceamount").value
+            var maintenanceach = document.getElementById("maintenanceach").value
+
+            var truckno1 = document.getElementById("truckmaintenance").value
+            var truck_no = truckno1.split(")");
+            var truckno = truck_no[0];
+
+            var trailerno1 = document.getElementById("trailermaintenance").value
+            var trailer_no = trailerno1.split(")");
+            var trailerno = trailer_no[0];
+            
+            var memo = document.getElementById("memo").value
+            var companyId = document.getElementById('companyId').value;
+            $.ajax({
+                url: 'account/payment_driver.php?type=' + 'paymentmaintenance',
+                type: 'POST',
+                data: {
+                    paymentfrom: paymentfrom,
+                    Companyselect: Companyselect,
+                    Bankname: Bankname,
+                    payto: payto,
+                    selectdebite: selectdebite,
+                    amount: amount,
+                    maintenanceach: maintenanceach,
+                    truckno:truckno,
+                    trailerno: trailerno,
+                    category:category,
+                    memo: memo,
+                    baseamount:baseamount,
+                    companyId:companyId
+                },
+                dataType: "text",
+                success: function (data) {
+                    swal("Success", data, "success");
+                    $('#Payment_Registration').modal('hide');
+                },
+            });
+          break;
+        case "6":
+            var category = "Insurance";
+            var Companyselect1 = document.getElementById("Companyselect").value
+            var Company_select = Companyselect1.split(")");
+            var Companyselect = Company_select[0];
+
+            var Bankname1 = document.getElementById("companyfield").value
+            var Bank_name = Bankname1.split(")");
+            var Bankname = Bank_name[0];
+
+            var payto = document.getElementById("purpose").value
+
+            var selectdebite1 = document.getElementById("debitInsurance").value
+            var select_debite = selectdebite1.split(")");
+            var selectdebite = select_debite[0];
+
+            var amount = document.getElementById("insuranceamount").value
+            var insurancecompany = document.getElementById("insurancecompany").value
+            
+            var memo = document.getElementById("memo").value
+            var companyId = document.getElementById('companyId').value;
+            $.ajax({
+                url: 'account/payment_driver.php?type=' + 'paymentinsurance',
+                type: 'POST',
+                data: {
+                    paymentfrom: paymentfrom,
+                    Companyselect: Companyselect,
+                    Bankname: Bankname,
+                    payto: payto,
+                    selectdebite: selectdebite,
+                    amount: amount,
+                    insurancecompany: insurancecompany,
+                    category:category,
+                    memo: memo,
+                    baseamount:baseamount,
+                    companyId:companyId
+                },
+                dataType: "text",
+                success: function (data) {
+                    swal("Success", data, "success");
+                    $('#Payment_Registration').modal('hide');
+                },
+            });
+          break;
+        case "7":
+            var category = "creditcard";
+            var Companyselect1 = document.getElementById("Companyselect").value
+            var Company_select = Companyselect1.split(")");
+            var Companyselect = Company_select[0];
+
+            var Bankname1 = document.getElementById("companyfield").value
+            var Bank_name = Bankname1.split(")");
+            var Bankname = Bank_name[0];
+
+            var payto = document.getElementById("purpose").value
+
+            var amount = document.getElementById("cardamount").value
+            var card1 = document.getElementById("card").value
+            if (card1 == "1") {
+                var card = "maincard";
+            } else {
+                var card = "subcard";
+            }
+            var maincard1 = document.getElementById("maincard").value
+            var main_card = maincard1.split(")");
+            var maincard = main_card[0];
+
+            var subcard1 = document.getElementById("subcard").value
+            var sub_card = subcard1.split(")");
+            var subcard = sub_card[0];
+            if (maincard1 == "") {
+                var cardcategory = subcard;
+            } else {
+                var cardcategory = maincard;
+            }
+            var memo = document.getElementById("memo").value
+            var companyId = document.getElementById('companyId').value;
+            $.ajax({
+                url: 'account/payment_driver.php?type=' + 'paymentcreditcard',
+                type: 'POST',
+                data: {
+                    paymentfrom: paymentfrom,
+                    Companyselect: Companyselect,
+                    Bankname: Bankname,
+                    payto: payto,
+                    card: card,
+                    cardcategory:cardcategory,
+                    amount: amount,
+                    category:category,
+                    memo: memo,
+                    baseamount:baseamount,
+                    companyId:companyId
+                },
+                dataType: "text",
+                success: function (data) {
+                    swal("Success", data, "success");
+                    $('#Payment_Registration').modal('hide');
+                },
+            });
+          break;
+        case "8":
+            var category = "fuelcard";
+            var Companyselect1 = document.getElementById("Companyselect").value
+            var Company_select = Companyselect1.split(")");
+            var Companyselect = Company_select[0];
+
+            var Bankname1 = document.getElementById("companyfield").value
+            var Bank_name = Bankname1.split(")");
+            var Bankname = Bank_name[0];
+
+            var payto = document.getElementById("purpose").value
+
+            var amount = document.getElementById("fuelamount").value
+            var fuellist1 = document.getElementById("fuelcard").value
+            var fuel_list = fuellist1.split(")");
+            var fuellist = fuel_list[0];
+
+            var memo = document.getElementById("memo").value
+            var companyId = document.getElementById('companyId').value;
+            $.ajax({
+                url: 'account/payment_driver.php?type=' + 'paymentfuelcard',
+                type: 'POST',
+                data: {
+                    paymentfrom: paymentfrom,
+                    Companyselect: Companyselect,
+                    Bankname: Bankname,
+                    payto: payto,
+                    fuellist: fuellist,
+                    amount: amount,
+                    category:category,
+                    memo: memo,
+                    baseamount:baseamount,
+                    companyId:companyId
+                },
+                dataType: "text",
+                success: function (data) {
+                    swal("Success", data, "success");
+                    $('#Payment_Registration').modal('hide');
+                },
+            });
+          break;
+        case "9":
+            var category = "other";
+            var Companyselect1 = document.getElementById("Companyselect").value
+            var Company_select = Companyselect1.split(")");
+            var Companyselect = Company_select[0];
+
+            var Bankname1 = document.getElementById("companyfield").value
+            var Bank_name = Bankname1.split(")");
+            var Bankname = Bank_name[0];
+
+            var payto = document.getElementById("purpose").value
+
+            var other = document.getElementById("otherpay").value
+           
+            var selectdebite1 = document.getElementById("otherdebit").value
+            var select_debite = selectdebite1.split(")");
+            var selectdebite = select_debite[0];
+
+            var pobox = document.getElementById("pobox").value
+            var amount = document.getElementById("otheramount").value
+            var checkachdate = document.getElementById("checkachdate").value
+            var otherchequ = document.getElementById("otherchequ").value
+            var otherach = document.getElementById("otherach").value
+
+            var memo = document.getElementById("memo").value
+            var companyId = document.getElementById('companyId').value;
+            $.ajax({
+                url: 'account/payment_driver.php?type=' + 'paymentother',
+                type: 'POST',
+                data: {
+                    paymentfrom: paymentfrom,
+                    Companyselect: Companyselect,
+                    Bankname: Bankname,
+                    payto: payto,
+                    other: other,
+                    selectdebite:selectdebite,
+                    pobox:pobox,
+                    amount: amount,
+                    checkachdate:checkachdate,
+                    otherchequ:otherchequ,
+                    otherach:otherach,
+                    category:category,
+                    memo: memo,
+                    baseamount:baseamount,
+                    companyId:companyId
+                },
+                dataType: "text",
+                success: function (data) {
+                    swal("Success", data, "success");
+                    $('#Payment_Registration').modal('hide');
+                },
+            });
+          break;
+      }
 }

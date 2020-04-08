@@ -588,19 +588,11 @@ require "database/connection.php";
                                             </div>
                                             <div class="form-group col-md-2">
                                                 <label>Pickup Date</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control datepicker"
-                                                        placeholder="mm/dd/yyyy" id="shipperdate" name="shipperdate">
-                                                    <div class="input-group-append bg-custom b-0">
-                                                        <span class="input-group-text">
-                                                            <i class="mdi mdi-calendar"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <!-- <div>
+
+                                                <div>
                                                     <input class="form-control" type="date" id="shipperdate"
                                                         name="shipperdate">
-                                                </div> -->
+                                                </div>
                                             </div>
                                             <div class="form-group col-md-2">
                                                 <label>Pickup Time</label>
@@ -747,20 +739,10 @@ require "database/connection.php";
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label>Pickup Date</label>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control datepicker"
-                                                            placeholder="mm/dd/yyyy" id="consigneepickdate"
-                                                            name="consigneepickdate">
-                                                        <div class="input-group-append bg-custom b-0">
-                                                            <span class="input-group-text">
-                                                                <i class="mdi mdi-calendar"></i>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <!-- <div>
+                                                    <div>
                                                         <input class="form-control" type="date" id="consigneepickdate"
                                                             name="consigneepickdate">
-                                                    </div> -->
+                                                    </div>
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label>Pickup Time</label>
@@ -942,22 +924,13 @@ require "database/connection.php";
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Ship Date</label>
-
-                                <div class="input-group">
-                                    <input type="text" class="form-control datepicker" placeholder="mm/dd/yyyy">
-                                    <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i
-                                                class="mdi mdi-calendar"></i></span></div>
-                                </div>
+                                <input class="form-control" type="date">
 
 
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Del Date</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control datepicker" placeholder="mm/dd/yyyy">
-                                    <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i
-                                                class="mdi mdi-calendar"></i></span></div>
-                                </div>
+                                <input class="form-control" type="date">
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Customer</label>
@@ -1102,7 +1075,100 @@ require "database/connection.php";
             </div>
 
         </div>
+        <!-- START ROW -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card m-b-30">
+                    <div class="card-body">
 
+                        <div class="table-rep-plugin">
+                            <div class="table-responsive b-0" data-pattern="priority-columns">
+                                <table id="tech-companies-1" class="table  table-striped " style="text-align:center">
+                                    <thead>
+                                        <tr>
+                                            <th class="tableFooter" data-priority="1">#</th>
+                                            <th data-priority="1">Invoice</th>
+                                            <th data-priority="3">Status</th>
+                                            <th data-priority="3">Ship_Date</th>
+                                            <th data-priority="6">Del_Date</th>
+                                            <th data-priority="6">Customer</th>
+                                            <th data-priority="6">Driver/Carrier</th>
+                                            <th data-priority="1">Origin</th>
+                                            <th data-priority="3">Destination</th>
+                                            <th data-priority="3">Truck</th>
+                                            <th data-priority="6">Trailer</th>
+                                            <th data-priority="1">Load Pay</th>
+                                            <th data-priority="3">Driver Pay</th>
+                                            <th data-priority="6">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th><a title="Driver/Carrier" data-toggle="popover" data-placement="right"
+                                                    data-trigger="hover" data-content="TRUCK MAIKEL GONZALEZ INC"><i
+                                                        class="mdi mdi-gamepad-round"></i></a></th>
+                                            <!-- <td>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="table1"
+                                                        data-parsley-multiple="groups" data-parsley-mincheck="2">
+                                                    <label class="custom-control-label" for="table1"></label>
+                                                </div>
+                                            </td> -->
+                                            <td>76565</td>
+                                            <td>
+                                                <div class="form-group col-md-">
+                                                    <select class="form-control">
+                                                        <option>xyz</option>
+                                                        <option>abc</option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td>03-05-20</td>
+                                            <td>03-05-20</td>
+                                            <td class="max-width-50"><a title="Customer" data-toggle="popover"
+                                                    data-placement="left" data-trigger="hover" data-content="SOUTHERN MILLING
+                                                    AND LUMBER INC">SOUTHERN MILLING
+                                                    AND LUMBER INC</td>
+                                            <td class="max-width-50"><a title="Driver/Carrier" data-toggle="popover"
+                                                    data-placement="left" data-trigger="hover"
+                                                    data-content="TRUCK MAIKEL GONZALEZ INC">
+                                                    TRUCK MAIKEL GONZALEZ INC</a></td>
+                                            <td class="max-width-50"><a title="Origin" data-toggle="popover"
+                                                    data-placement="left" data-trigger="hover"
+                                                    data-content="Lakeland, FL/">Lakeland, FL/</a></td>
+                                            <td class="max-width-50"><a title="Destination" data-toggle="popover"
+                                                    data-placement="left" data-trigger="hover"
+                                                    data-content="Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/">Cross
+                                                    City, FL/</a></td>
+                                            <td>731</td>
+                                            <td>742</td>
+                                            <td>550.00</td>
+                                            <td>550.00</td>
+                                            <td>
+                                                <div class="btn-group mb-2 dropleft"><a type="button"
+                                                        class="mdi mdi-xbox-controller-menu" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false"
+                                                        style="font-size:25px;"></a>
+                                                    <div class="dropdown-menu">
+                                                        <i class="mdi mdi-delete-sweep-outline delete"></i>
+                                                        <i class="mdi mdi-printer printer"></i>
+                                                        <i class="mdi mdi-lead-pencil pencil"></i>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
         <div class="row">
             <div class="col-xl-8">
                 <div class="card m-b-30">
@@ -1274,100 +1340,7 @@ require "database/connection.php";
             </div>
         </div>
 
-        <!-- START ROW -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card m-b-30">
-                    <div class="card-body">
 
-                        <div class="table-rep-plugin">
-                            <div class="table-responsive b-0" data-pattern="priority-columns">
-                                <table id="tech-companies-1" class="table  table-striped " style="text-align:center">
-                                    <thead>
-                                        <tr>
-                                            <th class="tableFooter" data-priority="1">#</th>
-                                            <th data-priority="1">Invoice</th>
-                                            <th data-priority="3">Status</th>
-                                            <th data-priority="3">Ship_Date</th>
-                                            <th data-priority="6">Del_Date</th>
-                                            <th data-priority="6">Customer</th>
-                                            <th data-priority="6">Driver/Carrier</th>
-                                            <th data-priority="1">Origin</th>
-                                            <th data-priority="3">Destination</th>
-                                            <th data-priority="3">Truck</th>
-                                            <th data-priority="6">Trailer</th>
-                                            <th data-priority="1">Load Pay</th>
-                                            <th data-priority="3">Driver Pay</th>
-                                            <th data-priority="6">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th><a title="Driver/Carrier" data-toggle="popover" data-placement="right"
-                                                    data-trigger="hover" data-content="TRUCK MAIKEL GONZALEZ INC"><i
-                                                        class="mdi mdi-gamepad-round"></i></a></th>
-                                            <!-- <td>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="table1"
-                                                        data-parsley-multiple="groups" data-parsley-mincheck="2">
-                                                    <label class="custom-control-label" for="table1"></label>
-                                                </div>
-                                            </td> -->
-                                            <td>76565</td>
-                                            <td>
-                                                <div class="form-group col-md-">
-                                                    <select class="form-control">
-                                                        <option>xyz</option>
-                                                        <option>abc</option>
-                                                    </select>
-                                                </div>
-                                            </td>
-                                            <td>03-05-20</td>
-                                            <td>03-05-20</td>
-                                            <td class="max-width-50"><a title="Customer" data-toggle="popover"
-                                                    data-placement="left" data-trigger="hover" data-content="SOUTHERN MILLING
-                                                    AND LUMBER INC">SOUTHERN MILLING
-                                                    AND LUMBER INC</td>
-                                            <td class="max-width-50"><a title="Driver/Carrier" data-toggle="popover"
-                                                    data-placement="left" data-trigger="hover"
-                                                    data-content="TRUCK MAIKEL GONZALEZ INC">
-                                                    TRUCK MAIKEL GONZALEZ INC</a></td>
-                                            <td class="max-width-50"><a title="Origin" data-toggle="popover"
-                                                    data-placement="left" data-trigger="hover"
-                                                    data-content="Lakeland, FL/">Lakeland, FL/</a></td>
-                                            <td class="max-width-50"><a title="Destination" data-toggle="popover"
-                                                    data-placement="left" data-trigger="hover"
-                                                    data-content="Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/Cross City, FL/">Cross
-                                                    City, FL/</a></td>
-                                            <td>731</td>
-                                            <td>742</td>
-                                            <td>550.00</td>
-                                            <td>550.00</td>
-                                            <td>
-                                                <div class="btn-group mb-2 dropleft"><a type="button"
-                                                        class="mdi mdi-xbox-controller-menu" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false"
-                                                        style="font-size:25px;"></a>
-                                                    <div class="dropdown-menu">
-                                                        <i class="mdi mdi-delete-sweep-outline delete"></i>
-                                                        <i class="mdi mdi-printer printer"></i>
-                                                        <i class="mdi mdi-lead-pencil pencil"></i>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- end col -->
-        </div>
-        <!-- end row -->
     </div>
     <!-- end container-fluid -->
 </div>

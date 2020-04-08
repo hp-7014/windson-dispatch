@@ -1,6 +1,6 @@
 <?php
-    session_start();
-    require "../database/connection.php";
+session_start();
+require "../database/connection.php";
 ?>
 <!-- Modal content for the above example -->
 <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="customer"
@@ -74,26 +74,19 @@
                                                     
                                                     $i = 1;
 
-                                                    foreach ($show_data as $show) {
-                                                        $show = $show['customer'];
-                                                        foreach ($show as $s) {
-                                                            $counter = $s['counter'];
-                                                            $currencyid = $s['currencySetting'];
-                                                            $paymentid = $s['paymentTerms'];
-                                                            $factoringid = $s['factoringCompany'];
-                                                            $custName = "'".$s['custName']."'";
-                                                            $custLocation = "'".$s['custLocation']."'";
-                                                            $custZip = "'".$s['custZip']."'";
-                                                            $primaryContact = "'".$s['primaryContact']."'";
-                                                            $custTelephone = "'".$s['custTelephone']."'";
-                                                            $custEmail = "'".$s['custEmail']."'";
-
-                                                            $pencilid1 = "'"."custNamePencil$i"."'";
-                                                            $pencilid2 = "'"."custLocationPencil$i"."'";
-                                                            $pencilid3 = "'"."custZipPencil$i"."'";
-                                                            $pencilid4 = "'"."primaryContactPencil$i"."'";
-                                                            $pencilid5 = "'"."custTelephonePencil$i"."'";
-                                                            $pencilid6 = "'"."custEmailPencil$i"."'";
+                                                foreach ($show_data as $show) {
+                                                    $show = $show['customer'];
+                                                    foreach ($show as $s) {
+                                                        $counter = $s['counter'];
+                                                        $currencyid = $s['currencySetting'];
+                                                        $paymentid = $s['paymentTerms'];
+                                                        $factoringid = $s['factoringCompany'];
+                                                        $custName = "'" . $s['custName'] . "'";
+                                                        $custLocation = "'" . $s['custLocation'] . "'";
+                                                        $custZip = "'" . $s['custZip'] . "'";
+                                                        $primaryContact = "'" . $s['primaryContact'] . "'";
+                                                        $custTelephone = "'" . $s['custTelephone'] . "'";
+                                                        $custEmail = "'" . $s['custEmail'] . "'";
 
                                                     ?>
                                     <tr>

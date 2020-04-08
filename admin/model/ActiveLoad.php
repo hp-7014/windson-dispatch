@@ -1211,7 +1211,7 @@ class ActiveLoad implements IteratorAggregate
                 '_id' => $this->id,
                 'companyID' => (int)$this->companyID,
                 'counter' => 0,
-                $this->status => array([
+                'load' => array([
                     '_id' => 0,
                     'company' => $this->company,
                     'customer' => $this->customer,
@@ -1284,16 +1284,16 @@ class ActiveLoad implements IteratorAggregate
 
     public function insert($activeload, $db, $helper)
     {
-        $collection = $db->active_load;
+        $collection = $this->status;
         $criteria = array(
             'companyID' => (int)$activeload->getCompanyID(),
         );
-        $doc = $collection->findOne($criteria);
+        $doc = $db->$collection->findOne($criteria);
 
         if (!empty($doc)) {
-            //    echo "inside if of model";
-            $id = $helper->getDocumentSequence((int)$this->companyID, $db->active_load);
-            $db->active_load->updateOne(['companyID' => (int)$this->companyID], ['$push' => [$this->status => [
+                echo "inside if of model";
+            $id = $helper->getDocumentSequence((int)$this->companyID, $db->$collection);
+            $db->$collection->updateOne(['companyID' => (int)$this->companyID], ['$push' => ['load' => [
                 '_id' => $id,
                 'company' => $this->company,
                 'customer' => $this->customer,
@@ -1362,8 +1362,9 @@ class ActiveLoad implements IteratorAggregate
             ]]]);
             echo $id;
         } else {
+            $collection = $this->status;
             $cons = iterator_to_array($activeload);
-            $db->active_load->insertOne($cons);
+            $db->$collection->insertOne($cons);
             echo 0;
         }
     }

@@ -765,6 +765,13 @@ $(document).on('click', '.modalrecurrencesubstarctEdit', function() {
     $('#substractRecurrenceEdit').modal('hide');
 });
 
+$(document).on('click', '.modalrecurrenceaddEdit', function() {
+    $('#addRecurrenceEdit').modal('hide');
+});
+$(document).on('click', '.modalrecurrencesubstarctEdit', function() {
+    $('#substractRecurrenceEdit').modal('hide');
+});
+
 
 $(document).on('click', '.modalDriver', function() {
     $('#add_Driver').modal('hide');

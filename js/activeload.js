@@ -1898,6 +1898,12 @@ function changeStatus(id, old_array, new_array) {
             new_array: new_array1,
         },
         success: function(data) {
+            database.ref('accountDeliver').child(companyid).set({
+                data: randomString(),
+            });
+            database.ref('accountInvoice').child(companyid).set({
+                data: randomString(),
+            });
             swal(data);
         }
     });

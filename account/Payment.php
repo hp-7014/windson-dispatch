@@ -128,10 +128,11 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 bank" style="display:none;">
                             <label>Bank Name*</label>
-                            <select class="form-control" id="companyfield" placeholder="----select----">
+                            <select class="form-control" id="companyfield" onchange="baseamount(this.value)">
 
                             </select>
                         </div>
+                        <input type="hidden" id="baseamount" name="baseamount" value="">
                         <div class="form-group col-md-2 Credit" style="display:none;">
                             <label>Main Card</label>
                             <select class="form-control">
@@ -311,7 +312,7 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Final Amount *</label>
                             <div>
-                                <input class="form-control" value="0" id="finalamount" name="finalamount"
+                                <input class="form-control" value="0" id="drfinalamount" name="finalamount"
                                     placeholder="Final Amount *" type="text">
                             </div>
                         </div>
@@ -389,9 +390,6 @@ require "../database/connection.php";
                                         style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Unselect all
                                 </li>
                                 <li class="space" id="invoiceID">
-                                    <!--                                    <a href="#" class="small" data-value="option1" tabIndex="-1">-->
-                                    <!--                                        <input type="checkbox" name="acs"/>&nbsp;3543534-->
-                                    <!--                                    </a>-->
                                 </li>
                             </ul>
                         </div>
@@ -405,34 +403,58 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>Check/ACH Date *</label>
                             <div>
-                                <input class="form-control" placeholder="Check Date *" type="date">
+                                <input class="form-control" placeholder="Check Date *" type="date" id="carcheckdate">
                             </div>
                         </div>
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>Cheque #*</label>
                             <div>
-                                <input class="form-control" placeholder="Cheque #*" type="text">
+                                <input class="form-control" placeholder="Cheque #*" type="text" id="carcheque">
                             </div>
                         </div>
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>ACH #*</label>
                             <div>
-                                <input class="form-control" placeholder="ACH #*" type="text">
+                                <input class="form-control" placeholder="ACH #*" type="text" id="carach">
                             </div>
                         </div>
                         <!--factoring -->
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>Factoring Name</label>
                             <div>
-                                <input class="form-control" placeholder="Factoring Name" type="text">
+                                <input list="factoringList" placeholder="--Select--" class="form-control"
+                                    id="selectFactoring" onchange="getFactoringInvoice(this.value)"
+                                    name="selectFactoring">
+                                <datalist id="factoringList">
+                                    <?php
+                                    $factoringData = $db->factoring_company_add->find(['companyID' => $_SESSION['companyId']]);
+                                    foreach ($factoringData as $factoringArray) {
+                                        $factoringArray1 = $factoringArray['factoring'];
+                                        foreach ($factoringArray1 as $factoring) {
+                                            $value1 = "'" . $factoring['_id'] . ')' . $factoring['factoringCompanyname'] . "'";
+                                            echo "<option value=$value1></option>";
+                                        }
+                                    } ?>
+                                </datalist>
                             </div>
                         </div>
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>Debit Category</label>
-                            <select class="form-control">
-                                <option>xyz</option>
-                                <option>abc</option>
-                            </select>
+                            <input list="facdebitcat" placeholder="--Select--" class="form-control" id="debitecat"
+                                name="selectdebite">
+                            <datalist id="facdebitcat">
+                                <?php
+                                $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($showdebit as $showbankdebit) {
+                                    $bankdebit = $showbankdebit['bank_debit'];
+                                    foreach ($bankdebit as $sb) {
+                                        $value = "'" . $sb['_id'] . ')' . $sb['bankName'] . "'";
+
+                                        echo "<option value=$value></option>";
+                                    }
+                                } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>Invoice</label>
@@ -451,135 +473,168 @@ require "../database/connection.php";
                                     <input type="checkbox" onclick='UnSelectAll()'
                                         style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Unselect all
                                 </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option1" tabIndex="-1">
-                                        <input type="checkbox" name="acs" />&nbsp;3543534
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option2" tabIndex="-1">
-                                        <input type="checkbox" name="acs" />&nbsp;24543434
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option3" tabIndex="-1">
-                                        <input type="checkbox" name="acs" />&nbsp;4533332
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option4" tabIndex="-1">
-                                        <input type="checkbox" name="acs">&nbsp;32432432
-                                    </a>
-                                </li>
-                                <li class="space">
-                                    <a href="#" class="small" data-value="option5" tabIndex="-1">
-                                        <input type="checkbox" name="acs" />&nbsp;43898239
-                                    </a>
+                                <li class="space" id="factoringINVOICE">
                                 </li>
                             </ul>
                         </div>
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" value="0" id="factoringAmount"
+                                    name="factoringAmount" type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>Check/ACH Date *</label>
                             <div>
-                                <input class="form-control" placeholder="Check Date *" type="date">
+                                <input class="form-control" placeholder="Check Date *" type="date" id="faccheck">
                             </div>
                         </div>
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>Cheque #*</label>
                             <div>
-                                <input class="form-control" placeholder="Cheque #*" type="text">
+                                <input class="form-control" placeholder="Cheque #*" type="text" id="faccheque">
                             </div>
                         </div>
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>ACH #*</label>
                             <div>
-                                <input class="form-control" placeholder="ACH #*" type="text">
+                                <input class="form-control" placeholder="ACH #*" type="text" id="facach">
                             </div>
                         </div>
                         <!-- Expenses -->
                         <div class="form-group col-md-2 Expenses" style="display:none;">
                             <label>Bill No *</label>
                             <div>
-                                <input class="form-control" placeholder="Bill No *" type="text">
+                                <input class="form-control" placeholder="Bill No *" type="text" id="expensesbill">
                             </div>
                         </div>
                         <div class="form-group col-md-2 Expenses" style="display:none;">
                             <label>Name *</label>
                             <div>
-                                <input class="form-control" placeholder="Name *" type="text">
+                                <input class="form-control" placeholder="Name *" type="text" id="expensesname">
                             </div>
                         </div>
                         <div class="form-group col-md-2 Expenses" style="display:none;">
                             <label>Debit Category</label>
-                            <select class="form-control">
-                                <option>xyz</option>
-                                <option>abc</option>
-                            </select>
+                            <input list="debitexpence" placeholder="--Select--" class="form-control" id="expensesdebit"
+                                name="expensesdebit">
+                            <datalist id="debitexpence">
+                                <?php
+                                $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($showdebit as $showbankdebit) {
+                                    $bankdebit = $showbankdebit['bank_debit'];
+                                    foreach ($bankdebit as $sb) {
+                                        $value = "'" . $sb['_id'] . ')' . $sb['bankName'] . "'";
+
+                                        echo "<option value=$value></option>";
+                                    }
+                                } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 Expenses" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" type="text" id="expensesamount">
                             </div>
                         </div>
                         <!--Maintenance-->
                         <div class="form-group col-md-2 Maintenance" style="display:none;">
                             <label>Debit Category</label>
-                            <select class="form-control">
-                                <option>xyz</option>
-                                <option>abc</option>
-                            </select>
+                            <input list="Maintenance" placeholder="--Select--" class="form-control"
+                                id="debitmaintenance" name="debitmaintenance">
+                            <datalist id="Maintenance">
+                                <?php
+                                $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($showdebit as $showbankdebit) {
+                                    $bankdebit = $showbankdebit['bank_debit'];
+                                    foreach ($bankdebit as $sb) {
+                                        $value = "'" . $sb['_id'] . ')' . $sb['bankName'] . "'";
+
+                                        echo "<option value=$value></option>";
+                                    }
+                                } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 Maintenance" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" type="text" id="maintenanceamount">
                             </div>
                         </div>
                         <div class="form-group col-md-3 Maintenance" style="display:none;">
                             <label>Payment ACH NO/REF NO</label>
                             <div>
-                                <input class="form-control" placeholder="Payment ACH NO/REF NO" type="text">
+                                <input class="form-control" placeholder="Payment ACH NO/REF NO" type="text"
+                                    id="maintenanceach">
                             </div>
                         </div>
                         <div class="form-group col-md-2 Maintenance" style="display:none;">
                             <label>Truck No</label>
-                            <select class="form-control">
-                                <option>xyz</option>
-                                <option>abc</option>
-                            </select>
+                            <input list="truck" placeholder="--Select--" class="form-control" id="truckmaintenance"
+                                name="truckmaintenance">
+                            <datalist id="truck">
+                                <?php
+                                        $show_truck = $db->truckadd->find(['companyID' => $_SESSION['companyId']]);
+                                        $no = 1;
+                                        foreach ($show_truck as $showtruck) {
+                                            $truck = $showtruck['truck'];
+                                            foreach ($truck as $stru) {
+                                                $truckValue = "'" . $stru['_id'] . ")&nbsp;" . $stru['truckNumber'] . "'";
+                                                echo "<option value=$truckValue></option>";
+                                            }
+                                        } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 Maintenance" style="display:none;">
                             <label>Trailer No</label>
-                            <select class="form-control">
-                                <option>xyz</option>
-                                <option>abc</option>
-                            </select>
+                            <input list="trailer" placeholder="--Select--" class="form-control" id="trailermaintenance"
+                                name="trailermaintenance">
+                            <datalist id="trailer">
+                                <?php
+                                        $show_trailer = $db->trailer_admin_add->find(['companyID' => $_SESSION['companyId']]);
+                                        $no = 1;
+                                        foreach ($show_trailer as $showtrailer) {
+                                            $trailer = $showtrailer['trailer'];
+                                            foreach ($trailer as $stra) {
+                                                $trialerValue = "'" . $stra['_id'] . ")&nbsp;" . $stra['trailerNumber'] . "'";
+                                                echo "<option value=$trialerValue></option>";
+                                            }
+                                        } ?>
+                            </datalist>
                         </div>
                         <!--Insurance-->
                         <div class="form-group col-md-2 Insurance" style="display:none;">
                             <label>Insurance Company *</label>
                             <div>
-                                <input class="form-control" placeholder="Insurance Company *" type="text">
+                                <input class="form-control" placeholder="Insurance Company *" type="text"
+                                    id="insurancecompany">
                             </div>
                         </div>
                         <div class="form-group col-md-2 Insurance" style="display:none;">
                             <label>Debit Category</label>
-                            <select class="form-control">
-                                <option>xyz</option>
-                                <option>abc</option>
-                            </select>
+                            <input list="Insurance" placeholder="--Select--" class="form-control" id="debitInsurance"
+                                name="debitInsurance">
+                            <datalist id="Insurance">
+                                <?php
+                                $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($showdebit as $showbankdebit) {
+                                    $bankdebit = $showbankdebit['bank_debit'];
+                                    foreach ($bankdebit as $sb) {
+                                        $value = "'" . $sb['_id'] . ')' . $sb['bankName'] . "'";
+
+                                        echo "<option value=$value></option>";
+                                    }
+                                } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 Insurance" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" type="text" id="insuranceamount">
                             </div>
                         </div>
                         <!--Credit Card -->
@@ -593,81 +648,125 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 main" style="display:none;">
                             <label>Main Card</label>
-                            <select class="form-control">
-                                <option>xyz</option>
-                                <option>abc</option>
-                            </select>
+                            <input list="creditcard" placeholder="--Select--" class="form-control" id="maincard"
+                                name="maincard">
+                            <datalist id="creditcard">
+                                <?php
+                                $show = $db->credit_card_admin->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($show as $credit) {
+                                    $bankcreadit = $credit['admin_credit'];
+                                    foreach ($bankcreadit as $sc) {
+                                        $value = "'" . $sc['_id'] . ')' . $sc['displayName'] . "'";
+
+                                        echo "<option value=$value></option>";
+                                    }
+                                } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 sub" style="display:none;">
                             <label>Sub Card</label>
-                            <select class="form-control">
-                                <option>xyz</option>
-                                <option>abc</option>
-                            </select>
+                            <input list="subcreditcard" placeholder="--Select--" class="form-control" id="subcard"
+                                name="subcard">
+                            <datalist id="subcreditcard">
+                                <?php
+                                $showsub = $db->sub_credit_card->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($showsub as $subcredit) {
+                                    $banksubcreadit = $subcredit['sub_credit'];
+                                    foreach ($banksubcreadit as $scard) {
+                                        $value = "'" . $scard['_id'] . ')' . $scard['displayName'] . "'";
+
+                                        echo "<option value=$value></option>";
+                                    }
+                                } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 Credit_Card" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" type="text" id="cardamount">
                             </div>
                         </div>
                         <!--Fuel Card -->
                         <div class="form-group col-md-2 Fuel_Card" style="display:none;">
                             <label>Fuel list</label>
-                            <select class="form-control">
-                                <option>xyz</option>
-                                <option>abc</option>
-                            </select>
+                            <input list="fuelcard1" placeholder="--Select--" class="form-control" id="fuelcard"
+                                name="fuelcard">
+                            <datalist id="fuelcard1">
+                                <?php
+                                $showsub = $db->sub_credit_card->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($showsub as $subcredit) {
+                                    $banksubcreadit = $subcredit['sub_credit'];
+                                    foreach ($banksubcreadit as $scard) {
+                                        $value = "'" . $scard['_id'] . ')' . $scard['displayName'] . "'";
+
+                                        echo "<option value=$value></option>";
+                                    }
+                                } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 Fuel_Card" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" type="text" id="fuelamount">
                             </div>
                         </div>
                         <!--other -->
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>Other</label>
                             <div>
-                                <input class="form-control" placeholder="Other" type="text">
+                                <input class="form-control" placeholder="Other" type="text" id="otherpay">
                             </div>
                         </div>
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>Debit Category</label>
-                            <select class="form-control">
-                                <option>xyz</option>
-                                <option>abc</option>
-                            </select>
+                            <input list="other" placeholder="--Select--" class="form-control" id="otherdebit"
+                                name="otherdebit">
+                            <datalist id="other">
+                                <?php
+                                $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($showdebit as $showbankdebit) {
+                                    $bankdebit = $showbankdebit['bank_debit'];
+                                    foreach ($bankdebit as $sb) {
+                                        $value = "'" . $sb['_id'] . ')' . $sb['bankName'] . "'";
+
+                                        echo "<option value=$value></option>";
+                                    }
+                                } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>PO BOX# *</label>
                             <div>
-                                <input class="form-control" placeholder="PO BOX# *" type="text">
+                                <input class="form-control" placeholder="PO BOX# *" type="text" id="pobox">
                             </div>
                         </div>
 
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" type="text">
+                                <input class="form-control" placeholder="Amount *" type="text" id="otheramount">
                             </div>
                         </div>
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>Check/ACH Date *</label>
                             <div>
-                                <input class="form-control" placeholder="Check Date *" type="date">
+                                <input class="form-control" placeholder="Check Date *" type="date" id="checkachdate">
                             </div>
                         </div>
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>Cheque #*</label>
                             <div>
-                                <input class="form-control" placeholder="Cheque #*" type="text">
+                                <input class="form-control" placeholder="Cheque #*" type="text" id="otherchequ">
                             </div>
                         </div>
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>ACH #*</label>
                             <div>
-                                <input class="form-control" placeholder="ACH #*" type="text">
+                                <input class="form-control" placeholder="ACH #*" type="text" id="otherach">
                             </div>
                         </div>
                         <div class="row col-md-12">
@@ -682,6 +781,7 @@ require "../database/connection.php";
                                 <div>
                                     <textarea class="form-control" rows="1" id="memo" name="memo"
                                         placeholder="Memo *"></textarea>
+                                    <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                                 </div>
                             </div>
                         </div>

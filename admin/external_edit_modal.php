@@ -172,7 +172,7 @@ require "../database/connection.php";
                                 <label>Location <span style="color: red">*</span></label>
                                 <div>
                                     <input class="form-control" placeholder="Enter a location"
-                                        onkeydown="getLocation('carrierLocation')" type="text"
+                                        onkeyup="getLocation('carrierLocation')" type="text"
                                         value="<?php echo $location; ?>" id="carrierLocationEdit"
                                         name="carrierLocation">
                                 </div>

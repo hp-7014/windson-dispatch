@@ -4,13 +4,7 @@
             class="mdi mdi-heart text-danger"></i> by
         WindsonTech</span>.
 </footer>
-<!-- datepicker -->
-<script src="assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
-<script src="assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
-<script src="assets/pages/form-advanced.js"></script>
-<!--End of datepicker -->
+
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/jquery.slimscroll.js"></script>

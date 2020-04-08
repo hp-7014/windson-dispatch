@@ -250,6 +250,7 @@ function paginate_shipper(start, limit, total_pages) {
 
     });
 }
+
 //Import shipper
 function importShipper() {
     var file = document.getElementById('file').value;
@@ -515,6 +516,7 @@ function updateConsigneeTable() {
         }
     });
 }
+
 // Search Consignee
 function search_consignee(x) {
     var n = x.value;
@@ -1213,6 +1215,7 @@ function updateCustomerTable() {
         }
     });
 }
+
 // Search Customer
 function search_customer(x) {
     var n = x.value;
@@ -1612,6 +1615,7 @@ function updateUserTable() {
         }
     });
 }
+
 // Search User
 function search_user(x) {
     var n = x.value;
@@ -2582,6 +2586,7 @@ function updateSubCardTable() {
         }
     });
 }
+
 // Search Sub Credit Bank
 function searchTextSub_Credit(x) {
     var n = x.value;
@@ -4663,6 +4668,7 @@ function updateDriverTable() {
         }
     });
 }
+
 // Search Driver
 function search_driver(x) {
     var n = x.value;
@@ -5471,6 +5477,7 @@ function updateCarrierTable() {
         }
     });
 }
+
 // Delete function
 function deleteExternal(id, paymentid, factoringid) {
 

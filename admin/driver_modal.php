@@ -77,25 +77,25 @@ require "../database/connection.php";
                                     $show = $show['driver'];
                                     foreach ($show as $s) {
                                         $currency = $s['currency'];
-                                        $driverName = "'".$s['driverName']."'";
-                                        $driverEmail = "'".$s['driverEmail']."'";
-                                        $driverLocation = "'".$s['driverLocation']."'";
-                                        $driverSocial = "'".$s['driverSocial']."'";
-                                        $dateOfbirth = "'".$s['dateOfbirth']."'";
-                                        $dateOfhire = "'".$s['dateOfhire']."'";
-                                        $driverLicenseNo = "'".$s['driverLicenseNo']."'";
-                                        $driverLicenseIssue = "'".$s['driverLicenseIssue']."'";
-                                        $driverLicenseExp = "'".$s['driverLicenseExp']."'";
+                                        $driverName = "'" . $s['driverName'] . "'";
+                                        $driverEmail = "'" . $s['driverEmail'] . "'";
+                                        $driverLocation = "'" . $s['driverLocation'] . "'";
+                                        $driverSocial = "'" . $s['driverSocial'] . "'";
+                                        $dateOfbirth = "'" . $s['dateOfbirth'] . "'";
+                                        $dateOfhire = "'" . $s['dateOfhire'] . "'";
+                                        $driverLicenseNo = "'" . $s['driverLicenseNo'] . "'";
+                                        $driverLicenseIssue = "'" . $s['driverLicenseIssue'] . "'";
+                                        $driverLicenseExp = "'" . $s['driverLicenseExp'] . "'";
 
-                                        $pencilid1 = "'"."driverNamePencil$i"."'";
-                                        $pencilid2 = "'"."driverEmailPencil$i"."'";
-                                        $pencilid3 = "'"."driverLocationPencil$i"."'";
-                                        $pencilid4 = "'"."driverSocialPencil$i"."'";
-                                        $pencilid5 = "'"."dateOfbirthPencil$i"."'";
-                                        $pencilid6 = "'"."dateOfhirePencil$i"."'";
-                                        $pencilid7 = "'"."driverLicenseNoPencil$i"."'";
-                                        $pencilid8 = "'"."driverLicenseIssuePencil$i"."'";
-                                        $pencilid9 = "'"."driverLicenseExpPencil$i"."'";
+                                        $pencilid1 = "'" . "driverNamePencil$i" . "'";
+                                        $pencilid2 = "'" . "driverEmailPencil$i" . "'";
+                                        $pencilid3 = "'" . "driverLocationPencil$i" . "'";
+                                        $pencilid4 = "'" . "driverSocialPencil$i" . "'";
+                                        $pencilid5 = "'" . "dateOfbirthPencil$i" . "'";
+                                        $pencilid6 = "'" . "dateOfhirePencil$i" . "'";
+                                        $pencilid7 = "'" . "driverLicenseNoPencil$i" . "'";
+                                        $pencilid8 = "'" . "driverLicenseIssuePencil$i" . "'";
+                                        $pencilid9 = "'" . "driverLicenseExpPencil$i" . "'";
 
                                     ?>
                                     <tr>
@@ -252,8 +252,21 @@ require "../database/connection.php";
                         <?php } ?>
                     </ul>
                 </nav>
+                </ul>
+                </nav>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" onclick="export_Driver()" class="btn btn-primary waves-effect" data-dismiss="modal">
+                Export
+            </button>
+
+            <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">
+                Close
+            </button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 </div>
