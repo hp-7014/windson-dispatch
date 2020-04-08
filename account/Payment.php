@@ -4,7 +4,7 @@ require "../database/connection.php";
 ?>
 <!--  Modal content for the above example -->
 <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="Payment_Registration"
-     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xxl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
@@ -15,7 +15,7 @@ require "../database/connection.php";
             </div>
             <div class="modal-body custom-modal-body" style="padding: 0.1rem">
                 <button class="btn btn-primary float-left" data-toggle="modal" data-target="#Add_Payment"
-                        style="margin-right:8px;"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD
+                    style="margin-right:8px;"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD
                 </button>
                 <!-- Nav tabs -->
                 <ul class="nav nav-pills nav-justified" role="tablist" id="scroll">
@@ -87,7 +87,7 @@ require "../database/connection.php";
     <!------------------------------------------------------------------------------------------------------------------------------>
     <!--  Modal content for the above example -->
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="Add_Payment"
-         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content custom-modal-content">
                 <div class="modal-header custom-modal-header">
@@ -110,8 +110,8 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 cn" style="display:none">
                             <label>Company Name *</label>
-                            <input list="companyname" placeholder="--Select--" class="form-control"
-                                   id="Companyselect" name="Companyselect" onchange="updatecompanyfield(this.value)">
+                            <input list="companyname" placeholder="--Select--" class="form-control" id="Companyselect"
+                                name="Companyselect" onchange="updatecompanyfield(this.value)">
                             <datalist id="companyname">
                                 <?php
                                 $show_company = $db->company->find(['companyID' => $_SESSION['companyId']]);
@@ -129,7 +129,7 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 bank" style="display:none;">
                             <label>Bank Name*</label>
                             <select class="form-control" id="companyfield" placeholder="----select----">
-                                        
+
                             </select>
                         </div>
                         <div class="form-group col-md-2 Credit" style="display:none;">
@@ -170,23 +170,21 @@ require "../database/connection.php";
                             </select>
                         </div>
                         <div class="form-group col-md-2 adv" style="display:none;">
-                        <label>Invoice</label>
+                            <label>Invoice</label>
                             <br>
-                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light"
-                                    type="button" data-toggle="dropdown">
+                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light" type="button"
+                                data-toggle="dropdown">
                                 Invoice<i class="mdi mdi-menu-down-outline"
-                                          style="padding-left:15px;padding-right:50px"></i>
+                                    style="padding-left:15px;padding-right:50px"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <input type="checkbox" onclick='selectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Select all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Select all
                                 </li>
                                 <li>
                                     <input type="checkbox" onclick='UnSelectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Unselect all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Unselect all
                                 </li>
                             </ul>
                         </div>
@@ -213,7 +211,7 @@ require "../database/connection.php";
                             <label>Advance Amount</label>
                             <div>
                                 <button type="button" class=" btn btn-outline-dark waves-effect waves-light"
-                                        data-toggle="modal" data-target="#Advance_amount">Advance Amount
+                                    data-toggle="modal" data-target="#Advance_amount">Advance Amount
                                 </button>
                             </div>
                         </div>
@@ -240,8 +238,8 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Driver Name</label>
-                            <input list="driverlist" placeholder="--Select--" class="form-control"
-                                   id="drivername" name="drivername" onchange="updateDriverInvoice(this.value)">
+                            <input list="driverlist" placeholder="--Select--" class="form-control" id="drivername"
+                                name="drivername" onchange="updateDriverInvoice(this.value)">
                             <datalist id="driverlist">
                                 <?php
                                 $showdriver = $db->driver->find(['companyID' => $_SESSION['companyId']]);
@@ -258,8 +256,8 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Debit Category</label>
-                            <input list="debitcat" placeholder="--Select--" class="form-control"
-                                   id="selectdebite" name="selectdebite">
+                            <input list="debitcat" placeholder="--Select--" class="form-control" id="selectdebite"
+                                name="selectdebite">
                             <datalist id="debitcat">
                                 <?php
                                 $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
@@ -277,21 +275,19 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Invoice</label>
                             <br>
-                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light"
-                                    type="button" data-toggle="dropdown">
+                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light" type="button"
+                                data-toggle="dropdown">
                                 Invoice<i class="mdi mdi-menu-down-outline"
-                                          style="padding-left:15px;padding-right:50px"></i>
+                                    style="padding-left:15px;padding-right:50px"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <input type="checkbox" onclick='selectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Select all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Select all
                                 </li>
                                 <li>
                                     <input type="checkbox" onclick='UnSelectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Unselect all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Unselect all
                                 </li>
                                 <li class="space" id="driverinvoice">
 
@@ -301,36 +297,36 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" value="0" id="driveramount" name="driveramount" placeholder="Amount *"
-                                       type="text">
+                                <input class="form-control" value="0" id="driveramount" name="driveramount"
+                                    placeholder="Amount *" type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Advance *</label>
                             <div>
-                                <input class="form-control" value="0" id="dradvance" name="dradvance" placeholder="Advance *"
-                                       type="text">
+                                <input class="form-control" value="0" id="dradvance" name="dradvance"
+                                    placeholder="Advance *" type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Final Amount *</label>
                             <div>
                                 <input class="form-control" value="0" id="finalamount" name="finalamount"
-                                       placeholder="Final Amount *" type="text">
+                                    placeholder="Final Amount *" type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Check/ACH Date *</label>
                             <div>
                                 <input class="form-control" id="checkdate" name="checkdate" placeholder="Check Date *"
-                                       type="date">
+                                    type="date">
                             </div>
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Cheque #*</label>
                             <div>
                                 <input class="form-control" id="cheque" name="cheque" placeholder="Cheque #*"
-                                       type="text">
+                                    type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
@@ -343,8 +339,8 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>Carrier Name</label>
                             <div>
-                                <input list="carrierlist" placeholder="--Select--" class="form-control"
-                                       id="carriername" onchange="updateCarrierInvoice(this.value)" name="carriername">
+                                <input list="carrierlist" placeholder="--Select--" class="form-control" id="carriername"
+                                    onchange="updateCarrierInvoice(this.value)" name="carriername">
                                 <datalist id="carrierlist">
                                     <?php
                                     $showcarrier = $db->carrier->find(['companyID' => $_SESSION['companyId']]);
@@ -361,8 +357,8 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>Debit Category</label>
-                            <input list="debitcat" placeholder="--Select--" class="form-control"
-                                   id="selectdebite1" name="selectdebite1">
+                            <input list="debitcat" placeholder="--Select--" class="form-control" id="selectdebite1"
+                                name="selectdebite1">
                             <datalist id="debitcat">
                                 <?php
                                 $showdebit1 = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
@@ -378,33 +374,32 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>Invoice</label>
                             <br>
-                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light"
-                                    type="button" data-toggle="dropdown">
+                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light" type="button"
+                                data-toggle="dropdown">
                                 Invoice<i class="mdi mdi-menu-down-outline"
-                                          style="padding-left:15px;padding-right:50px"></i>
+                                    style="padding-left:15px;padding-right:50px"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <input type="checkbox" onclick='selectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Select all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Select all
                                 </li>
                                 <li>
                                     <input type="checkbox" onclick='UnSelectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Unselect all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Unselect all
                                 </li>
                                 <li class="space" id="invoiceID">
-<!--                                    <a href="#" class="small" data-value="option1" tabIndex="-1">-->
-<!--                                        <input type="checkbox" name="acs"/>&nbsp;3543534-->
-<!--                                    </a>-->
+                                    <!--                                    <a href="#" class="small" data-value="option1" tabIndex="-1">-->
+                                    <!--                                        <input type="checkbox" name="acs"/>&nbsp;3543534-->
+                                    <!--                                    </a>-->
                                 </li>
                             </ul>
                         </div>
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" value="0" id="finalAmount" name="finalAmount" type="text">
+                                <input class="form-control" placeholder="Amount *" value="0" id="finalAmount"
+                                    name="finalAmount" type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 carrier" style="display:none;">
@@ -442,35 +437,33 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>Invoice</label>
                             <br>
-                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light"
-                                    type="button" data-toggle="dropdown">
+                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light" type="button"
+                                data-toggle="dropdown">
                                 Invoice<i class="mdi mdi-menu-down-outline"
-                                          style="padding-left:15px;padding-right:50px"></i>
+                                    style="padding-left:15px;padding-right:50px"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <input type="checkbox" onclick='selectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Select all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Select all
                                 </li>
                                 <li>
                                     <input type="checkbox" onclick='UnSelectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Unselect all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Unselect all
                                 </li>
                                 <li class="space">
                                     <a href="#" class="small" data-value="option1" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;3543534
+                                        <input type="checkbox" name="acs" />&nbsp;3543534
                                     </a>
                                 </li>
                                 <li class="space">
                                     <a href="#" class="small" data-value="option2" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;24543434
+                                        <input type="checkbox" name="acs" />&nbsp;24543434
                                     </a>
                                 </li>
                                 <li class="space">
                                     <a href="#" class="small" data-value="option3" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;4533332
+                                        <input type="checkbox" name="acs" />&nbsp;4533332
                                     </a>
                                 </li>
                                 <li class="space">
@@ -480,7 +473,7 @@ require "../database/connection.php";
                                 </li>
                                 <li class="space">
                                     <a href="#" class="small" data-value="option5" tabIndex="-1">
-                                        <input type="checkbox" name="acs"/>&nbsp;43898239
+                                        <input type="checkbox" name="acs" />&nbsp;43898239
                                     </a>
                                 </li>
                             </ul>
@@ -682,13 +675,13 @@ require "../database/connection.php";
                                 <label>Upload Files</label>
                                 <button class="button">Upload a file</button>
                                 <input type="file" id="files" onchange="getfiles(this.files);" name="files[]" multiple
-                                       accept=".png, .jpg, .jpeg, .pdf"/>
+                                    accept=".png, .jpg, .jpeg, .pdf" />
                             </div>
                             <div class="form-group col-md-10">
                                 <label>Memo *</label>
                                 <div>
                                     <textarea class="form-control" rows="1" id="memo" name="memo"
-                                              placeholder="Memo *"></textarea>
+                                        placeholder="Memo *"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -708,7 +701,7 @@ require "../database/connection.php";
     </div><!-- /.modal -->
     <!-- Advance Amount -->
     <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-         id="Advance_amount" aria-hidden="true">
+        id="Advance_amount" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #2A3988;">
@@ -720,33 +713,31 @@ require "../database/connection.php";
                 <div class="modal-body">
                     <table class=" table-responsive">
                         <thead>
-                        <tr>
-                            <td>Advance Amount</td>
-                            <td>Memo</td>
-                            <td>Delete</td>
-                        </tr>
+                            <tr>
+                                <td>Advance Amount</td>
+                                <td>Memo</td>
+                                <td>Delete</td>
+                            </tr>
                         </thead>
                         <tbody id="TextBoxContainer1">
-                        <td width="150"><input name=" " type="text" value=" " class="form-control"/>
-                        </td>
-                        <td width="300"><input name=" " type="text" value=" " class="form-control"/>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger"><span
-                                        aria-hidden="true">&times;</span>
-                            </button>
-                        </td>
+                            <td width="150"><input name=" " type="text" value=" " class="form-control" />
+                            </td>
+                            <td width="300"><input name=" " type="text" value=" " class="form-control" />
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger"><span aria-hidden="true">&times;</span>
+                                </button>
+                            </td>
                         </tbody>
                         <tfoot>
-                        <tr>
-                            <th colspan="12">
-                                <button id="btnAddadv" type="button" class="btn btn-primary"
-                                        data-toggle="tooltip"><i
-                                            class="glyphicon glyphicon-plus-sign"></i>&nbsp;
-                                    Add&nbsp;
-                                </button>
-                            </th>
-                        </tr>
+                            <tr>
+                                <th colspan="12">
+                                    <button id="btnAddadv" type="button" class="btn btn-primary"
+                                        data-toggle="tooltip"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;
+                                        Add&nbsp;
+                                    </button>
+                                </th>
+                            </tr>
                         </tfoot>
                     </table>
                 </div>
@@ -762,16 +753,4 @@ require "../database/connection.php";
     </div><!-- /.modal -->
 </div>
 </div>
-<style>
-    #scroll {
-        overflow-x: auto;
-        width: 80%
-    }
-
-    .a {
-        border: 1px solid #30419B;
-        margin-left: 4px;
-        margin-right: 4px;
-    }
-</style>
 <script src="account/js/form.js"></script>

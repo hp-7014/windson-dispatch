@@ -173,7 +173,7 @@
        
             }
 
-            echo "Data Insert Successfully";
+            // echo "Data Insert Successfully";
         }
 
         public function delete_Sub_Credit($s_credit,$db,$helper) {
@@ -198,26 +198,34 @@
             for ($i = 0; $i < $sheetCount; $i++) {
 
                 $Reader->ChangeSheet($i);
+                $count = 0;
+                foreach ($Reader as $Row)
+                {
+                    $count++;
+                    if($count > 1000){
+                        echo "Your file should contain atmost 1000 entries. First 1000 entries added successfully"; 
+                        break;
+                    } else {
+                        $this->companyID = $_SESSION['companyId'];
+                        $this->setId($helper->getNextSequence("sub_credit_card",$db));
+                        if(isset($Row[0])) {
+                            $this->displayName = $Row[0];
+                        }
+                        if(isset($Row[1])) {
+                            $this->mainCard = $Row[1];
+                        }
+                        if(isset($Row[2])) {
+                            $this->cardHolderName = $Row[2];
+                        }
+                        if(isset($Row[3])) {
+                            $this->cardNo = $Row[3];
+                        }
 
-                foreach ($Reader as $Row) {
-                    $this->companyID = $_SESSION['companyId'];
-                    $this->setId($helper->getNextSequence("sub_credit_card",$db));
-                    if(isset($Row[0])) {
-                        $this->displayName = $Row[0];
+                        $this->Insert($this,$db,$helper);
                     }
-                    if(isset($Row[1])) {
-                        $this->mainCard = $Row[1];
-                    }
-                    if(isset($Row[2])) {
-                        $this->cardHolderName = $Row[2];
-                    }
-                    if(isset($Row[3])) {
-                        $this->cardNo = $Row[3];
-                    }
-
-                    $this->Insert($this,$db,$helper);
                 }
             }
+            unlink($targetPath);
         }
 
         public function update_Sub_Credit($s_credit,$db){

@@ -505,6 +505,7 @@ class TruckAdd implements IteratorAggregate
                     'counter' => 0,
                     'companyID' => (int) $this->companyID,
                     'truck' => array(['_id' => 0, 
+                    'counter' => 0,
                     'truckNumber' => $this->truckNumber,
                     'truckType' => $this->truckType,
                     'licensePlate' => $this->licensePlate,

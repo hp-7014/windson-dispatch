@@ -22,7 +22,7 @@ foreach ($payment_data as $row) {
         $pencilid1 = '"paymentTermPencil'.$i.'"';
 
         echo "<tr>
-            <td> $i</td>
+            <th> $i</th>
             <td class='custom-text' id='paymentTerm$i'
                 onmouseover='showPencil_s($pencilid1)'
                 onmouseout='hidePencil_s($pencilid1)'

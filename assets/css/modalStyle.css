@@ -1,67 +1,66 @@
-.custom-modal-header{
+.custom-modal-header {
     background: #f43b48;
-    background: -moz-linear-gradient(left,#453a94 0%, #f43b48 100%);
+    background: -moz-linear-gradient(left, #453a94 0%, #f43b48 100%);
     background: -webkit-linear-gradient(left, #453a94 0%, #f43b48 100%);
-    background: -ms-linear-gradient(left,#453a94 0%, #f43b48 100%);
+    background: -ms-linear-gradient(left, #453a94 0%, #f43b48 100%);
     background: linear-gradient(to right, #453a94 0%, #f43b48 100%);
     border-bottom: 1px solid transparent;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
     color: #FFFFFF;
 }
-.custom-modal-close{
+
+.custom-modal-close {
     color: white;
     font-weight: bold;
 }
-.custom-modal-title{
+
+.custom-modal-title {
     color: white;
 }
-.custom-modal-content{
+
+.custom-modal-content {
     border-radius: 5px;
 }
 
-.custom-modal-menu{
+.custom-modal-menu {
     border: 1px solid red;
     margin-bottom: 10px;
     padding: auto;
 }
 
-.custom-modal-content{
+.custom-modal-content {
     margin-top: 10px;
 }
-.custom-modal-body{
+
+.custom-modal-body {
     margin: 10px;
 }
 
+
 /* Modal Inline Tab Css */
+
 @import url('http://getbootstrap.com/2.3.2/assets/css/bootstrap.css');
-
-
-
-.nav-tabs > li {
-    position:relative;
+.nav-tabs>li {
+    position: relative;
 }
 
-.nav-tabs > li > a {
-    display:inline-block;
+.nav-tabs>li>a {
+    display: inline-block;
 }
 
-.nav-tabs > li > span {
-    display:none;
-    cursor:pointer;
-    position:absolute;
+.nav-tabs>li>span {
+    display: none;
+    cursor: pointer;
+    position: absolute;
     right: 6px;
     top: 8px;
     color: red;
 }
 
-.nav-tabs > li:hover > span {
+.nav-tabs>li:hover>span {
     display: inline-block;
 }
 
-.active{
-    font-weight: bold;
-
-}
 .custom-upload-btn-wrapper {
     position: relative;
     overflow: hidden;
@@ -78,6 +77,7 @@
     border-radius: 3px;
     font-size: 13px;
 }
+
 .custom-upload-btn-wrapper input[type=file] {
     font-size: 100px;
     position: absolute;
@@ -85,4 +85,3 @@
     top: 0;
     opacity: 0;
 }
-

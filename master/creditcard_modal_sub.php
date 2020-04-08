@@ -1,4 +1,5 @@
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="addCreditcard" aria-hidden="true">
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    id="addCreditcard" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #2A3988;">
@@ -11,7 +12,8 @@
                 <div class="form-group col-md-12">
                     <label>Name <span class="mandatory">*</span></label>
                     <div>
-                        <input class="form-control" placeholder="Name" name="credit_card_name" type="text" id="credit_card_name">
+                        <input class="form-control" placeholder="Name" name="credit_card_name" type="text"
+                            id="credit_card_name">
                         <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                     </div>
                 </div>
@@ -20,7 +22,10 @@
                     <button type="button" class="btn btn-danger waves-effect modalCreditcard">
                         Close
                     </button>
-                    <button type="submit" id="submit" onclick="addCreditCard()" class="btn btn-primary waves-effect waves-light">Save</button>
+                    <button type="submit" id="submit" onclick="addCreditCard()"
+                        class="btn btn-primary waves-effect waves-light">
+                        <span class="spinner-border spinner-border-sm loader1"></span>
+                        Save</button>
                 </div>
             </div>
         </div><!-- /.modal-content -->

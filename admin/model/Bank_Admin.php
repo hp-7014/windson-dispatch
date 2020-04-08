@@ -316,40 +316,49 @@
 
                 $Reader->ChangeSheet($i);
 
-                foreach ($Reader as $Row) {
-                    $this->companyID = $_SESSION['companyId'];
-                    $this->setId($helper->getNextSequence("bank_admin",$db));
-                    if(isset($Row[0])) {
-                        $this->bankName = $Row[0];
-                    }
-                    if(isset($Row[1])) {
-                        $this->bankAddresss = $Row[1];
-                    }
-                    if(isset($Row[2])) {
-                        $this->accountHolder = $Row[2];
-                    }
-                    if(isset($Row[3])) {
-                        $this->accountNo = $Row[3];
-                    }
-                    if(isset($Row[4])) {
-                        $this->routingNo = $Row[4];
-                    }
-                    if(isset($Row[5])) {
-                        $this->openingBalDate = $Row[5];
-                    }
-                    if(isset($Row[6])) {
-                        $this->openingBalance = $Row[6];
-                    }
-                    if(isset($Row[7])) {
-                        $this->currentcheqNo = $Row[7];
-                    }
-                    if(isset($Row[8])) {
-                        $this->transacBalance = $Row[8];
-                    }
+                $count = 0;
+                foreach ($Reader as $Row)
+                {
+                    $count++;
+                    if($count > 1000){
+                        echo "Your file should contain atmost 1000 entries. First 1000 entries added successfully"; 
+                        break;
+                    } else {
+                        $this->companyID = $_SESSION['companyId'];
+                        $this->setId($helper->getNextSequence("bank_admin",$db));
+                        if(isset($Row[0])) {
+                            $this->bankName = $Row[0];
+                        }
+                        if(isset($Row[1])) {
+                            $this->bankAddresss = $Row[1];
+                        }
+                        if(isset($Row[2])) {
+                            $this->accountHolder = $Row[2];
+                        }
+                        if(isset($Row[3])) {
+                            $this->accountNo = $Row[3];
+                        }
+                        if(isset($Row[4])) {
+                            $this->routingNo = $Row[4];
+                        }
+                        if(isset($Row[5])) {
+                            $this->openingBalDate = $Row[5];
+                        }
+                        if(isset($Row[6])) {
+                            $this->openingBalance = $Row[6];
+                        }
+                        if(isset($Row[7])) {
+                            $this->currentcheqNo = $Row[7];
+                        }
+                        if(isset($Row[8])) {
+                            $this->transacBalance = $Row[8];
+                        }
 
-                    $this->Insert($this,$db,$helper);
+                        $this->Insert($this,$db,$helper);
+                    }
                 }
             }
+            unlink($targetPath);
         }
 
         public function export_Bank_A($db){

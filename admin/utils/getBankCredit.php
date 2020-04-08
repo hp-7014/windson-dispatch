@@ -66,7 +66,7 @@ if ($_GET['types'] == 'live_credit_table') {
             $pencilid7 = '"cardLimitPencil'.$i.'"';
 
             echo "<tr>
-                <td>$i</td>
+                <th>$i</th>
                 <td class='custom-text'>
                     $Name
                 </td>

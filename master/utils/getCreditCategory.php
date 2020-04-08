@@ -20,7 +20,7 @@ foreach ($show as $row) {
         $c_type = '"'.$bankName_s.'"';
 
         echo "<tr>
-            <td> $i</td>
+            <th> $i</th>
             <td class='custom-text' id='bankName$i'
                 onmouseover='showPencil_s($pencilid2)'
                 onmouseout='hidePencil_s($pencilid2)'

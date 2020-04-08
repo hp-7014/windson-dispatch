@@ -19,7 +19,7 @@ require "../../database/connection.php";
          $c_type = '"'.$fixPayType.'"';
 
          $table .= "<tr>
-             <td>$i</td>
+             <th>$i</th>
              <td class='custom-text' id='fixPayType$i'
                 onmouseover='showPencil_s($pencilid)'
                 onmouseout='hidePencil_s($pencilid)'

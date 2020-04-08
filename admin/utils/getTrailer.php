@@ -138,7 +138,7 @@
                 $pencilid14 = '"internalNotesPencil'.$i.'"';
 
                 echo "<tr>
-                    <td>$i</td>
+                    <th>$i</th>
                     <td class='custom-text' id='trailerNumber$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
@@ -413,7 +413,7 @@
                 ) {
 
                 echo "<tr>
-                    <td>$i</td>
+                    <th>$i</th>
                     <td class='custom-text' id='trailerNumber$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
@@ -671,7 +671,7 @@
                     $pencilid14 = '"internalNotesPencil'.$i.'"';
 
                     echo "<tr>
-                        <td>$i</td>
+                        <th>$i</th>
                         <td class='custom-text' id='trailerNumber$i'
                             onmouseover='showPencil_s($pencilid1)'
                             onmouseout='hidePencil_s($pencilid1)'

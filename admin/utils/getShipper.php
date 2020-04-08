@@ -105,7 +105,7 @@ if ($_GET['types'] == 'live_shipper_table') {
             $pencilid16 = '"internalNotesPencil'.$i.'"';
 
             echo "<tr>
-                    <td>$i</td>
+                    <th>$i</th>
                     <td class='custom-text' id='shipperName$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
@@ -380,7 +380,7 @@ if ($_GET['types'] == 'search_text') {
                 $pencilid16 = '"internalNotesPencil'.$i.'"';
 
                 echo "<tr>
-                        <td>$i</td>
+                        <th>$i</th>
                         <td class='custom-text' id='shipperName$i'
                             onmouseover='showPencil_s($pencilid1)'
                             onmouseout='hidePencil_s($pencilid1)'
@@ -631,7 +631,7 @@ if ($_GET['types'] == 'search_text') {
                     $pencilid16 = '"internalNotesPencil'.$i.'"';
 
                     echo "<tr>
-                            <td>$i</td>
+                            <th>$i</th>
                             <td class='custom-text' id='shipperName$i'
                                 onmouseover='showPencil_s($pencilid1)'
                                 onmouseout='hidePencil_s($pencilid1)'
@@ -1050,5 +1050,3 @@ if ($_GET['types'] == 'paginate_ship') {
         }  
     }             
 }
-
-

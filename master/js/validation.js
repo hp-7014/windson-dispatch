@@ -62,10 +62,9 @@ function val_mailingAddress(val) {
     if (val == '') {
         swal("Please Enter Email Address");
     } else {
-        if(val.match(mailformat)){
+        if (val.match(mailformat)) {
             return true;
-        }
-        else{
+        } else {
             swal('Please Enter Valid Email');
             return false;
         }
@@ -183,8 +182,7 @@ function val_unit(val) {
 
 // BANK START
 function val_DebitValidate(val) {
-    if(val == '')
-    {
+    if (val == '') {
         swal('Please Enter Debit Bank Name.');
         return false;
     } else {
@@ -193,8 +191,7 @@ function val_DebitValidate(val) {
 }
 
 function val_CreditValidate(val) {
-    if(val == '')
-    {
+    if (val == '') {
         swal('Please Enter Credit Bank Name.');
         return false;
     } else {
@@ -203,8 +200,7 @@ function val_CreditValidate(val) {
 }
 
 function val_CardValidate(val) {
-    if(val == '')
-    {
+    if (val == '') {
         swal('Please Enter Credit Card Name.');
         return false;
     } else {
@@ -214,57 +210,15 @@ function val_CardValidate(val) {
 
 // BANK ENDS
 
-// STATUS TYPE START
-function val_statusValidate(val) {
-    if(val == '')
-    {
-        swal('Please Enter Status Name.');
+
+// Fuel Card Type START
+function val_fuelcard_type(val) {
+    if (val == '') {
+        swal('Please Enter fuel Card Type');
         return false;
     } else {
         return true;
     }
 }
 
-// STATUS TYPE ENDS
-
-// IFTA CARD CATEGORY START
-function val_cardHolderName(val) {
-    if (val == '') {
-        swal('Please Select Card Holder Name.');
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function val_iftaCardNo(val) {
-    if (val == '') {
-        swal('Please Enter IFTA Card NO.');
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function val_CardType(val) {
-    if (val == '') {
-        swal('Please Enter Card Type (Capital Letter).');
-        return false;
-    } else {
-        return true;
-    }
-}
-function val_cardNo(val) {
-    if (val == '') {
-        return true;
-    } else {
-        if (isNaN(val)) {
-            swal('Please Write Only Numeric Value');
-            return false;
-        } else {
-            return true;
-        }
-    }
-}
-
-// IFTA CARD CATEGORY ENDS
+// Fuel Card Type ENDS

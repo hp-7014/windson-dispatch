@@ -3,7 +3,7 @@ session_start();
 include '../database/connection.php';
 ?>
 <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" id="add_company"
-     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
 
     <div class="factoring-container" style="z-index: 1600"></div>
 
@@ -26,8 +26,8 @@ include '../database/connection.php';
                     <div class="form-group col-md-6">
                         <label>Shipping Address </label>
                         <div>
-                            <input class="form-control" placeholder="Shipping Address "
-                                   type="text" id="shippingAddress">
+                            <input class="form-control" placeholder="Shipping Address " type="text"
+                                id="shippingAddress">
                         </div>
                     </div>
                 </div>
@@ -35,15 +35,13 @@ include '../database/connection.php';
                     <div class="form-group col-md-6">
                         <label>Telephone No <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control" placeholder="Telephone No" type="text"
-                                   id="telephoneNo">
+                            <input class="form-control" placeholder="Telephone No" type="text" id="telephoneNo">
                         </div>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Fax No</label>
                         <div>
-                            <input class="form-control" placeholder="Fax No" type="text"
-                                   id="faxNo">
+                            <input class="form-control" placeholder="Fax No" type="text" id="faxNo">
                         </div>
                     </div>
                 </div>
@@ -51,15 +49,13 @@ include '../database/connection.php';
                     <div class="form-group col-md-6">
                         <label>M.C. No.: </label>
                         <div>
-                            <input class="form-control" placeholder="M.C. No.: " type="text"
-                                   id="mcNo">
+                            <input class="form-control" placeholder="M.C. No.: " type="text" id="mcNo">
                         </div>
                     </div>
                     <div class="form-group col-md-6">
                         <label>US DOT No.: </label>
                         <div>
-                            <input class="form-control" placeholder="US DOT No.: " type="text"
-                                   id="usDotNo">
+                            <input class="form-control" placeholder="US DOT No.: " type="text" id="usDotNo">
                         </div>
                     </div>
                 </div>
@@ -67,17 +63,17 @@ include '../database/connection.php';
                     <div class="form-group col-md-6">
                         <label>Mailing Address: <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control" placeholder="Mailing Address * "
-                                   type="text" id="mailingAddress">
+                            <input class="form-control" placeholder="Mailing Address * " type="text"
+                                id="mailingAddress">
                         </div>
                     </div>
 
                     <div class="form-group col-md-6">
                         <label>Factoring Company: </label> <i class="mdi mdi-plus-circle plus"
-                                                              title="Add Factoring Company" id="AddFactoring"></i>
+                            title="Add Factoring Company" id="AddFactoring"></i>
                         <div>
                             <input list="searchFactoring" class="form-control" placeholder="--select--"
-                                   id="factoringCompany" name="factoringCompany">
+                                id="factoringCompany" name="factoringCompany">
                             <datalist id="searchFactoring">
                                 <?php
                                 $show_carrier = $db->factoring_company_add->find(['companyID' => $_SESSION['companyId']]);
@@ -86,8 +82,8 @@ include '../database/connection.php';
                                         $factoring = $scar['factoringCompanyname'];
                                         $fact = "$factoring";
                                         ?>
-                                        <option value="<?php echo $scar['_id'] . ") " . $fact; ?>"></option>
-                                        <?php
+                                <option value="<?php echo $scar['_id'] . ") " . $fact; ?>"></option>
+                                <?php
                                     }
                                 }
                                 ?>
@@ -100,17 +96,19 @@ include '../database/connection.php';
                     <!--                            <input class="form-control" placeholder="Factoring Company Address: "-->
                     <!--                                   type="text" id="factoringCompanyAddress">-->
                     <!--                            <input type="hidden" id="companyId" value="-->
-                    <?php //echo $_SESSION['companyId']; ?><!--">-->
+                    <?php //echo $_SESSION['companyId']; ?>
+                    <!--">-->
                     <!--                        </div>-->
                     <!--                    </div>-->
                 </div>
-                
+
                 <div class="modal-footer">
                     <label class="text-danger" style="padding-right: 120px"><b>Note :</b>&nbsp; * Fields are
                         mandatory</label>
                     <button type="button" class="btn btn-danger modalCompany">Close</button>
                     <input type="submit" onclick="addCompany()" name="submit"
-                           class="btn btn-primary waves-effect waves-light" value="Save"/>
+                        class="btn btn-primary waves-effect waves-light" value="Save" />
+                    <span class="spinner-border spinner-border-sm loader1"></span>
                 </div>
             </div>
         </div><!-- /.modal-content -->
