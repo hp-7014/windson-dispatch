@@ -157,7 +157,8 @@ if ($_GET['type'] == "add_new_load") {
         }
         $activeload->updatefile($activeload, $db, $id);
     }
-} // change Load Status
+} 
+// change Load Status
 else if ($_GET['type'] == 'changeStatus') {
     $arrayName = $_POST['old_array'];
     $cursor = $db->active_load->find(["companyID" => (int)$_SESSION['companyId']], [$arrayName => ['$elemMatch' => ['_id' => $_POST['id']]]]);

@@ -1291,7 +1291,6 @@ class ActiveLoad implements IteratorAggregate
         $doc = $db->$collection->findOne($criteria);
 
         if (!empty($doc)) {
-                echo "inside if of model";
             $id = $helper->getDocumentSequence((int)$this->companyID, $db->$collection);
             $db->$collection->updateOne(['companyID' => (int)$this->companyID], ['$push' => ['load' => [
                 '_id' => $id,

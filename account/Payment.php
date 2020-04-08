@@ -791,7 +791,7 @@ require "../database/connection.php";
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="Paymentadd()">ADD
+                    <button type="button" class="btn btn-primary waves-effect waves-light" id="addbankpayment" onclick="Paymentadd()">ADD
                     </button>
                     <button type="button" class="btn btn-success waves-effect waves-light">ADD & PRINT
                     </button>

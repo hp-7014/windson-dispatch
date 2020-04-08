@@ -672,6 +672,10 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
           break;
@@ -728,6 +732,10 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
           break;
@@ -784,6 +792,10 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
           break;
@@ -830,6 +842,10 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
           break;
@@ -884,6 +900,10 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
           break;
@@ -928,6 +948,10 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
           break;
@@ -984,6 +1008,10 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
           break;
@@ -1025,6 +1053,10 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
           break;
@@ -1078,8 +1110,40 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
           break;
       }
+}
+
+function uploadfiles(id,Bankname) {
+    var form_data = new FormData();
+    form_data.append("id", id);
+    form_data.append("Bankname", Bankname);
+    var ins = document.getElementById('files').files.length;
+    if (ins > 0) {
+        for (var x = 0; x < ins; x++) {
+            form_data.append("files[]", document.getElementById('files').files[x]);
+        }
+        $.ajax({
+            url: 'account/payment_driver.php?type=' + 'fileupload', // point to server-side PHP script
+            dataType: 'text', // what to expect back from the PHP script
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function (response) {
+                document.getElementById('addbankpayment').style.display = "block";
+            },
+            error: function (response) {
+            }
+        });
+    } else {
+        return 'no';
+    }
 }

@@ -30,7 +30,7 @@ if ($_GET['type'] == 'driverpayment') {
     $bank->setAch($_POST['ach']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertdriver($bank,$db,$helper);
 }
 
 // bank carrier
@@ -54,7 +54,7 @@ else if ($_GET['type'] == 'carrierpayment') {
     $bank->setAch($_POST['ach']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertcarrier($bank,$db,$helper);
 }
 
 // bank factoring
@@ -78,7 +78,7 @@ else if($_GET['type'] == 'bankFactoring'){
     $bank->setAch($_POST['ach']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertfactoring($bank,$db,$helper);
 }
 
 // bank expense
@@ -99,7 +99,7 @@ else if($_GET['type'] == 'paymentexpense'){
     $bank->setAmount($_POST['amount']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertexpense($bank,$db,$helper);
 }
 
 // bank Maintenance
@@ -121,7 +121,7 @@ else if($_GET['type'] == 'paymentmaintenance'){
     $bank->setTrailerno($_POST['trailerno']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertmaintenance($bank,$db,$helper);
 }
 
 // bank insurance
@@ -141,7 +141,7 @@ else if($_GET['type'] == 'paymentinsurance'){
     $bank->setInsurancecom($_POST['insurancecompany']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertinsurance($bank,$db,$helper);
 }
 
 // bank creditcard
@@ -161,7 +161,7 @@ else if($_GET['type'] == 'paymentcreditcard'){
     $bank->setCardcategory($_POST['cardcategory']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertcreditcard($bank,$db,$helper);
 }
 
 // bank fuelcard
@@ -180,7 +180,7 @@ else if($_GET['type'] == 'paymentfuelcard'){
     $bank->setFuellist($_POST['fuellist']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertfuelcard($bank,$db,$helper);
 }
 
 // bank other
@@ -204,5 +204,46 @@ else if($_GET['type'] == 'paymentother'){
     $bank->setAch($_POST['otherach']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertother($bank,$db,$helper);
 }
+
+else if ($_GET['type'] == "fileupload") {
+    $bank = new Bank();
+    $id = $_POST['id'];
+    if (isset($_FILES['files']) && !empty($_FILES['files'])) {
+        $uploadDir = 'upload/Bank/';
+        $response = '';
+        $allowTypes = array('pdf', 'jpg', 'png', 'jpeg');
+        $i = 0;
+        $docs = array();
+        foreach ($_FILES['files']['name'] as $key => $val) {
+            $fileName = rand(0, 9999999999) . $_FILES["files"]["name"][$key];
+            $originalname = $_FILES["files"]["name"][$key];
+
+            $temLoc = $_FILES['files']['tmp_name'][$key];
+            $targetFilePath = $uploadDir . $fileName;
+            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+            $fileSize = $_FILES['files']['size'][$key];
+            if (in_array($fileType, $allowTypes)) {
+                if ($fileSize < 200000) {
+                    $docs[] = $fileName;
+                    $bank->setBankName($_POST['Bankname']);
+                    $bank->setMonth(date("F"));
+                    $bank->setFile($fileName, $originalname, $fileSize, $targetFilePath, $i);
+                } else {
+                    echo "File Size is To Large For " . $fileName;
+                    exit();
+                }
+            } else {
+                echo "File Type Error For " . $fileName;
+                exit();
+            }
+            $i++;
+        }
+        for ($i = 0; $i < count($docs); $i++) {
+            move_uploaded_file($_FILES["files"]["tmp_name"][$i], $uploadDir . $docs[$i]);
+        }
+        $bank->updatefile($bank, $db, $id);
+    }
+} 
