@@ -113,6 +113,17 @@ $(document).on('click', '.addUser', function() {
         }
     });
 });
+
+$(document).on('click', '#user_add', function() {
+    $.ajax({
+        type: 'POST',
+        success: function(data) {
+            $('.user-container').load('./admin/user_modal_sub.php', function(result) {
+                $('#add_user').modal({ show: true });
+            });
+        }
+    });
+});
 $(document).on('click', '.addConsignee', function() {
     $.ajax({
         type: 'POST',
@@ -730,6 +741,10 @@ $(document).on('click', '.modalShipper', function() {
 });
 $(document).on('click', '.modalConsignee', function() {
     $('#add_consignee').modal('hide');
+});
+$(document).on('click', '.modal_User', function() {
+    alert("HHIHIHI");
+    $('#add_user').modal('hide');
 });
 $(document).on('click', '.modalOther', function() {
     $('#otherCharges').modal('hide');

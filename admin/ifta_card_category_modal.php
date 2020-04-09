@@ -27,7 +27,7 @@
 
                     <div class="custom-upload-btn-wrapper float-right">
                         <button class="custom-btn">Choose file</button>
-                        <input type="file" id="file" name="cardfile" />
+                        <input type="file" id="file" name="myfile" accept=".csv" onchange='triggerValidation(this)' />
                     </div>
 
                     <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV

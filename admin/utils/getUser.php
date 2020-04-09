@@ -670,7 +670,7 @@ if ($_GET['types'] == 'paginate_us') {
             $pencilid11 = '"userFaxPencil'.$i.'"';
 
             echo "<tr>
-                <td> $start</td>
+                <th> $start</th>
                 <td class='custom-text' id='userEmail$i'
                     onmouseover='showPencil_s($pencilid1)'
                     onmouseout='hidePencil_s($pencilid1)'

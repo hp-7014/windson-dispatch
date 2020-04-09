@@ -67,9 +67,9 @@ if ($_GET['types'] == 'live_credit_table') {
 
             echo "<tr>
                 <th>$i</th>
-                <td class='custom-text'>
+                <th class='custom-text'>
                     $Name
-                </td>
+                </th>
                 <td class='custom-text' id='displayName$i'
                     onmouseover='showPencil_s($pencilid2)'
                     onmouseout='hidePencil_s($pencilid2)'
@@ -195,10 +195,10 @@ if ($_GET['types'] == 'search_text') {
                 $pencilid7 = '"cardLimitPencil'.$i.'"';
 
                 echo "<tr>
-                    <td>$i</td>
-                    <td >
+                    <th>$i</th>
+                    <th class='custom-text'>
                         $Name
-                    </td>
+                    </th>
                     <td class='custom-text' id='displayName$i'
                         onmouseover='showPencil_s($pencilid2)'
                         onmouseout='hidePencil_s($pencilid2)'
@@ -330,10 +330,10 @@ if ($_GET['types'] == 'search_text') {
                     $pencilid7 = '"cardLimitPencil'.$i.'"';
 
                     echo "<tr>
-                        <td>$i</td>
-                        <td class='custom-text'>
+                        <th>$i</th>
+                        <th class='custom-text'>
                             $Name
-                        </td>
+                        </th>
                         <td class='custom-text' id='displayName$i'
                             onmouseover='showPencil_s($pencilid2)'
                             onmouseout='hidePencil_s($pencilid2)'
@@ -470,10 +470,10 @@ if ($_GET['types'] == 'paginate_creditcard') {
             $pencilid7 = '"cardLimitPencil'.$i.'"';
 
             echo "<tr>
-                <td>$start</td>
-                <td class='custom-text'>
+                <th>$start</th>
+                <th class='custom-text'>
                     $Name
-                </td>
+                </th>
                 <td class='custom-text' id='displayName$i'
                     onmouseover='showPencil_s($pencilid2)'
                     onmouseout='hidePencil_s($pencilid2)'

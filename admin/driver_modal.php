@@ -100,14 +100,14 @@ require "../database/connection.php";
                                     ?>
                                     <tr>
                                         <th><?php echo $i++; ?></th>
-                                        <td class="custom-text" id="<?php echo "driverName".$i; ?>"
+                                        <th class="custom-text" id="<?php echo "driverName".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('driverNamePencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('driverNamePencil$i'); "?>">
                                             <i id="<?php echo "driverNamePencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
                                                 onclick="updateTableColumn(<?php echo $driverName; ?>,'updateDriver','text',<?php echo $s['_id']; ?>,'driverName','Name',<?php echo $pencilid1; ?>)"></i>
                                             <?php echo $s['driverName']; ?>
-                                        </td>
+                                        </th>
                                         <td class="custom-text" id="<?php echo "driverEmail".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('driverEmailPencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('driverEmailPencil$i'); "?>">
@@ -242,7 +242,7 @@ require "../database/connection.php";
                                 }
                                 $j++;
                             } 
-                            if($total_pages > 0){
+                            if($total_pages > 0 && $total_pages > 1){
                             ?>
                         </select>
                         <li id="bank_next">
@@ -252,8 +252,7 @@ require "../database/connection.php";
                         <?php } ?>
                     </ul>
                 </nav>
-                </ul>
-                </nav>
+                
             </div>
         </div>
     </div><!-- /.modal-content -->

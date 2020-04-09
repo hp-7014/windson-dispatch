@@ -1,6 +1,6 @@
 <?php
-session_start();
-include '../database/connection.php';
+    session_start();
+    include '../database/connection.php';
 ?>
 
 <!-- Modal content for the above example -->
@@ -59,7 +59,7 @@ include '../database/connection.php';
 
                                 <input type="hidden" id="page_no" value="0">
                                 <tbody id="custom_broker_body">
-                                    <?php
+                                <?php
                                 $limit = 100;
                                 $total_pages = 0;
                                 // $collection = $db->customs_broker;
@@ -100,14 +100,14 @@ include '../database/connection.php';
                                         ?>
                                     <tr>
                                         <th><?php echo $i ?></th>
-                                        <td class="custom-text" id="<?php echo "brokerName".$i; ?>"
+                                        <th class="custom-text" id="<?php echo "brokerName".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('brokerPencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('brokerPencil$i'); "?>">
                                             <i id="<?php echo "brokerPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
                                                 onclick="updateTableColumn(<?php echo $name; ?>,'updateCustom','text',<?php echo $custom['_id']; ?>,'brokerName','Broker Name',<?php echo $pencilid1; ?>)"></i>
                                             <?php echo $custom['brokerName']; ?>
-                                        </td>
+                                        </th>
                                         <td class="custom-text" id="<?php echo "crossing".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('crossingPencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('crossingPencil$i'); "?>">
@@ -220,7 +220,7 @@ include '../database/connection.php';
                                 }
                                 $j++;
                             } 
-                            if($total_pages > 0){
+                            if($total_pages > 0 && $total_pages > 1) {
                             ?>
                         </select>
                         <li id="bank_next">

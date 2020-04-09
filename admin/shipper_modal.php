@@ -5,7 +5,7 @@ require "../database/connection.php";
 <!-- Modal content for the above example -->
 <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="shipper"
     aria-labelledby="myLargeModalLabel" aria-hidden="true">
-
+    <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-xxl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
@@ -123,14 +123,14 @@ require "../database/connection.php";
                                     ?>
                                     <tr>
                                         <th><?php echo $i++; ?></th>
-                                        <td class="custom-text" id="<?php echo "shipperName".$i; ?>"
+                                        <th class="custom-text" id="<?php echo "shipperName".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('shipperNamePencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('shipperNamePencil$i'); "?>">
                                             <i id="<?php echo "shipperNamePencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
                                                 onclick="updateTableColumn(<?php echo $shipperName; ?>,'updateShipper','text',<?php echo $s['_id']; ?>,'shipperName','Shipper Name',<?php echo $pencilid1; ?>)"></i>
                                             <?php echo $s['shipperName']; ?>
-                                        </td>
+                                        </th>
                                         <td class="custom-text" id="<?php echo "shipperAddress".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('shipperAddressPencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('shipperAddressPencil$i'); "?>">
@@ -329,7 +329,7 @@ require "../database/connection.php";
                                 }
                                 $j++;
                             } 
-                            if($total_pages > 0){
+                            if($total_pages > 1 && $total_pages > 0){
                             ?>
                         </select>
                         <li id="bank_next">

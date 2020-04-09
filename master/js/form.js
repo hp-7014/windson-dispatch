@@ -2522,15 +2522,17 @@ function updateTableColumn(columnvalue, functionname, type, id, column, title, p
             $('.toll-container').load('./admin/update_modal.php', function(result) {
                 $('#updateTable').modal({ show: true });
             });
-            $('.fuel-card-container').load('./admin/update_modal.php', function(result) {
-                $('#updateTable').modal({ show: true });
-            });
             $('.fuel-container').load('./admin/update_modal.php', function(result) {
                 $('#updateTable').modal({ show: true });
             });
-            $('.driver-container').load('./admin/update_modal.php', function(result) {
+            $('.fuel-card-container').load('./admin/update_modal.php', function(result) {
                 $('#updateTable').modal({ show: true });
             });
+            // $('.driver-container').load('./admin/update_modal.php', function(result) {
+            //     $('#updateTable').modal({ show: true });
+            // });
+            
+            
             // Admin Table ENDS
 
             setTimeout(function() {

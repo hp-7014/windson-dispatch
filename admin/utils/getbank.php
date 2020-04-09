@@ -73,7 +73,7 @@ if ($_GET['types'] == 'live_bank_table') {
 
             $table .= "<tr>
                 <th> $i</th>
-                <td class='custom-text' id='bankName$i'
+                <th class='custom-text' id='bankName$i'
                     onmouseover='showPencil_s($pencilid1)'
                     onmouseout='hidePencil_s($pencilid1)'
                     >
@@ -81,7 +81,7 @@ if ($_GET['types'] == 'live_bank_table') {
                         onclick='updateTableColumn($c_type1,$updateBank,$type,$id,$bankNameColumn,$title1,$pencilid1)'
                     ></i>
                     $bankName
-                </td>
+                </th>
                 <td class='custom-text' id='bankAddresss$i'
                     onmouseover='showPencil_s($pencilid2)'
                     onmouseout='hidePencil_s($pencilid2)'
@@ -204,7 +204,7 @@ if ($_GET['types'] == 'search_text') {
 
                 echo "<tr>
                     <th> $i</th>
-                    <td class='custom-text' id='bankName$i'
+                    <th class='custom-text' id='bankName$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -212,7 +212,7 @@ if ($_GET['types'] == 'search_text') {
                             onclick='updateTableColumn($c_type1,$updateBank,$type,$id,$bankNameColumn,$title1,$pencilid1)'
                         ></i>
                         $bankName
-                    </td>
+                    </th>
                     <td class='custom-text' id='bankAddresss$i'
                         onmouseover='showPencil_s($pencilid2)'
                         onmouseout='hidePencil_s($pencilid2)'
@@ -341,7 +341,7 @@ if ($_GET['types'] == 'search_text') {
     
                     echo "<tr>
                         <th>$i</th>
-                        <td class='custom-text' id='bankName$i'
+                        <th class='custom-text' id='bankName$i'
                             onmouseover='showPencil_s($pencilid1)'
                             onmouseout='hidePencil_s($pencilid1)'
                             >
@@ -349,7 +349,7 @@ if ($_GET['types'] == 'search_text') {
                                 onclick='updateTableColumn($c_type1,$updateBank,$type,$id,$bankNameColumn,$title1,$pencilid1)'
                             ></i>
                             $bankName
-                        </td>
+                        </th>
                         <td class='custom-text' id='bankAddresss$i'
                             onmouseover='showPencil_s($pencilid2)'
                             onmouseout='hidePencil_s($pencilid2)'
@@ -484,8 +484,8 @@ if ($_GET['types'] == 'paginate_bank_admin') {
             $pencilid7 = '"currentcheqNoPencil'.$i.'"';
             
             $table .= "<tr>
-                <td> $start</td>
-                <td class='custom-text' id='bankName$i'
+                <th> $start</th>
+                <th class='custom-text' id='bankName$i'
                     onmouseover='showPencil_s($pencilid1)'
                     onmouseout='hidePencil_s($pencilid1)'
                     >
@@ -493,7 +493,7 @@ if ($_GET['types'] == 'paginate_bank_admin') {
                         onclick='updateTableColumn($c_type1,$updateBank,$type,$id,$bankNameColumn,$title1,$pencilid1)'
                     ></i>
                     $bankName
-                </td>
+                </th>
                 <td class='custom-text' id='bankAddresss$i'
                     onmouseover='showPencil_s($pencilid2)'
                     onmouseout='hidePencil_s($pencilid2)'

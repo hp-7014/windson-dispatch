@@ -58,7 +58,7 @@ require "../database/connection.php";?>
                                             $pencilid1 = "'"."officeLocpencil$i"."'";
                                         ?>
                                     <tr>
-                                        <td><?php echo $i++; ?></td>
+                                        <th><?php echo $i++; ?></th>
                                         <td class="custom-text" id="<?php echo "officeName".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('officePencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('officePencil$i'); "?>">

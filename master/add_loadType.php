@@ -62,7 +62,7 @@ require "../database/connection.php";?>
                                                 $pencilid1 = "'"."loadTypepencil$i"."'";
                                      ?>
                                     <tr>
-                                        <td><?php echo $i++; ?></td>
+                                        <th><?php echo $i++; ?></th>
                                         <td class="custom-text" id="<?php echo "loadName".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('loadPencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('loadPencil$i'); "?>">

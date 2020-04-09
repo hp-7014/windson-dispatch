@@ -163,14 +163,14 @@ require "../database/connection.php";
                                         ?>
                                     <tr>
                                         <th><?php echo $i++; ?></th>
-                                        <td class="custom-text" id="<?php echo "truckNumber".$i; ?>"
+                                        <th class="custom-text" id="<?php echo "truckNumber".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('truckNumberPencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('truckNumberPencil$i'); "?>">
                                             <i id="<?php echo "truckNumberPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
                                                 onclick="updateTableColumn(<?php echo $truckNumber; ?>,'updateTruckAdd','text',<?php echo $row1['_id']; ?>,'truckNumber','Truck Number',<?php echo $pencilid1; ?>)"></i>
                                             <?php echo $row1['truckNumber']; ?>
-                                        </td>
+                                        </th>
                                         <td class="custom-text">
                                             <?php echo $truckType; ?>
                                         </td>
@@ -405,7 +405,7 @@ require "../database/connection.php";
                             }
                             $j++;
                         } 
-                        if($total_pages > 0){
+                        if($total_pages > 0 && $total_pages > 1){
                         ?>
                         </select>
                         <li id="bank_next">

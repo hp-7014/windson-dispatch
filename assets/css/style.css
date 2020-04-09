@@ -4712,11 +4712,25 @@ Responsive Menu
             background: #ccc;
         }
         
+        th:nth-child(2) {
+            position: -webkit-sticky;
+            position: sticky;
+            left: 4%;
+            z-index: 2;
+            background: #ccc;
+        }
+        
         thead th:first-child,
         tfoot th:first-child {
             z-index: 5;
         }
         
+        thead th:nth-child(2),
+        tfoot th:nth-child(2) {
+            z-index: 5 !important;
+            left: 4%;
+        }
+
         table {
             table-layout: fixed;
         }

@@ -129,7 +129,7 @@ function updateAccountInvoiceTable() {
 // account invoice end
 
 // Search Trailer
-function search_trailer(x) {
+function search_account_manager(x) {
     var n = x.value;
     var companyId = $('#companyid').val();
 
@@ -141,8 +141,8 @@ function search_trailer(x) {
             companyId: companyId,
         },
         success: function (response) {
-            var j = response.trim();
-            document.getElementById('accountDeliverBody').innerHTML = j;
+            //var j = response.trim();
+            document.getElementById('accountDeliverBody').innerHTML = response;
         }
     });
 }
@@ -166,7 +166,7 @@ function search_Invoice1(x) {
 }
 
 // Paginate Trailer
-function paginate_trailer(start, limit) {
+function paginate_account(start, limit) {
 
     $.ajax({
         url: 'admin/utils/getTrailer.php?types=paginate_trailer_admin',

@@ -56,7 +56,7 @@ require "../database/connection.php";?>
                                         $pencilid = "'"."TruckPencil$i"."'";
                                         ?>
                                     <tr>
-                                        <td><?php echo $i++; ?></td>
+                                        <th><?php echo $i++; ?></th>
                                         <td id="<?php echo "truckType".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('TruckPencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('TruckPencil$i'); "?>">
