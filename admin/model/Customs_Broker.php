@@ -221,7 +221,7 @@
                 $db->customs_broker->insertOne($c_broker);
             }
 
-            echo "Data Insert Successfully";
+            //echo "Data Insert Successfully";
         }
 
         public function update_Cus_Broker($c_broker,$db){
@@ -271,34 +271,43 @@
             for ($i = 0; $i < $sheetCount; $i++) {
 
                 $Reader->ChangeSheet($i);
+                $count = 0;
+                foreach ($Reader as $Row)
+                {
+                    $count++;
+                    if($count > 1000){
+                        echo "Your file should contain atmost 1000 entries. First 1000 entries added successfully"; 
+                        break;
+                    } else {
+                        $this->companyID = $_SESSION['companyId'];
+                        $this->setId($helper->getNextSequence("customBroker",$db));
+                        if (isset($Row[0])) {
+                            $this->brokerName = $Row[0];
+                        }
+                        if (isset($Row[1])) {
+                            $this->crossing = $Row[1];
+                        }
+                        if (isset($Row[2])) {
+                            $this->telephone = $Row[2];
+                        }
+                        if (isset($Row[3])) {
+                            $this->ext = $Row[3];
+                        }
+                        if (isset($Row[4])) {
+                            $this->tollfree = $Row[4];
+                        }
+                        if (isset($Row[5])) {
+                            $this->fax = $Row[5];
+                        }
+                        if (isset($Row[6])) {
+                            $this->Status = $Row[6];
+                        }
 
-                foreach ($Reader as $Row) {
-                    $this->companyID = $_SESSION['companyId'];
-                    $this->setId($helper->getNextSequence("customBroker",$db));
-                    if (isset($Row[0])) {
-                        $this->brokerName = $Row[0];
+                        $this->Insert($this,$db,$helper);
                     }
-                    if (isset($Row[1])) {
-                        $this->crossing = $Row[1];
-                    }
-                    if (isset($Row[2])) {
-                        $this->telephone = $Row[2];
-                    }
-                    if (isset($Row[3])) {
-                        $this->ext = $Row[3];
-                    }
-                    if (isset($Row[4])) {
-                        $this->tollfree = $Row[4];
-                    }
-                    if (isset($Row[5])) {
-                        $this->fax = $Row[5];
-                    }
-                    if (isset($Row[6])) {
-                        $this->Status = $Row[6];
-                    }
-
-                    $this->Insert($this,$db,$helper);
                 }
             }
+            unlink($targetPath);
         }
+        
     }

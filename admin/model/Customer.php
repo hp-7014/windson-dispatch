@@ -813,93 +813,102 @@ class Customer implements IteratorAggregate
 
             $this->setId($helper->getNextSequence("customer", $db));
             $this->companyId = $_SESSION['companyId'];
+           
+            $count = 0;
+            foreach ($Reader as $Row)
+            {
+                $count++;
+                if($count > 1000){
+                    echo "Your file should contain atmost 1000 entries. First 1000 entries added successfully"; 
+                    break;
+                } else {
+                    if (isset($Row[0])) {
+                        $this->custName = $Row[0];
+                    }
+                    if (isset($Row[1])) {
+                        $this->custAddress = $Row[1];
+                    }
+                    if (isset($Row[2])) {
+                        $this->custLocation = $Row[2];
+                    }
+                    if (isset($Row[3])) {
+                        $this->custZip = $Row[3];
+                    }
+                    if (isset($Row[4])) {
+                        $this->billingAddress = $Row[4];
+                    }
+                    if (isset($Row[5])) {
+                        $this->billingLocation = $Row[5];
+                    }
+                    if (isset($Row[6])) {
+                        $this->billingZip = $Row[6];
+                    }
+                    if (isset($Row[7])) {
+                        $this->primaryContact = $Row[7];
+                    }
+                    if (isset($Row[8])) {
+                        $this->custTelephone = $Row[8];
+                    }
+                    if (isset($Row[9])) {
+                        $this->custExt = $Row[9];
+                    }
+                    if (isset($Row[10])) {
+                        $this->custEmail = $Row[10];
+                    }
+                    if (isset($Row[11])) {
+                        $this->custFax = $Row[11];
+                    }
+                    if (isset($Row[12])) {
+                        $this->billingContact = $Row[12];
+                    }
+                    if (isset($Row[13])) {
+                        $this->billingEmail = $Row[13];
+                    }
+                    if (isset($Row[14])) {
+                        $this->billingTelephone = $Row[14];
+                    }
+                    if (isset($Row[15])) {
+                        $this->billingExt = $Row[15];
+                    }
+                    if (isset($Row[16])) {
+                        $this->URS = $Row[16];
+                    }
+                    if (isset($Row[17])) {
+                        $this->currencySetting = $Row[17];
+                    }
+                    if (isset($Row[18])) {
+                        $this->paymentTerms = $Row[18];
+                    }
+                    if (isset($Row[19])) {
+                        $this->creditLimit = $Row[19];
+                    }
+                    if (isset($Row[20])) {
+                        $this->salesRep = $Row[20];
+                    }
+                    if (isset($Row[21])) {
+                        $this->factoringCompany = $Row[21];
+                    }
+                    if (isset($Row[22])) {
+                        $this->federalID = $Row[22];
+                    }
+                    if (isset($Row[23])) {
+                        $this->workerComp = $Row[23];
+                    }
+                    if (isset($Row[24])) {
+                        $this->websiteURL = $Row[24];
+                    }
+                    if (isset($Row[25])) {
+                        $this->internalNotes = $Row[25];
+                    }
+                    if (isset($Row[26])) {
+                        $this->MC = $Row[26];
+                    }
 
-            foreach ($Reader as $Row) {
-                if (isset($Row[0])) {
-                    $this->custName = $Row[0];
+                    $this->insert($this, $db,$helper);
                 }
-                if (isset($Row[1])) {
-                    $this->custAddress = $Row[1];
-                }
-                if (isset($Row[2])) {
-                    $this->custLocation = $Row[2];
-                }
-                if (isset($Row[3])) {
-                    $this->custZip = $Row[3];
-                }
-                if (isset($Row[4])) {
-                    $this->billingAddress = $Row[4];
-                }
-                if (isset($Row[5])) {
-                    $this->billingLocation = $Row[5];
-                }
-                if (isset($Row[6])) {
-                    $this->billingZip = $Row[6];
-                }
-                if (isset($Row[7])) {
-                    $this->primaryContact = $Row[7];
-                }
-                if (isset($Row[8])) {
-                    $this->custTelephone = $Row[8];
-                }
-                if (isset($Row[9])) {
-                    $this->custExt = $Row[9];
-                }
-                if (isset($Row[10])) {
-                    $this->custEmail = $Row[10];
-                }
-                if (isset($Row[11])) {
-                    $this->custFax = $Row[11];
-                }
-                if (isset($Row[12])) {
-                    $this->billingContact = $Row[12];
-                }
-                if (isset($Row[13])) {
-                    $this->billingEmail = $Row[13];
-                }
-                if (isset($Row[14])) {
-                    $this->billingTelephone = $Row[14];
-                }
-                if (isset($Row[15])) {
-                    $this->billingExt = $Row[15];
-                }
-                if (isset($Row[16])) {
-                    $this->URS = $Row[16];
-                }
-                if (isset($Row[17])) {
-                    $this->currencySetting = $Row[17];
-                }
-                if (isset($Row[18])) {
-                    $this->paymentTerms = $Row[18];
-                }
-                if (isset($Row[19])) {
-                    $this->creditLimit = $Row[19];
-                }
-                if (isset($Row[20])) {
-                    $this->salesRep = $Row[20];
-                }
-                if (isset($Row[21])) {
-                    $this->factoringCompany = $Row[21];
-                }
-                if (isset($Row[22])) {
-                    $this->federalID = $Row[22];
-                }
-                if (isset($Row[23])) {
-                    $this->workerComp = $Row[23];
-                }
-                if (isset($Row[24])) {
-                    $this->websiteURL = $Row[24];
-                }
-                if (isset($Row[25])) {
-                    $this->internalNotes = $Row[25];
-                }
-                if (isset($Row[26])) {
-                    $this->MC = $Row[26];
-                }
-
-                $this->insert($this, $db,$helper);
             }
         }
+        unlink($targetPath);
     }
 
     // export customer

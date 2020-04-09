@@ -1,7 +1,7 @@
 <?php session_start();
 require "../database/connection.php";?>
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-     id="addOffice" aria-hidden="true">
+    id="addOffice" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #2A3988;">
@@ -16,24 +16,25 @@ require "../database/connection.php";?>
                         <label>Name <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Name *" id="officeName" type="text"
-                                   id="example-text-input">
+                                id="example-text-input">
                         </div>
                     </div>
                     <div class="form-group col-md-12">
                         <label>Location <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control" placeholder="Location *" onkeydown="getLocation('officeLocation')" id="officeLocation" type="text">
+                            <input class="form-control" placeholder="Location *"
+                                onkeydown="getLocation('officeLocation')" id="officeLocation" type="text">
                             <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                         </div>
                     </div>
                 </div>
                 <span class="mandatory">Note: * Fields are Mandatory</span>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger waves-effect modalOfficeSub"
-                            >Close
+                    <button type="button" class="btn btn-danger waves-effect modalOfficeSub">Close
                     </button>
                     <input type="submit" name="submit" onclick="addOffice()" value="Save"
-                           class="btn btn-primary waves-effect waves-light"/>
+                        class="btn btn-primary waves-effect waves-light" />
+                    <span class="spinner-border spinner-border-sm loader1"></span>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

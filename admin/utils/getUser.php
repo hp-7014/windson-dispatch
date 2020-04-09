@@ -87,7 +87,7 @@ if($_GET['types'] == 'live_user_table') {
             $pencilid11 = '"userFaxPencil'.$i.'"';
 
             echo "<tr>
-                <td> $i</td>
+                <th> $i</th>
                 <td class='custom-text' id='userEmail$i'
                     onmouseover='showPencil_s($pencilid1)'
                     onmouseout='hidePencil_s($pencilid1)'
@@ -275,7 +275,7 @@ if ($_GET['types'] == 'search_text') {
                 $pencilid11 = '"userFaxPencil'.$i.'"';
 
                 echo "<tr>
-                    <td> $i</td>
+                    <th> $i</th>
                     <td class='custom-text' id='userEmail$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
@@ -469,7 +469,7 @@ if ($_GET['types'] == 'search_text') {
                     $pencilid11 = '"userFaxPencil'.$i.'"';
 
                     echo "<tr>
-                        <td> $i</td>
+                        <th> $i</th>
                         <td class='custom-text' id='userEmail$i'
                             onmouseover='showPencil_s($pencilid1)'
                             onmouseout='hidePencil_s($pencilid1)'

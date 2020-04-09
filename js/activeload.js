@@ -417,7 +417,7 @@ function getShip(shipID) {
     $.ajax({
         url: 'admin/utils/getShipper.php',
         type: 'POST',
-        success: function (data) {
+        success: function(data) {
             document.getElementById(shipID).innerHTML += data;
         }
     });
@@ -427,36 +427,36 @@ function getConsig(consigID) {
     $.ajax({
         url: 'admin/utils/getConsignee.php',
         type: 'POST',
-        success: function (data) {
+        success: function(data) {
             document.getElementById(consigID).innerHTML += data;
         }
     });
 }
 
-$(document).on("click", "#startLocation", function () {
+$(document).on("click", "#startLocation", function() {
 
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('master/add_startlocation.php', function (result) {
-                $('#addstartlocation').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('master/add_startlocation.php', function(result) {
+                $('#addstartlocation').modal({ show: true });
             });
-            setTimeout(function () {
+            setTimeout(function() {
                 addStartfield();
             }, 300);
         }
     });
 });
 
-$(document).on("click", "#endLocation", function () {
+$(document).on("click", "#endLocation", function() {
 
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('master/add_endlocation.php', function (result) {
-                $('#endlocationmodal').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('master/add_endlocation.php', function(result) {
+                $('#endlocationmodal').modal({ show: true });
             });
-            setTimeout(function () {
+            setTimeout(function() {
                 addEndfield();
             }, 300);
         }
@@ -464,166 +464,166 @@ $(document).on("click", "#endLocation", function () {
 });
 
 
-$(document).on("click", "#add_Customer_Modal", function () {
+$(document).on("click", "#add_Customer_Modal", function() {
 
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/customer_modal_sub.php', function (result) {
-                $('#add_customer').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/customer_modal_sub.php', function(result) {
+                $('#add_customer').modal({ show: true });
             });
         }
     });
 });
 
 
-$(document).on("click", "#add_Carrier_Modal", function () {
+$(document).on("click", "#add_Carrier_Modal", function() {
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/external_carrier_modal_sub.php', function (result) {
-                $('#add_External').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/external_carrier_modal_sub.php', function(result) {
+                $('#add_External').modal({ show: true });
             });
         }
     });
 });
 
-$(document).on("click", "#add_Driver_Modal", function () {
+$(document).on("click", "#add_Driver_Modal", function() {
     //alert("clicked");
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/driver_modal_sub.php', function (result) {
-                $('#add_Driver').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/driver_modal_sub.php', function(result) {
+                $('#add_Driver').modal({ show: true });
             });
         }
     });
 });
-$(document).on("click", "#add_Truck_Modal", function () {
+$(document).on("click", "#add_Truck_Modal", function() {
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/add_truck_modal_sub.php', function (result) {
-                $('#add_Truck').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/add_truck_modal_sub.php', function(result) {
+                $('#add_Truck').modal({ show: true });
             });
         }
     });
 });
-$(document).on("click", "#add_Trailer_Modal", function () {
+$(document).on("click", "#add_Trailer_Modal", function() {
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/add_trailer_modal_sub.php', function (result) {
-                $('#add_Trailer').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/add_trailer_modal_sub.php', function(result) {
+                $('#add_Trailer').modal({ show: true });
             });
         }
     });
 });
-$(document).on("click", "#add_Truck_Modal1", function () {
+$(document).on("click", "#add_Truck_Modal1", function() {
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/add_truck_modal_sub.php', function (result) {
-                $('#add_Truck').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/add_truck_modal_sub.php', function(result) {
+                $('#add_Truck').modal({ show: true });
             });
         }
     });
 });
-$(document).on("click", "#add_Trailer_Modal1", function () {
+$(document).on("click", "#add_Trailer_Modal1", function() {
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/add_trailer_modal_sub.php', function (result) {
-                $('#add_Trailer').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/add_trailer_modal_sub.php', function(result) {
+                $('#add_Trailer').modal({ show: true });
             });
         }
     });
 });
-$(document).on("click", "#add_Owner_Operator", function () {
+$(document).on("click", "#add_Owner_Operator", function() {
 
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/owner_operator_modal_sub.php', function (result) {
-                $('#Owner_operator').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/owner_operator_modal_sub.php', function(result) {
+                $('#Owner_operator').modal({ show: true });
             });
         }
     });
 });
-$(document).on("click", "#add_shipper_modal", function () {
+$(document).on("click", "#add_shipper_modal", function() {
 
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/shipper_modal_sub.php', function (result) {
-                $('#add_shipper').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/shipper_modal_sub.php', function(result) {
+                $('#add_shipper').modal({ show: true });
             });
         }
     });
 });
-$(document).on("click", "#add_consignee_modal", function () {
+$(document).on("click", "#add_consignee_modal", function() {
 
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/consignee_modal_sub.php', function (result) {
-                $('#add_consignee').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/consignee_modal_sub.php', function(result) {
+                $('#add_consignee').modal({ show: true });
             });
         }
     });
 });
-$(document).on("click", "#add_Owner_Other", function () {
+$(document).on("click", "#add_Owner_Other", function() {
 
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/owner_other_charges_modal.php', function (result) {
-                $('#ownerOtherCharges').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/owner_other_charges_modal.php', function(result) {
+                $('#ownerOtherCharges').modal({ show: true });
             });
-            setTimeout(function () {
+            setTimeout(function() {
                 addOwnerFields();
             }, 300);
         }
     });
 });
-$(document).on("click", "#add_Driver_Other", function () {
+$(document).on("click", "#add_Driver_Other", function() {
 
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/driver_other_charges_modal.php', function (result) {
-                $('#driverOtherCharges').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/driver_other_charges_modal.php', function(result) {
+                $('#driverOtherCharges').modal({ show: true });
             });
-            setTimeout(function () {
+            setTimeout(function() {
                 addDriverFields();
             }, 300);
         }
     });
 });
-$(document).on("click", "#add_carrier_other", function () {
+$(document).on("click", "#add_carrier_other", function() {
 
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/carrier_other_charges_modal.php', function (result) {
-                $('#carrierOtherCharges').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/carrier_other_charges_modal.php', function(result) {
+                $('#carrierOtherCharges').modal({ show: true });
             });
-            setTimeout(function () {
+            setTimeout(function() {
                 addcarrierFields();
             }, 300);
         }
     });
 });
 
-$(document).on("click", "#add_other", function () {
+$(document).on("click", "#add_other", function() {
 
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/other_charges_modal.php', function (result) {
-                $('#otherCharges').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/other_charges_modal.php', function(result) {
+                $('#otherCharges').modal({ show: true });
             });
-            setTimeout(function () {
+            setTimeout(function() {
                 addFields();
             }, 300);
 
@@ -634,30 +634,30 @@ $(document).on("click", "#add_other", function () {
 });
 
 
-$(document).on("click", "#carrierOther", function () {
+$(document).on("click", "#carrierOther", function() {
 
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/carrier_other_charges_modal.php', function (result) {
-                $('#carrierOtherCharges').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/carrier_other_charges_modal.php', function(result) {
+                $('#carrierOtherCharges').modal({ show: true });
             });
-            setTimeout(function () {
+            setTimeout(function() {
                 addcarrierFields();
             }, 300);
         }
     });
 });
 
-$(document).on("click", "#OtherCharges", function () {
+$(document).on("click", "#OtherCharges", function() {
 
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/other_charges_modal.php', function (result) {
-                $('#otherCharges').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/other_charges_modal.php', function(result) {
+                $('#otherCharges').modal({ show: true });
             });
-            setTimeout(function () {
+            setTimeout(function() {
                 addFields();
             }, 300);
 
@@ -668,81 +668,81 @@ $(document).on("click", "#OtherCharges", function () {
 
 });
 
-$(document).on("click", "#add_Company_Modal", function () {
+$(document).on("click", "#add_Company_Modal", function() {
 
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('master/add_company_sub.php', function (result) {
-                $('#add_company').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('master/add_company_sub.php', function(result) {
+                $('#add_company').modal({ show: true });
             });
         }
     });
 });
-$(document).on("click", "#active_type_Modal", function () {
+$(document).on("click", "#active_type_Modal", function() {
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('master/loadtype_modal_sub.php', function (result) {
-                $('#addLoad_Type').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('master/loadtype_modal_sub.php', function(result) {
+                $('#addLoad_Type').modal({ show: true });
             });
         }
     });
 });
-$(document).on("click", "#equipment_type_Modal", function () {
+$(document).on("click", "#equipment_type_Modal", function() {
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('master/equipment_type_modal_sub.php', function (result) {
-                $('#Add_Equipment_Type').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('master/equipment_type_modal_sub.php', function(result) {
+                $('#Add_Equipment_Type').modal({ show: true });
             });
         }
     });
 });
-$(document).on("click", "#add_currency_modal", function () {
+$(document).on("click", "#add_currency_modal", function() {
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('master/add_currency_sub.php', function (result) {
-                $('#currencysub').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('master/add_currency_sub.php', function(result) {
+                $('#currencysub').modal({ show: true });
             });
         }
     });
 });
 
-$(document).on('click', '#carrierratecon', function () {
+$(document).on('click', '#carrierratecon', function() {
     alert("inside");
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/carrieremail.php', function (result) {
-                $('#AddEmail').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/carrieremail.php', function(result) {
+                $('#AddEmail').modal({ show: true });
             });
-            setTimeout(function () {
+            setTimeout(function() {
                 addcarrieremail();
             }, 300);
         }
     });
 });
 
-$(document).on('click', '.modelemail', function () {
+$(document).on('click', '.modelemail', function() {
     $('#AddEmail').modal('hide');
 });
 
-$(document).on('click', '#customerratecon', function () {
+$(document).on('click', '#customerratecon', function() {
     $.ajax({
         type: 'POST',
-        success: function (data) {
-            $('.activeload-container').load('admin/customeremail.php', function (result) {
-                $('#Addcustomeremail').modal({show: true});
+        success: function(data) {
+            $('.activeload-container').load('admin/customeremail.php', function(result) {
+                $('#Addcustomeremail').modal({ show: true });
             });
-            setTimeout(function () {
+            setTimeout(function() {
                 addcustomeremail();
             }, 300);
         }
     });
 });
-$(document).on('click', '.modelcustomer', function () {
+$(document).on('click', '.modelcustomer', function() {
     $('#Addcustomeremail').modal('hide');
 });
 
@@ -758,7 +758,7 @@ function enableUnits(value) {
         },
         method: "POST",
         dataType: 'html',
-        success: function (data) {
+        success: function(data) {
             if (data == 'Yes') {
                 document.getElementById('no-of-units').disabled = false;
             }
@@ -780,7 +780,7 @@ function getCustomer(value) {
         },
         method: "POST",
         dataType: 'html',
-        success: function (data) {
+        success: function(data) {
             if (data != "") {
                 customeremail = data;
             } else {
@@ -811,7 +811,7 @@ function getCarrier(value) {
         },
         method: "POST",
         dataType: 'html',
-        success: function (data) {
+        success: function(data) {
             var response = data.split("^");
             if (response[0] != "") {
                 swal({
@@ -875,14 +875,12 @@ function getTotal() {
             }
         } else {
             if (rateAmount != "") {
-                if (typeof (rateAmount) == 'number') {
+                if (typeof(rateAmount) == 'number') {
                     var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(fsc) : parseInt(rateAmount * noOfUnits) + parseInt(fsc);
-                    totalAmount.value = total.toFixed(2);
-                    ;
+                    totalAmount.value = total.toFixed(2);;
                 } else {
                     var total = noOfUnits == "" ? parseFloat(rateAmount) + parseFloat(fsc) : parseFloat(rateAmount * noOfUnits) + parseFloat(fsc);
-                    totalAmount.value = total.toFixed(2);
-                    ;
+                    totalAmount.value = total.toFixed(2);;
                 }
             } else {
                 swal({
@@ -1026,7 +1024,7 @@ function getDriver(value) {
         },
         method: "POST",
         dataType: 'html',
-        success: function (data) {
+        success: function(data) {
             var response = data.split('^');
             document.getElementById('loadedmile').value = response[1];
             document.getElementById('emptymile').value = response[2];
@@ -1064,7 +1062,7 @@ function getTruck(value) {
         },
         method: "POST",
         dataType: 'html',
-        success: function (data) {
+        success: function(data) {
 
             if (data != "") {
                 swal({
@@ -1095,7 +1093,7 @@ function getTrailer(value) {
         },
         method: "POST",
         dataType: 'html',
-        success: function (data) {
+        success: function(data) {
             if (data != "") {
                 swal({
                     title: 'Are you sure? You Want to Continue!',
@@ -1126,7 +1124,7 @@ function getShipper(value, id) {
         },
         method: "POST",
         dataType: 'html',
-        success: function (data) {
+        success: function(data) {
             var values = data.split("^");
             if (values[0] != "" && values[1] != "") {
                 document.getElementById("shipperaddress" + id + "").value = values[0];
@@ -1148,7 +1146,7 @@ function getConsignee(value, id) {
         },
         method: "POST",
         dataType: 'html',
-        success: function (data) {
+        success: function(data) {
             var values = data.split("^");
             if (values[0] != "" && values[1] != "") {
                 document.getElementById("consigneeaddress" + id + "").value = values[0];
@@ -1169,7 +1167,7 @@ function getOwner(value) {
         },
         method: "POST",
         dataType: 'html',
-        success: function (data) {
+        success: function(data) {
             var values = data.split('^');
             document.getElementById('truck1list').value = values[1];
             document.getElementById('ownerPercentage').value = values[0];
@@ -1280,15 +1278,13 @@ function getDriverTotal() {
         if (shipLoc.length >= 0) {
             if (pickrate > 0) {
                 //alert("pickrate "+pickrate+" pickafter "+pickafter);
-                driver_total.value = parseFloat(parseFloat(driver_total.value) + parseFloat(pickrate * (shipLoc.length - pickafter))).toFixed(2);
-                ;
+                driver_total.value = parseFloat(parseFloat(driver_total.value) + parseFloat(pickrate * (shipLoc.length - pickafter))).toFixed(2);;
             }
         }
         if (consigLoc.length >= 0) {
             if (droprate > 0) {
                 //alert("droprate "+droprate+" dropafter "+dropafter);
-                driver_total.value = parseFloat(parseFloat(driver_total.value) + parseFloat(pickrate * (consigLoc.length - dropafter))).toFixed(2);
-                ;
+                driver_total.value = parseFloat(parseFloat(driver_total.value) + parseFloat(pickrate * (consigLoc.length - dropafter))).toFixed(2);;
             }
         }
 
@@ -1413,7 +1409,7 @@ function calculateMiles() {
             });
             return;
         }
-        locations.push({seq: shipseq[i].value, location: shipLoc[i].value});
+        locations.push({ seq: shipseq[i].value, location: shipLoc[i].value });
 
     }
     for (var i = 0; i < consigLoc.length; i++) {
@@ -1432,7 +1428,7 @@ function calculateMiles() {
             });
             return;
         }
-        locations.push({seq: consigseq[i].value, location: consigLoc[i].value});
+        locations.push({ seq: consigseq[i].value, location: consigLoc[i].value });
     }
 
     if (locations.length <= 1) {
@@ -1463,7 +1459,7 @@ function calculateMiles() {
         //  console.log(locations[i])+"\n";
     }
 
-    setTimeout(function () {
+    setTimeout(function() {
         document.getElementById('drivermiles').value = parseFloat(parseFloat(document.getElementById('emptymiles').value) + parseFloat(document.getElementById('loadedmiles').value)).toFixed(2);
         //alert("Empty Miles"+document.getElementById('emptymiles').value+"Loaded Miles" + document.getElementById('loadedMiles'));
         if (document.getElementById('driver').checked) {
@@ -1500,7 +1496,7 @@ function calcRoute(start, end, type) {
     }
 
 
-    directionsService.route(request, function (result, status) {
+    directionsService.route(request, function(result, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             distance = result.routes[0].legs[0].distance.text;
             duration = result.routes[0].legs[0].duration.text;
@@ -1514,7 +1510,7 @@ function calcRoute(start, end, type) {
                 document.getElementById('loadedmiles').value = parseFloat(document.getElementById('loadedmiles').value) + parseFloat(distance);
             }
         } else {
-            directionsDisplay.setDirections({routes: []});
+            directionsDisplay.setDirections({ routes: [] });
             map.setCenter(myLatLng);
         }
     });
@@ -1594,7 +1590,7 @@ function addcustomeremail() {
 
 //________________________________________________________________
 
-$(document).on("click", "#addactiveload", function () {
+$(document).on("click", "#addactiveload", function() {
     var companyselect = document.getElementById('selectCompany').value;
     var company_1 = companyselect.split(")");
     var company = company_1[0];
@@ -1756,8 +1752,7 @@ $(document).on("click", "#addactiveload", function () {
 
     var totalfiles = document.getElementById('files').files.length;
     if (totalfiles <= 5) {
-        for (var index = 0; index < totalfiles; index++) {
-        }
+        for (var index = 0; index < totalfiles; index++) {}
         $.ajax({
             url: 'admin/active_load_driver.php?type=add_new_load',
             method: "POST",
@@ -1844,7 +1839,7 @@ $(document).on("click", "#addactiveload", function () {
                 emailcustomer2: emailcustomer2,
                 emailcustomer3: emailcustomer3
             },
-            success: function (data) {
+            success: function(data) {
                 var flags = uploadfiles(data, status);
                 if (flags == "no") {
                     document.getElementById('addactiveload').style.display = "block";
@@ -1876,11 +1871,10 @@ function uploadfiles(id, status) {
             processData: false,
             data: form_data,
             type: 'post',
-            success: function (response) {
+            success: function(response) {
                 document.getElementById('addactiveload').style.display = "block";
             },
-            error: function (response) {
-            }
+            error: function(response) {}
         });
     } else {
         return 'no';
@@ -1903,7 +1897,7 @@ function changeStatus(id, old_array, new_array) {
             old_array: old_array,
             new_array: new_array1,
         },
-        success: function (data) {
+        success: function(data) {
             database.ref('accountDeliver').child(companyid).set({
                 data: randomString(),
             });

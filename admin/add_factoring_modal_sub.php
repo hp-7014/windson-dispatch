@@ -3,9 +3,8 @@ session_start();
 include '../database/connection.php';
 ?>
 <!-- Modal content for the above example -->
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
-     id="add_factoring"
-     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="add_factoring"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="currency-container" style="z-index: 1600"></div>
         <div class="payment-container" style="z-index: 1600"></div>
@@ -23,7 +22,7 @@ include '../database/connection.php';
                         <label>Factoring Company Name <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Factoring Company Name *" type="text"
-                                   id="factoring_add_company">
+                                id="factoring_add_company">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
@@ -36,7 +35,7 @@ include '../database/connection.php';
                         <label>Location <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" onkeyup="getLocation('flocation')"
-                                   placeholder="Enter a location" type="text" id="flocation">
+                                placeholder="Enter a location" type="text" id="flocation">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
@@ -48,8 +47,7 @@ include '../database/connection.php';
                     <div class="form-group col-md-2">
                         <label>Primary Contact</label>
                         <div>
-                            <input class="form-control"
-                                   placeholder="Primary Contact" type="text" id="fprimary_contact">
+                            <input class="form-control" placeholder="Primary Contact" type="text" id="fprimary_contact">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
@@ -86,7 +84,7 @@ include '../database/connection.php';
                         <label>Secondary Contact</label>
                         <div>
                             <input class="form-control" placeholder="Secondary Contact" type="text"
-                                   id="fsecondaryContact">
+                                id="fsecondaryContact">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
@@ -103,30 +101,29 @@ include '../database/connection.php';
                     </div>
                     <div class="form-group col-md-2">
                         <label for="currencysetting">Currency Setting <span class="mandatory">*</span></label> <i
-                                title="Add Currency" class="mdi mdi-plus-circle plus" id="AddCurrency"></i>
+                            title="Add Currency" class="mdi mdi-plus-circle plus" id="AddCurrency"></i>
                         <input id="fcurrency" name="fcurrency" placeholder="Currency Setting *" class="form-control"
-                               list="currencyset"/>
+                            list="currencyset" />
 
                     </div>
                     <div class="form-group col-md-2">
                         <label for="currencysetting">Payment Terms <span class="mandatory">*</span></label> <i
-                                title="Add Payment Terms" class="mdi mdi-plus-circle plus" id="Add_Payment_Terms"></i>
+                            title="Add Payment Terms" class="mdi mdi-plus-circle plus" id="Add_Payment_Terms"></i>
                         <input id="fpaymentterms" class="form-control" placeholder="Payment Terms *"
-                               name="fpaymentterms" list="paymentterms"/>
+                            name="fpaymentterms" list="paymentterms" />
                     </div>
 
                     <div class="form-group col-md-2">
                         <label>Tax ID <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control" placeholder="Tax ID *"
-                                   type="text" id="ftaxid">
+                            <input class="form-control" placeholder="Tax ID *" type="text" id="ftaxid">
                         </div>
                     </div>
                     <div class="form-group col-md-12">
                         <label>Internal Notes</label>
                         <div>
                             <textarea rows="2" cols="30" class="form-control" type="textarea"
-                                      id="finternal_notes_factoring" placeholder="Internal Notes"></textarea>
+                                id="finternal_notes_factoring" placeholder="Internal Notes"></textarea>
                             <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                         </div>
                     </div>
@@ -138,6 +135,7 @@ include '../database/connection.php';
                     Close
                 </button>
                 <button type="button" class="btn btn-primary waves-effect waves-light" onclick="FactoringCompany()">Save
+                    <span class="spinner-border spinner-border-sm loader1">
                 </button>
             </div>
             <datalist id="currencyset">

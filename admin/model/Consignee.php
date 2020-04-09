@@ -488,58 +488,67 @@ class Consignee implements IteratorAggregate
             $this->setId($helper->getNextSequence("consignee", $db));
             $this->companyID = $_SESSION['companyId'];
 
-            foreach ($Reader as $Row) {
-                if (isset($Row[0])) {
-                    $this->consigneeName = $Row[0];
+            $count = 0;
+            foreach ($Reader as $Row)
+            {
+                $count++;
+                if($count > 1000){
+                    echo "Your file should contain atmost 1000 entries. First 1000 entries added successfully"; 
+                    break;
+                } else {
+                    if (isset($Row[0])) {
+                        $this->consigneeName = $Row[0];
+                    }
+                    if (isset($Row[1])) {
+                        $this->consigneeAddress = $Row[1];
+                    }
+                    if (isset($Row[2])) {
+                        $this->consigneeLocation = $Row[2];
+                    }
+                    if (isset($Row[3])) {
+                        $this->consigneePostal = $Row[3];
+                    }
+                    if (isset($Row[4])) {
+                        $this->consigneeContact = $Row[4];
+                    }
+                    if (isset($Row[5])) {
+                        $this->consigneeEmail = $Row[5];
+                    }
+                    if (isset($Row[6])) {
+                        $this->consigneeTelephone = $Row[6];
+                    }
+                    if (isset($Row[7])) {
+                        $this->consigneeExt = $Row[7];
+                    }
+                    if (isset($Row[8])) {
+                        $this->consigneeTollFree = $Row[8];
+                    }
+                    if (isset($Row[9])) {
+                        $this->consigneeFax = $Row[9];
+                    }
+                    if (isset($Row[10])) {
+                        $this->consigneeReceiving = $Row[10];
+                    }
+                    if (isset($Row[11])) {
+                        $this->consigneeAppointments = $Row[11];
+                    }
+                    if (isset($Row[12])) {
+                        $this->consigneeIntersaction = $Row[12];
+                    }
+                    if (isset($Row[13])) {
+                        $this->consigneeStatus = $Row[13];
+                    }
+                    if (isset($Row[14])) {
+                        $this->consigneeRecivingNote = $Row[14];
+                    }
+                    if (isset($Row[15])) {
+                        $this->consigneeInternalNote = $Row[15];
+                    }
+                    $this->insert($this, $db,$helper);
                 }
-                if (isset($Row[1])) {
-                    $this->consigneeAddress = $Row[1];
-                }
-                if (isset($Row[2])) {
-                    $this->consigneeLocation = $Row[2];
-                }
-                if (isset($Row[3])) {
-                    $this->consigneePostal = $Row[3];
-                }
-                if (isset($Row[4])) {
-                    $this->consigneeContact = $Row[4];
-                }
-                if (isset($Row[5])) {
-                    $this->consigneeEmail = $Row[5];
-                }
-                if (isset($Row[6])) {
-                    $this->consigneeTelephone = $Row[6];
-                }
-                if (isset($Row[7])) {
-                    $this->consigneeExt = $Row[7];
-                }
-                if (isset($Row[8])) {
-                    $this->consigneeTollFree = $Row[8];
-                }
-                if (isset($Row[9])) {
-                    $this->consigneeFax = $Row[9];
-                }
-                if (isset($Row[10])) {
-                    $this->consigneeReceiving = $Row[10];
-                }
-                if (isset($Row[11])) {
-                    $this->consigneeAppointments = $Row[11];
-                }
-                if (isset($Row[12])) {
-                    $this->consigneeIntersaction = $Row[12];
-                }
-                if (isset($Row[13])) {
-                    $this->consigneeStatus = $Row[13];
-                }
-                if (isset($Row[14])) {
-                    $this->consigneeRecivingNote = $Row[14];
-                }
-                if (isset($Row[15])) {
-                    $this->consigneeInternalNote = $Row[15];
-                }
-                $this->insert($this, $db,$helper);
             }
         }
+        unlink($targetPath);
     }
 
     public function exportConsignee($db)

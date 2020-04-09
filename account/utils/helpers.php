@@ -32,17 +32,17 @@ if ($_GET['type'] == 'updatecompanyfields') {
 // driver invoice
 if ($_GET['type'] == 'updateDriverInvoice') {
     $driverid = (int)$_POST['driverName'];
-    $collection = $db->active_load;
+    $collection = $db->Invoiced;
     $show1 = $collection->aggregate([
         ['$match' => ['companyID' => $_SESSION['companyId']]],
-        ['$unwind' => '$Invoiced'],
-        ['$match' => ['Invoiced.driver_name' => "$driverid"]]
+        ['$unwind' => '$load'],
+        ['$match' => ['load.driver_name' => "$driverid"]]
     ]);
     $i = 0;
     foreach ($show1 as $row) {
         $Invoiced = array();
         $k = 0;
-        $Invoiced[$k] = $row['Invoiced'];
+        $Invoiced[$k] = $row['load'];
         $k++;
         foreach ($Invoiced as $row) {
             $a['driverid'][] = $row['_id'];
@@ -99,7 +99,7 @@ if ($_GET['type'] == 'factoringInvoice') {
     $collection = $db->carrier;
     $show = $collection->aggregate([
         ['$lookup' => [
-            'from' => 'active_load',
+            'from' => 'Invoiced',
             'localField' => 'companyID',
             'foreignField' => 'companyID',
             'as' => 'active'
@@ -120,7 +120,7 @@ if ($_GET['type'] == 'factoringInvoice') {
             $carrierid[] = $row1['_id'];
         }
         foreach ($active as $row2) {
-            $invoice = $row2['Invoiced'];
+            $invoice = $row2['load'];
             foreach ($invoice as $row3) {
                 for ($l = 0; $l < sizeof($carrierid); $l++) {
                     if ($carrierid[$l] == $row3['carrier_name']) {

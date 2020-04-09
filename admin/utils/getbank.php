@@ -5,17 +5,22 @@ require "../../database/connection.php";
 
 if ($_GET['types'] == 'live_bank_table') {
     $limit = 100;
-    $cursor = $db->bank_admin->find(array('companyID' => $_SESSION['companyId']));
+    $total_pages = 0;
     
-    foreach ($cursor as $value) {
-        $total_records = sizeof($value['admin_bank']);
-        $total_pages = ceil($total_records / $limit);
+    $cursor = $db->bank_admin->find(array('companyID' => $_SESSION['companyId']));
+
+    if (!empty($cursor)) {
+        foreach ($cursor as $value) {
+            $total_records = sizeof($value['admin_bank']);
+            $total_pages = ceil($total_records / $limit);
+        }
     }
 
     $g_data = $db->bank_admin->find(array('companyID' => $_SESSION['companyId']), array('projection' => array('admin_bank' => array('$slice' => [0, $limit]))));
     
     $i = 0;
     $table = "";
+    $pages = "";
 
     foreach ($g_data as $data) {
         $bank_admin = $data['admin_bank'];
@@ -66,8 +71,8 @@ if ($_GET['types'] == 'live_bank_table') {
             $pencilid6 = '"openingBalDatePencil'.$i.'"';
             $pencilid7 = '"currentcheqNoPencil'.$i.'"';
 
-            echo "<tr>
-                <td> $i</td>
+            $table .= "<tr>
+                <th> $i</th>
                 <td class='custom-text' id='bankName$i'
                     onmouseover='showPencil_s($pencilid1)'
                     onmouseout='hidePencil_s($pencilid1)'
@@ -133,13 +138,14 @@ if ($_GET['types'] == 'live_bank_table') {
                 </td>"; 
 
             if ($counter == 0) { 
-                echo "<td><a href='#' onclick='deleteBank($id,$accountHolder)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                $table .= "<td><a href='#' onclick='deleteBank($id,$accountHolder)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
             } else {
-                echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
             }
         }
     }
-    //echo $table;
+
+    echo $table."^".$pages;
 }
 
 if ($_GET['types'] == 'search_text') {
@@ -197,7 +203,7 @@ if ($_GET['types'] == 'search_text') {
                 $pencilid7 = '"currentcheqNoPencil'.$i.'"';
 
                 echo "<tr>
-                    <td> $i</td>
+                    <th> $i</th>
                     <td class='custom-text' id='bankName$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
@@ -272,11 +278,13 @@ if ($_GET['types'] == 'search_text') {
 
         if ($_POST['getoption'] == "") {
             $limit = 100;
+            $total_pages = 0;
             $cursor = $db->bank_admin->find(array('companyID' => $_SESSION['companyId']));
-            
-            foreach ($cursor as $value) {
-                $total_records = sizeof($value['admin_bank']);
-                $total_pages = ceil($total_records / $limit);
+            if(!empty($cursor)) {
+                foreach ($cursor as $value) {
+                    $total_records = sizeof($value['admin_bank']);
+                    $total_pages = ceil($total_records / $limit);
+                }
             }
 
             $g_data = $db->bank_admin->find(array('companyID' => $_SESSION['companyId']), array('projection' => array('admin_bank' => array('$slice' => [0, $limit]))));
@@ -332,7 +340,7 @@ if ($_GET['types'] == 'search_text') {
                     $pencilid7 = '"currentcheqNoPencil'.$i.'"';
     
                     echo "<tr>
-                        <td> $i</td>
+                        <th>$i</th>
                         <td class='custom-text' id='bankName$i'
                             onmouseover='showPencil_s($pencilid1)'
                             onmouseout='hidePencil_s($pencilid1)'
@@ -411,17 +419,19 @@ if ($_GET['types'] == 'search_text') {
 if ($_GET['types'] == 'paginate_bank_admin') { 
     $start = (int)$_POST['start'];
     $limit = (int)$_POST['limit'];
-    
+    $total_pages = 0;
+
     $cursor = $db->bank_admin->find(array('companyID' => $_SESSION['companyId']));
     
-    foreach ($cursor as $value) {
-        $total_records = sizeof($value['admin_bank']);
-        $total_pages = ceil($total_records / $limit);
+    if (!empty($cursor)) {
+        foreach ($cursor as $value) {
+            $total_records = sizeof($value['admin_bank']);
+            $total_pages = ceil($total_records / $limit);
+        }
     }
 
     $g_data = $db->bank_admin->find(array('companyID' => $_SESSION['companyId']), array('projection' => array('admin_bank' => array('$slice' => [$start, $limit]))));
-    
-    $type='"text"';
+    $table = "";
     $i = 0;
     
     foreach ($g_data as $data) {
@@ -472,8 +482,8 @@ if ($_GET['types'] == 'paginate_bank_admin') {
             $pencilid5 = '"routingNoPencil'.$i.'"';
             $pencilid6 = '"openingBalDatePencil'.$i.'"';
             $pencilid7 = '"currentcheqNoPencil'.$i.'"';
-
-            echo "<tr>
+            
+            $table .= "<tr>
                 <td> $start</td>
                 <td class='custom-text' id='bankName$i'
                     onmouseover='showPencil_s($pencilid1)'
@@ -540,10 +550,12 @@ if ($_GET['types'] == 'paginate_bank_admin') {
                 </td>";  
             
             if ($counter == 0) { 
-                echo "<td><a href='#' onclick='deleteBank($id,$accountHolder)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                $table .= "<td><a href='#' onclick='deleteBank($id,$accountHolder)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
             } else {
-                echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
             }
+            
         }
+        echo $table;
     }    
 }

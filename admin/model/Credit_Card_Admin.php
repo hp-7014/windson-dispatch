@@ -271,7 +271,7 @@
        
             }
 
-            echo "Data Insert Successfully";
+            // echo "Data Insert Successfully";
         }
 
         public function export_Bank_Credit($db){
@@ -308,37 +308,46 @@
 
                 $Reader->ChangeSheet($i);
 
-                foreach ($Reader as $Row) {
-                    $this->companyID = $_SESSION['companyId'];
-                    $this->setId($helper->getNextSequence("bank_admin",$db));
-                    if(isset($Row[0])) {
-                        $this->Name = $Row[0];
-                    }
-                    if(isset($Row[1])) {
-                        $this->displayName = $Row[1];
-                    }
-                    if(isset($Row[2])) {
-                        $this->cardType = $Row[2];
-                    }
-                    if(isset($Row[3])) {
-                        $this->cardHolderName = $Row[3];
-                    }
-                    if(isset($Row[4])) {
-                        $this->cardNo = $Row[4];
-                    }
-                    if(isset($Row[5])) {
-                        $this->cardLimit = $Row[5];
-                    }
-                    if(isset($Row[6])) {
-                        $this->openingBalance = $Row[6];
-                    }
-                    if(isset($Row[7])) {
-                        $this->transacBalance = $Row[7];
-                    }
+                $count = 0;
+                foreach ($Reader as $Row)
+                {
+                    $count++;
+                    if($count > 1000){
+                        echo "Your file should contain atmost 1000 entries. First 1000 entries added successfully"; 
+                        break;
+                    } else {
+                        $this->companyID = $_SESSION['companyId'];
+                        $this->setId($helper->getNextSequence("bank_admin",$db));
+                        if(isset($Row[0])) {
+                            $this->Name = $Row[0];
+                        }
+                        if(isset($Row[1])) {
+                            $this->displayName = $Row[1];
+                        }
+                        if(isset($Row[2])) {
+                            $this->cardType = $Row[2];
+                        }
+                        if(isset($Row[3])) {
+                            $this->cardHolderName = $Row[3];
+                        }
+                        if(isset($Row[4])) {
+                            $this->cardNo = $Row[4];
+                        }
+                        if(isset($Row[5])) {
+                            $this->cardLimit = $Row[5];
+                        }
+                        if(isset($Row[6])) {
+                            $this->openingBalance = $Row[6];
+                        }
+                        if(isset($Row[7])) {
+                            $this->transacBalance = $Row[7];
+                        }
 
-                    $this->Insert($this,$db,$helper);
+                        $this->Insert($this,$db,$helper);
+                    }
                 }
             }
+            unlink($targetPath);
         }
 
         public function delete_Credits($b_credit,$db,$helper) {

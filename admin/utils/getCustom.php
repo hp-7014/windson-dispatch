@@ -38,7 +38,7 @@ foreach ($broker as $brok) {
 
             $no += 1;
             $table .= "<tr>
-                                                                    <td> $no</td>
+                                                                    <th> $no</th>
                                                                     <td>
                                                                         <a href='#' id='1brokerName$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$brokerNameColumn)' class='text-overflow'>$brokerName</a>
                                                                         <button type='button' id='brokerName$id' style='display:none; margin-left:6px;' onclick='updateDriver($brokerNameColumn,$id)' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi - check'></i></button>

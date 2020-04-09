@@ -1,3 +1,46 @@
+// IFTA CARD CATEGORY START
+function val_cardHolderName(val) {
+    if (val == '') {
+        swal('Please Select Card Holder Name.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_iftaCardNo(val) {
+    if (val == '') {
+        swal('Please Enter IFTA Card NO.');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_CardType(val) {
+    if (val == '') {
+        swal('Please Enter Card Type (Capital Letter).');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function val_cardNo(val) {
+    if (val == '') {
+        return true;
+    } else {
+        if (isNaN(val)) {
+            swal('Please Write Only Numeric Value');
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
+// IFTA CARD CATEGORY ENDS
+
 //------------Consignee Start-------------
 function val_consigneeName(val) {
     if (val == '') {
@@ -906,7 +949,7 @@ function val_telephone(val) {
 /*----------------Driver Start-----------------------*/
 function val_driverName(val) {
     if (val == '') {
-        swal('<h5>Please write Driver Name !!!</h5>','','question');
+        swal('<h5>Please write Driver Name !!!</h5>', '', 'question');
         return false;
     } else {
         return true;
@@ -932,16 +975,16 @@ function val_driverPassword(val) {
 function val_driverTelephone(val) {
     if (val != '') {
         if (isNaN(val)) {
-            swal('<h5>Please Write Only Numeric Telephone Number !!!</h5>','','question');
+            swal('<h5>Please Write Only Numeric Telephone Number !!!</h5>', '', 'question');
             return false;
         } else if (val.length != 10) {
-            swal('<h5>Please Write valid Telephone Number !!!</h5>','','question');
+            swal('<h5>Please Write valid Telephone Number !!!</h5>', '', 'question');
             return false;
         } else {
             return true;
         }
     } else {
-        swal('<h5>Please Write Telephone Number !!!</h5>','','question');
+        swal('<h5>Please Write Telephone Number !!!</h5>', '', 'question');
         return false;
     }
 }
@@ -962,7 +1005,7 @@ function val_driverEmail(val) {
         if (val.match(mailformat)) {
             return true;
         } else {
-            swal('<h5>Please Write Valid Email !!!</h5>','','question');
+            swal('<h5>Please Write Valid Email !!!</h5>', '', 'question');
             return false;
         }
     }
@@ -970,7 +1013,7 @@ function val_driverEmail(val) {
 
 function val_driverAddress(val) {
     if (val == '') {
-        swal('<h5>Please Write Driver Address !!!</h5>','','question');
+        swal('<h5>Please Write Driver Address !!!</h5>', '', 'question');
         return false;
     } else {
         return true;
@@ -979,7 +1022,7 @@ function val_driverAddress(val) {
 
 function val_driverLocation(val) {
     if (val == '') {
-        swal('<h5>Please Write Location !!!</h5>','','question');
+        swal('<h5>Please Write Location !!!</h5>', '', 'question');
         return false;
     } else {
         return true;
@@ -988,10 +1031,10 @@ function val_driverLocation(val) {
 
 function val_driverZip(val) {
     if (val == '') {
-        swal('<h5>Please Write Zip !!!</h5>','','question');
+        swal('<h5>Please Write Zip !!!</h5>', '', 'question');
         return false;
     } else if (val.length < 4) {
-        swal('<h5>Please Write Valid Zip Code !!!</h5>','','question');
+        swal('<h5>Please Write Valid Zip Code !!!</h5>', '', 'question');
         return false;
     } else {
         return true;
@@ -1032,7 +1075,7 @@ function val_dateOfhire(val) {
 
 function val_driverLicenseNo(val) {
     if (val == '') {
-        swal('<h5>Please Write License Number !!!</h5>','','question');
+        swal('<h5>Please Write License Number !!!</h5>', '', 'question');
         return false;
     } else {
         return true;
@@ -1041,7 +1084,7 @@ function val_driverLicenseNo(val) {
 
 function val_driverLicenseIssue(val) {
     if (val == '') {
-        swal('<h5>Please Write License Issue Date !!!</h5>','','question');
+        swal('<h5>Please Write License Issue Date !!!</h5>', '', 'question');
         return false;
     } else {
         return true;
@@ -1050,7 +1093,7 @@ function val_driverLicenseIssue(val) {
 
 function val_driverLicenseExp(val) {
     if (val == '') {
-        swal('<h5>Please Write License Expiry Date !!!</h5>','','question');
+        swal('<h5>Please Write License Expiry Date !!!</h5>', '', 'question');
         return false;
     } else {
         return true;
@@ -1112,16 +1155,17 @@ function val_hazmatExpiry(val) {
         return true;
     }
 }
+
 function val_rate(val) {
     if (val != '') {
         return true;
     }
 }
 
-function val_currency(val){
+function val_currency(val) {
     if (val == '') {
         swal('');
-        swal('<h5>Please Write Currency !!!</h5>','','question');
+        swal('<h5>Please Write Currency !!!</h5>', '', 'question');
         return false;
     } else {
         return true;
@@ -1133,7 +1177,7 @@ function val_driverFlat(val) {
         return true;
     } else {
         if (isNaN(val)) {
-            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            swal('<h5>Please Write Numeric Value Only !!!</h5>', '', 'question');
             return false;
         } else {
             return true;
@@ -1141,13 +1185,13 @@ function val_driverFlat(val) {
     }
 }
 
-function val_loadedMile(val){
+function val_loadedMile(val) {
     if (val == '') {
-        swal('<h5>Please Write Loaded Mile !!!</h5>','','question');
+        swal('<h5>Please Write Loaded Mile !!!</h5>', '', 'question');
         return false;
     } else {
         if (isNaN(val)) {
-            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            swal('<h5>Please Write Numeric Value Only !!!</h5>', '', 'question');
             return false;
         } else {
             return true;
@@ -1155,13 +1199,13 @@ function val_loadedMile(val){
     }
 }
 
-function val_emptyMile(val){
+function val_emptyMile(val) {
     if (val == '') {
-        swal('<h5>Please Write Empty Mile Only !!!</h5>','','question');
+        swal('<h5>Please Write Empty Mile Only !!!</h5>', '', 'question');
         return false;
     } else {
         if (isNaN(val)) {
-            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            swal('<h5>Please Write Numeric Value Only !!!</h5>', '', 'question');
             return false;
         } else {
             return true;
@@ -1169,12 +1213,12 @@ function val_emptyMile(val){
     }
 }
 
-function val_pickupRate(val){
+function val_pickupRate(val) {
     if (val == '') {
         return true;
     } else {
         if (isNaN(val)) {
-            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            swal('<h5>Please Write Numeric Value Only !!!</h5>', '', 'question');
             return false;
         } else {
             return true;
@@ -1182,7 +1226,7 @@ function val_pickupRate(val){
     }
 }
 
-function val_pickupAfter(val){
+function val_pickupAfter(val) {
     if (val == '') {
         return true;
     } else {
@@ -1190,13 +1234,13 @@ function val_pickupAfter(val){
     }
 }
 
-function val_dropRate(val){
+function val_dropRate(val) {
     if (val == '') {
         return true;
     } else {
         if (isNaN(val)) {
             swal('Please Write an Numeric Value Only');
-            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            swal('<h5>Please Write Numeric Value Only !!!</h5>', '', 'question');
             return false;
         } else {
             return true;
@@ -1204,13 +1248,13 @@ function val_dropRate(val){
     }
 }
 
-function val_tarp(val){
+function val_tarp(val) {
     if (val == '') {
         return true;
     } else {
         if (isNaN(val)) {
             swal('Please Write an Numeric Value Only');
-            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            swal('<h5>Please Write Numeric Value Only !!!</h5>', '', 'question');
             return false;
         } else {
             return true;
@@ -1218,12 +1262,12 @@ function val_tarp(val){
     }
 }
 
-function val_dropAfter(val){
+function val_dropAfter(val) {
     if (val == '') {
         return true;
     } else {
         if (isNaN(val)) {
-            swal('<h5>Please Write Numeric Value Only !!!</h5>','','question');
+            swal('<h5>Please Write Numeric Value Only !!!</h5>', '', 'question');
             return false;
         } else {
             return true;
@@ -1607,6 +1651,7 @@ function val_installmentType(val) {
         return true;
     }
 }
+
 function val_amount1(val) {
     if (val == '') {
         swal('<h5>Please Select Installment Amount !!!</h5>', '', 'question');
@@ -1615,6 +1660,7 @@ function val_amount1(val) {
         return true;
     }
 }
+
 function val_installment(val) {
     if (val == '') {
         swal('<h5>Please Select Installment !!!</h5>', '', 'question');
@@ -1623,6 +1669,7 @@ function val_installment(val) {
         return true;
     }
 }
+
 function val_startNo(val) {
     if (val == '') {
         swal('<h5>Please Select Start Number !!!</h5>', '', 'question');
@@ -1631,6 +1678,7 @@ function val_startNo(val) {
         return true;
     }
 }
+
 function val_startDate(val) {
     if (val == '') {
         swal('<h5>Please Select Start Date !!!</h5>', '', 'question');
@@ -1639,6 +1687,7 @@ function val_startDate(val) {
         return true;
     }
 }
+
 function val_internalNote1(val) {
     if (val == '') {
         swal('<h5>Please Select Internal Note !!!</h5>', '', 'question');

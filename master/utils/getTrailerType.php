@@ -21,7 +21,7 @@ foreach ($show as $row) {
         $c_type = '"'.$trailerType.'"';
          
         echo "<tr>
-            <td> $i</td>
+            <th> $i</th>
             <td class='custom-text' id='trailerType$i'
                 onmouseover='showPencil_s($pencilid)'
                 onmouseout='hidePencil_s($pencilid)'

@@ -171,20 +171,27 @@ class LoadType implements IteratorAggregate
         for ($i = 0; $i < $sheetCount; $i++) {
 
             $Reader->ChangeSheet($i);
-
+            $count = 0;
             foreach ($Reader as $Row) {
-                $this->setId($helper->getNextSequence("loadType", $db));
-                $this->companyID = $_SESSION['companyId'];
-                if (isset($Row[0])) {
-                    $this->LoadName = $Row[0];
-                }
-                if (isset($Row[1])) {
-                    $this->LoadType = $Row[1];
-                }
+                $count++;
+                if($count > 1000){
+                    echo "Your file should contain atmost 1000 entries. First 1000 entries added successfully"; 
+                    break;
+                } else {
+                    $this->setId($helper->getNextSequence("loadType", $db));
+                    $this->companyID = $_SESSION['companyId'];
+                    if (isset($Row[0])) {
+                        $this->LoadName = $Row[0];
+                    }
+                    if (isset($Row[1])) {
+                        $this->LoadType = $Row[1];
+                    }
 
-                $this->Insert($this, $db,$helper);
+                    $this->Insert($this, $db,$helper);
+                }
             }
         }
+        unlink($targetPath);
     }
 
 }

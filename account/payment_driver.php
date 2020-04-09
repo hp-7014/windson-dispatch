@@ -229,6 +229,7 @@ else if ($_GET['type'] == "fileupload") {
                 if ($fileSize < 200000) {
                     $docs[] = $fileName;
                     $bank->setBankName($_POST['Bankname']);
+                    $bank->setYear(date("Y"));
                     $bank->setMonth(date("F"));
                     $bank->setFile($fileName, $originalname, $fileSize, $targetFilePath, $i);
                 } else {

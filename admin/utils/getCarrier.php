@@ -85,7 +85,7 @@ if ($_GET['types'] == 'live_carrier_table') {
             $pencilid10 = '"dotPencil'.$i.'"';
 
             echo "<tr>
-                    <td> $i</td>
+                    <th> $i</th>
                     <td class='custom-text' id='name$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'

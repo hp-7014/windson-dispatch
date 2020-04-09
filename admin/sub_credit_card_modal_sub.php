@@ -4,7 +4,7 @@ require "../database/connection.php";
 ?>
 
 <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" id="add_sub_credit"
-     aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #2A3988;">
@@ -23,11 +23,12 @@ require "../database/connection.php";
                         <label>Name To Display <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Name To Display *" type="text" name="displayName"
-                                   id="displayName">
+                                id="displayName">
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Main Card <span class="mandatory">*</span></label><i class="mdi mdi-plus-circle plus" title="Add Main Card" id="addCreditCard"></i>
+                        <label>Main Card <span class="mandatory">*</span></label><i class="mdi mdi-plus-circle plus"
+                            title="Add Main Card" id="addCreditCard"></i>
                         <div>
                             <select class="form-control" name="mainCard" id="mainCard">
                                 <option value="">Select Credit Card</option>
@@ -37,8 +38,8 @@ require "../database/connection.php";
                                     $show = $show['admin_credit'];
                                     foreach ($show as $s) {
                                         ?>
-                                        <option value="<?php echo $s['_id']; ?>"><?php echo $s['cardHolderName']; ?></option>
-                                    <?php }
+                                <option value="<?php echo $s['_id']; ?>"><?php echo $s['cardHolderName']; ?></option>
+                                <?php }
                                 } ?>
                             </select>
                         </div>
@@ -49,7 +50,7 @@ require "../database/connection.php";
                         <label>Card Holder Name <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Card Holder Name *" type="text"
-                                   name="cardHolderName" id="cardHolderName">
+                                name="cardHolderName" id="cardHolderName">
                         </div>
                     </div>
                     <div class="form-group col-md-6">
@@ -62,9 +63,11 @@ require "../database/connection.php";
             </div>
 
             <div class="modal-footer">
-                <label class="text-danger" style="padding-right: 148px"><b>Note :</b>&nbsp; * Fields are mandatory</label>
+                <label class="text-danger" style="padding-right: 148px"><b>Note :</b>&nbsp; * Fields are
+                    mandatory</label>
                 <button type="button" class="btn btn-danger waves-effect modalSubCredit">Close</button>
                 <button type="button" onclick="Add_SubCredit()" class="btn btn-primary waves-effect waves-light">Save
+                    <span class="spinner-border spinner-border-sm loader1">
                 </button>
             </div>
 
