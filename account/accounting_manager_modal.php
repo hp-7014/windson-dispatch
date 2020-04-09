@@ -54,9 +54,9 @@ include '../database/connection.php';
                                         </thead>
                                         <tbody id="accountDeliverBody">
                                         <?php
-                                        $show = $db->active_load->find(['companyID' => (int)$_SESSION['companyId']]);
+                                        $show = $db->Delivered->find(['companyID' => (int)$_SESSION['companyId']]);
                                         foreach ($show as $arrData1) {
-                                            $arrData = $arrData1['Delivered'];
+                                            $arrData = $arrData1['load'];
                                             foreach ($arrData as $row) {
                                                 $invoiceID = $row['_id'];
                                                 $loadNO = 1;
@@ -174,10 +174,10 @@ include '../database/connection.php';
                                         $limit = 5;
 
                                         //                                        $show1 = $db->active_load->find(array('companyID' => (int)$_SESSION['companyId']), array('projection' => array('activeload' => array('$slice' => [0, $limit]))));
-                                        $show1 = $db->active_load->find(['companyID' => (int)$_SESSION['companyId']]);
+                                        $show1 = $db->Invoiced->find(['companyID' => (int)$_SESSION['companyId']]);
                                         foreach ($show1 as $arrData1) {
-                                            $arrData2 = $arrData1['Invoiced'];
-                                            $total_records = sizeof($arrData1['Invoiced']);
+                                            $arrData2 = $arrData1['load'];
+                                            $total_records = sizeof($arrData1['load']);
                                             $total_pages = ceil($total_records / $limit);
                                             foreach ($arrData2 as $row1) {
                                                 $invoiceID1 = $row1['_id'];

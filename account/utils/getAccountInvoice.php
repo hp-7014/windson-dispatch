@@ -4,10 +4,10 @@ $helper = "helper";
 require "../../database/connection.php";
 
 if ($_GET['type'] == 'showAccountInvoice') {
-    $show1 = $db->active_load->find(['companyID' => (int)$_SESSION['companyId']]);
+    $show1 = $db->Invoiced->find(['companyID' => (int)$_SESSION['companyId']]);
     $table = "";
     foreach ($show1 as $arrData) {
-        $arrData1 = $arrData['Invoiced'];
+        $arrData1 = $arrData['load'];
         foreach ($arrData1 as $row1) {
 
             $invoiceID1 = $row1['_id'];
@@ -101,12 +101,12 @@ if ($_GET['type'] == 'showAccountInvoice') {
 if ($_GET['type'] == 'search_text1') {
     $i = 0;
     $type = '"text"';
-    $collection = $db->active_load;
+    $collection = $db->Invoiced;
     $table = '';
     $show1 = $collection->find(['companyID' => (int)$_SESSION['companyId']]);
 
     foreach ($show1 as $row) {
-        $trailer = $row['Invoiced'];
+        $trailer = $row['load'];
         foreach ($trailer as $row4) {
             $invoiceID1 = $row4['_id'];
             $loadNO1 = 1;

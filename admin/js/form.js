@@ -1,22 +1,7 @@
 var companyid = $('#companyid').val();
-//Driver Recurrence +
-// var installmentCategory = [];
-// var installmentType = [];
-// var amount = [];
-// var installment = [];
-// var startNo = [];
-// var startDate = [];
-// var internalNote = [];
+
 var recurrenceAddLength = '';
 var recurrenceSubLength = '';
-//
-// var installment_Category = [];
-// var installment_Type = [];
-// var amount_recurrence = [];
-// var installment_sub = [];
-// var start_No = [];
-// var start_Date = [];
-// var internal_Note = [];
 
 // driver pay variable
 var loadedmiles = '';

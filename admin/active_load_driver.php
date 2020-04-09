@@ -160,13 +160,15 @@ if ($_GET['type'] == "add_new_load") {
 } // change Load Status
 else if ($_GET['type'] == 'changeStatus') {
     $arrayName = $_POST['old_array'];
-    $cursor = $db->active_load->find(["companyID" => (int)$_SESSION['companyId']], [$arrayName => ['$elemMatch' => ['_id' => $_POST['id']]]]);
+    $cursor = $db->$arrayName->find(["companyID" => (int)$_SESSION['companyId']], ['load' => ['$elemMatch' => ['_id' => $_POST['id']]]]);
     $array = iterator_to_array($cursor);
+
     foreach ($array as $value) {
-        $counterID = $value[$arrayName];
+        $counterID = $value['load'];
         foreach ($counterID as $row) {
             if ($_POST['id'] == $row['_id']) {
                 $activeload = new ActiveLoad();
+                $activeload->setMasterID($helper->getNextSequence("active_load", $db));
                 $activeload->setId($row['_id']);
                 $activeload->setCompany($row['company']);
                 $activeload->setCustomer($row['customer']);
@@ -220,7 +222,64 @@ else if ($_GET['type'] == 'changeStatus') {
 //                $activeload->setCustomerEmail($row['customer_email'], $row['emailcustomer2'], $row['emailcustomer3']);
                 $activeload->setNewStatus($_POST['new_array']);
                 $activeload->setOldArray($arrayName);
-                $activeload->changeStatus($activeload,$db);
+
+                if ($_POST['new_array'] == "Break Down") {
+                    $activeload->setStatusBreakDownTime(time());
+                } else {
+                    $activeload->setStatusBreakDownTime($row['status_BreakDown_time']);
+                }
+                if ($_POST['new_array'] == "Loaded") {
+                    $activeload->setStatusLoadedTime(time());
+                } else {
+                    $activeload->setStatusLoadedTime($row['status_Loaded_time']);
+                }
+                if ($_POST['new_array'] == "Arrived Consignee") {
+                    $activeload->setStatusArrivedConsigneeTime(time());
+                } else {
+                    $activeload->setStatusArrivedConsigneeTime($row['status_ArrivedConsignee_time']);
+                }
+                if ($_POST['new_array'] == "Arrived Shipper") {
+                    $activeload->setStatusArrivedShipperTime(time());
+                } else {
+                    $activeload->setStatusArrivedShipperTime($row['status_ArrivedShipper_time']);
+                }
+                if ($_POST['new_array'] == "Paid") {
+                    $activeload->setStatusPaidTime(time());
+                } else {
+                    $activeload->setStatusPaidTime($row['status_Paid_time']);
+                }
+                if ($_POST['new_array'] == "Open") {
+                    $activeload->setStatusOpenTime(time());
+                } else {
+                    $activeload->setStatusOpenTime($row['status_Open_time']);
+                }
+                if ($_POST['new_array'] == "On Route") {
+                    $activeload->setStatusOnRouteTime(time());
+                } else {
+                    $activeload->setStatusOnRouteTime($row['status_OnRoute_time']);
+                }
+                if ($_POST['new_array'] == "Dispatched") {
+                    $activeload->setStatusDispatchedTime(time());
+                } else {
+                    $activeload->setStatusDispatchedTime($row['status_Dispatched_time']);
+                }
+                if ($_POST['new_array'] == "Delivered") {
+                    $activeload->setStatusDeliveredTime(time());
+                } else {
+                    $activeload->setStatusDeliveredTime($row['status_Delivered_time']);
+                }
+                if ($_POST['new_array'] == "Completed") {
+                    $activeload->setStatusCompletedTime(time());
+                } else {
+                    $activeload->setStatusCompletedTime($row['status_Completed_time']);
+                }
+                if ($_POST['new_array'] == "Invoiced") {
+                    $activeload->setStatusInvoicedTime(time());
+                } else {
+                    $activeload->setStatusInvoicedTime($row['status_Invoiced_time']);
+                }
+
+                $activeload->insertChange($activeload,$db,$helper);
             }
         }
     }

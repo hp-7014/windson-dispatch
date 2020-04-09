@@ -1891,12 +1891,9 @@ function uploadfiles(id, status) {
 function changeStatus(id, old_array, new_array) {
     var new_array_1 = new_array.split(")"); // split a value status time stamp column and value
     var new_array1 = new_array_1[0];
-
-    alert(old_array);
-    alert(new_array1);
-    alert(id);
+    alert(new_array);
     $.ajax({
-        url: 'admin/active_load_driver.php?type=changeStatus ', // point to server-side PHP script
+        url: 'admin/active_load_driver.php?type=changeStatus', // point to server-side PHP script
         method: 'POST',
         data: {
             id: id,

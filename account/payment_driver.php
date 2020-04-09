@@ -21,7 +21,7 @@ if ($_GET['type'] == 'driverpayment') {
     $bank->setCategory($_POST['category']);
     $bank->setPayto($_POST['category']);
     $bank->setSelectDebit($_POST['selectdebite']);
-    $bank->setInvoice($_POST['invoice']);
+    $bank->setInvoice($_POST['invoice'],$_POST['invoiceAmount']);
     $bank->setAmount($_POST['amount']);
     $bank->setAdvance($_POST['advance']);
     $bank->setFinalAmount($_POST['finalamount']);
@@ -30,7 +30,7 @@ if ($_GET['type'] == 'driverpayment') {
     $bank->setAch($_POST['ach']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertdriver($bank,$db,$helper);
 }
 
 // bank carrier
@@ -47,14 +47,14 @@ else if ($_GET['type'] == 'carrierpayment') {
     $bank->setCategory($_POST['category']); 
     $bank->setPayto($_POST['category']);
     $bank->setSelectDebit($_POST['selectdebite']);
-    $bank->setInvoice($_POST['invoice']);
+    $bank->setInvoice($_POST['invoice'],$_POST['invoiceAmount']);
     $bank->setAmount($_POST['amount']);
     $bank->setCheckDate(strtotime($_POST['checkdate']));
     $bank->setCheque($_POST['cheque']);
     $bank->setAch($_POST['ach']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertcarrier($bank,$db,$helper);
 }
 
 // bank factoring
@@ -71,14 +71,14 @@ else if($_GET['type'] == 'bankFactoring'){
     $bank->setCategory($_POST['category']);
     $bank->setPayto($_POST['category']);
     $bank->setSelectDebit($_POST['selectdebite']);
-    $bank->setInvoice($_POST['invoice']);
+    $bank->setInvoice($_POST['invoice'],$_POST['invoiceAmount']);
     $bank->setAmount($_POST['amount']);
     $bank->setCheckDate(strtotime($_POST['checkdate']));
     $bank->setCheque($_POST['cheque']);
     $bank->setAch($_POST['ach']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertfactoring($bank,$db,$helper);
 }
 
 // bank expense
@@ -99,7 +99,7 @@ else if($_GET['type'] == 'paymentexpense'){
     $bank->setAmount($_POST['amount']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertexpense($bank,$db,$helper);
 }
 
 // bank Maintenance
@@ -121,7 +121,7 @@ else if($_GET['type'] == 'paymentmaintenance'){
     $bank->setTrailerno($_POST['trailerno']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertmaintenance($bank,$db,$helper);
 }
 
 // bank insurance
@@ -141,7 +141,7 @@ else if($_GET['type'] == 'paymentinsurance'){
     $bank->setInsurancecom($_POST['insurancecompany']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertinsurance($bank,$db,$helper);
 }
 
 // bank creditcard
@@ -161,7 +161,7 @@ else if($_GET['type'] == 'paymentcreditcard'){
     $bank->setCardcategory($_POST['cardcategory']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertcreditcard($bank,$db,$helper);
 }
 
 // bank fuelcard
@@ -180,7 +180,7 @@ else if($_GET['type'] == 'paymentfuelcard'){
     $bank->setFuellist($_POST['fuellist']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertfuelcard($bank,$db,$helper);
 }
 
 // bank other
@@ -204,5 +204,5 @@ else if($_GET['type'] == 'paymentother'){
     $bank->setAch($_POST['otherach']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertother($bank,$db,$helper);
 }

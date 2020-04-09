@@ -130,11 +130,27 @@ require "../database/connection.php";
                                 $billingTelephone = $row1['billingTelephone'];
                                 $billingExt = $row1['billingExt'];
                                 $URS = $row1['URS'];
-                                $currencySetting = $currencyType[$row1['currencySetting']];
-                                $paymentTerms = $row1['paymentTerms'].")&nbsp;".$payment_Term[$row1['paymentTerms']];
+                                if ($row1['currencySetting'] == ''){
+                                    $currencySetting = '';
+                                } else {
+                                    $currencySetting = $currencyType[$row1['currencySetting']];
+                                }
+                                if ($row1['paymentTerms'] == ''){
+                                    $paymentTerms = '';
+                                } else {
+                                    $paymentTerms = $row1['paymentTerms'] . ")&nbsp;" . $payment_Term[$row1['paymentTerms']];
+                                }
                                 $creditLimit = $row1['creditLimit'];
-                                $salesRep =  $row1['salesRep'].")&nbsp;".$userName[$row1['salesRep']];
-                                $factoringCompany = $row1['factoringCompany'].")&nbsp;".$factoringCompanyname[$row1['factoringCompany']];
+                                if ($row1['salesRep'] == ''){
+                                    $salesRep = '';
+                                } else {
+                                    $salesRep = $row1['salesRep'] . ")&nbsp;" . $userName[$row1['salesRep']];
+                                }
+                                if ($row1['factoringCompany'] == ''){
+                                    $factoringCompany = '';
+                                } else {
+                                    $factoringCompany = $row1['factoringCompany'] . ")&nbsp;" . $factoringCompanyname[$row1['factoringCompany']];
+                                }
                                 $federalID = $row1['federalID'];
                                 $workerComp = $row1['workerComp'];
                                 $websiteURL = $row1['websiteURL'];
@@ -360,8 +376,7 @@ require "../database/connection.php";
                                                                         class="mdi mdi-plus-circle plus"
                                                                         id="AddCurrency"></i>
 
-                                <select class="form-control" value="<?php echo $currencySetting; ?>" id="currencySetting">
-                                    <option>---select---</option>
+                                <select class="form-control" id="currencySetting">
                                     <?php
                                     $currency = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
                                     foreach ($currency as $cur) {

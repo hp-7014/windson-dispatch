@@ -286,7 +286,7 @@ $(document).on('click', '#AddOwnerOperator', function () {
     $.ajax({
         type: 'POST',
         success: function (data) {
-            $('.owner-container').load('./admin/owner_operator_modal_sub.php', function (result) {
+            $('.owneroperator-container').load('./admin/owner_operator_modal_sub.php', function (result) {
                 $('#Owner_operator').modal({show: true});
             });
         }
@@ -366,16 +366,16 @@ $(document).on('click', '#AddCustomBroker', function () {
         }
     });
 });
-$(document).on('click', '#AddOwnerOperator', function () {
-    $.ajax({
-        type: 'POST',
-        success: function (data) {
-            $('.owner-container').load('./admin/owner_operator_modal_sub.php', function (result) {
-                $('#Owner_operator').modal({show: true});
-            });
-        }
-    });
-});
+// $(document).on('click', '#AddOwnerOperator', function () {
+//     $.ajax({
+//         type: 'POST',
+//         success: function (data) {
+//             $('.owner-container').load('./admin/owner_operator_modal_sub.php', function (result) {
+//                 $('#Owner_operator').modal({show: true});
+//             });
+//         }
+//     });
+// });
 $(document).on('click', '#AddShipper', function () {
     $.ajax({
         type: 'POST',
@@ -705,6 +705,7 @@ $(document).on('click', '.modalDriver', function () {
     $('#add_Driver').modal('hide');
 });
 $(document).on('click', '.modalOwner', function () {
+    alert('close');
     $('#Owner_operator').modal('hide');
 });
 $(document).on('click', '.modalTruck', function () {

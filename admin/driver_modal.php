@@ -20,6 +20,7 @@ require "../database/connection.php";
             <div class="modal-body custom-modal-body" style="padding: 0.1rem">
                 <div class="driver-container" style="z-index: 1400"></div>
                 <div class="driverEdit-container" style="z-index: 1600"></div>
+                <div class="owneroperator-container" style="z-index: 1600"></div>
 
                 <form action="" method="post" enctype="multipart/form-data">
                     <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" type="text"

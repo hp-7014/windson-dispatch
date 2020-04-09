@@ -101,7 +101,7 @@ require "../database/connection.php";
                                 <tfoot>
                                 <tr>
                                     <th colspan="12">
-                                        <button id="btnAdd" type="button" class="btn btn-primary" data-toggle="tooltip"
+                                        <button id="btnAdd1" type="button" class="btn btn-primary" data-toggle="tooltip"
                                                 data-original-title="Add more controls"><i
                                                 class="glyphicon glyphicon-plus-sign"></i>&nbsp; Add&nbsp;
                                         </button>
@@ -140,7 +140,7 @@ require "../database/connection.php";
 <!--- for driver->owner_operator --->
 <script>
     $(function () {
-        $("#btnAdd").bind("click", function () {
+        $("#btnAdd1").bind("click", function () {
             var div = $("<tr />");
             div.html(GetDynamicTextBox(""));
             $("#TextBoxContainer").append(div);
@@ -151,6 +151,7 @@ require "../database/connection.php";
     });
 
     function GetDynamicTextBox(value) {
+        alert(1);
         return '<td width="150">'
             +'<input id="installmentCategory" class="form-control" name="installmentCategory" list="fixpaycat"/></td>'
             +'<td width="150">'
