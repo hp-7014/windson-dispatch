@@ -66,7 +66,7 @@ if ($_GET['types'] == 'live_customs') {
 
          echo "<tr>
             <th> $i</th>
-            <td class='custom-text' id='brokerName$i'
+            <th class='custom-text' id='brokerName$i'
                onmouseover='showPencil_s($pencilid1)'
                onmouseout='hidePencil_s($pencilid1)'
                >
@@ -74,7 +74,7 @@ if ($_GET['types'] == 'live_customs') {
                   onclick='updateTableColumn($c_type1,$updateCustom,$type,$id,$column1,$title1,$pencilid1)'
                ></i>
                $brokerName
-            </td>
+            </th>
             <td class='custom-text' id='crossing$i'
                onmouseover='showPencil_s($pencilid2)'
                onmouseout='hidePencil_s($pencilid2)'
@@ -206,8 +206,8 @@ if ($_GET['types'] == 'paginate_customs') {
          $pencilid7 = '"StatusPencil'.$i.'"';
 
          echo "<tr>
-            <td> $start</td>
-            <td class='custom-text' id='brokerName$i'
+            <th> $start</th>
+            <th class='custom-text' id='brokerName$i'
                onmouseover='showPencil_s($pencilid1)'
                onmouseout='hidePencil_s($pencilid1)'
                >
@@ -215,7 +215,7 @@ if ($_GET['types'] == 'paginate_customs') {
                   onclick='updateTableColumn($c_type1,$updateCustom,$type,$id,$column1,$title1,$pencilid1)'
                ></i>
                $brokerName
-            </td>
+            </th>
             <td class='custom-text' id='crossing$i'
                onmouseover='showPencil_s($pencilid2)'
                onmouseout='hidePencil_s($pencilid2)'
@@ -337,7 +337,7 @@ if ($_GET['types'] == 'search_text') {
             
             echo "<tr>
                      <th> $i</th>
-                     <td class='custom-text' id='brokerName$i'
+                     <th class='custom-text' id='brokerName$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -345,7 +345,7 @@ if ($_GET['types'] == 'search_text') {
                            onclick='updateTableColumn($c_type1,$updateCustom,$type,$id,$column1,$title1,$pencilid1)'
                         ></i>
                         $brokerName
-                     </td>
+                     </th>
                      <td class='custom-text' id='crossing$i'
                         onmouseover='showPencil_s($pencilid2)'
                         onmouseout='hidePencil_s($pencilid2)'
@@ -468,7 +468,7 @@ if ($_GET['types'] == 'search_text') {
 
                echo "<tr>
                         <th> $i</th>
-                        <td class='custom-text' id='brokerName$i'
+                        <th class='custom-text' id='brokerName$i'
                            onmouseover='showPencil_s($pencilid1)'
                            onmouseout='hidePencil_s($pencilid1)'
                            >
@@ -476,7 +476,7 @@ if ($_GET['types'] == 'search_text') {
                               onclick='updateTableColumn($c_type1,$updateCustom,$type,$id,$column1,$title1,$pencilid1)'
                            ></i>
                            $brokerName
-                        </td>
+                        </th>
                         <td class='custom-text' id='crossing$i'
                            onmouseover='showPencil_s($pencilid2)'
                            onmouseout='hidePencil_s($pencilid2)'

@@ -99,9 +99,9 @@ include '../database/connection.php';
                                             ?>
                                     <tr>
                                         <th><?php echo $i++ ?></th>
-                                        <td class="custom-text">
+                                        <th class="custom-text">
                                             <?php echo $admin['Name']; ?>
-                                        </td>
+                                        </th>
                                         <td class="custom-text" id="<?php echo "displayName".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('displayNamePencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('displayNamePencil$i'); "?>">
@@ -229,7 +229,7 @@ include '../database/connection.php';
                                 }
                                 $j++;
                             } 
-                            if($total_pages > 0){
+                            if($total_pages > 0 && $total_pages > 1){
                             ?>
                         </select>
                         <li id="bank_next">

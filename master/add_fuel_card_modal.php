@@ -57,7 +57,7 @@ require "../database/connection.php";
                                             
                                             ?>
                                     <tr>
-                                        <td><?php echo $i++; ?></td>
+                                        <th><?php echo $i++; ?></th>
                                         <td id="<?php echo "fuelCardType".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('fuelCardTypePencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('fuelCardTypePencil$i'); "?>">

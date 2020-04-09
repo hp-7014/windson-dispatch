@@ -53,7 +53,8 @@ require "../database/connection.php";
                                         <th scope="col" col width="160" data-priority="1">Action</th>
                                     </tr>
                                 </thead>
-
+                                
+                                <input type="hidden" id="page_no" value="0">
                                 <tbody id="factoringBody">
                                     <?php
                                     $limit = 100;
@@ -147,14 +148,14 @@ require "../database/connection.php";
                                 ?>
                                     <tr>
                                         <th><?php echo $i++; ?></th>
-                                        <td class="custom-text" id="<?php echo "factoringCompanyname".$i; ?>"
+                                        <th class="custom-text" id="<?php echo "factoringCompanyname".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('factoringCompanynamePencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('factoringCompanynamePencil$i'); "?>">
                                             <i id="<?php echo "factoringCompanynamePencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
                                                 onclick="updateTableColumn(<?php echo $factoringCompanyname; ?>,'updateFactoring','text',<?php echo $row5['_id']; ?>,'factoringCompanyname','Factoring Company',<?php echo $pencilid1; ?>)"></i>
                                             <?php echo $row5['factoringCompanyname']; ?>
-                                        </td>
+                                        </th>
                                         <td class="custom-text" id="<?php echo "address".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('addressPencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('addressPencil$i'); "?>">
@@ -346,15 +347,14 @@ require "../database/connection.php";
                         for ($i = 0; $i < $total_pages; $i++) {
                             if ($i == 0) {
                         ?>
-                            <option value="<?php echo $i; ?>"> <?php echo $j; ?>
-                            </option>
+                            <option value="<?php echo $i; ?>"> <?php echo $j; ?></option>
                             <?php } else { ?>
                             <option value="<?php echo $i; ?>"> <?php echo $j; ?> </option>
                             <?php
                             }
                             $j++;
                         } 
-                        if($total_pages > 0){
+                        if($total_pages > 0 && $total_pages > 1){
                         ?>
                         </select>
                         <li id="bank_next">

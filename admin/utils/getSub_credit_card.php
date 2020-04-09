@@ -287,6 +287,7 @@
                 $cardNoColumn = '"cardNo"';
                 $type = '"text"';
                 $i++;
+                $start+=1;
                 $updateSubCredit = '"updateSubCredit"';
 
                 $c_type1 = '"'.$displayName.'"';
@@ -303,7 +304,7 @@
                 $pencilid4 = '"cardNoPencil'.$i.'"';
 
                 echo "<tr>
-                    <th> $i</th>
+                    <th> $start</th>
                     <td class='custom-text' id='displayName$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'

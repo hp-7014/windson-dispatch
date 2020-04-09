@@ -140,14 +140,14 @@ require "../database/connection.php";
 
                                     <tr>
                                         <th><?php echo $i++ ?></th>
-                                        <td class="custom-text" id="<?php echo "trailerNumber".$i; ?>"
+                                        <th class="custom-text" id="<?php echo "trailerNumber".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('trailerNumberPencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('trailerNumberPencil$i'); "?>">
                                             <i id="<?php echo "trailerNumberPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
                                                 onclick="updateTableColumn(<?php echo $trailerNumber; ?>,'updateTrailerAdd','text',<?php echo $row1['_id']; ?>,'trailerNumber','Trailer Number',<?php echo $pencilid1; ?>)"></input>
                                                 <?php echo $row1['trailerNumber']; ?>
-                                        </td>
+                                        </th>
                                         <td class="custom-text">
                                             <?php echo  $trailerType; ?>
                                         </td>
@@ -311,15 +311,14 @@ require "../database/connection.php";
                         for ($i = 0; $i < $total_pages; $i++) {
                             if ($i == 0) {
                         ?>
-                            <option value="<?php echo $i; ?>"> <?php echo $j; ?>
-                            </option>
+                            <option value="<?php echo $i; ?>"> <?php echo $j; ?></option>
                             <?php } else { ?>
                             <option value="<?php echo $i; ?>"> <?php echo $j; ?> </option>
                             <?php
                             }
                             $j++;
                         } 
-                        if($total_pages > 0){
+                        if($total_pages > 0 && $total_pages > 1){
                         ?>
                         </select>
                         <li id="bank_next">

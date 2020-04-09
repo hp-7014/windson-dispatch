@@ -31,7 +31,7 @@ include '../database/connection.php';
                     </button>
                     <div class="custom-upload-btn-wrapper float-right">
                         <button class="custom-btn">Choose file</button>
-                        <input type="file" id="file" name="myfile" />
+                        <input type="file" id="file" name="myfile" accept=".csv" onchange='triggerValidation(this)' />
                     </div>
                     <button type="button" class="btn btn-outline-info waves-effect waves-light float-right"
                         onclick="import_Admin()">Upload
@@ -123,14 +123,14 @@ include '../database/connection.php';
                                 ?>
                                     <tr>
                                         <th><?php echo $i++; ?></th>
-                                        <td class="custom-text" id="<?php echo "bankName".$i; ?>"
+                                        <th class="custom-text" id="<?php echo "bankName".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('bankNamePencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('bankNamePencil$i'); "?>">
                                             <i id="<?php echo "bankNamePencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
                                                 onclick="updateTableColumn(<?php echo $bankName; ?>,'updateBank','text',<?php echo $admin['_id']; ?>,'bankName','Bank Name',<?php echo $pencilid1; ?>)"></i>
                                             <?php echo $admin['bankName']; ?>
-                                        </td>
+                                        </th>
                                         <td class="custom-text" id="<?php echo "bankAddresss".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('bankAddresssPencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('bankAddresssPencil$i'); "?>">

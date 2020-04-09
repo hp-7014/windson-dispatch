@@ -28,7 +28,7 @@ require "../database/connection.php";
                     </button>
                     <div class="custom-upload-btn-wrapper float-right">
                         <button class="custom-btn">Choose file</button>
-                        <input type="file" name="file" id="file" accept=".csv" />
+                        <input type="file" id="file" name="myfile" accept=".csv" onchange='triggerValidation(this)' />
                     </div>
                     <button type="button" class="btn btn-outline-success waves-effect waves-light float-right">CSV
                         formate
@@ -200,7 +200,7 @@ require "../database/connection.php";
                             }
                             $j++;
                         } 
-                        if($total_pages > 0){
+                        if($total_pages > 0 && $total_pages > 1){
                         ?>
                             </select>
                             <li id="bank_next">

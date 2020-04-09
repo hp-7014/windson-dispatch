@@ -104,7 +104,7 @@ if($_GET['types'] == 'live_consignee_table') {
 
             echo "<tr>
                     <th>$i</th>
-                    <td class='custom-text' id='consigneeName$i'
+                    <th class='custom-text' id='consigneeName$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -112,7 +112,7 @@ if($_GET['types'] == 'live_consignee_table') {
                             onclick='updateTableColumn($c_type1,$updateConsignee,$type,$id,$consigneeNameColmn,$title1,$pencilid1)'
                         ></i>
                         $consigneeName
-                    </td>
+                    </th>
                     <td class='custom-text' id='consigneeAddress$i'
                         onmouseover='showPencil_s($pencilid2)'
                         onmouseout='hidePencil_s($pencilid2)'
@@ -362,7 +362,7 @@ if ($_GET['types'] == 'search_text') {
 
                 echo "<tr>
                         <th>$i</th>
-                        <td class='custom-text' id='consigneeName$i'
+                        <th class='custom-text' id='consigneeName$i'
                             onmouseover='showPencil_s($pencilid1)'
                             onmouseout='hidePencil_s($pencilid1)'
                             >
@@ -370,7 +370,7 @@ if ($_GET['types'] == 'search_text') {
                                 onclick='updateTableColumn($c_type1,$updateConsignee,$type,$id,$consigneeNameColmn,$title1,$pencilid1)'
                             ></i>
                             $consigneeName
-                        </td>
+                        </th>
                         <td class='custom-text' id='consigneeAddress$i'
                             onmouseover='showPencil_s($pencilid2)'
                             onmouseout='hidePencil_s($pencilid2)'
@@ -614,7 +614,7 @@ if ($_GET['types'] == 'search_text') {
 
                     echo "<tr>
                             <th>$i</th>
-                            <td class='custom-text' id='consigneeName$i'
+                            <th class='custom-text' id='consigneeName$i'
                                 onmouseover='showPencil_s($pencilid1)'
                                 onmouseout='hidePencil_s($pencilid1)'
                                 >
@@ -622,7 +622,7 @@ if ($_GET['types'] == 'search_text') {
                                     onclick='updateTableColumn($c_type1,$updateConsignee,$type,$id,$consigneeNameColmn,$title1,$pencilid1)'
                                 ></i>
                                 $consigneeName
-                            </td>
+                            </th>
                             <td class='custom-text' id='consigneeAddress$i'
                                 onmouseover='showPencil_s($pencilid2)'
                                 onmouseout='hidePencil_s($pencilid2)'
@@ -823,6 +823,7 @@ if ($_GET['types'] == 'paginate_consi') {
             $internalNotesColmn = '"internalNotes"';
             $type = '"text"';
             $i++;
+            $start+=1;
             $updateConsignee = '"updateConsignee"';
 
             $c_type1 = '"'.$consigneeName.'"';
@@ -877,8 +878,8 @@ if ($_GET['types'] == 'paginate_consi') {
             $pencilid16 = '"internalNotesPencil'.$i.'"';
 
             echo "<tr>
-                    <th>$i</th>
-                    <td class='custom-text' id='consigneeName$i'
+                    <th>$start</th>
+                    <th class='custom-text' id='consigneeName$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -886,7 +887,7 @@ if ($_GET['types'] == 'paginate_consi') {
                             onclick='updateTableColumn($c_type1,$updateConsignee,$type,$id,$consigneeNameColmn,$title1,$pencilid1)'
                         ></i>
                         $consigneeName
-                    </td>
+                    </th>
                     <td class='custom-text' id='consigneeAddress$i'
                         onmouseover='showPencil_s($pencilid2)'
                         onmouseout='hidePencil_s($pencilid2)'

@@ -122,9 +122,9 @@ if ($_GET['types'] == 'live_customer_table') {
                     </td>";
 
                 if ($counter == 0) {
-                    echo "<td><a href='#' onclick='deleteCustomer($id,$currencySetting,$paymentTerms,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                    echo "<td><a href='#' onclick='deleteCustomer($id,$currencySetting,$paymentTerms,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
                 } else {
-                    echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
+                    echo "<a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
                 }
                 echo "<a href='#' onclick='editCustomer($id)'><i
                  id='editCustomerDetail' data-toggle='tooltip' data-placement='top'
@@ -257,10 +257,14 @@ if ($_GET['types'] == 'search_text') {
                         </td>";
 
                     if ($counter == 0) {
-                        echo "<td><a href='#' onclick='deleteCustomer($id,$currencySetting,$paymentTerms,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                        echo "<td><a href='#' onclick='deleteCustomer($id,$currencySetting,$paymentTerms,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
                     } else {
-                        echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                        echo "<a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
                     }
+                    echo "<a href='#' onclick='editCustomer($id)'><i
+                            id='editCustomerDetail' data-toggle='tooltip' data-placement='top'
+                            title='Edit Detail'
+                            class='mdi mdi-file-document-edit-outline editModal'></i></a></td></tr>";
             }
         }
 
@@ -384,14 +388,14 @@ if ($_GET['types'] == 'search_text') {
                             </td>";
 
                         if ($counter == 0) {
-                            echo "<td><a href='#' onclick='deleteCustomer($id,$currencySetting,$paymentTerms,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                            echo "<td><a href='#' onclick='deleteCustomer($id,$currencySetting,$paymentTerms,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
                         } else {
-                            echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
+                            echo "<a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
                         }
                         echo "<a href='#' onclick='editCustomer($id)'><i
-                 id='editCustomerDetail' data-toggle='tooltip' data-placement='top'
-                 title='Edit Detail'
-                 class='mdi mdi-file-document-edit-outline editModal'></i></a></td></tr>";                  
+                            id='editCustomerDetail' data-toggle='tooltip' data-placement='top'
+                            title='Edit Detail'
+                            class='mdi mdi-file-document-edit-outline editModal'></i></a></td></tr>";                  
                 }
             }
         }
@@ -464,7 +468,7 @@ if ($_GET['types'] == 'paginate_cust') {
             $pencilid6 = '"custEmailPencil'.$i.'"';
 
             echo "<tr>
-                    <td>$start</td>
+                    <th>$start</th>
                     <td class='custom-text' id='custName$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
@@ -521,11 +525,12 @@ if ($_GET['types'] == 'paginate_cust') {
                     </td>";
 
                 if ($counter == 0) {
-                    echo "<td><a href='#' onclick='deleteCustomer($id,$currencySetting,$paymentTerms,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                    echo "<td><a href='#' onclick='deleteCustomer($id,$currencySetting,$paymentTerms,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
                 } else {
-                    echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
+                    echo "<a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
                 }
-                 echo "<a href='#' onclick='editCustomer($id)'><i
+
+                echo "<a href='#' onclick='editCustomer($id)'><i
                  id='editCustomerDetail' data-toggle='tooltip' data-placement='top'
                  title='Edit Detail'
                  class='mdi mdi-file-document-edit-outline editModal'></i></a></td></tr>";

@@ -125,14 +125,14 @@ require "../database/connection.php";
                                         ?>
                                     <tr>
                                         <th><?php echo $i++; ?></th>
-                                        <td class="custom-text" id="<?php echo "consigneeName".$i; ?>"
+                                        <th class="custom-text" id="<?php echo "consigneeName".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('consigneeNamePencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('consigneeNamePencil$i'); "?>">
                                             <i id="<?php echo "consigneeNamePencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
                                                 onclick="updateTableColumn(<?php echo $consigneeName; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeName','Consignee Name',<?php echo $pencilid1; ?>)"></i>
                                             <?php echo $s['consigneeName']; ?>
-                                        </td>
+                                        </th>
                                         <td class="custom-text" id="<?php echo "consigneeAddress".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('consigneeAddressPencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('consigneeAddressPencil$i'); "?>">
@@ -332,7 +332,7 @@ require "../database/connection.php";
                                 }
                                 $j++;
                             } 
-                            if($total_pages > 0){
+                            if($total_pages > 0 && $total_pages > 1){
                             ?>
                         </select>
                         <li id="bank_next">

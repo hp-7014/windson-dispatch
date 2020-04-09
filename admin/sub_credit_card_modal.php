@@ -181,7 +181,7 @@
                                 }
                                 $j++;
                             } 
-                            if($total_pages > 0){
+                            if($total_pages > 0 && $total_pages > 1){
                             ?>
                         </select>
                         <li id="bank_next">

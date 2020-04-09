@@ -3384,8 +3384,8 @@ function search_trailer(x) {
             companyId: companyId,
         },
         success: function(response) {
-            var j = response.trim();
-            document.getElementById('trailerBody').innerHTML = j;
+           // var j = response.trim();
+            document.getElementById('trailerBody').innerHTML = response;
         }
     });
 }
@@ -3664,7 +3664,7 @@ function paginate_factoring(start, limit, total_pages) {
         success: function(response) {
             var optionText = $('#page_active').find('option:selected').val();
 
-            // alert(optionText);
+            //  alert(optionText);
             if (optionText) {
                 $('#page_active').find('option[value=' + optionText + ']').attr('selected', 'selected');
             }

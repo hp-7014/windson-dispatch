@@ -56,7 +56,7 @@ require "../database/connection.php";?>
                                                 $pencilid = "'"."fixPayPencil$i"."'";
                                         ?>
                                     <tr>
-                                        <td><?php echo $i++; ?></td>
+                                        <th><?php echo $i++; ?></th>
                                         <td class="custom-text" id="<?php echo "fixPayType".$i; ?>"
                                             onmouseout="<?php echo "hidePencil('fixPayPencil$i'); "?>"
                                             onmouseover="<?php echo "showPencil('fixPayPencil$i'); "?>">
