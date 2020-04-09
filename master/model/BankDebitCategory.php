@@ -141,17 +141,24 @@
             for ($i = 0; $i < $sheetCount; $i++) {
 
                 $Reader->ChangeSheet($i);
-
+                $count = 0;
                 foreach ($Reader as $Row) {
-                    if (isset($Row[0])) {
-                        $this->setId($helper->getNextSequence("bank_debit_category", $db));
-                        $this->companyID = $_SESSION['companyId'];
-                        $this->bankName = $Row[0];
-                    }
+                    $count++;
+                    if($count > 1000){
+                        echo "Your file should contain atmost 1000 entries. First 1000 entries added successfully"; 
+                        break;
+                    } else {               
+                        if (isset($Row[0])) {
+                            $this->setId($helper->getNextSequence("bank_debit_category", $db));
+                            $this->companyID = $_SESSION['companyId'];
+                            $this->bankName = $Row[0];
+                        }
 
-                    $this->Insert($this, $db,$helper);
+                        $this->Insert($this, $db,$helper);
+                    }
                 }
             }
+            unlink($targetPath);
         }
 
         public function export_Excel($db){
@@ -165,4 +172,3 @@
             echo json_encode($p);
         }
     }
-

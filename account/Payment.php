@@ -4,7 +4,7 @@ require "../database/connection.php";
 ?>
 <!--  Modal content for the above example -->
 <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="Payment_Registration"
-     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xxl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
@@ -15,7 +15,7 @@ require "../database/connection.php";
             </div>
             <div class="modal-body custom-modal-body" style="padding: 0.1rem">
                 <button class="btn btn-primary float-left" data-toggle="modal" data-target="#Add_Payment"
-                        style="margin-right:8px;"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD
+                    style="margin-right:8px;"><i class="mdi mdi-gamepad-down"></i>&nbsp;ADD
                 </button>
                 <!-- Nav tabs -->
                 <ul class="nav nav-pills nav-justified" role="tablist" id="scroll">
@@ -87,7 +87,7 @@ require "../database/connection.php";
     <!------------------------------------------------------------------------------------------------------------------------------>
     <!--  Modal content for the above example -->
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="Add_Payment"
-         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content custom-modal-content">
                 <div class="modal-header custom-modal-header">
@@ -110,8 +110,8 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 cn" style="display:none">
                             <label>Company Name *</label>
-                            <input list="companyname" placeholder="--Select--" class="form-control"
-                                   id="Companyselect" name="Companyselect" onchange="updatecompanyfield(this.value)">
+                            <input list="companyname" placeholder="--Select--" class="form-control" id="Companyselect"
+                                name="Companyselect" onchange="updatecompanyfield(this.value)">
                             <datalist id="companyname">
                                 <?php
                                 $show_company = $db->company->find(['companyID' => $_SESSION['companyId']]);
@@ -129,38 +129,63 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 bank" style="display:none;">
                             <label>Bank Name*</label>
                             <select class="form-control" id="companyfield" onchange="baseamount(this.value)">
-                            
+
                             </select>
                         </div>
                         <input type="hidden" id="baseamount" name="baseamount" value="">
                         <div class="form-group col-md-2 Credit" style="display:none;">
                             <label>Main Card</label>
-                            <select class="form-control">
-                                <option>ACH DEBIT</option>
-                                <option>CUSTOMER PAY</option>
-                                <option>FEE</option>
-                                <option>CLAIM</option>
-                                <option>Expense</option>
-                                <option>CASH BACK</option>
-                            </select>
+                            <input list="creditcard1" placeholder="--Select--" class="form-control" id="maincreditcard"
+                                name="maincreditcard">
+                            <datalist id="creditcard1">
+                                <?php
+                                $show = $db->credit_card_admin->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($show as $credit) {
+                                    $bankcreadit = $credit['admin_credit'];
+                                    foreach ($bankcreadit as $sc) {
+                                        $value = "'" . $sc['_id'] . ')' . $sc['displayName'] . "'";
+
+                                        echo "<option value=$value></option>";
+                                    }
+                                } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 Credit" style="display:none;">
                             <label>Sub Card</label>
-                            <select class="form-control">
-                                <option>ACH DEBIT</option>
-                                <option>CUSTOMER PAY</option>
-                                <option>FEE</option>
-                                <option>CLAIM</option>
-                                <option>Expense</option>
-                                <option>CASH BACK</option>
-                            </select>
+                            <input list="subcreditcard1" placeholder="--Select--" class="form-control" id="subcreditcard"
+                                name="subcreditcard">
+                            <datalist id="subcreditcard1">
+                                <?php
+                                $showsub = $db->sub_credit_card->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($showsub as $subcredit) {
+                                    $banksubcreadit = $subcredit['sub_credit'];
+                                    foreach ($banksubcreadit as $scard) {
+                                        $value = "'" . $scard['_id'] . ')' . $scard['displayName'] . "'";
+
+                                        echo "<option value=$value></option>";
+                                    }
+                                } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 fuel" style="display:none;">
                             <label>Fuel list</label>
-                            <select class="form-control">
-                                <option>xyz</option>
-                                <option>abc</option>
-                            </select>
+                            <input list="fuelcard2" placeholder="--Select--" class="form-control" id="fuelcardmain"
+                                name="fuelcardmain">
+                            <datalist id="fuelcard2">
+                                <?php
+                                $showsub = $db->fuel_Card_Type->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($showsub as $subfuel) {
+                                    $subfuelcard = $subfuel['fuelCard'];
+                                    foreach ($subfuelcard as $scard) {
+                                        $value = "'" . $scard['_id'] . ')' . $scard['fuelCardType'] . "'";
+
+                                        echo "<option value=$value></option>";
+                                    }
+                                } ?>
+                            </datalist>
                         </div>
                         <div class="form-group col-md-2 fuel" style="display:none;">
                             <label>Payment list</label>
@@ -171,23 +196,21 @@ require "../database/connection.php";
                             </select>
                         </div>
                         <div class="form-group col-md-2 adv" style="display:none;">
-                        <label>Invoice</label>
+                            <label>Invoice</label>
                             <br>
-                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light"
-                                    type="button" data-toggle="dropdown">
+                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light" type="button"
+                                data-toggle="dropdown">
                                 Invoice<i class="mdi mdi-menu-down-outline"
-                                          style="padding-left:15px;padding-right:50px"></i>
+                                    style="padding-left:15px;padding-right:50px"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <input type="checkbox" onclick='selectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Select all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Select all
                                 </li>
                                 <li>
                                     <input type="checkbox" onclick='UnSelectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Unselect all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Unselect all
                                 </li>
                             </ul>
                         </div>
@@ -214,7 +237,7 @@ require "../database/connection.php";
                             <label>Advance Amount</label>
                             <div>
                                 <button type="button" class=" btn btn-outline-dark waves-effect waves-light"
-                                        data-toggle="modal" data-target="#Advance_amount">Advance Amount
+                                    data-toggle="modal" data-target="#Advance_amount">Advance Amount
                                 </button>
                             </div>
                         </div>
@@ -241,8 +264,8 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Driver Name</label>
-                            <input list="driverlist" placeholder="--Select--" class="form-control"
-                                   id="drivername" name="drivername" onchange="updateDriverInvoice(this.value)">
+                            <input list="driverlist" placeholder="--Select--" class="form-control" id="drivername"
+                                name="drivername" onchange="updateDriverInvoice(this.value)">
                             <datalist id="driverlist">
                                 <?php
                                 $showdriver = $db->driver->find(['companyID' => $_SESSION['companyId']]);
@@ -259,8 +282,8 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Debit Category</label>
-                            <input list="debitcat" placeholder="--Select--" class="form-control"
-                                   id="selectdebite" name="selectdebite">
+                            <input list="debitcat" placeholder="--Select--" class="form-control" id="selectdebite"
+                                name="selectdebite">
                             <datalist id="debitcat">
                                 <?php
                                 $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
@@ -278,21 +301,19 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Invoice</label>
                             <br>
-                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light"
-                                    type="button" data-toggle="dropdown">
+                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light" type="button"
+                                data-toggle="dropdown">
                                 Invoice<i class="mdi mdi-menu-down-outline"
-                                          style="padding-left:15px;padding-right:50px"></i>
+                                    style="padding-left:15px;padding-right:50px"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <input type="checkbox" onclick='selectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Select all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Select all
                                 </li>
                                 <li>
                                     <input type="checkbox" onclick='UnSelectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Unselect all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Unselect all
                                 </li>
                                 <li class="space" id="driverinvoice">
 
@@ -302,36 +323,36 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" value="0" id="driveramount" name="driveramount" placeholder="Amount *"
-                                       type="text">
+                                <input class="form-control" value="0" id="driveramount" name="driveramount"
+                                    placeholder="Amount *" type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Advance *</label>
                             <div>
-                                <input class="form-control" value="0" id="dradvance" name="dradvance" placeholder="Advance *"
-                                       type="text">
+                                <input class="form-control" value="0" id="dradvance" name="dradvance"
+                                    placeholder="Advance *" type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Final Amount *</label>
                             <div>
                                 <input class="form-control" value="0" id="drfinalamount" name="finalamount"
-                                       placeholder="Final Amount *" type="text">
+                                    placeholder="Final Amount *" type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Check/ACH Date *</label>
                             <div>
                                 <input class="form-control" id="checkdate" name="checkdate" placeholder="Check Date *"
-                                       type="date">
+                                    type="date">
                             </div>
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
                             <label>Cheque #*</label>
                             <div>
                                 <input class="form-control" id="cheque" name="cheque" placeholder="Cheque #*"
-                                       type="text">
+                                    type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 driver" style="display:none;">
@@ -344,8 +365,8 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>Carrier Name</label>
                             <div>
-                                <input list="carrierlist" placeholder="--Select--" class="form-control"
-                                       id="carriername" onchange="updateCarrierInvoice(this.value)" name="carriername">
+                                <input list="carrierlist" placeholder="--Select--" class="form-control" id="carriername"
+                                    onchange="updateCarrierInvoice(this.value)" name="carriername">
                                 <datalist id="carrierlist">
                                     <?php
                                     $showcarrier = $db->carrier->find(['companyID' => $_SESSION['companyId']]);
@@ -362,8 +383,8 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>Debit Category</label>
-                            <input list="debitcat" placeholder="--Select--" class="form-control"
-                                   id="selectdebite1" name="selectdebite1">
+                            <input list="debitcat" placeholder="--Select--" class="form-control" id="selectdebite1"
+                                name="selectdebite1">
                             <datalist id="debitcat">
                                 <?php
                                 $showdebit1 = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
@@ -379,21 +400,19 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>Invoice</label>
                             <br>
-                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light"
-                                    type="button" data-toggle="dropdown">
+                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light" type="button"
+                                data-toggle="dropdown">
                                 Invoice<i class="mdi mdi-menu-down-outline"
-                                          style="padding-left:15px;padding-right:50px"></i>
+                                    style="padding-left:15px;padding-right:50px"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <input type="checkbox" onclick='selectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Select all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Select all
                                 </li>
                                 <li>
                                     <input type="checkbox" onclick='UnSelectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Unselect all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Unselect all
                                 </li>
                                 <li class="space" id="invoiceID">
                                 </li>
@@ -402,7 +421,8 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 carrier" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" value="0" id="finalAmount" name="finalAmount" type="text">
+                                <input class="form-control" placeholder="Amount *" value="0" id="finalAmount"
+                                    name="finalAmount" type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 carrier" style="display:none;">
@@ -428,7 +448,8 @@ require "../database/connection.php";
                             <label>Factoring Name</label>
                             <div>
                                 <input list="factoringList" placeholder="--Select--" class="form-control"
-                                       id="selectFactoring" onchange="getFactoringInvoice(this.value)" name="selectFactoring">
+                                    id="selectFactoring" onchange="getFactoringInvoice(this.value)"
+                                    name="selectFactoring">
                                 <datalist id="factoringList">
                                     <?php
                                     $factoringData = $db->factoring_company_add->find(['companyID' => $_SESSION['companyId']]);
@@ -444,8 +465,8 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>Debit Category</label>
-                            <input list="facdebitcat" placeholder="--Select--" class="form-control"
-                                   id="debitecat" name="selectdebite">
+                            <input list="facdebitcat" placeholder="--Select--" class="form-control" id="debitecat"
+                                name="selectdebite">
                             <datalist id="facdebitcat">
                                 <?php
                                 $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
@@ -463,21 +484,19 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>Invoice</label>
                             <br>
-                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light"
-                                    type="button" data-toggle="dropdown">
+                            <button id="checkbtn" class=" btn btn-outline-dark waves-effect waves-light" type="button"
+                                data-toggle="dropdown">
                                 Invoice<i class="mdi mdi-menu-down-outline"
-                                          style="padding-left:15px;padding-right:50px"></i>
+                                    style="padding-left:15px;padding-right:50px"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <input type="checkbox" onclick='selectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Select all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Select all
                                 </li>
                                 <li>
                                     <input type="checkbox" onclick='UnSelectAll()'
-                                           style="margin-left:20px;margin-top:10px"
-                                           value="Select All"/>&nbsp;Unselect all
+                                        style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Unselect all
                                 </li>
                                 <li class="space" id="factoringINVOICE">
                                 </li>
@@ -486,7 +505,8 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 factoring" style="display:none;">
                             <label>Amount *</label>
                             <div>
-                                <input class="form-control" placeholder="Amount *" value="0" id="factoringAmount" name="factoringAmount" type="text">
+                                <input class="form-control" placeholder="Amount *" value="0" id="factoringAmount"
+                                    name="factoringAmount" type="text">
                             </div>
                         </div>
                         <div class="form-group col-md-2 factoring" style="display:none;">
@@ -522,8 +542,8 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 Expenses" style="display:none;">
                             <label>Debit Category</label>
-                            <input list="debitexpence" placeholder="--Select--" class="form-control"
-                                   id="expensesdebit" name="expensesdebit">
+                            <input list="debitexpence" placeholder="--Select--" class="form-control" id="expensesdebit"
+                                name="expensesdebit">
                             <datalist id="debitexpence">
                                 <?php
                                 $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
@@ -548,7 +568,7 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 Maintenance" style="display:none;">
                             <label>Debit Category</label>
                             <input list="Maintenance" placeholder="--Select--" class="form-control"
-                                   id="debitmaintenance" name="debitmaintenance">
+                                id="debitmaintenance" name="debitmaintenance">
                             <datalist id="Maintenance">
                                 <?php
                                 $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
@@ -572,15 +592,16 @@ require "../database/connection.php";
                         <div class="form-group col-md-3 Maintenance" style="display:none;">
                             <label>Payment ACH NO/REF NO</label>
                             <div>
-                                <input class="form-control" placeholder="Payment ACH NO/REF NO" type="text" id="maintenanceach">
+                                <input class="form-control" placeholder="Payment ACH NO/REF NO" type="text"
+                                    id="maintenanceach">
                             </div>
                         </div>
                         <div class="form-group col-md-2 Maintenance" style="display:none;">
                             <label>Truck No</label>
-                            <input list="truck" placeholder="--Select--" class="form-control"
-                                   id="truckmaintenance" name="truckmaintenance">
+                            <input list="truck" placeholder="--Select--" class="form-control" id="truckmaintenance"
+                                name="truckmaintenance">
                             <datalist id="truck">
-                                        <?php
+                                <?php
                                         $show_truck = $db->truckadd->find(['companyID' => $_SESSION['companyId']]);
                                         $no = 1;
                                         foreach ($show_truck as $showtruck) {
@@ -594,10 +615,10 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 Maintenance" style="display:none;">
                             <label>Trailer No</label>
-                            <input list="trailer" placeholder="--Select--" class="form-control"
-                                   id="trailermaintenance" name="trailermaintenance">
+                            <input list="trailer" placeholder="--Select--" class="form-control" id="trailermaintenance"
+                                name="trailermaintenance">
                             <datalist id="trailer">
-                                        <?php
+                                <?php
                                         $show_trailer = $db->trailer_admin_add->find(['companyID' => $_SESSION['companyId']]);
                                         $no = 1;
                                         foreach ($show_trailer as $showtrailer) {
@@ -613,13 +634,14 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 Insurance" style="display:none;">
                             <label>Insurance Company *</label>
                             <div>
-                                <input class="form-control" placeholder="Insurance Company *" type="text" id="insurancecompany">
+                                <input class="form-control" placeholder="Insurance Company *" type="text"
+                                    id="insurancecompany">
                             </div>
                         </div>
                         <div class="form-group col-md-2 Insurance" style="display:none;">
                             <label>Debit Category</label>
-                            <input list="Insurance" placeholder="--Select--" class="form-control"
-                                   id="debitInsurance" name="debitInsurance">
+                            <input list="Insurance" placeholder="--Select--" class="form-control" id="debitInsurance"
+                                name="debitInsurance">
                             <datalist id="Insurance">
                                 <?php
                                 $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
@@ -651,8 +673,8 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 main" style="display:none;">
                             <label>Main Card</label>
-                            <input list="creditcard" placeholder="--Select--" class="form-control"
-                                   id="maincard" name="maincard">
+                            <input list="creditcard" placeholder="--Select--" class="form-control" id="maincard"
+                                name="maincard">
                             <datalist id="creditcard">
                                 <?php
                                 $show = $db->credit_card_admin->find(['companyID' => $_SESSION['companyId']]);
@@ -669,8 +691,8 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 sub" style="display:none;">
                             <label>Sub Card</label>
-                            <input list="subcreditcard" placeholder="--Select--" class="form-control"
-                                   id="subcard" name="subcard">
+                            <input list="subcreditcard" placeholder="--Select--" class="form-control" id="subcard"
+                                name="subcard">
                             <datalist id="subcreditcard">
                                 <?php
                                 $showsub = $db->sub_credit_card->find(['companyID' => $_SESSION['companyId']]);
@@ -694,16 +716,16 @@ require "../database/connection.php";
                         <!--Fuel Card -->
                         <div class="form-group col-md-2 Fuel_Card" style="display:none;">
                             <label>Fuel list</label>
-                            <input list="fuelcard1" placeholder="--Select--" class="form-control"
-                                   id="fuelcard" name="fuelcard">
+                            <input list="fuelcard1" placeholder="--Select--" class="form-control" id="fuelcard"
+                                name="fuelcard">
                             <datalist id="fuelcard1">
                                 <?php
-                                $showsub = $db->sub_credit_card->find(['companyID' => $_SESSION['companyId']]);
+                                $showsub = $db->fuel_Card_Type->find(['companyID' => $_SESSION['companyId']]);
                                 $no = 1;
-                                foreach ($showsub as $subcredit) {
-                                    $banksubcreadit = $subcredit['sub_credit'];
-                                    foreach ($banksubcreadit as $scard) {
-                                        $value = "'" . $scard['_id'] . ')' . $scard['displayName'] . "'";
+                                foreach ($showsub as $subfuel) {
+                                    $subfuelcard = $subfuel['fuelCard'];
+                                    foreach ($subfuelcard as $scard) {
+                                        $value = "'" . $scard['_id'] . ')' . $scard['fuelCardType'] . "'";
 
                                         echo "<option value=$value></option>";
                                     }
@@ -725,8 +747,8 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 other" style="display:none;">
                             <label>Debit Category</label>
-                            <input list="other" placeholder="--Select--" class="form-control"
-                                   id="otherdebit" name="otherdebit">
+                            <input list="other" placeholder="--Select--" class="form-control" id="otherdebit"
+                                name="otherdebit">
                             <datalist id="other">
                                 <?php
                                 $showdebit = $db->bank_debit_category->find(['companyID' => $_SESSION['companyId']]);
@@ -777,13 +799,13 @@ require "../database/connection.php";
                                 <label>Upload Files</label>
                                 <button class="button">Upload a file</button>
                                 <input type="file" id="files" onchange="getfiles(this.files);" name="files[]" multiple
-                                       accept=".png, .jpg, .jpeg, .pdf"/>
+                                    accept=".png, .jpg, .jpeg, .pdf" />
                             </div>
                             <div class="form-group col-md-10">
                                 <label>Memo *</label>
                                 <div>
                                     <textarea class="form-control" rows="1" id="memo" name="memo"
-                                              placeholder="Memo *"></textarea>
+                                        placeholder="Memo *"></textarea>
                                     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                                 </div>
                             </div>
@@ -791,7 +813,7 @@ require "../database/connection.php";
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="Paymentadd()">ADD
+                    <button type="button" class="btn btn-primary waves-effect waves-light" id="addbankpayment" onclick="Paymentadd()">ADD
                     </button>
                     <button type="button" class="btn btn-success waves-effect waves-light">ADD & PRINT
                     </button>
@@ -804,7 +826,7 @@ require "../database/connection.php";
     </div><!-- /.modal -->
     <!-- Advance Amount -->
     <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-         id="Advance_amount" aria-hidden="true">
+        id="Advance_amount" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header" style="background-color: #2A3988;">
@@ -816,33 +838,31 @@ require "../database/connection.php";
                 <div class="modal-body">
                     <table class=" table-responsive">
                         <thead>
-                        <tr>
-                            <td>Advance Amount</td>
-                            <td>Memo</td>
-                            <td>Delete</td>
-                        </tr>
+                            <tr>
+                                <td>Advance Amount</td>
+                                <td>Memo</td>
+                                <td>Delete</td>
+                            </tr>
                         </thead>
                         <tbody id="TextBoxContainer1">
-                        <td width="150"><input name=" " type="text" value=" " class="form-control"/>
-                        </td>
-                        <td width="300"><input name=" " type="text" value=" " class="form-control"/>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger"><span
-                                        aria-hidden="true">&times;</span>
-                            </button>
-                        </td>
+                            <td width="150"><input name=" " type="text" value=" " class="form-control" />
+                            </td>
+                            <td width="300"><input name=" " type="text" value=" " class="form-control" />
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger"><span aria-hidden="true">&times;</span>
+                                </button>
+                            </td>
                         </tbody>
                         <tfoot>
-                        <tr>
-                            <th colspan="12">
-                                <button id="btnAddadv" type="button" class="btn btn-primary"
-                                        data-toggle="tooltip"><i
-                                            class="glyphicon glyphicon-plus-sign"></i>&nbsp;
-                                    Add&nbsp;
-                                </button>
-                            </th>
-                        </tr>
+                            <tr>
+                                <th colspan="12">
+                                    <button id="btnAddadv" type="button" class="btn btn-primary"
+                                        data-toggle="tooltip"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;
+                                        Add&nbsp;
+                                    </button>
+                                </th>
+                            </tr>
                         </tfoot>
                     </table>
                 </div>
@@ -858,16 +878,4 @@ require "../database/connection.php";
     </div><!-- /.modal -->
 </div>
 </div>
-<style>
-    #scroll {
-        overflow-x: auto;
-        width: 80%
-    }
-
-    .a {
-        border: 1px solid #30419B;
-        margin-left: 4px;
-        margin-right: 4px;
-    }
-</style>
 <script src="account/js/form.js"></script>

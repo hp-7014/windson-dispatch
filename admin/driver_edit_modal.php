@@ -4,7 +4,7 @@ require "../database/connection.php";
 ?>
 <!--------------------------------------------Add Driver--------------------------------------------------------------------------------------->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="edit_Driver"
-     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
@@ -21,71 +21,58 @@ require "../database/connection.php";
                     <div class="form-group col-md-3">
                         <label>Name <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control" placeholder="Name *"
-                                   type="text" id="driverNameEdit">
+                            <input class="form-control" placeholder="Name *" type="text" id="driverNameEdit">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
                         <label>Username</label>
                         <div>
-                            <input class="form-control" placeholder="Username"
-                                   type="text" id="driverUsernameEdit">
+                            <input class="form-control" placeholder="Username" type="text" id="driverUsernameEdit">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
                         <label>Password</label>
                         <div>
-                            <input class="form-control"
-                                   placeholder="Password"
-                                   type="password" id="driverPasswordEdit">
+                            <input class="form-control" placeholder="Password" type="password" id="driverPasswordEdit">
                             <span toggle="#driverPasswordEdit"
-                                  class="fa fa-fw fa-eye pasword-icon-btn toggle-password"></span>
+                                class="fa fa-fw fa-eye pasword-icon-btn toggle-password"></span>
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Telephone <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control"
-                                   placeholder="Telephone *" id="driverTelephoneEdit" type="text">
+                            <input class="form-control" placeholder="Telephone *" id="driverTelephoneEdit" type="text">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Alt - Tel #</label>
                         <div>
-                            <input class="form-control"
-                                   placeholder="Alt - Tel #" id="driverAltEdit" type="text">
+                            <input class="form-control" placeholder="Alt - Tel #" id="driverAltEdit" type="text">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
                         <label>Email</label>
                         <div>
-                            <input class="form-control"
-                                   placeholder="Email"
-                                   type="email" id="driverEmailEdit">
+                            <input class="form-control" placeholder="Email" type="email" id="driverEmailEdit">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
                         <label>Address <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control"
-                                   placeholder="Address *" id="driverAddressEdit" type="text"
-                            >
+                            <input class="form-control" placeholder="Address *" id="driverAddressEdit" type="text">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
                         <label>Location <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control"
-                                   onkeyup="getLocation('driverLocation')" id="driverLocationEdit"
-                                   placeholder="Location *" type="text">
+                            <input class="form-control" onkeyup="getLocation('driverLocation')" id="driverLocationEdit"
+                                placeholder="Location *" type="text">
                         </div>
                     </div>
                     <div class="form-group col-md-1">
                         <label>Zip <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control" id="driverZipEdit"
-                                   placeholder="Zip *" type="text"
-                            >
+                            <input class="form-control" id="driverZipEdit" placeholder="Zip *" type="text">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
@@ -102,40 +89,34 @@ require "../database/connection.php";
                     <div class="form-group col-md-2">
                         <label>Social Security No</label>
                         <div>
-                            <input class="form-control"
-                                   id="driverSocialEdit"
-                                   placeholder="Social Security No"
-                                   type="text"
-                            >
+                            <input class="form-control" id="driverSocialEdit" placeholder="Social Security No"
+                                type="text">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Date of Birth</label>
                         <div>
-                            <input class="form-control"
-                                   id="dateOfbirthEdit" type="date">
+                            <input class="form-control" id="dateOfbirthEdit" type="date">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Date of Hire</label>
                         <div>
-                            <input class="form-control"
-                                   id="dateOfhireEdit" type="date">
+                            <input class="form-control" id="dateOfhireEdit" type="date">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
                         <label>License No. <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control"
-                                   placeholder="License No. *" id="driverLicenseNoEdit" type="text">
+                            <input class="form-control" placeholder="License No. *" id="driverLicenseNoEdit"
+                                type="text">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
                         <label>License Issue State <span class="mandatory">*</span></label>
                         <div>
                             <input list="statelist" class="form-control" placeholder="--Select--"
-                                   id="driverLicenseIssueEdit"
-                                   name="driverLicenseIssue">
+                                id="driverLicenseIssueEdit" name="driverLicenseIssue">
                             <datalist id="statelist">
                                 <option value="AL">
                                 <option value="AK">
@@ -192,64 +173,49 @@ require "../database/connection.php";
                     <div class="form-group col-md-2 ">
                         <label>License Exp. Date <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control"
-
-                                   id="driverLicenseExpEdit" type="date">
+                            <input class="form-control" id="driverLicenseExpEdit" type="date">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Last Medical</label>
                         <div>
-                            <input class="form-control"
-
-                                   id="driverLastMedicalEdit" type="date">
+                            <input class="form-control" id="driverLastMedicalEdit" type="date">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Next Medical</label>
                         <div>
-                            <input class="form-control"
-
-                                   id="driverNextMedicalEdit" type="date">
+                            <input class="form-control" id="driverNextMedicalEdit" type="date">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Last Drug Test</label>
                         <div>
-                            <input class="form-control"
-
-                                   id="driverLastDrugTestEdit" type="date">
+                            <input class="form-control" id="driverLastDrugTestEdit" type="date">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Next Drug Test</label>
                         <div>
-                            <input class="form-control"
-
-                                   id="driverNextDrugTestEdit" type="date">
+                            <input class="form-control" id="driverNextDrugTestEdit" type="date">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Passport Expiry</label>
                         <div>
-                            <input class="form-control"
-
-                                   id="passportExpiryEdit" type="date">
+                            <input class="form-control" id="passportExpiryEdit" type="date">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Fast Card Expiry</label>
                         <div>
-                            <input class="form-control"
-
-                                   id="fastCardExpiryEdit" type="date">
+                            <input class="form-control" id="fastCardExpiryEdit" type="date">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
                         <label>Hazmat Expiry</label>
                         <div>
-                            <input class="form-control"
-                                   id="hazmatExpiryEdit" type="date">
+                            <input class="form-control" id="hazmatExpiryEdit" type="date">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
@@ -268,19 +234,18 @@ require "../database/connection.php";
                         <label>Currency <span class="mandatory">*</span>
                         </label><i class="mdi mdi-plus-circle plus" id="add_driver_currency_modal"></i>
                         <input list="driverCurrency" class="form-control" placeholder="--Select--"
-                               id="driverCurrencyListEdit"
-                               name="driverCurrencyList">
+                            id="driverCurrencyListEdit" name="driverCurrencyList">
                         <datalist id="driverCurrency">
                             <?php
-                            $show_currency = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
-                            $no = 1;
-                            foreach ($show_currency as $showcurrency) {
-                                $currency = $showcurrency['currency'];
-                                foreach ($currency as $scur) {
-                                    $currencyValue = "'" . $scur['_id'] . ")&nbsp;" . $scur['currencyType'] . "'";
-                                    echo "<option value=$currencyValue></option>";
-                                }
-                            } ?>
+                                $show_currency = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
+                                $no = 1;
+                                foreach ($show_currency as $showcurrency) {
+                                    $currency = $showcurrency['currency'];
+                                    foreach ($currency as $scur) {
+                                        $currencyValue = "'" . $scur['_id'] . ")&nbsp;" . $scur['currencyType'] . "'";
+                                        echo "<option value=$currencyValue></option>";
+                                    }
+                                } ?>
                         </datalist>
                     </div>
                     <div class="form-group col-md-2 ">
@@ -313,8 +278,7 @@ require "../database/connection.php";
                     <div class="form-group col-md-2 ">
                         <label>Termination Date</label>
                         <div>
-                            <input class="form-control"
-                                   id="terminationDateEdit" type="date">
+                            <input class="form-control" id="terminationDateEdit" type="date">
                         </div>
                     </div>
                     <div class="form-group col-md-12">
@@ -322,7 +286,7 @@ require "../database/connection.php";
                         <div>
                             <input type="hidden" id="driverUpdateID">
                             <textarea rows="1" cols="30" placeholder="Notes" id="InternalNoteEdit" class="form-control"
-                                      type="textarea"></textarea>
+                                type="textarea"></textarea>
                         </div>
                     </div>
                 </div>
@@ -335,7 +299,7 @@ require "../database/connection.php";
                     Close
                 </button>
                 <button type="submit" onclick="DriverUpdateDetail()"
-                        class="btn btn-primary waves-effect waves-light">Save
+                    class="btn btn-primary waves-effect waves-light">Save
                     Driver Detail
                 </button>
             </div>

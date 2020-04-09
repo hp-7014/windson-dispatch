@@ -174,8 +174,8 @@ if ($_GET['types'] == 'live_truck_table') {
             $pencilid20 = '"internalNotesPencil'.$i.'"';
 
                 echo "<tr>
-                    <td>$i</td>
-                    <td class='custom-text' id='truckNumber$i'
+                    <th>$i</th>
+                    <th class='custom-text' id='truckNumber$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -183,7 +183,7 @@ if ($_GET['types'] == 'live_truck_table') {
                             onclick='updateTableColumn($c_type1,$updateTruckAdd,$type,$id,$column1,$title1,$pencilid1)'
                         ></i>
                         $truckNumber
-                    </td>
+                    </th>
                     <td class='custom-text'>
                         $truckType
                     </td>
@@ -553,8 +553,8 @@ if ($_GET['types'] == 'search_text') {
                 || $_POST['getoption'] == $row1['internalNotes']
             ) {
                 echo "<tr>
-                    <td>$i</td>
-                    <td class='custom-text' id='truckNumber$i'
+                    <th>$i</th>
+                    <th class='custom-text' id='truckNumber$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -562,7 +562,7 @@ if ($_GET['types'] == 'search_text') {
                             onclick='updateTableColumn($c_type1,$updateTruckAdd,$type,$id,$column1,$title1,$pencilid1)'
                         ></i>
                         $truckNumber
-                    </td>
+                    </th>
                     <td class='custom-text'>
                         $truckType
                     </td>
@@ -916,8 +916,8 @@ if ($_GET['types'] == 'search_text') {
                 $pencilid20 = '"internalNotesPencil'.$i.'"';
 
                 echo "<tr>
-                    <td>$i</td>
-                    <td class='custom-text' class='custom-text' id='truckNumber$i'
+                    <th>$i</th>
+                    <th class='custom-text' class='custom-text' id='truckNumber$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -925,7 +925,7 @@ if ($_GET['types'] == 'search_text') {
                             onclick='updateTableColumn($c_type1,$updateTruckAdd,$type,$id,$column1,$title1,$pencilid1)'
                         ></i>
                         $truckNumber
-                    </td>
+                    </th>
                     <td class='custom-text'>
                         $truckType
                     </td>
@@ -1285,8 +1285,8 @@ if ($_GET['types'] == 'paginate_truck_admin') {
             $pencilid20 = '"internalNotesPencil'.$i.'"';
 
             echo "<tr>
-                <td>$start</td>
-                <td class='custom-text' id='truckNumber$i'
+                <th>$start</th>
+                <th class='custom-text' id='truckNumber$i'
                     onmouseover='showPencil_s($pencilid1)'
                     onmouseout='hidePencil_s($pencilid1)'
                     >
@@ -1294,7 +1294,7 @@ if ($_GET['types'] == 'paginate_truck_admin') {
                         onclick='updateTableColumn($c_type1,$updateTruckAdd,$type,$id,$column1,$title1,$pencilid1)'
                     ></i>
                     $truckNumber
-                </td>
+                </th>
                 <td class='custom-text'>
                     $truckType
                 </td>

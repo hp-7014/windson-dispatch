@@ -137,18 +137,24 @@ class Currency implements IteratorAggregate
         for ($i = 0; $i < $sheetCount; $i++ )
         {
             $Reader->ChangeSheet($i);
-
+            $count = 0;
             foreach ($Reader as $Row)
             {
-                if(isset($Row[0])) {
-                    $this->currencyType = $Row[0];
-                    $this->companyID = $_SESSION['companyId'];
-                    $this->setId($helper->getNextSequence("currencycount",$db));
+                $count++;
+                if($count > 1000){
+                    echo "Your file should contain atmost 1000 entries. First 1000 entries added successfully"; 
+                    break;
+                } else {
+                    if(isset($Row[0])) {
+                        $this->currencyType = $Row[0];
+                        $this->companyID = $_SESSION['companyId'];
+                        $this->setId($helper->getNextSequence("currencycount",$db));
+                    }
+                    $this->Insert($this,$db,$helper);
                 }
-                $this->Insert($this,$db,$helper);
             }
         }
-
+        unlink($targetPath);
     }
     
 

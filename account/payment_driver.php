@@ -206,3 +206,45 @@ else if($_GET['type'] == 'paymentother'){
     $bank->setBaseamount($_POST['baseamount']);
     $bank->insertother($bank,$db,$helper);
 }
+
+else if ($_GET['type'] == "fileupload") {
+    $bank = new Bank();
+    $id = $_POST['id'];
+    if (isset($_FILES['files']) && !empty($_FILES['files'])) {
+        $uploadDir = 'upload/Bank/';
+        $response = '';
+        $allowTypes = array('pdf', 'jpg', 'png', 'jpeg');
+        $i = 0;
+        $docs = array();
+        foreach ($_FILES['files']['name'] as $key => $val) {
+            $fileName = rand(0, 9999999999) . $_FILES["files"]["name"][$key];
+            $originalname = $_FILES["files"]["name"][$key];
+
+            $temLoc = $_FILES['files']['tmp_name'][$key];
+            $targetFilePath = $uploadDir . $fileName;
+            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+            $fileSize = $_FILES['files']['size'][$key];
+            if (in_array($fileType, $allowTypes)) {
+                if ($fileSize < 200000) {
+                    $docs[] = $fileName;
+                    $bank->setBankName($_POST['Bankname']);
+                    $bank->setYear(date("Y"));
+                    $bank->setMonth(date("F"));
+                    $bank->setFile($fileName, $originalname, $fileSize, $targetFilePath, $i);
+                } else {
+                    echo "File Size is To Large For " . $fileName;
+                    exit();
+                }
+            } else {
+                echo "File Type Error For " . $fileName;
+                exit();
+            }
+            $i++;
+        }
+        for ($i = 0; $i < count($docs); $i++) {
+            move_uploaded_file($_FILES["files"]["tmp_name"][$i], $uploadDir . $docs[$i]);
+        }
+        $bank->updatefile($bank, $db, $id);
+    }
+}

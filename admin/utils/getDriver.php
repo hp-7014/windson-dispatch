@@ -75,8 +75,8 @@ if ($_GET['types'] == 'live_driver_table') {
             $pencilid9 = '"driverLicenseExpPencil'.$i.'"';
 
             $table .= "<tr>
-                <td> $i</td>
-                <td class='custom-text' id='driverName$i'
+                <th> $i</th>
+                <th class='custom-text' id='driverName$i'
                     onmouseover='showPencil_s($pencilid1)'
                     onmouseout='hidePencil_s($pencilid1)'
                     >
@@ -84,7 +84,7 @@ if ($_GET['types'] == 'live_driver_table') {
                         onclick='updateTableColumn($c_type1,$updateDriver,$type,$id,$driverNameColumn,$title1,$pencilid1)'
                     ></i>
                     $driverName
-                </td>
+                </th>
                 <td class='custom-text' id='driverEmail$i'
                     onmouseover='showPencil_s($pencilid2)'
                     onmouseout='hidePencil_s($pencilid2)'
@@ -159,8 +159,12 @@ if ($_GET['types'] == 'live_driver_table') {
                 </td>
                 
                 <td><a href='#' onclick='deleteDriver($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></a></i>
+                    <a href='#' onclick='editDriver($id)'><i id='editDriverDetail'
+                        data-toggle='tooltip' data-placement='top' title='Edit Detail'
+                        class='mdi mdi-file-document-edit-outline editModal'></i></a>
                 </td>
             </tr>";
+
             $value = "'".$id.")&nbsp;".$driverName."'";
             $list .= "<option value=$value></option>";
         }
@@ -241,8 +245,8 @@ if ($_GET['types'] == 'search_text') {
                 $pencilid9 = '"driverLicenseExpPencil'.$i.'"';
 
                 echo "<tr>
-                    <td> $i</td>
-                    <td class='custom-text' id='driverName$i'
+                    <th> $i</th>
+                    <th class='custom-text' id='driverName$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -250,7 +254,7 @@ if ($_GET['types'] == 'search_text') {
                             onclick='updateTableColumn($c_type1,$updateDriver,$type,$id,$driverNameColumn,$title1,$pencilid1)'
                         ></i>
                         $driverName
-                    </td>
+                    </th>
                     <td class='custom-text' id='driverEmail$i'
                         onmouseover='showPencil_s($pencilid2)'
                         onmouseout='hidePencil_s($pencilid2)'
@@ -325,6 +329,9 @@ if ($_GET['types'] == 'search_text') {
                     </td>
                     
                     <td><a href='#' onclick='deleteDriver($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></a></i>
+                        <a href='#' onclick='editDriver($id)'><i id='editDriverDetail'
+                            data-toggle='tooltip' data-placement='top' title='Edit Detail'
+                            class='mdi mdi-file-document-edit-outline editModal'></i></a>
                     </td>
                 </tr>";
             }
@@ -402,7 +409,7 @@ if ($_GET['types'] == 'search_text') {
                     $pencilid9 = '"driverLicenseExpPencil'.$i.'"';
 
                    echo "<tr>
-                        <td> $i</td>
+                        <th> $i</th>
                         <td class='custom-text' id='driverName$i'
                             onmouseover='showPencil_s($pencilid1)'
                             onmouseout='hidePencil_s($pencilid1)'
@@ -486,6 +493,9 @@ if ($_GET['types'] == 'search_text') {
                         </td>
                         
                         <td><a href='#' onclick='deleteDriver($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></a></i>
+                            <a href='#' onclick='editDriver($id)'><i id='editDriverDetail'
+                                data-toggle='tooltip' data-placement='top' title='Edit Detail'
+                                class='mdi mdi-file-document-edit-outline editModal'></i></a>
                         </td>
                     </tr>";
                 }
@@ -570,8 +580,8 @@ if ($_GET['types'] == 'paginate_drive') {
             $pencilid9 = '"driverLicenseExpPencil'.$i.'"';
 
             echo "<tr>
-                <td> $i</td>
-                <td class='custom-text' id='driverName$i'
+                <th> $i</th>
+                <th class='custom-text' id='driverName$i'
                     onmouseover='showPencil_s($pencilid1)'
                     onmouseout='hidePencil_s($pencilid1)'
                     >
@@ -579,7 +589,7 @@ if ($_GET['types'] == 'paginate_drive') {
                         onclick='updateTableColumn($c_type1,$updateDriver,$type,$id,$driverNameColumn,$title1,$pencilid1)'
                     ></i>
                     $driverName
-                </td>
+                </th>
                 <td class='custom-text' id='driverEmail$i'
                     onmouseover='showPencil_s($pencilid2)'
                     onmouseout='hidePencil_s($pencilid2)'
@@ -654,6 +664,9 @@ if ($_GET['types'] == 'paginate_drive') {
                 </td>
                 
                 <td><a href='#' onclick='deleteDriver($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></a></i>
+                    <a href='#' onclick='editDriver($id)'><i id='editDriverDetail'
+                        data-toggle='tooltip' data-placement='top' title='Edit Detail'
+                        class='mdi mdi-file-document-edit-outline editModal'></i></a>
                 </td>
             </tr>";
         }

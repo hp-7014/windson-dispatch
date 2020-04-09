@@ -39,7 +39,7 @@ foreach ($g_data as $data) {
 
             $no += 1;
             $table .= "<tr>
-                                                                    <td> $no</td>
+                                                                    <th> $no</th>
                                                                     <td>
                                                                         <a href='#' id='1displayName$id' data-type='textarea' ondblclick='showTextarea(this.id,$type,$id,$displayNameColumn)' class='text-overflow'>$displayName</a>
                                                                         <button type='button' id='displayName$id' style='display:none; margin-left:6px;' onclick='updateDriver($displayNameColumn,$id)' class='btn btn-success editable-submit btn-sm waves-effect waves-light text-center'><i class='mdi mdi - check'></i></button>

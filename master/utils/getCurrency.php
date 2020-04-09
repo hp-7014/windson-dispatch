@@ -24,7 +24,7 @@ require "../../database/connection.php";
         $c_type = '"'.$currencyType.'"';
         
         echo "<tr>
-            <td>$i</td>
+            <th>$i</th>
             <td id='currencyType$i'
                 onmouseover='showPencil_s($pencilid)'
                 onmouseout='hidePencil_s($pencilid)'

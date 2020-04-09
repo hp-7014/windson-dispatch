@@ -2,8 +2,8 @@
 session_start();
 require "../database/connection.php";
 ?>
-<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
-     aria-labelledby="mySmallModalLabel" id="Add_Trailer_Type" aria-hidden="true">
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    id="Add_Trailer_Type" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #2A3988;">
@@ -17,18 +17,17 @@ require "../database/connection.php";
                     <div class="form-group col-md-12">
                         <label style="color: #354558">Name *</label>
                         <div>
-                            <input class="form-control" placeholder="Name *" type="text"
-                                   id="trailer_add_type">
+                            <input class="form-control" placeholder="Name *" type="text" id="trailer_add_type">
                             <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                         </div>
                     </div>
                 </div>
                 <span class="mandatory">Note: * Fields are Mandatory</span>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger waves-effect modalTrailerType"
-                    >Close
+                    <button type="button" class="btn btn-danger waves-effect modalTrailerType">Close
                     </button>
                     <button type="button" onclick="addTrailer()" id="" class="btn btn-primary waves-effect waves-light">
+                        <span class="spinner-border spinner-border-sm loader1"></span>
                         Save
                     </button>
                 </div>

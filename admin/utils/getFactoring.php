@@ -150,8 +150,8 @@ if ($_GET['types'] == 'live_factoring_table') {
             $pencilid15 = '"internalNotePencil'.$i.'"';
 
             echo "<tr>
-                <td>$i</td>
-                <td class='custom-text' id='factoringCompanyname$i'
+                <th>$i</th>
+                <th class='custom-text' id='factoringCompanyname$i'
                     onmouseover='showPencil_s($pencilid1)'
                     onmouseout='hidePencil_s($pencilid1)'
                     >
@@ -159,7 +159,7 @@ if ($_GET['types'] == 'live_factoring_table') {
                         onclick='updateTableColumn($c_type1,$updateFactoring,$type,$id,$factoringCompanynamecolumn,$title1,$pencilid1)'
                     ></i>
                     $factoringCompanyname
-                </td>
+                </th>
                 <td class='custom-text' id='address$i'
                     onmouseover='showPencil_s($pencilid2)'
                     onmouseout='hidePencil_s($pencilid2)'
@@ -462,8 +462,8 @@ if ($_GET['types'] == 'search_text') {
                 || $_POST['getoption'] == $paymentTerms
             ) {
                 echo "<tr>
-                    <td>$i</td>
-                    <td class='custom-text' id='factoringCompanyname$i'
+                    <th>$i</th>
+                    <th class='custom-text' id='factoringCompanyname$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -471,7 +471,7 @@ if ($_GET['types'] == 'search_text') {
                             onclick='updateTableColumn($c_type1,$updateFactoring,$type,$id,$factoringCompanynamecolumn,$title1,$pencilid1)'
                         ></i>
                         $factoringCompanyname
-                    </td>
+                    </th>
                     <td class='custom-text' id='address$i'
                         onmouseover='showPencil_s($pencilid2)'
                         onmouseout='hidePencil_s($pencilid2)'
@@ -754,8 +754,8 @@ if ($_GET['types'] == 'search_text') {
                 $pencilid15 = '"internalNotePencil'.$i.'"';
 
                 echo "<tr>
-                    <td>$i</td>
-                    <td class='custom-text' id='factoringCompanyname$i'
+                    <th>$i</th>
+                    <th class='custom-text' id='factoringCompanyname$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -763,7 +763,7 @@ if ($_GET['types'] == 'search_text') {
                             onclick='updateTableColumn($c_type1,$updateFactoring,$type,$id,$factoringCompanynamecolumn,$title1,$pencilid1)'
                         ></i>
                         $factoringCompanyname
-                    </td>
+                    </th>
                     <td class='custom-text' id='address$i'
                         onmouseover='showPencil_s($pencilid2)'
                         onmouseout='hidePencil_s($pencilid2)'
@@ -1059,8 +1059,8 @@ if ($_GET['types'] == 'paginate_factoring_com') {
             $pencilid15 = '"internalNotePencil'.$i.'"';
 
             echo "<tr>
-                <td>$start</td>
-                <td class='custom-text' id='factoringCompanyname$i'
+                <th>$start</th>
+                <th class='custom-text' id='factoringCompanyname$i'
                     onmouseover='showPencil_s($pencilid1)'
                     onmouseout='hidePencil_s($pencilid1)'
                     >
@@ -1068,7 +1068,7 @@ if ($_GET['types'] == 'paginate_factoring_com') {
                         onclick='updateTableColumn($c_type1,$updateFactoring,$type,$id,$factoringCompanynamecolumn,$title1,$pencilid1)'
                     ></i>
                     $factoringCompanyname
-                </td>
+                </th>
                 <td class='custom-text' id='address$i'
                     onmouseover='showPencil_s($pencilid2)'
                     onmouseout='hidePencil_s($pencilid2)'

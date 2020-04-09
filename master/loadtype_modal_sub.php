@@ -1,6 +1,6 @@
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-     id="addLoad_Type" aria-hidden="true">
-     
+    id="addLoad_Type" aria-hidden="true">
+
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #2A3988;">
@@ -14,8 +14,7 @@
                     <div class="form-group col-md-12">
                         <label>Name <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control" placeholder="Name *" type="text"
-                                   id="loadName">
+                            <input class="form-control" placeholder="Name *" type="text" id="loadName">
                             <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                         </div>
                     </div>
@@ -27,15 +26,15 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <span class="mandatory">Note: * Fields are Mandatory</span>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger waves-effect modalLoadType"
-                            >Close
+                    <button type="button" class="btn btn-danger waves-effect modalLoadType">Close
                     </button>
                     <button type="submit" name="submit" onclick="addLoadType()"
-                            class="btn btn-primary waves-effect waves-light">
+                        class="btn btn-primary waves-effect waves-light">
+                        <span class="spinner-border spinner-border-sm loader1"></span>
                         Save
                     </button>
                 </div>

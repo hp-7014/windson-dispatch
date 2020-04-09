@@ -38,7 +38,7 @@ include '../database/connection.php';
                         <div class="table-rep-plugin">
                             <div class="table-responsive b-0" data-pattern="priority-columns">
                                 <input class="form-control col-md-2 col-sm-4 col-lg-2 float-right" type="text"
-                                       id="search" onkeyup="search_trailer(this)" placeholder="search"
+                                       id="search" onkeyup="search_account_manager(this)" placeholder="search"
                                        style="margin-left: 5px;">
                                 <div id="table-scroll" class="table-scroll">
                                     <table id="carrier_table" class="scroll">
@@ -273,14 +273,14 @@ include '../database/connection.php';
                                 if ($i == 0) {
                                     ?>
                                             <li class="pageitem active"
-                                                onclick="paginate_trailer(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
+                                                onclick="paginate_account(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
                                                 id="<?php echo $i; ?>"><a data-id="<?php echo $i; ?>"
                                                                           class="page-link"><?php echo $j; ?></a></li>
                                             <?php
                                 } else {
                                     ?>
                                             <li class="pageitem"
-                                                onclick="paginate_trailer(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
+                                                onclick="paginate_account(<?php echo $i * $limit; ?>,<?php echo $limit ?>)"
                                                 id="<?php echo $i; ?>"><a class="page-link"
                                                                           data-id="<?php echo $i; ?>"><?php echo $j; ?></a>
                                             </li>

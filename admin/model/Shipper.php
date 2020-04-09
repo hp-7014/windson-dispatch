@@ -507,58 +507,68 @@ class Shipper implements IteratorAggregate
             $this->setId($helper->getNextSequence("shipper", $db));
             $this->companyID = $_SESSION['companyId'];
 
-            foreach ($Reader as $Row) {
-                if (isset($Row[0])) {
-                    $this->shipperName = $Row[0];
+            $count = 0;
+            foreach ($Reader as $Row)
+            {
+                $count++;
+                if($count > 1000){
+                    echo "Your file should contain atmost 1000 entries. First 1000 entries added successfully"; 
+                    break;
+                } else {
+
+                    if (isset($Row[0])) {
+                        $this->shipperName = $Row[0];
+                    }
+                    if (isset($Row[1])) {
+                        $this->shipperAddress = $Row[1];
+                    }
+                    if (isset($Row[2])) {
+                        $this->shipperLocation = $Row[2];
+                    }
+                    if (isset($Row[3])) {
+                        $this->shipperPostal = $Row[3];
+                    }
+                    if (isset($Row[4])) {
+                        $this->shipperContact = $Row[4];
+                    }
+                    if (isset($Row[5])) {
+                        $this->shipperEmail = $Row[5];
+                    }
+                    if (isset($Row[6])) {
+                        $this->shipperTelephone = $Row[6];
+                    }
+                    if (isset($Row[7])) {
+                        $this->shipperExt = $Row[7];
+                    }
+                    if (isset($Row[8])) {
+                        $this->shipperTollFree = $Row[8];
+                    }
+                    if (isset($Row[9])) {
+                        $this->shipperFax = $Row[9];
+                    }
+                    if (isset($Row[10])) {
+                        $this->shipperShippingHours = $Row[10];
+                    }
+                    if (isset($Row[11])) {
+                        $this->shipperAppointments = $Row[11];
+                    }
+                    if (isset($Row[12])) {
+                        $this->shipperIntersaction = $Row[12];
+                    }
+                    if (isset($Row[13])) {
+                        $this->shipperStatus = $Row[13];
+                    }
+                    if (isset($Row[14])) {
+                        $this->shippingNotes = $Row[14];
+                    }
+                    if (isset($Row[15])) {
+                        $this->internalNotes = $Row[15];
+                    }
+                    $this->insert($this, $db,$helper);
                 }
-                if (isset($Row[1])) {
-                    $this->shipperAddress = $Row[1];
-                }
-                if (isset($Row[2])) {
-                    $this->shipperLocation = $Row[2];
-                }
-                if (isset($Row[3])) {
-                    $this->shipperPostal = $Row[3];
-                }
-                if (isset($Row[4])) {
-                    $this->shipperContact = $Row[4];
-                }
-                if (isset($Row[5])) {
-                    $this->shipperEmail = $Row[5];
-                }
-                if (isset($Row[6])) {
-                    $this->shipperTelephone = $Row[6];
-                }
-                if (isset($Row[7])) {
-                    $this->shipperExt = $Row[7];
-                }
-                if (isset($Row[8])) {
-                    $this->shipperTollFree = $Row[8];
-                }
-                if (isset($Row[9])) {
-                    $this->shipperFax = $Row[9];
-                }
-                if (isset($Row[10])) {
-                    $this->shipperShippingHours = $Row[10];
-                }
-                if (isset($Row[11])) {
-                    $this->shipperAppointments = $Row[11];
-                }
-                if (isset($Row[12])) {
-                    $this->shipperIntersaction = $Row[12];
-                }
-                if (isset($Row[13])) {
-                    $this->shipperStatus = $Row[13];
-                }
-                if (isset($Row[14])) {
-                    $this->shippingNotes = $Row[14];
-                }
-                if (isset($Row[15])) {
-                    $this->internalNotes = $Row[15];
-                }
-                $this->insert($this, $db,$helper);
             }
         }
+        unlink($targetPath);
     }
 
     public function exportShipper($db)

@@ -7,7 +7,7 @@ require "../database/connection.php";
 
 <!--  Modal content for the above example -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="add_Driver"
-     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
             <div class="modal-header custom-modal-header">
@@ -18,28 +18,26 @@ require "../database/connection.php";
                 </button>
             </div>
             <div class="modal-body custom-modal-body">
+                <div class="owner-container" style="z-index: 1600"></div>
                 <div class="row">
                     <div class="owner-container" style="z-index: 1600"></div>
                     <div class="form-group col-md-3">
                         <label>Name <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control" placeholder="Name *"
-                                   type="text" id="driverName">
+                            <input class="form-control" placeholder="Name *" type="text" id="driverName">
                             <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
                         <label>Username</label>
                         <div>
-                            <input class="form-control" placeholder="Username"
-                                   type="text" id="driverUsername">
+                            <input class="form-control" placeholder="Username" type="text" id="driverUsername">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
                         <label>Password</label>
                         <div>
-                            <input class="form-control" placeholder="Password"
-                                   type="password" id="driverPassword">
+                            <input class="form-control" placeholder="Password" type="password" id="driverPassword">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
@@ -71,14 +69,13 @@ require "../database/connection.php";
                         <label>Location <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" onkeyup="getLocation('driverLocation')" id="driverLocation"
-                                   placeholder="Location *" type="text">
+                                placeholder="Location *" type="text">
                         </div>
                     </div>
                     <div class="form-group col-md-1">
                         <label>Zip <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control" id="driverZip" placeholder="Zip *" type="text"
-                            >
+                            <input class="form-control" id="driverZip" placeholder="Zip *" type="text">
                         </div>
                     </div>
                     <div class="form-group col-md-2">
@@ -92,9 +89,7 @@ require "../database/connection.php";
                     <div class="form-group col-md-2">
                         <label>Social Security No</label>
                         <div>
-                            <input class="form-control" id="driverSocial" placeholder="Social Security No"
-                                   type="text"
-                            >
+                            <input class="form-control" id="driverSocial" placeholder="Social Security No" type="text">
                         </div>
                     </div>
                     <div class="form-group col-md-2 ">
@@ -119,7 +114,7 @@ require "../database/connection.php";
                         <label>License Issue State <span class="mandatory">*</span></label>
                         <div>
                             <input list="statelist" class="form-control" placeholder="--Select--"
-                                   id="driverLicenseIssue" name="driverLicenseIssue">
+                                id="driverLicenseIssue" name="driverLicenseIssue">
                             <datalist id="statelist">
                                 <option value="AL">
                                 <option value="AK">
@@ -233,8 +228,8 @@ require "../database/connection.php";
                     <div class="form-group col-md-2 ">
                         <label>Currency <span class="mandatory">*</span>
                         </label><i class="mdi mdi-plus-circle plus" id="add_driver_currency_modal"></i>
-                        <input list="driverCurrency" class="form-control" placeholder="--Select--"
-                               id="currency" name="driverCurrencyList">
+                        <input list="driverCurrency" class="form-control" placeholder="--Select--" id="currency"
+                            name="driverCurrencyList">
                         <datalist id="driverCurrency">
                             <?php
                             $show_currency = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
@@ -282,22 +277,24 @@ require "../database/connection.php";
                         <label>Internal Notes</label>
                         <div>
                             <textarea rows="1" cols="30" placeholder="Notes" id="InternalNote" class="form-control"
-                                      type="textarea"></textarea>
+                                type="textarea"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="modal-footer">
-                <label class="text-danger" style="padding-right: 525px"><b>Note :</b>&nbsp; * Fields are mandatory</label>
+                <label class="text-danger" style="padding-right: 525px"><b>Note :</b>&nbsp; * Fields are
+                    mandatory</label>
                 <button type="button" class="btn btn-danger waves-effect modalDriver">
                     Close
                 </button>
                 <button type="submit" onclick="addDriver()" class="btn btn-primary waves-effect waves-light">Add as
                     Driver
+                    <span class="spinner-border spinner-border-sm loader1">
                 </button>
                 <button type="button" onclick="addDriver()" class="btn btn-info waves-effect waves-light"
-                        data-toggle="modal" data-target="#" id="AddOwnerOperator">Add as Owner-operator
+                    data-toggle="modal" data-target="#" id="AddOwnerOperator">Add as Owner-operator
                 </button>
             </div>
         </div><!-- /.modal-content -->

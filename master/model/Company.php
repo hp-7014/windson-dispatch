@@ -322,40 +322,48 @@ class Company implements IteratorAggregate
         for ($i = 0; $i < $sheetCount; $i++) {
 
             $Reader->ChangeSheet($i);
-
+            $count = 0;
             foreach ($Reader as $Row) {
-                $this->setId($helper->getNextSequence("company", $db));
-                $this->companyID = $_SESSION['companyId'];
-                if (isset($Row[0])) {
-                    $this->companyName = $Row[0];
-                }
-                if (isset($Row[1])) {
-                    $this->shippingAddress = $Row[1];
-                }
-                if (isset($Row[2])) {
-                    $this->telephoneNo = $Row[2];
-                }
-                if (isset($Row[3])) {
-                    $this->faxNo = $Row[3];
-                }
-                if (isset($Row[4])) {
-                    $this->mcNo = $Row[4];
-                }
-                if (isset($Row[5])) {
-                    $this->usDotNo = $Row[5];
-                }
-                if (isset($Row[6])) {
-                    $this->mailingAddress = $Row[6];
-                }
-                if (isset($Row[7])) {
-                    $this->factoringCompany = $Row[7];
-                }
-//                if (isset($Row[8])) {
-//                    $this->factoringCompanyAddress = $Row[8];
-//                }
+                $count++;
+                if($count > 1000){
+                    echo "Your file should contain atmost 1000 entries. First 1000 entries added successfully"; 
+                    break;
+                } else {  
 
-                $this->insert($this, $db,$helper);
+                    $this->setId($helper->getNextSequence("company", $db));
+                    $this->companyID = $_SESSION['companyId'];
+                    if (isset($Row[0])) {
+                        $this->companyName = $Row[0];
+                    }
+                    if (isset($Row[1])) {
+                        $this->shippingAddress = $Row[1];
+                    }
+                    if (isset($Row[2])) {
+                        $this->telephoneNo = $Row[2];
+                    }
+                    if (isset($Row[3])) {
+                        $this->faxNo = $Row[3];
+                    }
+                    if (isset($Row[4])) {
+                        $this->mcNo = $Row[4];
+                    }
+                    if (isset($Row[5])) {
+                        $this->usDotNo = $Row[5];
+                    }
+                    if (isset($Row[6])) {
+                        $this->mailingAddress = $Row[6];
+                    }
+                    if (isset($Row[7])) {
+                        $this->factoringCompany = $Row[7];
+                    }
+    //                if (isset($Row[8])) {
+    //                    $this->factoringCompanyAddress = $Row[8];
+    //                }
+
+                    $this->insert($this, $db,$helper);
+                }
             }
         }
+        unlink($targetPath);
     }
 }

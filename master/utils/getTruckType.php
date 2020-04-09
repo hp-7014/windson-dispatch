@@ -22,7 +22,7 @@ require "../../database/connection.php";
         $c_type = '"'.$truckType.'"';
 
         echo "<tr>
-            <td> $i</td>
+            <th> $i</th>
             <td id='truckType$i'
                 onmouseover='showPencil_s($pencilid)'
                 onmouseout='hidePencil_s($pencilid)'

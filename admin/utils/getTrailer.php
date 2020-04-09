@@ -138,8 +138,8 @@
                 $pencilid14 = '"internalNotesPencil'.$i.'"';
 
                 echo "<tr>
-                    <td>$i</td>
-                    <td class='custom-text' id='trailerNumber$i'
+                    <th>$i</th>
+                    <th class='custom-text' id='trailerNumber$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -147,7 +147,7 @@
                             onclick='updateTableColumn($c_type1,$updateTrailerAdd,$type,$id,$trailerNumberColmn,$title1,$pencilid1)'
                         ></i>
                         $trailerNumber
-                    </td>
+                    </th>
                     <td class='custom-text'>
                         $trailerType
                     </td>
@@ -413,8 +413,8 @@
                 ) {
 
                 echo "<tr>
-                    <td>$i</td>
-                    <td class='custom-text' id='trailerNumber$i'
+                    <th>$i</th>
+                    <th class='custom-text' id='trailerNumber$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -422,7 +422,7 @@
                             onclick='updateTableColumn($c_type1,$updateTrailerAdd,$type,$id,$trailerNumberColmn,$title1,$pencilid1)'
                         ></i>
                         $trailerNumber
-                    </td>
+                    </th>
                     <td class='custom-text'>
                         $trailerType
                     </td>
@@ -671,8 +671,8 @@
                     $pencilid14 = '"internalNotesPencil'.$i.'"';
 
                     echo "<tr>
-                        <td>$i</td>
-                        <td class='custom-text' id='trailerNumber$i'
+                        <th>$i</th>
+                        <th class='custom-text' id='trailerNumber$i'
                             onmouseover='showPencil_s($pencilid1)'
                             onmouseout='hidePencil_s($pencilid1)'
                             >
@@ -680,7 +680,7 @@
                                 onclick='updateTableColumn($c_type1,$updateTrailerAdd,$type,$id,$trailerNumberColmn,$title1,$pencilid1)'
                             ></i>
                             $trailerNumber
-                        </td>
+                        </th>
                         <td class='custom-text'>
                             $trailerType
                         </td>
@@ -942,8 +942,8 @@
                 $pencilid14 = '"internalNotesPencil'.$i.'"';
 
                 echo "<tr>
-                    <td>$start</td>
-                    <td class='custom-text' id='trailerNumber$i'
+                    <th>$start</th>
+                    <th class='custom-text' id='trailerNumber$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -951,7 +951,7 @@
                             onclick='updateTableColumn($c_type1,$updateTrailerAdd,$type,$id,$trailerNumberColmn,$title1,$pencilid1)'
                         ></i>
                         $trailerNumber
-                    </td>
+                    </th>
                     <td class='custom-text'>
                         $trailerType
                     </td>

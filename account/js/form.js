@@ -129,7 +129,7 @@ function updateAccountInvoiceTable() {
 // account invoice end
 
 // Search Trailer
-function search_trailer(x) {
+function search_account_manager(x) {
     var n = x.value;
     var companyId = $('#companyid').val();
 
@@ -141,8 +141,8 @@ function search_trailer(x) {
             companyId: companyId,
         },
         success: function (response) {
-            var j = response.trim();
-            document.getElementById('accountDeliverBody').innerHTML = j;
+            //var j = response.trim();
+            document.getElementById('accountDeliverBody').innerHTML = response;
         }
     });
 }
@@ -166,7 +166,7 @@ function search_Invoice1(x) {
 }
 
 // Paginate Trailer
-function paginate_trailer(start, limit) {
+function paginate_account(start, limit) {
 
     $.ajax({
         url: 'admin/utils/getTrailer.php?types=paginate_trailer_admin',
@@ -462,7 +462,7 @@ function getCarrierTotalAmount(invoiceID) {
     var totalAmount = document.getElementById('finalAmount').value;
     var invoID = document.getElementById('invoice' + seqid);
     if (invoID.checked == true) {
-        let final = parseFloat(parseFloat(totalAmount) + parseFloat(Amount));
+        let final = parseFloat(totalAmount) + parseFloat(Amount);
         document.getElementById('finalAmount').value = final;
         storeInvoiceNumber.push(id);
         storeInvoiceAmount.push(Amount);
@@ -545,13 +545,13 @@ function getDriverTotalAmount(dinvoiceID) {
     var drinvoID = document.getElementById('dinvoice' + drseqid);
 
     if (drinvoID.checked == true) {
-        let drfinal = eval(drtotalAmount) + eval(drAmount);
-        let drfinalad = eval(dradvancetotal) + eval(dradvance);
+        let drfinal = parseFloat(drtotalAmount) + parseFloat(drAmount);
+        let drfinalad = parseFloat(dradvancetotal) + parseFloat(dradvance);
         let finaldriveramount = drfinal - drfinalad;
         document.getElementById('driveramount').value = drfinal;
         document.getElementById('dradvance').value = drfinalad;
         document.getElementById('drfinalamount').value = finaldriveramount;
-        
+
         storeInvoiceNumber.push(drid);
         storeInvoiceAmount.push(drAmount);
     } else {
@@ -625,7 +625,7 @@ function getFactoringTotalAmount(factinvoiceID) {
     var totalAmount = document.getElementById('factoringAmount').value;
     var invoID = document.getElementById('factinvoice' + seqid);
     if (invoID.checked == true) {
-        let final = eval(totalAmount) + eval(Amount);
+        let final = parseFloat(totalAmount) + parseFloat(Amount);
         document.getElementById('factoringAmount').value = final;
         storeInvoiceNumber.push(id);
         storeInvoiceAmount.push(Amount);
@@ -688,6 +688,8 @@ function Paymentadd() {
             var ach = document.getElementById("ach").value
             var memo = document.getElementById("memo").value
             var companyId = document.getElementById('companyId').value;
+            var totalfiles = document.getElementById('files').files.length;
+            if (totalfiles <= 5) {
             $.ajax({
                 url: 'account/payment_driver.php?type=' + 'driverpayment',
                 type: 'POST',
@@ -717,9 +719,16 @@ function Paymentadd() {
                     storeInvoiceAmount = [];
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
-            break;
+        } else {
+            swal('Please Select Only 5 File')
+        }
+          break;
         case "2":
             var category = "carrier";
             var Companyselect1 = document.getElementById("Companyselect").value
@@ -747,6 +756,8 @@ function Paymentadd() {
             var ach = document.getElementById("carach").value
             var memo = document.getElementById("memo").value
             var companyId = document.getElementById('companyId').value;
+            var totalfiles = document.getElementById('files').files.length;
+            if (totalfiles <= 5) {
             $.ajax({
                 url: 'account/payment_driver.php?type=' + 'carrierpayment',
                 type: 'POST',
@@ -776,9 +787,16 @@ function Paymentadd() {
                     storeInvoiceAmount = [];
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
-            break;
+        } else {
+            swal('Please Select Only 5 File')
+        }
+          break;
         case "3":
             var category = "factoringcompany";
             var Companyselect1 = document.getElementById("Companyselect").value
@@ -806,6 +824,8 @@ function Paymentadd() {
             var ach = document.getElementById("facach").value
             var memo = document.getElementById("memo").value
             var companyId = document.getElementById('companyId').value;
+            var totalfiles = document.getElementById('files').files.length;
+            if (totalfiles <= 5) {
             $.ajax({
                 url: 'account/payment_driver.php?type=' + 'bankFactoring',
                 type: 'POST',
@@ -835,9 +855,16 @@ function Paymentadd() {
                     storeInvoiceAmount = [];
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
-            break;
+        } else {
+            swal('Please Select Only 5 File')
+        }
+          break;
         case "4":
             var category = "Expense";
             var Companyselect1 = document.getElementById("Companyselect").value
@@ -860,6 +887,8 @@ function Paymentadd() {
             var amount = document.getElementById("expensesamount").value
             var memo = document.getElementById("memo").value
             var companyId = document.getElementById('companyId').value;
+            var totalfiles = document.getElementById('files').files.length;
+            if (totalfiles <= 5) {
             $.ajax({
                 url: 'account/payment_driver.php?type=' + 'paymentexpense',
                 type: 'POST',
@@ -881,9 +910,16 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
-            break;
+        } else {
+            swal('Please Select Only 5 File')
+        }
+          break;
         case "5":
             var category = "Maintenance";
             var Companyselect1 = document.getElementById("Companyselect").value
@@ -913,6 +949,8 @@ function Paymentadd() {
 
             var memo = document.getElementById("memo").value
             var companyId = document.getElementById('companyId').value;
+            var totalfiles = document.getElementById('files').files.length;
+            if (totalfiles <= 5) {
             $.ajax({
                 url: 'account/payment_driver.php?type=' + 'paymentmaintenance',
                 type: 'POST',
@@ -935,9 +973,16 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
-            break;
+        } else {
+            swal('Please Select Only 5 File')
+        }
+          break;
         case "6":
             var category = "Insurance";
             var Companyselect1 = document.getElementById("Companyselect").value
@@ -959,6 +1004,8 @@ function Paymentadd() {
 
             var memo = document.getElementById("memo").value
             var companyId = document.getElementById('companyId').value;
+            var totalfiles = document.getElementById('files').files.length;
+            if (totalfiles <= 5) {
             $.ajax({
                 url: 'account/payment_driver.php?type=' + 'paymentinsurance',
                 type: 'POST',
@@ -979,9 +1026,16 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
-            break;
+        } else {
+            swal('Please Select Only 5 File')
+        }
+          break;
         case "7":
             var category = "creditcard";
             var Companyselect1 = document.getElementById("Companyselect").value
@@ -1015,6 +1069,8 @@ function Paymentadd() {
             }
             var memo = document.getElementById("memo").value
             var companyId = document.getElementById('companyId').value;
+            var totalfiles = document.getElementById('files').files.length;
+            if (totalfiles <= 5) {
             $.ajax({
                 url: 'account/payment_driver.php?type=' + 'paymentcreditcard',
                 type: 'POST',
@@ -1035,9 +1091,16 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
-            break;
+        } else {
+            swal('Please Select Only 5 File')
+        }
+          break;
         case "8":
             var category = "fuelcard";
             var Companyselect1 = document.getElementById("Companyselect").value
@@ -1057,6 +1120,8 @@ function Paymentadd() {
 
             var memo = document.getElementById("memo").value
             var companyId = document.getElementById('companyId').value;
+            var totalfiles = document.getElementById('files').files.length;
+            if (totalfiles <= 5) {
             $.ajax({
                 url: 'account/payment_driver.php?type=' + 'paymentfuelcard',
                 type: 'POST',
@@ -1076,9 +1141,16 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
-            break;
+        } else {
+            swal('Please Select Only 5 File')
+        }
+          break;
         case "9":
             var category = "other";
             var Companyselect1 = document.getElementById("Companyselect").value
@@ -1105,6 +1177,8 @@ function Paymentadd() {
 
             var memo = document.getElementById("memo").value
             var companyId = document.getElementById('companyId').value;
+            var totalfiles = document.getElementById('files').files.length;
+            if (totalfiles <= 5) {
             $.ajax({
                 url: 'account/payment_driver.php?type=' + 'paymentother',
                 type: 'POST',
@@ -1129,8 +1203,43 @@ function Paymentadd() {
                 success: function (data) {
                     swal("Success", data, "success");
                     $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
                 },
             });
-            break;
+        } else {
+            swal('Please Select Only 5 File')
+        }
+          break;
+      }
+}
+
+function uploadfiles(id,Bankname) {
+    var form_data = new FormData();
+    form_data.append("id", id);
+    form_data.append("Bankname", Bankname);
+    var ins = document.getElementById('files').files.length;
+    if (ins > 0) {
+        for (var x = 0; x < ins; x++) {
+            form_data.append("files[]", document.getElementById('files').files[x]);
+        }
+        $.ajax({
+            url: 'account/payment_driver.php?type=' + 'fileupload', // point to server-side PHP script
+            dataType: 'text', // what to expect back from the PHP script
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function (response) {
+                document.getElementById('addbankpayment').style.display = "block";
+            },
+            error: function (response) {
+            }
+        });
+    } else {
+        return 'no';
     }
 }

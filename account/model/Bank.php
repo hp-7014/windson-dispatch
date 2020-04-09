@@ -5,6 +5,7 @@
  * Date: 3/31/2020
  * Time: 2:18 PM
  */
+@session_start();
 
 class Bank implements IteratorAggregate
 {
@@ -16,6 +17,7 @@ class Bank implements IteratorAggregate
     private $year;
     private $month;
     private $baseamount;
+    private $file = array();
     // bank driver / carrier
     private $bankName;
     private $fieldName;
@@ -707,8 +709,23 @@ class Bank implements IteratorAggregate
         $this->deleted_at = $deleted_at;
     }
 
-    function getIterator()
+    /**
+     * @return mixed
+     */
+    public function getFile()
     {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file, $originalname, $fileSize, $targetFilePath, $i)
+    {
+        $this->file[$i] = array("filename" => $file, "Originalname" => $originalname, "filesize" => $fileSize, "filepath" => $targetFilePath);
+    }
+
+    function getIterator() {
         $bankcategory = $this->category;
 
         switch ($bankcategory) {
@@ -742,9 +759,9 @@ class Bank implements IteratorAggregate
                             'cheque' => $this->cheque,
                             'ach' => $this->ach,
                             'memo' => $this->memo,
-                            'transactiondate' => strtotime(date("d-m-yy"))
-                        ])
-                    ));
+                            'file' => $this->file,
+                            ])
+                        ));
                 break;
             case "carrier":
                 return new ArrayIterator(
@@ -773,9 +790,10 @@ class Bank implements IteratorAggregate
                             'checkdate' => $this->checkDate,
                             'cheque' => $this->cheque,
                             'ach' => $this->ach,
-                            'memo' => $this->memo
-                        ])
-                    ));
+                            'memo' => $this->memo,
+                            'file' => $this->file
+                            ])
+                        ));
                 break;
             case "factoringcompany":
                 return new ArrayIterator(
@@ -804,9 +822,10 @@ class Bank implements IteratorAggregate
                             'checkdate' => $this->checkDate,
                             'cheque' => $this->cheque,
                             'ach' => $this->ach,
-                            'memo' => $this->memo
-                        ])
-                    ));
+                            'memo' => $this->memo,
+                            'file' => $this->file
+                            ])
+                        ));
                 break;
             case "Expense":
                 return new ArrayIterator(
@@ -832,10 +851,11 @@ class Bank implements IteratorAggregate
                             'expensesname' => $this->expensesname,
                             'debitcategory' => $this->selectDebit,
                             'amount' => $this->amount,
-                            'memo' => $this->memo
-                        ])
-                    ));
-                break;
+                            'memo' => $this->memo,
+                            'file' => $this->file
+                            ])
+                        ));
+                break; 
             case "Maintenance":
                 return new ArrayIterator(
                     array(
@@ -861,9 +881,10 @@ class Bank implements IteratorAggregate
                             'ach' => $this->ach,
                             'truckno' => $this->truckno,
                             'trailerno' => $this->trailerno,
-                            'memo' => $this->memo
-                        ])
-                    ));
+                            'memo' => $this->memo,
+                            'file' => $this->file
+                            ])
+                        ));
                 break;
             case "Insurance":
                 return new ArrayIterator(
@@ -888,9 +909,10 @@ class Bank implements IteratorAggregate
                             'insurancecompany' => $this->insurancecom,
                             'debitcategory' => $this->selectDebit,
                             'amount' => $this->amount,
-                            'memo' => $this->memo
-                        ])
-                    ));
+                            'memo' => $this->memo,
+                            'file' => $this->file
+                            ])
+                        ));
                 break;
             case "creditcard":
                 return new ArrayIterator(
@@ -915,9 +937,10 @@ class Bank implements IteratorAggregate
                             'card' => $this->card,
                             $this->card => $this->cardcategory,
                             'amount' => $this->amount,
-                            'memo' => $this->memo
-                        ])
-                    ));
+                            'memo' => $this->memo,
+                            'file' => $this->file
+                            ])
+                        ));
                 break;
             case "fuelcard":
                 return new ArrayIterator(
@@ -941,9 +964,10 @@ class Bank implements IteratorAggregate
                             'payto' => $this->payto,
                             'fuellist' => $this->fuellist,
                             'amount' => $this->amount,
-                            'memo' => $this->memo
-                        ])
-                    ));
+                            'memo' => $this->memo,
+                            'file' => $this->file
+                            ])
+                        ));
                 break;
             default:
                 return new ArrayIterator(
@@ -959,20 +983,21 @@ class Bank implements IteratorAggregate
                             'balance' => $this->baseamount
                         ]),
                         $this->month => array([
-                            '_id' => 0,
-                            'counter' => 0,
-                            'paymentfrom' => $this->paymentFrom,
-                            'companyselect' => $this->companySelect,
-                            'bankname' => $this->bankName,
-                            'payto' => $this->payto,
-                            'other' => $this->other,
-                            'debitcategory' => $this->selectDebit,
-                            'pobox' => $this->pobox,
-                            'amount' => $this->amount,
-                            'checkdate' => $this->checkDate,
-                            'cheque' => $this->cheque,
-                            'ach' => $this->ach,
-                            'memo' => $this->memo
+                        '_id' => 0,
+                        'counter' => 0,
+                        'paymentfrom' => $this->paymentFrom,
+                        'companyselect' => $this->companySelect,
+                        'bankname' => $this->bankName,
+                        'payto' => $this->payto,
+                        'other' => $this->other,
+                        'debitcategory' => $this->selectDebit,
+                        'pobox' => $this->pobox,
+                        'amount' => $this->amount,
+                        'checkdate' => $this->checkDate,
+                        'cheque' => $this->cheque,
+                        'ach' => $this->ach,
+                        'memo' => $this->memo,
+                        'file' => $this->file
                         ])
                     ));
         }
@@ -980,11 +1005,13 @@ class Bank implements IteratorAggregate
 
     //Insert Driver Function
     public function insertdriver($bank,$db,$helper){
+
         $show = $db->payment_bank->find(['companyID' => (int)$this->companyID, 'bankID' => (int)$this->bankName, 'year' => (int)$this->year]);
         $counter = [];
         $id = [];
         $bankid = [];
         $yearID = [];
+
         $mainID = null;
         $incrementNumber = null;
         $bankn = null;
@@ -1003,38 +1030,40 @@ class Bank implements IteratorAggregate
                 $bankn = $bankid[$i];
                 $years = $this->year;
             }
-            $i++;
+             $i++;
         }
-        if (!empty($mainID)) {
-            echo "second entry".$mainID;
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$set' => ['counter' => $incrementNumber + 1]]);
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$push'=>[
-                    $this->month =>[
-                        '_id' => 0,
-                        'counter' => 0,
-                        'paymentfrom' => $this->paymentFrom,
-                        'companyselect' => $this->companySelect,
-                        'bankname' => $this->bankName,
-                        'payto' => $this->payto,
-                        $this->category => $this->fieldName,
-                        'debitcategory' => $this->selectDebit,
-                        'invoice' => $this->invoice,
-                        'amount' => $this->amount,
-                        'advance' => $this->advance,
-                        'finalamount' => $this->finalAmount,
-                        'checkdate' => $this->checkDate,
-                        'cheque' => $this->cheque,
-                        'ach' => $this->ach,
-                        'memo' => $this->memo,
-                        'file' => $this->file
-                    ]
-                ]]);
+
+if (!empty($mainID)) {
+    $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+    ['$set' => ['counter' => $incrementNumber + 1]]);
+    $id = $incrementNumber + 1;
+    $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+    ['$push'=>[
+        $this->month =>[
+            '_id' => $id,
+            'counter' => 0,
+            'paymentfrom' => $this->paymentFrom,
+            'companyselect' => $this->companySelect,
+            'bankname' => $this->bankName,
+            'payto' => $this->payto,
+             $this->category => $this->fieldName,
+            'debitcategory' => $this->selectDebit,
+            'invoice' => $this->invoice,
+            'amount' => $this->amount,
+            'advance' => $this->advance,
+            'finalamount' => $this->finalAmount,
+            'checkdate' => $this->checkDate,
+            'cheque' => $this->cheque,
+            'ach' => $this->ach,
+            'memo' => $this->memo,
+            'file' => $this->file
+            ]
+        ]]);
+        echo $id;
         } else {
-            echo "first entry dr'";
             $bank = iterator_to_array($bank);
             $db->payment_bank->insertOne($bank);
+        echo 0;
         }
     }
 
@@ -1068,218 +1097,223 @@ class Bank implements IteratorAggregate
             $i++;
         }
 
-        if (!empty($mainID)) {
-            echo "second entry".$mainID;
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$set' => ['counter' => $incrementNumber + 1]]);
-
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$push'=>[
-                    $this->month =>[
-                        '_id' => 0,
-                        'counter' => 0,
-                        'paymentfrom' => $this->paymentFrom,
-                        'companyselect' => $this->companySelect,
-                        'bankname' => $this->bankName,
-                        'payto' => $this->payto,
-                        $this->category => $this->fieldName,
-                        'debitcategory' => $this->selectDebit,
-                        'invoice' => $this->invoice,
-                        'amount' => $this->amount,
-                        'checkdate' => $this->checkDate,
-                        'cheque' => $this->cheque,
-                        'ach' => $this->ach,
-                        'memo' => $this->memo,
-                        'file' => $this->file
-                    ]
-                ]]);
+if (!empty($mainID)) {
+    echo "second entry".$mainID;
+    $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+    ['$set' => ['counter' => $incrementNumber + 1]]);
+    $id = $incrementNumber + 1;
+    $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+    ['$push'=>[
+        $this->month =>[
+            '_id' => $id,
+            'counter' => 0,
+            'paymentfrom' => $this->paymentFrom,
+            'companyselect' => $this->companySelect,
+            'bankname' => $this->bankName,
+            'payto' => $this->payto,
+             $this->category => $this->fieldName,
+            'debitcategory' => $this->selectDebit,
+            'invoice' => $this->invoice,
+            'amount' => $this->amount,
+            'checkdate' => $this->checkDate,
+            'cheque' => $this->cheque,
+            'ach' => $this->ach,
+            'memo' => $this->memo,
+            'file' => $this->file
+            ]
+        ]]);
+        echo $id;
         } else {
             echo "first entry car'";
             $bank = iterator_to_array($bank);
             $db->payment_bank->insertOne($bank);
+            echo 0;
         }
     }
 
-    //Insert factoringcompany Function
-    public function insertfactoring($bank,$db,$helper){
+        //Insert factoringcompany Function
+        public function insertfactoring($bank,$db,$helper){
 
-        $show = $db->payment_bank->find(['companyID' => (int)$this->companyID, 'bankID' => (int)$this->bankName, 'year' => (int)$this->year]);
-        $counter = [];
-        $id = [];
-        $bankid = [];
-        $yearID = [];
+            $show = $db->payment_bank->find(['companyID' => (int)$this->companyID, 'bankID' => (int)$this->bankName, 'year' => (int)$this->year]);
+            $counter = [];
+            $id = [];
+            $bankid = [];
+            $yearID = [];
 
-        $mainID = null;
-        $incrementNumber = null;
-        $bankn = null;
-        $years = null;
-        $companyID = null;
-        $i = 0;
-        foreach ($show as $s) {
-            $id[] = $s['_id'];
-            $counter[] = $s['counter'];
-            $bankid[] = $s['bankID'];
-            $yearID[] = $s['year'];
-            $companyID = $s['companyID'];
-            if ($counter[$i] < 5000 && $bankid[$i] == $this->bankName && $yearID[$i] == $this->year) {
-                $mainID = $id[$i];
-                $incrementNumber = $counter[$i];
-                $bankn = $bankid[$i];
-                $years = $this->year;
+            $mainID = null;
+            $incrementNumber = null;
+            $bankn = null;
+            $years = null;
+            $companyID = null;
+            $i = 0;
+            foreach ($show as $s) {
+                $id[] = $s['_id'];
+                $counter[] = $s['counter'];
+                $bankid[] = $s['bankID'];
+                $yearID[] = $s['year'];
+                $companyID = $s['companyID'];
+                if ($counter[$i] < 5000 && $bankid[$i] == $this->bankName && $yearID[$i] == $this->year) {
+                    $mainID = $id[$i];
+                    $incrementNumber = $counter[$i];
+                    $bankn = $bankid[$i];
+                    $years = $this->year;
+                }
+                $i++;
             }
-            $i++;
-        }
 
-        if (!empty($mainID)) {
-            echo "second entry".$mainID;
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$set' => ['counter' => $incrementNumber + 1]]);
-
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$push'=>[
-                    $this->month =>[
-                        '_id' => 0,
-                        'counter' => 0,
-                        'paymentfrom' => $this->paymentFrom,
-                        'companyselect' => $this->companySelect,
-                        'bankname' => $this->bankName,
-                        'payto' => $this->payto,
-                        $this->category => $this->fieldName,
-                        'debitcategory' => $this->selectDebit,
-                        'invoice' => $this->invoice,
-                        'amount' => $this->amount,
-                        'checkdate' => $this->checkDate,
-                        'cheque' => $this->cheque,
-                        'ach' => $this->ach,
-                        'memo' => $this->memo,
-                        'file' => $this->file
-                    ]
-                ]]);
-        } else {
-            echo "first entry fac'";
-            $bank = iterator_to_array($bank);
-            $db->payment_bank->insertOne($bank);
-        }
-    }
-
-    //Insert Expense Function
-    public function insertexpense($bank,$db,$helper){
-
-        $show = $db->payment_bank->find(['companyID' => (int)$this->companyID, 'bankID' => (int)$this->bankName, 'year' => (int)$this->year]);
-        $counter = [];
-        $id = [];
-        $bankid = [];
-        $yearID = [];
-
-        $mainID = null;
-        $incrementNumber = null;
-        $bankn = null;
-        $years = null;
-        $companyID = null;
-        $i = 0;
-        foreach ($show as $s) {
-            $id[] = $s['_id'];
-            $counter[] = $s['counter'];
-            $bankid[] = $s['bankID'];
-            $yearID[] = $s['year'];
-            $companyID = $s['companyID'];
-            if ($counter[$i] < 5000 && $bankid[$i] == $this->bankName && $yearID[$i] == $this->year) {
-                $mainID = $id[$i];
-                $incrementNumber = $counter[$i];
-                $bankn = $bankid[$i];
-                $years = $this->year;
+    if (!empty($mainID)) {
+        echo "second entry".$mainID;
+        $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+        ['$set' => ['counter' => $incrementNumber + 1]]);
+        $id = $incrementNumber + 1;
+        $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+        ['$push'=>[
+            $this->month =>[
+                '_id' => $id,
+                'counter' => 0,
+                'paymentfrom' => $this->paymentFrom,
+                'companyselect' => $this->companySelect,
+                'bankname' => $this->bankName,
+                'payto' => $this->payto,
+                    $this->category => $this->fieldName,
+                'debitcategory' => $this->selectDebit,
+                'invoice' => $this->invoice,
+                'amount' => $this->amount,
+                'checkdate' => $this->checkDate,
+                'cheque' => $this->cheque,
+                'ach' => $this->ach,
+                'memo' => $this->memo,
+                'file' => $this->file
+                ]
+            ]]);
+            echo $id;
+            } else {
+                $bank = iterator_to_array($bank);
+                $db->payment_bank->insertOne($bank);
+            echo 0;
             }
-            $i++;
         }
 
-        if (!empty($mainID)) {
-            echo "second entry".$mainID;
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$set' => ['counter' => $incrementNumber + 1]]);
+        //Insert Expense Function
+        public function insertexpense($bank,$db,$helper){
 
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$push'=>[
-                    $this->month =>[
-                        '_id' => 0,
-                        'counter' => 0,
-                        'paymentfrom' => $this->paymentFrom,
-                        'companyselect' => $this->companySelect,
-                        'bankname' => $this->bankName,
-                        'payto' => $this->payto,
-                        'billno' => $this->expensesbill,
-                        'expensesname' => $this->expensesname,
-                        'debitcategory' => $this->selectDebit,
-                        'amount' => $this->amount,
-                        'memo' => $this->memo,
-                        'file' => $this->file
-                    ]
-                ]]);
-        } else {
-            echo "first entry ex'";
-            $bank = iterator_to_array($bank);
-            $db->payment_bank->insertOne($bank);
-        }
-    }
+            $show = $db->payment_bank->find(['companyID' => (int)$this->companyID, 'bankID' => (int)$this->bankName, 'year' => (int)$this->year]);
+            $counter = [];
+            $id = [];
+            $bankid = [];
+            $yearID = [];
 
-    //Insert Maintenance Function
-    public function insertmaintenance($bank,$db,$helper){
-
-        $show = $db->payment_bank->find(['companyID' => (int)$this->companyID, 'bankID' => (int)$this->bankName, 'year' => (int)$this->year]);
-        $counter = [];
-        $id = [];
-        $bankid = [];
-        $yearID = [];
-
-        $mainID = null;
-        $incrementNumber = null;
-        $bankn = null;
-        $years = null;
-        $companyID = null;
-        $i = 0;
-        foreach ($show as $s) {
-            $id[] = $s['_id'];
-            $counter[] = $s['counter'];
-            $bankid[] = $s['bankID'];
-            $yearID[] = $s['year'];
-            $companyID = $s['companyID'];
-            if ($counter[$i] < 5000 && $bankid[$i] == $this->bankName && $yearID[$i] == $this->year) {
-                $mainID = $id[$i];
-                $incrementNumber = $counter[$i];
-                $bankn = $bankid[$i];
-                $years = $this->year;
+            $mainID = null;
+            $incrementNumber = null;
+            $bankn = null;
+            $years = null;
+            $companyID = null;
+            $i = 0;
+            foreach ($show as $s) {
+                $id[] = $s['_id'];
+                $counter[] = $s['counter'];
+                $bankid[] = $s['bankID'];
+                $yearID[] = $s['year'];
+                $companyID = $s['companyID'];
+                if ($counter[$i] < 5000 && $bankid[$i] == $this->bankName && $yearID[$i] == $this->year) {
+                    $mainID = $id[$i];
+                    $incrementNumber = $counter[$i];
+                    $bankn = $bankid[$i];
+                    $years = $this->year;
+                }
+                $i++;
             }
-            $i++;
+
+    if (!empty($mainID)) {
+        echo "second entry".$mainID;
+        $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+        ['$set' => ['counter' => $incrementNumber + 1]]);
+        $id = $incrementNumber + 1;
+        $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+        ['$push'=>[
+            $this->month =>[
+                '_id' => $id,
+                'counter' => 0,
+                'paymentfrom' => $this->paymentFrom,
+                'companyselect' => $this->companySelect,
+                'bankname' => $this->bankName,
+                'payto' => $this->payto,
+                'billno' => $this->expensesbill,
+                'expensesname' => $this->expensesname,
+                'debitcategory' => $this->selectDebit,
+                'amount' => $this->amount,
+                'memo' => $this->memo,
+                'file' => $this->file
+                ]
+            ]]);
+            echo $id;
+            } else {
+                $bank = iterator_to_array($bank);
+                $db->payment_bank->insertOne($bank);
+            echo 0;
+            }
         }
 
-        if (!empty($mainID)) {
-            echo "second entry".$mainID;
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$set' => ['counter' => $incrementNumber + 1]]);
+        //Insert Maintenance Function
+        public function insertmaintenance($bank,$db,$helper){
 
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$push'=>[
-                    $this->month =>[
-                        '_id' => 0,
-                        'counter' => 0,
-                        'paymentfrom' => $this->paymentFrom,
-                        'companyselect' => $this->companySelect,
-                        'bankname' => $this->bankName,
-                        'payto' => $this->payto,
-                        'debitcategory' => $this->selectDebit,
-                        'amount' => $this->amount,
-                        'ach' => $this->ach,
-                        'truckno' => $this->truckno,
-                        'trailerno' => $this->trailerno,
-                        'memo' => $this->memo,
-                        'file' => $this->file
-                    ]
-                ]]);
-        } else {
-            echo "first entry main'";
-            $bank = iterator_to_array($bank);
-            $db->payment_bank->insertOne($bank);
+            $show = $db->payment_bank->find(['companyID' => (int)$this->companyID, 'bankID' => (int)$this->bankName, 'year' => (int)$this->year]);
+            $counter = [];
+            $id = [];
+            $bankid = [];
+            $yearID = [];
+
+            $mainID = null;
+            $incrementNumber = null;
+            $bankn = null;
+            $years = null;
+            $companyID = null;
+            $i = 0;
+            foreach ($show as $s) {
+                $id[] = $s['_id'];
+                $counter[] = $s['counter'];
+                $bankid[] = $s['bankID'];
+                $yearID[] = $s['year'];
+                $companyID = $s['companyID'];
+                if ($counter[$i] < 5000 && $bankid[$i] == $this->bankName && $yearID[$i] == $this->year) {
+                    $mainID = $id[$i];
+                    $incrementNumber = $counter[$i];
+                    $bankn = $bankid[$i];
+                    $years = $this->year;
+                }
+                $i++;
+            }
+
+    if (!empty($mainID)) {
+        echo "second entry".$mainID;
+        $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+        ['$set' => ['counter' => $incrementNumber + 1]]);
+        $id = $incrementNumber + 1;
+        $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+        ['$push'=>[
+            $this->month =>[
+                '_id' => $id,
+                'counter' => 0,
+                'paymentfrom' => $this->paymentFrom,
+                'companyselect' => $this->companySelect,
+                'bankname' => $this->bankName,
+                'payto' => $this->payto,
+                'debitcategory' => $this->selectDebit,
+                'amount' => $this->amount,
+                'ach' => $this->ach,
+                'truckno' => $this->truckno,
+                'trailerno' => $this->trailerno,
+                'memo' => $this->memo,
+                'file' => $this->file
+                ]
+            ]]);
+            echo $id;
+            } else {
+                $bank = iterator_to_array($bank);
+                $db->payment_bank->insertOne($bank);
+            echo 0;
+            }
         }
-    }
 
     //Insert insurance Function
     public function insertinsurance($bank,$db,$helper){
@@ -1311,33 +1345,34 @@ class Bank implements IteratorAggregate
             $i++;
         }
 
-        if (!empty($mainID)) {
-            echo "second entry".$mainID;
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$set' => ['counter' => $incrementNumber + 1]]);
-
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$push'=>[
-                    $this->month =>[
-                        '_id' => 0,
-                        'counter' => 0,
-                        'paymentfrom' => $this->paymentFrom,
-                        'companyselect' => $this->companySelect,
-                        'bankname' => $this->bankName,
-                        'payto' => $this->payto,
-                        'debitcategory' => $this->selectDebit,
-                        'amount' => $this->amount,
-                        'ach' => $this->ach,
-                        'truckno' => $this->truckno,
-                        'trailerno' => $this->trailerno,
-                        'memo' => $this->memo,
-                        'file' => $this->file
-                    ]
-                ]]);
+if (!empty($mainID)) {
+    echo "second entry".$mainID;
+    $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+    ['$set' => ['counter' => $incrementNumber + 1]]);
+    $id = $incrementNumber + 1;
+    $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+    ['$push'=>[
+        $this->month =>[
+            '_id' => $id,
+            'counter' => 0,
+            'paymentfrom' => $this->paymentFrom,
+            'companyselect' => $this->companySelect,
+            'bankname' => $this->bankName,
+            'payto' => $this->payto,
+            'debitcategory' => $this->selectDebit,
+            'amount' => $this->amount,
+            'ach' => $this->ach,
+            'truckno' => $this->truckno,
+            'trailerno' => $this->trailerno,
+            'memo' => $this->memo,
+            'file' => $this->file
+            ]
+        ]]);
+        echo $id;
         } else {
-            echo "first entry in'";
             $bank = iterator_to_array($bank);
             $db->payment_bank->insertOne($bank);
+        echo 0;
         }
     }
 
@@ -1371,31 +1406,32 @@ class Bank implements IteratorAggregate
             $i++;
         }
 
-        if (!empty($mainID)) {
-            echo "second entry".$mainID;
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$set' => ['counter' => $incrementNumber + 1]]);
-
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$push'=>[
-                    $this->month =>[
-                        '_id' => 0,
-                        'counter' => 0,
-                        'paymentfrom' => $this->paymentFrom,
-                        'companyselect' => $this->companySelect,
-                        'bankname' => $this->bankName,
-                        'payto' => $this->payto,
-                        'card' => $this->card,
-                        $this->card => $this->cardcategory,
-                        'amount' => $this->amount,
-                        'memo' => $this->memo,
-                        'file' => $this->file
-                    ]
-                ]]);
+if (!empty($mainID)) {
+    echo "second entry".$mainID;
+    $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+    ['$set' => ['counter' => $incrementNumber + 1]]);
+    $id = $incrementNumber + 1;
+    $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+    ['$push'=>[
+        $this->month =>[
+            '_id' => $id,
+            'counter' => 0,
+            'paymentfrom' => $this->paymentFrom,
+            'companyselect' => $this->companySelect,
+            'bankname' => $this->bankName,
+            'payto' => $this->payto,
+            'card' => $this->card,
+            $this->card => $this->cardcategory,
+            'amount' => $this->amount,
+            'memo' => $this->memo,
+            'file' => $this->file
+            ]
+        ]]);
+        echo $id;
         } else {
-            echo "first entry card'";
             $bank = iterator_to_array($bank);
             $db->payment_bank->insertOne($bank);
+        echo 0;
         }
     }
 
@@ -1429,30 +1465,31 @@ class Bank implements IteratorAggregate
             $i++;
         }
 
-        if (!empty($mainID)) {
-            echo "second entry".$mainID;
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$set' => ['counter' => $incrementNumber + 1]]);
-
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$push'=>[
-                    $this->month =>[
-                        '_id' => 0,
-                        'counter' => 0,
-                        'paymentfrom' => $this->paymentFrom,
-                        'companyselect' => $this->companySelect,
-                        'bankname' => $this->bankName,
-                        'payto' => $this->payto,
-                        'fuellist' => $this->fuellist,
-                        'amount' => $this->amount,
-                        'memo' => $this->memo,
-                        'file' => $this->file
-                    ]
-                ]]);
+if (!empty($mainID)) {
+    echo "second entry".$mainID;
+    $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+    ['$set' => ['counter' => $incrementNumber + 1]]);
+    $id = $incrementNumber + 1;
+    $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+    ['$push'=>[
+        $this->month =>[
+            '_id' => $id,
+            'counter' => 0,
+            'paymentfrom' => $this->paymentFrom,
+            'companyselect' => $this->companySelect,
+            'bankname' => $this->bankName,
+            'payto' => $this->payto,
+            'fuellist' => $this->fuellist,
+            'amount' => $this->amount,
+            'memo' => $this->memo,
+            'file' => $this->file
+            ]
+        ]]);
+        echo $id;
         } else {
-            echo "first entry fule'";
             $bank = iterator_to_array($bank);
             $db->payment_bank->insertOne($bank);
+        echo 0;
         }
     }
 
@@ -1486,35 +1523,44 @@ class Bank implements IteratorAggregate
             $i++;
         }
 
-        if (!empty($mainID)) {
-            echo "second entry".$mainID;
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$set' => ['counter' => $incrementNumber + 1]]);
-
-            $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
-                ['$push'=>[
-                    $this->month =>[
-                        '_id' => 0,
-                        'counter' => 0,
-                        'paymentfrom' => $this->paymentFrom,
-                        'companyselect' => $this->companySelect,
-                        'bankname' => $this->bankName,
-                        'payto' => $this->payto,
-                        'other' => $this->other,
-                        'debitcategory' => $this->selectDebit,
-                        'pobox' => $this->pobox,
-                        'amount' => $this->amount,
-                        'checkdate' => $this->checkDate,
-                        'cheque' => $this->cheque,
-                        'ach' => $this->ach,
-                        'memo' => $this->memo,
-                        'file' => $this->file
-                    ]
-                ]]);
+if (!empty($mainID)) {
+    echo "second entry".$mainID;
+    $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+    ['$set' => ['counter' => $incrementNumber + 1]]);
+    $id = $incrementNumber + 1;
+    $db->payment_bank->updateOne(['companyID' => (int)$this->companyID,'_id' => $mainID],
+    ['$push'=>[
+        $this->month =>[
+            '_id' => $id,
+            'counter' => 0,
+            'paymentfrom' => $this->paymentFrom,
+            'companyselect' => $this->companySelect,
+            'bankname' => $this->bankName,
+            'payto' => $this->payto,
+            'other' => $this->other,
+            'debitcategory' => $this->selectDebit,
+            'pobox' => $this->pobox,
+            'amount' => $this->amount,
+            'checkdate' => $this->checkDate,
+            'cheque' => $this->cheque,
+            'ach' => $this->ach,
+            'memo' => $this->memo,
+            'file' => $this->file
+            ]
+        ]]);
+        echo $id;
         } else {
-            echo "first entry other'";
             $bank = iterator_to_array($bank);
             $db->payment_bank->insertOne($bank);
+        echo 0;
         }
+    }
+
+    //updatefile
+    public function updatefile($bank, $db, $id)
+    {
+        $db->payment_bank->updateOne(['companyID' => (int)$_SESSION['companyId'],'bankID' => (int) $this->bankName,'year' => (int) $this->year,$this->month.'._id' => (int)$id],
+            ['$set' => [$this->month.'.$.file' => $this->getFile()]]
+        );
     }
 }

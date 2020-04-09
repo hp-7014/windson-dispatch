@@ -8,34 +8,36 @@ var paymentpath1 = $('#companyid').val();
 var paymentdata = paymentpath1.toString();
 var payment_test = paymentpath + paymentdata;
 
-database.ref(payment_test).on('child_added', function (data) {
+database.ref(payment_test).on('child_added', function(data) {
     updatePaymentTermTable();
 });
 
-database.ref(payment_test).on('child_changed', function (data) {
+database.ref(payment_test).on('child_changed', function(data) {
     updatePaymentTermTable();
 });
 
-database.ref(payment_test).on('child_removed', function (data) {
+database.ref(payment_test).on('child_removed', function(data) {
     updatePaymentTermTable();
 });
 
 //update table fields
 
-function updatePaymentTermTable(){
+function updatePaymentTermTable() {
     var paymentTermsBody = document.getElementById("paymentTermsBody");
 
     $.ajax({
         url: 'master/utils/getPaymentTerms.php',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
-            if(paymentTermsBody != null)
-            {
+        success: function(response) {
+            if (paymentTermsBody != null) {
                 paymentTermsBody.innerHTML = response;
             }
             //document.getElementById('paymentTermsBody').innerHTML = response;
         },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
+        }
     });
 }
 
@@ -45,6 +47,7 @@ function addPaymentTerms() {
     var companyId = document.getElementById('companyId').value;
 
     if (val_payment_term(payment_term)) {
+        $(".loader1").show();
         // alert("inside");
         $.ajax({
             url: 'master/payment_terms.php?type=' + 'add_payment_term',
@@ -57,12 +60,16 @@ function addPaymentTerms() {
             //     $('.load').load('master/js/loader.php');
             //     setTimeout(1000);
             // },
-            success: function (data) {
+            success: function(data) {
                 database.ref('payment_terms').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, 'success');
+                swal('Inserted', 'Data Inserted Successfully.', 'success');
+                $(".loader1").hide();
                 $('#AddPayment').modal('hide');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while entering your record", "error");
             }
         });
     }
@@ -70,11 +77,16 @@ function addPaymentTerms() {
 
 // import excel function for Payment Terms
 function importExcel() {
-    // var file = document.getElementById('file').value;
+    var file = document.getElementById('file').value;
+
+    if (file == "") {
+        swal('warning', 'You must select atleast one .CSV file', 'warning');
+        return false;
+    }
     var form_data = new FormData();
 
     form_data.append("file", document.getElementById('file').files[0]);
-
+    $(".wrap-loader").show();
     $.ajax({
         url: 'master/payment_terms.php?type=' + 'importExcel',
         method: 'post',
@@ -82,11 +94,16 @@ function importExcel() {
         contentType: false,
         cache: false,
         processData: false,
-        success: function (data) {
+        success: function(data) {
             database.ref('payment_terms').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, 'success');
+            swal('Inserted', data, 'success');
+            document.getElementById('file').value = null;
+            $(".wrap-loader").hide();
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while entering your record", "error");
         }
     });
 }
@@ -96,6 +113,7 @@ function updatePayment(column, id, value) {
 
     //var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
+    $(".loader1").show();
     $.ajax({
         url: 'master/payment_terms.php?type=' + 'edit_payment_term',
         type: 'POST',
@@ -105,28 +123,35 @@ function updatePayment(column, id, value) {
             id: id,
             value: value,
         },
-        success: function (data) {
+        success: function(data) {
             database.ref('payment_terms').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, 'success');
+            swal('Updated', 'Data Updated Successfully.', 'success');
+            $(".loader1").hide();
             $('#updateTable').modal('hide');
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
         }
     });
 }
 
 // delete function for Delete Paytement Terms
 function deletePayment(id) {
-    if (confirm('Are you sure to remove this record ?')) {
+    if (confirm('Are you sure you want to delete the record ?')) {
         $.ajax({
             url: 'master/payment_terms.php?type=' + 'delete_payment_term',
             type: 'POST',
-            data: {id: id},
-            success: function (data) {
+            data: { id: id },
+            success: function(data) {
                 database.ref('payment_terms').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, 'success');
+                swal('Delete', 'Data Deleted Successfully.', 'success');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while deleting your record", "error");
             }
         });
     }
@@ -136,15 +161,15 @@ function deletePayment(id) {
 function exportExcel(id) {
     $.ajax({
         url: 'master/payment_terms.php?type=' + 'export_payment_terms',
-        data: {companyid: id},
+        data: { companyid: id },
         type: 'POST',
-        success: function (data) {
+        success: function(data) {
 
             var rows = JSON.parse(data);
 
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function (rowArray) {
+            rows.forEach(function(rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
@@ -174,15 +199,15 @@ var officepath1 = $('#companyid').val();
 var officedata = officepath1.toString();
 var officetest = officepath + officedata;
 
-database.ref(officetest).on('child_added', function (data) {
+database.ref(officetest).on('child_added', function(data) {
     updateOfficeTable();
 });
 
-database.ref(officetest).on('child_changed', function (data) {
+database.ref(officetest).on('child_changed', function(data) {
     updateOfficeTable();
 });
 
-database.ref(officetest).on('child_removed', function (data) {
+database.ref(officetest).on('child_removed', function(data) {
     updateOfficeTable();
 });
 
@@ -195,13 +220,15 @@ function updateOfficeTable() {
         url: 'master/utils/getOffice.php',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
-            if(officeBody != null)
-            {
+        success: function(response) {
+            if (officeBody != null) {
                 officeBody.innerHTML = response;
             }
             //document.getElementById('officeBody').innerHTML = response;
         },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
+        }
     });
 }
 
@@ -213,6 +240,7 @@ function addOffice() {
 
     if (val_officeName(officeName)) {
         if (val_officeLocation(officeLocation)) {
+            $(".loader1").show();
             $.ajax({
                 url: 'master/office_driver.php?type=' + 'add_office',
                 type: 'POST',
@@ -221,12 +249,16 @@ function addOffice() {
                     officeName: officeName,
                     officeLocation: officeLocation,
                 },
-                success: function (data) {
+                success: function(data) {
                     database.ref('office').child(companyid).set({
                         data: randomString(),
                     });
-                    swal("Success", data, 'success');
+                    swal('Inserted', 'Data Inserted Successfully.', 'success');
+                    $(".loader1").hide();
                     $('#addOffice').modal('hide');
+                },
+                error: function() {
+                    swal("Try again !", "Problem occurred while entering your record", "error");
                 }
             });
         }
@@ -238,6 +270,7 @@ function updateOffice(column, id, value) {
 
     //var value = element.innerText;
     var companyId = document.getElementById('companyId').value;
+    $(".loader1").show();
     $.ajax({
         url: 'master/office_driver.php?type=' + 'edit_office',
         type: 'POST',
@@ -247,28 +280,35 @@ function updateOffice(column, id, value) {
             id: id,
             value: value,
         },
-        success: function (data) {
+        success: function(data) {
             database.ref('office').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, 'success');
+            swal('Updated', 'Data Updated Successfully.', 'success');
+            $(".loader1").hide();
             $('#updateTable').modal('hide');
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
         }
     });
 }
 
 // delete function
 function deleteOffice(id) {
-    if (confirm('Are you sure to remove this record ?')) {
+    if (confirm('Are you sure you want to delete the record ?')) {
         $.ajax({
             url: 'master/office_driver.php?type=' + 'delete_office',
             type: 'POST',
-            data: {id: id},
-            success: function (data) {
+            data: { id: id },
+            success: function(data) {
                 database.ref('office').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, 'success');
+                swal('Delete', 'Data Deleted Successfully.', 'success');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while deleting your record", "error");
             }
         });
     }
@@ -276,8 +316,17 @@ function deleteOffice(id) {
 
 // import excel function
 function importOffice() {
+
+    var file = document.getElementById('file').value;
+
+    if (file == "") {
+        swal('warning', 'You must select atleast one .CSV file', 'warning');
+        return false;
+    }
+
     var form_data = new FormData();
     form_data.append("file", document.getElementById('file').files[0]);
+    $(".wrap-loader").show();
     $.ajax({
         url: 'master/office_driver.php?type=' + 'importOffice',
         type: 'POST',
@@ -285,11 +334,13 @@ function importOffice() {
         contentType: false,
         cache: false,
         processData: false,
-        success: function (data) {
+        success: function(data) {
             database.ref('office').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, 'success');
+            swal('Inserted', data, 'success');
+            $(".wrap-loader").hide();
+            document.getElementById('file').value = null;
         }
     });
 }
@@ -299,12 +350,12 @@ function exportOffice() {
     $.ajax({
         url: 'master/office_driver.php?type=' + 'exportOffice',
         type: 'post',
-        success: function (data) {
+        success: function(data) {
             var rows = JSON.parse(data);
 
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function (rowArray) {
+            rows.forEach(function(rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
@@ -332,13 +383,13 @@ var companydata = companypath1.toString();
 var companytest = companypath + companydata;
 
 
-database.ref(companytest).on('child_added', function (data) {
+database.ref(companytest).on('child_added', function(data) {
     updateCompanyTable();
 });
-database.ref(companytest).on('child_changed', function (data) {
+database.ref(companytest).on('child_changed', function(data) {
     updateCompanyTable();
 });
-database.ref(companytest).on('child_removed', function (data) {
+database.ref(companytest).on('child_removed', function(data) {
     updateCompanyTable();
 });
 
@@ -352,7 +403,7 @@ function updateCompanyTable() {
         url: 'master/utils/getCompany.php',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
+        success: function(response) {
             //alert(response);
             var res = response.split('^');
 
@@ -389,6 +440,7 @@ function addCompany() {
         if (val_telephoneNo(telephoneNo)) {
             if (val_faxNo(faxNo)) {
                 if (val_mailingAddress(mailingAddress)) {
+                    $(".loader1").show();
                     $.ajax({
                         url: 'master/company_driver.php?type=' + 'add_company',
                         type: 'POST',
@@ -404,12 +456,16 @@ function addCompany() {
                             factoringCompany: factoringCompany,
                             // factoringCompanyAddress: factoringCompanyAddress,
                         },
-                        success: function (data) {
+                        success: function(data) {
                             database.ref('company').child(companyid).set({
                                 data: randomString(),
                             });
-                            swal("Success", data, 'success');
+                            swal('Inserted', 'Data Inserted Successfully.', 'success');
+                            $(".loader1").hide();
                             $('#add_company').modal('hide');
+                        },
+                        error: function() {
+                            swal("Try again !", "Problem occurred while entering your record", "error");
                         }
                     });
                 }
@@ -424,12 +480,15 @@ function deleteCompany(id, factoringid) {
         $.ajax({
             url: 'master/company_driver.php?type=' + 'delete_company',
             type: 'POST',
-            data: {id: id,factoringid : factoringid},
-            success: function (data) {
+            data: { id: id, factoringid: factoringid },
+            success: function(data) {
                 database.ref('company').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, 'success');
+                swal('Delete', 'Data Deleted Successfully.', 'success');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while deleting your record", "error");
             }
         });
     }
@@ -439,7 +498,7 @@ function deleteCompany(id, factoringid) {
 function updateCompany(column, id, value) {
 
     var companyId = document.getElementById('companyId').value;
-
+    $(".loader1").show();
     $.ajax({
         url: 'master/company_driver.php?type=' + 'edit_company',
         type: 'POST',
@@ -449,12 +508,16 @@ function updateCompany(column, id, value) {
             id: id,
             value: value,
         },
-        success: function (data) {
+        success: function(data) {
             database.ref('company').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, 'success');
+            swal('Updated', 'Data Updated Successfully.', 'success');
+            $(".loader1").hide();
             $('#updateTable').modal('hide');
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
         }
     });
 }
@@ -464,12 +527,12 @@ function exportCompany() {
     $.ajax({
         url: 'master/company_driver.php?type=' + 'exportCompany',
         type: 'post',
-        success: function (data) {
+        success: function(data) {
             var rows = JSON.parse(data);
 
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function (rowArray) {
+            rows.forEach(function(rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
@@ -487,8 +550,16 @@ function exportCompany() {
 
 // import excel function
 function importCompany() {
+
+    var file = document.getElementById('file').value;
+
+    if (file == "") {
+        swal('warning', 'You must select atleast one .CSV file', 'warning');
+        return false;
+    }
     var form_data = new FormData();
     form_data.append("file", document.getElementById('file').files[0]);
+    $(".wrap-loader").show();
     $.ajax({
         url: 'master/company_driver.php?type=' + 'importCompany',
         type: 'POST',
@@ -496,11 +567,16 @@ function importCompany() {
         contentType: false,
         cache: false,
         processData: false,
-        success: function (data) {
+        success: function(data) {
             database.ref('company').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, 'success');
+            swal('Inserted', data, 'success');
+            $(".wrap-loader").hide();
+            document.getElementById('file').value = null;
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while entering your record", "error");
         }
     });
 }
@@ -516,13 +592,13 @@ var loaddata = loadpath1.toString();
 var loadtest = loadpath + loaddata;
 
 
-database.ref(loadtest).on('child_added', function (data) {
+database.ref(loadtest).on('child_added', function(data) {
     updateLoadTable();
 });
-database.ref(loadtest).on('child_changed', function (data) {
+database.ref(loadtest).on('child_changed', function(data) {
     updateLoadTable();
 });
-database.ref(loadtest).on('child_removed', function (data) {
+database.ref(loadtest).on('child_removed', function(data) {
     updateLoadTable();
 });
 
@@ -535,7 +611,7 @@ function updateLoadTable() {
         url: 'master/utils/getLoadType.php',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
+        success: function(response) {
             var res = response.split('^');
             if (loadBody != null) {
                 loadBody.innerHTML = res[0];
@@ -544,6 +620,9 @@ function updateLoadTable() {
                 loadList.innerHTML = res[1];
             }
         },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
+        }
     });
 }
 
@@ -554,6 +633,7 @@ function addLoadType() {
 
     if (val_loadName(loadName)) {
         if (val_loadType(loadType)) {
+            $(".loader1").show();
             $.ajax({
                 url: 'master/loadType_driver.php?type=' + 'add_loadType',
                 type: 'POST',
@@ -562,12 +642,16 @@ function addLoadType() {
                     loadName: loadName,
                     loadType: loadType,
                 },
-                success: function (data) {
+                success: function(data) {
                     database.ref('load_type').child(companyid).set({
                         data: randomString(),
                     });
-                    swal("Success", data, 'success');
+                    swal('Inserted', 'Data Inserted Successfully.', 'success');
+                    $(".loader1").hide();
                     $('#addLoad_Type').modal('hide');
+                },
+                error: function() {
+                    swal("Try again !", "Problem occurred while entering your record", "error");
                 }
             });
         }
@@ -579,6 +663,7 @@ function updateloadType(column, id, value) {
 
     var companyId = document.getElementById('companyId').value;
     //var value = element.innerText;
+    $(".loader1").show();
     $.ajax({
         url: 'master/loadType_driver.php?type=' + 'edit_loadType',
         type: 'POST',
@@ -588,28 +673,35 @@ function updateloadType(column, id, value) {
             id: id,
             value: value,
         },
-        success: function (data) {
+        success: function(data) {
             database.ref('load_type').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, 'success');
+            swal('Updated', 'Data Updated Successfully.', 'success');
+            $(".loader1").hide();
             $("#updateTable").modal('hide');
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
         }
     });
 }
 
 // delete load
 function deleteloadType(id) {
-    if (confirm('Are you sure to remove this record ?')) {
+    if (confirm('Are you sure you want to delete the record ?')) {
         $.ajax({
             url: 'master/loadType_driver.php?type=' + 'delete_loadType',
             type: 'POST',
-            data: {id: id},
-            success: function (data) {
+            data: { id: id },
+            success: function(data) {
                 database.ref('load_type').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, 'success');
+                swal('Delete', 'Data Deleted Successfully.', 'success');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while deleting your record", "error");
             }
         });
     }
@@ -620,12 +712,12 @@ function exportLoadType() {
     $.ajax({
         url: 'master/loadType_driver.php?type=' + 'exportLoadType',
         type: 'post',
-        success: function (data) {
+        success: function(data) {
             var rows = JSON.parse(data);
 
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function (rowArray) {
+            rows.forEach(function(rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
@@ -644,8 +736,15 @@ function exportLoadType() {
 
 // import excel function
 function importLoadType() {
+    var file = document.getElementById('file').value;
+
+    if (file == "") {
+        swal('warning', 'You must select atleast one .CSV file', 'warning');
+        return false;
+    }
     var form_data = new FormData();
     form_data.append("file", document.getElementById('file').files[0]);
+    $(".wrap-loader").show();
     $.ajax({
         url: 'master/loadType_driver.php?type=' + 'importLoadType',
         type: 'POST',
@@ -653,11 +752,16 @@ function importLoadType() {
         contentType: false,
         cache: false,
         processData: false,
-        success: function (data) {
+        success: function(data) {
             database.ref('load_type').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, 'success');
+            swal('Inserted', data, 'success');
+            $(".wrap-loader").hide();
+            document.getElementById('file').value = null;
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while entering your record", "error");
         }
     });
 }
@@ -668,6 +772,7 @@ function addCurrency() {
     var companyId = document.getElementById('companyId').value;
 
     if (val_currencyType(currencyType)) {
+        $(".loader1").show();
         $.ajax({
             url: 'master/currency_add.php?type=' + 'currencyadd',
             type: 'POST',
@@ -676,14 +781,19 @@ function addCurrency() {
                 currencyType: currencyType,
             },
             dataType: 'text',
-            success: function (data) {
+            success: function(data) {
                 var companyid = $('#companyid').val();
                 database.ref('currency_settings').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, "success");
+                swal('Inserted', 'Data Inserted Successfully.', 'success');
                 $('#currencysub').modal('hide');
+                $(".loader1").hide();
+
             },
+            error: function() {
+                swal("Try again !", "Problem occurred while entering your record", "error");
+            }
         });
     }
 }
@@ -695,13 +805,13 @@ var path1 = $('#companyid').val();
 var data = path1.toString();
 var test = path + data;
 
-database.ref(test).on('child_added', function (data) {
+database.ref(test).on('child_added', function(data) {
     updateCurrencyTable();
 });
-database.ref(test).on('child_changed', function (data) {
+database.ref(test).on('child_changed', function(data) {
     updateCurrencyTable();
 });
-database.ref(test).on('child_removed', function (data) {
+database.ref(test).on('child_removed', function(data) {
     updateCurrencyTable();
 });
 
@@ -718,7 +828,7 @@ function updateCurrencyTable() {
         url: 'master/utils/getCurrency.php',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
+        success: function(response) {
             var res = response.split('^');
 
             if (currencyBody != null) {
@@ -734,6 +844,9 @@ function updateCurrencyTable() {
                 currencySetting.innerHTML = res[3];
             }
         },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
+        }
     });
 }
 
@@ -742,6 +855,7 @@ function updateCurrency(column, id, value) {
     // var value = element.innerText;
     //var data = $('#currency_table').find('input[type="text"],textarea').val();
     var companyId = document.getElementById('companyId').value;
+    $(".loader1").show();
     $.ajax({
         url: 'master/currency_add.php?type=' + 'edit_currency',
         type: 'POST',
@@ -751,24 +865,34 @@ function updateCurrency(column, id, value) {
             id: id,
             value: value,
         },
-        success: function (data) {
+        success: function(data) {
             var companyid = $('#companyid').val();
             database.ref('currency_settings').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, "success");
+            swal('Updated', 'Data Updated Successfully.', 'success');
+            $(".loader1").hide();
             $("#updateTable").modal('hide');
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
         }
     });
 }
 
 //insert data into Database using Excel
 function importCurrency() {
-    // var file = document.getElementById('file').value;
+    var file = document.getElementById('file').value;
+
+    if (file == "") {
+        swal('warning', 'You must select atleast one .CSV file', 'warning');
+        return false;
+    }
+
     var form_data = new FormData();
 
     form_data.append("file", document.getElementById('file').files[0]);
-
+    $(".wrap-loader").show();
     $.ajax({
         url: 'master/currency_add.php?type=' + 'importExcel_cur',
         method: 'post',
@@ -776,30 +900,38 @@ function importCurrency() {
         contentType: false,
         cache: false,
         processData: false,
-        success: function (data) {
+        success: function(data) {
             var companyid = $('#companyid').val();
             database.ref('currency_settings').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, "success");
+            swal('Inserted', data, 'success');
+            document.getElementById('file').value = null;
+            $(".wrap-loader").hide();
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while entering your record", "error");
         }
     });
 }
 
 // Delete Currency Function
 function deleteCurrency(id) {
-    if (confirm('Are you sure ???')) {
+    if (confirm('Are you sure you want to delete the record ?')) {
         $.ajax({
             url: 'master/currency_add.php?type=' + 'delete_currency',
             type: 'POST',
-            data: {id: id},
-            success: function (data) {
+            data: { id: id },
+            success: function(data) {
                 var companyid = $('#companyid').val();
                 database.ref('currency_settings').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, "success");
+                swal('Delete', 'Data Deleted Successfully.', 'success');
                 $('#currencysub').modal('hide');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while deleting your record", "error");
             }
         });
     }
@@ -810,12 +942,12 @@ function exportCurrency() {
     $.ajax({
         url: 'master/currency_add.php?type=' + 'export_currency',
         type: 'POST',
-        success: function (data) {
+        success: function(data) {
             var rows = JSON.parse(data);
 
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function (rowArray) {
+            rows.forEach(function(rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
@@ -844,13 +976,13 @@ var equipmentdata = equipmentpath1.toString();
 var equipmenttest = equipmentpath + equipmentdata;
 
 
-database.ref(equipmenttest).on('child_added', function (data) {
+database.ref(equipmenttest).on('child_added', function(data) {
     updateEquipmentTypeTable();
 });
-database.ref(equipmenttest).on('child_changed', function (data) {
+database.ref(equipmenttest).on('child_changed', function(data) {
     updateEquipmentTypeTable();
 });
-database.ref(equipmenttest).on('child_removed', function (data) {
+database.ref(equipmenttest).on('child_removed', function(data) {
     updateEquipmentTypeTable();
 });
 
@@ -863,12 +995,15 @@ function updateEquipmentTypeTable() {
         url: 'master/utils/getEquipmentType.php',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
+        success: function(response) {
             //var res = response.split('^');
-            if(equipmentBody != null){
+            if (equipmentBody != null) {
                 equipmentBody.innerHTML = response;
             }
         },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
+        }
 
     });
 }
@@ -877,6 +1012,7 @@ function addEquipment() {
     var equipmentType = document.getElementById("equipment_add_type").value;
     var companyId = document.getElementById('companyId').value;
     if (val_equipmentType(equipmentType)) {
+        $(".loader1").show();
         $.ajax({
             url: 'master/equipment_add.php?type=' + 'equipmentadd',
             type: 'POST',
@@ -886,13 +1022,17 @@ function addEquipment() {
                 equipmentType: equipmentType,
             },
             dataType: 'text',
-            success: function (data) {
+            success: function(data) {
                 database.ref('equipment_add').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, "success");
+                swal('Inserted', 'Data Inserted Successfully.', 'success');
+                $(".loader1").hide();
                 $('#Add_Equipment_Type').modal('hide');
             },
+            error: function() {
+                swal("Try again !", "Problem occurred while entering your record", "error");
+            }
 
         });
     }
@@ -901,7 +1041,7 @@ function addEquipment() {
 //update Equipment Function
 function updateEquipment(column, id, value) {
     var companyId = document.getElementById('companyId').value;
-
+    $(".loader1").show();
     $.ajax({
         url: 'master/equipment_add.php?type=' + 'edit_equipment',
         type: 'POST',
@@ -911,29 +1051,36 @@ function updateEquipment(column, id, value) {
             id: id,
             value: value,
         },
-        success: function (data) {
+        success: function(data) {
             database.ref('equipment_add').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, "success");
+            swal('Updated', 'Data Updated Successfully.', 'success');
+            $(".loader1").hide();
             $('#updateTable').modal('hide');
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
         }
     });
 }
 
 // Delete Equipment Type Function
 function deleteEquipment(id) {
-    if (confirm('Are you sure ???')) {
+    if (confirm('Are you sure you want to delete the record ?')) {
         $.ajax({
             url: 'master/equipment_add.php?type=' + 'delete_equipment',
             type: 'POST',
-            data: {id: id},
-            success: function (data) {
+            data: { id: id },
+            success: function(data) {
                 database.ref('equipment_add').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, "success");
+                swal('Delete', 'Data Deleted Successfully.', 'success');
                 //$('#currency').modal('hide');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while deleting your record", "error");
             }
         });
     }
@@ -941,11 +1088,16 @@ function deleteEquipment(id) {
 
 //insert Equipment Type Data into Database using Excel
 function importEquipment() {
-    // var file = document.getElementById('file').value;
+    var file = document.getElementById('file').value;
+
+    if (file == "") {
+        swal('warning', 'You must select atleast one .CSV file', 'warning');
+        return false;
+    }
     var form_data = new FormData();
 
     form_data.append("file", document.getElementById('file').files[0]);
-
+    $(".wrap-loader").show();
     $.ajax({
         url: 'master/equipment_add.php?type=' + 'importExcel',
         method: 'post',
@@ -953,11 +1105,16 @@ function importEquipment() {
         contentType: false,
         cache: false,
         processData: false,
-        success: function (data) {
+        success: function(data) {
             database.ref('equipment_add').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, "success");
+            swal('Inserted', data, 'success');
+            $(".wrap-loader").hide();
+            document.getElementById('file').value = null;
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while entering your record", "error");
         }
     });
 }
@@ -967,12 +1124,12 @@ function exportEquipment() {
     $.ajax({
         url: 'master/equipment_add.php?type=' + 'export_equipment',
         type: 'POST',
-        success: function (data) {
+        success: function(data) {
             var rows = JSON.parse(data);
 
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function (rowArray) {
+            rows.forEach(function(rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
@@ -1000,28 +1157,28 @@ var trucktypepath1 = $('#companyid').val();
 var trucktypedata = trucktypepath1.toString();
 var trucktypetest = trucktypepath + trucktypedata;
 
-database.ref(trucktypetest).on('child_added', function (data) {
+database.ref(trucktypetest).on('child_added', function(data) {
     updateTruckTypeTable();
 });
-database.ref(trucktypetest).on('child_changed', function (data) {
+database.ref(trucktypetest).on('child_changed', function(data) {
     updateTruckTypeTable();
 });
-database.ref(trucktypetest).on('child_removed', function (data) {
+database.ref(trucktypetest).on('child_removed', function(data) {
     updateTruckTypeTable();
 });
 
 //update table fields
 
-function updateTruckTypeTable(){
+function updateTruckTypeTable() {
     var truckBody = document.getElementById('truckBody');
 
     $.ajax({
         url: 'master/utils/getTruckType.php',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
+        success: function(response) {
             //alert(response);
-            if(truckBody != null){
+            if (truckBody != null) {
                 truckBody.innerHTML = response;
             }
             //document.getElementById('truckBody').innerHTML = response;
@@ -1029,35 +1186,11 @@ function updateTruckTypeTable(){
     });
 }
 
-// Search Text Here..
-function serachTruckType(x)
-{
-    var n = x.value;
-    var companyId = document.getElementById('companyId').value;
-    //alert(companyId);
-    //alert(n);
-    $.ajax({
-        type: 'POST',
-        url: 'master/utils/truck_type_search.php?types=search_text',
-        data: {
-            getoption:n,
-            companyId:companyId,
-        },
-        success: function (response) {
-            var j = response.trim();
-            //var value = j.toLowerCase().trim();
-            //var i = j.toLowerCase().trim();
-            //alert(j);
-            document.getElementById('truckBody').innerHTML = j;
-        }
-    });
-
-}
-
 function addTruck() {
     var truckType = document.getElementById("truck_add_type").value;
     var companyId = document.getElementById('companyId').value;
     if (val_truckType(truckType)) {
+        $(".loader1").show();
         $.ajax({
             url: 'master/truck_add.php?type=' + 'truckadd',
             type: 'POST',
@@ -1066,13 +1199,17 @@ function addTruck() {
                 truckType: truckType,
             },
             dataType: 'text',
-            success: function (data) {
+            success: function(data) {
                 database.ref('truck_add').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, "success");
+                swal('Inserted', 'Data Inserted Successfully.', 'success');
+                $(".loader1").hide();
                 $('#Add_Truck_Type').modal('hide');
             },
+            error: function() {
+                swal("Try again !", "Problem occurred while entering your record", "error");
+            }
 
         });
     }
@@ -1082,7 +1219,7 @@ function addTruck() {
 function updateTruck(column, id, value) {
 
     var companyId = document.getElementById('companyId').value;
-
+    $(".loader1").show();
     $.ajax({
         url: 'master/truck_add.php?type=' + 'edit_truck',
         type: 'POST',
@@ -1092,29 +1229,36 @@ function updateTruck(column, id, value) {
             id: id,
             value: value,
         },
-        success: function (data) {
+        success: function(data) {
             database.ref('truck_add').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, "success");
+            swal('Updated', 'Data Updated Successfully.', 'success');
+            $(".loader1").hide();
             $("#updateTable").modal('hide');
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
         }
     });
 }
 
 // Delete Truck Type Function
 function deleteTruck(id) {
-    if (confirm('Are you sure ???')) {
+    if (confirm('Are you sure you want to delete the record ?')) {
         $.ajax({
             url: 'master/truck_add.php?type=' + 'delete_Truck',
             type: 'POST',
-            data: {id: id},
-            success: function (data) {
+            data: { id: id },
+            success: function(data) {
                 database.ref('truck_add').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, "success");
+                swal('Delete', 'Data Deleted Successfully.', 'success');
                 //$('#currency').modal('hide');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while deleting your record", "error");
             }
         });
     }
@@ -1122,10 +1266,17 @@ function deleteTruck(id) {
 
 //insert Truck Type Data into Database using Excel
 function importTruck() {
-    // var file = document.getElementById('file').value;
+    var file = document.getElementById('file').value;
+
+    if (file == "") {
+        swal('warning', 'You must select atleast one .CSV file', 'warning');
+        return false;
+    }
+
     var form_data = new FormData();
 
     form_data.append("file", document.getElementById('file').files[0]);
+    $(".wrap-loader").show();
 
     $.ajax({
         url: 'master/truck_add.php?type=' + 'importExcel',
@@ -1134,11 +1285,16 @@ function importTruck() {
         contentType: false,
         cache: false,
         processData: false,
-        success: function (data) {
+        success: function(data) {
             database.ref('truck_add').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, "success");
+            swal('Inserted', data, 'success');
+            $(".wrap-loader").hide();
+            document.getElementById('file').value = null;
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while entering your record", "error");
         }
     });
 }
@@ -1148,12 +1304,12 @@ function exportTruck() {
     $.ajax({
         url: 'master/truck_add.php?type=' + 'export_truck',
         type: 'POST',
-        success: function (data) {
+        success: function(data) {
             var rows = JSON.parse(data);
 
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function (rowArray) {
+            rows.forEach(function(rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
@@ -1181,32 +1337,35 @@ var trailertypedata = trailertypepath1.toString();
 var trailertypetest = trailertypepath + trailertypedata;
 
 
-database.ref(trailertypetest).on('child_added', function (data) {
+database.ref(trailertypetest).on('child_added', function(data) {
     updateTrailerTypeTable();
 });
 
-database.ref(trailertypetest).on('child_changed', function (data) {
+database.ref(trailertypetest).on('child_changed', function(data) {
     updateTrailerTypeTable();
 });
 
-database.ref(trailertypetest).on('child_removed', function (data) {
+database.ref(trailertypetest).on('child_removed', function(data) {
     updateTrailerTypeTable();
 });
 
 //update table fields
 
-function updateTrailerTypeTable(){
+function updateTrailerTypeTable() {
     var trailerTBody = document.getElementById("trailerTBody");
     $.ajax({
         url: 'master/utils/getTrailerType.php',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
-            if(trailerTBody != null){
+        success: function(response) {
+            if (trailerTBody != null) {
                 trailerTBody.innerHTML = response;
             }
             //document.getElementById('trailerTBody').innerHTML = response;
         },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
+        }
     });
 }
 
@@ -1214,6 +1373,7 @@ function addTrailer() {
     var trailerType = document.getElementById("trailer_add_type").value;
     var companyId = document.getElementById('companyId').value;
     if (val_trailerType(trailerType)) {
+        $(".loader1").show();
         $.ajax({
             url: 'master/trailer_add.php?type=' + 'traileradd',
             type: 'POST',
@@ -1222,13 +1382,17 @@ function addTrailer() {
                 trailerType: trailerType,
             },
             dataType: 'text',
-            success: function (data) {
+            success: function(data) {
                 database.ref('trailer_type_add').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, "success");
+                swal('Inserted', 'Data Inserted Successfully.', 'success');
+                $(".loader1").hide();
                 $('#Add_Trailer_Type').modal('hide');
             },
+            error: function() {
+                swal("Try again !", "Problem occurred while entering your record", "error");
+            }
 
         });
     }
@@ -1238,6 +1402,7 @@ function addTrailer() {
 function updateTrailer(column, id, value) {
 
     var companyId = document.getElementById('companyId').value;
+    $(".loader1").show();
     $.ajax({
         url: 'master/trailer_add.php?type=' + 'edit_trailer',
         type: 'POST',
@@ -1247,29 +1412,36 @@ function updateTrailer(column, id, value) {
             id: id,
             value: value,
         },
-        success: function (data) {
+        success: function(data) {
             database.ref('trailer_type_add').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, "success");
+            swal('Updated', 'Data Updated Successfully.', 'success');
+            $(".loader1").hide();
             $('#updateTable').modal('hide');
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
         }
     });
 }
 
 // Delete trailer Type Function
 function deleteTrailer(id) {
-    if (confirm('Are you sure ???')) {
+    if (confirm('Are you sure you want to delete the record ?')) {
         $.ajax({
             url: 'master/trailer_add.php?type=' + 'delete_trailer',
             type: 'POST',
-            data: {id: id},
-            success: function (data) {
+            data: { id: id },
+            success: function(data) {
                 database.ref('trailer_type_add').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, "success");
+                swal('Delete', 'Data Deleted Successfully.', 'success');
                 //$('#currency').modal('hide');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while deleting your record", "error");
             }
         });
     }
@@ -1277,10 +1449,16 @@ function deleteTrailer(id) {
 
 //insert Trailer Data into Database using Excel
 function importTrailer() {
-    // var file = document.getElementById('file').value;
+    var file = document.getElementById('file').value;
+
+    if (file == "") {
+        swal('warning', 'You must select atleast one .CSV file', 'warning');
+        return false;
+    }
     var form_data = new FormData();
 
     form_data.append("file", document.getElementById('file').files[0]);
+    $(".wrap-loader").show();
 
     $.ajax({
         url: 'master/trailer_add.php?type=' + 'importExcel',
@@ -1289,11 +1467,16 @@ function importTrailer() {
         contentType: false,
         cache: false,
         processData: false,
-        success: function (data) {
+        success: function(data) {
             database.ref('trailer_type_add').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, "success");
+            swal('Inserted', data, 'success');
+            $(".wrap-loader").hide();
+            document.getElementById('file').value = null;
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while entering your record", "error");
         }
     });
 }
@@ -1303,12 +1486,12 @@ function exporttrailer() {
     $.ajax({
         url: 'master/trailer_add.php?type=' + 'export_trailer',
         type: 'POST',
-        success: function (data) {
+        success: function(data) {
             var rows = JSON.parse(data);
 
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function (rowArray) {
+            rows.forEach(function(rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
@@ -1337,32 +1520,35 @@ var fixpaydata = fixpaypath1.toString();
 var fixpaytest = fixpaypath + fixpaydata;
 
 
-database.ref(fixpaytest).on('child_added', function (data) {
+database.ref(fixpaytest).on('child_added', function(data) {
     updateFixPayTable();
 });
 
-database.ref(fixpaytest).on('child_changed', function (data) {
+database.ref(fixpaytest).on('child_changed', function(data) {
     updateFixPayTable();
 });
 
-database.ref(fixpaytest).on('child_removed', function (data) {
+database.ref(fixpaytest).on('child_removed', function(data) {
     updateFixPayTable();
 });
 
 //update table fields
 
-function updateFixPayTable(){
+function updateFixPayTable() {
     var fixpayBody = document.getElementById("fixpayBody");
     $.ajax({
         url: 'master/utils/getFixPayCategory.php',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
-            if(fixpayBody != null){
+        success: function(response) {
+            if (fixpayBody != null) {
                 fixpayBody.innerHTML = response;
             }
             //document.getElementById('fixpayBody').innerHTML = response;
         },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
+        }
     });
 }
 
@@ -1370,6 +1556,7 @@ function addFixpay() {
     var fixpay = document.getElementById("fix_pay_add").value;
     var companyId = document.getElementById('companyId').value;
     if (val_fixpay(fixpay)) {
+        $(".loader1").show();
         $.ajax({
             url: 'master/fixpay_add.php?type=' + 'fixpayadd',
             type: 'POST',
@@ -1378,13 +1565,17 @@ function addFixpay() {
                 fixpay: fixpay,
             },
             dataType: 'text',
-            success: function (data) {
+            success: function(data) {
                 database.ref('fixpay_add').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, "success");
+                swal('Inserted', 'Data Inserted Successfully.', 'success');
+                $(".loader1").hide();
                 $('#addFixPay').modal('hide');
             },
+            error: function() {
+                swal("Try again !", "Problem occurred while entering your record", "error");
+            }
 
         });
     }
@@ -1394,7 +1585,7 @@ function addFixpay() {
 function updatefixPay(column, id, value) {
 
     var companyId = document.getElementById('companyId').value;
-
+    $(".loader1").show();
     $.ajax({
         url: 'master/fixpay_add.php?type=' + 'edit_fixpay',
         type: 'POST',
@@ -1404,29 +1595,36 @@ function updatefixPay(column, id, value) {
             id: id,
             value: value,
         },
-        success: function (data) {
+        success: function(data) {
             database.ref('fixpay_add').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, "success");
+            swal('Updated', 'Data Updated Successfully.', 'success');
+            $(".loader1").hide();
             $('#updateTable').modal('hide');
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
         }
     });
 }
 
 // Delete FixPay Function
 function deletefixpay(id) {
-    if (confirm('Are you sure ???')) {
+    if (confirm('Are you sure you want to delete the record ?')) {
         $.ajax({
             url: 'master/fixpay_add.php?type=' + 'delete_fixpay',
             type: 'POST',
-            data: {id: id},
-            success: function (data) {
+            data: { id: id },
+            success: function(data) {
                 database.ref('fixpay_add').child(companyid).set({
                     data: randomString(),
                 });
-                swal("Success", data, "success");
+                swal('Delete', 'Data Deleted Successfully.', 'success');
                 //$('#currency').modal('hide');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while deleting your record", "error");
             }
         });
     }
@@ -1437,12 +1635,12 @@ function exportfixpay() {
     $.ajax({
         url: 'master/fixpay_add.php?type=' + 'export_fixpay',
         type: 'POST',
-        success: function (data) {
+        success: function(data) {
             var rows = JSON.parse(data);
 
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function (rowArray) {
+            rows.forEach(function(rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
@@ -1463,10 +1661,17 @@ function exportfixpay() {
 
 //insert Fix Pay Data into Database using Excel
 function importfixpay() {
-    // var file = document.getElementById('file').value;
+    var file = document.getElementById('file').value;
+
+    if (file == "") {
+        swal('warning', 'You must select atleast one .CSV file', 'warning');
+        return false;
+    }
+
     var form_data = new FormData();
 
     form_data.append("file", document.getElementById('file').files[0]);
+    $(".wrap-loader").show();
 
     $.ajax({
         url: 'master/fixpay_add.php?type=' + 'importExcel',
@@ -1475,11 +1680,16 @@ function importfixpay() {
         contentType: false,
         cache: false,
         processData: false,
-        success: function (data) {
+        success: function(data) {
             database.ref('fixpay_add').child(companyid).set({
                 data: randomString(),
             });
-            swal("Success", data, "success");
+            swal('Inserted', data, 'success');
+            $(".wrap-loader").hide();
+            document.getElementById('file').value = null;
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while entering your record", "error");
         }
     });
 }
@@ -1494,32 +1704,35 @@ var debitdata = debitpath1.toString();
 var debittest = debitpath + debitdata;
 
 
-database.ref(debittest).on('child_added', function (data) {
+database.ref(debittest).on('child_added', function(data) {
     updateDebitTable();
 });
 
-database.ref(debittest).on('child_changed', function (data) {
+database.ref(debittest).on('child_changed', function(data) {
     updateDebitTable();
 });
 
-database.ref(debittest).on('child_removed', function (data) {
+database.ref(debittest).on('child_removed', function(data) {
     updateDebitTable();
 });
 
 //update table fields
 
-function updateDebitTable(){
+function updateDebitTable() {
     var bankDebitID = document.getElementById("bankDebitID");
     $.ajax({
         url: 'master/utils/getBankDebit.php',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
-            if(bankDebitID != null){
+        success: function(response) {
+            if (bankDebitID != null) {
                 bankDebitID.innerHTML = response;
             }
             //document.getElementById('bankDebitID').innerHTML = response;
         },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
+        }
     });
 }
 
@@ -1529,6 +1742,7 @@ function addDebitCategory() {
     var companyId = document.getElementById('companyId').value;
 
     if (val_DebitValidate(bankName)) {
+        $(".loader1").show();
         $.ajax({
             url: 'master/bank_debit_category.php?type=' + 'bank_debit',
             type: 'POST',
@@ -1537,32 +1751,36 @@ function addDebitCategory() {
                 bankName: bankName,
             },
             dataType: 'text',
-            success: function (data) {
+            success: function(data) {
                 database.ref('bank_debit_category').child(companyid).set({
                     data: randomString(),
                 });
-                swal('Success', data, 'success');
+                swal('Inserted', 'Data Inserted Successfully.', 'success');
+                $(".loader1").hide();
                 $("#Add_Debit_Category").modal("hide");
             },
-            error: function () {
-
-            },
+            error: function() {
+                swal("Try again !", "Problem occurred while entering your record", "error");
+            }
         });
     }
 }
 
 // Delete Debit
 function deleteBankDebit(id) {
-    if (confirm('Are you Sure ?')) {
+    if (confirm('Are you sure you want to delete the record ?')) {
         $.ajax({
             url: 'master/bank_debit_category.php?type=' + 'delete_bank_term',
             type: 'POST',
-            data: {id: id},
-            success: function (data) {
+            data: { id: id },
+            success: function(data) {
                 database.ref('bank_debit_category').child(companyid).set({
                     data: randomString(),
                 });
-                swal('Delete', 'Data Removed Successfully.', 'success');
+                swal('Delete', 'Data Deleted Successfully.', 'success');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while deleting your record", "error");
             }
         });
     }
@@ -1572,7 +1790,7 @@ function deleteBankDebit(id) {
 function updateBankDebit(column, id, value) {
 
     var companyId = document.getElementById('companyId').value;
-
+    $(".loader1").show();
     //alert(companyId);
     $.ajax({
         url: 'master/bank_debit_category.php?type=' + 'edit_bank_term',
@@ -1583,22 +1801,33 @@ function updateBankDebit(column, id, value) {
             id: id,
             value: value,
         },
-        success: function (data) {
+        success: function(data) {
             database.ref('bank_debit_category').child(companyId).set({
                 data: randomString(),
             });
-            swal('Update', data, 'success');
+            swal('Updated', 'Data Updated Successfully.', 'success');
+            $(".loader1").hide();
             $('#updateTable').modal('hide');
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
         }
     });
 }
 
 // Import Debit
 function importDebit() {
-    // var file = document.getElementById('file').value;
+
+    var file = document.getElementById('file').value;
+
+    if (file == "") {
+        swal('warning', 'You must select atleast one .CSV file', 'warning');
+        return false;
+    }
     var form_data = new FormData();
     //alert(form_data);
     form_data.append("file", document.getElementById('file').files[0]);
+    $(".wrap-loader").show();
 
     $.ajax({
         url: 'master/bank_debit_category.php?type=' + 'import_Excel',
@@ -1607,11 +1836,16 @@ function importDebit() {
         contentType: false,
         cache: false,
         processData: false,
-        success: function (data) {
+        success: function(data) {
             database.ref('bank_debit_category').child(companyid).set({
                 data: randomString(),
             });
-            swal('Success', data, 'success');
+            swal('Inserted', data, 'success');
+            $(".wrap-loader").hide();
+            document.getElementById('file').value = null;
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while entering your record", "error");
         }
     });
 }
@@ -1621,12 +1855,12 @@ function export_Excel() {
     $.ajax({
         url: 'master/bank_debit_category.php?type=' + 'export_bank_terms',
         type: 'post',
-        success: function (data) {
+        success: function(data) {
             var rows = JSON.parse(data);
 
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function (rowArray) {
+            rows.forEach(function(rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
@@ -1655,32 +1889,35 @@ var creditdata = creditpath1.toString();
 var credittest = creditpath + creditdata;
 
 
-database.ref(credittest).on('child_added', function (data) {
+database.ref(credittest).on('child_added', function(data) {
     updateCreditTable();
 });
 
-database.ref(credittest).on('child_changed', function (data) {
+database.ref(credittest).on('child_changed', function(data) {
     updateCreditTable();
 });
 
-database.ref(credittest).on('child_removed', function (data) {
+database.ref(credittest).on('child_removed', function(data) {
     updateCreditTable();
 });
 
 //update table fields
 
-function updateCreditTable(){
+function updateCreditTable() {
     var creditBody = document.getElementById("creditBody");
     $.ajax({
         url: 'master/utils/getCreditCategory.php',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
-            if(creditBody != null){
+        success: function(response) {
+            if (creditBody != null) {
                 creditBody.innerHTML = response;
             }
             //document.getElementById('creditBody').innerHTML = response;
         },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
+        }
     });
 }
 
@@ -1690,6 +1927,7 @@ function addCreditCategory() {
     var companyId = document.getElementById('companyId').value;
 
     if (val_CreditValidate(creditName)) {
+        $(".loader1").show();
         $.ajax({
             url: 'master/bank_credit_category.php?type=' + 'bank_credit',
             type: 'POST',
@@ -1698,15 +1936,17 @@ function addCreditCategory() {
                 creditName: creditName,
             },
             dataType: 'text',
-            success: function (data) {
+            success: function(data) {
                 database.ref('bank_credit_category').child(companyid).set({
                     data: randomString(),
                 });
-                swal('Success', data, 'success');
+                swal('Inserted', 'Data Inserted Successfully.', 'success');
+                $(".loader1").hide();
                 $("#addCredit_Category").modal("hide");
             },
-            error: function () {
-            },
+            error: function() {
+                swal("Try again !", "Problem occurred while entering your record", "error");
+            }
         });
     }
 }
@@ -1715,7 +1955,7 @@ function addCreditCategory() {
 function updateBankCredit(column, id, value) {
 
     var companyId = document.getElementById('companyId').value;
-
+    $(".loader1").show();
     $.ajax({
         url: 'master/bank_credit_category.php?type=' + 'edit_bank_credit',
         type: 'POST',
@@ -1725,28 +1965,35 @@ function updateBankCredit(column, id, value) {
             id: id,
             value: value,
         },
-        success: function (data) {
+        success: function(data) {
             database.ref('bank_credit_category').child(companyid).set({
                 data: randomString(),
             });
-            swal('Update', "Data Update Successfully.", 'success');
+            swal('Updated', 'Data Updated Successfully.', 'success');
+            $(".loader1").hide();
             $('#updateTable').modal('hide');
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
         }
     });
 }
 
 // Delete Credit
 function deleteBankCredit(id) {
-    if (confirm("Are you Sure?")) {
+    if (confirm("Are you sure you want to delete the record ?")) {
         $.ajax({
             url: 'master/bank_credit_category.php?type=' + 'delete_bank_credit',
             type: 'POST',
-            data: {id: id},
-            success: function (data) {
+            data: { id: id },
+            success: function(data) {
                 database.ref('bank_credit_category').child(companyid).set({
                     data: randomString(),
                 });
-                swal('Delete', 'Data Delete Successfully.', 'success');
+                swal('Delete', 'Data Deleted Successfully.', 'success');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while deleting your record", "error");
             }
         });
     }
@@ -1754,9 +2001,17 @@ function deleteBankCredit(id) {
 
 // Import Credit
 function importCredit() {
+
+    var file = document.getElementById('file1').value;
+
+    if (file == "") {
+        swal('warning', 'You must select atleast one .CSV file', 'warning');
+        return false;
+    }
     var form_data = new FormData();
-    //alert(form_data);
+
     form_data.append("file1", document.getElementById('file1').files[0]);
+    $(".wrap-loader").show();
 
     $.ajax({
         url: 'master/bank_credit_category.php?type=' + 'importCredit',
@@ -1765,11 +2020,16 @@ function importCredit() {
         contentType: false,
         cache: false,
         processData: false,
-        success: function (data) {
+        success: function(data) {
             database.ref('bank_credit_category').child(companyid).set({
                 data: randomString(),
             });
-            swal('Success', data, 'success');
+            swal('Inserted', data, 'success');
+            $(".wrap-loader").hide();
+            document.getElementById('file').value = null;
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while entering your record", "error");
         }
     });
 }
@@ -1779,11 +2039,11 @@ function exportExcelCredit() {
     $.ajax({
         url: 'master/bank_credit_category.php?type=' + 'export_bank_credit',
         type: 'POST',
-        success: function (data) {
+        success: function(data) {
             var rows = JSON.parse(data);
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function (rowArray) {
+            rows.forEach(function(rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
@@ -1813,33 +2073,35 @@ var carddata = cardpath1.toString();
 var cardtest = cardpath + carddata;
 
 
-database.ref(cardtest).on('child_added', function (data) {
+database.ref(cardtest).on('child_added', function(data) {
     updateCardTable();
 });
 
-database.ref(cardtest).on('child_changed', function (data) {
+database.ref(cardtest).on('child_changed', function(data) {
     updateCardTable();
 });
 
-database.ref(cardtest).on('child_removed', function (data) {
+database.ref(cardtest).on('child_removed', function(data) {
     updateCardTable();
 });
 
 //update table fields
 
-function updateCardTable(){
+function updateCardTable() {
     var cardBody = document.getElementById("cardBody");
     $.ajax({
         url: 'master/utils/getCreditCard.php',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
-            if(cardBody != null)
-            {
+        success: function(response) {
+            if (cardBody != null) {
                 cardBody.innerHTML = response;
             }
             //document.getElementById('cardBody').innerHTML = response;
         },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
+        }
     });
 }
 
@@ -1849,6 +2111,7 @@ function addCreditCard() {
     var companyId = document.getElementById('companyId').value;
 
     if (val_CardValidate(cardName)) {
+        $(".loader1").show();
         $.ajax({
             url: 'master/credit_card_category.php?type=' + 'card_credit',
             type: 'POST',
@@ -1857,16 +2120,17 @@ function addCreditCard() {
                 cardName: cardName,
             },
             dataType: 'text',
-            success: function (data) {
+            success: function(data) {
                 database.ref('credit_card_category').child(companyid).set({
                     data: randomString(),
                 });
-                swal('Success', data, 'success');
+                swal('Inserted', 'Data Inserted Successfully.', 'success');
+                $(".loader1").hide();
                 $("#addCreditcard").modal("hide");
             },
-            error: function () {
-
-            },
+            error: function() {
+                swal("Try again !", "Problem occurred while entering your record", "error");
+            }
         });
     }
 }
@@ -1875,7 +2139,7 @@ function addCreditCard() {
 function updateBankCard(column, id, value) {
 
     var companyId = document.getElementById('companyId').value;
-
+    $(".loader1").show();
     $.ajax({
         url: 'master/credit_card_category.php?type=' + 'edit_bank_card',
         type: 'POST',
@@ -1885,28 +2149,35 @@ function updateBankCard(column, id, value) {
             id: id,
             value: value,
         },
-        success: function (data) {
+        success: function(data) {
             database.ref('credit_card_category').child(companyid).set({
                 data: randomString(),
             });
-            swal('Success', "Data Update Successfully.", 'success');
+            swal('Updated', 'Data Updated Successfully.', 'success');
+            $(".loader1").hide();
             $('#updateTable').modal('hide');
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
         }
     });
 }
 
 // Delete Card
 function deleteBankCard(id) {
-    if (confirm("Are you Sure ?")) {
+    if (confirm("Are you sure you want to delete the record ?")) {
         $.ajax({
             url: 'master/credit_card_category.php?type=' + 'delete_card',
             type: 'POST',
-            data: {id: id},
-            success: function (data) {
+            data: { id: id },
+            success: function(data) {
                 database.ref('credit_card_category').child(companyid).set({
                     data: randomString(),
                 });
-                swal('Delete', 'Data Delete Successfully.', 'success');
+                swal('Delete', 'Data Deleted Successfully.', 'success');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while deleting your record", "error");
             }
         });
     }
@@ -1914,10 +2185,16 @@ function deleteBankCard(id) {
 
 // Import Debit
 function importCard() {
-    // var file = document.getElementById('file').value;
+    var file = document.getElementById('file2').value;
+
+    if (file == "") {
+        swal('warning', 'You must select atleast one .CSV file', 'warning');
+        return false;
+    }
     var form_data = new FormData();
     //alert(form_data);
     form_data.append("file_test", document.getElementById('file_test').files[0]);
+    $(".wrap-loader").show();
 
     $.ajax({
         url: 'master/credit_card_category.php?type=' + 'importCard',
@@ -1926,11 +2203,16 @@ function importCard() {
         contentType: false,
         cache: false,
         processData: false,
-        success: function (data) {
+        success: function(data) {
             database.ref('credit_card_category').child(companyid).set({
                 data: randomString(),
             });
-            swal('Success', data, 'success');
+            swal('Inserted', data, 'success');
+            $(".wrap-loader").hide();
+            document.getElementById('file').value = null;
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while entering your record", "error");
         }
     });
 }
@@ -1940,11 +2222,11 @@ function export_Card() {
         url: 'master/credit_card_category.php?type=' + 'export_Card',
         type: 'POST',
 
-        success: function (data) {
+        success: function(data) {
             var rows = JSON.parse(data);
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function (rowArray) {
+            rows.forEach(function(rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
@@ -1964,314 +2246,146 @@ function export_Card() {
 
 /*--------------------------- Credit Card Category END  --------------------*/
 
-/*----------------------- Status Type START ----------------------*/
+/*----------------------Fuel Card Type START ---------------------------*/
+var fuel_path = "fuel_Card_Type/";
+var fuel_path1 = $('#companyid').val();
+var data = fuel_path1.toString();
+var fuel_test = fuel_path + data;
 
-var statustypepath = "status_type/";
-var statustypepath1 = $('#companyid').val();
-var statustypedata = statustypepath1.toString();
-var statustypetest = statustypepath + statustypedata;
-
-database.ref(statustypetest).on('child_added', function(data) {
-    updateStatusTypeTable();
+database.ref(fuel_test).on('child_added', function(data) {
+    updateFuelCardTable();
 });
-
-database.ref(statustypetest).on('child_changed', function (data) {
-    updateStatusTypeTable();
+database.ref(fuel_test).on('child_changed', function(data) {
+    updateFuelCardTable();
 });
-
-database.ref(statustypetest).on('child_removed', function (data) {
-    updateStatusTypeTable();
+database.ref(fuel_test).on('child_removed', function(data) {
+    updateFuelCardTable();
 });
 
 //update table fields
 
-function updateStatusTypeTable(){
-    var statusBody = document.getElementById("statusBody");
+function updateFuelCardTable() {
+    var fuelCardBody = document.getElementById('fuelCardBody');
+
     $.ajax({
-        url: 'master/utils/getStatus.php',
+        url: 'master/utils/getFuelCard.php',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
-            if(statusBody != null)
-            {
-                statusBody.innerHTML = response;
+        success: function(response) {
+            var res = response.split('^');
+
+            if (fuelCardBody != null) {
+                fuelCardBody.innerHTML = res[0];
             }
-            //document.getElementById('statusBody').innerHTML = response;
         },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
+        }
     });
 }
 
-function addStatusType() {
-    var status_name = document.getElementById("status_name").value;
-    var status_color = document.getElementById("status_color").value;
+function addFuelCardType() {
+    var fuelcard_type = document.getElementById("fuel_card_type").value;
     var companyId = document.getElementById('companyId').value;
 
-    if (val_statusValidate(status_name)) {
+    if (val_fuelcard_type(fuelcard_type)) {
+        $(".loader1").show();
         $.ajax({
-            url: 'master/status_types.php?type=' + 'status_type',
+            url: 'master/add_fuel_type.php?type=' + 'fueltypeadd',
             type: 'POST',
             data: {
-                companyId: companyId,
-                status_name: status_name,
-                status_color: status_color
+                companyID: companyId,
+                fuelcard_type: fuelcard_type,
             },
             dataType: 'text',
-            success: function (data) {
-                database.ref('status_type').child(companyid).set({
-                    data:randomString(),
-                });
-                swal('Success', data, 'success');
-                $("#Add_Status_Type").modal("hide");
-            },
-            error: function () {
-            },
-        });
-    }
-}
-
-// Update Status
-function updateStatus(column, id, value) {
-
-    //var statuscolor = document.getElementById('statuscolor').value;
-    var companyId = document.getElementById('companyId').value;
-    $.ajax({
-        url: 'master/status_types.php?type=' + 'edit_status',
-        type: 'POST',
-        data: {
-            companyId: companyId,
-            column: column,
-            id: id,
-            value: value,
-        },
-        success: function (data) {
-            database.ref('status_type').child(companyid).set({
-                data:randomString(),
-            });
-            swal('Success', "Data Update Success.", 'success');
-            $('#updateTable').modal('hide');
-        }
-    });
-}
-
-function update_Status(element, column, id) {
-    var companyId = document.getElementById('companyId').value;
-
-    $.ajax({
-        url: 'master/status_types.php?type=' + 'edit_color',
-        type: 'POST',
-        data: {
-            companyId: companyId,
-            column: column,
-            id: id,
-            statuscolor: element,
-        },
-        success: function (data) {
-            database.ref('status_type').child(companyid).set({
-                data:randomString(),
-            });
-            swal('Success', "Data Update Success.", 'success');
-            $('#Add_Status_Type').modal('hide');
-        }
-    });
-}
-
-// Import Status
-function importStatus() {
-    var form_data = new FormData();
-    //alert(form_data);
-    form_data.append("file", document.getElementById('file').files[0]);
-
-    $.ajax({
-        url: 'master/status_types.php?type=' + 'importStatus',
-        method: 'post',
-        data: form_data,
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function (data) {
-            database.ref('status_type').child(companyid).set({
-                data:randomString(),
-            });
-            swal('Success', data, 'success');
-        }
-    });
-}
-
-// Delete Status
-function deleteStatus(id) {
-    if (confirm("Are you Sure ?")) {
-        $.ajax({
-            url: 'master/status_types.php?type=' + 'delete_Status',
-            type: 'POST',
-            data: {id: id},
-            success: function (data) {
-                database.ref('status_type').child(companyid).set({
-                    data:randomString(),
-                });
-                swal('Success', 'Data Delete Success.', 'success');
-            }
-        });
-    }
-}
-
-/*---------------------- Status Type END ------------------------*/
-
-/*---------------------- IFTA Card Category START ------------------------*/
-
-var iftacardpath = "ifta_card_category/";
-var iftacardpath1 = $('#companyid').val();
-var iftacarddata = iftacardpath1.toString();
-var iftacardtest = iftacardpath + iftacarddata;
-
-database.ref(iftacardtest).on('child_added', function(data) {
-    updateIftaCardTable();
-});
-
-database.ref(iftacardtest).on('child_changed', function (data) {
-    updateIftaCardTable();
-});
-
-database.ref(iftacardtest).on('child_removed', function (data) {
-    updateIftaCardTable();
-});
-
-//update table fields
-
-
-function updateIftaCardTable() {
-    var iftacardBody = document.getElementById("IftacardBody");
-    $.ajax({
-        url: 'master/utils/getIftaCardCategory.php',
-        type: 'POST',
-        dataType: 'text',
-        success: function (response) {
-            if(iftacardBody != null) 
-            {
-                iftacardBody.innerHTML = response;
-            }
-            //document.getElementById('iftacardBody').innerHTML = response;
-        },
-    });
-}
-
-// Add Ifta Card
-function add_CardCategory() {
-    var cardHolderName = $("#cardHolderName").val();
-    var iftaCardNo = document.getElementById("iftaCardNo").value;
-    var employeeNo = document.getElementById("employeeNo").value;
-    var cardType = document.getElementById("cardType").value;
-    var companyId = document.getElementById('companyId').value;
-
-    if (val_cardHolderName(cardHolderName)) {
-        if (val_iftaCardNo(iftaCardNo)) {
-            if (val_CardType(cardType)) {
-                $.ajax({
-                    url: 'master/ifta_card_category.php?type=' + 'card_category',
-                    type: 'POST',
-                    data: {
-                        companyId: companyId,
-                        cardHolderName: cardHolderName,
-                        iftaCardNo: iftaCardNo,
-                        employeeNo: employeeNo,
-                        cardType: cardType,
-                    },
-                    dataType: 'text',
-                    success: function (data) {
-                        database.ref('ifta_card_category').child(companyid).set({
-                            data: randomString(),
-                        });
-                        swal('Success', data, 'success');
-                        $("#addIftaCard").modal("hide");
-                    },
-                    error: function () {
-                    },
-                });
-            }
-        }
-    }
-}
-
-// Update IFTA Card
-function updateCardCat(column, id, value) {
-    var companyId = document.getElementById('companyId').value;
-    $.ajax({
-        url: 'master/ifta_card_category.php?type=' + 'edit_ifta',
-        type: 'POST',
-        data: {
-            companyId: companyId,
-            column: column,
-            id: id,
-            value: value,
-        },
-        success: function (data) {
-            var companyid = $('#companyid').val();
-            database.ref('ifta_card_category').child(companyid).set({
-                data: randomString(),
-            });
-            swal('Success', "Data Update Success.", 'success');
-            $("#updateTable").modal('hide');
-        }
-    });
-}
-
-// Delete IFTA Card
-function deleteCardCat(id) {
-    if (confirm("Are you Sure ?")) {
-        $.ajax({
-            url: 'master/ifta_card_category.php?type=' + 'delete_Ifta',
-            type: 'POST',
-            data: {id: id},
-            success: function (data) {
-                database.ref('ifta_card_category').child(companyid).set({
+            success: function(data) {
+                var companyid = $('#companyid').val();
+                database.ref('fuel_Card_Type').child(companyid).set({
                     data: randomString(),
                 });
-                swal('Success', 'Data Delete Success.', 'success');
+                swal('Inserted', 'Data Inserted Successfully.', 'success');
+                $(".loader1").hide();
+                $('#fuelcardsub').modal('hide');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while entering your record", "error");
             }
         });
     }
 }
 
-// Import IFTA Card
-function importCard_Cat() {
-    var form_data = new FormData();
-    //alert(form_data);
-    form_data.append("file", document.getElementById('file').files[0]);
-
+//update currency Function
+function updateFuelCard(column, id, value) {
+    var companyId = document.getElementById('companyId').value;
+    $(".loader1").show();
     $.ajax({
-        url: 'master/ifta_card_category.php?type=' + 'import_Ifta',
-        method: 'post',
-        data: form_data,
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function (data) {
-            database.ref('ifta_card_category').child(companyid).set({
+        url: 'master/add_fuel_type.php?type=' + 'edit_fueltype',
+        type: 'POST',
+        data: {
+            companyID: companyId,
+            column: column,
+            id: id,
+            value: value,
+        },
+        success: function(data) {
+            var companyid = $('#companyid').val();
+            database.ref('fuel_Card_Type').child(companyid).set({
                 data: randomString(),
             });
-            swal('Success', data, 'success');
+            swal('Updated', 'Data Updated Successfully.', 'success');
+            $(".loader1").hide();
+            $("#updateTable").modal('hide');
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while updating your record", "error");
         }
     });
 }
 
-// Export IFTA Card
-function exportifta() {
-    $.ajax({
-        url: 'master/ifta_card_category.php?type=' + 'export_ifta',
-        type: 'POST',
+// Delete Fuel Card Function
+function deleteFuelCard(id) {
+    if (confirm('Are you sure you want to delete the record ?')) {
+        $.ajax({
+            url: 'master/add_fuel_type.php?type=' + 'delete_fueltype',
+            type: 'POST',
+            data: { id: id },
+            success: function(data) {
+                var companyid = $('#companyid').val();
+                database.ref('fuel_Card_Type').child(companyid).set({
+                    data: randomString(),
+                });
+                swal("Success", data, "success");
+                // $('#currencysub').modal('hide');
+            },
+            error: function() {
+                swal("Try again !", "Problem occurred while deleting your record", "error");
+            }
+        });
+    }
+}
 
-        success: function (data) {
+// Export Excel Function for Fuel Card Type
+function exportFuelCard() {
+    $.ajax({
+        url: 'master/add_fuel_type.php?type=' + 'export_fueltype',
+        type: 'POST',
+        success: function(data) {
             var rows = JSON.parse(data);
+
             let csvContent = "data:text/csv;charset=utf-8,";
 
-            rows.forEach(function (rowArray) {
+            rows.forEach(function(rowArray) {
                 let row = rowArray.join(",");
                 csvContent += row + "\r\n";
             });
 
+            // var encodedUri = encodeURI(csvContent);
+            // window.open(encodedUri);
+
             var encodedUri = encodeURI(csvContent);
             var link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "ifta_card.csv");
+            link.setAttribute("download", "fuel_card.csv");
             document.body.appendChild(link); // Required for FF
 
             link.click();
@@ -2279,202 +2393,246 @@ function exportifta() {
     });
 }
 
-/*---------------------- IFTA Card Category END ------------------------*/
+//insert data into Database using Excel
+function importFuelCard() {
+    var file = document.getElementById('file').value;
+
+    if (file == "") {
+        swal('warning', 'You must select atleast one .CSV file', 'warning');
+        return false;
+    }
+
+    var form_data = new FormData();
+
+    form_data.append("file", document.getElementById('file').files[0]);
+    $(".wrap-loader").show();
+
+    $.ajax({
+        url: 'master/add_fuel_type.php?type=' + 'importExcel_Fuel',
+        method: 'post',
+        data: form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(data) {
+            console.log(data);
+            var companyid = $('#companyid').val();
+            database.ref('fuel_Card_Type').child(companyid).set({
+                data: randomString(),
+            });
+            swal('Inserted', data, 'success');
+            $(".wrap-loader").hide();
+            document.getElementById('file').value = null;
+        },
+        error: function() {
+            swal("Try again !", "Problem occurred while entering your record", "error");
+        }
+    });
+}
+
+/*----------------------Fuel Card Type ENDS ---------------------------*/
+
 
 /*---------------------- Update Table Scripts -----------------------*/
 // function updateTableColumn_s(columnvalue,functionname,type,id,column,title,pencilid) {
 
 // }
-function updateTableColumn(columnvalue,functionname,type,id,column,title,pencilid){
+function updateTableColumn(columnvalue, functionname, type, id, column, title, pencilid) {
     //alert(columnvalue+" "+functionname+" "+type+" "+id+" "+column+" "+title+" "+pencilid);
     $.ajax({
         type: 'POST',
-        success: function (data) {
+        success: function(data) {
             // Master Table START
-            $('.currency-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.currency-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.trucktype-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.trucktype-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.equipment-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.equipment-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.trailer-container1').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.trailer-container1').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.fixpay-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.fixpay-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.status-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.status-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.office-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.office-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.payment-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.payment-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.loadtype-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.loadtype-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.masterbank-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.masterbank-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.company-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.company-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.iftacard-category-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.iftacard-category-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
             // Master Table ENDS
 
             // Admin Table START
-            $('.custombroker-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.custombroker-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.bank-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.bank-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.creditcard-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.creditcard-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.subcreditcard-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.subcreditcard-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.shipper-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.shipper-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.consigne-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.consigne-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.user-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.user-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.truck-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.truck-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.trailer-container-admin').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.trailer-container-admin').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.factoring-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.factoring-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.customer-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.customer-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-            $('.carrier-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
-            });
-
-            $('.toll-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
-            });
-            $('.fuel-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.carrier-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
 
-            $('.driver-container').load('./admin/update_modal.php', function (result) {
-                $('#updateTable').modal({show: true});
+            $('.toll-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
             });
-
+            $('.fuel-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
+            });
+            $('.fuel-card-container').load('./admin/update_modal.php', function(result) {
+                $('#updateTable').modal({ show: true });
+            });
+            // $('.driver-container').load('./admin/update_modal.php', function(result) {
+            //     $('#updateTable').modal({ show: true });
+            // });
+            
+            
             // Admin Table ENDS
 
-            setTimeout(function(){
-                document.getElementById('modal-title').innerHTML = "Update "+title;
+            setTimeout(function() {
+                document.getElementById('modal-title').innerHTML = "Update " + title;
                 document.getElementById('fieldLabel').innerHTML = title;
                 document.getElementById('field-value').value = columnvalue;
                 document.getElementById('fieldid').value = id;
                 document.getElementById('fieldname').value = column;
                 document.getElementById('functionname').value = functionname;
-            },300);
+            }, 300);
         }
     });
 
 }
-function updateTableField(){
-    var value =  document.getElementById('field-value').value;
+
+function updateTableField() {
+    var value = document.getElementById('field-value').value;
     var id = document.getElementById('fieldid').value;
     var name = document.getElementById('fieldname').value;
     var functionname = document.getElementById('functionname').value;
-    if(functionname == "updateCustom"){
-        updateCustom(name,id,value);
-    } else if(functionname == 'updateCurrency') {
-        updateCurrency(name,id,value);
-    } else if(functionname == 'updateTruck') {
-        updateTruck(name,id,value);
-    } else if(functionname == 'updateEquipment') {
-        updateEquipment(name,id,value);
-    } else if(functionname == 'updateTrailer') {
-        updateTrailer(name,id,value);
-    } else if(functionname == 'updatefixPay') {
-        updatefixPay(name,id,value);
-    } else if(functionname == 'updateStatus') {
-        updateStatus(name,id,value);
-    } else if(functionname == 'updateOffice') {
-        updateOffice(name,id,value);
-    } else if(functionname == 'updatePayment') {
-        updatePayment(name,id,value);
-    } else if(functionname == 'updateloadType') {
-        updateloadType(name,id,value);
-    } else if(functionname == 'updateBankDebit') {
-        updateBankDebit(name,id,value);
-    } else if(functionname == 'updateBankCredit') {
-        updateBankCredit(name,id,value);
-    } else if(functionname == 'updateBankCard') {
-        updateBankCard(name,id,value);
-    } else if(functionname == "updateCompany") {
-        updateCompany(name,id,value);
-    } else if(functionname == 'updateBank') {
-        updateBank(name,id,value);
-    } else if(functionname == 'updateCredit') {
-        updateCredit(name,id,value);
-    } else if(functionname == 'updateSubCredit') {
-        updateSubCredit(name,id,value);
-    } else if(functionname == 'updateShipper') {
-        updateShipper(name,id,value);
-    } else if(functionname == 'updateDriver') {
-        updateDriver(name,id,value);
-    } else if(functionname == 'updateConsignee') {
-        updateConsignee(name,id,value);
-    } else if(functionname == 'updateUser') {
-        updateUser(name,id,value);
-    } else if(functionname == 'updateTruckAdd') {
-        updateTruckAdd(name,id,value);
-    } else if(functionname == 'updateTrailerAdd') {
-        updateTrailerAdd(name,id,value);
-    } else if(functionname == 'updateFactoring') {
-        updateFactoring(name,id,value);
-    } else if(functionname == 'updateCustomer') {
-        updateCustomer(name,id,value);
-    } else if(functionname == 'updateExternal') {
-        updateExternal(name,id,value); 
-    } else if(functionname == 'updateTolls') {
-        updateTolls(name,id,value);
-    } else if(functionname == 'updateCardCat') {
-        updateCardCat(name,id,value);
-    } else if(functionname == 'updateFuel') {
-        updateFuel(name,id,value);
+    if (functionname == "updateCustom") {
+        updateCustom(name, id, value);
+    } else if (functionname == 'updateCurrency') {
+        updateCurrency(name, id, value);
+    } else if (functionname == 'updateTruck') {
+        updateTruck(name, id, value);
+    } else if (functionname == 'updateEquipment') {
+        updateEquipment(name, id, value);
+    } else if (functionname == 'updateTrailer') {
+        updateTrailer(name, id, value);
+    } else if (functionname == 'updatefixPay') {
+        updatefixPay(name, id, value);
+    } else if (functionname == 'updateStatus') {
+        updateStatus(name, id, value);
+    } else if (functionname == 'updateOffice') {
+        updateOffice(name, id, value);
+    } else if (functionname == 'updatePayment') {
+        updatePayment(name, id, value);
+    } else if (functionname == 'updateloadType') {
+        updateloadType(name, id, value);
+    } else if (functionname == 'updateBankDebit') {
+        updateBankDebit(name, id, value);
+    } else if (functionname == 'updateBankCredit') {
+        updateBankCredit(name, id, value);
+    } else if (functionname == 'updateBankCard') {
+        updateBankCard(name, id, value);
+    } else if (functionname == "updateCompany") {
+        updateCompany(name, id, value);
+    } else if (functionname == 'updateBank') {
+        updateBank(name, id, value);
+    } else if (functionname == 'updateCredit') {
+        updateCredit(name, id, value);
+    } else if (functionname == 'updateSubCredit') {
+        updateSubCredit(name, id, value);
+    } else if (functionname == 'updateShipper') {
+        updateShipper(name, id, value);
+    } else if (functionname == 'updateDriver') {
+        updateDriver(name, id, value);
+    } else if (functionname == 'updateConsignee') {
+        updateConsignee(name, id, value);
+    } else if (functionname == 'updateUser') {
+        updateUser(name, id, value);
+    } else if (functionname == 'updateTruckAdd') {
+        updateTruckAdd(name, id, value);
+    } else if (functionname == 'updateTrailerAdd') {
+        updateTrailerAdd(name, id, value);
+    } else if (functionname == 'updateFactoring') {
+        updateFactoring(name, id, value);
+    } else if (functionname == 'updateCustomer') {
+        updateCustomer(name, id, value);
+    } else if (functionname == 'updateExternal') {
+        updateExternal(name, id, value);
+    } else if (functionname == 'updateTolls') {
+        updateTolls(name, id, value);
+    } else if (functionname == 'updateCardCat') {
+        updateCardCat(name, id, value);
+    } else if (functionname == 'updateFuel') {
+        updateFuel(name, id, value);
+    } else if (functionname == 'updateFuelCard') {
+        updateFuelCard(name, id, value);
     }
 
 }
 
-function showPencil(id){
+function showPencil(id) {
     document.getElementById(id).style.display = 'inline-block';
     document.getElementById(id).style.float = 'left';
     document.getElementById(id).style.marginRight = '5px';
 }
 
-function hidePencil(id){
+function hidePencil(id) {
     document.getElementById(id).style.display = 'none';
 }
 
-function showPencil_s(id){
+function showPencil_s(id) {
     document.getElementById(id).style.display = 'inline-block';
     document.getElementById(id).style.float = 'left';
     document.getElementById(id).style.marginRight = '5px';
 }
 
-function hidePencil_s(id){
+function hidePencil_s(id) {
     document.getElementById(id).style.display = 'none';
 }

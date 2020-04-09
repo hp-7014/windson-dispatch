@@ -85,8 +85,8 @@ if ($_GET['types'] == 'live_carrier_table') {
             $pencilid10 = '"dotPencil'.$i.'"';
 
             echo "<tr>
-                    <td> $i</td>
-                    <td class='custom-text' id='name$i'
+                    <th> $i</th>
+                    <th class='custom-text' id='name$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -94,7 +94,7 @@ if ($_GET['types'] == 'live_carrier_table') {
                             onclick='updateTableColumn($c_type1,$updateExternal,$type,$id,$nameColumn,$title1,$pencilid1)'
                         ></i>
                         $name
-                    </td>
+                    </th>
                     <td class='custom-text' id='address$i'
                         onmouseover='showPencil_s($pencilid2)'
                         onmouseout='hidePencil_s($pencilid2)'
@@ -178,10 +178,14 @@ if ($_GET['types'] == 'live_carrier_table') {
                     </td>";
 
                 if ($counter == 0) {
-                    echo "<td><a href='#' onclick='deleteExternal($id,$paymentTerm,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                    echo "<td><a href='#' onclick='deleteExternal($id,$paymentTerm,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
                 } else {
-                    echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                    echo "<a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
                 }
+
+                echo "<a href='#' onclick='editExternalCarrier($id)'><i
+                data-toggle='tooltip' data-placement='top' title='Edit Detail'
+                class='mdi mdi-file-document-edit-outline editModal'></i></a></td></tr>";
 
                 $value = "'".$id.")&nbsp;".$name."'";
                 $list .="<option value=$value></option>";
@@ -274,8 +278,8 @@ if ($_GET['types'] == 'search_text') {
                 $pencilid10 = '"dotPencil'.$i.'"';
 
                 echo "<tr>
-                        <td> $i</td>
-                        <td class='custom-text' id='name$i'
+                        <th> $i</th>
+                        <th class='custom-text' id='name$i'
                             onmouseover='showPencil_s($pencilid1)'
                             onmouseout='hidePencil_s($pencilid1)'
                             >
@@ -283,7 +287,7 @@ if ($_GET['types'] == 'search_text') {
                                 onclick='updateTableColumn($c_type1,$updateExternal,$type,$id,$nameColumn,$title1,$pencilid1)'
                             ></i>
                             $name
-                        </td>
+                        </th>
                         <td class='custom-text' id='address$i'
                             onmouseover='showPencil_s($pencilid2)'
                             onmouseout='hidePencil_s($pencilid2)'
@@ -367,10 +371,14 @@ if ($_GET['types'] == 'search_text') {
                         </td>";
 
                     if ($counter == 0) {
-                        echo "<td><a href='#' onclick='deleteExternal($id,$paymentTerm,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                        echo "<td><a href='#' onclick='deleteExternal($id,$paymentTerm,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
                     } else {
-                        echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                        echo "<a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
                     }
+                    echo "<a href='#' onclick='editExternalCarrier($id)'><i
+                        data-toggle='tooltip' data-placement='top' title='Edit Detail'
+                        class='mdi mdi-file-document-edit-outline editModal'></i></a></td></tr>";
+
             }
         }
 
@@ -456,8 +464,8 @@ if ($_GET['types'] == 'search_text') {
                     $pencilid10 = '"dotPencil'.$i.'"';
 
                     echo "<tr>
-                            <td> $i</td>
-                            <td class='custom-text' id='name$i'
+                            <th> $i</th>
+                            <th class='custom-text' id='name$i'
                                 onmouseover='showPencil_s($pencilid1)'
                                 onmouseout='hidePencil_s($pencilid1)'
                                 >
@@ -465,7 +473,7 @@ if ($_GET['types'] == 'search_text') {
                                     onclick='updateTableColumn($c_type1,$updateExternal,$type,$id,$nameColumn,$title1,$pencilid1)'
                                 ></i>
                                 $name
-                            </td>
+                            </th>
                             <td class='custom-text' id='address$i'
                                 onmouseover='showPencil_s($pencilid2)'
                                 onmouseout='hidePencil_s($pencilid2)'
@@ -549,10 +557,14 @@ if ($_GET['types'] == 'search_text') {
                             </td>";
 
                         if ($counter == 0) {
-                            echo "<td><a href='#' onclick='deleteExternal($id,$paymentTerm,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                            echo "<td><a href='#' onclick='deleteExternal($id,$paymentTerm,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
                         } else {
-                            echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                            echo "<a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
                         }
+                        echo "<a href='#' onclick='editExternalCarrier($id)'><i
+                            data-toggle='tooltip' data-placement='top' title='Edit Detail'
+                            class='mdi mdi-file-document-edit-outline editModal'></i></a></td></tr>";
+
                 }
             }
         }
@@ -644,8 +656,8 @@ if ($_GET['types'] == 'paginate_extCar') {
             $pencilid10 = '"dotPencil'.$i.'"';
 
             echo "<tr>
-                    <td> $start</td>
-                    <td class='custom-text' id='name$i'
+                    <th> $start</th>
+                    <th class='custom-text' id='name$i'
                         onmouseover='showPencil_s($pencilid1)'
                         onmouseout='hidePencil_s($pencilid1)'
                         >
@@ -653,7 +665,7 @@ if ($_GET['types'] == 'paginate_extCar') {
                             onclick='updateTableColumn($c_type1,$updateExternal,$type,$id,$nameColumn,$title1,$pencilid1)'
                         ></i>
                         $name
-                    </td>
+                    </th>
                     <td class='custom-text' id='address$i'
                         onmouseover='showPencil_s($pencilid2)'
                         onmouseout='hidePencil_s($pencilid2)'
@@ -737,10 +749,14 @@ if ($_GET['types'] == 'paginate_extCar') {
                     </td>";
 
                 if ($counter == 0) {
-                    echo "<td><a href='#' onclick='deleteExternal($id,$paymentTerm,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                    echo "<td><a href='#' onclick='deleteExternal($id,$paymentTerm,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
                 } else {
-                    echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                    echo "<a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
                 }
+                echo "<a href='#' onclick='editExternalCarrier($id)'><i
+                data-toggle='tooltip' data-placement='top' title='Edit Detail'
+                class='mdi mdi-file-document-edit-outline editModal'></i></a></td></tr>";
+
         }
     }
 }
