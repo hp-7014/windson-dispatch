@@ -4,11 +4,20 @@ $helper = "helper";
 require "../../database/connection.php";
 
 if($_GET['types'] == 'live_consignee_table') {
+    $limit = 100;
+    $cursor = $db->consignee->find(array('companyID' => $_SESSION['companyId']));
+    
+    foreach ($cursor as $value) {
+        $total_records = sizeof($value['consignee']);
+        $total_pages = ceil($total_records / $limit);
+    }
+
     $show = $db->consignee->find(array('companyID' => $_SESSION['companyId']), array('projection' => array('consignee' => array('$slice' => [0, 100]))));
     //$show = $db->consignee->find(['companyID' => $_SESSION['companyId']]);
     $i = 0;
     $table = "";
     $list  = "";
+    $pages = "";
     foreach ($show as $row) {
         $show1 = $row['consignee'];
         foreach ($show1 as $row1) {
@@ -102,7 +111,7 @@ if($_GET['types'] == 'live_consignee_table') {
             $pencilid15 = '"consigneeNotesPencil'.$i.'"';
             $pencilid16 = '"internalNotesPencil'.$i.'"';
 
-            echo "<tr>
+            $table .= "<tr>
                     <th>$i</th>
                     <th class='custom-text' id='consigneeName$i'
                         onmouseover='showPencil_s($pencilid1)'
@@ -250,16 +259,45 @@ if($_GET['types'] == 'live_consignee_table') {
                     </td>";
 
                 if ($counter == 0) { 
-                    echo "<td><a href='#' onclick='deleteConsignee($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                    $table .= "<td><a href='#' onclick='deleteConsignee($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
                 } else {
-                    echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                    $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
                 }
 
             $value = "'".$id.")&nbsp;".$consigneeName."'";
             $list .="<option value=$value></option>";
         }
-        //echo $table."^".$list;
+
+        $fun_nm = '"paginate_consignee"';
+        $p_no = '"page_no"';
+
+        $pages .= "<li id='bank_previous' style='display:none'>
+            <a class='page-link btn btn-secondary waves-effect'
+                onclick='previous_page($fun_nm,$p_no,$limit,$total_pages)'>Previous</a>
+            </li>
+            <select class='form-control' id='page_active'
+                onchange='paginate_consignee(this.value * $limit,$limit,$total_pages)'>";
+        $j = 1;
+
+        for ($i = 0; $i < $total_pages; $i++) {
+            if ($i == 0) {
+                $pages .= "<option value='$i'>$j</option>";
+            } else {
+                $pages .= "<option value='$i'>$j</option>";
+            }
+            $j++;
+        } 
+
+        if($total_pages > 0 && $total_pages > 1) {
+            $pages .= "</select>
+                <li id='bank_next'>
+                    <a class='page-link btn btn-primary waves-effect waves-light'
+                        onclick='next_page($fun_nm,$p_no,$limit,$total_pages)'>Next</a>
+                </li>";
+
+        }
     }
+    echo $table."^".$pages;
 }
 
 if ($_GET['types'] == 'search_text') {

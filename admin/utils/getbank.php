@@ -143,8 +143,35 @@ if ($_GET['types'] == 'live_bank_table') {
                 $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
             }
         }
-    }
+        $fun_nm = '"paginate_bank_admin"';
+        $p_no = '"page_no"';
 
+        $pages .= "<li id='bank_previous' style='display:none'>
+            <a class='page-link btn btn-secondary waves-effect'
+                onclick='previous_page($fun_nm,$p_no,$limit,$total_pages)'>Previous</a>
+            </li>
+            <select class='form-control' id='page_active'
+                onchange='paginate_bank_admin(this.value * $limit,$limit,$total_pages)'>";
+        $j = 1;
+
+        for ($i = 0; $i < $total_pages; $i++) {
+            if ($i == 0) {
+                $pages .= "<option value='$i'>$j</option>";
+            } else {
+                $pages .= "<option value='$i'>$j</option>";
+            }
+            $j++;
+        } 
+
+        if($total_pages > 0 && $total_pages > 1) {
+            $pages .= "</select>
+                <li id='bank_next'>
+                    <a class='page-link btn btn-primary waves-effect waves-light'
+                        onclick='next_page($fun_nm,$p_no,$limit,$total_pages)'>Next</a>
+                </li>";
+
+        }
+    }
     echo $table."^".$pages;
 }
 

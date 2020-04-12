@@ -17,6 +17,7 @@ if ($_GET['types'] == 'live_customer_table') {
     $i = 0;
     $table = "";
     $list = "";
+    $pages = "";
     foreach ($show_data as $row) {
         $show1 = $row['customer'];
         foreach ($show1 as $row1) {
@@ -64,7 +65,7 @@ if ($_GET['types'] == 'live_customer_table') {
             $pencilid5 = '"custTelephonePencil'.$i.'"';
             $pencilid6 = '"custEmailPencil'.$i.'"';
 
-            echo "<tr>
+            $table .= "<tr>
                     <th>$i</th>
                     <td class='custom-text' id='custName$i'
                         onmouseover='showPencil_s($pencilid1)'
@@ -122,20 +123,49 @@ if ($_GET['types'] == 'live_customer_table') {
                     </td>";
 
                 if ($counter == 0) {
-                    echo "<td><a href='#' onclick='deleteCustomer($id,$currencySetting,$paymentTerms,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
+                    $table .= "<td><a href='#' onclick='deleteCustomer($id,$currencySetting,$paymentTerms,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
                 } else {
-                    echo "<a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
+                    $table .= "<a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
                 }
-                echo "<a href='#' onclick='editCustomer($id)'><i
-                 id='editCustomerDetail' data-toggle='tooltip' data-placement='top'
-                 title='Edit Detail'
-                 class='mdi mdi-file-document-edit-outline editModal'></i></a></td></tr>";
+                $table .= "<a href='#' onclick='editCustomer($id)'><i
+                    id='editCustomerDetail' data-toggle='tooltip' data-placement='top'
+                    title='Edit Detail'
+                    class='mdi mdi-file-document-edit-outline editModal'></i></a></td></tr>";
 
             $value = "'".$id.')&nbsp;'.$custName."'";
             $list .= "<option value=$value></option>";
         }
-        //echo $table."^".$list;
+
+        $fun_nm = '"paginate_customer"';
+        $p_no = '"page_no"';
+
+        $pages .= "<li id='bank_previous' style='display:none'>
+            <a class='page-link btn btn-secondary waves-effect'
+                onclick='previous_page($fun_nm,$p_no,$limit,$total_pages)'>Previous</a>
+            </li>
+            <select class='form-control' id='page_active'
+                onchange='paginate_customer(this.value * $limit,$limit,$total_pages)'>";
+        $j = 1;
+
+        for ($i = 0; $i < $total_pages; $i++) {
+            if ($i == 0) {
+                $pages .= "<option value='$i'>$j</option>";
+            } else {
+                $pages .= "<option value='$i'>$j</option>";
+            }
+            $j++;
+        } 
+
+        if($total_pages > 0 && $total_pages > 1) {
+            $pages .= "</select>
+                <li id='bank_next'>
+                    <a class='page-link btn btn-primary waves-effect waves-light'
+                        onclick='next_page($fun_nm,$p_no,$limit,$total_pages)'>Next</a>
+                </li>";
+
+        }
     }
+    echo $table."^".$pages;
 }
 
 if ($_GET['types'] == 'search_text') {

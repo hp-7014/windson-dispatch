@@ -5,10 +5,11 @@ require "../../database/connection.php";
 
 if ($_GET['types'] == 'live_truck_table') {
     $i = 0;
+    $limit = 100;
     $table = "";
     $list = "";
+    $pages = "";
     $type = '"text"';
-    $limit = 100;
 
     $cursor = $db->truckadd->find(array('companyID' => $_SESSION['companyId']));
     
@@ -173,203 +174,232 @@ if ($_GET['types'] == 'live_truck_table') {
             $pencilid19 = '"transponderPencil'.$i.'"';
             $pencilid20 = '"internalNotesPencil'.$i.'"';
 
-                echo "<tr>
-                    <th>$i</th>
-                    <th class='custom-text' id='truckNumber$i'
-                        onmouseover='showPencil_s($pencilid1)'
-                        onmouseout='hidePencil_s($pencilid1)'
-                        >
-                        <i id='truckNumberPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type1,$updateTruckAdd,$type,$id,$column1,$title1,$pencilid1)'
-                        ></i>
-                        $truckNumber
-                    </th>
-                    <td class='custom-text'>
-                        $truckType
-                    </td>
-                    <td class='custom-text' id='licensePlate$i'
-                        onmouseover='showPencil_s($pencilid2)'
-                        onmouseout='hidePencil_s($pencilid2)'
-                        >
-                        <i id='licensePlatePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type2,$updateTruckAdd,$type,$id,$column2,$title2,$pencilid2)'
-                        ></i>
-                        $licensePlate
-                    </td>
-                    <td class='custom-text' id='plateExpiry$i'
-                        onmouseover='showPencil_s($pencilid3)'
-                        onmouseout='hidePencil_s($pencilid3)'
-                        >
-                        <i id='plateExpiryPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type3,$updateTruckAdd,$type,$id,$column3,$title3,$pencilid3)'
-                        ></i>
-                        $plateExpiry
-                    </td>
-                    <td class='custom-text' id='inspectionExpiry$i'
-                        onmouseover='showPencil_s($pencilid4)'
-                        onmouseout='hidePencil_s($pencilid4)'
-                        >
-                        <i id='inspectionExpiryPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type4,$updateTruckAdd,$type,$id,$column4,$title4,$pencilid4)'
-                        ></i>
-                        $inspectionExpiry
-                    </td>
-                    <td class='custom-text' id='status$i'
-                        onmouseover='showPencil_s($pencilid5)'
-                        onmouseout='hidePencil_s($pencilid5)'
-                        >
-                        <i id='statusPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type5,$updateTruckAdd,$type,$id,$column5,$title5,$pencilid5)'
-                        ></i>
-                        $status
-                    </td>
-                    <td class='custom-text' id='ownership$i'
-                        onmouseover='showPencil_s($pencilid6)'
-                        onmouseout='hidePencil_s($pencilid6)'
-                        >
-                        <i id='ownershipPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type6,$updateTruckAdd,$type,$id,$column6,$title6,$pencilid6)'
-                        ></i>
-                        $ownership
-                    </td>
-                    <td class='custom-text' id='mileage$i'
-                        onmouseover='showPencil_s($pencilid7)'
-                        onmouseout='hidePencil_s($pencilid7)'
-                        >
-                        <i id='mileagePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type7,$updateTruckAdd,$type,$id,$column7,$title7,$pencilid7)'
-                        ></i>
-                        $mileage
-                    </td>
-                    <td class='custom-text' id='axies$i'
-                        onmouseover='showPencil_s($pencilid8)'
-                        onmouseout='hidePencil_s($pencilid8)'
-                        >
-                        <i id='axiesPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type8,$updateTruckAdd,$type,$id,$column8,$title8,$pencilid8)'
-                        ></i>
-                        $axies
-                    </td>
-                    <td class='custom-text' id='year$i'
-                        onmouseover='showPencil_s($pencilid9)'
-                        onmouseout='hidePencil_s($pencilid9)'
-                        >
-                        <i id='yearPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type9,$updateTruckAdd,$type,$id,$column9,$title9,$pencilid9)'
-                        ></i>
-                        $year
-                    </td>
-                    <td class='custom-text' id='fuelType$i'
-                        onmouseover='showPencil_s($pencilid10)'
-                        onmouseout='hidePencil_s($pencilid10)'
-                        >
-                        <i id='fuelTypePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type10,$updateTruckAdd,$type,$id,$column10,$title10,$pencilid10)'
-                        ></i>
-                        $fuelType
-                    </td>
-                    <td class='custom-text' id='startDate$i'
-                        onmouseover='showPencil_s($pencilid11)'
-                        onmouseout='hidePencil_s($pencilid11)'
-                        >
-                        <i id='startDatePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type11,$updateTruckAdd,$type,$id,$column11,$title11,$pencilid11)'
-                        ></i>
-                        $startDate
-                    </td>
-                    <td class='custom-text' id='deactivationDate$i'
-                        onmouseover='showPencil_s($pencilid12)'
-                        onmouseout='hidePencil_s($pencilid12)'
-                        >
-                        <i id='deactivationDatePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type12,$updateTruckAdd,$type,$id,$column12,$title12,$pencilid12)'
-                        ></i>
-                        $deactivationDate
-                    </td>
-                    <td class='custom-text' id='ifta$i'
-                        onmouseover='showPencil_s($pencilid13)'
-                        onmouseout='hidePencil_s($pencilid13)'
-                        >
-                        <i id='iftaPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type13,$updateTruckAdd,$type,$id,$column13,$title13,$pencilid13)'
-                        ></i>
-                        $ifta
-                    </td>
-                    <td class='custom-text' id='registeredState$i'
-                        onmouseover='showPencil_s($pencilid14)'
-                        onmouseout='hidePencil_s($pencilid14)'
-                        >
-                        <i id='registeredStatePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type14,$updateTruckAdd,$type,$id,$column14,$title14,$pencilid14)'
-                        ></i>
-                        $registeredState
-                    </td>
-                    <td class='custom-text' id='insurancePolicy$i'
-                        onmouseover='showPencil_s($pencilid15)'
-                        onmouseout='hidePencil_s($pencilid15)'
-                        >
-                        <i id='insurancePolicyPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type15,$updateTruckAdd,$type,$id,$column15,$title15,$pencilid15)'
-                        ></i>
-                        $insurancePolicy
-                    </td>
-                    <td class='custom-text' id='grossWeight$i'
-                        onmouseover='showPencil_s($pencilid16)'
-                        onmouseout='hidePencil_s($pencilid16)'
-                        >
-                        <i id='grossWeightPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type16,$updateTruckAdd,$type,$id,$column16,$title16,$pencilid16)'
-                        ></i>
-                        $grossWeight
-                    </td>
-                    <td class='custom-text' id='vin$i'
-                        onmouseover='showPencil_s($pencilid17)'
-                        onmouseout='hidePencil_s($pencilid17)'
-                        >
-                        <i id='vinPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type17,$updateTruckAdd,$type,$id,$column17,$title17,$pencilid17)'
-                        ></i>
-                        $vin
-                    </td>
-                    <td class='custom-text' id='dotexpiryDate$i'
-                        onmouseover='showPencil_s($pencilid18)'
-                        onmouseout='hidePencil_s($pencilid18)'
-                        >
-                        <i id='dotexpiryDatePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type18,$updateTruckAdd,$type,$id,$column18,$title18,$pencilid18)'
-                        ></i>
-                        $dotexpiryDate
-                    </td>
-                    <td class='custom-text' id='transponder$i'
-                        onmouseover='showPencil_s($pencilid19)'
-                        onmouseout='hidePencil_s($pencilid19)'
-                        >
-                        <i id='transponderPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type19,$updateTruckAdd,$type,$id,$column19,$title19,$pencilid19)'
-                        ></i>
-                        $transponder
-                    </td>
-                    <td class='custom-text' id='internalNotes$i'
-                        onmouseover='showPencil_s($pencilid20)'
-                        onmouseout='hidePencil_s($pencilid20)'
-                        >
-                        <i id='internalNotesPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type20,$updateTruckAdd,$type,$id,$column20,$title20,$pencilid20)'
-                        ></i>
-                        $internalNotes
-                    </td>";
+            $table .= "<tr>
+                <th>$i</th>
+                <th class='custom-text' id='truckNumber$i'
+                    onmouseover='showPencil_s($pencilid1)'
+                    onmouseout='hidePencil_s($pencilid1)'
+                    >
+                    <i id='truckNumberPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type1,$updateTruckAdd,$type,$id,$column1,$title1,$pencilid1)'
+                    ></i>
+                    $truckNumber
+                </th>
+                <td class='custom-text'>
+                    $truckType
+                </td>
+                <td class='custom-text' id='licensePlate$i'
+                    onmouseover='showPencil_s($pencilid2)'
+                    onmouseout='hidePencil_s($pencilid2)'
+                    >
+                    <i id='licensePlatePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type2,$updateTruckAdd,$type,$id,$column2,$title2,$pencilid2)'
+                    ></i>
+                    $licensePlate
+                </td>
+                <td class='custom-text' id='plateExpiry$i'
+                    onmouseover='showPencil_s($pencilid3)'
+                    onmouseout='hidePencil_s($pencilid3)'
+                    >
+                    <i id='plateExpiryPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type3,$updateTruckAdd,$type,$id,$column3,$title3,$pencilid3)'
+                    ></i>
+                    $plateExpiry
+                </td>
+                <td class='custom-text' id='inspectionExpiry$i'
+                    onmouseover='showPencil_s($pencilid4)'
+                    onmouseout='hidePencil_s($pencilid4)'
+                    >
+                    <i id='inspectionExpiryPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type4,$updateTruckAdd,$type,$id,$column4,$title4,$pencilid4)'
+                    ></i>
+                    $inspectionExpiry
+                </td>
+                <td class='custom-text' id='status$i'
+                    onmouseover='showPencil_s($pencilid5)'
+                    onmouseout='hidePencil_s($pencilid5)'
+                    >
+                    <i id='statusPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type5,$updateTruckAdd,$type,$id,$column5,$title5,$pencilid5)'
+                    ></i>
+                    $status
+                </td>
+                <td class='custom-text' id='ownership$i'
+                    onmouseover='showPencil_s($pencilid6)'
+                    onmouseout='hidePencil_s($pencilid6)'
+                    >
+                    <i id='ownershipPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type6,$updateTruckAdd,$type,$id,$column6,$title6,$pencilid6)'
+                    ></i>
+                    $ownership
+                </td>
+                <td class='custom-text' id='mileage$i'
+                    onmouseover='showPencil_s($pencilid7)'
+                    onmouseout='hidePencil_s($pencilid7)'
+                    >
+                    <i id='mileagePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type7,$updateTruckAdd,$type,$id,$column7,$title7,$pencilid7)'
+                    ></i>
+                    $mileage
+                </td>
+                <td class='custom-text' id='axies$i'
+                    onmouseover='showPencil_s($pencilid8)'
+                    onmouseout='hidePencil_s($pencilid8)'
+                    >
+                    <i id='axiesPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type8,$updateTruckAdd,$type,$id,$column8,$title8,$pencilid8)'
+                    ></i>
+                    $axies
+                </td>
+                <td class='custom-text' id='year$i'
+                    onmouseover='showPencil_s($pencilid9)'
+                    onmouseout='hidePencil_s($pencilid9)'
+                    >
+                    <i id='yearPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type9,$updateTruckAdd,$type,$id,$column9,$title9,$pencilid9)'
+                    ></i>
+                    $year
+                </td>
+                <td class='custom-text' id='fuelType$i'
+                    onmouseover='showPencil_s($pencilid10)'
+                    onmouseout='hidePencil_s($pencilid10)'
+                    >
+                    <i id='fuelTypePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type10,$updateTruckAdd,$type,$id,$column10,$title10,$pencilid10)'
+                    ></i>
+                    $fuelType
+                </td>
+                <td class='custom-text' id='startDate$i'
+                    onmouseover='showPencil_s($pencilid11)'
+                    onmouseout='hidePencil_s($pencilid11)'
+                    >
+                    <i id='startDatePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type11,$updateTruckAdd,$type,$id,$column11,$title11,$pencilid11)'
+                    ></i>
+                    $startDate
+                </td>
+                <td class='custom-text' id='deactivationDate$i'
+                    onmouseover='showPencil_s($pencilid12)'
+                    onmouseout='hidePencil_s($pencilid12)'
+                    >
+                    <i id='deactivationDatePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type12,$updateTruckAdd,$type,$id,$column12,$title12,$pencilid12)'
+                    ></i>
+                    $deactivationDate
+                </td>
+                <td class='custom-text' id='ifta$i'
+                    onmouseover='showPencil_s($pencilid13)'
+                    onmouseout='hidePencil_s($pencilid13)'
+                    >
+                    <i id='iftaPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type13,$updateTruckAdd,$type,$id,$column13,$title13,$pencilid13)'
+                    ></i>
+                    $ifta
+                </td>
+                <td class='custom-text' id='registeredState$i'
+                    onmouseover='showPencil_s($pencilid14)'
+                    onmouseout='hidePencil_s($pencilid14)'
+                    >
+                    <i id='registeredStatePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type14,$updateTruckAdd,$type,$id,$column14,$title14,$pencilid14)'
+                    ></i>
+                    $registeredState
+                </td>
+                <td class='custom-text' id='insurancePolicy$i'
+                    onmouseover='showPencil_s($pencilid15)'
+                    onmouseout='hidePencil_s($pencilid15)'
+                    >
+                    <i id='insurancePolicyPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type15,$updateTruckAdd,$type,$id,$column15,$title15,$pencilid15)'
+                    ></i>
+                    $insurancePolicy
+                </td>
+                <td class='custom-text' id='grossWeight$i'
+                    onmouseover='showPencil_s($pencilid16)'
+                    onmouseout='hidePencil_s($pencilid16)'
+                    >
+                    <i id='grossWeightPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type16,$updateTruckAdd,$type,$id,$column16,$title16,$pencilid16)'
+                    ></i>
+                    $grossWeight
+                </td>
+                <td class='custom-text' id='vin$i'
+                    onmouseover='showPencil_s($pencilid17)'
+                    onmouseout='hidePencil_s($pencilid17)'
+                    >
+                    <i id='vinPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type17,$updateTruckAdd,$type,$id,$column17,$title17,$pencilid17)'
+                    ></i>
+                    $vin
+                </td>
+                <td class='custom-text' id='dotexpiryDate$i'
+                    onmouseover='showPencil_s($pencilid18)'
+                    onmouseout='hidePencil_s($pencilid18)'
+                    >
+                    <i id='dotexpiryDatePencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type18,$updateTruckAdd,$type,$id,$column18,$title18,$pencilid18)'
+                    ></i>
+                    $dotexpiryDate
+                </td>
+                <td class='custom-text' id='transponder$i'
+                    onmouseover='showPencil_s($pencilid19)'
+                    onmouseout='hidePencil_s($pencilid19)'
+                    >
+                    <i id='transponderPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type19,$updateTruckAdd,$type,$id,$column19,$title19,$pencilid19)'
+                    ></i>
+                    $transponder
+                </td>
+                <td class='custom-text' id='internalNotes$i'
+                    onmouseover='showPencil_s($pencilid20)'
+                    onmouseout='hidePencil_s($pencilid20)'
+                    >
+                    <i id='internalNotesPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        onclick='updateTableColumn($c_type20,$updateTruckAdd,$type,$id,$column20,$title20,$pencilid20)'
+                    ></i>
+                    $internalNotes
+                </td>";
 
-                if ($counter == 0) {
-                    echo "<td><a href='#' onclick='deleteTruckAdd($id,$truckT)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
-                } else {
-                    echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
-                }
-
-                $value = "'".$id.")&nbsp;".$truckNumber."'";
-                $list .= "<option value=$value></option>";
+            if ($counter == 0) {
+                $table .= "<td><a href='#' onclick='deleteTruckAdd($id,$truckT)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+            } else {
+                $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
             }
+
+            $value = "'".$id.")&nbsp;".$truckNumber."'";
+            $list .= "<option value=$value></option>";
+        }
+
+        $fun_nm = '"paginate_trucks"';
+        $p_no = '"page_no"';
+
+        $pages .= "<li id='bank_previous' style='display:none'>
+            <a class='page-link btn btn-secondary waves-effect'
+                onclick='previous_page($fun_nm,$p_no,$limit,$total_pages)'>Previous</a>
+            </li>
+            <select class='form-control' id='page_active'
+                onchange='paginate_trucks(this.value * $limit,$limit,$total_pages)'>";
+        $j = 1;
+
+        for ($i = 0; $i < $total_pages; $i++) {
+            if ($i == 0) {
+                $pages .= "<option value='$i'>$j</option>";
+            } else {
+                $pages .= "<option value='$i'>$j</option>";
+            }
+            $j++;
+        } 
+
+        if($total_pages > 0 && $total_pages > 1) {
+            $pages .= "</select>
+                <li id='bank_next'>
+                    <a class='page-link btn btn-primary waves-effect waves-light'
+                        onclick='next_page($fun_nm,$p_no,$limit,$total_pages)'>Next</a>
+                </li>";
+
+        }
     }
-       // echo $table."^".$list;
+    echo $table."^".$pages;
 }
 
 if ($_GET['types'] == 'search_text') {

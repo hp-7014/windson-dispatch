@@ -4,7 +4,7 @@ require "../database/connection.php";
 <!-- Modal content for the above example -->
 <div class="modal fade bs-example-modal-xlg" tabindex="-1" role="dialog" id="user" aria-labelledby="myLargeModalLabel"
     aria-hidden="true">
-    <div class="user-container" style="z-index: 1400"></div>
+    <div class="user-container" style="z-index: 1800"></div>
     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-xxl modal-dialog-scrollable">
         <div class="modal-content custom-modal-content">
