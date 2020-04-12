@@ -276,17 +276,38 @@ $(document).ready(function () {
             $(".adv").css("display", "none");
         }
     });
+    $('#select_card').on('change', function () {
+        if (this.value == '1') {
+            $(".main1").css("display", "block");
+        } else {
+            $(".main1").css("display", "none");
+        }
+        if (this.value == '2') {
+            $(".sub1").css("display", "block");
+        } else {
+            $(".sub1").css("display", "none");
+        }
+    });
+
     $('#card').on('change', function () {
+        if (this.value == '1') {
+            $(".main").css("display", "block");
+        } else {
+            $(".main").css("display", "none");
+        }
         if (this.value == '2') {
             $(".sub").css("display", "block");
         } else {
             $(".sub").css("display", "none");
         }
 
+       
+    });
+    $('#pay_type').on('change', function () {
         if (this.value == '1') {
-            $(".main").css("display", "block");
+            $("#bank_name").css("display", "block");
         } else {
-            $(".main").css("display", "none");
+            $("#bank_name").css("display", "none");
         }
     });
 
@@ -319,8 +340,19 @@ $('#type').change(function () {
     $('#Advance').prop('selectedIndex', 0);
 });
 $('#type').change(function () {
+    $('#select_card').prop('selectedIndex', 0);
+});
+$('#type').change(function () {
+    $('#card').prop('selectedIndex', 0);
+});
+$('#type').change(function () {
     $("#purpose").prop("disabled", false);
     $(".cn").css("display", "none");
+    $(".sub1").css("display", "none");
+    $(".main1").css("display", "none");
+    $(".sub").css("display", "none");
+    $(".main").css("display", "none");
+    $(".Credit_Card").css("display", "none");
     $(".driver").css("display", "none");
     $(".carrier").css("display", "none");
     $(".factoring").css("display", "none");
@@ -349,9 +381,11 @@ $(document).ready(function () {
             );
         }
         if (this.value == '4') {
-            $("#purpose").html(
-                '<option value="0" selected="true" disabled="disabled">--select--</option><option value="1">Driver</option><option value="2">Carrier</option><option value="3">Factoring</option><option value="4">Expense</option><option value="5">Maintenance</option><option value="6">Insurance</option><option value="7">Credit Card</option><option value="8">Fuel Card</option><option value="10">Bank</option>'
-            );
+            $("#purpose").css("display", "none");
+            $(".disable").css("display", "none");
+        }else{
+            $("#purpose").css("display", "block");
+            $(".disable").css("display", "block");
         }
 
     });
@@ -480,7 +514,7 @@ function getCarrierTotalAmount(invoiceID) {
     }
 }
 
-// update company Fields
+// get company and bank name
 var company_name = "";
 var bankvalue = "";
 
@@ -501,12 +535,12 @@ function updatecompanyfield(value) {
                 bankvalue = bank_id + ') ' + company_name;
                 o += '<option value="' + bankvalue + '">' + bankvalue + '</option>';
             }
-            $('#companyfield').html(o);
+            $('#companyfield').html('<option value=" ">--select--</option>'+o);
         }
     });
 }
 
-// get update driver invoice
+//------------------get update driver invoice start---------------------
 var dinvoiceID = 0;
 var dinvoiceAmount = 0;
 var driveradvance = 0;
@@ -571,7 +605,9 @@ function getDriverTotalAmount(dinvoiceID) {
         }
     }
 }
+//------------------get update driver invoice end---------------------
 
+//------------------get company bank base balance start---------------------
 function baseamount(bankid) {
     var bank1 = bankid.split(")");
     var bankname = bank1[0];
@@ -586,6 +622,7 @@ function baseamount(bankid) {
         }
     });
 }
+//------------------get company bank base balance end---------------------
 
 // factoring company invoice
 var factoringInvoiceID = 0;
@@ -643,37 +680,44 @@ function getFactoringTotalAmount(factinvoiceID) {
     }
 }
 
-
-//add payment registration
+//----------Add Payment Registration Start-------------
 function Paymentadd() {
+    //Add Payment common field
     var payto = document.getElementById("purpose").value
+    var memo = document.getElementById("memo").value
+    var companyId = document.getElementById('companyId').value;
     var baseamount = document.getElementById("baseamount").value
     var payfrom = document.getElementById("type").value
+
+    var Companyselect1 = document.getElementById("Companyselect").value
+    var Company_select = Companyselect1.split(")");
+    var Companyselect = Company_select[0];
+
+    var Bankname1 = document.getElementById("companyfield").value
+    var Bank_name = Bankname1.split(")");
+    var Bankname = Bank_name[0];
+
     if (payfrom == "1") {
         var paymentfrom = "bank";
     } else if (payfrom == "2") {
         var paymentfrom = "creditcard";
     } else if (payfrom == "3") {
         var paymentfrom = "fuelcard";
+        var fuelcardmain1 = document.getElementById("fuelcardmain").value
+        var fuel_cardmain = fuelcardmain1.split(")");
+        var fuelcardmain = fuel_cardmain[0];
+        var paymentlist = document.getElementById("paymentlist").value
     } else if (payfrom == "4") {
-        var paymentfrom = "Other";
+        var paymentfrom = "Other";        
     }
     switch (payto) {
+        //case 1 for get bank driver value
         case "1":
             var category = "driver";
-            var Companyselect1 = document.getElementById("Companyselect").value
-            var Company_select = Companyselect1.split(")");
-            var Companyselect = Company_select[0];
-
-            var Bankname1 = document.getElementById("companyfield").value
-            var Bank_name = Bankname1.split(")");
-            var Bankname = Bank_name[0];
-
+            
             var drivername1 = document.getElementById("drivername").value
             var driver_name = drivername1.split(")");
             var drivername = driver_name[0];
-
-            var payto = document.getElementById("purpose").value
 
             var selectdebite1 = document.getElementById("selectdebite").value
             var select_debite = selectdebite1.split(")");
@@ -686,8 +730,6 @@ function Paymentadd() {
             var checkdate = document.getElementById("checkdate").value
             var cheque = document.getElementById("cheque").value
             var ach = document.getElementById("ach").value
-            var memo = document.getElementById("memo").value
-            var companyId = document.getElementById('companyId').value;
             var totalfiles = document.getElementById('files').files.length;
             if (totalfiles <= 5) {
             $.ajax({
@@ -729,21 +771,13 @@ function Paymentadd() {
             swal('Please Select Only 5 File')
         }
           break;
+          //case 2 for get bank carrier value
         case "2":
             var category = "carrier";
-            var Companyselect1 = document.getElementById("Companyselect").value
-            var Company_select = Companyselect1.split(")");
-            var Companyselect = Company_select[0];
-
-            var Bankname1 = document.getElementById("companyfield").value
-            var Bank_name = Bankname1.split(")");
-            var Bankname = Bank_name[0];
-
+            
             var carriername1 = document.getElementById("carriername").value
             var carrier_name = carriername1.split(")");
             var carriername = carrier_name[0];
-
-            var payto = document.getElementById("purpose").value
 
             var selectdebite1 = document.getElementById("selectdebite1").value
             var select_debite = selectdebite1.split(")");
@@ -754,8 +788,6 @@ function Paymentadd() {
             var checkdate = document.getElementById("carcheckdate").value
             var cheque = document.getElementById("carcheque").value
             var ach = document.getElementById("carach").value
-            var memo = document.getElementById("memo").value
-            var companyId = document.getElementById('companyId').value;
             var totalfiles = document.getElementById('files').files.length;
             if (totalfiles <= 5) {
             $.ajax({
@@ -797,21 +829,13 @@ function Paymentadd() {
             swal('Please Select Only 5 File')
         }
           break;
+          //case 3 for get bank factoringcompany value
         case "3":
             var category = "factoringcompany";
-            var Companyselect1 = document.getElementById("Companyselect").value
-            var Company_select = Companyselect1.split(")");
-            var Companyselect = Company_select[0];
-
-            var Bankname1 = document.getElementById("companyfield").value
-            var Bank_name = Bankname1.split(")");
-            var Bankname = Bank_name[0];
 
             var selectFactoring1 = document.getElementById("selectFactoring").value
             var select_Factoring = selectFactoring1.split(")");
             var selectFactoring = select_Factoring[0];
-
-            var payto = document.getElementById("purpose").value
 
             var selectdebite1 = document.getElementById("debitecat").value
             var select_debite = selectdebite1.split(")");
@@ -822,8 +846,6 @@ function Paymentadd() {
             var checkdate = document.getElementById("faccheck").value
             var cheque = document.getElementById("faccheque").value
             var ach = document.getElementById("facach").value
-            var memo = document.getElementById("memo").value
-            var companyId = document.getElementById('companyId').value;
             var totalfiles = document.getElementById('files').files.length;
             if (totalfiles <= 5) {
             $.ajax({
@@ -865,19 +887,11 @@ function Paymentadd() {
             swal('Please Select Only 5 File')
         }
           break;
+          //case 4 for get bank Expense value
         case "4":
             var category = "Expense";
-            var Companyselect1 = document.getElementById("Companyselect").value
-            var Company_select = Companyselect1.split(")");
-            var Companyselect = Company_select[0];
-
-            var Bankname1 = document.getElementById("companyfield").value
-            var Bank_name = Bankname1.split(")");
-            var Bankname = Bank_name[0];
 
             var expensesbill = document.getElementById("expensesbill").value
-
-            var payto = document.getElementById("purpose").value
 
             var selectdebite1 = document.getElementById("expensesdebit").value
             var select_debite = selectdebite1.split(")");
@@ -885,8 +899,6 @@ function Paymentadd() {
 
             var expensesname = document.getElementById("expensesname").value
             var amount = document.getElementById("expensesamount").value
-            var memo = document.getElementById("memo").value
-            var companyId = document.getElementById('companyId').value;
             var totalfiles = document.getElementById('files').files.length;
             if (totalfiles <= 5) {
             $.ajax({
@@ -920,17 +932,9 @@ function Paymentadd() {
             swal('Please Select Only 5 File')
         }
           break;
+          //case 5 for get bank Maintenance value
         case "5":
             var category = "Maintenance";
-            var Companyselect1 = document.getElementById("Companyselect").value
-            var Company_select = Companyselect1.split(")");
-            var Companyselect = Company_select[0];
-
-            var Bankname1 = document.getElementById("companyfield").value
-            var Bank_name = Bankname1.split(")");
-            var Bankname = Bank_name[0];
-
-            var payto = document.getElementById("purpose").value
 
             var selectdebite1 = document.getElementById("debitmaintenance").value
             var select_debite = selectdebite1.split(")");
@@ -947,8 +951,6 @@ function Paymentadd() {
             var trailer_no = trailerno1.split(")");
             var trailerno = trailer_no[0];
 
-            var memo = document.getElementById("memo").value
-            var companyId = document.getElementById('companyId').value;
             var totalfiles = document.getElementById('files').files.length;
             if (totalfiles <= 5) {
             $.ajax({
@@ -983,18 +985,10 @@ function Paymentadd() {
             swal('Please Select Only 5 File')
         }
           break;
+          //case 6 for get bank Insurance value
         case "6":
             var category = "Insurance";
-            var Companyselect1 = document.getElementById("Companyselect").value
-            var Company_select = Companyselect1.split(")");
-            var Companyselect = Company_select[0];
-
-            var Bankname1 = document.getElementById("companyfield").value
-            var Bank_name = Bankname1.split(")");
-            var Bankname = Bank_name[0];
-
-            var payto = document.getElementById("purpose").value
-
+            
             var selectdebite1 = document.getElementById("debitInsurance").value
             var select_debite = selectdebite1.split(")");
             var selectdebite = select_debite[0];
@@ -1002,8 +996,6 @@ function Paymentadd() {
             var amount = document.getElementById("insuranceamount").value
             var insurancecompany = document.getElementById("insurancecompany").value
 
-            var memo = document.getElementById("memo").value
-            var companyId = document.getElementById('companyId').value;
             var totalfiles = document.getElementById('files').files.length;
             if (totalfiles <= 5) {
             $.ajax({
@@ -1036,18 +1028,10 @@ function Paymentadd() {
             swal('Please Select Only 5 File')
         }
           break;
+          //case 7 for get bank creditcard value
         case "7":
             var category = "creditcard";
-            var Companyselect1 = document.getElementById("Companyselect").value
-            var Company_select = Companyselect1.split(")");
-            var Companyselect = Company_select[0];
-
-            var Bankname1 = document.getElementById("companyfield").value
-            var Bank_name = Bankname1.split(")");
-            var Bankname = Bank_name[0];
-
-            var payto = document.getElementById("purpose").value
-
+           
             var amount = document.getElementById("cardamount").value
             var card1 = document.getElementById("card").value
             if (card1 == "1") {
@@ -1067,8 +1051,6 @@ function Paymentadd() {
             } else {
                 var cardcategory = maincard;
             }
-            var memo = document.getElementById("memo").value
-            var companyId = document.getElementById('companyId').value;
             var totalfiles = document.getElementById('files').files.length;
             if (totalfiles <= 5) {
             $.ajax({
@@ -1101,25 +1083,13 @@ function Paymentadd() {
             swal('Please Select Only 5 File')
         }
           break;
+          //case 8 for get bank fuelcard value
         case "8":
             var category = "fuelcard";
-            var Companyselect1 = document.getElementById("Companyselect").value
-            var Company_select = Companyselect1.split(")");
-            var Companyselect = Company_select[0];
-
-            var Bankname1 = document.getElementById("companyfield").value
-            var Bank_name = Bankname1.split(")");
-            var Bankname = Bank_name[0];
-
-            var payto = document.getElementById("purpose").value
-
             var amount = document.getElementById("fuelamount").value
             var fuellist1 = document.getElementById("fuelcard").value
             var fuel_list = fuellist1.split(")");
             var fuellist = fuel_list[0];
-
-            var memo = document.getElementById("memo").value
-            var companyId = document.getElementById('companyId').value;
             var totalfiles = document.getElementById('files').files.length;
             if (totalfiles <= 5) {
             $.ajax({
@@ -1151,18 +1121,9 @@ function Paymentadd() {
             swal('Please Select Only 5 File')
         }
           break;
+          //case 9 for get bank other value
         case "9":
             var category = "other";
-            var Companyselect1 = document.getElementById("Companyselect").value
-            var Company_select = Companyselect1.split(")");
-            var Companyselect = Company_select[0];
-
-            var Bankname1 = document.getElementById("companyfield").value
-            var Bank_name = Bankname1.split(")");
-            var Bankname = Bank_name[0];
-
-            var payto = document.getElementById("purpose").value
-
             var other = document.getElementById("otherpay").value
 
             var selectdebite1 = document.getElementById("otherdebit").value
@@ -1174,9 +1135,6 @@ function Paymentadd() {
             var checkachdate = document.getElementById("checkachdate").value
             var otherchequ = document.getElementById("otherchequ").value
             var otherach = document.getElementById("otherach").value
-
-            var memo = document.getElementById("memo").value
-            var companyId = document.getElementById('companyId').value;
             var totalfiles = document.getElementById('files').files.length;
             if (totalfiles <= 5) {
             $.ajax({
@@ -1213,9 +1171,50 @@ function Paymentadd() {
             swal('Please Select Only 5 File')
         }
           break;
+        default:
+            var category = "bank";
+            var paytype1 = document.getElementById("pay_type").value
+            if (paytype1 == "1") {
+                var paytype = "bank";
+            }
+            var othername = document.getElementById("othername").value
+            var amount = document.getElementById("otherpayamount").value
+            var transactiondate = document.getElementById("transactiondate").value
+            var totalfiles = document.getElementById('files').files.length;
+            if (totalfiles <= 5) {
+            $.ajax({
+                url: 'account/payment_driver.php?type=' + 'othercash',
+                type: 'POST',
+                data: {
+                    paymentfrom: paymentfrom,
+                    Companyselect: Companyselect,
+                    Bankname: Bankname,
+                    paytype: paytype,
+                    othername: othername,
+                    transactiondate: transactiondate,
+                    amount: amount,
+                    memo: memo,
+                    baseamount: baseamount,
+                    companyId: companyId
+                },
+                dataType: "text",
+                success: function (data) {
+                    swal("Success", data, "success");
+                    $('#Payment_Registration').modal('hide');
+                    var flags = uploadfiles(data,Bankname);
+                        if (flags == "no") {
+                            document.getElementById('addbankpayment').style.display = "block";
+                        }
+                },
+            });
+        } else {
+            swal('Please Select Only 5 File')
+        }
       }
 }
+//----------Add Payment Registration End-------------
 
+//----------Upload File Start-------------
 function uploadfiles(id,Bankname) {
     var form_data = new FormData();
     form_data.append("id", id);
@@ -1243,3 +1242,4 @@ function uploadfiles(id,Bankname) {
         return 'no';
     }
 }
+//----------Upload File End-------------

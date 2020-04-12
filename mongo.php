@@ -5,8 +5,8 @@ require 'vendor/autoload.php';
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
 
-$db->payment_bank->updateOne(['companyID' => 1, 'April'.'._id' => 0],
-            ['$set' => ['April'.'.$.file' => 1211]]
+$db->payment_bank->updateOne(['companyID' => 1,'bankID' => 0, 'year' => 2020, '2020'.'.month' => 'April'],
+            ['$set' => ['2020'.'.$.balance' => 75]]
         );
     
 //$collection->updateOne(['companyID' => 1], [

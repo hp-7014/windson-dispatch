@@ -33,7 +33,7 @@ if ($_GET['type'] == 'driverpayment') {
     $bank->insertdriver($bank,$db,$helper);
 }
 
-// bank carrier
+// Insert carrier Payment Function Here
 else if ($_GET['type'] == 'carrierpayment') {
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -57,7 +57,7 @@ else if ($_GET['type'] == 'carrierpayment') {
     $bank->insertcarrier($bank,$db,$helper);
 }
 
-// bank factoring
+// Insert factoring Payment Function Here
 else if($_GET['type'] == 'bankFactoring'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -81,7 +81,7 @@ else if($_GET['type'] == 'bankFactoring'){
     $bank->insertfactoring($bank,$db,$helper);
 }
 
-// bank expense
+// Insert expense Payment Function Here
 else if($_GET['type'] == 'paymentexpense'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -102,7 +102,7 @@ else if($_GET['type'] == 'paymentexpense'){
     $bank->insertexpense($bank,$db,$helper);
 }
 
-// bank Maintenance
+// Insert Maintenance Payment Function Here
 else if($_GET['type'] == 'paymentmaintenance'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -124,7 +124,7 @@ else if($_GET['type'] == 'paymentmaintenance'){
     $bank->insertmaintenance($bank,$db,$helper);
 }
 
-// bank insurance
+// Insert insurance Payment Function Here
 else if($_GET['type'] == 'paymentinsurance'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -144,7 +144,7 @@ else if($_GET['type'] == 'paymentinsurance'){
     $bank->insertinsurance($bank,$db,$helper);
 }
 
-// bank creditcard
+// Insert creditcard Payment Function Here
 else if($_GET['type'] == 'paymentcreditcard'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -164,7 +164,7 @@ else if($_GET['type'] == 'paymentcreditcard'){
     $bank->insertcreditcard($bank,$db,$helper);
 }
 
-// bank fuelcard
+// Insert fuelcard Payment Function Here
 else if($_GET['type'] == 'paymentfuelcard'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -183,7 +183,7 @@ else if($_GET['type'] == 'paymentfuelcard'){
     $bank->insertfuelcard($bank,$db,$helper);
 }
 
-// bank other
+// Insert other Payment Function Here
 else if($_GET['type'] == 'paymentother'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -207,6 +207,26 @@ else if($_GET['type'] == 'paymentother'){
     $bank->insertother($bank,$db,$helper);
 }
 
+// Insert other cash Function Here
+else if($_GET['type'] == 'othercash'){
+    $bank = new Bank();
+    $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
+    $bank->setCompanyID($_POST['companyId']);
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
+    $bank->setPaymentFrom($_POST['paymentfrom']);
+    $bank->setCompanySelect($_POST['Companyselect']);
+    $bank->setBankName($_POST['Bankname']);
+    $bank->setPaytype($_POST['paytype']);
+    $bank->setOthername($_POST['othername']);
+    $bank->setAmount($_POST['amount']);
+    $bank->setCheckDate(strtotime($_POST['transactiondate']));
+    $bank->setMemo($_POST['memo']);
+    $bank->setBaseamount($_POST['baseamount']);
+    $bank->insertothercash($bank,$db,$helper);
+}
+
+//Upload Files
 else if ($_GET['type'] == "fileupload") {
     $bank = new Bank();
     $id = $_POST['id'];

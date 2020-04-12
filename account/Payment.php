@@ -126,14 +126,22 @@ require "../database/connection.php";
                                 } ?>
                             </datalist>
                         </div>
-                        <div class="form-group col-md-2 bank" style="display:none;">
+                        <div class="form-group col-md-2 bank" style="display:none;" id="bank_name">
                             <label>Bank Name*</label>
                             <select class="form-control" id="companyfield" onchange="baseamount(this.value)">
-
+                            
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2 Credit" style="display:none;">
+                            <label>Select card</label>
+                            <select class="form-control" id="select_card">
+                                <option value="0" selected="true" disabled="disabled">--select--</option>
+                                <option value="1">Main Card</option>
+                                <option value="2">Sub Card</option>
                             </select>
                         </div>
                         <input type="hidden" id="baseamount" name="baseamount" value="">
-                        <div class="form-group col-md-2 Credit" style="display:none;">
+                        <div class="form-group col-md-2 main1" style="display:none;">
                             <label>Main Card</label>
                             <input list="creditcard1" placeholder="--Select--" class="form-control" id="maincreditcard"
                                 name="maincreditcard">
@@ -151,7 +159,7 @@ require "../database/connection.php";
                                 } ?>
                             </datalist>
                         </div>
-                        <div class="form-group col-md-2 Credit" style="display:none;">
+                        <div class="form-group col-md-2 sub1" style="display:none;">
                             <label>Sub Card</label>
                             <input list="subcreditcard1" placeholder="--Select--" class="form-control" id="subcreditcard"
                                 name="subcreditcard">
@@ -189,7 +197,7 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 fuel" style="display:none;">
                             <label>Payment list</label>
-                            <select class="form-control" id="Advance">
+                            <select class="form-control" id="paymentlist">
                                 <option value="0" selected="true" disabled="disabled">--select--</option>
                                 <option value="1">xyz</option>
                                 <option value="2">Advance</option>
@@ -242,9 +250,30 @@ require "../database/connection.php";
                             </div>
                         </div>
                         <div class="form-group col-md-2 other1" style="display:none;">
-                            <label>Address</label>
+                        <label>Pay Type</label>
+                            <select class="form-control" id='pay_type'>
+                                <option value="0" selected="true" disabled="disabled">--Select--</option>
+                                <option value="1">Bank</option>
+                                <!-- <option value="2">Credit Card</option> -->
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2 other1" style="display:none;">
+                            <label>Name</label>
                             <div>
-                                <input class="form-control" placeholder="Address" type="text">
+                                <input class="form-control" placeholder="Name" type="text" id="othername">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2 other1" style="display:none;">
+                            <label>Amount</label>
+                            <div>
+                                <input class="form-control" placeholder="Amount" type="text" id="otherpayamount">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2 other1" style="display:none;">
+                            <label>Transaction Date *</label>
+                            <div>
+                                <input class="form-control" id="transactiondate" name="checkdate" placeholder="Check Date *"
+                                    type="date">
                             </div>
                         </div>
                         <div class="form-group col-md-2">
@@ -691,9 +720,9 @@ require "../database/connection.php";
                         </div>
                         <div class="form-group col-md-2 sub" style="display:none;">
                             <label>Sub Card</label>
-                            <input list="subcreditcard" placeholder="--Select--" class="form-control" id="subcard"
+                            <input list="subcreditcard1" placeholder="--Select--" class="form-control" id="subcard"
                                 name="subcard">
-                            <datalist id="subcreditcard">
+                            <datalist id="subcreditcard1">
                                 <?php
                                 $showsub = $db->sub_credit_card->find(['companyID' => $_SESSION['companyId']]);
                                 $no = 1;
