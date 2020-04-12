@@ -326,9 +326,9 @@ $(document).on('click', '#AddDriver', function() {
 $(document).on('click', '#AddOwnerOperator', function() {
     $.ajax({
         type: 'POST',
-        success: function(data) {
-            $('.owneroperator-container').load('./admin/owner_operator_modal_sub.php', function(result) {
-                $('#Owner_operator').modal({ show: true });
+        success: function (data) {
+            $('.owneroperator-container').load('./admin/owner_operator_modal_sub.php', function (result) {
+                $('#Owner_operator').modal({show: true});
             });
         }
     });

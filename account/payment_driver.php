@@ -21,7 +21,7 @@ if ($_GET['type'] == 'driverpayment') {
     $bank->setCategory($_POST['category']);
     $bank->setPayto($_POST['category']);
     $bank->setSelectDebit($_POST['selectdebite']);
-    $bank->setInvoice($_POST['invoice']);
+    $bank->setInvoice($_POST['invoice'],$_POST['invoiceAmount']);
     $bank->setAmount($_POST['amount']);
     $bank->setAdvance($_POST['advance']);
     $bank->setFinalAmount($_POST['finalamount']);
@@ -30,10 +30,10 @@ if ($_GET['type'] == 'driverpayment') {
     $bank->setAch($_POST['ach']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertdriver($bank,$db,$helper);
 }
 
-// bank carrier
+// Insert carrier Payment Function Here
 else if ($_GET['type'] == 'carrierpayment') {
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -47,17 +47,17 @@ else if ($_GET['type'] == 'carrierpayment') {
     $bank->setCategory($_POST['category']); 
     $bank->setPayto($_POST['category']);
     $bank->setSelectDebit($_POST['selectdebite']);
-    $bank->setInvoice($_POST['invoice']);
+    $bank->setInvoice($_POST['invoice'],$_POST['invoiceAmount']);
     $bank->setAmount($_POST['amount']);
     $bank->setCheckDate(strtotime($_POST['checkdate']));
     $bank->setCheque($_POST['cheque']);
     $bank->setAch($_POST['ach']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertcarrier($bank,$db,$helper);
 }
 
-// bank factoring
+// Insert factoring Payment Function Here
 else if($_GET['type'] == 'bankFactoring'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -71,17 +71,17 @@ else if($_GET['type'] == 'bankFactoring'){
     $bank->setCategory($_POST['category']);
     $bank->setPayto($_POST['category']);
     $bank->setSelectDebit($_POST['selectdebite']);
-    $bank->setInvoice($_POST['invoice']);
+    $bank->setInvoice($_POST['invoice'],$_POST['invoiceAmount']);
     $bank->setAmount($_POST['amount']);
     $bank->setCheckDate(strtotime($_POST['checkdate']));
     $bank->setCheque($_POST['cheque']);
     $bank->setAch($_POST['ach']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertfactoring($bank,$db,$helper);
 }
 
-// bank expense
+// Insert expense Payment Function Here
 else if($_GET['type'] == 'paymentexpense'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -99,10 +99,10 @@ else if($_GET['type'] == 'paymentexpense'){
     $bank->setAmount($_POST['amount']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertexpense($bank,$db,$helper);
 }
 
-// bank Maintenance
+// Insert Maintenance Payment Function Here
 else if($_GET['type'] == 'paymentmaintenance'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -121,10 +121,10 @@ else if($_GET['type'] == 'paymentmaintenance'){
     $bank->setTrailerno($_POST['trailerno']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertmaintenance($bank,$db,$helper);
 }
 
-// bank insurance
+// Insert insurance Payment Function Here
 else if($_GET['type'] == 'paymentinsurance'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -141,10 +141,10 @@ else if($_GET['type'] == 'paymentinsurance'){
     $bank->setInsurancecom($_POST['insurancecompany']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertinsurance($bank,$db,$helper);
 }
 
-// bank creditcard
+// Insert creditcard Payment Function Here
 else if($_GET['type'] == 'paymentcreditcard'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -161,10 +161,10 @@ else if($_GET['type'] == 'paymentcreditcard'){
     $bank->setCardcategory($_POST['cardcategory']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertcreditcard($bank,$db,$helper);
 }
 
-// bank fuelcard
+// Insert fuelcard Payment Function Here
 else if($_GET['type'] == 'paymentfuelcard'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -180,10 +180,10 @@ else if($_GET['type'] == 'paymentfuelcard'){
     $bank->setFuellist($_POST['fuellist']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertfuelcard($bank,$db,$helper);
 }
 
-// bank other
+// Insert other Payment Function Here
 else if($_GET['type'] == 'paymentother'){
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
@@ -204,5 +204,67 @@ else if($_GET['type'] == 'paymentother'){
     $bank->setAch($_POST['otherach']);
     $bank->setMemo($_POST['memo']);
     $bank->setBaseamount($_POST['baseamount']);
-    $bank->insert($bank,$db,$helper);
+    $bank->insertother($bank,$db,$helper);
+}
+
+// Insert other cash Function Here
+else if($_GET['type'] == 'othercash'){
+    $bank = new Bank();
+    $bank->setId($helper->getNextSequence("paymentbankcount",$db)); 
+    $bank->setCompanyID($_POST['companyId']);
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
+    $bank->setPaymentFrom($_POST['paymentfrom']);
+    $bank->setCompanySelect($_POST['Companyselect']);
+    $bank->setBankName($_POST['Bankname']);
+    $bank->setPaytype($_POST['paytype']);
+    $bank->setOthername($_POST['othername']);
+    $bank->setAmount($_POST['amount']);
+    $bank->setCheckDate(strtotime($_POST['transactiondate']));
+    $bank->setMemo($_POST['memo']);
+    $bank->setBaseamount($_POST['baseamount']);
+    $bank->insertothercash($bank,$db,$helper);
+}
+
+//Upload Files
+else if ($_GET['type'] == "fileupload") {
+    $bank = new Bank();
+    $id = $_POST['id'];
+    if (isset($_FILES['files']) && !empty($_FILES['files'])) {
+        $uploadDir = 'upload/Bank/';
+        $response = '';
+        $allowTypes = array('pdf', 'jpg', 'png', 'jpeg');
+        $i = 0;
+        $docs = array();
+        foreach ($_FILES['files']['name'] as $key => $val) {
+            $fileName = rand(0, 9999999999) . $_FILES["files"]["name"][$key];
+            $originalname = $_FILES["files"]["name"][$key];
+
+            $temLoc = $_FILES['files']['tmp_name'][$key];
+            $targetFilePath = $uploadDir . $fileName;
+            $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+
+            $fileSize = $_FILES['files']['size'][$key];
+            if (in_array($fileType, $allowTypes)) {
+                if ($fileSize < 200000) {
+                    $docs[] = $fileName;
+                    $bank->setBankName($_POST['Bankname']);
+                    $bank->setYear(date("Y"));
+                    $bank->setMonth(date("F"));
+                    $bank->setFile($fileName, $originalname, $fileSize, $targetFilePath, $i);
+                } else {
+                    echo "File Size is To Large For " . $fileName;
+                    exit();
+                }
+            } else {
+                echo "File Type Error For " . $fileName;
+                exit();
+            }
+            $i++;
+        }
+        for ($i = 0; $i < count($docs); $i++) {
+            move_uploaded_file($_FILES["files"]["tmp_name"][$i], $uploadDir . $docs[$i]);
+        }
+        $bank->updatefile($bank, $db, $id);
+    }
 }

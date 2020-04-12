@@ -376,8 +376,7 @@ require "../database/connection.php";
                                                                         class="mdi mdi-plus-circle plus"
                                                                         id="AddCurrency"></i>
 
-                                <select class="form-control" value="<?php echo $currencySetting; ?>" id="currencySetting">
-
+                                <select class="form-control" id="currencySetting">
                                     <?php
                                     $currency = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
                                     foreach ($currency as $cur) {

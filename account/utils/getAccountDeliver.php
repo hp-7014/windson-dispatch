@@ -4,10 +4,10 @@ $helper = "helper";
 require "../../database/connection.php";
 
 if ($_GET['type'] == 'showDeliverData') {
-    $show1 = $db->active_load->find(['companyID' => (int)$_SESSION['companyId']]);
+    $show1 = $db->Delivered->find(['companyID' => (int)$_SESSION['companyId']]);
     $table = "";
     foreach ($show1 as $arrData1) {
-        $arrData1 = $arrData1['Delivered'];
+        $arrData1 = $arrData1['load'];
         foreach ($arrData1 as $row1) {
             $invoiceID1 = $row1['_id'];
             $loadNO1 = 1;
@@ -98,12 +98,12 @@ if ($_GET['type'] == 'showDeliverData') {
 else if ($_GET['type'] == 'search_text') {
     $i = 0;
     $type = '"text"';
-    $collection = $db->active_load;
+    $collection = $db->Delivered;
     $table = '';
     $show1 = $collection->find(['companyID' => (int)$_SESSION['companyId']]);
 
     foreach ($show1 as $row) {
-        $trailer = $row['Delivered'];
+        $trailer = $row['load'];
         foreach ($trailer as $row4) {
             $invoiceID1 = $row4['_id'];
             $loadNO1 = 1;
@@ -457,15 +457,15 @@ else if ($_GET['types'] == 'paginate_trailer_admin') {
     $start = (int)$_POST['start'];
     $limit = (int)$_POST['limit'];
 
-    $cursor = $db->active_load->find(array('companyID' => $_SESSION['companyId']));
+    $cursor = $db->Delivered->find(array('companyID' => $_SESSION['companyId']));
 
     foreach ($cursor as $value) {
-        $total_records = sizeof($value['activeload']);
+        $total_records = sizeof($value['load']);
         $total_pages = ceil($total_records / $limit);
     }
 
     foreach ($show1 as $row) {
-        $trailer = $row['activeload'];
+        $trailer = $row['load'];
         $trailerdetails = $row['trailerdetails'];
         foreach ($trailer as $row4) {
             $id = $row4['_id'];

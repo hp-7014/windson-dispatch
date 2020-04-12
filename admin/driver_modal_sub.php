@@ -20,7 +20,7 @@ require "../database/connection.php";
             <div class="modal-body custom-modal-body">
                 <div class="owner-container" style="z-index: 1600"></div>
                 <div class="row">
-
+                    <div class="owner-container" style="z-index: 1600"></div>
                     <div class="form-group col-md-3">
                         <label>Name <span class="mandatory">*</span></label>
                         <div>
@@ -61,7 +61,8 @@ require "../database/connection.php";
                     <div class="form-group col-md-3">
                         <label>Address <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control" placeholder="Address *" id="driverAddress" type="text">
+                            <input class="form-control" placeholder="Address *" id="driverAddress" type="text"
+                            >
                         </div>
                     </div>
                     <div class="form-group col-md-2">

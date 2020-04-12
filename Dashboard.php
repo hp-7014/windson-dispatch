@@ -110,25 +110,23 @@ require "database/connection.php";
                                 </div>
                             </div>
 
-                            <div class="form-group col-md-2">
-                                <label>Status</label>
-                                <select class="form-control" id="status">
-                                    <option value="0">--Select--</option>
-                                    <option value="Break Down">Break Down</option>
-                                    <option value="Loaded">Loaded</option>
-                                    <option value="Arrived Consignee">Arrived Consignee</option>
-                                    <option value="Arrived Shipper">Arrived Shipper</option>
-                                    <option value="Paid">Paid</option>
-                                    <option value="Open">Open</option>
-                                    <option value="On Route">On Route</option>
-                                    <option value="Dispatched">Dispatched</option>
-                                    <option value="Delivered">Delivered</option>
-                                    <option value="Completed">Completed</option>
-                                    <option value="Invoiced">Invoiced</option>
-                                </select>
+                                <div class="form-group col-md-2">
+                                    <label>Status</label>
+                                    <select class="form-control" id="status">
+                                        <option value="Open">1) Open</option>
+                                        <option value="Dispatched" disabled>2) Dispatched</option>
+                                        <option value="Arrived Shipper" disabled>3) Arrived Shipper</option>
+                                        <option value="Loaded" disabled>4) Loaded</option>
+                                        <option value="On Route" disabled>5) On Route</option>
+                                        <option value="Arrived Consignee" disabled>6) Arrived Consignee</option>
+                                        <option value="Delivered" disabled>7) Delivered</option>
+                                        <option value="Completed" disabled>8) Completed</option>
+                                        <option value="Invoiced" disabled>9) Invoiced</option>
+                                        <option value="Break Down" disabled>10) Break Down</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <!-- End of Modal First Row  -->
+                            <!-- End of Modal First Row  -->
 
 
                         <!-- Start of Modal Second Row -->
