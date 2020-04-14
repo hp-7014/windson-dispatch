@@ -4,6 +4,7 @@
 class External_Carrier implements IteratorAggregate
 {
     private $id;
+    private $masterID;
     private $companyID;
     private $name;
     private $address;
@@ -59,6 +60,22 @@ class External_Carrier implements IteratorAggregate
     private $equipmentNotes;
     private $equipment;
     private $column;
+
+    /**
+     * @return mixed
+     */
+    public function getMasterID()
+    {
+        return $this->masterID;
+    }
+
+    /**
+     * @param mixed $masterID
+     */
+    public function setMasterID($masterID): void
+    {
+        $this->masterID = $masterID;
+    }
 
     /**
      * @return mixed
@@ -1034,13 +1051,26 @@ class External_Carrier implements IteratorAggregate
 
     public function insert($carrier,$db,$helper)
     {
-        $collection = $db->carrier;
-        $criteria = array(
-            'companyID' => (int)$carrier->getCompanyID(),
-        );
-        $doc = $collection->findOne($criteria);
+        $show = $db->carrier->find(['companyID' => (int)$_SESSION['companyId']]);
+        $counter = [];
+        $id = [];
 
-        if (!empty($doc)) {
+        $mainID = null;
+        $incrementNumber = null;
+
+        $i = 0;
+        foreach ($show as $s) {
+            $id[] = $s['_id'];
+            $counter[] = $s['counter'];
+
+            if ($counter[$i] < 5000) {
+                $mainID = $id[$i];
+                $incrementNumber = $counter[$i];
+            }
+            $i++;
+        }
+
+        if ($mainID > 0) {
             $db->carrier->updateOne(['companyID' => (int)$this->companyID], ['$push' => ['carrier' => [
                 '_id' => $helper->getDocumentSequence((int)$this->companyID, $db->carrier),
                 'counter' => 0,
@@ -1120,13 +1150,13 @@ class External_Carrier implements IteratorAggregate
     }
 
     public function updateExternal($external, $db) {
-        $db->carrier->updateOne(['companyID' => (int)$_SESSION['companyId'], 'carrier._id' => (int)$this->getId()],
+        $db->carrier->updateOne(['companyID' => (int)$_SESSION['companyId'],'_id' => (int)$this->masterID, 'carrier._id' => (int)$this->getId()],
             ['$set' => ['carrier.$.' . $external->getColumn() => $external->getName()]]
         );
     }
 
     public function delete_ExtCar($external, $db, $helper) {
-        $db->carrier->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+        $db->carrier->updateOne(['companyID' => (int)$_SESSION['companyId'],'_id' => (int)$this->masterID], [
             '$pull' => ['carrier' => ['_id' => (int)$external->getId()]]]
         );
         
@@ -1140,7 +1170,7 @@ class External_Carrier implements IteratorAggregate
 
     public function updateCarrierID($carrier,$db,$helper)
     {
-            $db->carrier->updateOne(['companyID' => (int)$_SESSION['companyId'], 'carrier._id' => (int)$this->getId()],
+            $db->carrier->updateOne(['companyID' => (int)$_SESSION['companyId'],'_id' => (int)$this->masterID, 'carrier._id' => (int)$this->getId()],
             ['$set' => [
                 'carrier.$.name' => $this->name,
                 'carrier.$.address' => $this->address,

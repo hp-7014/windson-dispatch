@@ -81,6 +81,7 @@ else if ($_GET['type'] == 'edit_customer') {
 else if ($_GET['type'] == 'delete_customer') {
     $customer = new Customer();
     $customer->setId($_POST['id']);
+    $customer->setMasterID($_POST['custMasterID']);
     $customer->setCurrencySetting($_POST['currencySetting']);
     $customer->setPaymentTerms($_POST['paymentTerms']);
     $customer->setFactoringCompany($_POST['factoringCompanyname']);
@@ -91,6 +92,7 @@ else if ($_GET['type'] == 'delete_customer') {
 // customer edit detail function here 
 else if ($_GET['type'] == 'editCustomerDetail') {
     $customer = new Customer();
+    $customer->setMasterID($_POST['custMasterID']);
     $customer->setId($_POST['customerUpdateID']);
     $customer->setCustName($_POST['custName']);
     $customer->setCustAddress($_POST['custAddress']);

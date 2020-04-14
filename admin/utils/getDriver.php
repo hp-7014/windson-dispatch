@@ -18,6 +18,7 @@ if ($_GET['types'] == 'live_driver_table') {
     $table = "";
     $list = "";
     foreach ($show_data as $row) {
+        $mainID = $row['_id'];
         $show1 = $row['driver'];
         foreach ($show1 as $row1) {
             $id = $row1['_id'];
@@ -30,6 +31,8 @@ if ($_GET['types'] == 'live_driver_table') {
             $driverLicenseNo = $row1['driverLicenseNo'];
             $driverLicenseIssue = $row1['driverLicenseIssue'];
             $driverLicenseExp = date("d-m-Y", $row1['driverLicenseExp']);
+
+            $masterID = '"'.$id.')'.$mainID.'"';
 
             $driverNameColumn = '"driverName"';
             $driverEmailColumn = '"driverEmail"';
@@ -81,7 +84,7 @@ if ($_GET['types'] == 'live_driver_table') {
                     onmouseout='hidePencil_s($pencilid1)'
                     >
                     <i id='driverNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                        onclick='updateTableColumn($c_type1,$updateDriver,$type,$id,$driverNameColumn,$title1,$pencilid1)'
+                        onclick='updateTableColumn($c_type1,$updateDriver,$type,$masterID,$driverNameColumn,$title1,$pencilid1)'
                     ></i>
                     $driverName
                 </th>
@@ -90,7 +93,7 @@ if ($_GET['types'] == 'live_driver_table') {
                     onmouseout='hidePencil_s($pencilid2)'
                     >
                     <i id='driverEmailPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                        onclick='updateTableColumn($c_type2,$updateDriver,$type,$id,$driverEmailColumn,$title2,$pencilid2)'
+                        onclick='updateTableColumn($c_type2,$updateDriver,$type,$masterID,$driverEmailColumn,$title2,$pencilid2)'
                     ></i>
                     $driverEmail
                 </td>
@@ -99,7 +102,7 @@ if ($_GET['types'] == 'live_driver_table') {
                     onmouseout='hidePencil_s($pencilid3)'
                     >
                     <i id='driverLocationPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                        onclick='updateTableColumn($c_type3,$updateDriver,$type,$id,$driverLocationColumn,$title3,$pencilid3)'
+                        onclick='updateTableColumn($c_type3,$updateDriver,$type,$masterID,$driverLocationColumn,$title3,$pencilid3)'
                     ></i>
                     $driverLocation
                 </td>
@@ -108,7 +111,7 @@ if ($_GET['types'] == 'live_driver_table') {
                     onmouseout='hidePencil_s($pencilid4)'
                     >
                     <i id='driverSocialPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                        onclick='updateTableColumn($c_type4,$updateDriver,$type,$id,$driverSocialColumn,$title4,$pencilid4)'
+                        onclick='updateTableColumn($c_type4,$updateDriver,$type,$masterID,$driverSocialColumn,$title4,$pencilid4)'
                     ></i>
                     $driverSocial
                 </td>
@@ -117,7 +120,7 @@ if ($_GET['types'] == 'live_driver_table') {
                     onmouseout='hidePencil_s($pencilid5)'
                     >
                     <i id='dateOfbirthPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                        onclick='updateTableColumn($c_type5,$updateDriver,$type,$id,$dateOfbirthColumn,$title5,$pencilid5)'
+                        onclick='updateTableColumn($c_type5,$updateDriver,$type,$masterID,$dateOfbirthColumn,$title5,$pencilid5)'
                     ></i>
                     $dateOfbirth
                 </td>
@@ -126,7 +129,7 @@ if ($_GET['types'] == 'live_driver_table') {
                     onmouseout='hidePencil_s($pencilid6)'
                     >
                     <i id='dateOfhirePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                        onclick='updateTableColumn($c_type6,$updateDriver,$type,$id,$dateOfhireColumn,$title6,$pencilid6)'
+                        onclick='updateTableColumn($c_type6,$updateDriver,$type,$masterID,$dateOfhireColumn,$title6,$pencilid6)'
                     ></i>
                     $dateOfhire
                 </td>
@@ -135,7 +138,7 @@ if ($_GET['types'] == 'live_driver_table') {
                     onmouseout='hidePencil_s($pencilid7)'
                     >
                     <i id='driverLicenseNoPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                        onclick='updateTableColumn($c_type7,$updateDriver,$type,$id,$driverLicenseNoColumn,$title7,$pencilid7)'
+                        onclick='updateTableColumn($c_type7,$updateDriver,$type,$masterID,$driverLicenseNoColumn,$title7,$pencilid7)'
                     ></i>
                     $driverLicenseNo
                 </td>
@@ -144,7 +147,7 @@ if ($_GET['types'] == 'live_driver_table') {
                     onmouseout='hidePencil_s($pencilid8)'
                     >
                     <i id='driverLicenseIssuePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                        onclick='updateTableColumn($c_type8,$updateDriver,$type,$id,$driverLicenseIssueColumn,$title8,$pencilid8)'
+                        onclick='updateTableColumn($c_type8,$updateDriver,$type,$masterID,$driverLicenseIssueColumn,$title8,$pencilid8)'
                     ></i>
                     $driverLicenseIssue
                 </td>
@@ -153,12 +156,12 @@ if ($_GET['types'] == 'live_driver_table') {
                     onmouseout='hidePencil_s($pencilid9)'
                     >
                     <i id='driverLicenseExpPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                        onclick='updateTableColumn($c_type9,$updateDriver,$type,$id,$driverLicenseExpColumn,$title9,$pencilid9)'
+                        onclick='updateTableColumn($c_type9,$updateDriver,$type,$masterID,$driverLicenseExpColumn,$title9,$pencilid9)'
                     ></i>
                     $driverLicenseExp
                 </td>
                 
-                <td><a href='#' onclick='deleteDriver($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></a></i>
+                <td><a href='#' onclick='deleteDriver($masterID)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></a></i>
                     <a href='#' onclick='editDriver($id)'><i id='editDriverDetail'
                         data-toggle='tooltip' data-placement='top' title='Edit Detail'
                         class='mdi mdi-file-document-edit-outline editModal'></i></a>

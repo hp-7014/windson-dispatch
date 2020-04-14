@@ -12,6 +12,7 @@ if ($_GET['type'] == 'add_shipper') {
 
     $shipper = new Shipper();
     $shipper->setId($helper->getNextSequence("shipper",$db));
+//    $shipper->setDocumentID($helper->getDocumentSequence1((int)$_SESSION['companyId'], $db->shipper));
     $shipper->setCompanyID($_SESSION['companyId']);
     $shipper->setShipperName($_POST['shipperName']);
     $shipper->setShipperAddress($_POST['shipperAddress']);
@@ -82,6 +83,8 @@ else if ($_GET['type'] == 'exportShipper') {
 else if ($_GET['type'] == 'delete_shipper') {
     $shipper = new Shipper();
     $shipper->setId($_POST['id']);
+    $shipper->setDocumentID($_POST['masterID']);
+    echo $_POST['masterID'];
     $shipper->deleteShipper($shipper, $db);
     echo 'Data Removed Successfully';
 }
@@ -90,6 +93,7 @@ else if ($_GET['type'] == 'delete_shipper') {
 else if ($_GET['type'] == 'edit_shipper') {
     $shipper = new Shipper();
     $shipper->setId($_POST['id']);
+    $shipper->setDocumentID($_POST['masterID']);
     $shipper->setCompanyId($_POST['companyid']);
     $shipper->setShipperName($_POST['value']);
     $shipper->setColumn($_POST['column']);

@@ -74,6 +74,7 @@ require "../database/connection.php";
                                 $i = 1;
 
                                 foreach ($show_data as $show) {
+                                    $mainID = $show['_id'];
                                     $show = $show['driver'];
                                     foreach ($show as $s) {
                                         $currency = $s['currency'];
@@ -86,6 +87,8 @@ require "../database/connection.php";
                                         $driverLicenseNo = "'" . $s['driverLicenseNo'] . "'";
                                         $driverLicenseIssue = "'" . $s['driverLicenseIssue'] . "'";
                                         $driverLicenseExp = "'" . $s['driverLicenseExp'] . "'";
+
+                                        $masterID = "'".$s['_id'].')'.$mainID."'";
 
                                         $pencilid1 = "'" . "driverNamePencil$i" . "'";
                                         $pencilid2 = "'" . "driverEmailPencil$i" . "'";
@@ -105,7 +108,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('driverNamePencil$i'); "?>">
                                             <i id="<?php echo "driverNamePencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $driverName; ?>,'updateDriver','text',<?php echo $s['_id']; ?>,'driverName','Name',<?php echo $pencilid1; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $driverName; ?>,'updateDriver','text',<?php echo $masterID; ?>,'driverName','Name',<?php echo $pencilid1; ?>)"></i>
                                             <?php echo $s['driverName']; ?>
                                         </th>
                                         <td class="custom-text" id="<?php echo "driverEmail".$i; ?>"
@@ -113,7 +116,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('driverEmailPencil$i'); "?>">
                                             <i id="<?php echo "driverEmailPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $driverEmail; ?>,'updateDriver','text',<?php echo $s['_id']; ?>,'driverEmail','Email',<?php echo $pencilid2; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $driverEmail; ?>,'updateDriver','text',<?php echo $masterID; ?>,'driverEmail','Email',<?php echo $pencilid2; ?>)"></i>
                                             <?php echo $s['driverEmail']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "driverLocation".$i; ?>"
@@ -121,7 +124,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('driverLocationPencil$i'); "?>">
                                             <i id="<?php echo "driverLocationPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $driverLocation; ?>,'updateDriver','text',<?php echo $s['_id']; ?>,'driverLocation','Location',<?php echo $pencilid3; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $driverLocation; ?>,'updateDriver','text',<?php echo $masterID; ?>,'driverLocation','Location',<?php echo $pencilid3; ?>)"></i>
                                             <?php echo $s['driverLocation']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "driverSocial".$i; ?>"
@@ -129,7 +132,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('driverSocialPencil$i'); "?>">
                                             <i id="<?php echo "driverSocialPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $driverSocial; ?>,'updateDriver','text',<?php echo $s['_id']; ?>,'driverSocial','Social Security No',<?php echo $pencilid4; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $driverSocial; ?>,'updateDriver','text',<?php echo $masterID; ?>,'driverSocial','Social Security No',<?php echo $pencilid4; ?>)"></i>
                                             <?php echo $s['driverSocial']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "dateOfbirth".$i; ?>"
@@ -137,7 +140,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('dateOfbirthPencil$i'); "?>">
                                             <i id="<?php echo "dateOfbirthPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $dateOfbirth; ?>,'updateDriver','text',<?php echo $s['_id']; ?>,'dateOfbirth','Date of Birth',<?php echo $pencilid5; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $dateOfbirth; ?>,'updateDriver','text',<?php echo $masterID; ?>,'dateOfbirth','Date of Birth',<?php echo $pencilid5; ?>)"></i>
                                             <?php echo date("d-m-Y",$s['dateOfbirth']); ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "dateOfhire".$i; ?>"
@@ -145,7 +148,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('dateOfhirePencil$i'); "?>">
                                             <i id="<?php echo "dateOfhirePencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $dateOfhire; ?>,'updateDriver','text',<?php echo $s['_id']; ?>,'dateOfhire','Date of Hire',<?php echo $pencilid6; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $dateOfhire; ?>,'updateDriver','text',<?php echo $masterID; ?>,'dateOfhire','Date of Hire',<?php echo $pencilid6; ?>)"></i>
                                             <?php echo date("d-m-Y",$s['dateOfhire']); ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "driverLicenseNo".$i; ?>"
@@ -153,7 +156,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('driverLicenseNoPencil$i'); "?>">
                                             <i id="<?php echo "driverLicenseNoPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $driverLicenseNo; ?>,'updateDriver','text',<?php echo $s['_id']; ?>,'driverLicenseNo','License No',<?php echo $pencilid7; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $driverLicenseNo; ?>,'updateDriver','text',<?php echo $masterID; ?>,'driverLicenseNo','License No',<?php echo $pencilid7; ?>)"></i>
                                             <?php echo $s['driverLicenseNo']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "driverLicenseIssue".$i; ?>"
@@ -161,7 +164,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('driverLicenseIssuePencil$i'); "?>">
                                             <i id="<?php echo "driverLicenseIssuePencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $driverLicenseIssue; ?>,'updateDriver','text',<?php echo $s['_id']; ?>,'driverLicenseIssue','License Issue State',<?php echo $pencilid8; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $driverLicenseIssue; ?>,'updateDriver','text',<?php echo $masterID; ?>,'driverLicenseIssue','License Issue State',<?php echo $pencilid8; ?>)"></i>
                                             <?php echo $s['driverLicenseIssue']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "driverLicenseExp".$i; ?>"
@@ -169,12 +172,12 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('driverLicenseExpPencil$i'); "?>">
                                             <i id="<?php echo "driverLicenseExpPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $driverLicenseExp; ?>,'updateDriver','text',<?php echo $s['_id']; ?>,'driverLicenseExp','License Exp Date',<?php echo $pencilid9; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $driverLicenseExp; ?>,'updateDriver','text',<?php echo $masterID; ?>,'driverLicenseExp','License Exp Date',<?php echo $pencilid9; ?>)"></i>
                                             <?php echo date("d-m-Y",$s['driverLicenseExp']); ?>
                                         </td>
                                         <td>
                                             <a href="#"
-                                                onclick="deleteDriver(<?php echo $s['_id']; ?>,<?php echo $currency; ?>)"><i
+                                                onclick="deleteDriver(<?php echo $masterID; ?>,<?php echo $currency; ?>)"><i
                                                     class="mdi mdi-delete-sweep-outline"
                                                     style="font-size: 20px; color: #FC3B3B"></i></a>
                                             <a href="#" onclick="editDriver(<?php echo $s['_id']; ?>)"><i

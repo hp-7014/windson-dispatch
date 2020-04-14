@@ -4,13 +4,13 @@ $helper = "helper";
 require "../../database/connection.php";
 
 if ($_GET['types'] == 'live_shipper_table') {
-   // $show = $db->shipper->find(['companyID' => $_SESSION['companyId']]);
     $show = $db->shipper->find(array('companyID' => $_SESSION['companyId']), array('projection' => array('shipper' => array('$slice' => [0, 100]))));
    
     $i = 0;
     $table = "";
     $list  = "";
     foreach ($show as $row) {
+        $mainID = $row['_id'];
         $show1 = $row['shipper'];
         foreach ($show1 as $row1) {
             $counter = $row1['counter'];
@@ -31,6 +31,8 @@ if ($_GET['types'] == 'live_shipper_table') {
             $shipperStatus = $row1['shipperStatus'];
             $shippingNotes = $row1['shippingNotes'];
             $internalNotes = $row1['internalNotes'];
+
+            $masterID = '"'.$id.')'.$mainID.'"';
 
             $shipperNameColmn = '"shipperName"';
             $shipperAddressColmn = '"shipperAddress"';
@@ -111,7 +113,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid1)'
                         >
                         <i id='shipperNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type1,$updateShipper,$type,$id,$shipperNameColmn,$title1,$pencilid1)'
+                            onclick='updateTableColumn($c_type1,$updateShipper,$type,$masterID,$shipperNameColmn,$title1,$pencilid1)'
                         ></i>
                         $shipperName
                     </th>
@@ -120,7 +122,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid2)'
                         >
                         <i id='shipperAddressPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type2,$updateShipper,$type,$id,$shipperAddressColmn,$title2,$pencilid2)'
+                            onclick='updateTableColumn($c_type2,$updateShipper,$type,$masterID,$shipperAddressColmn,$title2,$pencilid2)'
                         ></i>
                         $shipperAddress
                     </td>
@@ -129,7 +131,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid3)'
                         >
                         <i id='shipperAddressPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type3,$updateShipper,$type,$id,$shipperLocationColmn,$title3,$pencilid3)'
+                            onclick='updateTableColumn($c_type3,$updateShipper,$type,$masterID,$shipperLocationColmn,$title3,$pencilid3)'
                         ></i>
                         $shipperLocation
                     </td>
@@ -138,7 +140,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid4)'
                         >
                         <i id='shipperPostalPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type4,$updateShipper,$type,$id,$shipperPostalColmn,$title4,$pencilid4)'
+                            onclick='updateTableColumn($c_type4,$updateShipper,$type,$masterID,$shipperPostalColmn,$title4,$pencilid4)'
                         ></i>
                         $shipperPostal
                     </td>
@@ -147,7 +149,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid5)'
                         >
                         <i id='shipperContactPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type5,$updateShipper,$type,$id,$shipperContactColmn,$title5,$pencilid5)'
+                            onclick='updateTableColumn($c_type5,$updateShipper,$type,$masterID,$shipperContactColmn,$title5,$pencilid5)'
                         ></i>
                         $shipperContact
                     </td>
@@ -156,7 +158,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid6)'
                         >
                         <i id='shipperEmailPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type6,$updateShipper,$type,$id,$shipperEmailColmn,$title6,$pencilid6)'
+                            onclick='updateTableColumn($c_type6,$updateShipper,$type,$masterID,$shipperEmailColmn,$title6,$pencilid6)'
                         ></i>
                         $shipperEmail
                     </td>
@@ -165,7 +167,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid7)'
                         >
                         <i id='shipperTelephonePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type7,$updateShipper,$type,$id,$shipperTelephoneColmn,$title7,$pencilid7)'
+                            onclick='updateTableColumn($c_type7,$updateShipper,$type,$masterID,$shipperTelephoneColmn,$title7,$pencilid7)'
                         ></i>
                         $shipperTelephone
                     </td>
@@ -174,7 +176,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid8)'
                         >
                         <i id='shipperExtPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type8,$updateShipper,$type,$id,$shipperExtColmn,$title8,$pencilid8)'
+                            onclick='updateTableColumn($c_type8,$updateShipper,$type,$masterID,$shipperExtColmn,$title8,$pencilid8)'
                         ></i>
                         $shipperExt
                     </td>
@@ -183,7 +185,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid9)'
                         >
                         <i id='shipperTollFreePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type9,$updateShipper,$type,$id,$shipperTollFreeColmn,$title9,$pencilid9)'
+                            onclick='updateTableColumn($c_type9,$updateShipper,$type,$masterID,$shipperTollFreeColmn,$title9,$pencilid9)'
                         ></i>
                         $shipperTollFree
                     </td>
@@ -192,7 +194,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid10)'
                         >
                         <i id='shipperFaxPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type10,$updateShipper,$type,$id,$shipperFaxColmn,$title10,$pencilid10)'
+                            onclick='updateTableColumn($c_type10,$updateShipper,$type,$masterID,$shipperFaxColmn,$title10,$pencilid10)'
                         ></i>
                         $shipperFax
                     </td>
@@ -201,7 +203,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid11)'
                         >
                         <i id='shipperShippingHoursPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type11,$updateShipper,$type,$id,$shipperShippingHoursColmn,$title11,$pencilid11)'
+                            onclick='updateTableColumn($c_type11,$updateShipper,$type,$masterID,$shipperShippingHoursColmn,$title11,$pencilid11)'
                         ></i>
                         $shipperShippingHours
                     </td>
@@ -210,7 +212,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid12)'
                         >
                         <i id='shipperAppointmentsPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type12,$updateShipper,$type,$id,$shipperAppointmentsColmn,$title12,$pencilid12)'
+                            onclick='updateTableColumn($c_type12,$updateShipper,$type,$masterID,$shipperAppointmentsColmn,$title12,$pencilid12)'
                         ></i>
                         $shipperAppointments
                     </td>
@@ -219,7 +221,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid13)'
                         >
                         <i id='shipperIntersactionPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type13,$updateShipper,$type,$id,$shipperIntersactionColmn,$title13,$pencilid13)'
+                            onclick='updateTableColumn($c_type13,$updateShipper,$type,$masterID,$shipperIntersactionColmn,$title13,$pencilid13)'
                         ></i>
                         $shipperIntersaction
                     </td>
@@ -228,7 +230,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid14)'
                         >
                         <i id='shipperStatusPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type14,$updateShipper,$type,$id,$shipperStatusColmn,$title14,$pencilid14)'
+                            onclick='updateTableColumn($c_type14,$updateShipper,$type,$masterID,$shipperStatusColmn,$title14,$pencilid14)'
                         ></i>
                         $shipperStatus
                     </td>
@@ -237,7 +239,7 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid15)'
                         >
                         <i id='shippingNotesPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type15,$updateShipper,$type,$id,$shippingNotesColmn,$title15,$pencilid15)'
+                            onclick='updateTableColumn($c_type15,$updateShipper,$type,$masterID,$shippingNotesColmn,$title15,$pencilid15)'
                         ></i>
                         $shippingNotes
                     </td>
@@ -246,13 +248,13 @@ if ($_GET['types'] == 'live_shipper_table') {
                         onmouseout='hidePencil_s($pencilid16)'
                         >
                         <i id='internalNotesPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type16,$updateShipper,$type,$id,$internalNotesColmn,$title16,$pencilid16)'
+                            onclick='updateTableColumn($c_type16,$updateShipper,$type,$masterID,$internalNotesColmn,$title16,$pencilid16)'
                         ></i>
                         $internalNotes
                     </td>";
 
                 if ($counter == 0) { 
-                    echo "<td><a href='#' onclick='deleteShipper($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                    echo "<td><a href='#' onclick='deleteShipper($masterID)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
                 } else {
                     echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
                 }

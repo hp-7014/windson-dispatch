@@ -205,7 +205,7 @@ require "../database/connection.php";
                             </button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <input type="checkbox" onclick='selectAll()'
+                                    <input type="checkbox"  onclick='selectAll()'
                                         style="margin-left:20px;margin-top:10px" value="Select All" />&nbsp;Select all
                                 </li>
                                 <li>

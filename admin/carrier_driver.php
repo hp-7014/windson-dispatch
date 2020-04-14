@@ -68,6 +68,7 @@ if($_GET['type'] == 'add_carrier'){
 else if ($_GET['type'] == 'edit_external') {
     $carrier = new External_Carrier();
     $carrier->setId($_POST['id']);
+    $carrier->setMasterID($_POST['masterID']);
     $carrier->setName($_POST['value']);
     $carrier->setColumn($_POST['column']);
     $carrier->updateExternal($carrier,$db);
@@ -77,6 +78,7 @@ else if ($_GET['type'] == 'edit_external') {
 else if($_GET['type'] == 'Update_carrierDetail'){
     $carrier = new External_Carrier();
     $carrier->setId($_POST['carrierid']);
+    $carrier->setMasterID($_POST['mainID']);
     $carrier->setCompanyID($_SESSION['companyId']);
     $carrier->setName($_POST['carrierName']);
     $carrier->setAddress($_POST['carrierAddress']);
@@ -137,8 +139,8 @@ else if($_GET['type'] == 'Update_carrierDetail'){
 else if ($_GET['type'] == 'delete_carrier') {
     $carrier = new External_Carrier();
     $carrier->setId($_POST['id']);
+    $carrier->setMasterID($_POST['masterID']);
     $carrier->setPaymentTerms($_POST['paymentTerm']);
     $carrier->setFactoringCompany($_POST['factoringCompany']);
-
     $carrier->delete_ExtCar($carrier,$db,$helper);
 }

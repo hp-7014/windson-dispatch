@@ -71,6 +71,7 @@ else if ($_GET['type'] == 'importDriver') {
 else if ($_GET['type'] == 'editDriver') {
     $driver = new Driver();
     $driver->setId($_POST['id']);
+    $driver->setMasterID($_POST['masterID']);
     $driver->setDriverName($_POST['value']);
     $driver->setColumn($_POST['column']);
     $driver->updateDriver($driver, $db);
@@ -81,7 +82,7 @@ else if ($_GET['type'] == 'editDriver') {
 else if ($_GET['type'] == 'delete_Driver') {
     $driver = new Driver();
     $driver->setId($_POST['id']);
-    
+    $driver->setMasterID($_POST['masterID']);
     $driver->deleteDrivers($driver, $db,$helper);
     echo 'Data Removed Successfully';
 }
@@ -94,9 +95,9 @@ else if ($_GET['type'] == 'export_driver') {
 
 // Update Driver Id
 else if($_GET['type'] == 'driverUpdateId'){
-    print_r($_POST['installmentCategoryStore']);
     $driver = new Driver();
     $driver->setId($_POST['driver_id']);
+    $driver->setMasterID($_POST['driverMainID']);
     $driver->setDriverName($_POST['driverName']);
     $driver->setDriverUsername($_POST['driverUsername']);
     $driver->setDriverPassword($_POST['driverPassword']);

@@ -5,9 +5,24 @@ require 'vendor/autoload.php';
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
 
-$db->payment_bank->updateOne(['companyID' => 1, 'April'.'._id' => 0],
-            ['$set' => ['April'.'.$.file' => 1211]]
-        );
+
+//$mainID = 69;
+//$curMonth = date("F");
+//$year = 2020;
+//echo $year;
+$db->shipper->updateOne(['companyID' => 1,'_id' => 97], [
+        '$pull' => ['shipper' => ['_id' => 1]]]
+);
+//$db->payment_bank->updateOne(['companyID' => 1,'_id' => $mainID, 'year' => $year, $year.'.month' => $curMonth],
+//    ['$set' => [$year.'.$.balance' => 7014]]
+//);
+//$db->payment_bank->updateOne(['companyID' => 1, 'bankID' => 3, '2020.$.month' => "June"],
+//    ['$set' => ['2020.$.balance' => 7024]]
+//);
+
+//$db->payment_bank->updateOne(['companyID' => 1, 'April'.'._id' => 0],
+//            ['$set' => ['April'.'.$.file' => 1211]]
+//        );
     
 //$collection->updateOne(['companyID' => 1], [
 //        '$pull' => ['Delivered' => ['_id' => 3]]]

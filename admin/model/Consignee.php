@@ -10,6 +10,7 @@
 class Consignee implements IteratorAggregate
 {
     private $id;
+    private $masterID;
     private $companyID;
     private $consigneeName;
     private $consigneeAddress;
@@ -32,6 +33,22 @@ class Consignee implements IteratorAggregate
     private $deleteStatus;
     private $deletedUserId;
     private $Column;
+
+    /**
+     * @return mixed
+     */
+    public function getMasterID()
+    {
+        return $this->masterID;
+    }
+
+    /**
+     * @param mixed $masterID
+     */
+    public function setMasterID($masterID): void
+    {
+        $this->masterID = $masterID;
+    }
 
     /**
      * @return mixed
@@ -570,7 +587,7 @@ class Consignee implements IteratorAggregate
     // update function
     public function updateConsignee($consignee, $db)
     {
-        $db->consignee->updateOne(['companyID' => (int)$_SESSION['companyId'], 'consignee._id' => (int)$this->getId()],
+        $db->consignee->updateOne(['companyID' => (int)$_SESSION['companyId'],'_id' => (int)$this->masterID, 'consignee._id' => (int)$this->getId()],
             ['$set' => ['consignee.$.' . $consignee->getColumn() => $consignee->getConsigneeName()]]
         );
     }
@@ -578,7 +595,7 @@ class Consignee implements IteratorAggregate
     // delete fucntion
     public function deleteConsignee($consignee, $db)
     {
-        $db->consignee->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+        $db->consignee->updateOne(['companyID' => (int)$_SESSION['companyId'],'_id'=>(int)$this->masterID], [
             '$pull' => ['consignee' => ['_id' => (int)$consignee->getId()]]]
         );
 

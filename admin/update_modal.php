@@ -23,6 +23,7 @@
                             <input type="hidden" id="fieldid">
                             <input type="hidden" id="fieldname">
                             <input type="hidden" id="functionname">
+                            <input type="hidden" id="masterID">
                         </div>
                     </div>
                 </div>

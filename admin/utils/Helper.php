@@ -30,6 +30,7 @@ class Helper
         return $id;
     }
 
+
     // particular object counter Increment
 function getDocumentSequenceId($type,$collection1,$arrayName,$companyid) {
     $cursor = $collection1->find(['companyID' => $companyid],[

@@ -82,6 +82,7 @@ else if ($_GET['type'] == 'edit_consignee') {
     $consignee = new Consignee();
     $consignee->setId($_POST['id']);
     $consignee->setCompanyId($_POST['companyid']);
+    $consignee->setMasterID($_POST['masterID']);
     $consignee->setConsigneeName($_POST['value']);
     $consignee->setColumn($_POST['column']);
     $consignee->updateConsignee($consignee, $db);
@@ -92,6 +93,7 @@ else if ($_GET['type'] == 'edit_consignee') {
 else if ($_GET['type'] == 'delete_consignee') {
     $consignee = new Consignee();
     $consignee->setId($_POST['id']);
+    $consignee->setMasterID($_POST['masterID']);
     $consignee->deleteConsignee($consignee, $db);
     echo 'Data Removed Successfully';
 }

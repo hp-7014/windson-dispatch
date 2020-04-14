@@ -22,6 +22,7 @@ require "../database/connection.php";
                         <label>Name <span class="mandatory">*</span></label>
                         <div>
                             <input class="form-control" placeholder="Name *" type="text" id="driverNameEdit">
+                            <input class="form-control" type="hidden" id="driverMainID">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
