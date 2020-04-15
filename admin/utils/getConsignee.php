@@ -6,7 +6,7 @@ require "../../database/connection.php";
 if($_GET['types'] == 'live_consignee_table') {
     $limit = 100;
     $cursor = $db->consignee->find(array('companyID' => $_SESSION['companyId']));
-    
+
     foreach ($cursor as $value) {
         $total_records = sizeof($value['consignee']);
         $total_pages = ceil($total_records / $limit);
@@ -19,6 +19,7 @@ if($_GET['types'] == 'live_consignee_table') {
     $list  = "";
     $pages = "";
     foreach ($show as $row) {
+        $mainID = $row['_id'];
         $show1 = $row['consignee'];
         foreach ($show1 as $row1) {
             $counter = $row1['counter'];
@@ -39,6 +40,8 @@ if($_GET['types'] == 'live_consignee_table') {
             $consigneeStatus = $row1['consigneeStatus'];
             $consigneeNotes = $row1['consigneeRecivingNote'];
             $internalNotes = $row1['consigneeInternalNote'];
+
+            $masterID = '"'.$id.')'.$mainID.'"';
 
             $consigneeNameColmn = '"consigneeName"';
             $consigneeAddressColmn = '"consigneeAddress"';
@@ -118,7 +121,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid1)'
                         >
                         <i id='consigneeNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type1,$updateConsignee,$type,$id,$consigneeNameColmn,$title1,$pencilid1)'
+                            onclick='updateTableColumn($c_type1,$updateConsignee,$type,$masterID,$consigneeNameColmn,$title1,$pencilid1)'
                         ></i>
                         $consigneeName
                     </th>
@@ -127,7 +130,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid2)'
                         >
                         <i id='consigneeAddressPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type2,$updateConsignee,$type,$id,$consigneeAddressColmn,$title2,$pencilid2)'
+                            onclick='updateTableColumn($c_type2,$updateConsignee,$type,$masterID,$consigneeAddressColmn,$title2,$pencilid2)'
                         ></i>
                         $consigneeAddress
                     </td>
@@ -136,7 +139,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid3)'
                         >
                         <i id='consigneeLocationPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type3,$updateConsignee,$type,$id,$consigneeLocationColmn,$title3,$pencilid3)'
+                            onclick='updateTableColumn($c_type3,$updateConsignee,$type,$masterID,$consigneeLocationColmn,$title3,$pencilid3)'
                         ></i>
                         $consigneeLocation
                     </td>
@@ -145,7 +148,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid4)'
                         >
                         <i id='consigneePostalPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type4,$updateConsignee,$type,$id,$consigneePostalColmn,$title4,$pencilid4)'
+                            onclick='updateTableColumn($c_type4,$updateConsignee,$type,$masterID,$consigneePostalColmn,$title4,$pencilid4)'
                         ></i>
                         $consigneePostal
                     </td>
@@ -154,7 +157,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid5)'
                         >
                         <i id='consigneeContactPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type5,$updateConsignee,$type,$id,$consigneeContactColmn,$title5,$pencilid5)'
+                            onclick='updateTableColumn($c_type5,$updateConsignee,$type,$masterID,$consigneeContactColmn,$title5,$pencilid5)'
                         ></i>
                         $consigneeContact
                     </td>
@@ -163,7 +166,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid6)'
                         >
                         <i id='consigneeEmailPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type6,$updateConsignee,$type,$id,$consigneeEmailColmn,$title6,$pencilid6)'
+                            onclick='updateTableColumn($c_type6,$updateConsignee,$type,$masterID,$consigneeEmailColmn,$title6,$pencilid6)'
                         ></i>
                         $consigneeEmail
                     </td>
@@ -172,7 +175,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid7)'
                         >
                         <i id='consigneeTelephonePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type7,$updateConsignee,$type,$id,$consigneeTelephoneColmn,$title7,$pencilid7)'
+                            onclick='updateTableColumn($c_type7,$updateConsignee,$type,$masterID,$consigneeTelephoneColmn,$title7,$pencilid7)'
                         ></i>
                         $consigneeTelephone
                     </td>
@@ -181,7 +184,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid8)'
                         >
                         <i id='consigneeExtPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type8,$updateConsignee,$type,$id,$consigneeExtColmn,$title8,$pencilid8)'
+                            onclick='updateTableColumn($c_type8,$updateConsignee,$type,$masterID,$consigneeExtColmn,$title8,$pencilid8)'
                         ></i>
                         $consigneeExt
                     </td>
@@ -190,7 +193,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid9)'
                         >
                         <i id='consigneeTollFreePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type9,$updateConsignee,$type,$id,$consigneeTollFreeColmn,$title9,$pencilid9)'
+                            onclick='updateTableColumn($c_type9,$updateConsignee,$type,$masterID,$consigneeTollFreeColmn,$title9,$pencilid9)'
                         ></i>
                         $consigneeTollFree
                     </td>
@@ -199,7 +202,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid10)'
                         >
                         <i id='consigneeFaxPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type10,$updateConsignee,$type,$id,$consigneeFaxColmn,$title10,$pencilid10)'
+                            onclick='updateTableColumn($c_type10,$updateConsignee,$type,$masterID,$consigneeFaxColmn,$title10,$pencilid10)'
                         ></i>
                         $consigneeFax
                     </td>
@@ -208,7 +211,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid11)'
                         >
                         <i id='consigneeShippingHoursPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type11,$updateConsignee,$type,$id,$consigneeShippingHoursColmn,$title11,$pencilid11)'
+                            onclick='updateTableColumn($c_type11,$updateConsignee,$type,$masterID,$consigneeShippingHoursColmn,$title11,$pencilid11)'
                         ></i>
                         $consigneeShippingHours
                     </td>
@@ -217,7 +220,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid12)'
                         >
                         <i id='consigneeAppointmentsPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type12,$updateConsignee,$type,$id,$consigneeAppointmentsColmn,$title12,$pencilid12)'
+                            onclick='updateTableColumn($c_type12,$updateConsignee,$type,$masterID,$consigneeAppointmentsColmn,$title12,$pencilid12)'
                         ></i>
                         $consigneeAppointments
                     </td>
@@ -226,7 +229,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid13)'
                         >
                         <i id='consigneeIntersactionPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type13,$updateConsignee,$type,$id,$consigneeIntersactionColmn,$title13,$pencilid13)'
+                            onclick='updateTableColumn($c_type13,$updateConsignee,$type,$masterID,$consigneeIntersactionColmn,$title13,$pencilid13)'
                         ></i>
                         $consigneeIntersaction
                     </td>
@@ -235,7 +238,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid14)'
                         >
                         <i id='consigneeStatusPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type14,$updateConsignee,$type,$id,$consigneeStatusColmn,$title14,$pencilid14)'
+                            onclick='updateTableColumn($c_type14,$updateConsignee,$type,$masterID,$consigneeStatusColmn,$title14,$pencilid14)'
                         ></i>
                         $consigneeStatus
                     </td>
@@ -244,7 +247,7 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid15)'
                         >
                         <i id='consigneeNotesPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type15,$updateConsignee,$type,$id,$consigneeNotesColmn,$title15,$pencilid15)'
+                            onclick='updateTableColumn($c_type15,$updateConsignee,$type,$masterID,$consigneeNotesColmn,$title15,$pencilid15)'
                         ></i>
                         $consigneeNotes
                     </td>
@@ -253,13 +256,13 @@ if($_GET['types'] == 'live_consignee_table') {
                         onmouseout='hidePencil_s($pencilid16)'
                         >
                         <i id='internalNotesPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type16,$updateConsignee,$type,$id,$internalNotesColmn,$title16,$pencilid16)'
+                            onclick='updateTableColumn($c_type16,$updateConsignee,$type,$masterID,$internalNotesColmn,$title16,$pencilid16)'
                         ></i>
                         $internalNotes
                     </td>";
 
                 if ($counter == 0) { 
-                    $table .= "<td><a href='#' onclick='deleteConsignee($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                    echo "<td><a href='#' onclick='deleteConsignee($masterID)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
                 } else {
                     $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
                 }
@@ -286,7 +289,7 @@ if($_GET['types'] == 'live_consignee_table') {
                 $pages .= "<option value='$i'>$j</option>";
             }
             $j++;
-        } 
+        }
 
         if($total_pages > 0 && $total_pages > 1) {
             $pages .= "</select>

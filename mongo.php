@@ -6,8 +6,8 @@ $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
 
 $collection = $db->user;
-$collection->updateOne(['year' => 2020], [
-       '$inc' => ['123.$[].mileage.$[].mi' => 500]]
+$collection->updateOne(['year' => 2020,'companyID'=> 2, 'quarter'=>1, '123.$[].mileage.$[].state'=>"IN"], [
+       '$inc' => ['123.$[].mileage.$[].mi' => 100]]
 );
 // $show = $db->active_load->find(['companyID' => 1]);
 // $i = 0;

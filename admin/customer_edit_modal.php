@@ -68,6 +68,7 @@ require "../database/connection.php";
                         ]);
 
                         foreach ($show1 as $row) {
+                            $mainID = $row['_id'];
                             $customer = array();
                             $customer[] = $row['customer'];
                             $currencyType = $row['currencyType'];
@@ -171,6 +172,7 @@ require "../database/connection.php";
                                 <div>
                                     <input class="form-control" placeholder="Company Name *"
                                            type="text" value="<?php echo $custName; ?>" id="custNameEdit">
+                                    <input class="form-control" type="hidden" value="<?php echo $mainID; ?>" id="custMasterID">
                                 </div>
                             </div>
                             <div class="form-group col-md-3">

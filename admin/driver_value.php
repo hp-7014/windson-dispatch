@@ -29,7 +29,7 @@ if ($_GET['type'] == "driverDataFetch") {
             }
         }
         foreach ($driver as $row2) {
-
+            $row2['masterID'] = $id;
             if ($row2['dateOfbirth'] == false) {
                 $row2['dateOfbirth'] = '';
             } else {

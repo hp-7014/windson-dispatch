@@ -7,6 +7,7 @@ require '../database/connection.php';
 
 $helper = new Helper();
 
+//----------Driver insert function start-----------------------------------------------------------------------------------------------------------------------------
 // Insert Driver Payment Function Here
 if ($_GET['type'] == 'driverpayment') {
     $bank = new Bank();
@@ -225,7 +226,220 @@ else if($_GET['type'] == 'othercash'){
     $bank->setBaseamount($_POST['baseamount']);
     $bank->insertothercash($bank,$db,$helper);
 }
+//----------Driver insert function end-----------------------------------------------------------------------------------------------------------------------------
+//----------Credit card insert function start-----------------------------------------------------------------------------------------------------------------------------
+// Insert Credit Card Expanse
+else if($_GET['type'] == 'creditexpense'){
+    $bank = new Bank();
+    $bank->setId($helper->getNextSequence("creditcardcount",$db));
+    $bank->setCompanyID($_POST['companyId']);
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
+    $bank->setCategory($_POST['category']);
+    $bank->setPaymentFrom($_POST['paymentfrom']);
+//    $bank->setPaytype($_POST['paytype']);
+//    $bank->setOthername($_POST['Bankname']);
+    $bank->setExpensesbill($_POST['expensesbill']);
+    $bank->setExpensesname($_POST['expensesname']);
+    $bank->setSelectDebit($_POST['selectdebite']);
+    $bank->setAmount($_POST['amount']);
+    $bank->setMemo($_POST['memo']);
+    $bank->setPayto($_POST['payto']);
+    $bank->insertCrediCardExpanse($bank,$db,$helper);
+}
 
+// insert credit card maintenance
+else if ($_GET['type'] == 'CreditMaintenance'){
+    $bank = new Bank();
+    $bank->setId($helper->getNextSequence("creditcardcount",$db));
+    $bank->setCompanyID($_POST['companyId']);
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
+    $bank->setPaymentFrom($_POST['paymentfrom']);
+    $bank->setCategory($_POST['category']);
+    $bank->setPayto($_POST['category']);
+    $bank->setSelectDebit($_POST['selectdebite']);
+    $bank->setAmount($_POST['amount']);
+    $bank->setAch($_POST['maintenanceach']);
+    $bank->setTruckno($_POST['truckno']);
+    $bank->setTrailerno($_POST['trailerno']);
+    $bank->setMemo($_POST['memo']);
+    $bank->insertCreditCardMaintenance($bank,$db,$helper);
+}
+
+// Insert creidtcard insurence Function Here
+else if($_GET['type'] == 'CreditInsurance'){
+    $bank = new Bank();
+    $bank->setId($helper->getNextSequence("creditcardcount",$db));
+    $bank->setCompanyID($_POST['companyId']);
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
+    $bank->setPaymentFrom($_POST['paymentfrom']);
+    $bank->setCategory($_POST['category']);
+    $bank->setPayto($_POST['category']);
+    $bank->setSelectDebit($_POST['selectdebite']);
+    $bank->setAmount($_POST['amount']);
+    $bank->setInsurancecom($_POST['insurancecompany']);
+    $bank->setMemo($_POST['memo']);
+    $bank->insertCreditCardInsurance($bank,$db,$helper);
+}
+
+// Insert creidtcard Fual card Function Here
+else if($_GET['type'] == 'CreditFuelCard'){
+    $bank = new Bank();
+    $bank->setId($helper->getNextSequence("creditcardcount",$db));
+    $bank->setCompanyID($_POST['companyId']);
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
+    $bank->setPaymentFrom($_POST['paymentfrom']);
+    $bank->setCategory($_POST['category']);
+    $bank->setPayto($_POST['category']);
+    $bank->setAmount($_POST['amount']);
+    $bank->setFuellist($_POST['fuellist']);
+    $bank->setMemo($_POST['memo']);
+    $bank->insertCreditCardFuelCard($bank,$db,$helper);
+}
+
+// Insert credit other Function Here
+else if($_GET['type'] == 'CreditOther'){
+    $bank = new Bank();
+    $bank->setId($helper->getNextSequence("creditcardcount",$db));
+    $bank->setCompanyID($_POST['companyId']);
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
+    $bank->setPaymentFrom($_POST['paymentfrom']);
+    $bank->setCategory($_POST['category']);
+    $bank->setPayto($_POST['category']);
+    $bank->setSelectDebit($_POST['selectdebite']);
+    $bank->setPobox($_POST['pobox']);
+    $bank->setAmount($_POST['amount']);
+    $bank->setOther($_POST['other']);
+    $bank->setCheckDate(strtotime($_POST['checkachdate']));
+    $bank->setCheque($_POST['otherchequ']);
+    $bank->setAch($_POST['otherach']);
+    $bank->setMemo($_POST['memo']);
+    $bank->insertCreditCardOther($bank,$db,$helper);
+}
+
+//----------Credit card insert function end-----------------------------------------------------------------------------------------------------------------------------
+//----------fuel card insert function start-----------------------------------------------------------------------------------------------------------------------------
+// Insert Driver Payment Function Here
+if ($_GET['type'] == 'FuelCardDriver') {
+    $bank = new Bank();
+    $bank->setId($helper->getNextSequence("fuelcardcount",$db));
+    $bank->setCompanyID($_POST['companyId']);
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
+
+    $bank->setFuelcardmain($_POST['fuelcardmain']);
+    $bank->setPaymentlist($_POST['paymentlist']);
+
+    $bank->setPaymentFrom($_POST['paymentfrom']);
+    $bank->setFieldName($_POST['drivername']);
+    $bank->setCategory($_POST['category']);
+    $bank->setPayto($_POST['category']);
+    $bank->setSelectDebit($_POST['selectdebite']);
+    $bank->setInvoice($_POST['invoice'],$_POST['invoiceAmount']);
+    $bank->setAmount($_POST['amount']);
+    $bank->setAdvance($_POST['advance']);
+    $bank->setFinalAmount($_POST['finalamount']);
+    $bank->setCheckDate(strtotime($_POST['checkdate']));
+    $bank->setCheque($_POST['cheque']);
+    $bank->setAch($_POST['ach']);
+    $bank->setMemo($_POST['memo']);
+    $bank->insertFuelDriver($bank,$db,$helper);
+}
+
+// Insert credit card carrier Function Here
+else if ($_GET['type'] == 'FuelCardCarrier') {
+    $bank = new Bank();
+    $bank->setId($helper->getNextSequence("fuelcardcount",$db));
+    $bank->setCompanyID($_POST['companyId']);
+
+    $bank->setFuelcardmain($_POST['fuelcardmain']);
+    $bank->setPaymentlist($_POST['paymentlist']);
+
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
+    $bank->setPaymentFrom($_POST['paymentfrom']);
+    $bank->setFieldName($_POST['carriername']);
+    $bank->setCategory($_POST['category']);
+    $bank->setPayto($_POST['category']);
+    $bank->setSelectDebit($_POST['selectdebite']);
+    $bank->setInvoice($_POST['invoice'],$_POST['invoiceAmount']);
+    $bank->setAmount($_POST['amount']);
+    $bank->setCheckDate(strtotime($_POST['checkdate']));
+    $bank->setCheque($_POST['cheque']);
+    $bank->setAch($_POST['ach']);
+    $bank->setMemo($_POST['memo']);
+    $bank->insertFuelCarrier($bank,$db,$helper);
+}
+
+else if($_GET['type'] == 'FuelCardExpense'){
+    $bank = new Bank();
+    $bank->setId($helper->getNextSequence("fuelcardcount",$db));
+    $bank->setCompanyID($_POST['companyId']);
+
+    $bank->setFuelcardmain($_POST['fuelcardmain']);
+    $bank->setPaymentlist($_POST['paymentlist']);
+
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
+    $bank->setPaymentFrom($_POST['paymentfrom']);
+    $bank->setCategory($_POST['category']);
+    $bank->setPayto($_POST['category']);
+    $bank->setSelectDebit($_POST['selectdebite']);
+    $bank->setExpensesbill($_POST['expensesbill']);
+    $bank->setExpensesname($_POST['expensesname']);
+    $bank->setAmount($_POST['amount']);
+    $bank->setMemo($_POST['memo']);
+    $bank->insertFuelExpense($bank,$db,$helper);
+}
+
+else if ($_GET['type'] == 'FuelCardMaintenance'){
+    $bank = new Bank();
+    $bank->setId($helper->getNextSequence("fuelcardcount",$db));
+    $bank->setCompanyID($_POST['companyId']);
+
+    $bank->setFuelcardmain($_POST['fuelcardmain']);
+    $bank->setPaymentlist($_POST['paymentlist']);
+
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
+    $bank->setPaymentFrom($_POST['paymentfrom']);
+    $bank->setCategory($_POST['category']);
+    $bank->setPayto($_POST['category']);
+    $bank->setSelectDebit($_POST['selectdebite']);
+    $bank->setAmount($_POST['amount']);
+    $bank->setAch($_POST['maintenanceach']);
+    $bank->setTruckno($_POST['truckno']);
+    $bank->setTrailerno($_POST['trailerno']);
+    $bank->setMemo($_POST['memo']);
+    $bank->insertFuelMaintenance($bank,$db,$helper);
+}
+
+else if($_GET['type'] == 'FuelCardOther'){
+    $bank = new Bank();
+    $bank->setId($helper->getNextSequence("fuelcardcount",$db));
+    $bank->setCompanyID($_POST['companyId']);
+    $bank->setFuelcardmain($_POST['fuelcardmain']);
+    $bank->setPaymentlist($_POST['paymentlist']);
+    $bank->setYear(date("Y"));
+    $bank->setMonth(date("F"));
+    $bank->setPaymentFrom($_POST['paymentfrom']);
+    $bank->setCategory($_POST['category']);
+    $bank->setPayto($_POST['category']);
+    $bank->setSelectDebit($_POST['selectdebite']);
+    $bank->setPobox($_POST['pobox']);
+    $bank->setAmount($_POST['amount']);
+    $bank->setOther($_POST['other']);
+    $bank->setCheckDate(strtotime($_POST['checkachdate']));
+    $bank->setCheque($_POST['otherchequ']);
+    $bank->setAch($_POST['otherach']);
+    $bank->setMemo($_POST['memo']);
+    $bank->insertFuelOther($bank,$db,$helper);
+}
+//----------fuel card insert function end-----------------------------------------------------------------------------------------------------------------------------
 //Upload Files
 else if ($_GET['type'] == "fileupload") {
     $bank = new Bank();

@@ -66,6 +66,7 @@ require "../database/connection.php";
                 foreach ($show1
 
                 as $row) {
+                    $mainID = $row['_id'];
                 $carrier = array();
                 $carrier[] = $row['carrier'];
                 $paymentTerms = $row['paymentTerms'];
@@ -158,7 +159,8 @@ require "../database/connection.php";
                                     <input class="form-control" placeholder="Name" value="<?php echo $name; ?>"
                                         id="carrierNameEdit" name="carrierName" type="text">
                                     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
-                                    <input type="hidden" id="carrierid" value="<?php echo $$carrierid; ?>">
+                                    <input type="hidden" id="carrierid" value="<?php echo $carrierid; ?>">
+                                    <input type="hidden" id="mainID" value="<?php echo $mainID; ?>">
                                 </div>
                             </div>
                             <div class="form-group col-md-3">

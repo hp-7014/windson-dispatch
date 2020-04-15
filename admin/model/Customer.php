@@ -10,6 +10,7 @@
 class Customer implements IteratorAggregate
 {
     private $id;
+    private $masterID;
     private $companyId;
     private $custName;
     private $custAddress;
@@ -50,6 +51,22 @@ class Customer implements IteratorAggregate
     private $deleteStatus;
     private $deletedUserId;
     private $column;
+
+    /**
+     * @return mixed
+     */
+    public function getMasterID()
+    {
+        return $this->masterID;
+    }
+
+    /**
+     * @param mixed $masterID
+     */
+    public function setMasterID($masterID): void
+    {
+        $this->masterID = $masterID;
+    }
 
     /**
      * @return mixed
@@ -942,7 +959,7 @@ class Customer implements IteratorAggregate
     // delete fucntion
     public function deleteCustomer($customer, $db, $helper)
     {
-        $db->customer->updateOne(['companyID' => (int)$_SESSION['companyId']], [
+        $db->customer->updateOne(['companyID' => (int)$_SESSION['companyId'],'_id' => (int)$this->masterID], [
             '$pull' => ['customer' => ['_id' => (int)$customer->getId()]]]
         );
 
@@ -960,7 +977,7 @@ class Customer implements IteratorAggregate
     // edit customer function
     public function EditCustomerDetail($customer, $db,$helper)
     {
-        $db->customer->updateOne(['companyID' => (int)$_SESSION['companyId'], 'customer._id' => (int)$this->getId()],
+        $db->customer->updateOne(['companyID' => (int)$_SESSION['companyId'],'_id' => (int)$this->masterID, 'customer._id' => (int)$this->getId()],
             ['$set' => [
                 'customer.$.custName' => $this->custName,
                 'customer.$.custAddress' => $this->custAddress,

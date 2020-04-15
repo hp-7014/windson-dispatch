@@ -85,6 +85,7 @@ require "../database/connection.php";
                                 //$show_data = $db->consignee->find(['companyID' => $_SESSION['companyId']]);
                                 $i = 1;
                                 foreach ($show_data as $show) {
+                                    $mainID = (int)$show['_id'];
                                     $show = $show['consignee'];
                                     foreach ($show as $s) {
                                         $counter = $s['counter'];
@@ -104,6 +105,8 @@ require "../database/connection.php";
                                         $consigneeStatus = "'".$s['consigneeStatus']."'";
                                         $consigneeRecivingNote = "'".$s['consigneeRecivingNote']."'";
                                         $consigneeInternalNote = "'".$s['consigneeInternalNote']."'";
+
+                                        $masterID = "'".$s['_id'].')'.$mainID."'";
 
                                         $pencilid1 = "'"."consigneeNamePencil$i"."'";
                                         $pencilid2 = "'"."consigneeAddressPencil$i"."'";
@@ -130,7 +133,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeNamePencil$i'); "?>">
                                             <i id="<?php echo "consigneeNamePencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeName; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeName','Consignee Name',<?php echo $pencilid1; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeName; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeName','Consignee Name',<?php echo $pencilid1; ?>)"></i>
                                             <?php echo $s['consigneeName']; ?>
                                         </th>
                                         <td class="custom-text" id="<?php echo "consigneeAddress".$i; ?>"
@@ -138,7 +141,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeAddressPencil$i'); "?>">
                                             <i id="<?php echo "consigneeAddressPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeAddress; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeAddress','Address',<?php echo $pencilid2; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeAddress; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeAddress','Address',<?php echo $pencilid2; ?>)"></i>
                                             <?php echo $s['consigneeAddress']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "consigneeLocation".$i; ?>"
@@ -146,7 +149,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeLocationPencil$i'); "?>">
                                             <i id="<?php echo "consigneeLocationPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeLocation; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeLocation','Location',<?php echo $pencilid3; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeLocation; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeLocation','Location',<?php echo $pencilid3; ?>)"></i>
                                             <?php echo $s['consigneeLocation']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "consigneePostal".$i; ?>"
@@ -154,7 +157,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneePostalPencil$i'); "?>">
                                             <i id="<?php echo "consigneePostalPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneePostal; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneePostal','Postal / Zip',<?php echo $pencilid4; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneePostal; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneePostal','Postal / Zip',<?php echo $pencilid4; ?>)"></i>
                                             <?php echo $s['consigneePostal']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "consigneeContact".$i; ?>"
@@ -162,7 +165,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeContactPencil$i'); "?>">
                                             <i id="<?php echo "consigneeContactPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeContact; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeContact','Contact Name',<?php echo $pencilid5; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeContact; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeContact','Contact Name',<?php echo $pencilid5; ?>)"></i>
                                             <?php echo $s['consigneeContact']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "consigneeEmail".$i; ?>"
@@ -170,7 +173,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeEmailPencil$i'); "?>">
                                             <i id="<?php echo "consigneeEmailPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeEmail; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeEmail','Contact Email',<?php echo $pencilid6; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeEmail; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeEmail','Contact Email',<?php echo $pencilid6; ?>)"></i>
                                             <?php echo $s['consigneeEmail']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "consigneeTelephone".$i; ?>"
@@ -178,7 +181,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeTelephonePencil$i'); "?>">
                                             <i id="<?php echo "consigneeTelephonePencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeTelephone; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeTelephone','Telephone',<?php echo $pencilid7; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeTelephone; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeTelephone','Telephone',<?php echo $pencilid7; ?>)"></i>
                                             <?php echo $s['consigneeTelephone']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "consigneeExt".$i; ?>"
@@ -186,7 +189,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeExtPencil$i'); "?>">
                                             <i id="<?php echo "consigneeExtPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeExt; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeExt','Ext',<?php echo $pencilid8; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeExt; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeExt','Ext',<?php echo $pencilid8; ?>)"></i>
                                             <?php echo $s['consigneeExt']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "consigneeTollFree".$i; ?>"
@@ -194,7 +197,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeTollFreePencil$i'); "?>">
                                             <i id="<?php echo "consigneeTollFreePencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeTollFree; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeTollFree','Toll Free',<?php echo $pencilid9; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeTollFree; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeTollFree','Toll Free',<?php echo $pencilid9; ?>)"></i>
                                             <?php echo $s['consigneeTollFree']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "consigneeFax".$i; ?>"
@@ -202,7 +205,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeFaxPencil$i'); "?>">
                                             <i id="<?php echo "consigneeFaxPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeFax; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeFax','Fax',<?php echo $pencilid10; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeFax; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeFax','Fax',<?php echo $pencilid10; ?>)"></i>
                                             <?php echo $s['consigneeFax']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "consigneeReceiving".$i; ?>"
@@ -210,7 +213,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeReceivingPencil$i'); "?>">
                                             <i id="<?php echo "consigneeReceivingPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeReceiving; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeReceiving','Receiving Hours',<?php echo $pencilid11; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeReceiving; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeReceiving','Receiving Hours',<?php echo $pencilid11; ?>)"></i>
                                             <?php echo $s['consigneeReceiving']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "consigneeAppointments".$i; ?>"
@@ -218,7 +221,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeAppointmentsPencil$i'); "?>">
                                             <i id="<?php echo "consigneeAppointmentsPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeAppointments; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeAppointments','Appointments',<?php echo $pencilid12; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeAppointments; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeAppointments','Appointments',<?php echo $pencilid12; ?>)"></i>
                                             <?php echo $s['consigneeAppointments']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "consigneeIntersaction".$i; ?>"
@@ -226,7 +229,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeIntersactionPencil$i'); "?>">
                                             <i id="<?php echo "consigneeIntersactionPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeIntersaction; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeIntersaction','Major Intersection/Directions',<?php echo $pencilid13; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeIntersaction; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeIntersaction','Major Intersection/Directions',<?php echo $pencilid13; ?>)"></i>
                                             <?php echo $s['consigneeIntersaction']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "consigneeStatus".$i; ?>"
@@ -234,7 +237,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeStatusPencil$i'); "?>">
                                             <i id="<?php echo "consigneeStatusPencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeStatus; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeStatus','Status',<?php echo $pencilid14; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeStatus; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeStatus','Status',<?php echo $pencilid14; ?>)"></i>
                                             <?php echo $s['consigneeStatus']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "consigneeRecivingNote".$i; ?>"
@@ -242,7 +245,7 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeRecivingNotePencil$i'); "?>">
                                             <i id="<?php echo "consigneeRecivingNotePencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeRecivingNote; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeRecivingNote','Receiving Notes',<?php echo $pencilid15; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeRecivingNote; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeRecivingNote','Receiving Notes',<?php echo $pencilid15; ?>)"></i>
                                             <?php echo $s['consigneeRecivingNote']; ?>
                                         </td>
                                         <td class="custom-text" id="<?php echo "consigneeInternalNote".$i; ?>"
@@ -250,12 +253,12 @@ require "../database/connection.php";
                                             onmouseover="<?php echo "showPencil('consigneeInternalNotePencil$i'); "?>">
                                             <i id="<?php echo "consigneeInternalNotePencil".$i; ?>"
                                                 class="mdi mdi-lead-pencil edit-pencil"
-                                                onclick="updateTableColumn(<?php echo $consigneeInternalNote; ?>,'updateConsignee','text',<?php echo $s['_id']; ?>,'consigneeInternalNote','Internal Notes',<?php echo $pencilid16; ?>)"></i>
+                                                onclick="updateTableColumn(<?php echo $consigneeInternalNote; ?>,'updateConsignee','text',<?php echo $masterID; ?>,'consigneeInternalNote','Internal Notes',<?php echo $pencilid16; ?>)"></i>
                                             <?php echo $s['consigneeInternalNote']; ?>
                                         </td>
                                         <td>
                                             <?php if ($counter == 0) { ?>
-                                            <a href="#" onclick="deleteConsignee(<?php echo $s['_id']; ?>)"><i
+                                            <a href="#" onclick="deleteConsignee(<?php echo $masterID; ?>)"><i
                                                     class="mdi mdi-delete-sweep-outline"
                                                     style="font-size: 20px; color: #FC3B3B"></i></a>
                                             <?php } else { ?>

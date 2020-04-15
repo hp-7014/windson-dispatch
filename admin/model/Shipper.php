@@ -10,6 +10,7 @@
 class Shipper implements IteratorAggregate
 {
     private $id;
+    private $documentID;
     private $companyID;
     private $shipperName;
     private $shipperAddress;
@@ -33,6 +34,22 @@ class Shipper implements IteratorAggregate
     private $deleteStatus;
     private $deleteUserName;
     private $Column;
+
+    /**
+     * @return mixed
+     */
+    public function getDocumentID()
+    {
+        return $this->documentID;
+    }
+
+    /**
+     * @param mixed $documentID
+     */
+    public function setDocumentID($documentID): void
+    {
+        $this->documentID = $documentID;
+    }
 
     /**
      * @return mixed
@@ -427,7 +444,7 @@ class Shipper implements IteratorAggregate
                 'companyID' => (int)$this->companyID,
                 'counter' => 0,
                 'shipper' => array([
-                    '_id' => 0,
+                    '_id' => (int)$this->documentID,
                     'counter' => 0,
                     'shipperName' => $this->shipperName,
                     'shipperAddress' => $this->shipperAddress,
@@ -456,12 +473,26 @@ class Shipper implements IteratorAggregate
 
     public function insert($shipper, $db,$helper)
     {
-        $c_id = $db->shipper->find(['companyID' => (int)$shipper->getCompanyID()]);
-        $count = 0;
-        foreach ($c_id as $c) {
-            $count++;
+        $show = $db->shipper->find(['companyID' => (int)$_SESSION['companyId']]);
+        $counter = [];
+        $id = [];
+
+        $mainID = null;
+        $incrementNumber = null;
+
+        $i = 0;
+        foreach ($show as $s) {
+            $id[] = $s['_id'];
+            $counter[] = $s['counter'];
+
+            if ($counter[$i] < 2) {
+                $mainID = $id[$i];
+                $incrementNumber = $counter[$i];
+            }
+            $i++;
         }
-        if ($count > 0) {
+
+        if ($mainID > 0) {
             $db->shipper->updateOne(['companyID' => (int)$this->companyID], ['$push' => ['shipper' => [
                 '_id' => $helper->getDocumentSequence((int)$this->companyID, $db->shipper),
                 'counter' => 0,
@@ -590,7 +621,7 @@ class Shipper implements IteratorAggregate
     // update function
     public function updateShipper($shipper, $db)
     {
-        $db->shipper->updateOne(['companyID' => (int)$_SESSION['companyId'], 'shipper._id' => (int)$this->getId()],
+        $db->shipper->updateOne(['companyID' => (int)$_SESSION['companyId'],'_id' => (int)$this->documentID, 'shipper._id' => (int)$this->getId()],
             ['$set' => ['shipper.$.' . $shipper->getColumn() => $shipper->getShipperName()]]
         );
     }
@@ -598,8 +629,8 @@ class Shipper implements IteratorAggregate
     // delete fucntion
     public function deleteShipper($shipper, $db)
     {
-        $db->shipper->updateOne(['companyID' => (int)$_SESSION['companyId']], [
-            '$pull' => ['shipper' => ['_id' => (int)$shipper->getId()]]]
+        $db->shipper->updateOne(['companyID' => (int)$_SESSION['companyId'],'_id' => (int)$this->documentID], [
+            '$pull' => ['shipper' => ['_id' => (int)$this->id]]]
         );
         // $db->shipper->updateOne(['companyID' => (int)$_SESSION['companyId'], 'shipper._id' => (int)$this->getId()],
         //     ['$set' => ['shipper.$.deleteStatus' => 1]]

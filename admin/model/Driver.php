@@ -10,6 +10,7 @@
 class Driver implements IteratorAggregate
 {
     private $id;
+    private $masterID;
     private $companyId;
     private $driverName;
     private $driverUsername;
@@ -59,6 +60,22 @@ class Driver implements IteratorAggregate
     private $deleteStatus;
     private $deleteUserID;
     private $ownerOperatorStatus;
+
+    /**
+     * @return mixed
+     */
+    public function getMasterID()
+    {
+        return $this->masterID;
+    }
+
+    /**
+     * @param mixed $masterID
+     */
+    public function setMasterID($masterID): void
+    {
+        $this->masterID = $masterID;
+    }
 
     public function getRecurrenceAdd()
     {
@@ -861,12 +878,25 @@ class Driver implements IteratorAggregate
     // insert function
     public function insert($driver, $db, $helper)
     {
-        $c_id = $db->driver->find(['companyID' => (int)$driver->getCompanyId()]);
-        $count = 0;
-        foreach ($c_id as $c) {
-            $count++;
+        $show = $db->driver->find(['companyID' => (int)$_SESSION['companyId']]);
+        $counter = [];
+        $id = [];
+
+        $mainID = null;
+        $incrementNumber = null;
+
+        $i = 0;
+        foreach ($show as $s) {
+            $id[] = $s['_id'];
+            $counter[] = $s['counter'];
+
+            if ($counter[$i] < 5000) {
+                $mainID = $id[$i];
+                $incrementNumber = $counter[$i];
+            }
+            $i++;
         }
-        if ($count > 0) {
+        if ($mainID > 0) {
             $db->driver->updateOne(['companyID' => (int)$this->companyId], ['$push' => ['driver' => [
                 '_id' => $helper->getDocumentSequence((int)$this->companyId, $db->driver),
                 'counter' => 0,
@@ -916,14 +946,14 @@ class Driver implements IteratorAggregate
             ]]]);
 
             $db->currency_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'currency._id' => (int)$this->currency],
-                ['$set' => ['currency.$.counter' => $helper->getDocumentSequenceId((int)$this->currency,$db->currency_add,"currency",(int)$_SESSION['companyId'])]]);
+                ['$set' => ['currency.$.counter' => $helper->getDocumentSequenceId((int)$this->currency, $db->currency_add, "currency", (int)$_SESSION['companyId'])]]);
 
         } else {
             $ship = iterator_to_array($driver);
             $db->driver->insertOne($ship);
 
             $db->currency_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'currency._id' => (int)$this->currency],
-                ['$set' => ['currency.$.counter' => $helper->getDocumentSequenceId((int)$this->currency,$db->currency_add,"currency",(int)$_SESSION['companyId'])]]);
+                ['$set' => ['currency.$.counter' => $helper->getDocumentSequenceId((int)$this->currency, $db->currency_add, "currency", (int)$_SESSION['companyId'])]]);
         }
     }
 
@@ -1041,20 +1071,23 @@ class Driver implements IteratorAggregate
     // update function
     public function updateDriver($driver, $db)
     {
-        $db->driver->updateOne(['companyID' => (int)$_SESSION['companyId'], 'driver._id' => (int)$this->getId()],
-            ['$set' => ['driver.$.' . $driver->getColumn() => $driver->getDriverName(),'driver.$.LastUpdateId' => $_SESSION['companyName']]]
+        $db->driver->updateOne(['companyID' => (int)$_SESSION['companyId'], '_id' => (int)$this->masterID, 'driver._id' => (int)$this->getId()],
+            ['$set' => ['driver.$.' . $driver->getColumn() => $driver->getDriverName(), 'driver.$.LastUpdateId' => $_SESSION['companyName']]]
         );
     }
 
     // delete fucntion
     public function deleteDrivers($driver, $db)
     {
-        $db->driver->updateOne(['companyID' => (int)$_SESSION['companyId'], 'driver._id' => (int)$this->getId()],
-            ['$set' => ['driver.$.deleteStatus' => 1,'driver.$.deletedUserId' => $_SESSION['companyName'],'driver.$.LastUpdateId' => $_SESSION['companyName']]]
+//        $db->driver->updateOne(['companyID' => (int)$_SESSION['companyId'], 'driver._id' => (int)$this->getId()],
+//            ['$set' => ['driver.$.deleteStatus' => 1,'driver.$.deletedUserId' => $_SESSION['companyName'],'driver.$.LastUpdateId' => $_SESSION['companyName']]]
+//        );
+        $db->driver->updateOne(['companyID' => (int)$_SESSION['companyId'], '_id' => (int)$this->masterID], [
+                '$pull' => ['driver' => ['_id' => (int)$this->id]]]
         );
 
         $db->currency_add->updateOne(['companyID' => (int)$_SESSION['companyId'], 'currency._id' => (int)$this->currencySetting],
-        ['$set' => ['currency.$.counter' => $helper->getDocumentDecrementId((int)$this->currencySetting,$db->currency_add,"currency",(int)$_SESSION['companyId'])]]);
+            ['$set' => ['currency.$.counter' => $helper->getDocumentDecrementId((int)$this->currencySetting, $db->currency_add, "currency", (int)$_SESSION['companyId'])]]);
 
         // $db->driver->updateOne(['companyID' => (int)$_SESSION['companyId'], 'driver._id' => (int)$this->getId()],
         //     ['$set' => ['driver.$.deleteStatus' => 1]]
@@ -1084,45 +1117,45 @@ class Driver implements IteratorAggregate
     // driver all update
     public function driverAllUpdate($driver, $db, $helper)
     {
-        $db->driver->updateOne(['companyID' => (int)$_SESSION['companyId'], 'driver._id' => (int)$this->getId()],
+        $db->driver->updateOne(['companyID' => (int)$_SESSION['companyId'], '_id' => (int)$this->masterID, 'driver._id' => (int)$this->getId()],
             ['$set' => ['driver.$.driverName' => $this->driverName,
-                        'driver.$.driverUsername' => $this->driverUsername,
-                        'driver.$.driverPassword' => $this->driverPassword,
-                        'driver.$.driverTelephone' => $this->driverTelephone,
-                        'driver.$.driverAlt' => $this->driverAlt,
-                        'driver.$.driverEmail' => $this->driverEmail,
-                        'driver.$.driverAddress' => $this->driverAddress,
-                        'driver.$.driverLocation' => $this->driverLocation,
-                        'driver.$.driverZip' => $this->driverZip,
-                        'driver.$.driverStatus' => $this->driverStatus,
-                        'driver.$.driverSocial' => $this->driverSocial,
-                        'driver.$.dateOfbirth' => $this->dateOfbirth,
-                        'driver.$.dateOfhire' => $this->dateOfhire,
-                        'driver.$.driverLicenseNo' => $this->driverLicenseNo,
-                        'driver.$.driverLicenseIssue' => $this->driverLicenseIssue,
-                        'driver.$.driverLicenseExp' => $this->driverLicenseExp,
-                        'driver.$.driverLastMedical' => $this->driverLastMedical,
-                        'driver.$.driverNextMedical' => $this->driverNextMedical,
-                        'driver.$.driverLastDrugTest' => $this->driverLastDrugTest,
-                        'driver.$.driverNextDrugTest' => $this->driverNextDrugTest,
-                        'driver.$.passportExpiry' => $this->passportExpiry,
-                        'driver.$.fastCardExpiry' => $this->fastCardExpiry,
-                        'driver.$.hazmatExpiry' => $this->hazmatExpiry,
-                        'driver.$.rate' => $this->rate,
-                        'driver.$.currency' => (int)$this->currency,
-                        'driver.$.driverLoadedMile' => $this->driverLoadedMile,
-                        'driver.$.driverEmptyMile' => $this->driverEmptyMile,
-                        'driver.$.pickupRate' => $this->pickupRate,
-                        'driver.$.pickupAfter' => $this->pickputAfter,
-                        'driver.$.dropRate' => $this->dropRate,
-                        'driver.$.dropAfter' => $this->dropAfter,
-                        'driver.$.tarp' => $this->tarp,
-                        'driver.$.terminationDate' => $this->terminationDate,
-                        'driver.$.internalNote' => $this->InternalNote,
-                        'driver.$.recurrenceAdd' => $this->recurrenceAdd,
-                        'driver.$.recurrenceSubtract' => $this->recurrenceSubtract,
-                        'driver.$.LastUpdateId' => $_SESSION['companyName'],
-                ]]
+                'driver.$.driverUsername' => $this->driverUsername,
+                'driver.$.driverPassword' => $this->driverPassword,
+                'driver.$.driverTelephone' => $this->driverTelephone,
+                'driver.$.driverAlt' => $this->driverAlt,
+                'driver.$.driverEmail' => $this->driverEmail,
+                'driver.$.driverAddress' => $this->driverAddress,
+                'driver.$.driverLocation' => $this->driverLocation,
+                'driver.$.driverZip' => $this->driverZip,
+                'driver.$.driverStatus' => $this->driverStatus,
+                'driver.$.driverSocial' => $this->driverSocial,
+                'driver.$.dateOfbirth' => $this->dateOfbirth,
+                'driver.$.dateOfhire' => $this->dateOfhire,
+                'driver.$.driverLicenseNo' => $this->driverLicenseNo,
+                'driver.$.driverLicenseIssue' => $this->driverLicenseIssue,
+                'driver.$.driverLicenseExp' => $this->driverLicenseExp,
+                'driver.$.driverLastMedical' => $this->driverLastMedical,
+                'driver.$.driverNextMedical' => $this->driverNextMedical,
+                'driver.$.driverLastDrugTest' => $this->driverLastDrugTest,
+                'driver.$.driverNextDrugTest' => $this->driverNextDrugTest,
+                'driver.$.passportExpiry' => $this->passportExpiry,
+                'driver.$.fastCardExpiry' => $this->fastCardExpiry,
+                'driver.$.hazmatExpiry' => $this->hazmatExpiry,
+                'driver.$.rate' => $this->rate,
+                'driver.$.currency' => (int)$this->currency,
+                'driver.$.driverLoadedMile' => $this->driverLoadedMile,
+                'driver.$.driverEmptyMile' => $this->driverEmptyMile,
+                'driver.$.pickupRate' => $this->pickupRate,
+                'driver.$.pickupAfter' => $this->pickputAfter,
+                'driver.$.dropRate' => $this->dropRate,
+                'driver.$.dropAfter' => $this->dropAfter,
+                'driver.$.tarp' => $this->tarp,
+                'driver.$.terminationDate' => $this->terminationDate,
+                'driver.$.internalNote' => $this->InternalNote,
+                'driver.$.recurrenceAdd' => $this->recurrenceAdd,
+                'driver.$.recurrenceSubtract' => $this->recurrenceSubtract,
+                'driver.$.LastUpdateId' => $_SESSION['companyName'],
+            ]]
         );
     }
 }

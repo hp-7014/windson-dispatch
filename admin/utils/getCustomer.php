@@ -19,6 +19,7 @@ if ($_GET['types'] == 'live_customer_table') {
     $list = "";
     $pages = "";
     foreach ($show_data as $row) {
+        $masterID = $row['_id'];
         $show1 = $row['customer'];
         foreach ($show1 as $row1) {
             $counter = $row1['counter'];
@@ -32,6 +33,8 @@ if ($_GET['types'] == 'live_customer_table') {
             $primaryContact = $row1['primaryContact'];
             $custTelephone = $row1['custTelephone'];
             $custEmail = $row1['custEmail'];
+
+            $mainID = '"'.$id.')'.$masterID.'"';
 
             $type = '"text"';
             $custNameColumn = '"custName"';
@@ -72,7 +75,7 @@ if ($_GET['types'] == 'live_customer_table') {
                         onmouseout='hidePencil_s($pencilid1)'
                         >
                         <i id='custNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type1,$updateCustomer,$type,$id,$custNameColumn,$title1,$pencilid1)'
+                            onclick='updateTableColumn($c_type1,$updateCustomer,$type,$mainID,$custNameColumn,$title1,$pencilid1)'
                         ></i>
                         $custName
                     </td>
@@ -81,7 +84,7 @@ if ($_GET['types'] == 'live_customer_table') {
                         onmouseout='hidePencil_s($pencilid2)'
                         >
                         <i id='custLocationPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type2,$updateCustomer,$type,$id,$custLocationColumn,$title2,$pencilid2)'
+                            onclick='updateTableColumn($c_type2,$updateCustomer,$type,$mainID,$custLocationColumn,$title2,$pencilid2)'
                         ></i>
                         $custLocation
                     </td>
@@ -90,7 +93,7 @@ if ($_GET['types'] == 'live_customer_table') {
                         onmouseout='hidePencil_s($pencilid3)'
                         >
                         <i id='custZipPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type3,$updateCustomer,$type,$id,$custZipColumn,$title3,$pencilid3)'
+                            onclick='updateTableColumn($c_type3,$updateCustomer,$type,$mainID,$custZipColumn,$title3,$pencilid3)'
                         ></i>
                         $custZip
                     </td>
@@ -99,7 +102,7 @@ if ($_GET['types'] == 'live_customer_table') {
                         onmouseout='hidePencil_s($pencilid4)'
                         >
                         <i id='primaryContactPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type4,$updateCustomer,$type,$id,$primaryContactColumn,$title4,$pencilid4)'
+                            onclick='updateTableColumn($c_type4,$updateCustomer,$type,$mainID,$primaryContactColumn,$title4,$pencilid4)'
                         ></i>
                         $primaryContact
                     </td>
@@ -108,7 +111,7 @@ if ($_GET['types'] == 'live_customer_table') {
                         onmouseout='hidePencil_s($pencilid5)'
                         >
                         <i id='custTelephonePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type5,$updateCustomer,$type,$id,$custTelephoneColumn,$title5,$pencilid5)'
+                            onclick='updateTableColumn($c_type5,$updateCustomer,$type,$mainID,$custTelephoneColumn,$title5,$pencilid5)'
                         ></i>
                         $custTelephone
                     </td>
@@ -117,13 +120,13 @@ if ($_GET['types'] == 'live_customer_table') {
                         onmouseout='hidePencil_s($pencilid6)'
                         >
                         <i id='custEmailPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type6,$updateCustomer,$type,$id,$custEmailColumn,$title6,$pencilid6)'
+                            onclick='updateTableColumn($c_type6,$updateCustomer,$type,$mainID,$custEmailColumn,$title6,$pencilid6)'
                         ></i>
                         $custEmail
                     </td>";
 
                 if ($counter == 0) {
-                    $table .= "<td><a href='#' onclick='deleteCustomer($id,$currencySetting,$paymentTerms,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
+                    $table .= "<td><a href='#' onclick='deleteCustomer($mainID,$currencySetting,$paymentTerms,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
                 } else {
                     $table .= "<a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
                 }

@@ -19,6 +19,7 @@ if ($_GET['types'] == 'live_carrier_table') {
     $pages = "";
     $list = "";
     foreach ($show_data as $row) {
+        $masterID = $row['_id'];
         $show1 = $row['carrier'];
         foreach ($show1 as $row1) {
             $counter = $row1['counter'];
@@ -35,7 +36,8 @@ if ($_GET['types'] == 'live_carrier_table') {
             $mc = $row1['mc'];
             $dot = $row1['dot'];
             $taxID = $row1['taxID'];
-            
+
+            $mainID = '"'.$id.')'.$masterID.'"';
             $type = '"text"';
 
             $nameColumn = '"name"';
@@ -92,7 +94,7 @@ if ($_GET['types'] == 'live_carrier_table') {
                         onmouseout='hidePencil_s($pencilid1)'
                         >
                         <i id='namePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type1,$updateExternal,$type,$id,$nameColumn,$title1,$pencilid1)'
+                            onclick='updateTableColumn($c_type1,$updateExternal,$type,$mainID,$nameColumn,$title1,$pencilid1)'
                         ></i>
                         $name
                     </th>
@@ -101,7 +103,7 @@ if ($_GET['types'] == 'live_carrier_table') {
                         onmouseout='hidePencil_s($pencilid2)'
                         >
                         <i id='addressPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type2,$updateExternal,$type,$id,$addressColumn,$title2,$pencilid2)'
+                            onclick='updateTableColumn($c_type2,$updateExternal,$type,$mainID,$addressColumn,$title2,$pencilid2)'
                         ></i>
                         $address
                     </td>
@@ -110,7 +112,7 @@ if ($_GET['types'] == 'live_carrier_table') {
                         onmouseout='hidePencil_s($pencilid3)'
                         >
                         <i id='locationPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type3,$updateExternal,$type,$id,$locationColumn,$title3,$pencilid3)'
+                            onclick='updateTableColumn($c_type3,$updateExternal,$type,$mainID,$locationColumn,$title3,$pencilid3)'
                         ></i>
                         $location
                     </td>
@@ -119,7 +121,7 @@ if ($_GET['types'] == 'live_carrier_table') {
                         onmouseout='hidePencil_s($pencilid4)'
                         >
                         <i id='zipPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type4,$updateExternal,$type,$id,$zipColumn,$title4,$pencilid4)'
+                            onclick='updateTableColumn($c_type4,$updateExternal,$type,$mainID,$zipColumn,$title4,$pencilid4)'
                         ></i>
                         $zip
                     </td>
@@ -128,7 +130,7 @@ if ($_GET['types'] == 'live_carrier_table') {
                         onmouseout='hidePencil_s($pencilid5)'
                         >
                         <i id='contactNamePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type5,$updateExternal,$type,$id,$contactNameColumn,$title5,$pencilid5)'
+                            onclick='updateTableColumn($c_type5,$updateExternal,$type,$mainID,$contactNameColumn,$title5,$pencilid5)'
                         ></i>
                         $contactName
                     </td>
@@ -137,7 +139,7 @@ if ($_GET['types'] == 'live_carrier_table') {
                         onmouseout='hidePencil_s($pencilid6)'
                         >
                         <i id='emailPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type6,$updateExternal,$type,$id,$emailColumn,$title6,$pencilid6)'
+                            onclick='updateTableColumn($c_type6,$updateExternal,$type,$mainID,$emailColumn,$title6,$pencilid6)'
                         ></i>
                         $email
                     </td>
@@ -146,7 +148,7 @@ if ($_GET['types'] == 'live_carrier_table') {
                         onmouseout='hidePencil_s($pencilid7)'
                         >
                         <i id='taxIDPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type7,$updateExternal,$type,$id,$taxIDColumn,$title7,$pencilid7)'
+                            onclick='updateTableColumn($c_type7,$updateExternal,$type,$mainID,$taxIDColumn,$title7,$pencilid7)'
                         ></i>
                         $taxID
                     </td>
@@ -155,7 +157,7 @@ if ($_GET['types'] == 'live_carrier_table') {
                         onmouseout='hidePencil_s($pencilid8)'
                         >
                         <i id='telephonePencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type8,$updateExternal,$type,$id,$telephoneColumn,$title8,$pencilid8)'
+                            onclick='updateTableColumn($c_type8,$updateExternal,$type,$mainID,$telephoneColumn,$title8,$pencilid8)'
                         ></i>
                         $telephone
                     </td>
@@ -164,7 +166,7 @@ if ($_GET['types'] == 'live_carrier_table') {
                         onmouseout='hidePencil_s($pencilid9)'
                         >
                         <i id='mcPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type9,$updateExternal,$type,$id,$mcColumn,$title9,$pencilid9)'
+                            onclick='updateTableColumn($c_type9,$updateExternal,$type,$mainID,$mcColumn,$title9,$pencilid9)'
                         ></i>
                         $mc
                     </td>
@@ -173,13 +175,13 @@ if ($_GET['types'] == 'live_carrier_table') {
                         onmouseout='hidePencil_s($pencilid10)'
                         >
                         <i id='dotPencil$i' class='mdi mdi-lead-pencil edit-pencil'
-                            onclick='updateTableColumn($c_type10,$updateExternal,$type,$id,$dotColumn,$title10,$pencilid10)'
+                            onclick='updateTableColumn($c_type10,$updateExternal,$type,$mainID,$dotColumn,$title10,$pencilid10)'
                         ></i>
                         $dot
                     </td>";
 
                 if ($counter == 0) {
-                    $table .= "<td><a href='#' onclick='deleteExternal($id,$paymentTerm,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
+                    echo "<td><a href='#' onclick='deleteExternal($mainID,$paymentTerm,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
                 } else {
                     $table .= "<a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
                 }
@@ -209,7 +211,7 @@ if ($_GET['types'] == 'live_carrier_table') {
                 $pages .= "<option value='$i'>$j</option>";
             }
             $j++;
-        } 
+        }
 
         if($total_pages > 0 && $total_pages > 1) {
             $pages .= "</select>
