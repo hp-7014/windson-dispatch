@@ -5,14 +5,15 @@ require 'vendor/autoload.php';
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
 
+echo date("F",strtotime("+1 month"));
 
 //$mainID = 69;
 //$curMonth = date("F");
 //$year = 2020;
 //echo $year;
-$db->shipper->updateOne(['companyID' => 1,'_id' => 97], [
-        '$pull' => ['shipper' => ['_id' => 1]]]
-);
+//$db->shipper->updateOne(['companyID' => 1,'_id' => 97], [
+//        '$pull' => ['shipper' => ['_id' => 1]]]
+//);
 //$db->payment_bank->updateOne(['companyID' => 1,'_id' => $mainID, 'year' => $year, $year.'.month' => $curMonth],
 //    ['$set' => [$year.'.$.balance' => 7014]]
 //);

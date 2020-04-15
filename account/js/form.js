@@ -797,7 +797,7 @@ function Paymentadd() {
                         url: 'account/payment_driver.php?type=' + 'FuelCardDriver',
                         type: 'POST',
                         data: {
-                            fuelcardmain: fuel_cardmain,
+                            fuelcardmain: fuelcardmain,
                             paymentlist: paymentlist,
 
                             paymentfrom: paymentfrom,
@@ -913,7 +913,7 @@ function Paymentadd() {
                         url: 'account/payment_driver.php?type=' + 'FuelCardCarrier',
                         type: 'POST',
                         data: {
-                            fuelcardmain: fuel_cardmain,
+                            fuelcardmain: fuelcardmain,
                             paymentlist: paymentlist,
                             paymentfrom: paymentfrom,
                             payto: payto,
@@ -1089,7 +1089,7 @@ function Paymentadd() {
                 } else {
                     swal('Please Select Only 5 File')
                 }
-            } else if (paymentfrom == 'fuelcard'){
+            } else if (paymentfrom == 'fuelcard') {
                 var category = "FuelCardExpense";
                 var expensesbill = document.getElementById("expensesbill").value
                 var expensesname = document.getElementById("expensesname").value
@@ -1105,7 +1105,7 @@ function Paymentadd() {
                         url: 'account/payment_driver.php?type=' + 'FuelCardExpense',
                         type: 'POST',
                         data: {
-                            fuelcardmain: fuel_cardmain,
+                            fuelcardmain: fuelcardmain,
                             paymentlist: paymentlist,
                             paymentfrom: paymentfrom,
                             payto: payto,
@@ -1258,7 +1258,7 @@ function Paymentadd() {
                         url: 'account/payment_driver.php?type=' + 'FuelCardMaintenance',
                         type: 'POST',
                         data: {
-                            fuelcardmain: fuel_cardmain,
+                            fuelcardmain: fuelcardmain,
                             paymentlist: paymentlist,
                             paymentfrom: paymentfrom,
                             payto: payto,
@@ -1612,7 +1612,7 @@ function Paymentadd() {
                         url: 'account/payment_driver.php?type=' + 'FuelCardOther',
                         type: 'POST',
                         data: {
-                            fuelcardmain: fuel_cardmain,
+                            fuelcardmain: fuelcardmain,
                             paymentlist: paymentlist,
                             paymentfrom: paymentfrom,
                             payto: payto,

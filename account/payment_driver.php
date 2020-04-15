@@ -41,6 +41,7 @@ else if ($_GET['type'] == 'carrierpayment') {
     $bank->setCompanyID($_POST['companyId']);
     $bank->setYear(date("Y"));
     $bank->setMonth(date("F"));
+    $bank->setNextMonth(date("F",strtotime("+1 month")));
     $bank->setPaymentFrom($_POST['paymentfrom']);
     $bank->setCompanySelect($_POST['Companyselect']);
     $bank->setBankName($_POST['Bankname']);
