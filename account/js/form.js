@@ -1106,7 +1106,7 @@ function Paymentadd() {
                 } else {
                     swal('Please Select Only 5 File')
                 }
-            } else if (paymentfrom == 'fuelcard'){
+            } else if (paymentfrom == 'fuelcard') {
                 var category = "FuelCardExpense";
                 var expensesbill = document.getElementById("expensesbill").value
                 var expensesname = document.getElementById("expensesname").value

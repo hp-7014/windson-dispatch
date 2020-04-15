@@ -9,6 +9,8 @@
 
 class Bank implements IteratorAggregate
 {
+    private $nextMonth;
+
     private $Id;
     private $companyID;
     private $paymentFrom;
@@ -71,6 +73,22 @@ class Bank implements IteratorAggregate
     private $last_update_id;
     private $deleted_id;
     private $deleted_at;
+
+    /**
+     * @return mixed
+     */
+    public function getNextMonth()
+    {
+        return $this->nextMonth;
+    }
+
+    /**
+     * @param mixed $nextMonth
+     */
+    public function setNextMonth($nextMonth): void
+    {
+        $this->nextMonth = $nextMonth;
+    }
 
     /**
      * @return mixed
@@ -847,7 +865,7 @@ class Bank implements IteratorAggregate
                         'counter' => 0,
                         (int)$this->year => array([
                             'year' => (int)$this->year,
-                            'month' => $this->month,
+                            'month' => $this->nextMonth,
                             'balance' => (int)$this->baseamount
                         ]),
                         $this->month => array([
@@ -1475,6 +1493,37 @@ class Bank implements IteratorAggregate
             $db->payment_bank->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$set' => ['counter' => $incrementNumber + 1]]);
             $id = $incrementNumber + 1;
+
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+            $curBaseAmout = '';
+
+            $mon = $db->payment_bank->find(['companyID' => (int)$this->companyID, '_id' => $mainID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                        $curBaseAmout = $data['balance'];
+                    }
+                }
+            }
+
+            // in year->month->new month array our there value
+            if ($curMonth == '') {
+                $db->payment_bank->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
+                    ['$push' => [
+                        $this->year => [
+                            'year' => $this->year,
+                            'month' => $this->nextMonth,
+                            'balance' => (int)$this->baseamount,
+                        ]
+                    ]]
+                );
+            }
+            // logic end
+
             $db->payment_bank->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$push' => [
                     $this->month => [
@@ -1495,10 +1544,40 @@ class Bank implements IteratorAggregate
                         'file' => $this->file
                     ]
                 ]]);
+
+            // transaction date if yes than cut base-balance
+            if ($this->checkDate != '') {
+                $db->payment_bank->updateOne(['companyID' => (int)$this->companyID, '_id' => (int)$mainID, (int)$this->year . '.month' => $curMonth],
+                    ['$set' => [(int)$this->year . '.$.balance' => (int)$curBaseAmout - (int)$this->amount]]
+                );
+            }
+
             echo $id;
         } else {
             $bank = iterator_to_array($bank);
             $db->payment_bank->insertOne($bank);
+
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+
+            $mon = $db->payment_bank->find(['companyID' => (int)$this->companyID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == date('F')) {
+                        $curMonth = $data['month'];
+                    }
+                }
+            }
+
+            // transaction date if yes than cut base-balance
+            if ($this->checkDate != '') {
+                $db->payment_bank->updateOne(['companyID' => (int)$this->companyID, (int)$this->year . '.month' => $curMonth],
+                    ['$set' => [(int)$this->year . '.$.balance' => $this->baseamount - $this->amount]]
+                );
+            }
+
             echo 0;
         }
     }
