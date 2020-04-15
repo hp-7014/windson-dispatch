@@ -1243,3 +1243,21 @@ function uploadfiles(id,Bankname) {
     }
 }
 //----------Upload File End-------------
+
+//get Driver Data
+function getPaymentdata(){
+var year = document.getElementById('year').value
+var month = document.getElementById('month').value
+$.ajax({
+    url: 'account/utils/getDriver.php?type=getdriver',
+    method: 'POST',
+    data: {
+         year: year,
+         month:month
+        },
+    success: function (data) {
+        var drivertab = data;
+        $('#drivertable').html(drivertab);
+    }
+});
+}

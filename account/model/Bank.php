@@ -58,9 +58,7 @@ class Bank implements IteratorAggregate
     //other/cash
     private $othername;
     private $paytype;
-    //fuelcardmain
-    private $fuelcardmain;
-    private $paymentlist;
+    //
 
     // security field's
     private $created_at;
@@ -83,38 +81,6 @@ class Bank implements IteratorAggregate
     public function setInvoiceAmount($invoiceAmount): void
     {
         $this->invoiceAmount = $invoiceAmount;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPaymentlist()
-    {
-        return $this->paymentlist;
-    }
-
-    /**
-     * @param mixed $paymentlist
-     */
-    public function setPaymentlist($paymentlist): void
-    {
-        $this->paymentlist = $paymentlist;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFuelcardmain()
-    {
-        return $this->fuelcardmain;
-    }
-
-    /**
-     * @param mixed $fuelcardmain
-     */
-    public function setFuelcardmain($fuelcardmain): void
-    {
-        $this->fuelcardmain = $fuelcardmain;
     }
 
     /**

@@ -5,13 +5,10 @@ require 'vendor/autoload.php';
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
 
-$db->payment_bank->updateOne(['companyID' => 1,'bankID' => 0, 'year' => 2020, '2020'.'.month' => 'April'],
-            ['$set' => ['2020'.'.$.balance' => 75]]
-        );
-    
-//$collection->updateOne(['companyID' => 1], [
-//        '$pull' => ['Delivered' => ['_id' => 3]]]
-//);
+$collection = $db->user;
+$collection->updateOne(['year' => 2020], [
+       '$inc' => ['123.$[].mileage.$[].mi' => 500]]
+);
 // $show = $db->active_load->find(['companyID' => 1]);
 // $i = 0;
 // foreach($show as $row) {
