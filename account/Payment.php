@@ -23,6 +23,7 @@ require "../database/connection.php";
                         <a class="nav-link active a" data-toggle="tab" href="#Driver" role="tab">
                             Driver
                         </a>
+                        
                     </li>
                     <li class="nav-item">
                         <a class="nav-link a" data-toggle="tab" href="#Carrier" role="tab">
@@ -67,20 +68,87 @@ require "../database/connection.php";
                 </ul>
 
                 <!-- Tab panes -->
-                <div class="tab-content">
-                    <div class="tab-pane active p-3" id="home-1" role="tabpanel">
+            <div class="tab-content">
+                <div class="tab-pane active p-3" id="Driver" role="tabpanel">
+                    <?php
+                            // Sets the top option to be the current year. (IE. the option that is chosen by default).
+                            $currently_selected = date('Y'); 
+                            // Year to start available options at
+                            $earliest_year = 2018; 
+                            // Set your latest year you want in the range, in this case we use PHP to just set it to the current year.
+                            $latest_year = date('Y'); 
+
+                            print '<select id="year">';
+                            // Loops over each int[year] from current year, back to the $earliest_year [1950]
+                            foreach ( range( $latest_year, $earliest_year ) as $i ) {
+                                // Prints the option with the next year in range.
+                                print '<option value="'.$i.'"'.($i === $currently_selected ? ' selected="selected"' : '').'>'.$i.'</option>';
+                            }
+                            print '</select>';
+                    ?>
+                    <select size="1" id="month">
+                        <option selected value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" id="finddriver" onclick="getPaymentdata()">Find
+                    </button>
+                    <table style="border: 1px solid black;">
+                    <tr style="border: 1px solid black;">
+                      <th>No</th>
+                      <th>paymentfrom</th>
+                      <th>companyselect</th>
+                      <th>bankname</th>
+                      <th>payto</th>
+                      <th>driver</th>
+                      <th>debitcategory</th>
+                      <th>amount</th>
+                      <th>advance</th>
+                      <th>finalamount</th>
+                      <th>checkdate</th>
+                      <th>cheque</th>
+                      <th>ach</th>
+                      <th>memo</th>
+                    </tr>
+                    <tr style="border: 1px solid black;" id="drivertable">
+                      
+                    </tr>
+                  </table>
+            </div>
+                    <div class="tab-pane p-3" id="Carrier" role="tabpanel">
 
                     </div>
-                    <div class="tab-pane p-3" id="profile-1" role="tabpanel">
+                    <div class="tab-pane p-3" id="Factoring" role="tabpanel">
 
                     </div>
-                    <div class="tab-pane p-3" id="messages-1" role="tabpanel">
+                    <div class="tab-pane p-3" id="Expense" role="tabpanel">
 
                     </div>
-                    <div class="tab-pane p-3" id="settings-1" role="tabpanel">
+                    <div class="tab-pane p-3" id="Maintenance" role="tabpanel">
 
                     </div>
-                </div>
+                    <div class="tab-pane p-3" id="Insurance" role="tabpanel">
+
+                    </div>
+                    <div class="tab-pane p-3" id="Credit_card" role="tabpanel">
+
+                    </div>
+                    <div class="tab-pane p-3" id="Fuel_card" role="tabpanel">
+
+                    </div>
+                    <div class="tab-pane p-3" id="Other" role="tabpanel">
+
+                    </div>
+    
             </div><!-- /.modal-content -->
         </div><!-- /.moda l-dialog -->
     </div><!-- /.modal -->
