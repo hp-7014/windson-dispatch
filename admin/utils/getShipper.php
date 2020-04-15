@@ -4,10 +4,20 @@ $helper = "helper";
 require "../../database/connection.php";
 
 if ($_GET['types'] == 'live_shipper_table') {
+   // $show = $db->shipper->find(['companyID' => $_SESSION['companyId']]);
+    $limit = 100;
+    $cursor = $db->shipper->find(array('companyID' => $_SESSION['companyId']));
+
+    foreach ($cursor as $value) {
+        $total_records = sizeof($value['shipper']);
+        $total_pages = ceil($total_records / $limit);
+    }
+
     $show = $db->shipper->find(array('companyID' => $_SESSION['companyId']), array('projection' => array('shipper' => array('$slice' => [0, 100]))));
    
     $i = 0;
     $table = "";
+    $pages  = "";
     $list  = "";
     foreach ($show as $row) {
         $mainID = $row['_id'];
@@ -106,7 +116,7 @@ if ($_GET['types'] == 'live_shipper_table') {
             $pencilid15 = '"shippingNotesPencil'.$i.'"';
             $pencilid16 = '"internalNotesPencil'.$i.'"';
 
-            echo "<tr>
+            $table .= "<tr>
                     <th>$i</th>
                     <th class='custom-text' id='shipperName$i'
                         onmouseover='showPencil_s($pencilid1)'
@@ -256,15 +266,44 @@ if ($_GET['types'] == 'live_shipper_table') {
                 if ($counter == 0) { 
                     echo "<td><a href='#' onclick='deleteShipper($masterID)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
                 } else {
-                    echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                    $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
                 }
 
             $value = "'".$id.")&nbsp;".$shipperName."'";
             $list .="<option value=$value></option>";
               
         }
-        //echo $total."^".$list;
+
+        $fun_nm = '"paginate_shipper"';
+        $p_no = '"page_no"';
+
+        $pages .= "<li id='bank_previous' style='display:none'>
+            <a class='page-link btn btn-secondary waves-effect'
+                onclick='previous_page($fun_nm,$p_no,$limit,$total_pages)'>Previous</a>
+            </li>
+            <select class='form-control' id='page_active'
+                onchange='paginate_shipper(this.value * $limit,$limit,$total_pages)'>";
+        $j = 1;
+
+        for ($i = 0; $i < $total_pages; $i++) {
+            if ($i == 0) {
+                $pages .= "<option value='$i'>$j</option>";
+            } else {
+                $pages .= "<option value='$i'>$j</option>";
+            }
+            $j++;
+        }
+
+        if($total_pages > 0 && $total_pages > 1) {
+            $pages .= "</select>
+                <li id='bank_next'>
+                    <a class='page-link btn btn-primary waves-effect waves-light'
+                        onclick='next_page($fun_nm,$p_no,$limit,$total_pages)'>Next</a>
+                </li>";
+
+        }
     }
+    echo $table."^".$pages;
 }
 
 if ($_GET['types'] == 'search_text') {
@@ -405,7 +444,7 @@ if ($_GET['types'] == 'search_text') {
                             onmouseover='showPencil_s($pencilid3)'
                             onmouseout='hidePencil_s($pencilid3)'
                             >
-                            <i id='shipperAddressPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                            <i id='shipperLocationPencil$i' class='mdi mdi-lead-pencil edit-pencil'
                                 onclick='updateTableColumn($c_type3,$updateShipper,$type,$id,$shipperLocationColmn,$title3,$pencilid3)'
                             ></i>
                             $shipperLocation
@@ -656,7 +695,7 @@ if ($_GET['types'] == 'search_text') {
                                 onmouseover='showPencil_s($pencilid3)'
                                 onmouseout='hidePencil_s($pencilid3)'
                                 >
-                                <i id='shipperAddressPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                                <i id='shipperLocationPencil$i' class='mdi mdi-lead-pencil edit-pencil'
                                     onclick='updateTableColumn($c_type3,$updateShipper,$type,$id,$shipperLocationColmn,$title3,$pencilid3)'
                                 ></i>
                                 $shipperLocation
@@ -921,7 +960,7 @@ if ($_GET['types'] == 'paginate_ship') {
                         onmouseover='showPencil_s($pencilid3)'
                         onmouseout='hidePencil_s($pencilid3)'
                         >
-                        <i id='shipperAddressPencil$i' class='mdi mdi-lead-pencil edit-pencil'
+                        <i id='shipperLocationPencil$i' class='mdi mdi-lead-pencil edit-pencil'
                             onclick='updateTableColumn($c_type3,$updateShipper,$type,$id,$shipperLocationColmn,$title3,$pencilid3)'
                         ></i>
                         $shipperLocation

@@ -16,6 +16,7 @@
         
         $i = 0;
         $table = "";
+        $pages = "";
 
         foreach ($g_data as $data) {
             $sub_credit = $data['sub_credit'];
@@ -48,7 +49,7 @@
                 $pencilid3 = '"cardHolderNamePencil'.$i.'"';
                 $pencilid4 = '"cardNoPencil'.$i.'"';
 
-                echo "<tr>
+                $table .= "<tr>
                     <th> $i</th>
                     <td class='custom-text' id='displayName$i'
                         onmouseover='showPencil_s($pencilid1)'
@@ -82,19 +83,50 @@
                     </td>";
 
                 if ($counter == 0) {
-                    echo "<td><a href='#' onclick='deleteSubCredit($id,$mainCard)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                    $table .= "<td><a href='#' onclick='deleteSubCredit($id,$mainCard)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
                 } else {
-                    echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                    $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
                 }
             }
+            
+            $fun_nm = '"paginate_subc_card"';
+            $p_no = '"page_no"';
+
+            $pages .= "<li id='bank_previous' style='display:none'>
+                <a class='page-link btn btn-secondary waves-effect'
+                    onclick='previous_page($fun_nm,$p_no,$limit,$total_pages)'>Previous</a>
+                </li>
+                <select class='form-control' id='page_active'
+                    onchange='paginate_subc_card(this.value * $limit,$limit,$total_pages)'>";
+            $j = 1;
+
+            for ($i = 0; $i < $total_pages; $i++) {
+                if ($i == 0) {
+                    $pages .= "<option value='$i'>$j</option>";
+                } else {
+                    $pages .= "<option value='$i'>$j</option>";
+                }
+                $j++;
+            } 
+
+            if($total_pages > 0 && $total_pages > 1) {
+                $pages .= "</select>
+                    <li id='bank_next'>
+                        <a class='page-link btn btn-primary waves-effect waves-light'
+                            onclick='next_page($fun_nm,$p_no,$limit,$total_pages)'>Next</a>
+                    </li>";
+
+            } 
         }
-        //echo $table;
+
+        echo $table."^".$pages;
     }
 
     if ($_GET['types'] == 'search_text') {
         $g_data = $db->sub_credit_card->find(['companyID' => $_SESSION['companyId']]);
-        $i = 0;
 
+        $i = 0;
+        
         foreach ($g_data as $data) {
             $sub_credit = $data['sub_credit'];
             foreach ($sub_credit as $admin) {
@@ -251,8 +283,8 @@
                             echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
                         }
                     }
-                } 
-            }
+                }
+            } 
         }
     }
 

@@ -259,7 +259,7 @@ require "../database/connection.php";
                                                     style="font-size: 20px; color: #adb5bd"></i></a>
                                             <?php } ?>
                                         </td>
-
+                                    </tr>
                                         <?php }
                                     } ?>
                                 </tbody>

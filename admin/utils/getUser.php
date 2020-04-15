@@ -16,7 +16,7 @@ if($_GET['types'] == 'live_user_table') {
 
     $i = 0;
     $table = "";
-
+    $pages = "";
     foreach ($show as $row) {
         $show1 = $row['user'];
         foreach ($show1 as $row1) {
@@ -86,7 +86,7 @@ if($_GET['types'] == 'live_user_table') {
             $pencilid10 = '"TollFreePencil'.$i.'"';
             $pencilid11 = '"userFaxPencil'.$i.'"';
 
-            echo "<tr>
+            $table .= "<tr>
                 <th> $i</th>
                 <td class='custom-text' id='userEmail$i'
                     onmouseover='showPencil_s($pencilid1)'
@@ -190,13 +190,42 @@ if($_GET['types'] == 'live_user_table') {
                 <td><a href='#' onclick='show_privilege($id)' data-toggle='modal' data-target='#show_privilege' class='btn btn-warning'>Privilege</a></td>";
 
             if ($counter == 0) {
-                echo "<td><a href='#' onclick='deleteUser($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                $table .= "<td><a href='#' onclick='deleteUser($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
             } else {
-                echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
             }
         }
-        //echo $table;
+
+        $fun_nm = '"paginate_user"';
+        $p_no = '"page_no"';
+
+        $pages .= "<li id='bank_previous' style='display:none'>
+            <a class='page-link btn btn-secondary waves-effect'
+                onclick='previous_page($fun_nm,$p_no,$limit,$total_pages)'>Previous</a>
+            </li>
+            <select class='form-control' id='page_active'
+                onchange='paginate_user(this.value * $limit,$limit,$total_pages)'>";
+        $j = 1;
+
+        for ($i = 0; $i < $total_pages; $i++) {
+            if ($i == 0) {
+                $pages .= "<option value='$i'>$j</option>";
+            } else {
+                $pages .= "<option value='$i'>$j</option>";
+            }
+            $j++;
+        } 
+
+        if($total_pages > 0 && $total_pages > 1) {
+            $pages .= "</select>
+                <li id='bank_next'>
+                    <a class='page-link btn btn-primary waves-effect waves-light'
+                        onclick='next_page($fun_nm,$p_no,$limit,$total_pages)'>Next</a>
+                </li>";
+
+        }
     }
+    echo $table."^".$pages;
 }
 
 if ($_GET['types'] == 'search_text') {

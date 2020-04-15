@@ -1,3 +1,7 @@
+<?php
+    session_start();
+    include '../database/connection.php';
+?>
 
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="add_user"
     aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -16,7 +20,7 @@
                         <label>Email <span style="color: red">*</span></label>
                         <div>
                             <input class="form-control" id="userEmail" placeholder="Email *" type="text">
-                            <input id="companyId" type="hidden" value="<?php echo $_SESSION['companyId']; ?>">
+                            <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                         </div>
                     </div>
                     <div class="form-group col-md-3">

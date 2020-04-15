@@ -198,11 +198,9 @@ include '../database/connection.php';
             </div>
 
             <div class="modal-footer1">
-                <button type="button" onclick="export_CreditCard()" class="mr-1 btn btn-primary waves-effect float-left"
-                    data-dismiss="modal">
-                    Export
+                <button type="button" onclick="export_CreditCard(<?php echo $_SESSION['companyId']; ?>)"
+                    class="btn btn-primary waves-effect waves-light float-left mr-1">Export
                 </button>
-
                 <button type="button" class="btn btn-danger waves-effect float-left" data-dismiss="modal">
                     Close
                 </button>

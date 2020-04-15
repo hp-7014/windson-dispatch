@@ -5,6 +5,8 @@ require "../../database/connection.php";
 
 if ($_GET['types'] == 'live_factoring_table') {
     $i = 0;
+    $table = "";
+    $pages = "";
     $limit = 100;
     $cursor = $db->factoring_company_add->find(array('companyID' => $_SESSION['companyId']));
                                     
@@ -149,7 +151,7 @@ if ($_GET['types'] == 'live_factoring_table') {
             $pencilid14 = '"taxIDPencil'.$i.'"';
             $pencilid15 = '"internalNotePencil'.$i.'"';
 
-            echo "<tr>
+            $table .= "<tr>
                 <th>$i</th>
                 <th class='custom-text' id='factoringCompanyname$i'
                     onmouseover='showPencil_s($pencilid1)'
@@ -294,13 +296,43 @@ if ($_GET['types'] == 'live_factoring_table') {
                 </td>";
 
             if ($counter == 0) { 
-                echo "<td><a href='#' onclick='deletefactoring($id,$currencyid,$paymentid)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                $table .= "<td><a href='#' onclick='deletefactoring($id,$currencyid,$paymentid)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
             } else {
-                echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
             }
             
         }
-        //echo $table."^".$list."^".$list1;
+
+        $fun_nm = '"paginate_factoring"';
+        $p_no = '"page_no"';
+
+        $pages .= "<li id='bank_previous' style='display:none'>
+            <a class='page-link btn btn-secondary waves-effect'
+                onclick='previous_page($fun_nm,$p_no,$limit,$total_pages)'>Previous</a>
+            </li>
+            <select class='form-control' id='page_active'
+                onchange='paginate_factoring(this.value * $limit,$limit,$total_pages)'>";
+        $j = 1;
+
+        for ($i = 0; $i < $total_pages; $i++) {
+            if ($i == 0) {
+                $pages .= "<option value='$i'>$j</option>";
+            } else {
+                $pages .= "<option value='$i'>$j</option>";
+            }
+            $j++;
+        } 
+
+        if($total_pages > 0 && $total_pages > 1) {
+            $pages .= "</select>
+                <li id='bank_next'>
+                    <a class='page-link btn btn-primary waves-effect waves-light'
+                        onclick='next_page($fun_nm,$p_no,$limit,$total_pages)'>Next</a>
+                </li>";
+
+        }
+
+        echo $table."^".$pages;
     }
 }
 

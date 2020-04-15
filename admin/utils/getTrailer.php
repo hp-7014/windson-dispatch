@@ -7,6 +7,7 @@
         $i = 0;
         $table = "";
         $list = "";
+        $pages = "";
         $type = '"text"';
         $limit = 100;
         $cursor = $db->trailer_admin_add->find(array('companyID' => $_SESSION['companyId']));
@@ -137,7 +138,7 @@
                 $pencilid13 = '"activationDatePencil'.$i.'"';
                 $pencilid14 = '"internalNotesPencil'.$i.'"';
 
-                echo "<tr>
+                $table .= "<tr>
                     <th>$i</th>
                     <th class='custom-text' id='trailerNumber$i'
                         onmouseover='showPencil_s($pencilid1)'
@@ -261,16 +262,45 @@
                     </td>";
 
                 if ($counter == 0) {
-                    echo "<td><a href='#' onclick='deleteTrailerAdd($id,$trailer_Type)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                    $table .= "<td><a href='#' onclick='deleteTrailerAdd($id,$trailer_Type)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
                 } else {
-                    echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+                    $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
                 }
 
             $value = "'".$id.")&nbsp;".$trailerNumber."'";
             $list .= "<option value=$value></option>";
             
             }
-            //echo $table."^".$list;
+
+            $fun_nm = '"paginate_trailer"';
+            $p_no = '"page_no"';
+
+            $pages .= "<li id='bank_previous' style='display:none'>
+                <a class='page-link btn btn-secondary waves-effect'
+                    onclick='previous_page($fun_nm,$p_no,$limit,$total_pages)'>Previous</a>
+                </li>
+                <select class='form-control' id='page_active'
+                    onchange='paginate_trailer(this.value * $limit,$limit,$total_pages)'>";
+            $j = 1;
+
+            for ($i = 0; $i < $total_pages; $i++) {
+                if ($i == 0) {
+                    $pages .= "<option value='$i'>$j</option>";
+                } else {
+                    $pages .= "<option value='$i'>$j</option>";
+                }
+                $j++;
+            } 
+
+            if($total_pages > 0 && $total_pages > 1) {
+                $pages .= "</select>
+                    <li id='bank_next'>
+                        <a class='page-link btn btn-primary waves-effect waves-light'
+                            onclick='next_page($fun_nm,$p_no,$limit,$total_pages)'>Next</a>
+                    </li>";
+
+            }
+            echo $table."^".$pages;
         }
     }
 

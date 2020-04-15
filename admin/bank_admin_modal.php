@@ -221,11 +221,9 @@ include '../database/connection.php';
             </div>
 
             <div class="modal-footer1">
-                <button type="button" onclick="export_Admin()" class="mr-1 btn btn-primary waves-effect float-left"
-                    data-dismiss="modal">
-                    Export
+                <button type="button" onclick="export_Admin(<?php echo $_SESSION['companyId']; ?>)"
+                    class="btn btn-primary waves-effect waves-light float-left mr-1">Export
                 </button>
-
                 <button type="button" class="btn btn-danger waves-effect float-left" data-dismiss="modal">
                     Close
                 </button>
@@ -252,7 +250,7 @@ include '../database/connection.php';
                                 }
                                 $j++;
                             } 
-                            if($total_pages > 0){
+                            if($total_pages > 0 && $total_pages > 1){
                             ?>
                         </select>
                         <li id="bank_next">

@@ -174,9 +174,9 @@ database.ref(shipper_test).on('child_removed', function (data) {
 // update table fields
 function updateShipperTable() {
     var shipperBody = document.getElementById('shipperBody');
-    var shipperList = document.getElementById('shipper');
+    var paginate = document.getElementById('paginate');
     $.ajax({
-        url: 'admin/utils/getShipper.php',
+        url: 'admin/utils/getShipper.php?types=live_shipper_table',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
@@ -185,10 +185,9 @@ function updateShipperTable() {
                 shipperBody.innerHTML = res[0];
             }
 
-            if (shipperList != null) {
-                shipperList.innerHTML = res[1];
+            if (paginate != null) {
+                paginate.innerHTML = res[1];
             }
-
         },
         error: function () {
             swal("Try again !", "Problem occurred while updating your record", "error");
@@ -210,7 +209,7 @@ function search_shipper(x) {
         },
         success: function (response) {
             var j = response.trim();
-            document.getElementById('shipperBody').innerHTML = j;
+            document.getElementById('shipperBody').innerHTML = response;
         }
     });
 }
@@ -501,7 +500,7 @@ database.ref(consignee_test).on('child_removed', function (data) {
 // update table fields
 function updateConsigneeTable() {
     var consigneeBody = document.getElementById('consigneeBody');
-    var consigneeList = document.getElementById('consigneee');
+    var paginate = document.getElementById('paginate');
     $.ajax({
         url: 'admin/utils/getConsignee.php?types=live_consignee_table',
         type: 'POST',
@@ -512,8 +511,8 @@ function updateConsigneeTable() {
                 consigneeBody.innerHTML = res[0];
             }
 
-            if (consigneeList != null) {
-                consigneeList.innerHTML = res[1];
+            if (paginate != null) {
+                paginate.innerHTML = res[1];
             }
 
         },
@@ -1208,7 +1207,7 @@ database.ref(customer_test).on('child_removed', function (data) {
 // update table fields
 function updateCustomerTable() {
     var customerTable = document.getElementById('customerBody');
-    var customerList = document.getElementById('browserscustomer');
+    var paginate = document.getElementById('paginate');
     $.ajax({
         url: 'admin/utils/getCustomer.php?types=live_customer_table',
         type: 'POST',
@@ -1219,8 +1218,8 @@ function updateCustomerTable() {
                 customerTable.innerHTML = res[0];
             }
 
-            if (customerList != null) {
-                customerList.innerHTML = res[1];
+            if (paginate != null) {
+                paginate.innerHTML = res[1];
             }
 
         },
@@ -1617,15 +1616,19 @@ database.ref(user_test).on('child_removed', function (data) {
 // update table fields
 function updateUserTable() {
     var UserBody = document.getElementById('UserBody');
+    var paginate = document.getElementById('paginate');
 
     $.ajax({
         url: 'admin/utils/getUser.php?types=live_user_table',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
-
+        success: function(response) {
+            var res = response.split("^");
             if (UserBody != null) {
-                UserBody.innerHTML = response;
+                UserBody.innerHTML = res[0];
+            }
+            if (paginate != null) {
+                paginate.innerHTML = res[1];
             }
         },
         error: function () {
@@ -2053,7 +2056,7 @@ database.ref(banktest).on('child_removed', function (data) {
 
 function updateBankTable() {
     var bankBody = document.getElementById('bankBody');
-    var bankList = document.getElementById('Name');
+    var paginate = document.getElementById('paginate');
     $.ajax({
         url: 'admin/utils/getBank.php?types=live_bank_table',
         type: 'POST',
@@ -2063,8 +2066,8 @@ function updateBankTable() {
             if (bankBody != null) {
                 bankBody.innerHTML = res[0];
             }
-            if (bankList != null) {
-                bankList.innerHTML = res[1];
+            if (paginate != null) {
+                paginate.innerHTML = res[1];
             }
 
         },
@@ -2322,16 +2325,21 @@ database.ref(bankCredittest).on('child_removed', function (data) {
 
 function updateBankCreditTable() {
     var CreditbankBody = document.getElementById('CreditbankBody');
+    var paginate = document.getElementById('paginate');
 
     $.ajax({
         url: 'admin/utils/getBankCredit.php?types=live_credit_table',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
-            // var res = response.split("^");
+        success: function(response) {
+            var res = response.split("^");
             if (CreditbankBody != null) {
-                CreditbankBody.innerHTML = response;
+                CreditbankBody.innerHTML = res[0];
             }
+            if (paginate != null) {
+                paginate.innerHTML = res[1];
+            }
+
         },
         error: function () {
             swal("Try again !", "Problem occurred while updating your record", "error");
@@ -2588,7 +2596,7 @@ database.ref(subcardtest).on('child_removed', function (data) {
 
 function updateSubCardTable() {
     var SubCardBody = document.getElementById('SubCardBody');
-
+    var paginate = document.getElementById('paginate');
     $.ajax({
         url: 'admin/utils/getSub_credit_card.php?types=live_sub_credit',
         type: 'POST',
@@ -2596,7 +2604,10 @@ function updateSubCardTable() {
         success: function (response) {
             var res = response.split("^");
             if (SubCardBody != null) {
-                SubCardBody.innerHTML = response;
+                SubCardBody.innerHTML = res[0];
+            }
+            if (paginate != null) {
+                paginate.innerHTML = res[1];
             }
         },
         error: function () {
@@ -2839,14 +2850,20 @@ database.ref(customtest).on('child_removed', function (data) {
 function UpdateCustomTable() {
     var custom_broker_body = document.getElementById('custom_broker_body');
     //var custom_broker_body = document.getElementById('custom_broker_body');
-    // var bankList = document.getElementById('Name');
+    var paginate = document.getElementById('paginate');
+
     $.ajax({
         url: 'admin/utils/getCustomsBroker.php?types=live_customs',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
+        success: function(response) {
+            var res = response.split("^");
+
             if (custom_broker_body != null) {
-                custom_broker_body.innerHTML = response;
+                custom_broker_body.innerHTML = res[0];
+            }
+            if (paginate != null) {
+                paginate.innerHTML = res[1];
             }
         },
         error: function () {
@@ -3140,18 +3157,19 @@ database.ref(truck_test).on('child_removed', function (data) {
 // update table fields
 function updateTruckTable() {
     var truckBody = document.getElementById('truckBody');
-    var truckList = document.getElementById('browserstruck');
+    var paginate = document.getElementById('paginate');
+
     $.ajax({
         url: 'admin/utils/getTruck.php?types=live_truck_table',
         type: 'POST',
         dataType: 'text',
-        success: function (response) {
-            var res = response.split('^');
+        success: function(response) {
+            var res = response.split("^");
             if (truckBody != null) {
                 truckBody.innerHTML = res[0];
             }
-            if (truckList != null) {
-                truckList.innerHTML = res[1];
+            if (paginate != null) {
+                paginate.innerHTML = res[1];
             }
 
         },
@@ -3370,6 +3388,7 @@ database.ref(trailer_test).on('child_removed', function (data) {
 function updateTrailerTable() {
     var trailerBody = document.getElementById('trailerBody');
     var trailerList = document.getElementById('browserstrailer');
+    var paginate = document.getElementById('paginate');
     $.ajax({
         url: 'admin/utils/getTrailer.php?types=live_trailer_table',
         type: 'POST',
@@ -3377,12 +3396,12 @@ function updateTrailerTable() {
         success: function (response) {
 
             var res = response.split('^');
-
+            //alert(res[1]);
             if (trailerBody != null) {
                 trailerBody.innerHTML = res[0];
             }
-            if (trailerList != null) {
-                trailerList.innerHTML = res[1];
+            if (paginate != null) {
+                paginate.innerHTML = res[1];
             }
         },
         error: function () {
@@ -3626,6 +3645,7 @@ function updateFactoringTable() {
     var factoringBody = document.getElementById('factoringBody');
     var factoringList = document.getElementById('searchFactoring');
     var factoringCustomer = document.getElementById('factoringlist');
+    var paginate = document.getElementById('paginate');
 
     $.ajax({
         url: 'admin/utils/getFactoring.php?types=live_factoring_table',
@@ -3637,12 +3657,12 @@ function updateFactoringTable() {
 
                 factoringBody.innerHTML = res[0];
             }
-            if (factoringList != null) {
-                factoringList.innerHTML = res[1];
+            if (paginate != null) {
+                paginate.innerHTML = res[1];
             }
-            if (factoringCustomer != null) {
-                factoringCustomer.innerHTML = res[2];
-            }
+            // if (factoringCustomer != null) {
+            //     factoringCustomer.innerHTML = res[2];
+            // }
         },
         error: function () {
             swal("Try again !", "Problem occurred while updating your record", "error");
@@ -4671,7 +4691,7 @@ database.ref(driver_test).on('child_removed', function (data) {
 //update table fields
 function updateDriverTable() {
     var driverBody = document.getElementById('driverBody');
-    var driverList = document.getElementById('browsersdriver');
+    var paginate = document.getElementById('paginate');
     $.ajax({
         url: 'admin/utils/getDriver.php?types=live_driver_table',
         type: 'POST',
@@ -4681,8 +4701,8 @@ function updateDriverTable() {
             if (driverBody != null) {
                 driverBody.innerHTML = res[0];
             }
-            if (driverList != null) {
-                driverList.innerHTML = res[1];
+            if (paginate != null) {
+                paginate.innerHTML = res[1];
             }
         },
         error: function () {
@@ -5489,6 +5509,7 @@ database.ref(external_test).on('child_removed', function (data) {
 function updateCarrierTable() {
     var carrierBody = document.getElementById('carrierBody');
     var carrierList = document.getElementById('browserscarrier');
+    var paginate = document.getElementById('paginate');
     $.ajax({
         url: 'admin/utils/getCarrier.php?types=live_carrier_table',
         type: 'POST',
@@ -5498,8 +5519,8 @@ function updateCarrierTable() {
             if (carrierBody != null) {
                 carrierBody.innerHTML = res[0];
             }
-            if (carrierList != null) {
-                carrierList.innerHTML = res[1];
+            if (paginate != null) {
+                paginate.innerHTML = res[1];
             }
         },
         error: function () {
