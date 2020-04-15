@@ -212,7 +212,7 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 main1" style="display:none;">
                             <label>Main Card</label>
                             <input list="creditcard1" placeholder="--Select--" class="form-control" id="maincreditcard"
-                                name="maincreditcard">
+                                name="maincreditcard" onchange="baseamountcredit(this.value)">
                             <datalist id="creditcard1">
                                 <?php
                                 $show = $db->credit_card_admin->find(['companyID' => $_SESSION['companyId']]);
@@ -227,6 +227,7 @@ require "../database/connection.php";
                                 } ?>
                             </datalist>
                         </div>
+                        <input type="hidden" id="baseamountcredit" name="baseamountcredit" value="">
                         <div class="form-group col-md-2 sub1" style="display:none;">
                             <label>Sub Card</label>
                             <input list="subcreditcard1" placeholder="--Select--" class="form-control" id="subcreditcard"

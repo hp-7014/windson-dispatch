@@ -161,3 +161,28 @@ if ($_GET['type'] == 'basebalance') {
     }
     echo json_encode($output);
 }
+
+//base Amount credit card
+if ($_GET['type'] == 'basebalancecredit') {
+    $id = (int)$_POST['creditcard'];
+    $collection = $db->credit_card_admin;
+    $creditbase = $collection->aggregate([
+        ['$match' => ['companyID' => $_SESSION['companyId']]],
+        ['$unwind' => '$admin_credit'],
+        ['$match' => ['admin_credit._id' => $id]]
+    ]);
+    $i = 0;
+    foreach ($creditbase as $row1) {
+    $admin_credit = array();
+    $j = 0;
+    $admin_credit[$j] = $row1['admin_credit'];
+    $j++;
+    foreach ($admin_credit as $row2) {
+            $d['bankid'][] = $row2['_id'];
+            $d['openingBalancecredit'] = $row2['openingBalance'];
+            $i++;
+       }
+        $output = $d;
+    }
+    echo json_encode($output);
+}

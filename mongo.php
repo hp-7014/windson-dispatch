@@ -5,10 +5,56 @@ require 'vendor/autoload.php';
 $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
 
-$collection = $db->user;
-$collection->updateOne(['year' => 2020,'companyID'=> 2, 'quarter'=>1, '123.$[].mileage.$[].state'=>"IN"], [
-       '$inc' => ['123.$[].mileage.$[].mi' => 100]]
-);
+
+$collection = $db->fuelcard;
+$year = 2020;
+$month = "April";
+$fuelcard = $collection->aggregate([
+            ['$match'=>['companyID'=>1,'year'=>$year]],
+            ['$unwind'=>'$'.$month],
+            ['$match'=>[$month.'.payto'=>"FuelCardDriver"]]
+            ]);
+            foreach($fuelcard as $fcard) {
+                $j = 0;
+                $mont[$j]= $fcard[$month];
+                $j++;
+                foreach($mont as $fcard1) {
+                    $i++;
+                    $fcardid = $fcard1['_id'];
+                    $fuelcardmain = $fcard1['fuelcardmain'];
+                    $paymentlist = $fcard1['paymentlist'];
+                    $bankname = $fcard1['bankname'];
+                    $payto = $fcard1['payto'];
+                    $driver = $fcard1['driver'];
+                    $debitcategory = $fcard1['debitcategory'];
+                    $amount = $fcard1['amount'];
+                    $advance = $fcard1['advance'];
+                    $finalamount = $fcard1['finalamount'];
+                    $checkdate = $fcard1['checkdate'];
+                    $cheque = $fcard1['cheque'];
+                    $ach = $fcard1['ach'];
+                    $memo = $fcard1['memo'];
+
+                    echo $table .= "<td>$i</td>
+                    <td>$paymentfrom</td>
+                    <td>$companyselect</td>
+                    <td>$bankname</td>
+                    <td>$payto</td>
+                    <td>$driver</td>
+                    <td>$debitcategory</td>
+                    <td>$amount</td>
+                    <td>$advance</td>
+                    <td>$finalamount</td>
+                    <td>$checkdate</td>
+                    <td>$cheque</td>
+                    <td>$ach</td>
+                    <td>$memo</td>";
+                }
+            }
+// $collection = $db->user;
+// $collection->updateOne(['year' => 2020,'companyID'=> 2, 'quarter'=>1,'123'.'.mileage'.'.state' => "IN"], [
+//        '$inc' => ['123.$[].mileage.$.mi' => 500]]
+// );
 // $show = $db->active_load->find(['companyID' => 1]);
 // $i = 0;
 // foreach($show as $row) {
