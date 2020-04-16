@@ -228,16 +228,16 @@ else if ($_GET['type'] == 'creditexpense') {
     $bank->setCompanyID($_POST['companyId']);
     $bank->setYear(date("Y"));
     $bank->setMonth(date("F"));
+    $bank->setNextMonth(date("F", strtotime("+1 month")));
     $bank->setCategory($_POST['category']);
     $bank->setPaymentFrom($_POST['paymentfrom']);
-//    $bank->setPaytype($_POST['paytype']);
-//    $bank->setOthername($_POST['Bankname']);
     $bank->setExpensesbill($_POST['expensesbill']);
     $bank->setExpensesname($_POST['expensesname']);
     $bank->setSelectDebit($_POST['selectdebite']);
     $bank->setAmount($_POST['amount']);
     $bank->setMemo($_POST['memo']);
-    $bank->setPayto($_POST['payto']);
+    $bank->setPayto($_POST['category']);
+    $bank->setBaseamount($_POST['baseamountcredit']);
     $bank->insertCrediCardExpanse($bank, $db, $helper);
 } // insert credit card maintenance
 else if ($_GET['type'] == 'CreditMaintenance') {
@@ -246,6 +246,7 @@ else if ($_GET['type'] == 'CreditMaintenance') {
     $bank->setCompanyID($_POST['companyId']);
     $bank->setYear(date("Y"));
     $bank->setMonth(date("F"));
+    $bank->setNextMonth(date("F", strtotime("+1 month")));
     $bank->setPaymentFrom($_POST['paymentfrom']);
     $bank->setCategory($_POST['category']);
     $bank->setPayto($_POST['category']);
@@ -255,6 +256,7 @@ else if ($_GET['type'] == 'CreditMaintenance') {
     $bank->setTruckno($_POST['truckno']);
     $bank->setTrailerno($_POST['trailerno']);
     $bank->setMemo($_POST['memo']);
+    $bank->setBaseamount($_POST['baseamountcredit']);
     $bank->insertCreditCardMaintenance($bank, $db, $helper);
 } // Insert creidtcard insurence Function Here
 else if ($_GET['type'] == 'CreditInsurance') {
@@ -263,6 +265,7 @@ else if ($_GET['type'] == 'CreditInsurance') {
     $bank->setCompanyID($_POST['companyId']);
     $bank->setYear(date("Y"));
     $bank->setMonth(date("F"));
+    $bank->setNextMonth(date("F", strtotime("+1 month")));
     $bank->setPaymentFrom($_POST['paymentfrom']);
     $bank->setCategory($_POST['category']);
     $bank->setPayto($_POST['category']);
@@ -270,6 +273,7 @@ else if ($_GET['type'] == 'CreditInsurance') {
     $bank->setAmount($_POST['amount']);
     $bank->setInsurancecom($_POST['insurancecompany']);
     $bank->setMemo($_POST['memo']);
+    $bank->setBaseamount($_POST['baseamountcredit']);
     $bank->insertCreditCardInsurance($bank, $db, $helper);
 } // Insert creidtcard Fual card Function Here
 else if ($_GET['type'] == 'CreditFuelCard') {
@@ -278,12 +282,14 @@ else if ($_GET['type'] == 'CreditFuelCard') {
     $bank->setCompanyID($_POST['companyId']);
     $bank->setYear(date("Y"));
     $bank->setMonth(date("F"));
+    $bank->setNextMonth(date("F", strtotime("+1 month")));
     $bank->setPaymentFrom($_POST['paymentfrom']);
     $bank->setCategory($_POST['category']);
     $bank->setPayto($_POST['category']);
     $bank->setAmount($_POST['amount']);
     $bank->setFuellist($_POST['fuellist']);
     $bank->setMemo($_POST['memo']);
+    $bank->setBaseamount($_POST['baseamountcredit']);
     $bank->insertCreditCardFuelCard($bank, $db, $helper);
 } // Insert credit other Function Here
 else if ($_GET['type'] == 'CreditOther') {
@@ -292,6 +298,7 @@ else if ($_GET['type'] == 'CreditOther') {
     $bank->setCompanyID($_POST['companyId']);
     $bank->setYear(date("Y"));
     $bank->setMonth(date("F"));
+    $bank->setNextMonth(date("F", strtotime("+1 month")));
     $bank->setPaymentFrom($_POST['paymentfrom']);
     $bank->setCategory($_POST['category']);
     $bank->setPayto($_POST['category']);
@@ -303,6 +310,7 @@ else if ($_GET['type'] == 'CreditOther') {
     $bank->setCheque($_POST['otherchequ']);
     $bank->setAch($_POST['otherach']);
     $bank->setMemo($_POST['memo']);
+    $bank->setBaseamount($_POST['baseamountcredit']);
     $bank->insertCreditCardOther($bank, $db, $helper);
 }
 
@@ -310,12 +318,13 @@ else if ($_GET['type'] == 'CreditOther') {
 //----------fuel card insert function start-----------------------------------------------------------------------------------------------------------------------------
 // Insert Driver Payment Function Here
 if ($_GET['type'] == 'FuelCardDriver') {
+
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("fuelcardcount", $db));
     $bank->setCompanyID($_POST['companyId']);
     $bank->setYear(date("Y"));
     $bank->setMonth(date("F"));
-
+    $bank->setNextMonth(date("F", strtotime("+1 month")));
     $bank->setFuelcardmain($_POST['fuelcardmain']);
     $bank->setPaymentlist($_POST['paymentlist']);
 
@@ -332,9 +341,12 @@ if ($_GET['type'] == 'FuelCardDriver') {
     $bank->setCheque($_POST['cheque']);
     $bank->setAch($_POST['ach']);
     $bank->setMemo($_POST['memo']);
+    $bank->setBaseamount($_POST['basefuelcard']);
     $bank->insertFuelDriver($bank, $db, $helper);
 } // Insert credit card carrier Function Here
 else if ($_GET['type'] == 'FuelCardCarrier') {
+    echo $_POST['basefuelcard'];
+
     $bank = new Bank();
     $bank->setId($helper->getNextSequence("fuelcardcount", $db));
     $bank->setCompanyID($_POST['companyId']);
@@ -344,6 +356,7 @@ else if ($_GET['type'] == 'FuelCardCarrier') {
 
     $bank->setYear(date("Y"));
     $bank->setMonth(date("F"));
+    $bank->setNextMonth(date("F", strtotime("+1 month")));
     $bank->setPaymentFrom($_POST['paymentfrom']);
     $bank->setFieldName($_POST['carriername']);
     $bank->setCategory($_POST['category']);
@@ -355,6 +368,7 @@ else if ($_GET['type'] == 'FuelCardCarrier') {
     $bank->setCheque($_POST['cheque']);
     $bank->setAch($_POST['ach']);
     $bank->setMemo($_POST['memo']);
+    $bank->setBaseamount($_POST['basefuelcard']);
     $bank->insertFuelCarrier($bank, $db, $helper);
 } else if ($_GET['type'] == 'FuelCardExpense') {
     $bank = new Bank();
@@ -366,6 +380,7 @@ else if ($_GET['type'] == 'FuelCardCarrier') {
 
     $bank->setYear(date("Y"));
     $bank->setMonth(date("F"));
+    $bank->setNextMonth(date("F", strtotime("+1 month")));
     $bank->setPaymentFrom($_POST['paymentfrom']);
     $bank->setCategory($_POST['category']);
     $bank->setPayto($_POST['category']);
@@ -374,6 +389,7 @@ else if ($_GET['type'] == 'FuelCardCarrier') {
     $bank->setExpensesname($_POST['expensesname']);
     $bank->setAmount($_POST['amount']);
     $bank->setMemo($_POST['memo']);
+    $bank->setBaseamount($_POST['basefuelcard']);
     $bank->insertFuelExpense($bank, $db, $helper);
 } else if ($_GET['type'] == 'FuelCardMaintenance') {
     $bank = new Bank();
@@ -385,6 +401,7 @@ else if ($_GET['type'] == 'FuelCardCarrier') {
 
     $bank->setYear(date("Y"));
     $bank->setMonth(date("F"));
+    $bank->setNextMonth(date("F", strtotime("+1 month")));
     $bank->setPaymentFrom($_POST['paymentfrom']);
     $bank->setCategory($_POST['category']);
     $bank->setPayto($_POST['category']);
@@ -394,6 +411,7 @@ else if ($_GET['type'] == 'FuelCardCarrier') {
     $bank->setTruckno($_POST['truckno']);
     $bank->setTrailerno($_POST['trailerno']);
     $bank->setMemo($_POST['memo']);
+    $bank->setBaseamount($_POST['basefuelcard']);
     $bank->insertFuelMaintenance($bank, $db, $helper);
 } else if ($_GET['type'] == 'FuelCardOther') {
     $bank = new Bank();
@@ -403,6 +421,7 @@ else if ($_GET['type'] == 'FuelCardCarrier') {
     $bank->setPaymentlist($_POST['paymentlist']);
     $bank->setYear(date("Y"));
     $bank->setMonth(date("F"));
+    $bank->setNextMonth(date("F", strtotime("+1 month")));
     $bank->setPaymentFrom($_POST['paymentfrom']);
     $bank->setCategory($_POST['category']);
     $bank->setPayto($_POST['category']);
@@ -414,6 +433,7 @@ else if ($_GET['type'] == 'FuelCardCarrier') {
     $bank->setCheque($_POST['otherchequ']);
     $bank->setAch($_POST['otherach']);
     $bank->setMemo($_POST['memo']);
+    $bank->setBaseamount($_POST['basefuelcard']);
     $bank->insertFuelOther($bank, $db, $helper);
 }
 //----------fuel card insert function end-----------------------------------------------------------------------------------------------------------------------------

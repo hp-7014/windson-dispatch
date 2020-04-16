@@ -106,7 +106,7 @@ class Bank implements IteratorAggregate
         $this->invoiceAmount = $invoiceAmount;
     }
 
-/**
+    /**
      * @return mixed
      */
     public function getFuelcardmain()
@@ -122,7 +122,7 @@ class Bank implements IteratorAggregate
         $this->fuelcardmain = $fuelcardmain;
     }
 
-/**
+    /**
      * @return mixed
      */
     public function getPaymentlist()
@@ -1102,7 +1102,8 @@ class Bank implements IteratorAggregate
                         'counter' => 0,
                         (int)$this->year => array([
                             'year' => (int)$this->year,
-                            'month' => $this->month,
+                            'month' => $this->nextMonth,
+                            'balance' => $this->baseamount
                         ]),
                         $this->month => array([
                             '_id' => 0,
@@ -1128,7 +1129,8 @@ class Bank implements IteratorAggregate
                         'counter' => 0,
                         (int)$this->year => array([
                             'year' => (int)$this->year,
-                            'month' => $this->month,
+                            'month' => $this->nextMonth,
+                            'balance' => $this->baseamount
                         ]),
                         $this->month => array([
                             '_id' => 0,
@@ -1154,7 +1156,8 @@ class Bank implements IteratorAggregate
                         'counter' => 0,
                         (int)$this->year => array([
                             'year' => (int)$this->year,
-                            'month' => $this->month,
+                            'month' => $this->nextMonth,
+                            'balance' => $this->baseamount
                         ]),
                         $this->month => array([
                             '_id' => 0,
@@ -1178,7 +1181,8 @@ class Bank implements IteratorAggregate
                         'counter' => 0,
                         (int)$this->year => array([
                             'year' => (int)$this->year,
-                            'month' => $this->month,
+                            'month' => $this->nextMonth,
+                            'balance' => $this->baseamount
                         ]),
                         $this->month => array([
                             '_id' => 0,
@@ -1201,7 +1205,8 @@ class Bank implements IteratorAggregate
                         'counter' => 0,
                         (int)$this->year => array([
                             'year' => (int)$this->year,
-                            'month' => $this->month,
+                            'month' => $this->nextMonth,
+                            'balance' => $this->baseamount
                         ]),
                         $this->month => array([
                             '_id' => 0,
@@ -1229,7 +1234,8 @@ class Bank implements IteratorAggregate
                         'counter' => 0,
                         (int)$this->year => array([
                             'year' => (int)$this->year,
-                            'month' => $this->month,
+                            'month' => $this->nextMonth,
+                            'balance' => $this->baseamount
                         ]),
                         $this->month => array([
                             '_id' => 0,
@@ -1260,7 +1266,8 @@ class Bank implements IteratorAggregate
                         'counter' => 0,
                         (int)$this->year => array([
                             'year' => (int)$this->year,
-                            'month' => $this->month,
+                            'month' => $this->nextMonth,
+                            'balance' => $this->baseamount
                         ]),
                         $this->month => array([
                             '_id' => 0,
@@ -1289,7 +1296,8 @@ class Bank implements IteratorAggregate
                         'counter' => 0,
                         (int)$this->year => array([
                             'year' => (int)$this->year,
-                            'month' => $this->month,
+                            'month' => $this->nextMonth,
+                            'balance' => $this->baseamount
                         ]),
                         $this->month => array([
                             '_id' => 0,
@@ -1316,7 +1324,8 @@ class Bank implements IteratorAggregate
                         'counter' => 0,
                         (int)$this->year => array([
                             'year' => (int)$this->year,
-                            'month' => $this->month,
+                            'month' => $this->nextMonth,
+                            'balance' => $this->baseamount
                         ]),
                         $this->month => array([
                             '_id' => 0,
@@ -1344,7 +1353,8 @@ class Bank implements IteratorAggregate
                         'counter' => 0,
                         (int)$this->year => array([
                             'year' => (int)$this->year,
-                            'month' => $this->month,
+                            'month' => $this->nextMonth,
+                            'balance' => $this->baseamount
                         ]),
                         $this->month => array([
                             '_id' => 0,
@@ -1373,7 +1383,7 @@ class Bank implements IteratorAggregate
                         'counter' => 0,
                         (int)$this->year => array([
                             'year' => (int)$this->year,
-                            'month' => $this->month,
+                            'month' => $this->nextMonth,
                             'balance' => $this->baseamount
                         ]),
                         $this->month => array([
@@ -1511,7 +1521,7 @@ class Bank implements IteratorAggregate
                 $db->payment_bank->updateOne(['companyID' => (int)$this->companyID, (int)$this->year . '.month' => $curMonth],
                     ['$set' => [(int)$this->year . '.$.balance' => $this->baseamount - $this->amount]]
                 );
-                paidStatus($mainID, $this->invoice, $db);
+                paidStatus($mainID, $this->invoice, $db, $helper);
             }
 
 
@@ -1641,7 +1651,7 @@ class Bank implements IteratorAggregate
                 );
             }
 
-            paidStatus($mainID, $this->invoice, $db);
+            paidStatus($mainID, $this->invoice, $db, $helper);
             echo 0;
         }
     }
@@ -1762,7 +1772,7 @@ class Bank implements IteratorAggregate
                 $db->payment_bank->updateOne(['companyID' => (int)$this->companyID, (int)$this->year . '.month' => $curMonth],
                     ['$set' => [(int)$this->year . '.$.balance' => $this->baseamount - $this->amount]]
                 );
-                paidStatus($mainID, $this->invoice, $db);
+                paidStatus($mainID, $this->invoice, $db, $helper);
             }
             echo 0;
         }
@@ -2571,7 +2581,35 @@ class Bank implements IteratorAggregate
             $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$set' => ['counter' => $incrementNumber + 1]]);
             $id = $incrementNumber + 1;
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+            $curBaseAmout = '';
 
+            $mon = $db->credit_card->find(['companyID' => (int)$this->companyID, '_id' => $mainID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                        $curBaseAmout = $data['balance'];
+                    }
+                }
+            }
+
+            // in year->month->new month array our there value
+            if ($curMonth == '') {
+                $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
+                    ['$push' => [
+                        $this->year => [
+                            'year' => $this->year,
+                            'month' => $this->nextMonth,
+                            'balance' => (int)$this->baseamount,
+                        ]
+                    ]]
+                );
+            }
+            // logic end
             $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$push' => [
                     $this->month => [
@@ -2588,11 +2626,32 @@ class Bank implements IteratorAggregate
                         'file' => $this->file
                     ]
                 ]]);
+
+            $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => (int)$mainID, (int)$this->year . '.month' => $curMonth],
+                ['$set' => [(int)$this->year . '.$.balance' => (int)$curBaseAmout - (int)$this->amount]]
+            );
             echo $id;
         } else {
             echo "first";
             $bank = iterator_to_array($bank);
             $db->credit_card->insertOne($bank);
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+
+            $mon = $db->credit_card->find(['companyID' => (int)$this->companyID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                    }
+                }
+            }
+
+            $db->credit_card->updateOne(['companyID' => (int)$this->companyID, (int)$this->year . '.month' => $curMonth],
+                ['$set' => [(int)$this->year . '.$.balance' => $this->baseamount - $this->amount]]
+            );
             echo 0;
         }
     }
@@ -2628,6 +2687,35 @@ class Bank implements IteratorAggregate
             $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$set' => ['counter' => $incrementNumber + 1]]);
             $id = $incrementNumber + 1;
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+            $curBaseAmout = '';
+
+            $mon = $db->credit_card->find(['companyID' => (int)$this->companyID, '_id' => $mainID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                        $curBaseAmout = $data['balance'];
+                    }
+                }
+            }
+
+            // in year->month->new month array our there value
+            if ($curMonth == '') {
+                $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
+                    ['$push' => [
+                        $this->year => [
+                            'year' => $this->year,
+                            'month' => $this->nextMonth,
+                            'balance' => (int)$this->baseamount,
+                        ]
+                    ]]
+                );
+            }
+            // logic end
             $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$push' => [
                     $this->month => [
@@ -2644,10 +2732,32 @@ class Bank implements IteratorAggregate
                         'file' => $this->file
                     ]
                 ]]);
+            $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => (int)$mainID, (int)$this->year . '.month' => $curMonth],
+                ['$set' => [(int)$this->year . '.$.balance' => (int)$curBaseAmout - (int)$this->amount]]
+            );
+
             echo $id;
         } else {
             $bank = iterator_to_array($bank);
             $db->credit_card->insertOne($bank);
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+
+            $mon = $db->credit_card->find(['companyID' => (int)$this->companyID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                    }
+                }
+            }
+
+            $db->credit_card->updateOne(['companyID' => (int)$this->companyID, (int)$this->year . '.month' => $curMonth],
+                ['$set' => [(int)$this->year . '.$.balance' => $this->baseamount - $this->amount]]
+            );
+
             echo 0;
         }
     }
@@ -2683,6 +2793,35 @@ class Bank implements IteratorAggregate
             $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$set' => ['counter' => $incrementNumber + 1]]);
             $id = $incrementNumber + 1;
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+            $curBaseAmout = '';
+
+            $mon = $db->credit_card->find(['companyID' => (int)$this->companyID, '_id' => $mainID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                        $curBaseAmout = $data['balance'];
+                    }
+                }
+            }
+
+            // in year->month->new month array our there value
+            if ($curMonth == '') {
+                $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
+                    ['$push' => [
+                        $this->year => [
+                            'year' => $this->year,
+                            'month' => $this->nextMonth,
+                            'balance' => (int)$this->baseamount,
+                        ]
+                    ]]
+                );
+            }
+            // logic end
             $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$push' => [
                     $this->month => [
@@ -2697,10 +2836,30 @@ class Bank implements IteratorAggregate
                         'file' => $this->file
                     ]
                 ]]);
+            $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => (int)$mainID, (int)$this->year . '.month' => $curMonth],
+                ['$set' => [(int)$this->year . '.$.balance' => (int)$curBaseAmout - (int)$this->amount]]
+            );
             echo $id;
         } else {
             $bank = iterator_to_array($bank);
             $db->credit_card->insertOne($bank);
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+
+            $mon = $db->credit_card->find(['companyID' => (int)$this->companyID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                    }
+                }
+            }
+
+            $db->credit_card->updateOne(['companyID' => (int)$this->companyID, (int)$this->year . '.month' => $curMonth],
+                ['$set' => [(int)$this->year . '.$.balance' => $this->baseamount - $this->amount]]
+            );
             echo 0;
         }
     }
@@ -2736,6 +2895,35 @@ class Bank implements IteratorAggregate
             $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$set' => ['counter' => $incrementNumber + 1]]);
             $id = $incrementNumber + 1;
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+            $curBaseAmout = '';
+
+            $mon = $db->credit_card->find(['companyID' => (int)$this->companyID, '_id' => $mainID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                        $curBaseAmout = $data['balance'];
+                    }
+                }
+            }
+
+            // in year->month->new month array our there value
+            if ($curMonth == '') {
+                $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
+                    ['$push' => [
+                        $this->year => [
+                            'year' => $this->year,
+                            'month' => $this->nextMonth,
+                            'balance' => (int)$this->baseamount,
+                        ]
+                    ]]
+                );
+            }
+            // logic end
             $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$push' => [
                     $this->month => [
@@ -2749,10 +2937,31 @@ class Bank implements IteratorAggregate
                         'file' => $this->file
                     ]
                 ]]);
+
+            $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => (int)$mainID, (int)$this->year . '.month' => $curMonth],
+                ['$set' => [(int)$this->year . '.$.balance' => (int)$curBaseAmout - (int)$this->amount]]
+            );
             echo $id;
         } else {
             $bank = iterator_to_array($bank);
             $db->credit_card->insertOne($bank);
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+
+            $mon = $db->credit_card->find(['companyID' => (int)$this->companyID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                    }
+                }
+            }
+
+            $db->credit_card->updateOne(['companyID' => (int)$this->companyID, (int)$this->year . '.month' => $curMonth],
+                ['$set' => [(int)$this->year . '.$.balance' => $this->baseamount - $this->amount]]
+            );
             echo 0;
         }
     }
@@ -2788,6 +2997,35 @@ class Bank implements IteratorAggregate
             $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$set' => ['counter' => $incrementNumber + 1]]);
             $id = $incrementNumber + 1;
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+            $curBaseAmout = '';
+
+            $mon = $db->credit_card->find(['companyID' => (int)$this->companyID, '_id' => $mainID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                        $curBaseAmout = $data['balance'];
+                    }
+                }
+            }
+
+            // in year->month->new month array our there value
+            if ($curMonth == '') {
+                $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
+                    ['$push' => [
+                        $this->year => [
+                            'year' => $this->year,
+                            'month' => $this->nextMonth,
+                            'balance' => (int)$this->baseamount,
+                        ]
+                    ]]
+                );
+            }
+            // logic end
             $db->credit_card->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$push' => [
                     $this->month => [
@@ -2806,10 +3044,41 @@ class Bank implements IteratorAggregate
                         'file' => $this->file
                     ]
                 ]]);
+
+            // transaction date if yes than cut base-balance
+            if ($this->checkDate != '') {
+                $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => (int)$mainID, (int)$this->year . '.month' => $curMonth],
+                    ['$set' => [(int)$this->year . '.$.balance' => (int)$curBaseAmout - (int)$this->amount]]
+                );
+                paidStatus($mainID, $this->invoice ,$db,$helper);
+            }
             echo $id;
         } else {
             $bank = iterator_to_array($bank);
             $db->credit_card->insertOne($bank);
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+
+            $mon = $db->credit_card->find(['companyID' => (int)$this->companyID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                    }
+                }
+            }
+
+            // transaction date if yes than cut base-balance
+            if ($this->checkDate != '') {
+                $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, (int)$this->year . '.month' => $curMonth],
+                    ['$set' => [(int)$this->year . '.$.balance' => $this->baseamount - $this->amount]]
+                );
+                paidStatus($mainID, $this->invoice ,$db,$helper);
+
+            }
+
             echo 0;
         }
     }
@@ -2846,7 +3115,35 @@ class Bank implements IteratorAggregate
             $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$set' => ['counter' => $incrementNumber + 1]]);
             $id = $incrementNumber + 1;
+// logic start
+            // get month and base-balance
+            $curMonth = '';
+            $curBaseAmout = '';
 
+            $mon = $db->fuelcard->find(['companyID' => (int)$this->companyID, '_id' => $mainID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                        $curBaseAmout = $data['balance'];
+                    }
+                }
+            }
+
+            // in year->month->new month array our there value
+            if ($curMonth == '') {
+                $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
+                    ['$push' => [
+                        $this->year => [
+                            'year' => $this->year,
+                            'month' => $this->nextMonth,
+                            'balance' => (int)$this->baseamount,
+                        ]
+                    ]]
+                );
+            }
+            // logic end
             $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$push' => [
                     $this->month => [
@@ -2868,11 +3165,39 @@ class Bank implements IteratorAggregate
                         'file' => $this->file
                     ]
                 ]]);
+            // transaction date if yes than cut base-balance
+            if ($this->checkDate != '') {
+                $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => (int)$mainID, (int)$this->year . '.month' => $curMonth],
+                    ['$set' => [(int)$this->year . '.$.balance' => (int)$curBaseAmout - (int)$this->amount]]
+                );
+                paidStatus($mainID, $this->invoice, $db, $helper);
+            }
             echo $id;
         } else {
             echo 'first';
             $bank = iterator_to_array($bank);
             $db->fuelcard->insertOne($bank);
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+
+            $mon = $db->fuelcard->find(['companyID' => (int)$this->companyID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                    }
+                }
+            }
+
+            // transaction date if yes than cut base-balance
+            if ($this->checkDate != '') {
+                $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, (int)$this->year . '.month' => $curMonth],
+                    ['$set' => [(int)$this->year . '.$.balance' => $this->baseamount - $this->amount]]
+                );
+                paidStatus($mainID, $this->invoice, $db, $helper);
+            }
             echo 0;
         }
     }
@@ -2906,6 +3231,35 @@ class Bank implements IteratorAggregate
             $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$set' => ['counter' => $incrementNumber + 1]]);
             $id = $incrementNumber + 1;
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+            $curBaseAmout = '';
+
+            $mon = $db->fuelcard->find(['companyID' => (int)$this->companyID, '_id' => $mainID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                        $curBaseAmout = $data['balance'];
+                    }
+                }
+            }
+
+            // in year->month->new month array our there value
+            if ($curMonth == '') {
+                $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
+                    ['$push' => [
+                        $this->year => [
+                            'year' => $this->year,
+                            'month' => $this->nextMonth,
+                            'balance' => (int)$this->baseamount,
+                        ]
+                    ]]
+                );
+            }
+            // logic end
             $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$push' => [
                     $this->month => [
@@ -2925,10 +3279,40 @@ class Bank implements IteratorAggregate
                         'file' => $this->file
                     ]
                 ]]);
+            // transaction date if yes than cut base-balance
+            if ($this->checkDate != '') {
+                $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => (int)$mainID, (int)$this->year . '.month' => $curMonth],
+                    ['$set' => [(int)$this->year . '.$.balance' => (int)$curBaseAmout - (int)$this->amount]]
+                );
+                paidStatus($mainID, $this->invoice, $db, $helper);
+
+            }
             echo $id;
         } else {
             $bank = iterator_to_array($bank);
             $db->fuelcard->insertOne($bank);
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+
+            $mon = $db->fuelcard->find(['companyID' => (int)$this->companyID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                    }
+                }
+            }
+
+            // transaction date if yes than cut base-balance
+            if ($this->checkDate != '') {
+                $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, (int)$this->year . '.month' => $curMonth],
+                    ['$set' => [(int)$this->year . '.$.balance' => $this->baseamount - $this->amount]]
+                );
+                paidStatus($mainID, $this->invoice, $db, $helper);
+
+            }
             echo 0;
         }
     }
@@ -2962,6 +3346,35 @@ class Bank implements IteratorAggregate
             $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$set' => ['counter' => $incrementNumber + 1]]);
             $id = $incrementNumber + 1;
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+            $curBaseAmout = '';
+
+            $mon = $db->fuelcard->find(['companyID' => (int)$this->companyID, '_id' => $mainID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                        $curBaseAmout = $data['balance'];
+                    }
+                }
+            }
+
+            // in year->month->new month array our there value
+            if ($curMonth == '') {
+                $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
+                    ['$push' => [
+                        $this->year => [
+                            'year' => $this->year,
+                            'month' => $this->nextMonth,
+                            'balance' => (int)$this->baseamount,
+                        ]
+                    ]]
+                );
+            }
+            // logic end
             $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$push' => [
                     $this->month => [
@@ -2979,10 +3392,31 @@ class Bank implements IteratorAggregate
                         'file' => $this->file
                     ]
                 ]]);
+            $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => (int)$mainID, (int)$this->year . '.month' => $curMonth],
+                ['$set' => [(int)$this->year . '.$.balance' => (int)$curBaseAmout - (int)$this->amount]]
+            );
+
             echo $id;
         } else {
             $bank = iterator_to_array($bank);
             $db->fuelcard->insertOne($bank);
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+
+            $mon = $db->fuelcard->find(['companyID' => (int)$this->companyID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                    }
+                }
+            }
+
+            $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, (int)$this->year . '.month' => $curMonth],
+                ['$set' => [(int)$this->year . '.$.balance' => $this->baseamount - $this->amount]]
+            );
             echo 0;
         }
     }
@@ -3018,6 +3452,35 @@ class Bank implements IteratorAggregate
             $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$set' => ['counter' => $incrementNumber + 1]]);
             $id = $incrementNumber + 1;
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+            $curBaseAmout = '';
+
+            $mon = $db->fuelcard->find(['companyID' => (int)$this->companyID, '_id' => $mainID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                        $curBaseAmout = $data['balance'];
+                    }
+                }
+            }
+
+            // in year->month->new month array our there value
+            if ($curMonth == '') {
+                $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
+                    ['$push' => [
+                        $this->year => [
+                            'year' => $this->year,
+                            'month' => $this->nextMonth,
+                            'balance' => (int)$this->baseamount,
+                        ]
+                    ]]
+                );
+            }
+            // logic end
             $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$push' => [
                     $this->month => [
@@ -3036,10 +3499,32 @@ class Bank implements IteratorAggregate
                         'file' => $this->file
                     ]
                 ]]);
+            $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => (int)$mainID, (int)$this->year . '.month' => $curMonth],
+                ['$set' => [(int)$this->year . '.$.balance' => (int)$curBaseAmout - (int)$this->amount]]
+            );
+
             echo $id;
         } else {
             $bank = iterator_to_array($bank);
             $db->fuelcard->insertOne($bank);
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+
+            $mon = $db->fuelcard->find(['companyID' => (int)$this->companyID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                    }
+                }
+            }
+
+            $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, (int)$this->year . '.month' => $curMonth],
+                ['$set' => [(int)$this->year . '.$.balance' => $this->baseamount - $this->amount]]
+            );
+
             echo 0;
         }
     }
@@ -3073,6 +3558,35 @@ class Bank implements IteratorAggregate
             $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$set' => ['counter' => $incrementNumber + 1]]);
             $id = $incrementNumber + 1;
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+            $curBaseAmout = '';
+
+            $mon = $db->fuelcard->find(['companyID' => (int)$this->companyID, '_id' => $mainID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                        $curBaseAmout = $data['balance'];
+                    }
+                }
+            }
+
+            // in year->month->new month array our there value
+            if ($curMonth == '') {
+                $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
+                    ['$push' => [
+                        $this->year => [
+                            'year' => $this->year,
+                            'month' => $this->nextMonth,
+                            'balance' => (int)$this->baseamount,
+                        ]
+                    ]]
+                );
+            }
+            // logic end
             $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => $mainID],
                 ['$push' => [
                     $this->month => [
@@ -3091,10 +3605,36 @@ class Bank implements IteratorAggregate
                         'file' => $this->file
                     ]
                 ]]);
+            // transaction date if yes than cut base-balance
+            if ($this->checkDate != '') {
+                $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, '_id' => (int)$mainID, (int)$this->year . '.month' => $curMonth],
+                    ['$set' => [(int)$this->year . '.$.balance' => (int)$curBaseAmout - (int)$this->amount]]
+                );
+            }
             echo $id;
         } else {
             $bank = iterator_to_array($bank);
             $db->fuelcard->insertOne($bank);
+            // logic start
+            // get month and base-balance
+            $curMonth = '';
+
+            $mon = $db->fuelcard->find(['companyID' => (int)$this->companyID]);
+            foreach ($mon as $m) {
+                $y = $m[date("Y")];
+                foreach ($y as $data) {
+                    if ($data['month'] == $this->nextMonth) {
+                        $curMonth = $data['month'];
+                    }
+                }
+            }
+
+            // transaction date if yes than cut base-balance
+            if ($this->checkDate != '') {
+                $db->fuelcard->updateOne(['companyID' => (int)$this->companyID, (int)$this->year . '.month' => $curMonth],
+                    ['$set' => [(int)$this->year . '.$.balance' => $this->baseamount - $this->amount]]
+                );
+            }
             echo 0;
         }
     }
