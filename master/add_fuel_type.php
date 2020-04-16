@@ -13,6 +13,7 @@ if ($_GET['type'] == 'fueltypeadd') {
     $fuelcard->setId($helper->getNextSequence("fuel_Card_Type",$db));
     $fuelcard->setCompanyID($_SESSION['companyId']);
     $fuelcard->setFuelCardType($_POST['fuelcard_type']);
+    $fuelcard->setOpeningfuelBal($_POST['openingfuelBal']);
     $fuelcard->Insert($fuelcard,$db,$helper);
 }
 

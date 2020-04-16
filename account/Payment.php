@@ -249,7 +249,7 @@ require "../database/connection.php";
                         <div class="form-group col-md-2 fuel" style="display:none;">
                             <label>Fuel list</label>
                             <input list="fuelcard2" placeholder="--Select--" class="form-control" id="fuelcardmain"
-                                name="fuelcardmain">
+                                name="fuelcardmain" onchange="baseamountfuel(this.value)">
                             <datalist id="fuelcard2">
                                 <?php
                                 $showsub = $db->fuel_Card_Type->find(['companyID' => $_SESSION['companyId']]);
@@ -264,6 +264,7 @@ require "../database/connection.php";
                                 } ?>
                             </datalist>
                         </div>
+                        <input type="hidden" id="basefuelcard" value="">
                         <div class="form-group col-md-2 fuel" style="display:none;">
                             <label>Payment list</label>
                             <select class="form-control" id="paymentlist">

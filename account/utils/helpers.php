@@ -186,3 +186,28 @@ if ($_GET['type'] == 'basebalancecredit') {
     }
     echo json_encode($output);
 }
+
+//base Amount fuel card
+if ($_GET['type'] == 'basebalancefuelcard') {
+    $id = (int)$_POST['fuelcard'];
+    $collection = $db->fuel_Card_Type;
+    $fuelbase = $collection->aggregate([
+        ['$match' => ['companyID' => $_SESSION['companyId']]],
+        ['$unwind' => '$fuelCard'],
+        ['$match' => ['fuelCard._id' => $id]]
+    ]);
+    $i = 0;
+    foreach ($fuelbase as $fuel) {
+    $fuelCard = array();
+    $a = 0;
+    $fuelCard[$a] = $fuel['fuelCard'];
+    $a++;
+    foreach ($fuelCard as $fuel1) {
+            $f['fuelid'][] = $fuel1['_id'];
+            $f['openingBalancefuel'] = $fuel1['openingfuelBal'];
+            $i++;
+       }
+        $output = $f;
+    }
+    echo json_encode($output);
+}
