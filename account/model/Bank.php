@@ -106,6 +106,38 @@ class Bank implements IteratorAggregate
         $this->invoiceAmount = $invoiceAmount;
     }
 
+/**
+     * @return mixed
+     */
+    public function getFuelcardmain()
+    {
+        return $this->fuelcardmain;
+    }
+
+    /**
+     * @param mixed $fuelcardmain
+     */
+    public function setFuelcardmain($fuelcardmain): void
+    {
+        $this->fuelcardmain = $fuelcardmain;
+    }
+
+/**
+     * @return mixed
+     */
+    public function getPaymentlist()
+    {
+        return $this->paymentlist;
+    }
+
+    /**
+     * @param mixed $paymentlist
+     */
+    public function setPaymentlist($paymentlist): void
+    {
+        $this->paymentlist = $paymentlist;
+    }
+
     /**
      * @return mixed
      */

@@ -22,6 +22,13 @@
                             <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
                         </div>
                     </div>
+                    <div class="form-group col-md-12">
+                        <label>Opening Balance <span style="color: red">*</span></label>
+                        <div>
+                            <input class="form-control" placeholder="Opening Balance * " type="text"
+                                name="openingfuelBal" id="openingfuelBal">
+                        </div>
+                    </div>
                 </div>
                 <span class="mandatory">Note: * Fields are Mandatory</span>
                 <div class="modal-footer">

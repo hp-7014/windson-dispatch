@@ -624,6 +624,37 @@ function baseamount(bankid) {
     });
 }
 
+function baseamountcredit(creditid) {
+    var creditid1 = creditid.split(")");
+    var creditcard = creditid1[0];
+    $.ajax({
+        url: 'account/utils/helpers.php?type=basebalancecredit',
+        method: 'POST',
+        data: {creditcard: creditcard},
+        success: function (data) {
+            var k = JSON.parse(data);
+            var creditamount = k.openingBalancecredit;
+            alert(creditamount);
+            document.getElementById('baseamountcredit').value = creditamount;
+        }
+    });
+}
+
+function baseamountfuel(fuelid) {
+    var fuelid1 = fuelid.split(")");
+    var fuelcard = fuelid1[0];
+    $.ajax({
+        url: 'account/utils/helpers.php?type=basebalancefuelcard',
+        method: 'POST',
+        data: {fuelcard: fuelcard},
+        success: function (data) {
+            var f = JSON.parse(data);
+            var fuelamount = f.openingBalancefuel;
+            document.getElementById('basefuelcard').value = fuelamount;
+        }
+    });
+}
+
 //------------------get company bank base balance end---------------------
 
 // factoring company invoice
@@ -689,6 +720,9 @@ function Paymentadd() {
     var memo = document.getElementById("memo").value
     var companyId = document.getElementById('companyId').value;
     var baseamount = document.getElementById("baseamount").value
+    var baseamountcredit = document.getElementById("baseamountcredit").value
+    var basefuelcard = document.getElementById("basefuelcard").value
+    alert(basefuelcard);
     var payfrom = document.getElementById("type").value
 
     var Companyselect1 = document.getElementById("Companyselect").value
@@ -1051,7 +1085,6 @@ function Paymentadd() {
                     swal('Please Select Only 5 File')
                 }
             } else if (paymentfrom == "creditcard") {
-                alert();
                 var category = "CreditExpense";
                 var expensesbill = document.getElementById("expensesbill").value
                 var expensesname = document.getElementById("expensesname").value
