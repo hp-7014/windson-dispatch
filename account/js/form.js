@@ -832,7 +832,7 @@ function Paymentadd() {
                         data: {
                             fuelcardmain: fuelcardmain,
                             paymentlist: paymentlist,
-
+                            basefuelcard:basefuelcard,
                             paymentfrom: paymentfrom,
                             payto: payto,
                             drivername: drivername,
@@ -946,6 +946,7 @@ function Paymentadd() {
                         url: 'account/payment_driver.php?type=' + 'FuelCardCarrier',
                         type: 'POST',
                         data: {
+                            basefuelcard:basefuelcard,
                             fuelcardmain: fuelcardmain,
                             paymentlist: paymentlist,
                             paymentfrom: paymentfrom,
@@ -1099,6 +1100,7 @@ function Paymentadd() {
                         url: 'account/payment_driver.php?type=' + 'creditexpense',
                         type: 'POST',
                         data: {
+                            baseamountcredit:baseamountcredit,
                             paymentfrom: paymentfrom,
                             payto: payto,
                             expensesbill: expensesbill,
@@ -1138,6 +1140,7 @@ function Paymentadd() {
                         url: 'account/payment_driver.php?type=' + 'FuelCardExpense',
                         type: 'POST',
                         data: {
+                            basefuelcard:basefuelcard,
                             fuelcardmain: fuelcardmain,
                             paymentlist: paymentlist,
                             paymentfrom: paymentfrom,
@@ -1242,6 +1245,7 @@ function Paymentadd() {
                         url: 'account/payment_driver.php?type=' + 'CreditMaintenance',
                         type: 'POST',
                         data: {
+                            baseamountcredit:baseamountcredit,
                             paymentfrom: paymentfrom,
                             Companyselect: Companyselect,
                             payto: payto,
@@ -1291,6 +1295,7 @@ function Paymentadd() {
                         url: 'account/payment_driver.php?type=' + 'FuelCardMaintenance',
                         type: 'POST',
                         data: {
+                            basefuelcard:basefuelcard,
                             fuelcardmain: fuelcardmain,
                             paymentlist: paymentlist,
                             paymentfrom: paymentfrom,
@@ -1378,6 +1383,7 @@ function Paymentadd() {
                         url: 'account/payment_driver.php?type=' + 'CreditInsurance',
                         type: 'POST',
                         data: {
+                            baseamountcredit:baseamountcredit,
                             paymentfrom: paymentfrom,
                             Companyselect: Companyselect,
                             payto: payto,
@@ -1508,6 +1514,7 @@ function Paymentadd() {
                         url: 'account/payment_driver.php?type=' + 'CreditFuelCard',
                         type: 'POST',
                         data: {
+                            baseamountcredit:baseamountcredit,
                             paymentfrom: paymentfrom,
                             payto: payto,
                             fuellist: fuellist,
@@ -1600,6 +1607,7 @@ function Paymentadd() {
                         url: 'account/payment_driver.php?type=' + 'CreditOther',
                         type: 'POST',
                         data: {
+                            baseamountcredit:baseamountcredit,
                             paymentfrom: paymentfrom,
                             payto: payto,
                             other: other,
@@ -1645,6 +1653,7 @@ function Paymentadd() {
                         url: 'account/payment_driver.php?type=' + 'FuelCardOther',
                         type: 'POST',
                         data: {
+                            basefuelcard:basefuelcard,
                             fuelcardmain: fuelcardmain,
                             paymentlist: paymentlist,
                             paymentfrom: paymentfrom,
