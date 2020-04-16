@@ -157,7 +157,8 @@ if ($_GET['type'] == "add_new_load") {
         }
         $activeload->updatefile($activeload, $db, $id);
     }
-} 
+}
+
 // change Load Status
 else if ($_GET['type'] == 'changeStatus') {
     $arrayName = $_POST['old_array'];
@@ -286,4 +287,3 @@ else if ($_GET['type'] == 'changeStatus') {
     }
     echo "Data Update Successfully";
 }
-

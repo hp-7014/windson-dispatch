@@ -1,5 +1,6 @@
 <?php
 @session_start();
+
 //require 'utils/Helper.php'; // helper method
 
 class ActiveLoad implements IteratorAggregate
@@ -1565,6 +1566,93 @@ class ActiveLoad implements IteratorAggregate
             // after copying all data remove from the old location
             $oldCollection = $this->oldArray;
             $db->$oldCollection->updateOne(['companyID' => (int)$_SESSION['companyId']], ['$pull' => ['load' => ['_id' => (int)$this->id]]]);
+        }
+    }
+
+    public function insertPaid($activeload, $db, $helper)
+    {
+        $criteria = array(
+            'companyID' => (int)$_SESSION['companyId'],
+        );
+        $doc = $db->Paid->findOne($criteria);
+        if (!empty($doc)) {
+            echo "second";
+            $db->Paid->updateOne(['companyID' => (int)$_SESSION['companyId']], ['$push' => ['load' => [
+                '_id' => $this->id,
+                'company' => $this->company,
+                'customer' => $this->customer,
+                'dispatcher' => $this->dispatcher,
+                'cnno' => $this->cnno,
+                'status' => $this->status,
+                'active_type' => $this->active_type,
+                'rate' => $this->rate,
+                'units' => $this->units,
+                'fsc' => $this->fsc,
+                'fsc_percentage' => $this->fsc_percentage,
+                'other_charges' => $this->other_charges,
+                'other_charges_modal' => $this->other_charges_modal,
+                'total_rate' => $this->total_rate,
+                'equipment_type' => $this->equipment_type,
+                'typeofloader' => $this->typeofLoader,
+                'carrier_name' => $this->carrier_name,
+                'flat_rate' => $this->flat_rate,
+                'advance_charges' => $this->advance_charges,
+                'carrier_other_modal' => $this->carrier_other_modal,
+                'carrier_total' => $this->carrier_total,
+                'currency' => $this->currency,
+                'driver_name' => $this->driver_name,
+                'truck' => $this->truck,
+                'trailer' => $this->trailer,
+                'loaded_mile' => $this->loaded_mile,
+                'empty_mile' => $this->empty_mile,
+                'driver_other' => $this->driver_other,
+                'driver_other_modal' => $this->driver_other_modal,
+                'tarp' => $this->tarp,
+                'flat' => $this->flat,
+                'driver_total' => $this->driver_total,
+                'owner_name' => $this->owner_name,
+                'owner_percentage' => $this->owner_percentage,
+                'owner_truck' => $this->owner_truck,
+                'owner_trailer' => $this->owner_trailer,
+                'owner_other' => $this->owner_other,
+                'owner_other_modal' => $this->owner_other_modal,
+                'owner_total' => $this->owner_total,
+                'start_location' => $this->start_location,
+                'end_location' => $this->end_location,
+                'shipper' => $this->shipper,
+                'consignee' => $this->consignee,
+                'tarp_select' => $this->tarp_select,
+                'loaded_miles_value' => $this->loaded_miles_value,
+                'empty_miles_value' => $this->empty_miles_value,
+                'driver_miles_value' => $this->driver_miles_value,
+                'file' => $this->file,
+                'load_notes' => $this->load_notes,
+                'carrier_email' => $this->carrier_email,
+                'customer_email' => $this->customer_email,
+                'created_user' => $_SESSION['companyName'],
+                'created_at' => time(),
+                'updated_at' => time(),
+                'status_BreakDown_time' => $this->status_Break_Down_time,
+                'status_Loaded_time' => $this->status_Loaded_time,
+                'status_ArrivedConsignee_time' => $this->status_Arrived_Consignee_time,
+                'status_ArrivedShipper_time' => $this->status_Arrived_Shipper_time,
+                'status_Paid_time' => $this->status_Paid_time,
+                'status_Open_time' => $this->status_Open_time,
+                'status_OnRoute_time' => $this->status_On_Route_time,
+                'status_Dispatched_time' => $this->status_Dispatched_time,
+                'status_Delivered_time' => $this->status_Delivered_time,
+                'status_Completed_time' => $this->status_Completed_time,
+                'status_Invoiced_time' => $this->status_Invoiced_time,
+            ]]]);
+
+            $db->Invoiced->updateOne(['companyID' => (int)$_SESSION['companyId']], ['$pull' => ['load' => ['_id' => (int)$this->id]]]);
+
+        } else {
+            echo "first";
+            $cons = iterator_to_array($activeload);
+            $db->Paid->insertOne($cons);
+
+            $db->Invoiced->updateOne(['companyID' => (int)$_SESSION['companyId']], ['$pull' => ['load' => ['_id' => (int)$this->id]]]);
         }
     }
 }
