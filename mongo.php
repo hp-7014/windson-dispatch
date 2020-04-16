@@ -6,49 +6,117 @@ $connection = new MongoDB\Client("mongodb://127.0.0.1");
 $db = $connection->WindsonDispatch;
 
 
-$collection = $db->fuelcard;
-$year = 2020;
-$month = "April";
-$fuelcard = $collection->aggregate([
-            ['$match'=>['companyID'=>1,'year'=>$year]],
-            ['$unwind'=>'$'.$month],
-            ['$match'=>[$month.'.payto'=>"FuelCardDriver"]]
-            ]);
-            foreach($fuelcard as $fcard) {
-                $j = 0;
-                $mont[$j]= $fcard[$month];
-                $j++;
-                foreach($mont as $fcard1) {
-                    $i++;
-                    $fcardid = $fcard1['_id'];
-                    $fuelcardmain = $fcard1['fuelcardmain'];
-                    $paymentlist = $fcard1['paymentlist'];
-                    $bankname = $fcard1['bankname'];
-                    $payto = $fcard1['payto'];
-                    $driver = $fcard1['driver'];
-                    $debitcategory = $fcard1['debitcategory'];
-                    $amount = $fcard1['amount'];
-                    $advance = $fcard1['advance'];
-                    $finalamount = $fcard1['finalamount'];
-                    $checkdate = $fcard1['checkdate'];
-                    $cheque = $fcard1['cheque'];
-                    $ach = $fcard1['ach'];
-                    $memo = $fcard1['memo'];
+            $show_company = $db->company->find(['companyID' => 1]);
+            foreach ($show_company as $showcompany) {
+                $company = $showcompany['company'];
+                $companyname = array();
+                foreach ($company as $sc) {
+                    $companyid = $sc['_id'];
+                    $companyname[$companyid] = $sc['companyName'];
+                }
+            }
 
-                    echo $table .= "<td>$i</td>
-                    <td>$paymentfrom</td>
-                    <td>$companyselect</td>
-                    <td>$bankname</td>
-                    <td>$payto</td>
-                    <td>$driver</td>
-                    <td>$debitcategory</td>
-                    <td>$amount</td>
-                    <td>$advance</td>
-                    <td>$finalamount</td>
-                    <td>$checkdate</td>
-                    <td>$cheque</td>
-                    <td>$ach</td>
-                    <td>$memo</td>";
+            $show_bank = $db->bank_admin->find(['companyID' => 1]);
+            foreach ($show_bank as $showbank) {
+                $bank = $showbank['admin_bank'];
+                $bankname = array();
+                foreach ($bank as $row) {
+                    $bankid = $row['_id'];
+                    $bankname[$bankid] = $row['bankName'];
+                }
+            }
+
+            $showdriver = $db->driver->find(['companyID' => 1]);
+            foreach ($showdriver as $drivername) {
+                $driver = $drivername['driver'];
+                $driverName = array();
+                foreach ($driver as $sd) {
+                    $driverid = $sd['_id'];
+                    $driverName[$driverid] = $sd['driverName'];
+                }
+            }
+
+            $showdebit = $db->bank_debit_category->find(['companyID' => 1]);
+            foreach ($showdebit as $showbankdebit) {
+                $bankdebit = $showbankdebit['bank_debit'];
+                $bankNamedebit = array();
+                foreach ($bankdebit as $sb) {
+                     $debitid = $sb['_id'];
+                     $bankNamedebit[$debitid] = $sb['bankName'];
+                }
+            }
+
+            $showfuel = $db->fuel_Card_Type->find(['companyID' => 1]);
+            foreach ($showfuel as $showfuelmaster) {
+                $fuelcard = $showfuelmaster['fuelCard'];
+                $fuelCardType = array();
+                foreach ($fuelcard as $sf) {
+                     $fuelid = $sf['_id'];
+                     $fuelCardType[$fuelid] = $sf['fuelCardType'];
+                }
+            }
+
+            
+            $collection = $db->fuelcard;
+            $year = 2020;
+            $month = "April";
+            $fuelcard = $collection->aggregate([
+                        ['$match'=>['companyID'=>1,'year'=>$year]],
+                        ['$unwind'=>'$'.$month],
+                        ['$match'=>[$month.'.payto'=>"FuelCardDriver"]]
+                        ]);
+                        
+                        $mont = array();
+                        foreach($fuelcard as $roww) {
+                            $id = $roww['_id'];
+                            $j = 0;
+                            $mont[$j]= $roww[$month];
+                            $j++;
+                            foreach($mont as $row3) {
+                                $fid = $row3['_id'];
+                                $fuelcardmain = $fuelCardType[$row3['fuelcardmain']];
+                                $fuelpaymentlist = $row3['paymentlist'];
+                                $fuelpaymentfrom = $row3['paymentfrom'];
+                                $fuelpayto = $row3['payto'];
+                                $fueldebitcategory = $bankNamedebit[$row3['debitcategory']];
+                                $fuelamount = $row3['amount'];
+                                $fueladvance = $row3['advance'];
+                                $fuelfinalamount = $row3['finalamount'];
+                                $fuelcheckdate = $row3['checkdate'];
+                                $fuelcheque = $row3['cheque'];
+                                $fuelach = $row3['ach'];
+                                $fuelmemo = $row3['memo'];
+                            }
+                        }
+                        
+            $collection = $db->payment_bank;
+            $show1 = $collection->aggregate([
+                    ['$match'=>['companyID'=>1,'year'=>$year]],
+                    ['$unwind'=>'$'.$month],
+                    ['$match'=>[$month.'.payto'=>"driver"]]
+                    ]);
+
+            $mon = array();
+            foreach($show1 as $row) {
+                $id = $row['_id'];
+                $k = 0;
+                $mon[$k]= $row[$month];
+                $k++;
+                foreach($mon as $row1) {
+                    $docid = $row1['_id'];
+                    $paymentfrom = $row1['paymentfrom'];
+                    $companyselect = $companyname[$row1['companyselect']]."<br>";
+                    $banknamedriver = $bankname[$row1['bankname']]."<br>";
+                    $payto = $row1['payto'];
+                    $driver = $driverName[$row1['driver']]."<br>";
+                    $debitcategorybank = $bankNamedebit[$row1['debitcategory']]."<br>";
+                    $amount = $row1['amount'];
+                    $advance = $row1['advance'];
+                    $finalamount = $row1['finalamount'];
+                    $checkdate = $row1['checkdate'];
+                    $cheque = $row1['cheque'];
+                    $ach = $row1['ach'];
+                    $memo = $row1['memo'];
                 }
             }
 // $collection = $db->user;

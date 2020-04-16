@@ -722,7 +722,6 @@ function Paymentadd() {
     var baseamount = document.getElementById("baseamount").value
     var baseamountcredit = document.getElementById("baseamountcredit").value
     var basefuelcard = document.getElementById("basefuelcard").value
-    alert(basefuelcard);
     var payfrom = document.getElementById("type").value
 
     var Companyselect1 = document.getElementById("Companyselect").value
