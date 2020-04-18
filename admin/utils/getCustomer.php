@@ -168,7 +168,7 @@ if ($_GET['types'] == 'live_customer_table') {
 
         }
     }
-    echo $table."^".$pages;
+    echo $table."^".$pages."^".$list;
 }
 
 if ($_GET['types'] == 'search_text') {

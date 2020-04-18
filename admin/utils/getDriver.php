@@ -203,7 +203,7 @@ if ($_GET['types'] == 'live_driver_table') {
 
         }
     }
-    echo $table."^".$pages;
+    echo $table."^".$pages."^".$list;
 }
 
 if ($_GET['types'] == 'search_text') {

@@ -102,8 +102,20 @@ include '../database/connection.php';
                     <div class="form-group col-md-2">
                         <label for="currencysetting">Currency Setting <span class="mandatory">*</span></label> <i
                             title="Add Currency" class="mdi mdi-plus-circle plus" id="AddCurrency"></i>
-                        <input id="fcurrency" name="fcurrency" placeholder="Currency Setting *" class="form-control"
+                        <input id="fcurrency" name="fcurrency" placeholder="--Select--" class="form-control"
                             list="currencyset" />
+                            <datalist id="currencyset">
+                            <?php
+                                        $show_currency = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
+                                        $no = 1;
+                                        foreach ($show_currency as $showcurrency) {
+                                            $currency = $showcurrency['currency'];
+                                            foreach ($currency as $scur) {
+                                                $currencyValue = "'" . $scur['_id'] . ")&nbsp;" . $scur['currencyType'] . "'";
+                                                echo "<option value=$currencyValue></option>";
+                                            }
+                                        } ?>
+                            </datalist>
 
                     </div>
                     <div class="form-group col-md-2">

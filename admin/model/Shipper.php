@@ -485,7 +485,7 @@ class Shipper implements IteratorAggregate
             $id[] = $s['_id'];
             $counter[] = $s['counter'];
 
-            if ($counter[$i] < 2) {
+            if ($counter[$i] < 5000) {
                 $mainID = $id[$i];
                 $incrementNumber = $counter[$i];
             }

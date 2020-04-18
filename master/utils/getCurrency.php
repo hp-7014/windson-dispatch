@@ -6,9 +6,8 @@ require "../../database/connection.php";
  $show = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
  $i = 0;
  $table = "";
- $list = "<option value='0'>--Select--</option>";
- $list1 = "<option value='0'>--Select--</option>";
- $list2 = "<option value='0'>--Select--</option>";
+ $list = "";
+ $list1 = "";
  foreach ($show as $row) {
     $show1 = $row['currency'];
     foreach ($show1 as $row1) {
@@ -23,7 +22,7 @@ require "../../database/connection.php";
         $title = '"Currency Type"';
         $c_type = '"'.$currencyType.'"';
         
-        echo "<tr>
+        $table .= "<tr>
             <th>$i</th>
             <td id='currencyType$i'
                 onmouseover='showPencil_s($pencilid)'
@@ -36,15 +35,15 @@ require "../../database/connection.php";
             </td>";
 
         if ($counter == 0) { 
-            echo "<td><a href='#' onclick='deleteCurrency($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+            $table .= "<td><a href='#' onclick='deleteCurrency($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
         } else {
-            echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+            $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
         }
         
         $list .= "<option value=".$id.">".$currencyType."</option>";
         $list1 .= "<option value=$id)$currencyType></option>";
-        $list2 .= "<option value=$id>$currencyType</option>";
+    
     }
 }
 
- //echo $table."^".$list."^".$list1."^".$list2;
+ echo $table."^".$list."^".$list1;

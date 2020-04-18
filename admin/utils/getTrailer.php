@@ -300,7 +300,7 @@
                     </li>";
 
             }
-            echo $table."^".$pages;
+            echo $table."^".$pages."^".$list;
         }
     }
 

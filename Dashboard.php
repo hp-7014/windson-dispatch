@@ -365,7 +365,7 @@ require "database/connection.php";
                                         foreach ($show_trailer as $showtrailer) {
                                             $trailer = $showtrailer['trailer'];
                                             foreach ($trailer as $stra) {
-                                                $trialerValue = "'" . $stra['_id'] . ")&nbsp;" . $stra['trialerNumber'] . "'";
+                                                $trialerValue = "'" . $stra['_id'] . ")&nbsp;" . $stra['trailerNumber'] . "'";
                                                 echo "<option value=$trialerValue></option>";
                                             }
                                         } ?>
@@ -547,25 +547,25 @@ require "database/connection.php";
                                                 <input list="shipper" class="form-control" placeholder="--Select--"
                                                     id="shipperlist" name="shipperlist"
                                                     onchange="getShipper(this.value,0); ">
-                                                <datalist id="shipper">
+                                                <datalist id="shipper" name = "shipper">
                                                     <?php
 
-                                                        // $collection = $db->shipper;
-                                                        // $show1 = $collection->aggregate([
-                                                        //         ['$match'=>['companyID'=>$_SESSION['companyId']]],
-                                                        //         ['$unwind'=>'$shipper'],
-                                                        //         ['$match'=>['shipper.shipperStatus'=>"Active"]]
-                                                        //     ]);
+                                                        $collection = $db->shipper;
+                                                        $show1 = $collection->aggregate([
+                                                                ['$match'=>['companyID'=>$_SESSION['companyId']]],
+                                                                ['$unwind'=>'$shipper'],
+                                                                ['$match'=>['shipper.shipperStatus'=>"Active"]]
+                                                            ]);
 
-                                                        //     foreach ($show1 as $row) {
-                                                        //         $s = 0;
-                                                        //         $shipper[$s] = $row['shipper'];
-                                                        //         $s++;
-                                                        //         foreach ($shipper as $row1) {
-                                                        //             $shipperValue = "'".$row1['_id'].")&nbsp;".$row1['shipperName']."'";
-                                                        //              echo "<option value=$shipperValue></option>";
-                                                        //         }
-                                                        //     }
+                                                            foreach ($show1 as $row) {
+                                                                $s = 0;
+                                                                $shipper[$s] = $row['shipper'];
+                                                                $s++;
+                                                                foreach ($shipper as $row1) {
+                                                                    $shipperValue = "'".$row1['_id'].")&nbsp;".$row1['shipperName']."'";
+                                                                     echo "<option value=$shipperValue></option>";
+                                                                }
+                                                            }
                                                         ?>
                                                 </datalist>
                                             </div>
@@ -699,7 +699,7 @@ require "database/connection.php";
                                                     <input list="consigneee" class="form-control"
                                                         placeholder="--Select--" id="consigneelist" name="consigneelist"
                                                         onchange="getConsignee(this.value,0)">
-                                                    <datalist id="consigneee">
+                                                    <datalist id="consigneee" name = "consignee">
                                                         <?php
                                                             $collection = $db->consignee;
                                                             $show1 = $collection->aggregate([
@@ -871,23 +871,24 @@ require "database/connection.php";
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>Send Rate Con via email</label>
-                                <div class="toggle-switch">
-                                    <input type="checkbox" id="carrierratecon" name="carrierratecon" checked>
-                                    <label for="carrierratecon">
-                                        <span class="toggle-track"></span>
-                                        Carrier
-                                    </label>
+                                <label>Send carrier rate con</label>
+                                <div>
+                                    
+                                
+                                    <button id="carrierratecon" name="carrierratecon"
+                                        class="btn btn-outline-primary waves-effect waves-light">
+                                        Add Email
+                                    </button>
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
-                                <label>Send Rate Con via email</label>
-                                <div class="toggle-switch">
-                                    <input type="checkbox" id="customerratecon" name="customerratecon" checked>
-                                    <label for="customerratecon">
-                                        <span class="toggle-track"></span>
-                                        Customer
-                                    </label>
+                                <label>Send customer rate con</label>
+                                <div>
+                                    
+                                    <button id="customerratecon" name="customerratecon"
+                                        class="btn btn-outline-primary waves-effect waves-light">
+                                        Add Email
+                                    </button>
                                 </div>
                             </div>
                         </div>

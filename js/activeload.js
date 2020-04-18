@@ -38,7 +38,7 @@ function add_fields() {
         '                                            <div class="form-group col-md-3">\n' +
         '                                                <label>Name*</label>\n' +
         '                                                 <input list="shipper' + room + '" class="form-control" placeholder="--Select--" id="shipperlist' + room + '" name="shipperlist" onchange="getShipper(this.value,' + room + '); ">\n' +
-        '                                                 <datalist id="shipper' + room + '">\n' +
+        '                                                 <datalist id="shipper' + room + '" name="shipper">\n' +
         '                                                 </datalist>\n' +
         '                                            </div>\n' +
         '                                            <div class="form-group col-md-2">\n' +
@@ -241,7 +241,7 @@ function add_consignee() {
         '                                            <div class="form-group col-md-3">\n' +
         '                                                <label>Name*</label>\n' +
         '                                                <input list="consigneee' + count + '" class="form-control" placeholder="--Select--" id="consigneelist' + count + '" name="consigneelist" onchange="getConsignee(this.value,' + count + ')">\n' +
-        '                                                 <datalist id="consigneee' + count + '">\n' +
+        '                                                 <datalist id="consigneee' + count + '" name = "consignee">\n' +
         '                                                 </datalist>\n' +
         '                                            </div>\n' +
         '                                            <div class="form-group col-md-2">\n' +
@@ -415,7 +415,7 @@ function Showowner() {
 
 function getShip(shipID) {
     $.ajax({
-        url: 'admin/utils/getShipper.php',
+        url: 'admin/utils/getShipper.php?type=live_shipper_table',
         type: 'POST',
         success: function(data) {
             document.getElementById(shipID).innerHTML += data;
@@ -425,7 +425,7 @@ function getShip(shipID) {
 
 function getConsig(consigID) {
     $.ajax({
-        url: 'admin/utils/getConsignee.php',
+        url: 'admin/utils/getConsignee.php?types=live_consignee_table',
         type: 'POST',
         success: function(data) {
             document.getElementById(consigID).innerHTML += data;
@@ -586,6 +586,21 @@ $(document).on("click", "#add_Owner_Other", function() {
         }
     });
 });
+
+$(document).on("click", "#ownerothercharges", function() {
+
+    $.ajax({
+        type: 'POST',
+        success: function(data) {
+            $('.activeload-container').load('admin/owner_other_charges_modal.php', function(result) {
+                $('#ownerOtherCharges').modal({ show: true });
+            });
+            setTimeout(function() {
+                addOwnerFields();
+            }, 300);
+        }
+    });
+});
 $(document).on("click", "#add_Driver_Other", function() {
 
     $.ajax({
@@ -600,6 +615,22 @@ $(document).on("click", "#add_Driver_Other", function() {
         }
     });
 });
+
+$(document).on("click", "#driverothercharges", function() {
+
+    $.ajax({
+        type: 'POST',
+        success: function(data) {
+            $('.activeload-container').load('admin/driver_other_charges_modal.php', function(result) {
+                $('#driverOtherCharges').modal({ show: true });
+            });
+            setTimeout(function() {
+                addDriverFields();
+            }, 300);
+        }
+    });
+});
+
 $(document).on("click", "#add_carrier_other", function() {
 
     $.ajax({
@@ -1393,6 +1424,9 @@ function calculateMiles() {
     var consigLoc = document.getElementsByName('activeconsignee');
     var consigseq = document.getElementsByName('consigseq');
     var locations = [];
+    if(startLocation != ""){
+        locations.push({ seq: "0", location: startLocation});
+    }
     for (var i = 0; i < shipLoc.length; i++) {
         if (shipLoc[i].value == "") {
             swal({
@@ -1431,6 +1465,10 @@ function calculateMiles() {
         locations.push({ seq: consigseq[i].value, location: consigLoc[i].value });
     }
 
+    if(endLocation != ""){
+        locations.push({ seq: "300", location: endLocation});
+    }
+
     if (locations.length <= 1) {
         swal({
             title: '<h5>There should be atleast one shipper and one consignee</h5>',
@@ -1447,33 +1485,16 @@ function calculateMiles() {
         return;
     }
     locations.sort(compare);
-    if (startLocation != "") {
-        calcRoute(startLocation, locations[0].location, "empty");
+    var waypts = [];
+    for(var i = 0; i < locations.length; i++){
+        waypts.push({location:locations[i].location, stopover:true});
     }
-    if (endLocation != "") {
-        calcRoute(endLocation, locations[locations.length - 1].location, "empty");
-    }
-    for (var i = 0; i < locations.length - 1; i++) {
-        calcRoute(locations[i].location, locations[i + 1].location, "loaded");
-        //  alert(locations[i].location);
-        //  console.log(locations[i])+"\n";
-    }
-
-    setTimeout(function() {
-        document.getElementById('drivermiles').value = parseFloat(parseFloat(document.getElementById('emptymiles').value) + parseFloat(document.getElementById('loadedmiles').value)).toFixed(2);
-        //alert("Empty Miles"+document.getElementById('emptymiles').value+"Loaded Miles" + document.getElementById('loadedMiles'));
-        if (document.getElementById('driver').checked) {
-
-            getDriverTotal();
-        }
-
-    }, 1250);
+    calcRoute(waypts);
 
 }
 
 
 function compare(a, b) {
-    // Use toUpperCase() to ignore character casing
     const seqA = a.seq;
     const seqB = b.seq;
 
@@ -1487,36 +1508,69 @@ function compare(a, b) {
 }
 
 
-function calcRoute(start, end, type) {
+function calcRoute(waypts) {
+    console.log(waypts);
     var request = {
-        origin: start,
-        destination: end,
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.IMPERIAL
-    }
+		origin: waypts[0].location,
+		destination:waypts[waypts.length - 1].location,
+		waypoints: waypts,
+		optimizeWaypoints: true,
+		travelMode: google.maps.DirectionsTravelMode.DRIVING,
+		unitSystem: google.maps.DirectionsUnitSystem.METRIC
+	};
 
 
-    directionsService.route(request, function(result, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-            distance = result.routes[0].legs[0].distance.text;
-            duration = result.routes[0].legs[0].duration.text;
-            if (type == "empty") {
-                //alert(distance+"between"+start+" and "+end);
-                distance = distance.replace(",", "");
-                document.getElementById('emptymiles').value = parseFloat(document.getElementById('emptymiles').value) + parseFloat(distance);
-            } else {
-                //alert(distance+"between"+start+" and "+end);
-                distance = distance.replace(",", "");
-                document.getElementById('loadedmiles').value = parseFloat(document.getElementById('loadedmiles').value) + parseFloat(distance);
-            }
-        } else {
-            directionsDisplay.setDirections({ routes: [] });
-            map.setCenter(myLatLng);
-        }
-    });
+    directionsService.route(request, function (response, status) {
 
+		if (status == google.maps.DirectionsStatus.OK) {
+			var distance = 0;
+            var time_taken = 0;
+            var empty_km = 0;
+			for (var i = 0; i < response.routes[0].legs.length; i++) {
+                if(i == 1){
+                    empty_km += response.routes[0].legs[i].distance.value;
+                }
+                if(i == response.routes[0].legs.length - 2){
+                    empty_km += response.routes[0].legs[i].distance.value;
+                }
+				distance += response.routes[0].legs[i].distance.value;
+				time_taken += response.routes[0].legs[i].duration.value;
+			}
+
+
+			var calc_distance = distance;
+
+			function roundNumber(numbr, decimalPlaces) {
+
+				var placeSetter = Math.pow(10, decimalPlaces);
+				numbr = Math.round(numbr * placeSetter) / placeSetter;
+				return numbr;
+
+			}
+
+			var mi = calc_distance / 1.609;
+			mi = mi / 1000;
+            mi = roundNumber(mi, 2);
+
+            var empty_mi = empty_km / 1.609;
+            empty_mi = empty_mi / 1000;
+            empty_mi = roundNumber(empty_mi, 2);
+            
+            $("#drivermiles").val(mi);
+            $("#loadedmiles").val(mi - empty_mi);
+            $("#emptymiles").val(empty_mi);
+            
+		} else {
+
+			alert("Unable to find route!!!");
+
+		}
+
+	});
 
 }
+
+
 
 //________________________________________________________________
 // carrieremail variable

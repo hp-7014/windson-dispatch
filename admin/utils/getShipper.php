@@ -3,7 +3,7 @@ session_start();
 $helper = "helper";
 require "../../database/connection.php";
 
-if ($_GET['types'] == 'live_shipper_table') {
+if ($_GET['type'] == 'live_shipper_table') {
    // $show = $db->shipper->find(['companyID' => $_SESSION['companyId']]);
     $limit = 100;
     $cursor = $db->shipper->find(array('companyID' => $_SESSION['companyId']));
@@ -264,13 +264,15 @@ if ($_GET['types'] == 'live_shipper_table') {
                     </td>";
 
                 if ($counter == 0) { 
-                    echo "<td><a href='#' onclick='deleteShipper($masterID)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                    $table .= "<td><a href='#' onclick='deleteShipper($masterID)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
                 } else {
                     $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
                 }
+                if($shipperStatus == 'Active'){
 
-            $value = "'".$id.")&nbsp;".$shipperName."'";
-            $list .="<option value=$value></option>";
+                    $value = "'".$id.")&nbsp;".$shipperName."'";
+                    $list .="<option value=$value></option>";
+                }
               
         }
 
@@ -303,10 +305,10 @@ if ($_GET['types'] == 'live_shipper_table') {
 
         }
     }
-    echo $table."^".$pages;
+    echo $table."^".$pages."^".$list;
 }
 
-if ($_GET['types'] == 'search_text') {
+if ($_GET['type'] == 'search_text') {
     $show = $db->shipper->find(['companyID' => $_SESSION['companyId']]);
     $i = 0;
     $table = "";
@@ -829,7 +831,7 @@ if ($_GET['types'] == 'search_text') {
     }
 }
 
-if ($_GET['types'] == 'paginate_ship') {
+if ($_GET['type'] == 'paginate_ship') {
     $start = (int)$_POST['start'];
     $limit = (int)$_POST['limit'];
     $i = 0;

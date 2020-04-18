@@ -397,7 +397,7 @@ database.ref(companytest).on('child_removed', function (data) {
 
 function updateCompanyTable() {
     var companyBody = document.getElementById('companyBody');
-    var selectCompany = document.getElementById('selectCompany');
+    var selectCompany = document.getElementById('browserscompany');
     var AccountHolderCompany = document.getElementById('accountHolder');
     $.ajax({
         url: 'master/utils/getCompany.php',
@@ -493,6 +493,8 @@ function deleteCompany(id, factoringid) {
         });
     }
 }
+
+
 
 // update function
 function updateCompany(column, id, value) {
@@ -821,7 +823,7 @@ function updateCurrencyTable() {
     var currencyBody = document.getElementById('currencyBody');
     var currencyList = document.getElementById('selectCurrency');
     var currencyFactoring = document.getElementById('currencyset');
-    var currencySetting = document.getElementById('currencySetting');
+    //var currencySetting = document.getElementById('currencySetting');
     var currencyList1 = document.getElementById('driverCurrency');
 
     $.ajax({
@@ -840,9 +842,10 @@ function updateCurrencyTable() {
             if (currencyFactoring != null) {
                 currencyFactoring.innerHTML = res[2];
             }
-            if (currencySetting != null) {
-                currencySetting.innerHTML = res[3];
+            if (currencyList1 != null) {
+                currencyList1.innerHTML = res[2];
             }
+            
         },
         error: function () {
             swal("Try again !", "Problem occurred while updating your record", "error");
@@ -990,16 +993,21 @@ database.ref(equipmenttest).on('child_removed', function (data) {
 
 function updateEquipmentTypeTable() {
     var equipmentBody = document.getElementById('equipmentBody');
-    //var equipmentList = document.getElementById('browsersequipment');
+    var equipmentList = document.getElementById('browsersequipment');
     $.ajax({
         url: 'master/utils/getEquipmentType.php',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
-            //var res = response.split('^');
+            var res = response.split('^');
             if (equipmentBody != null) {
-                equipmentBody.innerHTML = response;
+                equipmentBody.innerHTML = res[0];
             }
+
+            if (equipmentList != null) {
+                equipmentList.innerHTML = res[1];
+            }
+
         },
         error: function () {
             swal("Try again !", "Problem occurred while updating your record", "error");

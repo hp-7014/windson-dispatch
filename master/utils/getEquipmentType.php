@@ -20,7 +20,7 @@ foreach ($show as $row) {
         $title = '"Equipment Type"';
         $c_type = '"'.$equipmentType.'"';
         
-        echo "<tr>
+        $table .= "<tr>
             <th> $i</th>
             <td class='custom-text' id='equipmentType$i'
             onmouseover='showPencil_s($pencilid)'
@@ -33,14 +33,14 @@ foreach ($show as $row) {
             </td>";
 
         if ($counter == 0) { 
-        echo "<td><a href='#' onclick='deleteEquipment($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+        $table .= "<td><a href='#' onclick='deleteEquipment($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
         } else {
-        echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+        $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
         }
 
         $value = "'".$id.")&nbsp;".$equipmentType."'";
         $list .= "<option value=$value></option>";
     }
 
-    //echo $table;
+    echo $table ."^". $list;
 }

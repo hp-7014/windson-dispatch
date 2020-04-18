@@ -262,7 +262,7 @@ if($_GET['types'] == 'live_consignee_table') {
                     </td>";
 
                 if ($counter == 0) { 
-                    echo "<td><a href='#' onclick='deleteConsignee($masterID)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+                    $table .= "<td><a href='#' onclick='deleteConsignee($masterID)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
                 } else {
                     $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
                 }
@@ -300,7 +300,7 @@ if($_GET['types'] == 'live_consignee_table') {
 
         }
     }
-    echo $table."^".$pages;
+    echo $table."^".$pages."^".$list;
 }
 
 if ($_GET['types'] == 'search_text') {

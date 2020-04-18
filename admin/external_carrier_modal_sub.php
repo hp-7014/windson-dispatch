@@ -515,7 +515,7 @@ require "../database/connection.php";
                                     Primary Email</label>
                                 <div>
                                     <input class="form-control" type="email"
-                                           value="bootstrap@example.com" id="primaryEmail" name="primaryEmail">
+                                           value="" id="primaryEmail" name="primaryEmail">
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
@@ -538,7 +538,7 @@ require "../database/connection.php";
                                     Secondary Email</label>
                                 <div>
                                     <input class="form-control" type="email"
-                                           value="bootstrap@example.com"
+                                           value=""
                                            id="secondaryEmail" name="secondaryEmail">
                                 </div>
 

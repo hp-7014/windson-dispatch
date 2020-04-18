@@ -25,7 +25,7 @@ require "../../database/connection.php";
         $c_type1 = '"'.$loadName.'"';
         $c_type2 = '"'.$loadType.'"';
 
-        echo "<tr>
+        $table .= "<tr>
              <th> $i</th>
              <td class='custom-text' id='loadName$i'
                 onmouseover='showPencil_s($pencilid1)'
@@ -47,13 +47,13 @@ require "../../database/connection.php";
              </td>";
 
          if ($counter == 0) { 
-            echo "<td><a href='#' onclick='deleteloadType($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+            $table .= "<td><a href='#' onclick='deleteloadType($id)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
          } else {
-            echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+            $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
          }
 
          $value = "'".$id.")&nbsp;".$loadName."'";
-         //$list .= "<option value=$value></option>";
+         $list .= "<option value=$value></option>";
     }
-      //echo $table."^".$list;
+      echo $table."^".$list;
 }

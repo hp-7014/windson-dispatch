@@ -7,6 +7,7 @@ require "../../database/connection.php";
 $company_data = $db->company->find(['companyID' => $_SESSION['companyId']]);
 $i = 0;
 $option = "";
+$option1 = "";
 $table = "";
 foreach ($company_data as $s_type) {
     $show1 = $s_type['company'];
@@ -61,7 +62,7 @@ foreach ($company_data as $s_type) {
         $c_type8 = '"'.$factoringCompany.'"';
         //  $c_type9 = '"'.$factoringCompanyAddress.'"';
 
-        echo "<tr>
+        $table .=  "<tr>
             <th> $i</th>
             <td class='custom-text' id='companyName$i'
                 onmouseover='showPencil_s($pencilid1)'
@@ -131,13 +132,13 @@ foreach ($company_data as $s_type) {
             </td>";
 
         if ($counter == 0) { 
-            echo "<td><a href='#' onclick='deleteCompany($id,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
+            $table .= "<td><a href='#' onclick='deleteCompany($id,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a></td>";
         } else {
-            echo "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
+            $table .= "<td><a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a></td></tr>";
         }
 
-        $option .= "<option value='$companyName'>$companyName</option>";
-        // $option1 .= "<option value='$id'>$companyName</option>";
+        //$option .= "<option value='$companyName'>$companyName</option>";
+         $option1 .= "<option value='$id'>$companyName</option>";
 
         $value = "'".$id.')&nbsp;'.$companyName."'";
 
@@ -145,4 +146,4 @@ foreach ($company_data as $s_type) {
     }
 }
 
-//echo $table."^".$option."^".$option1;
+echo $table."^".$option."^".$option1;

@@ -61,9 +61,9 @@ include '../database/connection.php';
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label>Mailing Address: <span class="mandatory">*</span></label>
+                        <label>Email Address: <span class="mandatory">*</span></label>
                         <div>
-                            <input class="form-control" placeholder="Mailing Address * " type="text"
+                            <input class="form-control" placeholder="Email Address * " type="text"
                                 id="mailingAddress">
                         </div>
                     </div>

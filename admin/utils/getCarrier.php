@@ -181,7 +181,7 @@ if ($_GET['types'] == 'live_carrier_table') {
                     </td>";
 
                 if ($counter == 0) {
-                    echo "<td><a href='#' onclick='deleteExternal($mainID,$paymentTerm,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
+                    $table .= "<td><a href='#' onclick='deleteExternal($mainID,$paymentTerm,$factoringCompany)'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #FC3B3B'></i></a>";
                 } else {
                     $table .= "<a href='#' disabled onclick='deleteCurrencyError()'><i class='mdi mdi-delete-sweep-outline' style='font-size: 20px; color: #adb5bd'></i></a>";
                 }
@@ -221,7 +221,7 @@ if ($_GET['types'] == 'live_carrier_table') {
                 </li>";
         }
 
-        echo $table."^".$pages;
+        echo $table."^".$pages."^".$list;
     }
 }
 

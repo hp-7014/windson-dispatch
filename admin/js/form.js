@@ -175,11 +175,13 @@ database.ref(shipper_test).on('child_removed', function (data) {
 function updateShipperTable() {
     var shipperBody = document.getElementById('shipperBody');
     var paginate = document.getElementById('paginate');
+    var shipperList = document.getElementsByName('shipper');
     $.ajax({
-        url: 'admin/utils/getShipper.php?types=live_shipper_table',
+        url: 'admin/utils/getShipper.php?type=live_shipper_table',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
+        
             var res = response.split('^');
             if (shipperBody != null) {
                 shipperBody.innerHTML = res[0];
@@ -187,6 +189,12 @@ function updateShipperTable() {
 
             if (paginate != null) {
                 paginate.innerHTML = res[1];
+            }
+
+            if(shipperList != null){
+                for(var i = 0; i < shipperList.length; i++){
+                    shipperList[i].innerHTML = res[2];
+                }
             }
         },
         error: function () {
@@ -501,6 +509,7 @@ database.ref(consignee_test).on('child_removed', function (data) {
 function updateConsigneeTable() {
     var consigneeBody = document.getElementById('consigneeBody');
     var paginate = document.getElementById('paginate');
+    var consigneeList = document.getElementsByName('consignee');
     $.ajax({
         url: 'admin/utils/getConsignee.php?types=live_consignee_table',
         type: 'POST',
@@ -513,6 +522,12 @@ function updateConsigneeTable() {
 
             if (paginate != null) {
                 paginate.innerHTML = res[1];
+            }
+
+            if(consigneeList != null){
+                for(var i = 0; i < consigneeList.length; i++){
+                    consigneeList[i].innerHTML = res[2];
+                }
             }
 
         },
@@ -1208,18 +1223,24 @@ database.ref(customer_test).on('child_removed', function (data) {
 function updateCustomerTable() {
     var customerTable = document.getElementById('customerBody');
     var paginate = document.getElementById('paginate');
+    var customerList = document.getElementById('browserscustomer');
     $.ajax({
         url: 'admin/utils/getCustomer.php?types=live_customer_table',
         type: 'POST',
         dataType: 'text',
         success: function (response) {
             var res = response.split('^');
+        
             if (customerTable != null) {
                 customerTable.innerHTML = res[0];
             }
 
             if (paginate != null) {
                 paginate.innerHTML = res[1];
+            }
+            if (customerList != null) {
+                
+                customerList.innerHTML = res[2];
             }
 
         },
@@ -3158,7 +3179,8 @@ database.ref(truck_test).on('child_removed', function (data) {
 function updateTruckTable() {
     var truckBody = document.getElementById('truckBody');
     var paginate = document.getElementById('paginate');
-
+    var truckList1 = document.getElementById('browsers1truck');
+    var truckList = document.getElementById('browserstruck');
     $.ajax({
         url: 'admin/utils/getTruck.php?types=live_truck_table',
         type: 'POST',
@@ -3170,6 +3192,14 @@ function updateTruckTable() {
             }
             if (paginate != null) {
                 paginate.innerHTML = res[1];
+            }
+
+            if(truckList != null){
+                truckList.innerHTML = res[2];
+            }
+
+            if(truckList1 != null){
+                truckList1.innerHTML = res[2];
             }
 
         },
@@ -3388,6 +3418,7 @@ database.ref(trailer_test).on('child_removed', function (data) {
 function updateTrailerTable() {
     var trailerBody = document.getElementById('trailerBody');
     var trailerList = document.getElementById('browserstrailer');
+    var trailerList1 = document.getElementById('browserstrailer1');
     var paginate = document.getElementById('paginate');
     $.ajax({
         url: 'admin/utils/getTrailer.php?types=live_trailer_table',
@@ -3396,13 +3427,20 @@ function updateTrailerTable() {
         success: function (response) {
 
             var res = response.split('^');
-            //alert(res[1]);
             if (trailerBody != null) {
                 trailerBody.innerHTML = res[0];
             }
             if (paginate != null) {
                 paginate.innerHTML = res[1];
             }
+            if (trailerList != null) {
+                trailerList.innerHTML = res[2];
+            }
+
+            if (trailerList1 != null) {
+                trailerList1.innerHTML = res[2];
+            }
+
         },
         error: function () {
             swal("Try again !", "Problem occurred while updating your record", "error");
@@ -4692,6 +4730,7 @@ database.ref(driver_test).on('child_removed', function (data) {
 function updateDriverTable() {
     var driverBody = document.getElementById('driverBody');
     var paginate = document.getElementById('paginate');
+    var driverList = document.getElementById('browsersdriver');
     $.ajax({
         url: 'admin/utils/getDriver.php?types=live_driver_table',
         type: 'POST',
@@ -4703,6 +4742,10 @@ function updateDriverTable() {
             }
             if (paginate != null) {
                 paginate.innerHTML = res[1];
+            }
+
+            if(driverList != null){
+                driverList.innerHTML = res[2];
             }
         },
         error: function () {
@@ -5521,6 +5564,9 @@ function updateCarrierTable() {
             }
             if (paginate != null) {
                 paginate.innerHTML = res[1];
+            }
+            if(carrierList != null){
+                carrierList.innerHTML = res[2];
             }
         },
         error: function () {
