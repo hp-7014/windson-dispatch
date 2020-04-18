@@ -2294,6 +2294,7 @@ function updateFuelCardTable() {
 
 function addFuelCardType() {
     var fuelcard_type = document.getElementById("fuel_card_type").value;
+    var openingfuelBal = document.getElementById("openingfuelBal").value;
     var companyId = document.getElementById('companyId').value;
 
     if (val_fuelcard_type(fuelcard_type)) {
@@ -2304,6 +2305,7 @@ function addFuelCardType() {
             data: {
                 companyID: companyId,
                 fuelcard_type: fuelcard_type,
+                openingfuelBal:openingfuelBal,
             },
             dataType: 'text',
             success: function (data) {

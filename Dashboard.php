@@ -121,7 +121,7 @@ require "database/connection.php";
                                         <option value="Arrived Consignee" disabled>6) Arrived Consignee</option>
                                         <option value="Delivered" disabled>7) Delivered</option>
                                         <option value="Completed" disabled>8) Completed</option>
-                                        <option value="Invoiced" disabled>9) Invoiced</option>
+                                        <option value="Invoiced">9) Invoiced</option>
                                         <option value="Break Down" disabled>10) Break Down</option>
                                     </select>
                                 </div>

@@ -6,6 +6,7 @@ class FuelCard implements IteratorAggregate
     private $id;
     private $companyID;
     private $fuelCardType;
+    private $openingfuelBal;
     private $column;
     
     /**
@@ -22,6 +23,22 @@ class FuelCard implements IteratorAggregate
     public function setId($id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOpeningfuelBal()
+    {
+        return $this->openingfuelBal;
+    }
+
+    /**
+     * @param mixed $openingfuelBal
+     */
+    public function setOpeningfuelBal($openingfuelBal): void
+    {
+        $this->openingfuelBal = $openingfuelBal;
     }
 
     /**
@@ -79,7 +96,7 @@ class FuelCard implements IteratorAggregate
                 '_id'=> $this->id,
                 'companyID'=>(int)$this->companyID,
                 'counter' => 0,
-                'fuelCard' => array(['_id' => 0,'fuelCardType' => $this->fuelCardType,'counter' => 0])
+                'fuelCard' => array(['_id' => 0,'fuelCardType' => $this->fuelCardType,'openingfuelBal'=>$this->openingfuelBal,'counter' => 0])
             )
         );
     }
@@ -95,6 +112,7 @@ class FuelCard implements IteratorAggregate
             $db->fuel_Card_Type->updateOne(['companyID' => (int)$this->companyID],['$push'=>['fuelCard'=>[
                 '_id'=>$helper->getDocumentSequence((int)$this->companyID,$db->fuel_Card_Type),
                 'fuelCardType'=>$this->fuelCardType,
+                'openingfuelBal'=>$this->openingfuelBal,
                 'counter'=>0
             ]]]);
         } else {
