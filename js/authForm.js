@@ -24,6 +24,7 @@ function companyRegister() {
                                    companyPassword:companyPassword
                                },
                                success: function (data) {
+                                   //console.log(data);
                                    swal(data);
                                    window.location='index.php';
                                }

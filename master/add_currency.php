@@ -1,6 +1,7 @@
 <?php session_start();
 require "../database/connection.php";
 ?>
+
 <div id="currency" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <input type="hidden" id="companyId" value="<?php echo $_SESSION['companyId']; ?>">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -45,7 +46,7 @@ require "../database/connection.php";
                                 </thead>
 
                                 <tbody id="currencyBody">
-                                    <?php
+                                <?php
                                     $show = $db->currency_add->find(['companyID' => $_SESSION['companyId']]);
                                     $i = 1;
                                     foreach ($show as $row) {
@@ -107,4 +108,6 @@ require "../database/connection.php";
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+
+                                   
+                               

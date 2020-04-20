@@ -150,16 +150,36 @@ $(document).on('click', '.addCustomer', function() {
 
 
 $(document).on("click", "#currency_setting", function() {
-
     $.ajax({
+        url:'./master/add_currency.php',
         type: 'POST',
+        cache: false,
         success: function(data) {
-            $('.modal-container').load('./master/add_currency.php', function(result) {
-                $('#currency').modal({ show: true });
-            });
+            $('#modal-container').html(data); 
+            $('#currency').modal({ show: true });
+        
         },
     });
+
+
+    
+
+    
 });
+
+
+$(document).ready(function(){
+    $.ajax({
+        url:'./master/add_equipment_type.php',
+        type: 'POST',
+        cache: false,
+        success: function(data) {
+            $('#modal-container').html(data); 
+            alert("loaded");
+        
+        },
+    });
+})
 
 
 $(document).on("click", "#truck_type", function() {

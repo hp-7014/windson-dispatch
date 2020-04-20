@@ -2,9 +2,10 @@
 <html lang="en">
 <?php session_start();
 $page = "dashboard";
+include 'header/header.php'; 
+
 require "database/connection.php";
 ?>
-<?php include 'header/header.php'; ?>
 
 </div>
 <!-- header-bg -->
@@ -121,7 +122,7 @@ require "database/connection.php";
                                         <option value="Arrived Consignee" disabled>6) Arrived Consignee</option>
                                         <option value="Delivered" disabled>7) Delivered</option>
                                         <option value="Completed" disabled>8) Completed</option>
-                                        <option value="Invoiced">9) Invoiced</option>
+                                        <option value="Invoiced" disabled>9) Invoiced</option>
                                         <option value="Break Down" disabled>10) Break Down</option>
                                     </select>
                                 </div>
@@ -986,7 +987,7 @@ require "database/connection.php";
                             <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">
                                 Close
                             </button>
-                            <button type="button" class="btn btn-primary waves-effect waves-light">Save
+                            <button type="button" id = "addactiveload" class="btn btn-primary waves-effect waves-light">Save
                             </button>
                         </div>
                     </div><!-- /.modal-content -->

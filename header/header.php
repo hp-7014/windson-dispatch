@@ -42,7 +42,8 @@
     </script>
 
     <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    <script src="js/jquery.min.js"></script>
     <script src="assets/plugins/tiny-editable/mindmup-editabletable.js"></script>
     <script src="assets/plugins/tiny-editable/numeric-input-example.js"></script>
     <script
@@ -416,7 +417,9 @@
             <!-- end navbar-custom -->
         </header>
         <!-- End Navigation Bar-->
-        <div class="modal-container"></div>
-        <div class="driver-container"></div>
-        <div class="account-container"></div>
-        <div class="fuel-card-container"></div>
+    <div class="modal-container"></div>
+    <div class="driver-container"></div>
+    <div class="account-container"></div>
+    <div class="fuel-card-container"></div>
+       
+       
