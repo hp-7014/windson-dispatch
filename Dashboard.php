@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php session_start();
+
+$_SESSION['company'] = 'user';
+$_SESSION['companyName'] = "Windson Technology";
+$_SESSION['companyId'] = 1;
 $page = "dashboard";
 include 'header/header.php'; 
 
