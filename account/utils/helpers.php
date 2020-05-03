@@ -62,7 +62,7 @@ if ($_GET['type'] == 'updateDriverInvoice') {
 if ($_GET['type'] == 'CarrierInvoice') {
     $show = $db->carrier->aggregate([
         ['$lookup' => [
-            'from' => 'active_load',
+            'from' => 'Invoiced',
             'localField' => 'companyID',
             'foreignField' => 'companyID',
             'as' => 'company'
@@ -79,7 +79,7 @@ if ($_GET['type'] == 'CarrierInvoice') {
             }
         }
         foreach ($show1['company'] as $s) {
-            foreach ($s['Invoiced'] as $a) {
+            foreach ($s['load'] as $a) {
                 if ($a['carrier_name'] == $carrierID) {
                     $r['invoiceId'][] = $a['_id'];
                     $r['carrierAmount'][] = $a['carrier_total'];
